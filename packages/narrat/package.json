@@ -56,11 +56,13 @@
     "deepmerge": "^4.2.2",
     "fuse.js": "^6.6.2",
     "howler": "^2.2.3",
+    "js-yaml": "^4.1.0",
     "svelte-jsoneditor": "^0.3.58",
     "vue3-mq": "^3.0.0"
   },
   "devDependencies": {
     "@types/howler": "^2.2.3",
+    "@types/js-yaml": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "@vitejs/plugin-vue": "^3.0.0",

@@ -46,6 +46,7 @@ importers:
   packages/narrat:
     specifiers:
       '@types/howler': ^2.2.3
+      '@types/js-yaml': ^4.0.5
       '@typescript-eslint/eslint-plugin': ^5.30.0
       '@typescript-eslint/parser': ^5.30.0
       '@vitejs/plugin-vue': ^3.0.0
@@ -63,6 +64,7 @@ importers:
       eslint-plugin-vue: ^9.1.1
       fuse.js: ^6.6.2
       howler: ^2.2.3
+      js-yaml: ^4.1.0
       kolorist: ^1.5.1
       pinia: ^2.0.14
       prettier: ^2.7.1
@@ -84,10 +86,12 @@ importers:
       deepmerge: 4.2.2
       fuse.js: 6.6.2
       howler: 2.2.3
+      js-yaml: 4.1.0
       svelte-jsoneditor: 0.3.60_svelte@3.49.0
       vue3-mq: 3.1.0_vue@3.2.37
     devDependencies:
       '@types/howler': 2.2.7
+      '@types/js-yaml': 4.0.5
       '@typescript-eslint/eslint-plugin': 5.31.0_d5zwcxr4bwkhmuo464cb3a2puu
       '@typescript-eslint/parser': 5.31.0_he2ccbldppg44uulnyq4rwocfa
       '@vitejs/plugin-vue': 3.0.1_vite@3.0.4+vue@3.2.37
@@ -381,6 +385,10 @@ packages:
 
   /@types/howler/2.2.7:
     resolution: {integrity: sha512-PEZldwZqJJw1PWRTpupyC7ajVTZA8aHd8nB/Y0n6zRZi5u8ktYDntsHj13ltEiBRqWwF06pASxBEvCTxniG8eA==}
+    dev: true
+
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -722,7 +730,6 @@ packages:
 
   /argparse/2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-    dev: true
 
   /array-includes/3.1.5:
     resolution: {integrity: sha512-iSDYZMMyTPkiFasVqfuAQnWAYcvO/SeBSCGKePoEthjp4LEMTe4uLc7b025o4jAZpHhihh8xPo99TNWUWWkGDQ==}
@@ -2055,7 +2062,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /json-parse-even-better-errors/2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}

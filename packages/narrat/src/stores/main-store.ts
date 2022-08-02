@@ -1,6 +1,6 @@
 import { AppOptions } from '@/types/app-types';
 import { GameSave } from '@/types/game-save';
-import { getFile } from '@/utils/ajax';
+import { getFile, loadDataFile } from '@/utils/ajax';
 import { audioEvent, loadAudioAssets } from '@/utils/audio-loader';
 import { setCharactersConfig } from '@/utils/characters';
 import { loadImages } from '@/utils/images-loader';
@@ -33,6 +33,7 @@ import { useVM } from './vm-store';
 import { TypedEmitter } from '@/utils/typed-emitter';
 import { isPromise } from '@/utils/type-utils';
 import { useMenu } from './menu-store';
+import { CharactersConfigFile } from '@/types/character-types';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -155,8 +156,10 @@ export const useMain = defineStore('main', {
     },
     async engineLoading() {
       this.loading.step = 'Characters';
-      const charsFile = await getFile(this.options.charactersPath);
-      await setCharactersConfig(JSON.parse(charsFile));
+      const charsFile = await loadDataFile<CharactersConfigFile>(
+        this.options.charactersPath,
+      );
+      await setCharactersConfig(charsFile);
       this.loading.percentage = 0.2;
       this.loading.step = 'Data';
       this.loading.percentage = 0.3;
