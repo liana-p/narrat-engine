@@ -6,7 +6,7 @@ import { Vue3Mq } from 'vue3-mq';
 import { createApp } from 'vue';
 import GameApp from './app.vue';
 import { AppOptions, AppOptionsInput } from './types/app-types';
-import { AppOptionsDeprecated, Config, getConfig, setConfig } from './config';
+import { AppOptionsDeprecated, Config, getConfig, loadConfig } from './config';
 import { loadDataFile } from './utils/ajax';
 import { logManager } from './utils/logger';
 import { vm } from './vm/vm';
@@ -36,20 +36,13 @@ export async function startApp(
     );
     Object.assign(options, optionsOld);
   }
-  const config = await loadDataFile<Config>(options.configPath);
-  setConfig(config);
-  if (options.baseAssetsPath) {
-    getConfig().baseAssetsPath = options.baseAssetsPath;
-  }
-  if (options.baseDataPath) {
-    getConfig().baseDataPath = options.baseDataPath;
-  }
   app = createApp(GameApp, {
     options,
   });
   const pinia = createPinia();
-  vm.pinia = pinia;
   app.use(pinia);
+  vm.pinia = pinia;
+  await loadConfig(options);
   const narrat = {
     app,
     vm,
