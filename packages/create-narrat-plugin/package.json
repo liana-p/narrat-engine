@@ -1,0 +1,45 @@
+{
+  "name": "create-narrat-plugin",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "A tool to automatically create a narrat plugin",
+  "main": "index.js",
+  "bin": {
+    "create-narrat-plugin": "index.js"
+  },
+  "scripts": {
+    "preversion": "npm run copy-template",
+    "prepublish": "npm run copy-template",
+    "copy-template": "node copy-template.js"
+  },
+  "files": [
+    "index.js",
+    "template/"
+  ],
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liana-p/narrat.git",
+    "directory": "packages/create-narrat-plugin"
+  },
+  "keywords": [
+    "narrat"
+  ],
+  "author": "Liana Pigeot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liana-p/narrat/issues"
+  },
+  "homepage": "https://github.com/liana-p/narrat/tree/main/packages/create-narrat#readme",
+  "dependencies": {
+    "kolorist": "^1.5.1",
+    "minimist": "^1.2.6",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "shelljs": "^0.8.5",
+    "shx": "^0.3.4"
+  }
+}

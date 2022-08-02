@@ -1,0 +1,195 @@
+{
+  "gameTitle": "Narrat Game Example",
+  "images": {
+    "narrat": "img/backgrounds/narrat.webp",
+    "map": "img/backgrounds/map.webp",
+    "shopButton": "img/ui/shop-button.webp",
+    "parkButton": "img/ui/park-button.webp"
+  },
+  "layout": {
+    "backgrounds": {
+      "width": 880,
+      "height": 720
+    },
+    "dialogBottomPadding": 70,
+    "minTextWidth": 475,
+    "mobileDialogHeightPercentage": 60,
+    "verticalLayoutThreshold": 1000,
+    "portraits": {
+      "width": 150,
+      "height": 225
+    }
+  },
+  "saves": {
+    "mode": "manual"
+  },
+  "screens": {
+    "default": {
+      "background": "narrat"
+    },
+    "map": {
+      "background": "img/backgrounds/map.webp",
+      "buttons": [
+        {
+          "id": "shopButton",
+          "enabled": false,
+          "text": "Shop",
+          "position": {
+            "left": 272,
+            "top": 142,
+            "width": 200,
+            "height": 50
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "action": "shopButton"
+        },
+        {
+          "id": "parkButton",
+          "enabled": false,
+          "text": "Park",
+          "position": {
+            "left": 682,
+            "top": 462,
+            "width": 200,
+            "height": 50
+          },
+          "anchor": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "action": "parkButton"
+        }
+      ]
+    }
+  },
+  "buttons": {},
+  "skills": {
+    "agility": {
+      "name": "Agility",
+      "description": "How good you are at moving around.",
+      "startingLevel": 0,
+      "icon": "img/skills/agility.webp",
+      "hidden": true
+    },
+    "haggling": {
+      "name": "Haggling",
+      "description": "Get good prices on items",
+      "icon": "img/skills/logic.webp",
+      "startingLevel": 1
+    }
+  },
+  "skillChecks": {
+    "rollRange": 100,
+    "skillMultiplier": 10,
+    "failureChance": 1,
+    "difficultyText": [
+      [0, "Very Easy"],
+      [10, "Easy"],
+      [30, "Medium"],
+      [50, "Hard"],
+      [70, "Very Hard"],
+      [80, "Extremely Hard"],
+      [90, "Near Impossible"]
+    ]
+  },
+  "scripts": ["data/example.nar"],
+  "audio": {
+    "calm": {
+      "loop": true,
+      "src": "music/music.mp3"
+    },
+    "battle": {
+      "loop": true,
+      "src": "music/battle.mp3"
+    },
+    "click": {
+      "src": "audio/click.ogg"
+    },
+    "game_start": {
+      "src": "audio/game_start.ogg"
+    },
+    "failure": {
+      "src": "audio/failure.ogg"
+    },
+    "success": {
+      "src": "audio/success.wav"
+    }
+  },
+  "audioOptions": {
+    "volume": 0.5,
+    "musicFadeInTime": 0.5,
+    "musicFadeInDelay": 0.5,
+    "musicFadeOutTime": 0.5
+  },
+  "hudStats": {
+    "money": {
+      "icon": "img/ui/money.webp",
+      "name": "Money",
+      "startingValue": 10,
+      "minValue": 0
+    },
+    "energy": {
+      "icon": "img/ui/energy.webp",
+      "name": "Energy",
+      "startingValue": 10,
+      "minValue": 0,
+      "maxValue": 10
+    }
+  },
+  "items": {
+    "bread": {
+      "name": "Bread",
+      "description": "A bread in the game.",
+      "icon": "img/items/bread.webp",
+      "onUse": {
+        "action": "jump",
+        "label": "eat_bread"
+      }
+    },
+    "book": {
+      "name": "Ominous Book",
+      "description": "An ominous book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed ullamcorper turpis. Aliquam tincidunt dolor sed mollis aliquet. Duis in odio eros. Maecenas sapien arcu, fermentum id tincidunt non, accumsan vel metus. Nullam pretium molestie accumsan. In ut rutrum tellus. Integer vitae nisl eleifend lorem tristique auctor quis sed nulla. Cras gravida viverra tristique. Mauris imperdiet tortor purus, fringilla vehicula metus ullamcorper eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta imperdiet justo, sed blandit orci. Aenean accumsan hendrerit arcu, laoreet vestibulum turpis vulputate eu. Etiam dignissim nibh dictum pharetra congue. Nulla ultrices, augue a blandit laoreet, metus enim sodales arcu, eget pellentesque lorem justo et ipsum. ",
+      "icon": "img/items/book.webp",
+      "onUse": {
+        "action": "run",
+        "label": "read_book"
+      },
+      "tag": "always_interactable"
+    }
+  },
+  "interactionTags": {
+    "default": {
+      "onlyInteractOutsideOfScripts": true
+    }
+  },
+  "quests": {
+    "breadShopping": {
+      "title": "Bread Shopping",
+      "description": "The helper cat asked you to buy bread for him.",
+      "objectives": {
+        "bread": {
+          "description": "Buy bread for the helper cat."
+        },
+        "delivery": {
+          "hidden": true,
+          "description": "Deliver the bread to the helper cat."
+        }
+      }
+    }
+  },
+  "audioTriggers": {
+    "onPlayerAnswered": "click",
+    "onPressStart": "game_start",
+    "onSkillCheckFailure": "failure",
+    "onSkillCheckSuccess": "success"
+  },
+  "menuButtons": {
+    "menu": {
+      "text": "Menu",
+      "cssId": "my-custom-id"
+    }
+  }
+}

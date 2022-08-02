@@ -1,0 +1,11 @@
+# Ignore artifacts:
+dist/
+out/
+temp/
+LICENSE
+pnpm-lock.yaml
+pnpm-workspace.yaml
+build
+coverage
+out
+public/index.html

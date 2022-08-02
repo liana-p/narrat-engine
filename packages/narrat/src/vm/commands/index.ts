@@ -1,0 +1,210 @@
+import {
+  addLevelPlugin,
+  addXpPlugin,
+  getLevelPlugin,
+  getXpPlugin,
+  rollPlugin,
+  setLevelPlugin,
+} from './skill-commands';
+import { addStatPlugin, getStatPlugin, setStatPlugin } from './stats-commands';
+import {
+  defineVariablePlugin,
+  jumpCommand,
+  logPlugin,
+  returnMainMenuPlugin,
+  returnPlugin,
+  runLabelPlugin,
+  savePlugin,
+  savePromptPlugin,
+} from './flow-commands';
+import { pauseCommand, playCommand, stopCommand } from './audio-commands';
+import { addPlugin, setCommand } from './set';
+import {
+  emptyLayerCommand,
+  setButtonCommand,
+  setScreenCommand,
+} from './screen-commands';
+import { talkCommand, textCommandPlugin, thinkCommand } from './text';
+import { VM } from '../vm';
+import {
+  addItemPlugin,
+  disableInteractionPlugin,
+  enableInteractionPlugin,
+  hasItemPlugin,
+  itemAmountPlugin,
+  removeItemPlugin,
+} from './inventory-commands';
+import {
+  completeObjectivePlugin,
+  completeQuestPlugin,
+  objectiveCompletedPlugin,
+  objectiveStartedPlugin,
+  questCompletedPlugin,
+  questStartedPlugin,
+  startObjectivePlugin,
+  startQuestPlugin,
+} from './quest-commands';
+import { waitCommand } from './wait';
+import {
+  disableNotifications,
+  enableNotifications,
+  notifyPlugin,
+} from './notify';
+import { clearDialogPlugin } from './clear_dialog';
+import { ifCommand } from './if';
+import {
+  andPlugin,
+  equalPlugin,
+  greaterOrEqualPlugin,
+  greaterThanPlugin,
+  lesserOrEqualPlugin,
+  lesserThanPlugin,
+  notEqualPlugin,
+  notPlugin,
+  orPlugin,
+  ternaryPlugin,
+} from './logic-command';
+import {
+  absPlugin,
+  additionPlugin,
+  divisionPlugin,
+  multiplicationPlugin,
+  negPlugin,
+  substractionPlugin,
+} from './arithmetic-commands';
+import { choicePlugin, choicePromptCommandPlugin } from './choice';
+import { textFieldPlugin, textFieldPromptPlugin } from './text-field';
+import {
+  randomFloatPlugin,
+  randomFromArgsPlugin,
+  randomIntPlugin,
+} from './random-commands';
+import { stringConcatPlugin, stringJoinPlugin } from './string-commands';
+import {
+  ceilPlugin,
+  clampPlugin,
+  floorPlugin,
+  maxPlugin,
+  minPlugin,
+  powPlugin,
+  roundPlugin,
+  sqrtPlugin,
+} from './math-commands';
+
+export function registerBaseCommands(vm: VM) {
+  // Choices
+  vm.addCommand(choicePlugin);
+  vm.addCommand(choicePromptCommandPlugin);
+
+  vm.addCommand(ifCommand);
+
+  // Stats
+  vm.addCommand(addStatPlugin);
+  vm.addCommand(setStatPlugin);
+  vm.addCommand(getStatPlugin);
+
+  vm.addCommand(clearDialogPlugin);
+
+  // Notifications
+  vm.addCommand(notifyPlugin);
+  vm.addCommand(disableNotifications);
+  vm.addCommand(enableNotifications);
+
+  // Audio
+  vm.addCommand(pauseCommand);
+  vm.addCommand(playCommand);
+  vm.addCommand(stopCommand);
+
+  // Screens
+  vm.addCommand(setButtonCommand);
+  vm.addCommand(setScreenCommand);
+  vm.addCommand(emptyLayerCommand);
+
+  vm.addCommand(waitCommand);
+
+  // Logic operations
+  vm.addCommand(equalPlugin);
+  vm.addCommand(greaterThanPlugin);
+  vm.addCommand(lesserThanPlugin);
+  vm.addCommand(greaterOrEqualPlugin);
+  vm.addCommand(lesserOrEqualPlugin);
+  vm.addCommand(notEqualPlugin);
+  vm.addCommand(notPlugin);
+  vm.addCommand(andPlugin);
+  vm.addCommand(orPlugin);
+  vm.addCommand(ternaryPlugin);
+
+  // Arithmetic operations
+  vm.addCommand(additionPlugin);
+  vm.addCommand(substractionPlugin);
+  vm.addCommand(multiplicationPlugin);
+  vm.addCommand(divisionPlugin);
+  vm.addCommand(negPlugin);
+  vm.addCommand(absPlugin);
+
+  // Setting variables
+  vm.addCommand(addPlugin);
+  vm.addCommand(setCommand);
+
+  // Text display
+  vm.addCommand(textCommandPlugin);
+  vm.addCommand(talkCommand);
+  vm.addCommand(thinkCommand);
+
+  // // functions and labels
+  vm.addCommand(jumpCommand);
+  vm.addCommand(runLabelPlugin);
+  vm.addCommand(defineVariablePlugin);
+  vm.addCommand(returnPlugin);
+  vm.addCommand(logPlugin);
+  vm.addCommand(returnMainMenuPlugin);
+  vm.addCommand(savePlugin);
+  vm.addCommand(savePromptPlugin);
+
+  // // Quests
+  vm.addCommand(startQuestPlugin);
+  vm.addCommand(startObjectivePlugin);
+  vm.addCommand(completeObjectivePlugin);
+  vm.addCommand(completeQuestPlugin);
+  vm.addCommand(questStartedPlugin);
+  vm.addCommand(objectiveStartedPlugin);
+  vm.addCommand(questCompletedPlugin);
+  vm.addCommand(objectiveCompletedPlugin);
+
+  // // Inventory
+  vm.addCommand(addItemPlugin);
+  vm.addCommand(removeItemPlugin);
+  vm.addCommand(enableInteractionPlugin);
+  vm.addCommand(disableInteractionPlugin);
+  vm.addCommand(hasItemPlugin);
+  vm.addCommand(itemAmountPlugin);
+  // Skills
+  vm.addCommand(addLevelPlugin);
+  vm.addCommand(setLevelPlugin);
+  vm.addCommand(addXpPlugin);
+  vm.addCommand(rollPlugin);
+  vm.addCommand(getLevelPlugin);
+  vm.addCommand(getXpPlugin);
+  // Text Fields
+  vm.addCommand(textFieldPlugin);
+  vm.addCommand(textFieldPromptPlugin);
+
+  // Random
+  vm.addCommand(randomIntPlugin);
+  vm.addCommand(randomFloatPlugin);
+  vm.addCommand(randomFromArgsPlugin);
+
+  // Strings
+  vm.addCommand(stringConcatPlugin);
+  vm.addCommand(stringJoinPlugin);
+
+  // Maths
+  vm.addCommand(minPlugin);
+  vm.addCommand(maxPlugin);
+  vm.addCommand(clampPlugin);
+  vm.addCommand(floorPlugin);
+  vm.addCommand(roundPlugin);
+  vm.addCommand(ceilPlugin);
+  vm.addCommand(sqrtPlugin);
+  vm.addCommand(powPlugin);
+}

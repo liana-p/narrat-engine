@@ -1,0 +1,401 @@
+main:
+  add_item bread 1
+  add_item book 1
+  "hello world"
+  jump test_save
+
+test_save:
+  set checkpoint.after_save quest_demo
+  jump checkpoint
+
+checkpoint:
+  save_prompt
+  jump $checkpoint.after_save
+
+transitions_test:
+  set_screen default
+  "normal set screen"
+  set_screen map
+  "set screen with fade"
+  set_screen default 0 slide-right
+  "set screen with duration"
+  set_screen map 0 slide-right 2000
+  "set screen with duration and delay"
+  set_screen default 0 slide-right 2000 4000
+
+music_test:
+  play music battle
+
+test1:
+  return (run test2 hello)
+
+test2 txt:
+  talk player idle "hi"
+  return (join " " $txt (run test3))
+
+test3:
+  return "world"
+
+lorem:
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris interdum tempus erat non maximus. Donec pellentesque quis nisi et cursus. Vestibulum vel pellentesque ligula. Cras et iaculis metus, vitae sollicitudin augue. Aenean porttitor feugiat quam nec molestie. Quisque ultrices eleifend sagittis. Nullam sodales nec mauris nec vulputate."
+  return "lorem"
+
+takeout_menu third_option:
+  choice:
+    talk helper idle "Which meal do you want?"
+    "Pizza":
+      return pizza
+    "Burger":
+      return burger
+    "%{third_option}":
+      return $third_option
+  talk helper idle "Chosen %{meal}"
+
+test_functions:
+  talk player idle "Function test label"
+  return (+ 1 2)
+
+test_scopes:
+  var test1 1
+  talk player idle "Declared test1: %{test1}"
+  run test_scopes_2
+  talk player idle "Back to original scope, shouldn't have access to test2: %{test2}"
+
+test_scopes_2:
+  var test2 2
+  talk player idle "Entered scope 2, still have access to test1: %{test1}"
+  talk player idle "Declared test2 in scope 2: %{test2}"
+
+random_tests:
+  var test 2
+  talk helper idle "%{test}"
+  add test 1
+  talk helper idle "%{test}"
+  talk helper idle "Hello world"
+  start_quest breadShopping
+  choice:
+    "Can we spend some energy?"
+    "Spend 5 energy" if (>= (get_stat_value energy) 5):
+      add_stat energy -5
+      talk player idle "Spent 5 energy!"
+    "Don't spend":
+      talk player idle "Didn't spend anything"
+  set data.winThreshold 10
+  set data.player.score 5
+  set data.player.scoreBonus 5
+  if (== (+ $data.player.score $data.player.scoreBonus) $data.winThreshold):
+    "The player won!"
+
+  if (roll testAudio agility 90):
+    "yahoo"
+  else:
+    "oh no"
+  if (quest_started? breadShopping):
+    "The quest has started"
+  else:
+    "It's not working"
+  if (|| (== (+ 1 2 3 4) 10) (== (+ 1 2 3) 5) (== (+ 1 2) 3 3 3 3)):
+    "It's true"
+  else:
+    "It's false"
+  set data.counter (+ 1 2)
+  add_item book 1
+  if (has_item? book 1):
+    "There's a book in the inventory"
+  if (== (item_amount? book) 1):
+    "We have 1 book"
+  talk helper idle "Hello world"
+  set data.counter 1
+  jump quest_demo
+  notify "Hello world!"
+  start_quest breadShopping
+  add_item bread 15
+  remove_item bread 10
+  if (> $items.bread.amount 0):
+    talk helper idle "You have %{items.bread.amount} bread"
+  else:
+    talk helper idle "You have no bread"
+  clear_dialog
+  complete_objective breadShopping bread
+  choice:
+    "Let's do a skill check"
+    roll aSkillCheck agility 70 "Test skill roll" hideAfterRoll:
+      success:
+        talk player idle "Woo I did it"
+      failure "Text if the skill check failed":
+        talk player idle "Oh no I failed"
+    "Another choice":
+      "Hello too"
+  complete_quest breadShopping "You helped the cat get bread"
+  if (roll someSkillCheck agility 40):
+    set data.skillcheckDone true
+  "You open the narrat demo and wonder how this thing even works"
+  choice:
+    "How about asking for help?"
+    "Ask for help":
+      jump askForHelp
+    "No, I don't want help 😡"
+      jump dontAskForHelp
+
+functions_test:
+  run some_function
+  talk player idle "Back to functions_test"
+  run some_function
+
+some_function:
+  talk player idle "Ran the function %{data.counter} times"
+  add data.counter 1
+
+skillCheckTest:
+  choice:
+    "Let's do a skill check" 
+    roll aSkillCheck agility 70 "Test skill roll":
+      success:
+        talk player idle "Woo I did it"
+      failure "Text if the skill check failed":
+        talk player idle "Oh no I failed"
+    "Another choice":
+      "Hello too"
+  if (roll someSkillCheck agility 40):
+    set data.skillcheckDone true
+  jump skillCheckTest
+stats:
+  talk player idle "Trying energy feature"
+  choice:
+    "Can we spend some energy?"
+    "Spend 5 energy" if (>= $stats.energy 5):
+      add_stat energy -5
+      talk player idle "Spent 5 energy!"
+    "Don't spend":
+      talk player idle "Didn't spend anything"
+  jump stats
+
+xpTest:
+  talk helper idle "Gaining 3 logic xp"
+  add_xp haggling 3
+  jump xpTest
+
+askForHelp:
+  talk helper idle "Hello! I heard you're trying to play the narrat demo!"
+  talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/nialna\/narrat-demo\" target=\"_blank\">demo repo</a>"
+  talk helper idle "There is also a <a href=\"https:\/\/github.com\/nialna\/narrat-template\" target=\"_blank\">game template</a> ready to use."
+  talk helper idle "As you've probably noticed, you can make choices in this."
+  talk helper idle "There are lots of things you can do to make an interactive story in Narrat really. Choices are one of the most useful ones."
+  talk helper idle "I'm going to send you to my other friend who has some questions for you."
+  jump askAboutChoices
+
+askAboutChoices:
+  choice:
+    talk cat idle "Hi it's me, another generic cat! Do you like making choices in games?"
+    "Yes":
+      set data.choices true
+      "Cat will remember this."
+    "No":
+      add_level agility 2
+      "Cat will remember this."
+  choice:
+    talk helper idle "Now I think we should do an activity, what do you like doing?"
+    "let's make choices cause I like making choices!" if $data.likeChoices:
+      jump makeChoices
+    "let's do nothing!":
+      jump doNothing
+
+
+dontAskForHelp:
+  // clear_dialog
+  talk inner idle "Maybe we should get help though? I don't really know what else to do"
+  jump main
+
+makeChoices:
+  choice:
+    talk inner idle "I don't know, we've been making a lot of choices already lately."
+    "I still want to make a choice!":
+      talk helper idle "Well you just made one, it turns out. Can we continue now?"
+      jump doNothing
+    "I guess you're right":
+      jump doNothing
+
+
+doNothing:
+  choice:
+    talk music_cat idle "How about we get some music in here?"
+    "Play some relaxing music":
+      "The music is going to start and stop with timers to show the feature"
+      play music calm
+      wait 2000
+      pause music
+      wait 500
+      play music calm
+      wait 500
+      stop music
+      wait 500
+      play music calm
+    "I hate music":
+      talk music_cat idle "Well too bad, it's up to you."
+  jump otherFeatures
+
+otherFeatures:
+  talk helper idle "There are lots of other features, like skill checks and conditions."
+  if (roll someSkillCheck agility 40):
+    "For example this line only appears if you passed a skill check"
+  "This engine is still very early and not fully documented yet, but you can look at the example demo and how it is made."
+  "There is also a screen feature on the left where you can display background images with interactive buttons."
+  jump showMap
+
+showMap:
+  set_screen map
+  set_button parkButton true
+  talk helper idle "This is an example map. There are buttons you can click on. It is possible to dynanically enable and disable buttons in your script"
+  talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/nialna\/narrat-demo\">demo repo</a>"
+
+quest_demo:
+  set_button shopButton true
+  set_button parkButton greyed
+  jump bread_quest
+
+bread_quest:
+  choice:
+    talk helper idle "Can you get 2 pieces of bread for me?"
+    "Yes":
+      talk helper idle "Thanks, that's very nice!"
+      talk helper idle "I'll be waiting for you at the park"
+      jump bread_start
+    "No":
+      talk helper idle "Oh, okay"
+      jump quest_demo
+
+bread_start:
+  start_quest breadShopping
+  talk inner idle "Time to go to the shop to buy some bread then."
+  set_screen map
+  set_button shopButton true
+
+shopButton:
+  // set_screen default
+  "You visit the bread shop"
+  talk shopkeeper idle "Hello, I'm a little baker selling bread and drinks!"
+  set data.breadPrice 5
+  jump shop_menu
+
+parkButton:
+  choice:
+    talk helper idle "Ah, so do you have my bread?"
+    "Yes!" if (>= $items.bread.amount 2):
+      talk helper idle "Thanks a lot!"
+      add_item bread -2
+      complete_objective breadShopping delivery
+      complete_quest breadShopping
+    "No :(":
+      talk helper idle "Oh okay"
+  set_button parkButton false
+
+shop_menu:
+  choice:
+    talk shopkeeper idle "So, do you want some bread?"
+    "Buy bread (costs %{data.breadPrice})" if (>= $stats.money.value $data.breadPrice):
+      add_item bread 1
+      if (== $data.breadPrice 5):
+        add_stat money -5
+      else:
+        add_stat money -4
+      jump map_update
+    roll bread_haggle haggling 50 "Try to haggle for bread" hideAfterRoll:
+      success "You explain that helper cat needs bread to feed his poor family":
+        set data.breadPrice 4
+        talk shopkeeper idle "I guess I can sell you bread for 4 coins"
+        jump shop_menu
+      failure "You try to pity trip the shopkeeper but he won't bulge":
+        talk shopkeeper idle "The price is 5 coins, nothing less, nothing more."
+        jump shop_menu
+    "Exit":
+      jump map_update
+
+show_map:
+  set_button parkButton false
+  set_button shopButton true
+  set_screen map
+
+map_update:
+  set_button parkButton false
+  set_button shopButton true
+  log $items.bread
+  if (>= $items.bread.amount 2):
+    complete_objective breadShopping bread
+    talk inner idle "I've got enough bread now, I'm going to go to the park."
+    start_objective breadShopping delivery
+    set_screen map
+    set_button parkButton true
+    set_button shopButton false
+  else:
+    talk inner idle "Hmm, I still need to buy more bread for helper cat."
+    set_screen map
+
+eat_bread:
+  talk player idle "hmm, bread"
+
+read_book:
+  talk inner idle "It's full of ocult rituals. I'm not sure what they are, but I'm sure they are useful."
+
+label_to_jump:
+  talk cat idle "The code has now jumped to this label"
+
+jump_example:
+  talk cat idle "Hello, this is an example about jumping to other labels"
+  talk cat idle "Use the jump command to jump to a different label in any of your scripts"
+  jump label_to_jump
+
+choice_example:
+  talk cat idle "This example shows how to use the choice command"
+  choice:
+    "This is the choice prompt text"
+    "This is the first option the player can select":
+      talk cat idle "I will say this if you select the first option"
+    "This is the second choice the player can pick":
+      talk cat idle "I see you picked the second choice!"
+
+choice_example_conditions:
+  talk cat idle "This example shows how to use conditions in choices"
+  choice:
+    "This is the choice prompt text"
+    "This choice will only appear if a condition is met" if $data.someFlag:
+      talk cat idle "Choice response"
+    roll someSkillCheck agility 50 "This choice will run a skill check":
+      success "Skill check succeeded":
+        "This line will appear if the skill check succeeds"
+      failure "Skill check failed":
+        "This line will appear if the skill check fails"
+
+
+set_example:
+  choice:
+    talk cat idle "Do you like surprises?"
+    "Yes":
+      set data.like_surprises true
+    "No!":
+      set data.like_surprises false
+  if $data.like_surprises:
+    talk cat idle "Since you like surprises, here's a surprise message"
+
+
+add_example:
+  set data.counter 0
+  jump add_example_add
+
+add_example_add:
+  choice:
+    talk cat idle "Do you want to increase the counter? You can only do it 10 times":
+    "Increase the counter" if (< $data.counter 10):
+      add data.counter 1
+    "No!":
+      talk cat idle "Ok then"
+    "I'm done" if (>= $data.counter 10):
+      jump add_example_end
+  jump add_example_add
+
+add_example_end:
+  talk cat idle "It seems you're done with the counter now"
+
+talk_example:
+  talk cat idle "I'm talking to you!"
+  "This is a shortcut for the narrator talking"
+  talk player idle "The player can also talk"
