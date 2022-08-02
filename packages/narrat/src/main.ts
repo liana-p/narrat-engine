@@ -6,8 +6,8 @@ import { Vue3Mq } from 'vue3-mq';
 import { createApp } from 'vue';
 import GameApp from './app.vue';
 import { AppOptions, AppOptionsInput } from './types/app-types';
-import { AppOptionsDeprecated, getConfig, setConfig } from './config';
-import { getFile } from './utils/ajax';
+import { AppOptionsDeprecated, Config, getConfig, setConfig } from './config';
+import { loadDataFile } from './utils/ajax';
 import { logManager } from './utils/logger';
 import { vm } from './vm/vm';
 import { registerBaseCommands } from './vm/commands';
@@ -36,8 +36,8 @@ export async function startApp(
     );
     Object.assign(options, optionsOld);
   }
-  const configFile = await getFile(options.configPath);
-  setConfig(JSON.parse(configFile));
+  const config = await loadDataFile<Config>(options.configPath);
+  setConfig(config);
   if (options.baseAssetsPath) {
     getConfig().baseAssetsPath = options.baseAssetsPath;
   }

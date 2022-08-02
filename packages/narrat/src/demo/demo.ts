@@ -17,8 +17,8 @@ const onPageLoad = () => {
   startApp({
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,
-    charactersPath: `${dataPath}data/characters.json`,
-    configPath: `${dataPath}data/config.json`,
+    charactersPath: `${dataPath}data/characters.yaml`,
+    configPath: `${dataPath}data/config.yaml`,
     logging: false,
     debug,
   });

@@ -1,5 +1,11 @@
 # Narrat changelog
 
+## [2.3.2] Yaml support
+
+The engine now supports `yaml` config files. The `config.json` and `characters.json` can now be written in yaml. The engine will detect which one of the two is being used based on the file extension in the path.
+
+Websites like [json2yaml](https://www.json2yaml.com) can easily convert existing json files into yaml. Then it's just a matter of naming the file `config.yaml` instead of `config.json`, and updating the path that's passed to narrat in `src/index.ts`.
+
 ## 2.3.1
 
 fix: A bug where manual saves would get overriden as autosaves in manual save mode has been fixed.

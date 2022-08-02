@@ -6,7 +6,7 @@ import {
   STOP_SIGNAL,
 } from '@/constants';
 import { Parser } from '@/types/parser';
-import { getFile } from '@/utils/ajax';
+import { getFile, loadDataFile } from '@/utils/ajax';
 import {
   addDataHelper,
   getModifiableDataPinia,
