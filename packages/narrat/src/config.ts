@@ -1,11 +1,67 @@
 import { defaultConfig } from './defaultConfig';
+import { AppOptions } from './types/app-types';
+import { loadDataFile } from './utils/ajax';
 import { error } from './utils/error-handling';
 import { transitionSettings, TransitionSettings } from './utils/transition';
 
 let config!: Config;
 
-export function setConfig(conf: Config) {
-  config = { ...defaultConfig, ...conf };
+export async function loadConfig(options: AppOptions) {
+  config = { ...defaultConfig };
+  if (options.baseAssetsPath) {
+    config.baseAssetsPath = options.baseAssetsPath;
+  }
+  if (options.baseDataPath) {
+    config.baseDataPath = options.baseDataPath;
+  }
+  const baseConf = await loadDataFile<Config>(options.configPath);
+  config = { ...config, ...baseConf };
+  // Loads all the possible split config files
+  if (typeof config.screens === 'string') {
+    const screensConf = await loadDataFile<SplitConfig['screens']>(
+      getDataUrl(config.screens),
+    );
+    config.screens = screensConf;
+  }
+  if (typeof config.buttons === 'string') {
+    const buttonsConf = await loadDataFile<SplitConfig['buttons']>(
+      getDataUrl(config.buttons),
+    );
+    config.buttons = buttonsConf;
+  }
+  if (typeof config.skills === 'string') {
+    const skillsConf = await loadDataFile<SplitConfig['skills']>(
+      getDataUrl(config.skills),
+    );
+    config.skills = skillsConf.skills;
+    config.skillOptions = { ...config.skillOptions, ...skillsConf.options };
+    config.skillChecks = { ...config.skillChecks, ...skillsConf.skillChecks };
+  }
+  if (typeof config.scripts === 'string') {
+    const scriptsConf = await loadDataFile<SplitConfig['scripts']>(
+      getDataUrl(config.scripts),
+    );
+    config.scripts = scriptsConf;
+  }
+  if (typeof config.audio === 'string') {
+    const audioConf = await loadDataFile<SplitConfig['audio']>(
+      getDataUrl(config.audio),
+    );
+    config.audio = audioConf.files;
+    config.audioOptions = { ...config.audioOptions, ...audioConf.options };
+  }
+  if (typeof config.items === 'string') {
+    const itemsConf = await loadDataFile<SplitConfig['items']>(
+      getDataUrl(config.items),
+    );
+    config.items = itemsConf;
+  }
+  if (typeof config.quests === 'string') {
+    const questsConf = await loadDataFile<SplitConfig['quests']>(
+      getDataUrl(config.quests),
+    );
+    config.quests = questsConf;
+  }
   if (config.transitions) {
     for (const key in config.transitions) {
       if (!transitionSettings[key]) {
@@ -81,6 +137,23 @@ export function getObjectiveConfig(quest: string, objectiveId: string) {
 export interface AppOptionsDeprecated {
   logging: boolean;
   debug: boolean;
+}
+
+export interface SplitConfig {
+  screens: Config['screens'];
+  buttons: Config['buttons'];
+  skills: {
+    skills: Config['skills'];
+    options: Config['skillOptions'];
+    skillChecks: Config['skillChecks'];
+  };
+  scripts: Config['scripts'];
+  audio: {
+    files: Config['audio'];
+    options: Config['audioOptions'];
+  };
+  items: Config['items'];
+  quests: Config['quests'];
 }
 
 export interface Config {

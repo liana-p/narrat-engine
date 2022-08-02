@@ -33,15 +33,14 @@ export async function loadDataFile<T>(url: string): Promise<T> {
       data = yaml.load(content) as T;
     } else {
       const err = `Unsupported file type for data file ${url} (must be .json or .yaml)`;
-      error(err);
-      throw err;
+      throw new Error(err);
     }
     if (!data) {
       throw new Error(`Data loaded from ${url} is empty`);
     }
     return data;
   } catch (e) {
-    error(`Failed to load data file ${url}: ${e}`);
+    console.error(`Failed to load data file ${url}: ${e}`);
     throw e;
   }
 }

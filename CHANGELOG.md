@@ -1,5 +1,49 @@
 # Narrat changelog
 
+## [2.3.3] Split config files support
+
+The config can now be split in multiple files to be easier to edit. Possible files are:
+
+- screens
+- buttons
+- skills (contains skills, options and skillOptions)
+- scripts
+- audio (contains files for list of audio, and options for audioOptions)
+- items
+- quests
+
+To use a split config file, simply replace the value of that object in the config with the path of the file that contains the config. Example:
+
+Before:
+
+config.yaml
+
+```yaml (config.yaml)
+screens:
+  default:
+    background: narrat
+  # ... Rest of the screens config
+```
+
+After:
+
+config.yaml
+
+```yaml (config.yaml)
+screens: data/screens.yaml
+```
+
+screens.yaml
+
+```yaml
+default:
+  background: narrat
+map:
+  # Rest of the config
+```
+
+For an example, see the config files in the [default example](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/default/data)
+
 ## [2.3.2] Yaml support
 
 The engine now supports `yaml` config files. The `config.json` and `characters.json` can now be written in yaml. The engine will detect which one of the two is being used based on the file extension in the path.
