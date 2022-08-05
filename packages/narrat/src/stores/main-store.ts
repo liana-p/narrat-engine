@@ -34,6 +34,7 @@ import { TypedEmitter } from '@/utils/typed-emitter';
 import { isPromise } from '@/utils/type-utils';
 import { useMenu } from './menu-store';
 import { CharactersConfigFile } from '@/types/character-types';
+import { useSprites } from './sprites-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -377,6 +378,7 @@ export const useMain = defineStore('main', {
     resetAllStores() {
       const screens = useScreens();
       const config = getConfig();
+      useSprites().reset();
       screens.setButtons(config);
       const skillsStore = useSkills();
       skillsStore.setupSkills(config.skills);
@@ -438,6 +440,7 @@ export const useMain = defineStore('main', {
         inventory: inventoryStore.generateSaveData(),
         quests: useQuests().generateSaveData(),
         metadata,
+        sprites: useSprites().generateSaveData(),
       };
       // Add save data from potential custom stores
       vm.customStores().forEach(([storeName, store]) => {
@@ -468,6 +471,7 @@ export const useMain = defineStore('main', {
       hudStore.loadSaveData(save.hud);
       audioStore.loadSaveData(save.audio);
       inventoryStore.loadSaveData(save.inventory);
+      useSprites().loadSaveData(save.sprites);
       // Load save data from potential custom stores
       useQuests().loadSaveData(save.quests);
       vm.customStores().forEach(([storeName, store]) => {
@@ -489,6 +493,7 @@ export const useMain = defineStore('main', {
         notifications: useNotifications(),
         inventory: useInventory(),
         quests: useQuests(),
+        sprites: useSprites(),
       };
     },
     overrideStates(override: any) {

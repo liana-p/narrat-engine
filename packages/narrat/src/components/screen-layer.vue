@@ -18,6 +18,16 @@
     >
       {{ getButtonConfig(button as string).text }}
     </div>
+    <div
+      v-for="sprite in sprites"
+      :key="sprite.id"
+      tabindex="-1"
+      class="viewport-sprite"
+      :class="getSpriteClass(sprite)"
+      :id="`viewport-sprite-${sprite.id}`"
+      @click="clickOnSprite(sprite)"
+      :style="getSpriteStyle(sprite)"
+    ></div>
   </div>
 </template>
 
@@ -28,6 +38,7 @@ import { useMain } from '../stores/main-store';
 import { ButtonStateValue, useScreens } from '@/stores/screens-store';
 import { useVM } from '@/stores/vm-store';
 import { useInventory } from '@/stores/inventory-store';
+import { SpriteState, useSprites } from '@/stores/sprites-store';
 
 const props = defineProps({
   layer: String,
@@ -39,7 +50,10 @@ const props = defineProps({
 const vmStore = useVM();
 const main = useMain();
 const screensStore = useScreens();
-
+const spritesStore = useSprites();
+const sprites = computed(() => {
+  return spritesStore.sprites;
+});
 const layoutWidth = computed(() => {
   return getConfig().layout.backgrounds.width;
 });
@@ -52,6 +66,7 @@ const currentScreen = computed(() => {
 const buttonsState = computed(() => {
   return screensStore.buttons;
 });
+
 const screenConfig = computed(() => {
   const conf = getConfig().screens[currentScreen.value];
   if (!conf) {
@@ -59,14 +74,15 @@ const screenConfig = computed(() => {
   }
   return conf;
 });
-const screenButtons = computed(() => {
-  return screenConfig.value.buttons || [];
-});
 
 const inGame = computed(() => {
   return main.isInGame;
 });
 
+// Buttons
+const screenButtons = computed(() => {
+  return screenConfig.value.buttons || [];
+});
 function getButtonImageUrl(button: string): string | undefined {
   const config = getButtonConfig(button);
   const background = config.background;
@@ -160,6 +176,52 @@ const layerStyle = computed<CSSProperties>(() => {
     height: `${layoutHeight.value}px`,
   };
 });
+
+// Sprites
+function clickOnSprite(sprite: SpriteState) {
+  if (props.transitioning) {
+    return;
+  }
+  if (sprite.onClick) {
+    vmStore.runLabelFunction(sprite.onClick);
+  }
+}
+
+function getSpriteClass(sprite: SpriteState): { [key: string]: boolean } {
+  const css: any = {};
+  if (sprite.onClick) {
+    css.interactable = true;
+  } else {
+    css.disabled = true;
+  }
+  return css;
+}
+
+function getSpriteStyle(sprite: SpriteState): CSSProperties {
+  const style: CSSProperties = {};
+  if (sprite.opacity !== 1) {
+    style.opacity = sprite.opacity;
+  }
+  let left = sprite.x;
+  let top = sprite.y;
+  if (sprite.anchor) {
+    const anchor = sprite.anchor;
+    left = sprite.x - sprite.width * anchor.x;
+    top = sprite.y - sprite.height * anchor.y;
+    style.transformOrigin = `${anchor.x * 100}% ${anchor.y * 100}%`;
+  }
+  if (sprite.scale) {
+    style.transform = `scale(${sprite.scale})`;
+  }
+  return {
+    ...style,
+    left: `${left}px`,
+    top: `${top}px`,
+    backgroundImage: `url(${getImageUrl(sprite.image)})`,
+    width: `${sprite.width}px`,
+    height: `${sprite.height}px`,
+  };
+}
 </script>
 <style>
 .viewport {
@@ -204,5 +266,38 @@ const layerStyle = computed<CSSProperties>(() => {
 .viewport-button.hidden {
   opacity: 0;
   display: none;
+}
+
+.viewport-sprite {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  /* animation: sprite-appear 0.5s ease-in; */
+}
+
+.viewport-sprite.interactable {
+  cursor: pointer;
+}
+.viewport-sprite.disabled {
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes sprite-appear {
+  /* Make an animation rotating the logo in 3d */
+  0% {
+    transform: perspective(10000px) rotateX(-120deg) scale(1);
+  }
+  50% {
+    transform: perspective(10000px) rotateX(10deg) scale(1.05, 1.05);
+  }
+
+  100% {
+    transform: perspective(10000px) rotateX(0deg) scale(1, 1);
+  }
 }
 </style>

@@ -2,7 +2,6 @@ import { error, warning } from '@/utils/error-handling';
 import {
   AddTransition,
   generateTransitionState,
-  getTransitionSettings,
   TransitionState,
 } from '@/utils/transition';
 import deepmerge from 'deepmerge';

@@ -90,6 +90,7 @@ import {
   roundPlugin,
   sqrtPlugin,
 } from './math-commands';
+import { createSpriteCommand, deleteSpriteCommand } from './sprite-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -119,6 +120,10 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(setButtonCommand);
   vm.addCommand(setScreenCommand);
   vm.addCommand(emptyLayerCommand);
+
+  // Sprites
+  vm.addCommand(createSpriteCommand);
+  vm.addCommand(deleteSpriteCommand);
 
   vm.addCommand(waitCommand);
 

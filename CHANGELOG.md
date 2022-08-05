@@ -1,5 +1,27 @@
 # Narrat changelog
 
+## [2.4.0] Sprites support
+
+The engine now supports dynamic sprites in the viewport.
+
+The `create_sprite` function returns an object that can be manipulated to move sprites, change their anchor, opacity, scale and more.
+
+Usage example:
+
+```narrat
+test_sprites:
+  var sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
+  set sprite1.anchor.y 1
+  set sprite1.scale 0.5
+  var sprite2 (create_sprite img/sprites/mannequin.webp 500 700)
+  set sprite2.anchor.y 1
+  var pos 200
+  wait 20
+  set sprite1.x 250
+  wait 20
+  set sprite1.x 300
+```
+
 ## 2.3.5
 
 Fixed a bug in the previous release when emptying an already empty layer
