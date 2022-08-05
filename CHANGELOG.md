@@ -1,5 +1,11 @@
 # Narrat changelog
 
+## [2.3.4] Screen transitions fixes and improvements
+
+- fix: transitions no longer fail when starting from an empty screen layer
+- fix: Loading a game save where a layer was emptied doesn't crash anymore
+- feature: The `empty_layer` command can now use transitions: `empty_layer 0 slide-right 2000`
+
 ## [2.3.3] Split config files support
 
 The config can now be split in multiple files to be easier to edit. Possible files are:
