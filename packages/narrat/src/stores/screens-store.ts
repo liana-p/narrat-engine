@@ -167,9 +167,7 @@ export const useScreens = defineStore('screens', {
   },
   getters: {
     nonEmptyLayers(state: ScreenState): FullLayerState[] {
-      return state.layers.filter(
-        (layer) => layer && layer.screen,
-      ) as FullLayerState[];
+      return state.layers.filter((layer) => layer) as FullLayerState[];
     },
   },
 });

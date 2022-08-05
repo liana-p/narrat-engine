@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## 2.3.5
+
+Fixed a bug in the previous release when emptying an already empty layer
+
 ## [2.3.4] Screen transitions fixes and improvements
 
 - fix: transitions no longer fail when starting from an empty screen layer
