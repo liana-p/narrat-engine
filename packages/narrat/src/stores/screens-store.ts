@@ -152,7 +152,9 @@ export const useScreens = defineStore('screens', {
     },
     generateSaveData(): ScreenSave {
       return {
-        layers: this.layers.map((layer) => layer.screen ?? null),
+        layers: this.layers
+          .filter((layer) => layer)
+          .map((layer) => layer!.screen ?? null),
         buttons: this.buttons,
       };
     },
@@ -164,8 +166,10 @@ export const useScreens = defineStore('screens', {
     },
   },
   getters: {
-    nonEmptyLayers(state: ScreenState) {
-      return state.layers.filter((layer) => layer.screen);
+    nonEmptyLayers(state: ScreenState): FullLayerState[] {
+      return state.layers.filter(
+        (layer) => layer && layer.screen,
+      ) as FullLayerState[];
     },
   },
 });

@@ -47,7 +47,7 @@ const main = useMain();
 const screensStore = useScreens();
 
 const layers = computed(() => {
-  return screensStore.layers.filter((layer) => layer);
+  return screensStore.nonEmptyLayers;
 });
 
 const layoutMode = computed(() => {
