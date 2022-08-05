@@ -52,6 +52,7 @@ export interface MainEvents {
 export class MainStoreListener extends TypedEmitter<MainEvents> {}
 export interface ErrorState {
   text: string;
+  type: 'error' | 'warning' | 'info';
 }
 
 interface MainState {
@@ -321,6 +322,13 @@ export const useMain = defineStore('main', {
     createError(text: string) {
       this.errors.push({
         text,
+        type: 'error',
+      });
+    },
+    createWarning(text: string) {
+      this.errors.push({
+        text,
+        type: 'warning',
       });
     },
     clearErrors() {

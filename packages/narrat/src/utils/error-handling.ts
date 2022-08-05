@@ -15,3 +15,10 @@ export function error(text: string, ...args: any[]) {
   text = text.replace(/[\r\n]/g, `\n<br />`);
   mainStore.createError(`❌ ${text}`);
 }
+
+export function warning(text: string, ...args: any[]) {
+  const mainStore = useMain();
+  console.warn(text, ...args);
+  text = text.replace(/[\r\n]/g, `\n<br />`);
+  mainStore.createWarning(`⚠️ ${text}`);
+}

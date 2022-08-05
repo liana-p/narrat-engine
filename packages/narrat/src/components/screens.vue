@@ -14,13 +14,21 @@
         @complete="() => transitionComplete(index)"
       >
         <template v-slot:oldElement>
-          <Layer :layer="layer.transition.oldScreen" :transitioning="true" />
+          <Layer
+            v-if="layer.transition.oldScreen"
+            :layer="layer.transition.oldScreen"
+            :transitioning="true"
+          />
         </template>
         <template v-slot:newElement>
-          <Layer :layer="layer.screen" :transitioning="true" />
+          <Layer
+            v-if="layer.screen"
+            :layer="layer.screen"
+            :transitioning="true"
+          />
         </template>
       </NarratTransition>
-      <Layer :layer="layer.screen" v-else />
+      <Layer :layer="layer.screen" v-else-if="layer.screen" />
     </div>
   </div>
 </template>
