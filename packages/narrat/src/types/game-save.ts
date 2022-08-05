@@ -6,6 +6,7 @@ import { MainSaveData } from '@/stores/main-store';
 import { QuestLogSave } from '@/stores/quest-log';
 import { ScreenSave } from '@/stores/screens-store';
 import { SkillsSave } from '@/stores/skills';
+import { SpriteStoreSave } from '@/stores/sprites-store';
 import { VMSave } from '@/stores/vm-store';
 
 export type GameSave = {
@@ -20,6 +21,7 @@ export type GameSave = {
   inventory: InventorySave;
   quests: QuestLogSave;
   metadata: SaveSlotMetadata;
+  sprites: SpriteStoreSave;
 };
 
 export interface SaveSlotMetadata {
