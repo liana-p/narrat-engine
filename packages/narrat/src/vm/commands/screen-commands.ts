@@ -37,10 +37,29 @@ export const setScreenCommand = new CommandPlugin<{
 
 export const emptyLayerCommand = new CommandPlugin<{
   layer: number;
-}>('empty_layer', [{ name: 'layer', type: 'number' }], async (cmd) => {
-  const screens = useScreens();
-  screens.emptyLayer(cmd.options.layer);
-});
+  transitionName?: string;
+  transitionDuration?: number;
+  transitionDelay?: number;
+}>(
+  'empty_layer',
+  [
+    { name: 'layer', type: 'number' },
+    { name: 'transitionName', type: 'string', optional: true },
+    { name: 'transitionDuration', type: 'number', optional: true },
+    { name: 'transitionDelay', type: 'number', optional: true },
+  ],
+  async (cmd) => {
+    const screens = useScreens();
+    if (cmd.options.transitionName) {
+      return screens.emptyLayer(cmd.options.layer, {
+        transition: cmd.options.transitionName,
+        duration: cmd.options.transitionDuration,
+        delay: cmd.options.transitionDelay,
+      });
+    }
+    return screens.emptyLayer(cmd.options.layer);
+  },
+);
 
 export const setButtonCommand = new CommandPlugin<{
   buttonId: string;

@@ -2,7 +2,7 @@ main:
   add_item bread 1
   add_item book 1
   "hello world"
-  jump test_save
+  jump transitions_test
 
 test_save:
   set checkpoint.after_save quest_demo
@@ -14,14 +14,18 @@ checkpoint:
 
 transitions_test:
   set_screen default
-  "normal set screen"
+  "normal set screen:"
   set_screen map
-  "set screen with fade"
+  "set screen with transition:"
   set_screen default 0 slide-right
-  "set screen with duration"
+  "set screen with transition and duration:"
   set_screen map 0 slide-right 2000
-  "set screen with duration and delay"
+  "set screen with duration and delay:"
   set_screen default 0 slide-right 2000 4000
+  "empty_screen with transition:"
+  empty_layer 0 slide-right 2000
+  "set screen with transition but there's no screen initially"
+  set_screen default 1 slide-right 2000
 
 music_test:
   play music battle

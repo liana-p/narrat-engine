@@ -5,7 +5,7 @@
     :style="styles.oldSlotStyle"
     v-if="state !== 'end'"
   >
-    <slot name="oldElement" :class="styles.oldSlotClasses"></slot>
+    <slot name="oldElement"></slot>
   </div>
   <div
     class="transition-holder"
@@ -17,8 +17,9 @@
 </template>
 <script setup lang="ts">
 import { timeout } from '@/utils/promises';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref, useSlots } from 'vue';
 
+const slots = useSlots();
 const emits = defineEmits(['complete']);
 const props = defineProps({
   name: {
@@ -38,6 +39,13 @@ const styles = reactive<{ [key: string]: { [key: string]: any } }>({
   newSlotClasses: {},
   newSlotStyle: {},
 });
+const hasOldSlot = computed(() => {
+  return slots.oldElement && slots.oldElement.length > 0;
+});
+const hasNewSlot = computed(() => {
+  return slots.newElement && slots.newElement.length > 0;
+});
+
 onMounted(async () => {
   // 1. Setup default state of both things
   const prefix = `narrat-transition-${props.name}`;

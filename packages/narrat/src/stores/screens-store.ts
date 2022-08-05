@@ -1,4 +1,10 @@
-import { AddTransition, getTransitionSettings } from '@/utils/transition';
+import { error, warning } from '@/utils/error-handling';
+import {
+  AddTransition,
+  generateTransitionState,
+  getTransitionSettings,
+  TransitionState,
+} from '@/utils/transition';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
 import { Config } from '../config';
@@ -10,23 +16,19 @@ export interface ButtonsState {
   };
 }
 
-export interface TransitionState extends AddTransition {
-  oldScreen: string;
-  duration: number;
-  resolve: () => void;
-}
-export interface LayerState {
-  screen: string;
+export interface FullLayerState {
+  screen: string | null;
   transition?: TransitionState;
 }
 
+export type LayerState = FullLayerState | undefined;
 export interface ScreenState {
   layers: LayerState[];
   buttons: ButtonsState;
 }
 
 export type ScreenSave = {
-  layers: string[];
+  layers: Array<string | null>;
   buttons: ButtonsState;
 };
 
@@ -51,37 +53,36 @@ export const useScreens = defineStore('screens', {
       return new Promise<void>((resolve) => {
         const oldScreen = this.layers[layer || 0];
         let transitionState: TransitionState | undefined;
-        if (oldScreen) {
-          if (oldScreen.screen === screen) {
-            resolve();
-            return;
-          }
-          if (transition) {
-            const settings = getTransitionSettings(transition.transition);
-            const duration = transition.duration ?? settings.duration ?? 500;
-            const delay = transition.delay ?? settings.delay ?? 0;
-            transitionState = {
-              ...transition,
-              resolve,
-              duration,
-              delay,
-              oldScreen: oldScreen.screen,
-            };
-          }
+        const oldScreenValue = oldScreen?.screen ?? null;
+        if (oldScreenValue === screen) {
+          resolve();
+          return;
+        }
+        if (transition) {
+          transitionState = generateTransitionState(
+            transition,
+            oldScreenValue,
+            resolve,
+          );
         }
         this.layers[layer || 0] = {
           screen,
           transition: transitionState,
         };
-        if (!transition) {
+        if (!transitionState) {
           resolve();
         }
       });
     },
     finishTransition(layer: number) {
-      if (this.layers[layer]?.transition) {
-        const resolver = this.layers[layer].transition!.resolve;
-        delete this.layers[layer].transition;
+      const layerState = this.layers[layer];
+      if (!layerState) {
+        error(
+          `Tried to finish transition on layer ${layer} but it doesn't exist`,
+        );
+      } else if (layerState.transition) {
+        const resolver = layerState.transition!.resolve;
+        delete layerState.transition;
         resolver();
       }
     },
@@ -92,8 +93,27 @@ export const useScreens = defineStore('screens', {
     ) {
       return this.setScreen(screen, layer ?? 0, transition);
     },
-    emptyLayer(layer: number) {
-      delete this.layers[layer];
+    emptyLayer(layer: number, transition?: AddTransition) {
+      return new Promise<void>((resolve) => {
+        const layerState = this.layers[layer];
+        if (!layerState) {
+          warning(`Tried to empty layer ${layer} but it doesn't exist`);
+          return;
+        }
+        if (transition) {
+          const oldScreen = layerState.screen;
+          const transitionState = generateTransitionState(
+            transition,
+            oldScreen,
+            resolve,
+          );
+          layerState.transition = transitionState;
+        }
+        layerState.screen = null;
+        if (!transition) {
+          resolve();
+        }
+      });
     },
     setButtons(config: Config) {
       const { buttons: buttonsConfig, screens: screensConfig, images } = config;
@@ -132,7 +152,9 @@ export const useScreens = defineStore('screens', {
     },
     generateSaveData(): ScreenSave {
       return {
-        layers: this.layers.map((layer) => layer.screen),
+        layers: this.layers
+          .filter((layer) => layer)
+          .map((layer) => layer!.screen ?? null),
         buttons: this.buttons,
       };
     },
@@ -141,6 +163,13 @@ export const useScreens = defineStore('screens', {
         return { screen: layer };
       });
       this.buttons = deepmerge(this.buttons, data.buttons);
+    },
+  },
+  getters: {
+    nonEmptyLayers(state: ScreenState): FullLayerState[] {
+      return state.layers.filter(
+        (layer) => layer && layer.screen,
+      ) as FullLayerState[];
     },
   },
 });

@@ -54,6 +54,7 @@
             v-for="(error, index) in errors"
             :key="index"
             class="error-message list-disc"
+            :class="error.type === 'error' ? 'error' : 'warning'"
             v-html="error.text"
           />
         </ul>
@@ -415,9 +416,15 @@ export default defineComponent({
 }
 
 .error-message {
-  color: orangered;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.error {
+  color: orangered;
+}
+
+.warning {
+  color: orange;
 }
 
 .error-filename {
