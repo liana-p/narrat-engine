@@ -21,8 +21,7 @@ saves:
 screens: data/screens.yaml
 buttons: {}
 skills: data/skills.yaml
-scripts:
-  - data/example.nar
+scripts: data/scripts.yaml
 audio: data/audio.yaml
 hudStats:
   money:
