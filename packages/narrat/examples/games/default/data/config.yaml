@@ -6,8 +6,12 @@ images:
   shopButton: img/ui/shop-button.webp
   parkButton: img/ui/park-button.webp
 layout:
+  dialogPanel:
+    overlayMode: true
+    rightOffset: 50
   backgrounds:
-    width: 880
+    # Default was 880 x 720
+    width: 1355
     height: 720
   dialogBottomPadding: 70
   minTextWidth: 475

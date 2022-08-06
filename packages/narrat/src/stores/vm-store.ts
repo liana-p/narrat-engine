@@ -345,7 +345,7 @@ export const useVM = defineStore('vm', {
         this.jumpToLabel(getConfig().gameFlow.labelToJumpOnScriptEnd!);
         return;
       }
-      useInventory().onScriptEnd();
+      useMain().endingScript();
       const mainStore = useMain();
       if (mainStore.options.debug) {
         const dialogStore = useDialogStore();
@@ -363,7 +363,7 @@ export const useVM = defineStore('vm', {
         error(`There is no line of script to run.`);
         return;
       }
-      useInventory().onScriptStart();
+      useMain().startingScript();
       return await runCommand(expression);
     },
     async runLabelFunction(label: string, ...args: any[]) {

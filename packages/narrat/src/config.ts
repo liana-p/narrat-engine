@@ -166,6 +166,7 @@ export interface Config {
   layout: {
     dialogPanel?: {
       overlayMode?: boolean;
+      rightOffset?: number;
     };
     backgrounds: {
       width: number;

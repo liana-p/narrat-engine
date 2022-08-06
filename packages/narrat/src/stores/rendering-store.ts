@@ -39,9 +39,18 @@ export const useRenderingStore = defineStore('rendering', {
       );
       return ratio;
     },
+    overlayMode(state: RenderingState): boolean {
+      if (
+        getConfig()?.layout?.dialogPanel?.overlayMode &&
+        state.layoutMode === 'horizontal'
+      ) {
+        return true;
+      }
+      return false;
+    },
     gameWidth(): number {
       const config = getConfig();
-      if (this.layoutMode === 'vertical') {
+      if (this.layoutMode === 'vertical' || this.overlayMode) {
         return config.layout.backgrounds.width;
       } else {
         return config.layout.backgrounds.width + config.layout.minTextWidth;
