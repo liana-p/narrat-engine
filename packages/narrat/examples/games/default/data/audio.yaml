@@ -13,7 +13,7 @@ files:
     src: audio/failure.ogg
   success:
     src: audio/success.wav
-audioOptions:
+options:
   volume: 0.5
   musicFadeInTime: 0.5
   musicFadeInDelay: 0.5

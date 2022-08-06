@@ -2,19 +2,24 @@ main:
   add_item bread 1
   add_item book 1
   "hello world"
-  jump test_sprites
+  jump test_clickthrough
+
+test_clickthrough:
+  set_button shopButton true
+  set_screen map 0
+  set_screen overlay 1
 
 test_sprites:
   var sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
   set sprite1.anchor.y 1
   set sprite1.scale 0.5
+  set sprite1.onClick talk_sprite
+  wait 500
   var sprite2 (create_sprite img/sprites/mannequin.webp 500 700)
   set sprite2.anchor.y 1
-  var pos 200
-  wait 20
-  set sprite1.x 250
-  wait 20
-  set sprite1.x 300
+
+talk_sprite:
+  "hello"
 
 test_save:
   set checkpoint.after_save quest_demo

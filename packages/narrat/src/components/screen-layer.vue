@@ -210,16 +210,19 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
     top = sprite.y - sprite.height * anchor.y;
     style.transformOrigin = `${anchor.x * 100}% ${anchor.y * 100}%`;
   }
+  let width = sprite.width;
+  let height = sprite.height;
   if (sprite.scale) {
-    style.transform = `scale(${sprite.scale})`;
+    width = width * sprite.scale;
+    height = height * sprite.scale;
   }
   return {
     ...style,
     left: `${left}px`,
     top: `${top}px`,
     backgroundImage: `url(${getImageUrl(sprite.image)})`,
-    width: `${sprite.width}px`,
-    height: `${sprite.height}px`,
+    width: `${width}px`,
+    height: `${height}px`,
   };
 }
 </script>
@@ -252,6 +255,7 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
   cursor: pointer;
   animation: pulse 0.8s infinite;
   animation-timing-function: linear;
+  pointer-events: auto;
 }
 
 .viewport-button.disabled {
@@ -276,11 +280,14 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
   color: white;
   font-size: 30px;
   font-weight: bold;
-  /* animation: sprite-appear 0.5s ease-in; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: sprite-appear 0.3s ease-in;
 }
 
 .viewport-sprite.interactable {
   cursor: pointer;
+  pointer-events: auto;
 }
 .viewport-sprite.disabled {
   pointer-events: none;
@@ -292,7 +299,7 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
   0% {
     transform: perspective(10000px) rotateX(-120deg) scale(1);
   }
-  50% {
+  80% {
     transform: perspective(10000px) rotateX(10deg) scale(1.05, 1.05);
   }
 

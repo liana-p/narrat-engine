@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.4.1] Fix to multiple layers clickthrough
+
+Fixed a bug where a higher layer of screen in the viewport could block clicks through to the previous layers.
+
 ## [2.4.0] Sprites support
 
 The engine now supports dynamic sprites in the viewport.
