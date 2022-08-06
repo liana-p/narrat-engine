@@ -21,6 +21,7 @@ export default defineComponent({
   computed: {
     ...mapState(useRenderingStore, ['layoutMode']),
     boxStyle(): any {
+      const rendering = useRenderingStore();
       const layout = getConfig().layout;
       let right: any = 0;
       let bottom: any = 0;
@@ -31,10 +32,11 @@ export default defineComponent({
           bottom: 0,
         };
         right = 20 + portraitMode.right;
-        bottom = useRenderingStore().dialogHeight + portraitMode.bottom;
+        bottom = rendering.dialogHeight + portraitMode.bottom;
       } else {
         const landscape = portrait.offset?.landscape ?? { right: 0, bottom: 0 };
-        right = layout.minTextWidth - 10 + landscape.right;
+        const panelOffset = layout.dialogPanel?.rightOffset ?? 0;
+        right = layout.minTextWidth - 10 + landscape.right + panelOffset;
         bottom = 200 + landscape.bottom;
       }
       return {

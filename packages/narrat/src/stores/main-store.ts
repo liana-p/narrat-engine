@@ -87,6 +87,7 @@ interface MainState {
   } | null;
   saveData?: GameSave;
   listener: MainStoreListener;
+  inScript: boolean;
 }
 
 export interface MainSaveData {
@@ -137,6 +138,7 @@ export const useMain = defineStore('main', {
       alerts: [],
       saving: null,
       listener: new MainStoreListener(),
+      inScript: false,
     } as MainState),
   actions: {
     async setup() {
@@ -195,6 +197,14 @@ export const useMain = defineStore('main', {
         alert.resolver();
         this.alerts.splice(alertIndex, 1);
       }
+    },
+    startingScript() {
+      useInventory().onScriptStart();
+      this.inScript = true;
+    },
+    endingScript() {
+      useInventory().onScriptEnd();
+      this.inScript = false;
     },
     startMachine() {
       const audioStore = useAudio();

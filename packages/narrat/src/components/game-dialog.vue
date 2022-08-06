@@ -2,27 +2,29 @@
   <transition name="fade">
     <DialogPicture :pictureUrl="picture" v-if="picture" />
   </transition>
-  <div
-    class="dialog override"
-    ref="dialogRef"
-    :style="dialogStyle"
-    v-if="inGame"
-  >
-    <transition-group
-      name="list"
-      tag="div"
-      class="dialog-container w-full override"
-      :style="dialogContainerStyle"
+  <transition name="dialog-transition">
+    <div
+      class="dialog override"
+      ref="dialogRef"
+      :style="dialogStyle"
+      v-if="inGame && showDialog"
     >
-      <DialogBox
-        v-for="(val, i) in dialog"
-        :key="val.id"
-        :options="getDialogBoxOptions(val, i)"
-        :active="isDialogActive(i)"
-      />
-    </transition-group>
-    <div class="anchor"></div>
-  </div>
+      <transition-group
+        name="list"
+        tag="div"
+        class="dialog-container w-full override"
+        :style="dialogContainerStyle"
+      >
+        <DialogBox
+          v-for="(val, i) in dialog"
+          :key="val.id"
+          :options="getDialogBoxOptions(val, i)"
+          :active="isDialogActive(i)"
+        />
+      </transition-group>
+      <div class="anchor"></div>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -36,6 +38,7 @@ import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
 import { useRenderingStore } from '@/stores/rendering-store';
+import { useMain } from '@/lib';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
@@ -79,10 +82,27 @@ const dialogWidth = computed((): number => {
   return width;
 });
 
+const showDialog = computed(() => {
+  if (
+    !useRenderingStore().overlayMode ||
+    useRenderingStore().layoutMode === 'vertical'
+  ) {
+    return true;
+  }
+  return useMain().inScript;
+});
+
 const dialogStyle = computed((): any => {
   let transform: any;
   const height = `${useRenderingStore().dialogHeight}px`;
+  const css: any = {};
+  if (useRenderingStore().overlayMode) {
+    css.position = 'absolute';
+    const rightOffset = getConfig().layout.dialogPanel?.rightOffset ?? 0;
+    css.right = `${rightOffset}px`;
+  }
   return {
+    ...css,
     width:
       props.layoutMode === 'horizontal' ? `${dialogWidth.value}px` : '100%',
     height,

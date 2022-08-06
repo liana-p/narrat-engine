@@ -433,3 +433,13 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 .screens-fade-leave-to {
   opacity: 0;
 }
+
+.dialog-transition-enter-active,
+.dialog-transition-leave-active {
+  transition: transform 0.5s ease-out;
+}
+
+.dialog-transition-enter-from,
+.dialog-transition-leave-to {
+  transform: translateY(-100%);
+}
