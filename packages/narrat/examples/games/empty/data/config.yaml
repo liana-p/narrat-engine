@@ -8,7 +8,7 @@ layout:
   dialogBottomPadding: 70
   minTextWidth: 475
   mobileDialogHeightPercentage: 60
-  verticalLayoutThreshold: 1000
+  verticalLayoutThreshold: 600
   portraits:
     width: 100
     height: 100
@@ -22,22 +22,22 @@ skillChecks:
   skillMultiplier: 10
   failureChance: 1
   difficultyText:
-  - - 0
-    - Very Easy
-  - - 10
-    - Easy
-  - - 30
-    - Medium
-  - - 50
-    - Hard
-  - - 70
-    - Very Hard
-  - - 80
-    - Extremely Hard
-  - - 90
-    - Near Impossible
+    - - 0
+      - Very Easy
+    - - 10
+      - Easy
+    - - 30
+      - Medium
+    - - 50
+      - Hard
+    - - 70
+      - Very Hard
+    - - 80
+      - Extremely Hard
+    - - 90
+      - Near Impossible
 scripts:
-- data/game.nar
+  - data/game.nar
 audio: {}
 audioOptions:
   volume: 0.5
@@ -55,4 +55,3 @@ interactionTags:
 quests: {}
 audioTriggers: {}
 menuButtons: {}
-

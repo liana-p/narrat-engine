@@ -1,14 +1,10 @@
+import { aspectRatioFit } from '@/utils/helpers';
 import { defineStore } from 'pinia';
 import { getConfig } from '../config';
 
 export interface RenderingState {
   screenWidth: number;
   screenHeight: number;
-  canvasWidth: number;
-  canvasHeight: number;
-  renderRatio: number;
-  topOffset: number;
-  leftOffset: number;
   layoutMode: 'horizontal' | 'vertical';
 }
 
@@ -19,25 +15,72 @@ export const useRenderingStore = defineStore('rendering', {
     ({
       screenHeight: window.innerHeight,
       screenWidth: window.innerWidth,
-      canvasWidth: window.innerWidth,
-      canvasHeight: window.innerHeight,
-      renderRatio: 1,
-      topOffset: 0,
-      leftOffset: 0,
       layoutMode: 'horizontal',
     } as RenderingState),
   actions: {
-    updateScreenSize(width: number, height: number, textWidth: number) {
+    updateScreenSize(width: number, height: number) {
       this.screenHeight = height;
       this.screenWidth = width;
-      this.renderRatio = 1;
-      this.topOffset = 0;
-      this.leftOffset = 0;
       if (width < getConfig().layout.verticalLayoutThreshold) {
         this.layoutMode = 'vertical';
       } else {
         this.layoutMode = 'horizontal';
       }
+    },
+  },
+  getters: {
+    gameScaleRatio(state: RenderingState): number {
+      const config = getConfig();
+      const ratio = aspectRatioFit(
+        this.screenWidth,
+        this.screenHeight,
+        this.gameWidth,
+        this.gameHeight,
+      );
+      return ratio;
+    },
+    gameWidth(): number {
+      const config = getConfig();
+      if (this.layoutMode === 'vertical') {
+        return config.layout.backgrounds.width;
+      } else {
+        return config.layout.backgrounds.width + config.layout.minTextWidth;
+      }
+    },
+    gameHeight(): number {
+      const config = getConfig();
+      if (this.layoutMode === 'vertical') {
+        return config.layout.backgrounds.height;
+      } else {
+        return config.layout.backgrounds.height;
+      }
+    },
+    dialogHeight(): number {
+      if (this.layoutMode === 'vertical') {
+        return this.actualGameHeight - this.gameHeight;
+      } else {
+        return this.gameHeight;
+      }
+    },
+    actualGameHeight(): number {
+      let height = this.gameHeight;
+      if (this.layoutMode === 'vertical') {
+        height = this.screenHeight / this.gameScaleRatio;
+      }
+      return height;
+    },
+    viewportRatio(state: RenderingState): number {
+      if (this.layoutMode === 'vertical') {
+        const conf = getConfig().layout.backgrounds;
+        return state.screenWidth / conf.width;
+      }
+      return 1;
+    },
+    viewportHeight(state: RenderingState): number {
+      return getConfig().layout.backgrounds.height * this.viewportRatio;
+    },
+    viewportWidth(state: RenderingState): number {
+      return getConfig().layout.backgrounds.width * this.viewportRatio;
     },
   },
 });

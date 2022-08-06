@@ -26,7 +26,6 @@ import Modal from './utils/modal-window.vue';
 import VolumeControls from './volume-controls.vue';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
-import { mapState } from 'pinia';
 
 export default defineComponent({
   components: {
@@ -51,14 +50,11 @@ export default defineComponent({
     },
     getPlayTimeString(): string {
       const time = getPlayTime(
-        this.playTime.start,
-        this.playTime.previousPlaytime,
+        useMain().playTime.start,
+        useMain().playTime.previousPlaytime,
       );
       return toHHMMSS(time / 1000);
     },
-  },
-  computed: {
-    ...mapState(useMain, ['playTime']),
   },
 });
 </script>

@@ -26,9 +26,7 @@
 import { computed, defineComponent, PropType } from 'vue';
 import DebugMenu from './components/debug/debug-menu.vue';
 import NotificationToast from './components/notification-toast.vue';
-import { aspectRatioFit } from './utils/helpers';
 import { debounce } from './utils/debounce';
-import { getConfig } from './config';
 import { vm } from './vm/vm';
 import { useDialogStore } from './stores/dialog-store';
 import { useVM } from './stores/vm-store';
@@ -105,100 +103,19 @@ export default defineComponent({
     ...mapState(useRenderingStore, [
       'screenWidth',
       'screenHeight',
-      'canvasWidth',
-      'canvasHeight',
-      'topOffset',
-      'leftOffset',
       'layoutMode',
+      'gameWidth',
+      'gameHeight',
+      'gameScaleRatio',
+      'actualGameHeight',
     ]),
     ...mapState(useVM, ['currentLine']),
-    backgroundStyle(): any {
-      let height: any;
-      if (this.layoutMode === 'vertical') {
-        height = `${100 - getConfig().layout.mobileDialogHeightPercentage}%`;
-      }
-      return {
-        // width: `${this.backgroundSize.width}px`,
-        // height: `${this.backgroundSize.height}px`,
-        // top: `${this.backgroundSize.top}px`,
-        // left: `${this.backgroundSize.left}px`,
-        backgroundColor: 'red',
-        height,
-        // position: 'absolute',
-      };
-    },
-    layoutWidth(): number {
-      return getConfig().layout.backgrounds.width;
-    },
-    layoutHeight(): number {
-      return getConfig().layout.backgrounds.height;
-    },
-    backgroundSize(): {
-      width: number;
-      height: number;
-      left: number;
-      top: number;
-    } {
-      return {
-        width: this.canvasWidth,
-        height: this.canvasHeight,
-        top: this.topOffset,
-        left: this.leftOffset,
-      };
-    },
-    gameWidth(): number {
-      const config = getConfig();
-      if (this.layoutMode === 'vertical') {
-        return window.innerWidth;
-      } else {
-        return config.layout.backgrounds.width + config.layout.minTextWidth;
-      }
-    },
-    gameHeight(): number {
-      const config = getConfig();
-      if (this.layoutMode === 'vertical') {
-        return window.innerHeight;
-      } else {
-        return config.layout.backgrounds.height;
-      }
-    },
     appStyle(): any {
-      const config = getConfig();
-      if (
-        this.screenWidth &&
-        this.screenHeight &&
-        config &&
-        this.layoutMode === 'horizontal'
-      ) {
-        const ratio = aspectRatioFit(
-          this.screenWidth,
-          this.screenHeight,
-          this.gameWidth,
-          this.gameHeight,
-        );
-        return {
-          transform: `scale(${ratio}, ${ratio})`,
-          width: `${this.gameWidth}px`,
-          height: `${this.gameHeight}px`,
-        };
-      }
-      return {};
-    },
-    gameStyle(): any {
-      let direction = 'row';
-      if (this.layoutMode === 'vertical') {
-        direction = 'column';
-      }
       return {
-        flexDirection: direction,
+        transform: `scale(${this.gameScaleRatio}, ${this.gameScaleRatio})`,
+        width: `${this.gameWidth}px`,
+        height: `${this.actualGameHeight}px`,
       };
-    },
-    screenRatio(): number {
-      const config = getConfig();
-      const baseWidth =
-        config.layout.minTextWidth + config.layout.backgrounds.width;
-      const widthRatio = this.screenWidth / baseWidth;
-      return widthRatio;
     },
   },
 
@@ -213,9 +130,6 @@ export default defineComponent({
       useRenderingStore().updateScreenSize(
         window.innerWidth,
         window.innerHeight,
-        this.layoutMode === 'horizontal'
-          ? getConfig().layout.minTextWidth * this.screenRatio
-          : 0,
       );
     },
   },

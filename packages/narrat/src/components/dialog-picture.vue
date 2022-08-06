@@ -24,16 +24,22 @@ export default defineComponent({
       const layout = getConfig().layout;
       let right: any = 0;
       let bottom: any = 0;
+      const portrait = layout.portraits;
       if (this.layoutMode === 'vertical') {
-        right = '50%';
-        bottom = `${layout.mobileDialogHeightPercentage - 5}%`;
+        const portraitMode = portrait.offset?.portrait ?? {
+          right: 0,
+          bottom: 0,
+        };
+        right = 20 + portraitMode.right;
+        bottom = useRenderingStore().dialogHeight + portraitMode.bottom;
       } else {
-        right = `${layout.minTextWidth - 10}px`;
-        bottom = '20%';
+        const landscape = portrait.offset?.landscape ?? { right: 0, bottom: 0 };
+        right = layout.minTextWidth - 10 + landscape.right;
+        bottom = 200 + landscape.bottom;
       }
       return {
-        right,
-        bottom,
+        right: `${right}px`,
+        bottom: `${bottom}px`,
         width: `${layout.portraits.width}px`,
         height: `${layout.portraits.height}px`,
       };

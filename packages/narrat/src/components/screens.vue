@@ -67,14 +67,16 @@ function transitionComplete(index: number) {
   screensStore.finishTransition(index);
 }
 const viewportStyle = computed<CSSProperties>(() => {
-  const width = `${layoutWidth.value}px`;
-  let height = `${layoutHeight.value}px`;
+  const width = layoutWidth.value;
+  const height = layoutHeight.value;
   if (layoutMode.value === 'vertical') {
-    height = `${100 - getConfig().layout.mobileDialogHeightPercentage}%`;
+    // width = window.innerWidth;
+    // const ratio = width / layoutWidth.value;
+    // height = layoutHeight.value * ratio;
   }
   return {
-    height,
-    width,
+    height: `${height}px`,
+    width: `${width}px`,
   };
 });
 </script>
