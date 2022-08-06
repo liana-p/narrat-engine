@@ -35,7 +35,7 @@ import { computed, PropType, ref, watch } from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
-import { useRenderingStore } from '@/lib';
+import { useRenderingStore } from '@/stores/rendering-store';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
