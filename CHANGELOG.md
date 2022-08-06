@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.5.0] Mobile layout
+
+- Mobile device layout support has been fixed and improved
+
 ## [2.4.1] Fix to multiple layers clickthrough
 
 Fixed a bug where a higher layer of screen in the viewport could block clicks through to the previous layers.
