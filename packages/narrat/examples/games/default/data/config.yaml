@@ -12,10 +12,17 @@ layout:
   dialogBottomPadding: 70
   minTextWidth: 475
   mobileDialogHeightPercentage: 60
-  verticalLayoutThreshold: 1000
+  verticalLayoutThreshold: 600
   portraits:
     width: 150
     height: 225
+    offset:
+      landscape:
+        right: 10
+        bottom: 0
+      portrait:
+        right: 10
+        bottom: 0
 saves:
   mode: manual
 screens: data/screens.yaml

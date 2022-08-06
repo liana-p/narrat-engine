@@ -36,12 +36,13 @@ export async function startApp(
     );
     Object.assign(options, optionsOld);
   }
+  const pinia = createPinia();
   app = createApp(GameApp, {
     options,
   });
-  const pinia = createPinia();
   app.use(pinia);
   vm.pinia = pinia;
+  useMain();
   await loadConfig(options);
   const narrat = {
     app,

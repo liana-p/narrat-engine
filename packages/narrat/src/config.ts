@@ -164,6 +164,9 @@ export interface Config {
     [key: string]: string;
   };
   layout: {
+    dialogPanel?: {
+      overlayMode?: boolean;
+    };
     backgrounds: {
       width: number;
       height: number;
@@ -175,6 +178,16 @@ export interface Config {
     portraits: {
       width: number;
       height: number;
+      offset?: {
+        landscape?: {
+          right: number;
+          bottom: number;
+        };
+        portrait?: {
+          right: number;
+          bottom: number;
+        };
+      };
     };
   };
   gameFlow: {

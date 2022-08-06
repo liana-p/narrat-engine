@@ -13,7 +13,7 @@ export const defaultConfig: Config = {
     dialogBottomPadding: 70,
     minTextWidth: 475,
     mobileDialogHeightPercentage: 60,
-    verticalLayoutThreshold: 1000,
+    verticalLayoutThreshold: 600,
     portraits: {
       width: 100,
       height: 100,

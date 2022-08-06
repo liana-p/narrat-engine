@@ -35,6 +35,7 @@ import { computed, PropType, ref, watch } from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
+import { useRenderingStore } from '@/lib';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
@@ -80,18 +81,11 @@ const dialogWidth = computed((): number => {
 
 const dialogStyle = computed((): any => {
   let transform: any;
-  const height = '100%';
-  if (props.layoutMode === 'horizontal') {
-    // transform = `scale(${this.screenRatio}, ${this.screenRatio})`;
-    // height = `${window.innerHeight / this.screenRatio}px`;
-  }
+  const height = `${useRenderingStore().dialogHeight}px`;
   return {
-    // position: 'absolute',
     width:
       props.layoutMode === 'horizontal' ? `${dialogWidth.value}px` : '100%',
     height,
-    // right: 0,
-    // top: 0,
     transform,
     transformOrigin: 'right',
   };
