@@ -1,4 +1,4 @@
-import { aspectRatioFit } from '@/lib';
+import { aspectRatioFit } from '@/utils/helpers';
 import { defineStore } from 'pinia';
 import { getConfig } from '../config';
 

@@ -20,7 +20,7 @@ import { useMain } from '../stores/main-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { vm } from '../vm/vm';
 import { useMenu } from '@/stores/menu-store';
-import { inputEvents } from '@/lib';
+import { inputEvents } from '@/utils/InputsListener';
 
 export interface ButtonConf {
   id: string;
