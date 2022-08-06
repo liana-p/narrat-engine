@@ -2,6 +2,9 @@
 gameTitle: Narrat Game Example
 images: {}
 layout:
+  dialogPanel:
+    overlayMode: true
+    rightOffset: 30
   backgrounds:
     width: 1280
     height: 720
