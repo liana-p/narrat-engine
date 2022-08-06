@@ -17,7 +17,7 @@ layout:
     height: 100
 screens:
   default:
-    background: narrat
+    background: img/backgrounds/narrat.webp
 buttons: {}
 skills: {}
 skillChecks:
