@@ -3,7 +3,7 @@ gameTitle: Narrat Game Example
 images: {}
 layout:
   backgrounds:
-    width: 880
+    width: 1280
     height: 720
   dialogBottomPadding: 70
   minTextWidth: 475

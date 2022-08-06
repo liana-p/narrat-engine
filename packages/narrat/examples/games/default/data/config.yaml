@@ -11,7 +11,7 @@ layout:
     rightOffset: 50
   backgrounds:
     # Default was 880 x 720
-    width: 1355
+    width: 1280
     height: 720
   dialogBottomPadding: 70
   minTextWidth: 475
