@@ -36,6 +36,7 @@ export async function startApp(
     );
     Object.assign(options, optionsOld);
   }
+  await loadConfig(options);
   const pinia = createPinia();
   app = createApp(GameApp, {
     options,
@@ -43,7 +44,6 @@ export async function startApp(
   app.use(pinia);
   vm.pinia = pinia;
   useMain();
-  await loadConfig(options);
   const narrat = {
     app,
     vm,

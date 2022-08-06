@@ -7,7 +7,6 @@ const argsAssetPath = import.meta.env.VITE_BASE_ASSET_PATH;
 const argsDataPath = import.meta.env.VITE_BASE_DATA_PATH;
 const assetsPath = typeof argsAssetPath === 'string' ? argsAssetPath : '';
 const dataPath = typeof argsDataPath === 'string' ? argsDataPath : '';
-
 let debug = true;
 if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
   debug = false;

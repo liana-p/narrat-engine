@@ -54,8 +54,8 @@ window.addEventListener("load", () => {
   }
   startApp(
     {
-      charactersPath: "data/characters.json",
-      configPath: "data/config.json",
+      charactersPath: "data/characters.yaml",
+      configPath: "data/config.yaml",
     },
     {
       debug,

@@ -12,12 +12,16 @@ export default defineConfig(({ command }) => {
   process.env.VITE_BUILD_VERSION = package?.version ?? 'Unknown';
   const isDemoBuild = process.env.VITE_DEMO_BUILD !== undefined;
   let exampleChoice = '';
+  console.log(
+    process.env.VITE_BASE_DATA_PATH,
+    process.env.VITE_BASE_ASSET_PATH,
+  );
   if (isDemoBuild) {
     exampleChoice = process.env.VITE_DEMO_BUILD;
     console.log(`Building narrat in demo mode: ${exampleChoice}`);
   } else {
-    if (!process.env.VITE_BASE_DEMO_PATH) {
-      process.env.VITE_BASE_DEMO_PATH = 'examples/games/default/';
+    if (!process.env.VITE_BASE_DATA_PATH) {
+      process.env.VITE_BASE_DATA_PATH = 'examples/games/default/';
       process.env.VITE_BASE_ASSET_PATH = 'examples/assets/';
     }
     console.log('Building narrat in library mode');

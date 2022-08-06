@@ -2,7 +2,7 @@ main:
   add_item bread 1
   add_item book 1
   "hello world"
-  jump test_clickthrough
+  jump quest_demo
 
 test_clickthrough:
   set_button shopButton true

@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { getConfig, ItemData } from '@/config';
+import { getAssetUrl, getConfig, ItemData } from '@/config';
 import { useDialogStore } from '@/stores/dialog-store';
 import { useInventory, ItemState } from '@/stores/inventory-store';
 import { useVM } from '@/stores/vm-store';
@@ -79,7 +79,7 @@ export default defineComponent({
     },
     getItemStyle(item: string): any {
       return {
-        backgroundImage: `url(${this.itemConf[item].icon})`,
+        backgroundImage: `url(${getAssetUrl(this.itemConf[item].icon)})`,
       };
     },
     getItemName(item: string): string {

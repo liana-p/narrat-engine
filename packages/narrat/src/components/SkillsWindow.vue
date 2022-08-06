@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { getConfig, SkillData } from '@/config';
+import { getAssetUrl, getConfig, SkillData } from '@/config';
 import { SkillsState, useSkills } from '@/stores/skills';
 import { computed, defineComponent } from 'vue';
 import Modal from './utils/modal-window.vue';
@@ -65,7 +65,7 @@ export default defineComponent({
   methods: {
     getSkillStyle(skill: string): any {
       return {
-        backgroundImage: `url(${this.skillConf[skill].icon})`,
+        backgroundImage: `url(${getAssetUrl(this.skillConf[skill].icon)})`,
       };
     },
     getSkillName(skill: string): string {
