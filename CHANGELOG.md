@@ -1,8 +1,38 @@
 # Narrat changelog
 
-## [2.5.0] Mobile layout
+## [2.5.0] Mobile layout and new dialog panel overlay mode
 
-- Mobile device layout support has been fixed and improved
+### Mobile layout
+
+Portrait mode mobile device layout support has been fixed and improved. The `layout.verticalLayoutThreshold` part of the config decides which screen width threshold will trigger the change between portrait and landscape.
+
+There are also new options to give an offset to character portraits depending on the orientation of the device, to make it possible to control their position. In the layout config:
+
+```yaml
+portraits:
+  width: 150
+  height: 225
+  offset:
+    landscape:
+      right: 10
+      bottom: 0
+    portrait:
+      right: 10
+      bottom: 0
+```
+
+### New dialog panel overlay mode
+
+There is now an option to make the dialog panel appear in overlay mode. Instead of it being on the right of the viewport, it will appear on top of the viewport when a script is active. This allows the viewport to use the full width of the screen when not in dialogues.
+
+The new `dialogPanel` part of the layout config controls this option:
+
+```yaml
+layout:
+  dialogPanel:
+    overlayMode: true # True activates overlay mode
+    rightOffset: 50 # In overlay mode, the dialog panel will be moved to the left by this amount when overlayed.
+```
 
 ## [2.4.1] Fix to multiple layers clickthrough
 
