@@ -52,6 +52,9 @@ interactionTags:
     onlyInteractOutsideOfScripts: true
 quests: data/quests.yaml
 audioTriggers:
+  onButtonClicked: click
+  onSpriteClicked: click
+  onItemUsed: click
   onPlayerAnswered: click
   onPressStart: game_start
   onSkillCheckFailure: failure

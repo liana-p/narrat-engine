@@ -1,5 +1,25 @@
 # Narrat changelog
 
+## [2.5.1] Button improvements
+
+Buttons text can now use string interpolation to display variable values. Example:
+
+```yaml
+buttons:
+  - id: shopButton
+    text: '%{shopName} Shop'
+```
+
+Buttons have an optional `cssClass` property, to allow giving them a specific css class:
+
+```yaml
+buttons:
+  - id: shopButton
+    cssClass: my-css-class
+```
+
+Can be used to for example easily give the same styling to a range of buttons, or to give them hover styling
+
 ## [2.5.0] Mobile layout and new dialog panel overlay mode
 
 ### Mobile layout

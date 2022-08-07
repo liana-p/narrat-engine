@@ -17,7 +17,8 @@ map:
   buttons:
     - id: shopButton
       enabled: false
-      text: Shop
+      text: 'Shop %{shopButtonName}'
+      cssClass: test-class
       position:
         left: 272
         top: 142
