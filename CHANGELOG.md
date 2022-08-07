@@ -1,5 +1,40 @@
 # Narrat changelog
 
+## [2.5.1] Button improvements
+
+### Button text string interpolation
+
+Buttons text can now use string interpolation to display variable values. Example:
+
+```yaml
+buttons:
+  - id: shopButton
+    text: '%{shopName} Shop'
+```
+
+### Button custom CSS class
+
+Buttons have an optional `cssClass` property, to allow giving them a specific css class:
+
+```yaml
+buttons:
+  - id: shopButton
+    cssClass: my-css-class
+```
+
+Can be used to for example easily give the same styling to a range of buttons, or to give them hover styling
+
+### New audio triggers
+
+There are 3 new audio triggers to play sound effects when interacting with buttons, sprites and items. Example:
+
+```yaml
+audioTriggers:
+  onButtonClicked: click
+  onSpriteClicked: click
+  onItemUsed: click
+```
+
 ## [2.5.0] Mobile layout and new dialog panel overlay mode
 
 ### Mobile layout

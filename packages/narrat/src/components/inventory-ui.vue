@@ -52,6 +52,7 @@ import { getAssetUrl, getConfig, ItemData } from '@/config';
 import { useDialogStore } from '@/stores/dialog-store';
 import { useInventory, ItemState } from '@/stores/inventory-store';
 import { useVM } from '@/stores/vm-store';
+import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
 import { computed, defineComponent } from 'vue';
 import Modal from './utils/modal-window.vue';
@@ -98,6 +99,7 @@ export default defineComponent({
       if (this.chosenItem && this.canUseChosenItem && this.chosenItemConf) {
         const onUse = this.chosenItemConf.onUse!;
         this.close();
+        audioEvent('onItemUsed');
         if (onUse.action === 'jump') {
           useVM().jumpToLabel(onUse.label);
         } else if (onUse.action === 'run') {

@@ -18,6 +18,7 @@ export interface SpriteState {
   opacity: number;
   scale: number;
   layer: number;
+  cssClass?: string;
   onClick?: string;
 }
 

@@ -15,9 +15,8 @@
       :id="`viewport-button-${button}`"
       @click="clickOnButton(button as string)"
       :style="getButtonStyle(button as string)"
-    >
-      {{ getButtonConfig(button as string).text }}
-    </div>
+      v-html="getButtonText(button as string)"
+    ></div>
     <div
       v-for="sprite in sprites"
       :key="sprite.id"
@@ -39,6 +38,8 @@ import { ButtonStateValue, useScreens } from '@/stores/screens-store';
 import { useVM } from '@/stores/vm-store';
 import { useInventory } from '@/stores/inventory-store';
 import { SpriteState, useSprites } from '@/stores/sprites-store';
+import { processText } from '@/utils/string-helpers';
+import { audioEvent } from '@/utils/audio-loader';
 
 const props = defineProps({
   layer: String,
@@ -123,6 +124,10 @@ function getButtonClass(button: string): { [key: string]: boolean } {
       css.hidden = true;
     }
   }
+  const conf = getButtonConfig(button);
+  if (conf.cssClass) {
+    css[conf.cssClass] = true;
+  }
   return css;
 }
 function getButtonStyle(button: string): CSSProperties {
@@ -161,6 +166,7 @@ function clickOnButton(button: string) {
   const config = getButtonConfig(button);
   const state = buttonsState.value[button];
   if (state.state === true) {
+    audioEvent('onButtonClicked');
     const scriptToRun = config.action;
     if (config.actionType === 'run') {
       vmStore.runLabelFunction(scriptToRun);
@@ -169,6 +175,13 @@ function clickOnButton(button: string) {
     }
   }
 }
+
+function getButtonText(button: string): string {
+  const config = getButtonConfig(button);
+  const baseText = config.text ?? '';
+  return processText(baseText);
+}
+
 const layerStyle = computed<CSSProperties>(() => {
   return {
     backgroundImage: `url(${getImageUrl(screenConfig.value.background)})`,
@@ -183,6 +196,7 @@ function clickOnSprite(sprite: SpriteState) {
     return;
   }
   if (sprite.onClick) {
+    audioEvent('onSpriteClicked');
     vmStore.runLabelFunction(sprite.onClick);
   }
 }
@@ -193,6 +207,9 @@ function getSpriteClass(sprite: SpriteState): { [key: string]: boolean } {
     css.interactable = true;
   } else {
     css.disabled = true;
+  }
+  if (sprite.cssClass) {
+    css[sprite.cssClass] = true;
   }
   return css;
 }

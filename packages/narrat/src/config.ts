@@ -335,6 +335,8 @@ export interface ButtonConfig {
   background?: string;
   // Optional button text
   text?: string;
+  // Optional css class
+  cssClass?: string;
   // Position in pixels
   position: {
     left: number;
