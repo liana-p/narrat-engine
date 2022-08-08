@@ -27,6 +27,7 @@
         <button
           class="button menu-button main-menu-button large start-button override"
           @click="startGame"
+          v-if="hasFreeSlot"
         >
           New Game
         </button>
@@ -50,6 +51,7 @@ import {
   getSaveFile,
   getSaveSlot,
   getFreeSlot,
+  findAutoSave,
 } from '../utils/save-helpers';
 import { computed, onMounted, ref } from 'vue';
 import SaveSlots from './save-slots.vue';
@@ -57,6 +59,7 @@ import YesNo from './utils/yes-no.vue';
 import { useAudio } from '@/stores/audio-store';
 
 const hasSave = ref(false);
+const hasFreeSlot = ref(false);
 const continueSlot = ref<null | string>(null);
 const saveSlot = ref<string | null>(null);
 const choosingSave = ref(false);
@@ -73,7 +76,21 @@ async function startGame() {
 async function confirmStartGame() {
   const main = useMain();
   if (saveSlot.value === null) {
-    saveSlot.value = getFreeSlot();
+    if (getConfig().saves.mode === 'manual') {
+      const autosave = findAutoSave();
+      if (!autosave) {
+        error('No autosave found');
+        return;
+      }
+      saveSlot.value = autosave.id;
+    } else {
+      const freeSlot = getFreeSlot();
+      if (!freeSlot) {
+        error('No free slot found');
+        return;
+      }
+      saveSlot.value = freeSlot;
+    }
   }
   startingGame.value = false;
   await main.startGame(saveSlot.value!);
@@ -105,8 +122,9 @@ function chooseSaveSlot() {
   choosingSave.value = true;
 }
 
-function chosenSave({ saveData, slotId }: ChosenSlot) {
+function chosenSave({ slotId }: ChosenSlot) {
   saveSlot.value = slotId;
+  const saveData = getSaveSlot(slotId);
   if (saveData) {
     loadGame();
   } else {
@@ -120,8 +138,13 @@ onMounted(() => {
     useAudio().playChannel('music', config.audioOptions.defaultMusic, 0);
   }
   const save = getSaveFile();
-  if (save.slots.length > 0) {
+  if (save.slots.some((slot) => slot.saveData)) {
     hasSave.value = true;
+  }
+  if (getConfig().saves.mode === 'manual') {
+    hasFreeSlot.value = true;
+  } else if (save.slots.some((slot) => !slot.saveData)) {
+    hasFreeSlot.value = true;
   }
   if (save.lastSaveSlot && getSaveSlot(save.lastSaveSlot)) {
     continueSlot.value = save.lastSaveSlot;

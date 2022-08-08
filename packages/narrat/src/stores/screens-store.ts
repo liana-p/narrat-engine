@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
 import {
   AddTransition,
@@ -151,10 +152,10 @@ export const useScreens = defineStore('screens', {
     },
     generateSaveData(): ScreenSave {
       return {
-        layers: this.layers
+        layers: deepCopy(this.layers)
           .filter((layer) => layer)
           .map((layer) => layer!.screen ?? null),
-        buttons: this.buttons,
+        buttons: deepCopy(this.buttons),
       };
     },
     loadSaveData(data: ScreenSave) {

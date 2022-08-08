@@ -274,6 +274,7 @@ export interface Config {
   };
   saves: {
     mode: 'game-slots' | 'manual';
+    slots: number;
   };
 }
 

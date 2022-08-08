@@ -3,67 +3,101 @@ import { SAVE_FILE } from '@/constants';
 import { audioModes, AudioModeState, AudioSave } from '@/stores/audio-store';
 import {
   GameSave,
-  isOldSave,
   SaveFile,
   SaveSlotMetadata,
   StoredSaveFile,
 } from '@/types/game-save';
-import { error } from './error-handling';
+import { error, warning } from './error-handling';
 import { mapObject } from './object-iterators';
 import { randomId } from './randomId';
-
-export const CURRENT_SAVE_VERSION = '1.3.0';
+export const CURRENT_SAVE_VERSION = '1.4.0';
 
 let saveFile: SaveFile;
 export function getSaveFile(): SaveFile {
   if (saveFile) {
     return saveFile;
   } else if (!saveFile) {
-    const storedSavedFileText = localStorage.getItem(SAVE_FILE);
-    if (
-      storedSavedFileText &&
-      typeof JSON.parse(storedSavedFileText) === 'object'
-    ) {
-      const storedSaveFile = JSON.parse(storedSavedFileText) as StoredSaveFile;
-      try {
-        if (isOldSave(storedSaveFile)) {
-          saveFile = {
-            slots: [storedSaveFile],
-            slotsCounter: 1,
-          };
-        } else if (storedSaveFile && !isOldSave(storedSaveFile)) {
-          saveFile = storedSaveFile;
-          saveFile.slotsCounter = saveFile.slotsCounter ?? 0;
-        } else {
-          throw new Error('Invalid save file');
-        }
-      } catch (e) {
-        saveFile = {
-          slots: [],
-          slotsCounter: 0,
-        };
+    let storedSaveFile: StoredSaveFile | null = null;
+    try {
+      // Handle weird save files
+      const storedSavedFileText = localStorage.getItem(SAVE_FILE);
+      if (storedSavedFileText) {
+        storedSaveFile = JSON.parse(storedSavedFileText);
       }
+      if (
+        storedSaveFile &&
+        typeof storedSaveFile === 'object' &&
+        storedSaveFile.slots &&
+        storedSaveFile!.slots[0]
+      ) {
+        // It worked
+      } else {
+        storedSaveFile = null;
+        localStorage.clear();
+      }
+    } catch (e) {
+      warning(
+        `Save file deleted because it was either broken or an outdated format: ${e}`,
+      );
+    }
+    if (storedSaveFile) {
+      saveFile = storedSaveFile;
     } else {
-      saveFile = {
-        slots: [],
-        slotsCounter: 0,
+      saveFile = createDefaultSaveFile();
+    }
+  }
+  migrateSaveFile(saveFile);
+  // In case the config changed and there are more slots now
+  setupSaveSlots(saveFile);
+  save();
+  return saveFile;
+}
+
+function migrateSaveFile(saveFile: SaveFile) {
+  if (saveFile.version === '1.4.0') {
+    // Nothing to do
+  }
+}
+
+function createDefaultSaveFile() {
+  const saveFile: SaveFile = {
+    version: CURRENT_SAVE_VERSION,
+    slots: [],
+  };
+  setupSaveSlots(saveFile);
+  return saveFile;
+}
+function setupSaveSlots(saveFile: SaveFile) {
+  const saveSlotsCount = getConfig().saves.slots ?? 10;
+  if (saveFile.slots.length < 1) {
+    saveFile.slots[0] = {
+      slotType: 'auto',
+      id: randomId(),
+      saveData: null,
+      slotNumber: 0,
+    };
+  }
+  // In case there's an old slot
+  saveFile.slots[0].slotType = 'auto';
+  for (let i = 1; i < saveSlotsCount + 1; i++) {
+    if (saveFile.slots.length <= i) {
+      saveFile.slots[i] = {
+        slotNumber: i,
+        slotType: getConfig().saves.mode === 'manual' ? 'manual' : 'auto',
+        id: randomId(),
+        saveData: null,
       };
     }
-  } else {
-    throw new Error('Invalid save file');
   }
-  saveFile.slots = saveFile.slots.filter((slot) => slot !== null);
-  saveFile.slots.forEach((slot, index) => migrateSaveSlot(slot, index));
-  return saveFile;
 }
 
 export function saveSlot(saveData: GameSave, slot: string) {
   const slotIndex = getSlotIndex(slot);
   if (saveFile.slots[slotIndex]) {
-    saveFile.slots[slotIndex] = saveData;
+    saveFile.slots[slotIndex].saveData = saveData;
   } else {
-    saveFile.slotsCounter++;
-    saveFile.slots.push(saveData);
+    error(`Tried to save to slot ${slot} but it doesn't exist`);
+    return;
   }
   save();
 }
@@ -76,77 +110,46 @@ export function save() {
   localStorage.setItem(SAVE_FILE, JSON.stringify(saveFile));
 }
 
-export function getFreeSlot(): string {
-  return randomId();
+export function getFreeSlot(): string | false {
+  const slot = saveFile.slots.find((slot) => !slot.saveData);
+  if (slot) {
+    return slot.id;
+  }
+  return false;
 }
 
 export function getSlotIndex(slotId: string) {
-  return saveFile.slots.findIndex((slot) => slot.metadata.id === slotId);
+  return saveFile.slots.findIndex((slot) => slot.id === slotId);
 }
 export function getSaveSlot(slotId: string) {
-  return saveFile.slots.find((slot) => slot.metadata.id === slotId);
+  return saveFile.slots.find((slot) => slot.id === slotId);
 }
 
 export function findAutoSave() {
-  return saveFile.slots.find((slot) => slot.metadata.slotType === 'auto');
+  return saveFile.slots.find((slot) => slot.slotType === 'auto');
 }
 
 export function deleteSave(id: string) {
-  const index = saveFile.slots.findIndex((slot) => slot.metadata.id === id);
-  saveFile.slots.splice(index, 1);
+  const index = saveFile.slots.findIndex((slot) => slot.id === id);
+  saveFile.slots[index].saveData = null;
   save();
 }
 
 export function renameSave(id: string, newName: string) {
   const saveSlot = getSaveSlot(id);
-  if (saveSlot) {
-    saveSlot.metadata.name = newName;
+  if (saveSlot && saveSlot.saveData) {
+    saveSlot.saveData.metadata.name = newName;
   }
   save();
-}
-
-export function migrateSaveSlot(save: GameSave | null, index: number) {
-  if (!save) {
-    return;
-  }
-  if (save.version === '1.0.0') {
-    save.metadata = {
-      saveDate: new Date().toISOString(),
-    } as any;
-    save.version = '1.1.0';
-  }
-  if (save.version === '1.1.0') {
-    const oldSave = save as any;
-    if (oldSave.audio.currentMusic) {
-      const audioSave = defaultAudioSave();
-      audioSave.modes.music.channels[0] = {
-        audio: oldSave.audio.currentMusic,
-        howlerId: 0,
-      };
-      save.audio = audioSave;
-    } else {
-      save.audio = defaultAudioSave();
-    }
-    save.version = '1.2.0';
-  }
-  if (save.version === '1.2.0') {
-    save.metadata.name = `Game Save ${index + 1}`;
-    save.metadata.slotType = 'auto';
-    save.metadata.id = randomId();
-    save.metadata.createdCounter = index;
-    save.version = '1.3.0';
-  }
 }
 
 export function generateMetadata(): SaveSlotMetadata {
   return {
     saveDate: new Date().toISOString(),
     name: 'New Save',
-    slotType: 'auto',
-    id: randomId(),
-    createdCounter: saveFile.slotsCounter + 1,
   };
 }
+
 function defaultAudioSave(): AudioSave {
   const modes = mapObject(audioModes, (mode) => {
     return {
@@ -163,6 +166,5 @@ function defaultAudioSave(): AudioSave {
 }
 
 export type ChosenSlot = {
-  saveData: GameSave | null;
   slotId: string;
 };

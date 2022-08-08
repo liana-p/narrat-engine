@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import { randomId } from '@/utils/randomId';
 import { processText } from '@/utils/string-helpers';
 import { defineStore } from 'pinia';
@@ -37,7 +38,7 @@ export const useDialogStore = defineStore('dialog', {
   actions: {
     generateSaveData(): DialogSave {
       return {
-        dialog: this.dialog,
+        dialog: deepCopy(this.dialog),
       };
     },
     loadSaveData(data: DialogSave) {
@@ -50,6 +51,9 @@ export const useDialogStore = defineStore('dialog', {
         id: randomId(),
         text: processText(dialog.text),
       });
+      if (this.dialog.length > 200) {
+        this.dialog.shift();
+      }
     },
     clearDialog() {
       this.dialog.splice(0, this.dialog.length);

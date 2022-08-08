@@ -54,6 +54,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
+  /* filter: blur(5px); */
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease;
   display: flex;
@@ -73,7 +74,7 @@ export default defineComponent({
   border-radius: 5px;
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
-  background: linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
+  background: var(--modal-background);
   display: flex;
   flex-direction: column;
 }

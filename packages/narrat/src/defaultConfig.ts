@@ -78,6 +78,7 @@ export const defaultConfig: Config = {
     showScriptFinishedMessage: true,
   },
   saves: {
-    mode: 'game-slots',
+    mode: 'manual',
+    slots: 10,
   },
 };

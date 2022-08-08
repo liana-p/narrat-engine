@@ -106,3 +106,19 @@ export function getModifiableDataPinia() {
   });
   return proxy;
 }
+
+export function deepCopy<T>(a: T): T {
+  if (typeof a === 'object') {
+    if (Array.isArray(a)) {
+      return a.map(deepCopy) as any;
+    } else {
+      const b: any = {};
+      for (const key in a) {
+        b[key] = deepCopy(a[key]);
+      }
+      return b;
+    }
+  } else {
+    return a;
+  }
+}

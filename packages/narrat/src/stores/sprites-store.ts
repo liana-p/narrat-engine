@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import { warning } from '@/utils/error-handling';
 import { getImage } from '@/utils/images-loader';
 import { randomId } from '@/utils/randomId';
@@ -81,7 +82,7 @@ export const useSprites = defineStore('sprites', {
     },
     generateSaveData(): SpriteStoreSave {
       return {
-        sprites: this.sprites,
+        sprites: deepCopy(this.sprites),
       };
     },
     loadSaveData(data: SpriteStoreSave) {

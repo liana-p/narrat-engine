@@ -1,6 +1,6 @@
 :root {
   --font-family: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
-  --bg-color: #131720;
+  --bg-color: rgba(19, 23, 32, 0.9);
   --text-color: #d9e1f2;
   --primary: hsl(255, 30%, 55%);
   --focus: hsl(210, 90%, 50%);
@@ -8,7 +8,11 @@
   --border-color: hsla(0, 0%, 100%, 0.2);
   --light-1: hsl(210, 30%, 40%);
   --light-2: hsl(255, 30%, 50%);
-  --light-background: linear-gradient(to right, var(--light-1), var(--light-2));
+  --light-gradient: linear-gradient(to right, var(--light-1), var(--light-2));
+  --light-background: rgba(255, 255, 255, 0.3);
+  --button-background: var(--light-gradient);
+  --button-text-color: var(--text-color);
+  --modal-background: rgba(0, 0, 0, 0.7);
   --shadow-1: hsla(236, 50%, 50%, 0.3);
   --shadow-2: hsla(236, 50%, 50%, 0.4);
   --hud-background: rgba(0, 0, 0, 0.4);
@@ -133,8 +137,8 @@ body {
 }
 
 .button {
-  background: var(--light-background);
-  color: var(--text-color);
+  background: var(--button-background);
+  color: var(--button-text-color);
   box-shadow: 0.4rem 0.5rem 2.4rem 0.2rem var(--shadow-1), inset -2px -4px #0006,
     inset 2px 2px #fff7;
   border-radius: 10px;
@@ -275,7 +279,7 @@ hr.solid {
 }
 
 .card-5 {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.7), 0 15px 12px rgba(0, 0, 0, 0.5);
 }
 
 .dialog-choice {
@@ -436,7 +440,7 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 
 .dialog-transition-enter-active,
 .dialog-transition-leave-active {
-  transition: transform 0.5s ease-out;
+  transition: transform 0.25s ease-out;
 }
 
 .dialog-transition-enter-from,

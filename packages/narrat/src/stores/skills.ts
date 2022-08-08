@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
@@ -63,8 +64,8 @@ export const useSkills = defineStore('skills', {
     },
     generateSaveData(): SkillsSave {
       return {
-        skillChecks: this.skillChecks,
-        skills: this.skills,
+        skillChecks: deepCopy(this.skillChecks),
+        skills: deepCopy(this.skills),
       };
     },
     getSkillCheck(id: string): SkillCheckState {

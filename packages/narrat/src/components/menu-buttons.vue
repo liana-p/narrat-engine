@@ -9,7 +9,7 @@
     >
       {{ buttonConf.text }}
     </button>
-    <Teleport to=".game" v-if="modal">
+    <Teleport to="#app-container" v-if="modal">
       <component :is="componentToShow" @close="() => main.closeModal()" />
     </Teleport>
   </div>

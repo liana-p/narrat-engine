@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import { defineStore } from 'pinia';
 import { getObjectiveConfig, getQuestConfig, QuestData } from '../config';
@@ -161,9 +162,7 @@ export const useQuests = defineStore('quests', {
     },
     generateSaveData(): QuestLogSave {
       return {
-        quests: {
-          ...this.quests,
-        },
+        quests: deepCopy(this.quests),
       };
     },
     loadSaveData(data: QuestLogSave) {

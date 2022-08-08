@@ -4,7 +4,7 @@
   </transition>
   <transition name="dialog-transition">
     <div
-      class="dialog override"
+      class="dialog override card-5"
       ref="dialogRef"
       :style="dialogStyle"
       v-if="inGame && showDialog"
@@ -173,10 +173,17 @@ watch(dialog.value, (newValue) => {
   position: relative;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  /* background: url('dark.webp'); */
   background: var(--bg-color);
 }
 .dialog::-webkit-scrollbar {
   display: none; /* webkit */
+}
+
+.dialog-box {
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  /* border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2); */
 }
 
 .dialog * {

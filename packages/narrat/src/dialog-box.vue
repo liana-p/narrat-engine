@@ -1,5 +1,9 @@
 <template>
-  <div class="dialog-box w-full override" :style="dialogBoxStyle">
+  <div
+    class="dialog-box w-full override"
+    :style="dialogBoxStyle"
+    :class="dialogBoxClass"
+  >
     <div class="dialog-content">
       <span
         class="dialog-title override"
@@ -166,10 +170,13 @@ export default defineComponent({
       const css: any = {
         opacity: (this.options as any)!.old ? '0.7' : '1',
       };
-      if (!(this.options as any)!.title) {
-        css.marginTop = '-20px';
-      }
       return { ...style.boxCss, ...css };
+    },
+    dialogBoxClass() {
+      if (!(this.options as any)!.title) {
+        return 'dialog-box-followup';
+      }
+      return false;
     },
     titleStyle(): any {
       const style = getCharacterStyle((this.options as any)!.styleId);
@@ -257,9 +264,12 @@ export default defineComponent({
   /* border: 1px solid #a8a8a8; */
   color: var(--text-color);
   /* background-color: #2e2e2e; */
-  padding: 10px;
+  margin-top: 15px;
+  padding: 0px 10px;
   padding-left: 2em;
-  margin-bottom: 10px;
+}
+.dialog-box-followup {
+  margin-top: 0px;
 }
 
 .dialog-choice {
