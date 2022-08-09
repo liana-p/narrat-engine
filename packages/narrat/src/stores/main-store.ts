@@ -230,7 +230,6 @@ export const useMain = defineStore('main', {
       }
       this.setSaveSlot(saveSlot);
       this.startMachine();
-      await this.autoSaveGame({ slotId: saveSlot });
       useVM().runGame();
     },
     async loadGame(save: SaveSlot, saveSlot: string) {

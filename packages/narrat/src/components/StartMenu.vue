@@ -123,9 +123,9 @@ function chooseSaveSlot() {
 }
 
 function chosenSave({ slotId }: ChosenSlot) {
-  saveSlot.value = slotId;
-  const saveData = getSaveSlot(slotId);
-  if (saveData) {
+  const slot = getSaveSlot(slotId);
+  if (slot && slot.saveData) {
+    saveSlot.value = slotId;
     loadGame();
   } else {
     startGame();

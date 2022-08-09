@@ -33,7 +33,7 @@
               :key="slot.id"
               :saveSlot="slot"
               :id="slot.id"
-              :actions="slot.saveData ? actions : []"
+              :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
             />
           </transition-group>
@@ -48,7 +48,7 @@
               :key="slot.id"
               :saveSlot="slot"
               :id="slot.id"
-              :actions="slot.saveData ? actions : []"
+              :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
             />
           </transition-group>
