@@ -1,6 +1,6 @@
 import { AppOptions } from '@/types/app-types';
-import { GameSave } from '@/types/game-save';
-import { getFile, loadDataFile } from '@/utils/ajax';
+import { GameSave, SaveSlot } from '@/types/game-save';
+import { loadDataFile } from '@/utils/ajax';
 import { audioEvent, loadAudioAssets } from '@/utils/audio-loader';
 import { setCharactersConfig } from '@/utils/characters';
 import { loadImages } from '@/utils/images-loader';
@@ -11,7 +11,6 @@ import {
   CURRENT_SAVE_VERSION,
   findAutoSave,
   generateMetadata,
-  getSaveFile,
   getSaveSlot,
   saveSlot,
   setSaveSlot,
@@ -226,7 +225,7 @@ export const useMain = defineStore('main', {
       if (getConfig().saves.mode === 'manual') {
         const autosave = findAutoSave();
         if (autosave) {
-          saveSlot = autosave.metadata.id;
+          saveSlot = autosave.id;
         }
       }
       this.setSaveSlot(saveSlot);
@@ -234,26 +233,20 @@ export const useMain = defineStore('main', {
       await this.autoSaveGame({ slotId: saveSlot });
       useVM().runGame();
     },
-    async loadGame(save: GameSave, saveSlot: string) {
+    async loadGame(save: SaveSlot, saveSlot: string) {
       if (getConfig().saves.mode === 'manual') {
         const autosave = findAutoSave();
         if (autosave) {
-          saveSlot = autosave.metadata.id;
+          saveSlot = autosave.id;
         }
       }
       this.setSaveSlot(saveSlot);
       this.startMachine();
-      if (save) {
-        this.setLoadedData(save);
-        useAudio().reloadAudio(save.audio);
+      if (save.saveData) {
+        this.setLoadedData(save.saveData);
+        useAudio().reloadAudio(save.saveData.audio);
         const vm = useVM();
-        vm.jumpToLabel(save.vm.lastLabel);
-      }
-      if (getConfig().saves.mode === 'manual') {
-        const autosave = findAutoSave();
-        if (autosave) {
-          this.setSaveSlot(autosave.metadata.id);
-        }
+        vm.jumpToLabel(save.saveData.vm.lastLabel);
       }
     },
     manualSave({
@@ -298,13 +291,8 @@ export const useMain = defineStore('main', {
             },
             metadata: {
               ...this.saveData.metadata,
-              id: slotData.slotId,
-              name:
-                this.saving?.name ??
-                `Manual Save #${getSaveFile().slotsCounter + 1}`,
-              slotType: 'manual',
+              name: this.saving?.name ?? `Manual Save`,
               saveDate: new Date().toISOString(),
-              createdCounter: getSaveFile().slotsCounter + 1,
             },
           },
           slotData.slotId,
@@ -419,17 +407,14 @@ export const useMain = defineStore('main', {
       const slot = slotId ?? this.saveSlot;
       const existingSave = getSaveSlot(slot);
       const metadata = generateMetadata();
-      if (existingSave) {
-        metadata.name = existingSave.metadata.name;
-        metadata.slotType = existingSave.metadata.slotType;
+      if (existingSave && existingSave.saveData) {
+        metadata.name = existingSave.saveData.metadata.name;
       } else {
-        metadata.name = name ?? `Autosave ${getSaveFile().slotsCounter + 1}`;
+        metadata.name = name ?? `Auto Save`;
       }
       if (getConfig().saves.mode === 'manual') {
-        metadata.name = 'Autosave';
-        metadata.createdCounter = 0;
+        metadata.name = 'Auto Save';
       }
-      metadata.id = slot;
       const screensStore = useScreens();
       const skillsStore = useSkills();
       const dialogStore = useDialogStore();

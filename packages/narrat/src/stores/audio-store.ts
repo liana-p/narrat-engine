@@ -1,5 +1,6 @@
 import { getConfig } from '@/config';
 import { getAudio, stopHowlerById } from '@/utils/audio-loader';
+import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import { timeout } from '@/utils/promises';
 import { generateObjectFromList } from '@/utils/type-utils';
@@ -30,7 +31,14 @@ export interface AudioState {
 
 export type AudioSave = {
   modes: {
-    [key: string]: AudioModeState;
+    [key: string]: {
+      channels: Array<{
+        audio: string;
+      } | null>;
+      options: {
+        volume: number;
+      };
+    };
   };
   masterVolume: number;
 };
@@ -190,7 +198,6 @@ export const useAudio = defineStore('audio', {
           const sound = save.modes[channel].channels[index];
           if (sound) {
             this.actuallyPlayChannel(channel, Number(index), sound.audio);
-            this.setAudioChannel(channel, Number(index), sound);
           }
         }
       }
@@ -202,12 +209,21 @@ export const useAudio = defineStore('audio', {
       }
     },
     generateSaveData(): AudioSave {
-      const channels: AudioSave['modes'] = {};
+      const modes: AudioSave['modes'] = {} as any;
       for (const key in audioModes) {
-        channels[key] = this.modes.get(key as AudioModeKey)!;
+        const mode = this.modes.get(key as AudioModeKey);
+        modes[key] = {
+          options: deepCopy(mode!.options),
+          channels: deepCopy(mode!.channels).map((channel) => {
+            if (!channel) {
+              return null;
+            }
+            return { audio: channel.audio };
+          }),
+        };
       }
       return {
-        modes: channels,
+        modes,
         masterVolume: this.masterVolume,
       };
     },

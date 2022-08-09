@@ -30,6 +30,9 @@ checkpoint:
   save_prompt
   jump $checkpoint.after_save
 
+save:
+  save_prompt
+
 transitions_test:
   set_screen default
   "normal set screen:"

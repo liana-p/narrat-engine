@@ -1,9 +1,5 @@
 <template>
-  <modal
-    @close="tryToClose"
-    containerCssClass="save-modal"
-    :cantClose="props.mode === 'pick'"
-  >
+  <modal @close="tryToClose" containerCssClass="save-modal" :cantClose="false">
     <template v-slot:header>
       <h3 class="title">
         {{
@@ -14,20 +10,49 @@
       </h3>
     </template>
     <template v-slot:body>
-      <div class="flex justify-center">
-        <button class="button" @click="chooseNewSlot">Create a new save</button>
+      <!-- Manual Saves -->
+      <div v-if="saveMode === 'manual'">
+        <div class="saves-section">
+          <h3 class="saves-section-title">Auto save</h3>
+          <transition-group name="list" tag="div">
+            <SaveSlotUi
+              v-for="slot in autoSlots"
+              :key="slot.id"
+              :saveSlot="slot"
+              :id="slot.id"
+              :actions="actions"
+              @choice="(choice) => slotChosen(slot.id, choice)"
+            />
+          </transition-group>
+        </div>
+        <div class="saves-section">
+          <h3 class="saves-section-title">Manual Saves</h3>
+          <transition-group name="list" tag="div">
+            <SaveSlotUi
+              v-for="slot in manualSlots"
+              :key="slot.id"
+              :saveSlot="slot"
+              :id="slot.id"
+              :actions="slot.saveData ? actions : []"
+              @choice="(choice) => slotChosen(slot.id, choice)"
+            />
+          </transition-group>
+        </div>
       </div>
-      <div class="saves-container flex flex-col">
-        <transition-group name="list" tag="div">
-          <SaveSlot
-            v-for="slot in saveSlots"
-            :key="slot.metadata.id"
-            :saveSlot="slot"
-            :id="slot.metadata.id"
-            :actions="actions"
-            @choice="(choice) => slotChosen(slot.metadata.id, choice)"
-          />
-        </transition-group>
+      <div v-else class="saves-section">
+        <h3 class="saves-section-title">Save Slots</h3>
+        <div class="saves-container flex flex-col">
+          <transition-group name="list" tag="div">
+            <SaveSlotUi
+              v-for="slot in saveSlots"
+              :key="slot.id"
+              :saveSlot="slot"
+              :id="slot.id"
+              :actions="slot.saveData ? actions : []"
+              @choice="(choice) => slotChosen(slot.id, choice)"
+            />
+          </transition-group>
+        </div>
       </div>
       <YesNo
         v-if="deleteConfirmation.saveToDelete"
@@ -46,16 +71,11 @@
 </template>
 
 <script setup lang="ts">
-import { GameSave, SaveFile } from '../types/game-save';
-import {
-  ChosenSlot,
-  deleteSave,
-  getSaveFile,
-  getFreeSlot,
-} from '../utils/save-helpers';
+import { SaveSlot } from '../types/game-save';
+import { ChosenSlot, deleteSave, getSaveFile } from '../utils/save-helpers';
 import { computed, onMounted, PropType, reactive } from 'vue';
 import Modal from './utils/modal-window.vue';
-import SaveSlot from './saves/save-slot.vue';
+import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
 import { getConfig } from '../config';
 import { useMain } from '../stores/main-store';
@@ -67,10 +87,14 @@ const props = defineProps({
   },
 });
 
-const saveSlots = reactive<GameSave[]>([] as GameSave[]);
+const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
+const autoSlots = computed(() => saveSlots.slice(0, 1));
+const manualSlots = computed(() => saveSlots.slice(1));
+
 const actions = reactive(
   props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
 );
+const saveMode = computed(() => getConfig().saves.mode);
 const deleteConfirmation = reactive({
   prompt: 'Are you sure you want to delete this save file?',
   saveToDelete: null,
@@ -96,15 +120,8 @@ const saveConfirmation = reactive({
 
 const emit = defineEmits(['chosen', 'close']);
 onMounted(() => {
-  let slots: GameSave[] = getSaveFile().slots.sort((a, b) => {
-    return (
-      new Date(b.metadata.saveDate).getTime() -
-      new Date(a.metadata.saveDate).getTime()
-    );
-  });
-  if (props.mode === 'pick') {
-    slots = slots.filter((slot) => slot.metadata.slotType !== 'auto');
-  }
+  const saveFile = getSaveFile();
+  const slots: SaveSlot[] = saveFile.slots;
   console.log(slots);
   slots.forEach((slot, index) => {
     saveSlots[index] = slot;
@@ -112,13 +129,14 @@ onMounted(() => {
   // Extra slot push to create a new save slot
 });
 
-function chooseNewSlot() {
-  const slotId = getFreeSlot();
-  chooseSaveSlot(slotId);
-}
+// function chooseNewSlot() {
+//   const slotId = getFreeSlot();
+//   if (slotId) {
+//     chooseSaveSlot(slotId);
+//   }
+// }
 function chooseSaveSlot(slotId: string) {
   const emitData: ChosenSlot = {
-    saveData: getSlotById(slotId)!,
     slotId,
   };
   emit('chosen', emitData);
@@ -129,7 +147,7 @@ function deleteSaveSlot(slotId: string) {
   if (saveToDelete) {
     const saveMode = getConfig().saves.mode;
     if (saveMode === 'manual') {
-      if (saveToDelete.metadata.slotType === 'auto') {
+      if (saveToDelete.slotType === 'auto') {
         useMain().alert('Sorry', `Can't delete the auto save slot!`);
         return;
       }
@@ -140,14 +158,14 @@ function deleteSaveSlot(slotId: string) {
 
 function actuallyDeleteSaveSlot(slotId: string) {
   deleteSave(slotId);
-  const index = saveSlots.findIndex((slot) => slot.metadata.id === slotId);
-  saveSlots.splice(index, 1);
+  const slot = saveSlots.find((slot) => slot.id === slotId);
+  if (slot) {
+    slot.saveData = null;
+  }
 }
 
 function tryToClose() {
-  if (props.mode !== 'pick') {
-    emit('close');
-  }
+  emit('close');
 }
 function slotChosen(id: string, choice: number) {
   const action = actions[choice];
@@ -161,12 +179,22 @@ function slotChosen(id: string, choice: number) {
 }
 
 function getSlotById(id: string) {
-  return saveSlots.find((slot) => slot.metadata.id === id);
+  return saveSlots.find((slot) => slot.id === id);
 }
 </script>
 <style>
 .save-modal {
   width: 70%;
+}
+
+.saves-section {
+  margin-bottom: 20px;
+}
+
+.saves-section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 .saves-container {
   padding: 20px;

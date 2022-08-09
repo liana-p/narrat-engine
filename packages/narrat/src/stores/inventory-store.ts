@@ -1,5 +1,6 @@
 // create a pinia store named inventory with a state containing items and actions to add and delete items
 
+import { deepCopy } from '@/utils/data-helpers';
 import { defineStore } from 'pinia';
 import { getConfig, getItemConfig, ItemData } from '../config';
 import { useNotifications } from './notification-store';
@@ -32,8 +33,8 @@ export const useInventory = defineStore('inventory', {
   actions: {
     generateSaveData(): InventorySave {
       return {
-        items: this.items,
-        interactionTags: this.interactionTags,
+        items: deepCopy(this.items),
+        interactionTags: deepCopy(this.interactionTags),
       };
     },
     loadSaveData(save: InventorySave) {

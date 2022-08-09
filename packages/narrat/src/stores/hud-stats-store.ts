@@ -1,3 +1,4 @@
+import { deepCopy } from '@/utils/data-helpers';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
 import { HudStatConfig } from '../config';
@@ -47,7 +48,7 @@ export const useHud = defineStore('hud', {
     },
     generateSaveData(): HudSave {
       return {
-        hudStats: this.hudStats,
+        hudStats: deepCopy(this.hudStats),
       };
     },
     loadSaveData(data: HudSave) {

@@ -9,6 +9,12 @@ import { SkillsSave } from '@/stores/skills';
 import { SpriteStoreSave } from '@/stores/sprites-store';
 import { VMSave } from '@/stores/vm-store';
 
+export interface SaveSlot {
+  slotType: 'manual' | 'auto';
+  id: string;
+  saveData: GameSave | null;
+  slotNumber: number;
+}
 export type GameSave = {
   version: string;
   skills: SkillsSave;
@@ -27,26 +33,11 @@ export type GameSave = {
 export interface SaveSlotMetadata {
   saveDate: string;
   name: string;
-  slotType: 'manual' | 'auto';
-  id: string;
-  createdCounter: number;
 }
 
-export type StoredSaveFile = SaveFile | GameSave;
+export type StoredSaveFile = SaveFile;
 export type SaveFile = {
-  slots: Array<GameSave>;
+  version: string;
+  slots: Array<SaveSlot>;
   lastSaveSlot?: string;
-  slotsCounter: number;
 };
-
-export function isOldSave(save: StoredSaveFile): save is GameSave {
-  if (typeof save === 'object') {
-    const saveTest = save as any;
-    if (saveTest.version || !saveTest.slots) {
-      return true;
-    } else if (saveTest.slots) {
-      return false;
-    }
-  }
-  throw new Error('Invalid save file');
-}

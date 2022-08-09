@@ -1,24 +1,26 @@
 <template>
-  <div id="app" :style="appStyle">
-    <EngineSplash
-      v-if="flowState === 'engine-splash'"
-      @finished="engineSplashDone"
-    />
-    <Transition name="screens-fade" v-else>
-      <GameSplash key="1" v-if="flowState === 'game-splash'" />
-      <StartMenu key="2" v-else-if="flowState === 'menu'" />
-      <InGame key="3" v-else-if="flowState === 'playing'" />
-    </Transition>
+  <div id="app-container" :style="appStyle">
+    <div id="app" :class="appClass">
+      <EngineSplash
+        v-if="flowState === 'engine-splash'"
+        @finished="engineSplashDone"
+      />
+      <Transition name="screens-fade" v-else>
+        <GameSplash key="1" v-if="flowState === 'game-splash'" />
+        <StartMenu key="2" v-else-if="flowState === 'menu'" />
+        <InGame key="3" v-else-if="flowState === 'playing'" />
+      </Transition>
 
-    <DebugMenu v-if="options!.debug" />
-    <NotificationToast />
-    <AlertModal
-      v-for="alert in alerts"
-      :key="alert.id"
-      :title="alert.title"
-      :text="alert.text"
-      @close="() => closeAlert(alert.id)"
-    />
+      <DebugMenu v-if="options!.debug" />
+      <NotificationToast />
+      <AlertModal
+        v-for="alert in alerts"
+        :key="alert.id"
+        :title="alert.title"
+        :text="alert.text"
+        @close="() => closeAlert(alert.id)"
+      />
+    </div>
   </div>
 </template>
 
@@ -117,6 +119,12 @@ export default defineComponent({
         height: `${this.actualGameHeight}px`,
       };
     },
+    appClass(): any {
+      if (useMain().modal) {
+        return 'app-blurred-by-modal';
+      }
+      return {};
+    },
   },
 
   methods: {
@@ -137,7 +145,7 @@ export default defineComponent({
 </script>
 
 <style>
-#app {
+#app-container {
   background-color: var(--bg-color);
   width: 100%;
   height: 100%;
@@ -150,6 +158,24 @@ export default defineComponent({
   box-sizing: border-box;
   overflow: hidden;
   transform-origin: center center;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  box-sizing: border-box;
+  overflow: hidden;
+  transform-origin: center center;
+}
+
+.app-blurred-by-modal {
+  filter: blur(5px);
 }
 
 .interact-button {
