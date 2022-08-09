@@ -1,6 +1,6 @@
 # Narrat changelog
 
-## [2.6.0] New save system
+## [2.6.0] New save system and improved default CSS design
 
 The save system has been reworked to be easier to understand and less buggy.
 
@@ -23,6 +23,18 @@ The rest of the saving system functions as it used to.
 ### Bug fixes
 
 Some issues with how data was saved (especially when not reloading the page) were identified and fixed.
+
+### CSS Design
+
+The default CSS design has been improved to look nicer. It's mostly changes to default color so it shouldn't impact existing games much. A few new CSS variables have been added to make customising buttons and modals easier:
+
+```css
+  --light-gradient: linear-gradient(to right, var(--light-1), var(--light-2));
+   --light-background: rgba(255, 255, 255, 0.3);
+   --button-background: var(--light-gradient);
+   --button-text-color: var(--text-color);
+   --modal-background: rgba(0, 0, 0, 0.7);
+```
 
 ## [2.5.1] Button improvements
 
