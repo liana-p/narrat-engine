@@ -1,6 +1,6 @@
 import { AppOptions } from '@/types/app-types';
 import { GameSave, SaveSlot } from '@/types/game-save';
-import { getFile, loadDataFile } from '@/utils/ajax';
+import { loadDataFile } from '@/utils/ajax';
 import { audioEvent, loadAudioAssets } from '@/utils/audio-loader';
 import { setCharactersConfig } from '@/utils/characters';
 import { loadImages } from '@/utils/images-loader';
@@ -11,10 +11,8 @@ import {
   CURRENT_SAVE_VERSION,
   findAutoSave,
   generateMetadata,
-  getSaveFile,
   getSaveSlot,
   saveSlot,
-  screenshotForSave,
   setSaveSlot,
 } from '@/utils/save-helpers';
 import { getPlayTime } from '@/utils/time-helpers';
