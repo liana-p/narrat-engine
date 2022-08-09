@@ -1,5 +1,29 @@
 # Narrat changelog
 
+## [2.6.0] New save system
+
+The save system has been reworked to be easier to understand and less buggy.
+
+⚠️ Breaking Change: Because there are no existing games with saves out there, migration code for previous save file versions has been deleted to start from a clean slate. This means old versions of save will be automatically reset (or potentially break) when updating the engine.
+
+### Fixed save slots amount
+
+The new system has a fixed amount of save slots allocated to a game, defined in the save part of the config.
+
+In manual mode, one of those slots is the auto save and the others are for manual saves the players may create. In `game-slots` mode, each slot corresponds to a playthrough, like before.
+
+```yaml
+saves:
+  mode: manual
+  slots: 10
+```
+
+The rest of the saving system functions as it used to.
+
+### Bug fixes
+
+Some issues with how data was saved (especially when not reloading the page) were identified and fixed.
+
 ## [2.5.1] Button improvements
 
 ### Button text string interpolation
