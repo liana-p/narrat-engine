@@ -28,7 +28,8 @@ export function getSaveFile(): SaveFile {
         storedSaveFile &&
         typeof storedSaveFile === 'object' &&
         storedSaveFile.slots &&
-        storedSaveFile!.slots[0]
+        storedSaveFile!.slots[0] &&
+        storedSaveFile!.slots[0].id
       ) {
         // It worked
       } else {

@@ -16,7 +16,7 @@
           <h3 class="saves-section-title">Auto save</h3>
           <transition-group name="list" tag="div">
             <SaveSlotUi
-              v-for="slot in saveSlots.slice(0, 1)"
+              v-for="slot in autoSlots"
               :key="slot.id"
               :saveSlot="slot"
               :id="slot.id"
@@ -29,11 +29,11 @@
           <h3 class="saves-section-title">Manual Saves</h3>
           <transition-group name="list" tag="div">
             <SaveSlotUi
-              v-for="slot in saveSlots.slice(1)"
+              v-for="slot in manualSlots"
               :key="slot.id"
               :saveSlot="slot"
               :id="slot.id"
-              :actions="actions"
+              :actions="slot.saveData ? actions : []"
               @choice="(choice) => slotChosen(slot.id, choice)"
             />
           </transition-group>
@@ -48,7 +48,7 @@
               :key="slot.id"
               :saveSlot="slot"
               :id="slot.id"
-              :actions="actions"
+              :actions="slot.saveData ? actions : []"
               @choice="(choice) => slotChosen(slot.id, choice)"
             />
           </transition-group>
@@ -88,6 +88,9 @@ const props = defineProps({
 });
 
 const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
+const autoSlots = computed(() => saveSlots.slice(0, 1));
+const manualSlots = computed(() => saveSlots.slice(1));
+
 const actions = reactive(
   props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
 );
