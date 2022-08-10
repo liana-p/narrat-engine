@@ -29,16 +29,17 @@ export interface AudioState {
   masterVolume: number;
 }
 
+export interface AudioSaveMode {
+  channels: Array<{
+    audio: string | null;
+  }>;
+  options: {
+    volume: number;
+  };
+}
 export type AudioSave = {
   modes: {
-    [key: string]: {
-      channels: Array<{
-        audio: string | null;
-      }>;
-      options: {
-        volume: number;
-      };
-    };
+    [key: string]: AudioSaveMode;
   };
   masterVolume: number;
 };

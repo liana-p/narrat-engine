@@ -1,6 +1,11 @@
 import { getConfig } from '@/config';
 import { SAVE_FILE } from '@/constants';
-import { audioModes, AudioModeState, AudioSave } from '@/stores/audio-store';
+import {
+  audioModes,
+  AudioModeState,
+  AudioSave,
+  AudioSaveMode,
+} from '@/stores/audio-store';
 import {
   GameSave,
   SaveFile,
@@ -158,7 +163,7 @@ function defaultAudioSave(): AudioSave {
       options: {
         volume: 1,
       },
-    } as AudioModeState;
+    } as AudioSaveMode;
   });
   return {
     modes,
