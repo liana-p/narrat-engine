@@ -160,6 +160,9 @@ export const useScreens = defineStore('screens', {
     },
     loadSaveData(data: ScreenSave) {
       this.layers = data.layers.map((layer) => {
+        if (layer !== null && typeof layer !== 'string') {
+          layer = null;
+        }
         return { screen: layer };
       });
       this.buttons = deepmerge(this.buttons, data.buttons);
