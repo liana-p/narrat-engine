@@ -1,7 +1,7 @@
 import { getConfig } from '@/config';
 import { getAudio, stopHowlerById } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
-import { error } from '@/utils/error-handling';
+import { error, warning } from '@/utils/error-handling';
 import { timeout } from '@/utils/promises';
 import { generateObjectFromList } from '@/utils/type-utils';
 import { Howler } from 'howler';
@@ -33,8 +33,8 @@ export type AudioSave = {
   modes: {
     [key: string]: {
       channels: Array<{
-        audio: string;
-      } | null>;
+        audio: string | null;
+      }>;
       options: {
         volume: number;
       };
@@ -108,6 +108,10 @@ export const useAudio = defineStore('audio', {
       audio.pause(audioChannel.howlerId);
     },
     async playChannel(mode: AudioModeKey, audio: string, channelIndex: number) {
+      if (Howler.ctx.state === 'suspended') {
+        console.warn('Audio context not started yet, skipping audio');
+        return;
+      }
       const audioChannel = this.getAudioChannel(mode, channelIndex);
       if (mode === 'sound') {
         return this.actuallyPlayChannel(mode, channelIndex, audio);
@@ -193,10 +197,12 @@ export const useAudio = defineStore('audio', {
           continue;
         }
         const channel = key as AudioModeKey;
-        this.modes.get(channel)!.options = save.modes[channel].options;
+        this.modes.get(channel)!.options = deepCopy(
+          save.modes[channel].options,
+        );
         for (const index in save.modes[channel].channels) {
           const sound = save.modes[channel].channels[index];
-          if (sound) {
+          if (sound && sound.audio) {
             this.actuallyPlayChannel(channel, Number(index), sound.audio);
           }
         }
@@ -216,7 +222,7 @@ export const useAudio = defineStore('audio', {
           options: deepCopy(mode!.options),
           channels: deepCopy(mode!.channels).map((channel) => {
             if (!channel) {
-              return null;
+              return { audio: null };
             }
             return { audio: channel.audio };
           }),

@@ -3,7 +3,14 @@ main:
   add_item book 1
   "hello world"
   set shopButtonName "Great Shop"
-  jump quest_demo
+  jump test_audio
+
+test_audio:
+  play music battle
+  "Music playing"
+  stop music 0
+  "Music stopped"
+  jump main
 
 test_clickthrough:
   set_button shopButton true

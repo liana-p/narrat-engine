@@ -1,6 +1,6 @@
 import { Config, MusicConfig, AudioConfig, getAssetUrl } from '../config';
 import { Howl, Howler } from 'howler';
-import { error } from './error-handling';
+import { error, warning } from './error-handling';
 import { logger } from './logger';
 import { useAudio } from '@/stores/audio-store';
 
@@ -81,7 +81,7 @@ export async function loadAudio(
 export function stopHowlerById(musicKey: string, howlerId: number) {
   const audio = getAudio(musicKey);
   if (!audio) {
-    error(`Could not find music ${musicKey}`);
+    warning(`Could not find music ${musicKey}`);
     return;
   }
   audio.stop(howlerId);
