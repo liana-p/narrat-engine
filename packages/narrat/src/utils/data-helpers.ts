@@ -108,6 +108,9 @@ export function getModifiableDataPinia() {
 }
 
 export function deepCopy<T>(a: T): T {
+  if (a === null) {
+    return null as any;
+  }
   if (typeof a === 'object') {
     if (Array.isArray(a)) {
       const b: any = [];

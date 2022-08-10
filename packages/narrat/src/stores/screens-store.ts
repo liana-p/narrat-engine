@@ -21,7 +21,7 @@ export interface FullLayerState {
   transition?: TransitionState;
 }
 
-export type LayerState = FullLayerState | undefined;
+export type LayerState = FullLayerState;
 export interface ScreenState {
   layers: LayerState[];
   buttons: ButtonsState;

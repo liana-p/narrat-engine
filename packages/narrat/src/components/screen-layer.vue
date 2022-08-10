@@ -40,6 +40,7 @@ import { useInventory } from '@/stores/inventory-store';
 import { SpriteState, useSprites } from '@/stores/sprites-store';
 import { processText } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
+import { error } from '@/utils/error-handling';
 
 const props = defineProps({
   layer: String,
@@ -71,7 +72,8 @@ const buttonsState = computed(() => {
 const screenConfig = computed(() => {
   const conf = getConfig().screens[currentScreen.value];
   if (!conf) {
-    throw new Error(`Screen ${currentScreen.value} doesn't have a config`);
+    console.log(currentScreen);
+    error(`Screen ${currentScreen.value} doesn't have a config`);
   }
   return conf;
 });
