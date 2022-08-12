@@ -3,7 +3,19 @@ main:
   add_item book 1
   "hello world"
   set shopButtonName "Great Shop"
-  jump quest_demo
+  jump test_skills_reset
+
+test_skills_reset:
+  choice:
+    "Skill check test"
+    roll testSkillsReset agility 50 "Test this skill roll" repeatable:
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "Other choice":
+      "Other choice"
+  jump main
 
 test_audio:
   play music battle

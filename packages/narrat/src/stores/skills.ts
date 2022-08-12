@@ -62,6 +62,11 @@ export const useSkills = defineStore('skills', {
         this.skillChecks[skillCheckId].hidden = true;
       }
     },
+    resetSkillCheck(skillCheckId: string) {
+      this.skillChecks[skillCheckId].happened = false;
+      this.skillChecks[skillCheckId].succeeded = false;
+      this.skillChecks[skillCheckId].hidden = false;
+    },
     generateSaveData(): SkillsSave {
       return {
         skillChecks: deepCopy(this.skillChecks),

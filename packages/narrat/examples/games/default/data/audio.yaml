@@ -14,7 +14,6 @@ files:
   success:
     src: audio/success.wav
 options:
-  defaultMusic: calm
   volume: 0.5
   musicFadeInTime: 0.5
   musicFadeInDelay: 0.5

@@ -1,5 +1,48 @@
 # Narrat changelog
 
+## [2.6.4] Repeatable skill rolls
+
+A skill roll can now be tagged as repeatable:
+
+```narrat
+main:
+  jump test_skills_reset
+
+test_skills_reset:
+  choice:
+    "Skill check test"
+    roll testSkillsReset agility 50 "Test this skill roll" repeatable: // The "repeatable" tag here will allow players to retry the roll
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "Other choice":
+      "Other choice"
+  jump main
+```
+
+When a roll is repeatable, the player will be allowed to keep trying it every time they come across it, even if it has failed before. If it has already succeeded, it will be skipped as usual
+
+There is also0 a `reset_roll` function to programmatically reset a skill check in the script, for more granular control:
+
+```narrat
+main:
+  jump test_skills_reset
+
+test_skills_reset:
+  choice:
+    "Skill check test"
+    roll testSkillsReset agility 50 "Test this skill roll":
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "Other choice":
+      "Other choice"
+  reset_roll testSkillsReset // This will completely reset the state of the skill roll, no matter if it failed or not
+  jump main
+```
+
 ## [2.6.2]
 
 Fixed a bug with reloading audio saves when audio was previously stopped
