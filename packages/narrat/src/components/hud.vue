@@ -39,7 +39,10 @@ export default defineComponent({
     hudStyle(): any {
       let right = '0';
       if (this.layoutMode === 'horizontal') {
-        right = `${getConfig().layout.minTextWidth}px`;
+        right = `${
+          getConfig().layout.minTextWidth +
+          (getConfig().layout.dialogPanel?.rightOffset ?? 0)
+        }px`;
       }
       return {
         right,

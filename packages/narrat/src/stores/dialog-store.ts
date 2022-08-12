@@ -26,8 +26,7 @@ export interface DialogChoice {
 
 type DialogState = {
   dialog: DialogKey[];
-  autoPlay: boolean;
-  skip: boolean;
+  playMode: 'auto' | 'skip' | 'normal';
 };
 export type DialogSave = Pick<DialogState, 'dialog'>;
 
@@ -36,8 +35,7 @@ export const useDialogStore = defineStore('dialog', {
   state: () =>
     ({
       dialog: [],
-      autoPlay: false,
-      skip: false,
+      playMode: 'normal',
     } as DialogState),
   actions: {
     generateSaveData(): DialogSave {
@@ -59,13 +57,18 @@ export const useDialogStore = defineStore('dialog', {
         this.dialog.shift();
       }
     },
+    toggleAutoPlay() {
+      this.playMode = this.playMode === 'auto' ? 'normal' : 'auto';
+    },
+    toggleSkip() {
+      this.playMode = this.playMode === 'skip' ? 'normal' : 'skip';
+    },
     clearDialog() {
       this.dialog.splice(0, this.dialog.length);
     },
     reset() {
       this.dialog = [];
-      this.autoPlay = false;
-      this.skip = false;
+      this.playMode = 'normal';
     },
   },
   getters: {

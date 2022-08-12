@@ -10,6 +10,7 @@
       @chosen="chosenSave"
       @close="() => chosenSave(null)"
     />
+    <AutoPlayFeedback />
     <YesNo
       v-if="
         savingRequested && savingRequested.withPrompt && agreedToSave === null
@@ -26,12 +27,13 @@ import GameDialog from './game-dialog.vue';
 import MenuButtons from './menu-buttons.vue';
 import Screens from './screens.vue';
 import { useMain } from '../stores/main-store';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRenderingStore } from '../stores/rendering-store';
 import { ChosenSlot } from '../utils/save-helpers';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import Hud from './hud.vue';
+import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 import { useDialogStore } from '@/stores/dialog-store';
 import { inputEvents } from '@/utils/InputsListener';
 
@@ -81,12 +83,18 @@ function saveRefuse() {
 onMounted(() => {
   keyboardListener.value = inputEvents.on('debouncedKeydown', (e) => {
     if (e.key === 'a') {
-      dialog.autoPlay = !dialog.autoPlay;
+      dialog.toggleAutoPlay();
     }
     if (e.key === 's') {
-      dialog.skip = !dialog.skip;
+      dialog.toggleSkip();
     }
   });
+});
+
+onUnmounted(() => {
+  if (keyboardListener.value) {
+    inputEvents.off('debouncedKeydown', keyboardListener.value as any);
+  }
 });
 </script>
 <style>

@@ -65,7 +65,7 @@
 import { mapState } from 'pinia';
 import { defineComponent, PropType } from 'vue';
 import { getConfig } from './config';
-import { DialogChoice } from './stores/dialog-store';
+import { DialogChoice, useDialogStore } from './stores/dialog-store';
 import { useMain } from './stores/main-store';
 import { DialogStyle } from './types/character-types';
 import { DialogBoxParameters } from './types/dialog-box-types';
@@ -91,6 +91,9 @@ export default defineComponent({
       timeout: null as any,
       textAnimation: null as null | TextAnimation,
       mounted: false,
+      autoTimer: null as null | NodeJS.Timer,
+      skipTimer: null as null | NodeJS.Timer,
+      nextLineTimer: null as null | NodeJS.Timer,
     };
   },
 
@@ -108,7 +111,7 @@ export default defineComponent({
   },
   unmounted() {
     this.clearListeners();
-    this.endTextAnimation();
+    this.endTextAnimation({ unmounted: true });
   },
   computed: {
     ...mapState(useMain, ['paused']),
@@ -128,6 +131,9 @@ export default defineComponent({
         opacity: (this.options as any)!.old ? '0.7' : '1',
       };
       return { ...style.boxCss, ...css };
+    },
+    isBasicChoice() {
+      return !this.choices && !this.options.textField;
     },
     dialogBoxClass() {
       if (!(this.options as any)!.title) {
@@ -157,11 +163,15 @@ export default defineComponent({
       }
       return undefined;
     },
+    skipping() {
+      return useDialogStore().playMode === 'skip';
+    },
     canInteract(): boolean {
       return (
         this.active &&
         this.mounted &&
         !this.passed &&
+        !this.nextLineTimer &&
         !this.textAnimation &&
         (this.options as any).interactive &&
         !this.paused
@@ -171,7 +181,12 @@ export default defineComponent({
   watch: {
     options(newOptions, oldOptions) {
       if (!oldOptions.old && newOptions.old && this.textAnimation) {
-        this.endTextAnimation();
+        this.endTextAnimation({ unmounted: true });
+      }
+    },
+    skipping(newValue, oldValue) {
+      if (newValue && !oldValue) {
+        this.startSkip();
       }
     },
   },
@@ -186,6 +201,11 @@ export default defineComponent({
         this.timeout = null;
       }
     },
+    next() {
+      if (!this.passed) {
+        this.chooseOption(0);
+      }
+    },
     chooseOption(choice: DialogChoice | number) {
       this.finishLine();
       let choiceValue: number;
@@ -198,6 +218,7 @@ export default defineComponent({
     },
     finishLine() {
       this.clearListeners();
+      this.endTextAnimation({ unmounted: true });
       this.passed = true;
     },
     dialogStyle(choice: DialogChoice) {
@@ -229,7 +250,12 @@ export default defineComponent({
       return text.length;
     },
     startTextAnimation() {
-      if (getConfig().dialoguePanel.animateText && !this.options.old) {
+      if (this.options.old) {
+        return;
+      }
+      if (useDialogStore().playMode === 'skip') {
+        this.startSkip();
+      } else if (getConfig().dialoguePanel.animateText) {
         this.textAnimation = {
           text: '',
           index: 0,
@@ -243,6 +269,22 @@ export default defineComponent({
         anim.timer = setInterval(() => {
           this.updateTextAnimation();
         }, 30);
+      } else if (useDialogStore().playMode !== 'auto' && this.isBasicChoice) {
+        this.autoTimer = setTimeout(() => {
+          this.endTextAnimation();
+        }, (getConfig().dialoguePanel?.textSpeed ?? 20) * this.options.text.length);
+      }
+    },
+    startSkip() {
+      if (useDialogStore().playMode === 'skip' && !this.options.old) {
+        if (this.isBasicChoice) {
+          this.skipTimer = setTimeout(() => {
+            this.endTextAnimation();
+          }, 100);
+        } else {
+          useDialogStore().toggleSkip();
+          this.endTextAnimation({ unmounted: true });
+        }
       }
     },
     updateTextAnimation() {
@@ -276,10 +318,39 @@ export default defineComponent({
         this.endTextAnimation();
       }
     },
-    endTextAnimation() {
+    endTextAnimation({
+      unmounted,
+      pressedSpace,
+    }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
       if (this.textAnimation) {
-        clearInterval(this.textAnimation.timer!);
+        if (this.textAnimation.timer) {
+          clearInterval(this.textAnimation.timer);
+        }
         this.textAnimation = null;
+      }
+      if (this.autoTimer && !pressedSpace) {
+        clearTimeout(this.autoTimer);
+      }
+      if (this.skipTimer) {
+        clearTimeout(this.skipTimer);
+      }
+      if (this.nextLineTimer) {
+        clearTimeout(this.nextLineTimer);
+      }
+      if (
+        !unmounted &&
+        !pressedSpace &&
+        useDialogStore().playMode !== 'normal' &&
+        this.isBasicChoice
+      ) {
+        this.nextLineTimer = setTimeout(
+          () => {
+            this.next();
+          },
+          useDialogStore().playMode === 'auto'
+            ? getConfig().dialoguePanel?.timeBetweenLines ?? 100
+            : 0,
+        );
       }
     },
     registerKeyboardShortcuts() {
@@ -287,7 +358,7 @@ export default defineComponent({
         console.log('key');
         if (!this.canInteract) {
           if (this.mounted && this.textAnimation && e.key === ' ') {
-            this.endTextAnimation();
+            this.endTextAnimation({ pressedSpace: true });
           }
           return;
         }

@@ -53,7 +53,7 @@ import {
   getFreeSlot,
   findAutoSave,
 } from '../utils/save-helpers';
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import { useAudio } from '@/stores/audio-store';

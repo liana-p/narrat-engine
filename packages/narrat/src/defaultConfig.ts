@@ -22,6 +22,7 @@ export const defaultConfig: Config = {
   dialoguePanel: {
     textSpeed: 50,
     animateText: true,
+    timeBetweenLines: 100,
   },
   gameFlow: {},
   splashScreens: {},

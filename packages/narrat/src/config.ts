@@ -200,6 +200,7 @@ export interface Config {
   dialoguePanel: {
     animateText?: boolean;
     textSpeed?: number;
+    timeBetweenLines?: number;
   };
   splashScreens: {
     engineSplashScreen?: {

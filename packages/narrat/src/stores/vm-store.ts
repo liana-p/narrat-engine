@@ -350,10 +350,10 @@ export const useVM = defineStore('vm', {
       if (mainStore.options.debug) {
         const dialogStore = useDialogStore();
         if (getConfig().debugging.showScriptFinishedMessage) {
-          dialogStore.addDialog({
-            speaker: 'game',
-            text: '[DEBUG] Game Script is finished. This is the end of the game flow. This message only appears in debug mode.',
-          });
+          // dialogStore.addDialog({
+          //   speaker: 'game',
+          //   text: '[DEBUG] Game Script is finished. This is the end of the game flow. This message only appears in debug mode.',
+          // });
         }
       }
     },
@@ -402,7 +402,6 @@ export const useVM = defineStore('vm', {
         args,
         label,
       });
-      await useMain().autoSaveGame({});
       this.runGame();
     },
     async runThenGoBackToPreviousDialog(label: string, ...args: any[]) {
