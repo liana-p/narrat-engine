@@ -8,6 +8,8 @@
         <li><b>d</b>: Debug Menu</li>
         <li><b>a</b>: Auto Play</li>
         <li><b>s</b>: Skip</li>
+        <li><b>Space</b>: New Game</li>
+        <li><b>c</b>: Continue</li>
         <li><b>Escape</b>: Toggle Menu</li>
       </ul>
     </div>

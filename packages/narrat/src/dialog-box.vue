@@ -284,6 +284,7 @@ export default defineComponent({
     },
     registerKeyboardShortcuts() {
       const listener = (e: KeyboardEvent) => {
+        console.log('key');
         if (!this.canInteract) {
           if (this.mounted && this.textAnimation && e.key === ' ') {
             this.endTextAnimation();

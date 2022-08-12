@@ -29,7 +29,7 @@ type DialogState = {
   autoPlay: boolean;
   skip: boolean;
 };
-export type DialogSave = DialogState;
+export type DialogSave = Pick<DialogState, 'dialog'>;
 
 // Create a pinia store named dialog with a state using the type DialogState, with actions addDialog and clearDialog
 export const useDialogStore = defineStore('dialog', {
@@ -64,6 +64,8 @@ export const useDialogStore = defineStore('dialog', {
     },
     reset() {
       this.dialog = [];
+      this.autoPlay = false;
+      this.skip = false;
     },
   },
   getters: {

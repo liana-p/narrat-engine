@@ -26,12 +26,14 @@ import GameDialog from './game-dialog.vue';
 import MenuButtons from './menu-buttons.vue';
 import Screens from './screens.vue';
 import { useMain } from '../stores/main-store';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRenderingStore } from '../stores/rendering-store';
 import { ChosenSlot } from '../utils/save-helpers';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import Hud from './hud.vue';
+import { useDialogStore } from '@/stores/dialog-store';
+import { inputEvents } from '@/utils/InputsListener';
 
 const mainStore = useMain();
 const renderingStore = useRenderingStore();
@@ -39,6 +41,9 @@ const renderingStore = useRenderingStore();
 const layoutMode = computed(() => renderingStore.layoutMode);
 const savingRequested = computed(() => mainStore.saving);
 const agreedToSave = ref<true | false | null>(null);
+const dialog = useDialogStore();
+const keyboardListener = ref<null | Function>(null);
+
 const actuallySaving = computed(
   () =>
     (savingRequested.value && !savingRequested.value.withPrompt) ||
@@ -72,6 +77,17 @@ function saveRefuse() {
   mainStore.finishManualSave(null, false);
   agreedToSave.value = null;
 }
+
+onMounted(() => {
+  keyboardListener.value = inputEvents.on('debouncedKeydown', (e) => {
+    if (e.key === 'a') {
+      dialog.autoPlay = !dialog.autoPlay;
+    }
+    if (e.key === 's') {
+      dialog.skip = !dialog.skip;
+    }
+  });
+});
 </script>
 <style>
 .game {
