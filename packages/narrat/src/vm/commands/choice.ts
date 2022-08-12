@@ -181,6 +181,7 @@ const onChoicePlayerAnswered = async (
       value: choicePromptResult.skillCheck.difficulty,
       id: choicePromptResult.skillCheck.skillCheckId,
       hideAfterRoll: choicePromptResult.skillCheck.hideAfterRoll,
+      repeatable: choicePromptResult.skillCheck.repeatable,
     });
     if (result.succeeded) {
       newBranch = choice.skillBranches!.success;
@@ -238,7 +239,8 @@ export interface ChoicePromptReturnValue {
     skillId: string;
     skillCheckId: string;
     difficulty: number;
-    hideAfterRoll: boolean;
+    hideAfterRoll?: boolean;
+    repeatable?: boolean;
   };
 }
 export type ChoicePromptReturn = ChoicePromptReturnValue;
@@ -254,14 +256,26 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
       const skillId = args[2] as string;
       const difficulty = args[3] as number;
       const skillText = args[4] as string;
-      const hideAfterRoll = args.length > 5 ? (args[5] as boolean) : false;
+      let mode: any = false;
+      if (args.length > 5) {
+        mode = args[5] as string;
+      }
+      let hideAfterRoll = false;
+      let repeatable = false;
+      if (mode === 'hideAfterRoll') {
+        hideAfterRoll = true;
+      }
+      if (mode === 'repeatable') {
+        repeatable = true;
+      }
       const state = useSkills().getSkillCheck(skillCheckId);
       if (state.hidden) {
         return {
           text: null,
         };
       }
-      const skillCheckFailed = state.happened && !state.succeeded;
+      const skillCheckAllowed =
+        !state.happened || (state.happened && state.succeeded) || repeatable;
       const { difficultyText } = getSkillCheckText({
         skill: skillId,
         skillCheckId,
@@ -271,11 +285,12 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
       return {
         text,
         skillCheck: {
-          allowed: !skillCheckFailed,
+          allowed: skillCheckAllowed,
           skillId,
           skillCheckId,
           difficulty,
           hideAfterRoll,
+          repeatable,
         },
       };
     } else if (args.length > 1 && args[1] === 'if') {

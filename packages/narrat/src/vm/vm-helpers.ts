@@ -13,13 +13,16 @@ export interface SkillCheckParams {
   value: number;
   id: string;
   hideAfterRoll?: boolean;
+  repeatable?: boolean;
 }
 
 export function runSkillCheck(params: SkillCheckParams): SkillCheckState {
   const skillStore = useSkills();
   const result = skillStore.getSkillCheck(params.id);
   if (result && result.happened) {
-    return result;
+    if (result.succeeded || !params.repeatable) {
+      return result;
+    }
   }
   const success = resolveSkillCheck(params);
   writeText(getPassiveSkillCheckText(success, params));

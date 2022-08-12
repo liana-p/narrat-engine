@@ -147,7 +147,7 @@ export interface RollArgs {
   id: string;
   skill: string;
   value: number;
-  hideAfterRoll?: boolean;
+  mode?: string;
 }
 export const rollPlugin = new CommandPlugin<RollArgs>(
   'roll',
@@ -155,17 +155,39 @@ export const rollPlugin = new CommandPlugin<RollArgs>(
     { name: 'id', type: 'string' },
     { name: 'skill', type: 'string' },
     { name: 'value', type: 'number' },
-    { name: 'hideAfterRoll', type: 'boolean', optional: true },
+    { name: 'mode', type: 'string', optional: true },
   ],
   async (cmd) => {
-    const { id, skill, value, hideAfterRoll } = cmd.options;
+    const { id, skill, value, mode } = cmd.options;
+    let hideAfterRoll = false;
+    let repeatable = false;
+    if (mode === 'hideAfterRoll') {
+      hideAfterRoll = true;
+    }
+    if (mode === 'repeatable') {
+      repeatable = true;
+    }
     const skillCheck: SkillCheckParams = {
       id,
       skill,
       value,
       hideAfterRoll,
+      repeatable,
     };
     const result = runSkillCheck(skillCheck);
     return result.succeeded;
+  },
+);
+
+export const resetSkillCheck = new CommandPlugin<{ id: string }>(
+  'reset_roll',
+  [
+    {
+      name: 'id',
+      type: 'string',
+    },
+  ],
+  async (cmd) => {
+    return useSkills().resetSkillCheck(cmd.options.id);
   },
 );
