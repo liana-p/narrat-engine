@@ -168,11 +168,11 @@ const gameTitle = computed(() => {
 
 #game-title-text {
   text-align: center;
-  font-size: 50px;
+  font-size: 3rem;
 }
 
 .menu-button {
-  font-size: 25px;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 

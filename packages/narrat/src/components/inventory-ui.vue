@@ -188,7 +188,7 @@ export default defineComponent({
   top: 0;
   right: 0;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 1.25rem;
   color: var(--inventory-amount-color);
   width: 40px;
   height: 40px;

@@ -167,6 +167,9 @@ export interface Config {
     dialogPanel?: {
       overlayMode?: boolean;
       rightOffset?: number;
+      bottomOffset?: number;
+      width?: number;
+      height?: number;
     };
     backgrounds: {
       width: number;
@@ -193,6 +196,10 @@ export interface Config {
   };
   gameFlow: {
     labelToJumpOnScriptEnd?: string;
+  };
+  dialoguePanel: {
+    animateText?: boolean;
+    textSpeed?: number;
   };
   splashScreens: {
     engineSplashScreen?: {

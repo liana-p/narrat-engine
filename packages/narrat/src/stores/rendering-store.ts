@@ -23,8 +23,10 @@ export const useRenderingStore = defineStore('rendering', {
       this.screenWidth = width;
       if (width < getConfig().layout.verticalLayoutThreshold) {
         this.layoutMode = 'vertical';
+        document.querySelector('html')!.style.fontSize = '40px';
       } else {
         this.layoutMode = 'horizontal';
+        document.querySelector('html')!.style.fontSize = '16px';
       }
     },
   },
@@ -64,11 +66,22 @@ export const useRenderingStore = defineStore('rendering', {
         return config.layout.backgrounds.height;
       }
     },
+    dialogWidth(): number {
+      if (this.layoutMode === 'vertical') {
+        return this.viewportWidth;
+      } else {
+        const width =
+          getConfig().layout.dialogPanel?.width ??
+          getConfig().layout.minTextWidth ??
+          400;
+        return width;
+      }
+    },
     dialogHeight(): number {
       if (this.layoutMode === 'vertical') {
         return this.actualGameHeight - this.gameHeight;
       } else {
-        return this.gameHeight;
+        return getConfig().layout.dialogPanel?.height ?? this.gameHeight;
       }
     },
     actualGameHeight(): number {

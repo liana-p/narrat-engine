@@ -20,6 +20,7 @@ import {
   registerDefaultMenuButtons,
 } from './menu-buttons/menu-buttons';
 import { BUILD_DATE, VERSION } from './constants';
+import { addDirectives } from './utils/vue-directives';
 
 let app: any;
 
@@ -41,6 +42,7 @@ export async function startApp(
   app = createApp(GameApp, {
     options,
   });
+  addDirectives(app);
   app.use(pinia);
   vm.pinia = pinia;
   useMain();

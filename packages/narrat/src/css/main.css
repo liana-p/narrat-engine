@@ -47,9 +47,16 @@
 
   --loading-bar-inner-bg: var(--light-background);
   --loading-bar-outer-bg: var(--bg-color);
+
+  --dialog-box-bg: var(--bg-color);
+  --dialog-box-border: none;
 }
 body {
   font-family: var(--font-family);
+}
+
+.red {
+  color: red;
 }
 
 * {
@@ -144,7 +151,7 @@ body {
   border-radius: 10px;
   padding: 10px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px;
   transition: 0.2s;
   box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
@@ -185,7 +192,7 @@ body {
   border-radius: 100px;
   padding: 10px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px;
   transition: 0.2s;
 }
@@ -223,7 +230,7 @@ td {
 }
 
 .title {
-  font-size: 30px;
+  font-size: 1.8rem;
   font-weight: 700;
   text-align: center;
 }
@@ -240,15 +247,15 @@ h4 {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 1.5rem;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 1.4rem;
 }
 
 hr.solid {

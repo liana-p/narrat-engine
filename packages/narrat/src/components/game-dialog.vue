@@ -4,7 +4,7 @@
   </transition>
   <transition name="dialog-transition">
     <div
-      class="dialog override card-5"
+      class="dialog override"
       ref="dialogRef"
       :style="dialogStyle"
       v-if="inGame && showDialog"
@@ -45,19 +45,23 @@ const props = defineProps({
   inGame: Boolean,
 });
 
+const rendering = useRenderingStore();
 const vmStore = useVM();
 const stack = computed(() => vmStore.stack);
 const dialogStore = useDialogStore();
 const dialog = computed(() => dialogStore.dialog);
 const dialogRef = ref(null);
 const dialogContainerStyle = computed((): any => {
-  if (props.layoutMode === 'vertical') {
-    return {};
-  } else {
-    return {
-      paddingBottom: `${getConfig().layout.dialogBottomPadding}px`,
-    };
+  let padding = '0px';
+  const layoutPadding = getConfig().layout.dialogBottomPadding;
+  if (typeof layoutPadding === 'number') {
+    padding = `${layoutPadding}px`;
+  } else if (typeof layoutPadding === 'string') {
+    padding = layoutPadding;
   }
+  return {
+    paddingBottom: padding,
+  };
 });
 
 const lastDialog = computed((): DialogKey | undefined => {
@@ -78,8 +82,10 @@ const picture = computed((): string | undefined => {
 });
 
 const dialogWidth = computed((): number => {
-  const width: any = getConfig().layout.minTextWidth;
-  return width;
+  return rendering.dialogWidth;
+});
+const dialogHeight = computed((): number => {
+  return rendering.dialogHeight;
 });
 
 const showDialog = computed(() => {
@@ -100,6 +106,8 @@ const dialogStyle = computed((): any => {
     css.position = 'absolute';
     const rightOffset = getConfig().layout.dialogPanel?.rightOffset ?? 0;
     css.right = `${rightOffset}px`;
+    const bottomOffset = getConfig().layout.dialogPanel?.bottomOffset ?? 0;
+    css.bottom = `${bottomOffset}px`;
   }
   return {
     ...css,
@@ -174,7 +182,9 @@ watch(dialog.value, (newValue) => {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   /* background: url('dark.webp'); */
-  background: var(--bg-color);
+  background: var(--dialog-box-bg);
+  border: var(--dialog-box-border);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.7), 0 15px 12px rgba(0, 0, 0, 0.5);
 }
 .dialog::-webkit-scrollbar {
   display: none; /* webkit */

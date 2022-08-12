@@ -6,6 +6,8 @@
       <ul>
         <li><b>j</b>: Quick Label Jump</li>
         <li><b>d</b>: Debug Menu</li>
+        <li><b>a</b>: Auto Play</li>
+        <li><b>s</b>: Skip</li>
         <li><b>Escape</b>: Toggle Menu</li>
       </ul>
     </div>
@@ -440,7 +442,7 @@ export default defineComponent({
   border: 1px solid var(--text-color);
   padding: 10px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1.25rem;
   width: 100;
 }
 

@@ -80,7 +80,7 @@ export default defineComponent({
 .volume-label {
   /* margin: 5px 20px; */
   margin-right: 10px;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
   width: 180px;
   text-align: right;
@@ -100,7 +100,7 @@ export default defineComponent({
 }
 .volume-control {
   width: 100%;
-  font-size: 25px;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

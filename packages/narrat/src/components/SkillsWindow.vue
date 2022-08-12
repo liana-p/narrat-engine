@@ -137,7 +137,7 @@ export default defineComponent({
   top: 0;
   right: 0;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 1.5rem;
   color: var(--skills-level-color);
   width: var(--skills-xp-bar-height);
   height: var(--skills-xp-bar-height);

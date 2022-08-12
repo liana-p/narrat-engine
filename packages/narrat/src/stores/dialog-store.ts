@@ -26,6 +26,8 @@ export interface DialogChoice {
 
 type DialogState = {
   dialog: DialogKey[];
+  autoPlay: boolean;
+  skip: boolean;
 };
 export type DialogSave = DialogState;
 
@@ -34,6 +36,8 @@ export const useDialogStore = defineStore('dialog', {
   state: () =>
     ({
       dialog: [],
+      autoPlay: false,
+      skip: false,
     } as DialogState),
   actions: {
     generateSaveData(): DialogSave {

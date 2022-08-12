@@ -19,6 +19,10 @@ export const defaultConfig: Config = {
       height: 100,
     },
   },
+  dialoguePanel: {
+    textSpeed: 50,
+    animateText: true,
+  },
   gameFlow: {},
   splashScreens: {},
   screens: {
