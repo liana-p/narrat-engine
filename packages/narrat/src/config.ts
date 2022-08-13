@@ -317,6 +317,7 @@ export interface ItemData {
     label: string;
   };
   tag?: string;
+  category?: string;
 }
 
 export interface HudStatConfig {
