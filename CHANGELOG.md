@@ -1,5 +1,51 @@
 # Narrat changelog
 
+## [2.7.0] - Animated text and autoplay update
+
+This update brings new features for text animation and autoplay, along with more customisation options to fully control the size and position of the dialogue panel.
+
+Video showing the new features:
+
+![Watch the video](https://www.youtube.com/watch?v=o_wRNp0h0DE)
+
+### Text animation
+
+Text can now be animated instead of printing instantly, as seen in the video above. The new options are:
+
+```yaml
+dialoguePanel:
+  textSpeed: 30 # Each letter will take 30 milliseconds to appear
+  animateText: true # Text will be animated
+  timeBetweenLines: 100 # 100 milliseconds of wait time before going to the next line during autoplay
+```
+
+### Autoplay and skip
+
+Two new keyboard shortcuts have been added for autoplay and skip modes
+
+- `a`: Toggle auto play
+- `s`: Toggle skip
+
+Auto play mode will make dialogue keep playing automatically (waiting the appropriate amount of time between lines), and pause when a choice is reached.
+
+Skip mode will skip all dialogue very fast and stop once a choice is reached or the dialogue is finished.
+
+There are also two buttons in the UI to toggle those two modes, which can be positioned or hidden with CSS.
+
+### New layout options for the dialogue panel
+
+The `dialogPanel` part of the `layout` config can now have a bottom offset and a height. This allows positioning and sizing of te dialogue panel anywhere. For example, a "traditional" VN game layout can be reproduced by making the dialogue panel wide with a small height and positioning it near the bottom of the page.
+
+```yaml
+layout:
+  dialogPanel:
+    overlayMode: true
+    rightOffset: 100
+    bottomOffset: 50
+    width: 475
+    height: 680
+```
+
 ## [2.6.4] Repeatable skill rolls
 
 A skill roll can now be tagged as repeatable:

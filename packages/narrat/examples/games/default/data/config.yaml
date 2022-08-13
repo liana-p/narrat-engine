@@ -5,6 +5,10 @@ images:
   map: img/backgrounds/map.webp
   shopButton: img/ui/shop-button.webp
   parkButton: img/ui/park-button.webp
+dialoguePanel:
+  textSpeed: 30
+  animateText: true
+  timeBetweenLines: 100
 layout:
   dialogPanel:
     overlayMode: true
