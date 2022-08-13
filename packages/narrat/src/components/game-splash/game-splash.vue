@@ -49,7 +49,7 @@ onMounted(() => {
 }
 
 #game-splash-title {
-  font-size: 70px;
+  font-size: 4.3rem;
   text-align: center;
   margin-bottom: 40px;
 }
@@ -63,6 +63,6 @@ onMounted(() => {
 
 .splash-start-button {
   padding: 10px 20px;
-  font-size: 35px;
+  font-size: 2rem;
 }
 </style>

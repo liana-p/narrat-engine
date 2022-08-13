@@ -177,21 +177,4 @@ export default defineComponent({
 .app-blurred-by-modal {
   filter: blur(5px);
 }
-
-.interact-button {
-  height: 50px;
-  border: 1px solid black;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  flex-grow: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-.interact-button:not(:last-child) {
-  margin-right: 10px;
-}
 </style>

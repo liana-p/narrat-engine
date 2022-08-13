@@ -53,10 +53,11 @@ import {
   getFreeSlot,
   findAutoSave,
 } from '../utils/save-helpers';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import { useAudio } from '@/stores/audio-store';
+import { inputEvents } from '../utils/InputsListener';
 
 const hasSave = ref(false);
 const hasFreeSlot = ref(false);
@@ -64,6 +65,7 @@ const continueSlot = ref<null | string>(null);
 const saveSlot = ref<string | null>(null);
 const choosingSave = ref(false);
 const startingGame = ref(false);
+const listener = ref<null | Function>(null);
 
 async function startGame() {
   if (hasSave.value && getConfig().saves.mode === 'manual') {
@@ -149,6 +151,20 @@ onMounted(() => {
   if (save.lastSaveSlot && getSaveSlot(save.lastSaveSlot)) {
     continueSlot.value = save.lastSaveSlot;
   }
+  listener.value = inputEvents.on('debouncedKeydown', (e) => {
+    if (e.key === ' ') {
+      confirmStartGame();
+    }
+    if (e.key === 'c') {
+      continueGame();
+    }
+  });
+});
+
+onUnmounted(() => {
+  if (listener.value) {
+    inputEvents.off('debouncedKeydown', listener.value as any);
+  }
 });
 
 const gameTitle = computed(() => {
@@ -168,11 +184,11 @@ const gameTitle = computed(() => {
 
 #game-title-text {
   text-align: center;
-  font-size: 50px;
+  font-size: 3rem;
 }
 
 .menu-button {
-  font-size: 25px;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 

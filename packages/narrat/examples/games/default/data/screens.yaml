@@ -15,18 +15,18 @@ overlay:
 map:
   background: img/backgrounds/map.webp
   buttons:
-    - id: saveButton
-      enabled: true
-      text: 'Manual Save'
-      position:
-        left: 0
-        top: 0
-        width: 200
-        height: 50
-      action: save
+    # - id: saveButton
+    #   enabled: true
+    #   text: 'Manual Save'
+    #   position:
+    #     left: 0
+    #     top: 0
+    #     width: 200
+    #     height: 50
+    #   action: save
     - id: shopButton
       enabled: false
-      text: 'Shop %{shopButtonName}'
+      text: 'Shop'
       cssClass: test-class
       position:
         left: 272

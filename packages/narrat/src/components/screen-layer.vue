@@ -266,7 +266,7 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
   align-items: center;
   background: var(--button-background);
   color: var(--button-text-color);
-  font-size: 30px;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
@@ -297,7 +297,7 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 30px;
+  font-size: 1.8rem;
   font-weight: bold;
   background-size: cover;
   background-repeat: no-repeat;

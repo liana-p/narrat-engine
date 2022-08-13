@@ -1,10 +1,10 @@
 <template>
   <transition name="fade">
-    <DialogPicture :pictureUrl="picture" v-if="picture" />
+    <DialogPicture :pictureUrl="picture" v-if="picture && showDialog" />
   </transition>
   <transition name="dialog-transition">
     <div
-      class="dialog override card-5"
+      class="dialog override"
       ref="dialogRef"
       :style="dialogStyle"
       v-if="inGame && showDialog"
@@ -22,6 +22,19 @@
           :active="isDialogActive(i)"
         />
       </transition-group>
+      <Teleport to="#app">
+        <div class="auto-skip-buttons flex">
+          <div
+            class="button menu-toggle-button auto-button auto"
+            @click="autoPlay"
+          >
+            Auto
+          </div>
+          <div class="button menu-toggle-button auto-button skip" @click="skip">
+            Skip
+          </div>
+        </div>
+      </Teleport>
       <div class="anchor"></div>
     </div>
   </transition>
@@ -33,7 +46,7 @@ import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
 import { getCharacterInfo, getCharacterPictureUrl } from '@/utils/characters';
 import { processText } from '@/utils/string-helpers';
-import { computed, PropType, ref, watch } from 'vue';
+import { computed, onUnmounted, PropType, ref, watch } from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
@@ -45,19 +58,25 @@ const props = defineProps({
   inGame: Boolean,
 });
 
+const inDialogue = ref(useMain().inScript);
+const dialogueEndTimer = ref<null | NodeJS.Timer>(null);
+const rendering = useRenderingStore();
 const vmStore = useVM();
 const stack = computed(() => vmStore.stack);
 const dialogStore = useDialogStore();
 const dialog = computed(() => dialogStore.dialog);
 const dialogRef = ref(null);
 const dialogContainerStyle = computed((): any => {
-  if (props.layoutMode === 'vertical') {
-    return {};
-  } else {
-    return {
-      paddingBottom: `${getConfig().layout.dialogBottomPadding}px`,
-    };
+  let padding = '0px';
+  const layoutPadding = getConfig().layout.dialogBottomPadding;
+  if (typeof layoutPadding === 'number') {
+    padding = `${layoutPadding}px`;
+  } else if (typeof layoutPadding === 'string') {
+    padding = layoutPadding;
   }
+  return {
+    paddingBottom: padding,
+  };
 });
 
 const lastDialog = computed((): DialogKey | undefined => {
@@ -78,10 +97,36 @@ const picture = computed((): string | undefined => {
 });
 
 const dialogWidth = computed((): number => {
-  const width: any = getConfig().layout.minTextWidth;
-  return width;
+  return rendering.dialogWidth;
+});
+const dialogHeight = computed((): number => {
+  return rendering.dialogHeight;
 });
 
+const inScript = computed(() => {
+  return useMain().inScript;
+});
+watch(inScript, (val) => {
+  if (val) {
+    inDialogue.value = true;
+  } else {
+    if (useDialogStore().playMode !== 'normal') {
+      if (useDialogStore().playMode === 'skip') {
+        useDialogStore().playMode = 'normal';
+      }
+      dialogueEndTimer.value = setTimeout(() => {
+        inDialogue.value = false;
+      }, 500);
+    } else {
+      inDialogue.value = false;
+    }
+  }
+});
+onUnmounted(() => {
+  if (dialogueEndTimer.value) {
+    clearTimeout(dialogueEndTimer.value);
+  }
+});
 const showDialog = computed(() => {
   if (
     !useRenderingStore().overlayMode ||
@@ -89,7 +134,7 @@ const showDialog = computed(() => {
   ) {
     return true;
   }
-  return useMain().inScript;
+  return inDialogue.value;
 });
 
 const dialogStyle = computed((): any => {
@@ -100,6 +145,8 @@ const dialogStyle = computed((): any => {
     css.position = 'absolute';
     const rightOffset = getConfig().layout.dialogPanel?.rightOffset ?? 0;
     css.right = `${rightOffset}px`;
+    const bottomOffset = getConfig().layout.dialogPanel?.bottomOffset ?? 0;
+    css.bottom = `${bottomOffset}px`;
   }
   return {
     ...css,
@@ -111,6 +158,12 @@ const dialogStyle = computed((): any => {
   };
 });
 
+function autoPlay() {
+  useDialogStore().toggleAutoPlay();
+}
+function skip() {
+  useDialogStore().toggleSkip();
+}
 function getDialogBoxOptions(
   dialogKey: DialogKey,
   index: number,
@@ -174,7 +227,9 @@ watch(dialog.value, (newValue) => {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   /* background: url('dark.webp'); */
-  background: var(--bg-color);
+  background: var(--dialog-box-bg);
+  border: var(--dialog-box-border);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.7), 0 15px 12px rgba(0, 0, 0, 0.5);
 }
 .dialog::-webkit-scrollbar {
   display: none; /* webkit */
@@ -192,5 +247,11 @@ watch(dialog.value, (newValue) => {
 .anchor {
   overflow-anchor: auto;
   height: 1px;
+}
+
+.auto-skip-buttons {
+  position: absolute;
+  top: 10px;
+  right: 160px;
 }
 </style>

@@ -47,9 +47,16 @@
 
   --loading-bar-inner-bg: var(--light-background);
   --loading-bar-outer-bg: var(--bg-color);
+
+  --dialog-box-bg: var(--bg-color);
+  --dialog-box-border: none;
 }
 body {
   font-family: var(--font-family);
+}
+
+.red {
+  color: red;
 }
 
 * {
@@ -139,15 +146,13 @@ body {
 .button {
   background: var(--button-background);
   color: var(--button-text-color);
-  box-shadow: 0.4rem 0.5rem 2.4rem 0.2rem var(--shadow-1), inset -2px -4px #0006,
-    inset 2px 2px #fff7;
+  box-shadow: 0.4rem 0.5rem 2.4rem 0.2rem var(--shadow-1);
   border-radius: 10px;
   padding: 10px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px;
   transition: 0.2s;
-  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
 }
 
 .button.large {
@@ -163,8 +168,7 @@ body {
 .button:focus,
 .button:hover {
   transform: translateY(-0.2rem);
-  box-shadow: 0 0 1rem 0.2rem var(--shadow-2), inset -2px -4px #0006,
-    inset 2px 2px #fff7;
+  box-shadow: 0 0 1rem 0.2rem var(--shadow-2);
 }
 
 .disabled {
@@ -185,7 +189,7 @@ body {
   border-radius: 100px;
   padding: 10px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px;
   transition: 0.2s;
 }
@@ -223,7 +227,7 @@ td {
 }
 
 .title {
-  font-size: 30px;
+  font-size: 1.8rem;
   font-weight: 700;
   text-align: center;
 }
@@ -240,15 +244,15 @@ h4 {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 1.5rem;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 1.4rem;
 }
 
 hr.solid {

@@ -124,7 +124,7 @@ export default defineComponent({
 .close-button {
   border: 1px solid var(--text-color);
   border-radius: 50px;
-  font-size: 30px;
+  font-size: 1.8rem;
   font-weight: 700;
   position: absolute;
   right: -20px;

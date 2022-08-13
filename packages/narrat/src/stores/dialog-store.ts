@@ -26,14 +26,16 @@ export interface DialogChoice {
 
 type DialogState = {
   dialog: DialogKey[];
+  playMode: 'auto' | 'skip' | 'normal';
 };
-export type DialogSave = DialogState;
+export type DialogSave = Pick<DialogState, 'dialog'>;
 
 // Create a pinia store named dialog with a state using the type DialogState, with actions addDialog and clearDialog
 export const useDialogStore = defineStore('dialog', {
   state: () =>
     ({
       dialog: [],
+      playMode: 'normal',
     } as DialogState),
   actions: {
     generateSaveData(): DialogSave {
@@ -55,11 +57,18 @@ export const useDialogStore = defineStore('dialog', {
         this.dialog.shift();
       }
     },
+    toggleAutoPlay() {
+      this.playMode = this.playMode === 'auto' ? 'normal' : 'auto';
+    },
+    toggleSkip() {
+      this.playMode = this.playMode === 'skip' ? 'normal' : 'skip';
+    },
     clearDialog() {
       this.dialog.splice(0, this.dialog.length);
     },
     reset() {
       this.dialog = [];
+      this.playMode = 'normal';
     },
   },
   getters: {

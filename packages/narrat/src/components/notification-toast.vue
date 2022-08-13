@@ -32,6 +32,7 @@ export default defineComponent({
   flex-direction: column-reverse;
   align-items: center;
   pointer-events: none;
+  z-index: 2;
 }
 
 .notification {

@@ -8,12 +8,15 @@ images:
 layout:
   dialogPanel:
     overlayMode: true
-    rightOffset: 50
+    rightOffset: 100
+    bottomOffset: 50
+    width: 475
+    height: 680
   backgrounds:
     # Default was 880 x 720
     width: 1280
     height: 720
-  dialogBottomPadding: 70
+  dialogBottomPadding: '2rem'
   minTextWidth: 475
   mobileDialogHeightPercentage: 60
   verticalLayoutThreshold: 600

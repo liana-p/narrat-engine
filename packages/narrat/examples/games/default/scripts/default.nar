@@ -1,9 +1,10 @@
 main:
   add_item bread 1
   add_item book 1
-  "hello world"
-  set shopButtonName "Great Shop"
-  jump test_skills_reset
+  // jump quest_demo
+  // "<h1>Duo enim genera quae erant, fecit tria.</h1> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Putabam equidem satis, inquit, me dixisse. <i>Sed mehercule pergrata mihi oratio tua.</i> Sit enim idem caecus, debilis. Ut aliquid scire se gaudeant? Quorum altera prosunt, nocent altera. Duo Reges: constructio interrete. </p> <ul> <li>Tum Quintus: Est plane, Piso, ut dicis, inquit.</li> <li>Nescio quo modo praetervolavit oratio.</li> <li>Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus;</li> </ul> <ol> <li>Quem si tenueris, non modo meum Ciceronem, sed etiam me ipsum abducas licebit.</li> <li>Nam si propter voluptatem, quae est ista laus, quae possit e macello peti?</li> <li>Roges enim Aristonem, bonane ei videantur haec: vacuitas doloris, divitiae, valitudo;</li> <li>Neque enim civitas in seditione beata esse potest nec in discordia dominorum domus;</li> <li>Magni enim aestimabat pecuniam non modo non contra leges, sed etiam legibus partam.</li> </ol> <blockquote cite='http:\/\/loripsum.net'> Crasso, quem semel ait in vita risisse Lucilius, non contigit, ut ea re minus agelastoj ut ait idem, vocaretur. </blockquote>"
+  "hello <span class='red'><i><b>world</i></b></span>"
+  jump askForHelp
 
 test_skills_reset:
   choice:
