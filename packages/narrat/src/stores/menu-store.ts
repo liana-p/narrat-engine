@@ -1,7 +1,7 @@
 import { getConfig } from '@/config';
 import { defineStore } from 'pinia';
 
-export interface MenuButtonState {
+export interface MenuTabState {
   id: string;
   onClick?: () => void;
   condition?: () => boolean;
@@ -10,16 +10,29 @@ export interface MenuButtonState {
   text: string;
   component: string;
 }
+
+export interface MenuState {
+  id: string;
+  label: string;
+  cssId?: string;
+  cssClass?: string;
+  tabs: MenuTabState[];
+  activeTab: number;
+}
+export type AddMenuState = Omit<MenuState, 'id'>;
+
 export interface MenuStoreState {
-  buttons: MenuButtonState[];
-  modal: string | false;
+  menus: {
+    [key: string]: MenuState;
+  };
+  activeMenu: string | false;
 }
 
 export const useMenu = defineStore('menu', {
   state: () =>
     ({
-      buttons: [],
-      modal: false,
+      menus: {},
+      activeMenu: false,
     } as MenuStoreState),
   getters: {
     showSkills(): boolean {
@@ -40,8 +53,8 @@ export const useMenu = defineStore('menu', {
       }
       return false;
     },
-    buttonsToShow(state): MenuButtonState[] {
-      return state.buttons
+    menuTabsToShow(state): MenuTabState[] {
+      return state.menus.menu.tabs
         .map((button) => {
           const buttonData = getConfig().menuButtons[button.id] || {};
           return {
@@ -57,23 +70,50 @@ export const useMenu = defineStore('menu', {
           }
         });
     },
+    menu(state: MenuStoreState): MenuState | undefined {
+      return state.activeMenu ? state.menus[state.activeMenu] : undefined;
+    },
+    tab(): MenuTabState | undefined {
+      if (this.menu) {
+        return this.menu.tabs[this.menu.activeTab];
+      }
+    },
   },
   actions: {
     setup() {},
-    addMenuOption(config: MenuButtonState) {
-      this.buttons.push(config);
+    addMenu(id: string, options: AddMenuState) {
+      this.menus[id] = {
+        ...options,
+        id,
+      };
     },
-    openModal(modal: string) {
-      this.modal = modal;
+    addMenuOption(menu: string, config: MenuTabState) {
+      if (!this.menus[menu]) {
+        this.menus[menu] = {
+          id: menu,
+          label: menu,
+          tabs: [],
+          activeTab: 0,
+        };
+      }
+      this.menus[menu].tabs.push(config);
     },
-    closeModal() {
-      this.modal = false;
+    setActiveTab(tab: number) {
+      if (this.menu) {
+        this.menu.activeTab = tab;
+      }
+    },
+    openMenu(menu: string) {
+      this.activeMenu = menu;
+    },
+    closeMenu() {
+      this.activeMenu = false;
     },
     toggleMenu() {
-      if (this.modal) {
-        this.modal = false;
+      if (this.activeMenu) {
+        this.activeMenu = false;
       } else {
-        this.modal = 'menu';
+        this.activeMenu = 'menu';
       }
     },
   },

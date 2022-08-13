@@ -42,6 +42,7 @@ import InGame from './components/in-game.vue';
 import EngineSplash from './components/engine-splash/engine-splash.vue';
 import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
+import { useMenu } from './stores/menu-store';
 
 export default defineComponent({
   setup() {
@@ -120,7 +121,7 @@ export default defineComponent({
       };
     },
     appClass(): any {
-      if (useMain().modal) {
+      if (useMain().modal || useMenu().activeMenu) {
         return 'app-blurred-by-modal';
       }
       return {};

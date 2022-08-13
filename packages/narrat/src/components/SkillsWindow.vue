@@ -1,60 +1,46 @@
 <template>
-  <modal class="menu" @close="$emit('close')" containerCssClass="skills-modal">
-    <template v-slot:header>
-      <h3 class="title">Skills</h3>
-    </template>
-    <template v-slot:body>
-      <div class="skills-container" v-if="!chosenSkill">
-        <button
-          @click="() => clickSkill(skill.id)"
-          class="skill-display"
-          :style="getSkillStyle(skill.id)"
-          v-for="skill in skillsToDisplay"
-          :key="skill.id"
-        >
-          <h3 class="skill-title">{{ getSkillName(skill.id) }}</h3>
-          <div class="skill-xp-container">
-            <div class="skill-xp-bar" :style="xpBarWidth(skill.xp)"></div>
-            <h3 class="skill-xp-text">{{ skill.xp }} / {{ xpPerLevel }} XP</h3>
-          </div>
-          <h3 class="skill-level">{{ skill.level }}</h3>
-        </button>
+  <div class="skills-container" v-if="!chosenSkill">
+    <button
+      @click="() => clickSkill(skill.id)"
+      class="skill-display"
+      :style="getSkillStyle(skill.id)"
+      v-for="skill in skillsToDisplay"
+      :key="skill.id"
+    >
+      <h3 class="skill-title">{{ getSkillName(skill.id) }}</h3>
+      <div class="skill-xp-container">
+        <div class="skill-xp-bar" :style="xpBarWidth(skill.xp)"></div>
+        <h3 class="skill-xp-text">{{ skill.xp }} / {{ xpPerLevel }} XP</h3>
       </div>
-      <div v-else-if="typeof chosenSkill === 'string'">
-        <div class="flex flex-row skill-description-container">
-          <div class="flex skill-left">
-            <div
-              class="skill-display"
-              :style="getSkillStyle(chosenSkill)"
-            ></div>
-          </div>
-          <div class="flex skill-right">
-            <h2>{{ getSkillName(chosenSkill) }}</h2>
-            <hr class="hr-solid" />
-            <h3>Level: {{ skills[chosenSkill].level }}</h3>
-            <p>{{ skillConf[chosenSkill].description }}</p>
-          </div>
-        </div>
-        <button class="button" @click="closeSkill">{{ '<--' }}</button>
+      <h3 class="skill-level">{{ skill.level }}</h3>
+    </button>
+  </div>
+  <div v-else-if="typeof chosenSkill === 'string'">
+    <div class="flex flex-row skill-description-container">
+      <div class="flex skill-left">
+        <div class="skill-display" :style="getSkillStyle(chosenSkill)"></div>
       </div>
-    </template>
-  </modal>
+      <div class="flex skill-right">
+        <h2>{{ getSkillName(chosenSkill) }}</h2>
+        <hr class="hr-solid" />
+        <h3>Level: {{ skills[chosenSkill].level }}</h3>
+        <p>{{ skillConf[chosenSkill].description }}</p>
+      </div>
+    </div>
+    <button class="button" @click="closeSkill">{{ '<--' }}</button>
+  </div>
 </template>
 
 <script lang="ts">
 import { getAssetUrl, getConfig, SkillData } from '@/config';
 import { SkillsState, useSkills } from '@/stores/skills';
 import { computed, defineComponent } from 'vue';
-import Modal from './utils/modal-window.vue';
 
 export default defineComponent({
   setup() {
     const store = useSkills();
     const skills = computed(() => store.skills);
     return { skills };
-  },
-  components: {
-    Modal,
   },
   data() {
     return {

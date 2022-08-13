@@ -1,16 +1,30 @@
 <template>
   <div class="menu-container">
     <button
-      v-for="buttonConf in buttonsToShow"
-      :key="buttonConf.id"
-      @click="buttonClick(buttonConf)"
-      :id="buttonConf.cssId ?? `${buttonConf.id}-menu-button`"
+      v-for="(menuButton, key) in menuButtons"
+      :key="menuButton.id"
+      @click="buttonClick(menuButton.id)"
+      :id="menuButton.cssId ?? `${key}-menu-button`"
       class="button menu-toggle-button"
     >
-      {{ buttonConf.text }}
+      {{ menuButton.label }}
     </button>
-    <Teleport to="#app-container" v-if="modal">
-      <component :is="componentToShow" @close="() => main.closeModal()" />
+    <Teleport to="#app-container" v-if="menu">
+      <Modal
+        :containerCssClass="{ [menu.cssClass!]: true, 'menu-modal': true }"
+        @close="closeMenu"
+      >
+        <template v-slot:header>
+          <h3 class="title">{{ menuStore.tab?.text ?? menu.label }}</h3>
+        </template>
+        <template v-slot:body>
+          <TabsController
+            @tab-change="tabChange"
+            :tabs="menuTabs"
+            :defaultTab="menuTabs[menu.activeTab!].id"
+          />
+        </template>
+      </Modal>
     </Teleport>
   </div>
 </template>
@@ -21,17 +35,11 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { vm } from '../vm/vm';
 import { useMenu } from '@/stores/menu-store';
 import { inputEvents } from '@/utils/InputsListener';
+import Modal from './utils/modal-window.vue';
+import TabsController from './tabs/TabsController.vue';
+import { TabOptions } from './tabs/tab-selector.vue';
 
-export interface ButtonConf {
-  id: string;
-  onClick?: () => void;
-  condition?: () => boolean;
-  cssId?: string;
-  cssClass?: string;
-  text: string;
-}
-
-const main = useMain();
+const menuStore = useMenu();
 const keyboardListener = ref<any>(null);
 
 onMounted(() => {
@@ -49,31 +57,29 @@ onUnmounted(() => {
   vm.callHook('onGameUnmounted');
 });
 
-function buttonClick(button: ButtonConf) {
-  if (!button.onClick) {
-    useMain().openModal(button.id);
-  } else {
-    button.onClick();
-  }
+function buttonClick(menuId: string) {
+  useMenu().activeMenu = menuId;
 }
 
-const buttonsToShow = computed(() => {
-  return useMenu().buttonsToShow;
+const menuButtons = computed(() => {
+  return menuStore.menus;
 });
-const modal = computed(() => {
-  return useMain().modal;
+const menu = computed(() => menuStore.menu);
+const menuTabs = computed((): TabOptions[] => {
+  return (menu.value?.tabs ?? []).map((menuTab) => {
+    return {
+      id: menuTab.id,
+      label: menuTab.text,
+      component: menuTab.component,
+    };
+  });
 });
-const componentToShow = computed(() => {
-  if (modal.value) {
-    const button = useMenu().buttons.find(
-      (button) => button.id === modal.value,
-    );
-    if (button) {
-      return button.component;
-    }
-  }
-  return false;
-});
+function closeMenu() {
+  menuStore.closeMenu();
+}
+function tabChange(newIndex: number) {
+  menuStore.setActiveTab(newIndex);
+}
 </script>
 
 <style>
@@ -92,6 +98,7 @@ const componentToShow = computed(() => {
 }
 
 .menu-modal {
-  width: 500px;
+  width: 90%;
+  height: 90%;
 }
 </style>
