@@ -25,6 +25,6 @@ const finalArgs = [
   'VITE_BASE_ASSET_PATH=examples/assets/',
   `VITE_BASE_DATA_PATH=examples/games/${exampleName}/`,
 ];
-const command = `cross-env ${finalArgs.join(' ')} npx vite dev`;
+const command = `cross-env ${finalArgs.join(' ')} npx vite dev --host`;
 console.log('Running dev command: ', cyan(command));
 shell.exec(command);

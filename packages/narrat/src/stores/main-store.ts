@@ -385,6 +385,7 @@ export const useMain = defineStore('main', {
       inventoryStore.setupItems(config.items);
       const questsStore = useQuests();
       questsStore.setupQuests(config.quests);
+      useDialogStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
         if (store.reset) {
           store.reset();

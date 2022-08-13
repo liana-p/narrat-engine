@@ -20,7 +20,7 @@ export const defaultConfig: Config = {
     },
   },
   dialoguePanel: {
-    textSpeed: 50,
+    textSpeed: 30,
     animateText: true,
     timeBetweenLines: 100,
   },
