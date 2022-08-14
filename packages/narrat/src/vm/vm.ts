@@ -14,7 +14,7 @@ import {
   findDataHelperWithoutAutoCreate,
   getModifiableDataPinia,
 } from '@/utils/data-helpers';
-import { stringRegex } from '@/utils/string-helpers';
+import { processText, stringRegex } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { Pinia, Store } from 'pinia';
 
@@ -112,7 +112,7 @@ export async function generateCommand(
       } else if (typeof arg === 'string') {
         if (arg.search(stringRegex) === 0) {
           // This is an actual string
-          finalArg = arg.substring(3);
+          finalArg = processText(arg.substring(3));
         } else if (isVariable(arg)) {
           // This is potentially a variable token
           const modifiable = getModifiableDataPinia();

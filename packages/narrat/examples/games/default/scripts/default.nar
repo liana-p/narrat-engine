@@ -6,6 +6,10 @@ main:
   "hello <span class='red'><i><b>world</i></b></span>"
   jump quest_demo
 
+test_interpol:
+  var count 3
+  save_prompt "Test %{count}"
+ 
 test_skills_reset:
   choice:
     "Skill check test"

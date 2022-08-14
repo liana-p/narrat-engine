@@ -140,7 +140,7 @@ export const useInventory = defineStore('inventory', {
         conf &&
         conf.onUse &&
         !this.isInteractionTagBlocked(conf.tag) &&
-        !useDialogStore().currentDialog.choices
+        !useDialogStore().currentDialog?.choices
       ) {
         return true;
       }

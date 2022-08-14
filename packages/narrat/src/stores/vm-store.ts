@@ -408,8 +408,13 @@ export const useVM = defineStore('vm', {
       // Kinda hacky way to run a function and return to where we were
       const dialogStore = useDialogStore();
       const lastDialog = dialogStore.dialog[dialogStore.dialog.length - 1];
+      const isInDialog = useMain().inScript;
       const result = await this.runLabelFunction(label, ...args);
-      dialogStore.dialog.push(lastDialog);
+      if (isInDialog) {
+        dialogStore.dialog.push(lastDialog);
+      } else {
+        useMain().endingScript();
+      }
       return result;
     },
   },

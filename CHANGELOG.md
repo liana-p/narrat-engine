@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.7.1] - Small bugfixes
+
+Small bug fixes around items use
+
 ## [2.7.0] - Animated text and autoplay update
 
 This update brings new features for text animation and autoplay, along with more customisation options to fully control the size and position of the dialogue panel.
