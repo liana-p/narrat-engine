@@ -11,7 +11,12 @@
 </template>
 
 <script lang="ts">
-import { getAssetUrl, getConfig, HudStatConfig } from '@/config';
+import {
+  getAssetUrl,
+  getConfig,
+  getDialogPanelWidth,
+  HudStatConfig,
+} from '@/config';
 import { HudStatsState, useHud } from '@/stores/hud-stats-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { mapState } from 'pinia';
@@ -40,7 +45,7 @@ export default defineComponent({
       let right = '0';
       if (this.layoutMode === 'horizontal') {
         right = `${
-          getConfig().layout.minTextWidth +
+          getDialogPanelWidth() +
           (getConfig().layout.dialogPanel?.rightOffset ?? 0)
         }px`;
       }

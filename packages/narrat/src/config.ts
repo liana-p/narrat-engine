@@ -153,6 +153,11 @@ export function getObjectiveConfig(quest: string, objectiveId: string) {
   return getQuestConfig(quest).objectives[objectiveId];
 }
 
+export function getDialogPanelWidth(): number {
+  const layout = config.layout;
+  return layout.dialogPanel?.width ?? layout.minTextWidth ?? 400;
+}
+
 export interface AppOptionsDeprecated {
   logging: boolean;
   debug: boolean;
@@ -195,7 +200,7 @@ export interface Config {
       height: number;
     };
     dialogBottomPadding: number;
-    minTextWidth: number;
+    minTextWidth?: number;
     mobileDialogHeightPercentage: number;
     verticalLayoutThreshold: number;
     portraits: {

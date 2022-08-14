@@ -6,12 +6,18 @@ export const defaultConfig: Config = {
     narrat: 'img/backgrounds/narrat.png',
   },
   layout: {
+    dialogPanel: {
+      overlayMode: true,
+      rightOffset: 100,
+      bottomOffset: 50,
+      width: 475,
+      height: 680,
+    },
     backgrounds: {
       width: 880,
       height: 720,
     },
     dialogBottomPadding: 70,
-    minTextWidth: 475,
     mobileDialogHeightPercentage: 60,
     verticalLayoutThreshold: 600,
     portraits: {
