@@ -70,7 +70,15 @@ export const defaultConfig: Config = {
     alsoPrintInDialogue: false,
   },
   hudStats: {},
-  items: {},
+  items: {
+    categories: [
+      {
+        id: 'default',
+        title: 'Items',
+      },
+    ],
+    items: {},
+  },
   interactionTags: {
     default: {
       onlyInteractOutsideOfScripts: true,

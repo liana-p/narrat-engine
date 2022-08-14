@@ -20,6 +20,7 @@
         <template v-slot:body>
           <TabsController
             @tab-change="tabChange"
+            @close="close"
             :tabs="menuTabs"
             :defaultTab="menuTabs[menu.activeTab!].id"
           />
@@ -79,6 +80,9 @@ function closeMenu() {
 }
 function tabChange(newIndex: number) {
   menuStore.setActiveTab(newIndex);
+}
+function close() {
+  return closeMenu();
 }
 </script>
 

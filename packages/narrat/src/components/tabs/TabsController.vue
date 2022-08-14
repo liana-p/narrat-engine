@@ -10,7 +10,11 @@
       />
     </div>
     <div class="tab-content" v-if="activeTab">
-      <component :is="activeTab.component" v-if="activeTab" />
+      <component
+        :is="activeTab.component"
+        v-if="activeTab"
+        @close="$emit('close')"
+      />
     </div>
   </div>
 </template>
