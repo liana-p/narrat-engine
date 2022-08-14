@@ -26,7 +26,7 @@ export interface TabControllerProps {
   tabs: TabOptions[];
   defaultTab: string;
 }
-const emit = defineEmits(['tab-change']);
+const emit = defineEmits(['tab-change', 'close']);
 const props = defineProps<TabControllerProps>();
 const activeTabId = ref(props.defaultTab);
 
