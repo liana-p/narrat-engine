@@ -46,6 +46,49 @@ layout:
     height: 680
 ```
 
+### Improved game menu
+
+The game menu has been improved and is now split in two parts: The system menu (which contains options and the quit/return to menu) and the "menu" containing game-specific menus like inventory, quests etc.
+
+The game menu also now has tabs to switch between the different sections like inventory and skills, rather than having multiple buttons at the bottom of the screen.
+
+Quests have a better layout with a quest list on the left and details on the right.
+
+### Item categories
+
+Items now support categories. By default items without a category go in the "default" category (appearing as "Items" in the game).
+
+The format of the items config has changed to allow to define categories:
+
+Example:
+
+```yaml items.yaml
+---
+categories:
+  - id: default
+    title: Items
+  - id: books
+    title: Books
+
+items:
+  bread: # Has no category, will go in the default category
+    name: Bread
+    description: A bread in the game.
+    icon: img/items/bread.webp
+    onUse:
+      action: jump
+      label: eat_bread
+  book:
+    name: Ominous Book
+    description: 'An ominous book.'
+    icon: img/items/book.webp
+    onUse:
+      action: run
+      label: read_book
+    tag: always_interactable
+    category: books # Will go in the books category
+```
+
 ## [2.6.4] Repeatable skill rolls
 
 A skill roll can now be tagged as repeatable:

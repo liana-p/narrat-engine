@@ -15,6 +15,17 @@ export async function loadConfig(options: AppOptions) {
     config.baseDataPath = options.baseDataPath;
   }
   const baseConf = await loadDataFile<Config>(options.configPath);
+  if (
+    baseConf.items &&
+    typeof baseConf.items !== 'string' &&
+    !baseConf.items.categories
+  ) {
+    // Handle older version of items config that was just a list of items...
+    baseConf.items = {
+      ...defaultConfig.items,
+      items: baseConf.items as any,
+    };
+  }
   config = { ...config, ...baseConf };
   // Loads all the possible split config files
   if (typeof config.screens === 'string') {
@@ -51,9 +62,17 @@ export async function loadConfig(options: AppOptions) {
     config.audioOptions = { ...config.audioOptions, ...audioConf.options };
   }
   if (typeof config.items === 'string') {
-    const itemsConf = await loadDataFile<SplitConfig['items']>(
+    let itemsConf = await loadDataFile<SplitConfig['items']>(
       getDataUrl(config.items),
     );
+    if (!itemsConf.categories) {
+      // Handle older version of items config that was just a list of items...
+      const oldItemsConf = itemsConf;
+      itemsConf = {
+        ...defaultConfig.items,
+        items: oldItemsConf as any,
+      };
+    }
     config.items = itemsConf;
   }
   if (typeof config.quests === 'string') {
@@ -120,7 +139,7 @@ export function getButtonConfig(button: string) {
 }
 
 export function getItemConfig(id: string) {
-  const item = config.items[id];
+  const item = config.items.items[id];
   if (!item) {
     error(`Item config for skill ${id} doesn't exist`);
   }
@@ -132,6 +151,11 @@ export function getQuestConfig(questId: string) {
 }
 export function getObjectiveConfig(quest: string, objectiveId: string) {
   return getQuestConfig(quest).objectives[objectiveId];
+}
+
+export function getDialogPanelWidth(): number {
+  const layout = config.layout;
+  return layout.dialogPanel?.width ?? layout.minTextWidth ?? 400;
 }
 
 export interface AppOptionsDeprecated {
@@ -176,7 +200,7 @@ export interface Config {
       height: number;
     };
     dialogBottomPadding: number;
-    minTextWidth: number;
+    minTextWidth?: number;
     mobileDialogHeightPercentage: number;
     verticalLayoutThreshold: number;
     portraits: {
@@ -258,7 +282,10 @@ export interface Config {
     [key: string]: HudStatConfig;
   };
   items: {
-    [key: string]: ItemData;
+    categories: ItemCategory[];
+    items: {
+      [key: string]: ItemData;
+    };
   };
   interactionTags: {
     [key: string]: {
@@ -317,6 +344,12 @@ export interface ItemData {
     label: string;
   };
   tag?: string;
+  category?: string;
+}
+
+export interface ItemCategory {
+  id: string;
+  title: string;
 }
 
 export interface HudStatConfig {

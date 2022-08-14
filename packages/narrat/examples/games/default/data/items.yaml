@@ -1,26 +1,35 @@
-bread:
-  name: Bread
-  description: A bread in the game.
-  icon: img/items/bread.webp
-  onUse:
-    action: jump
-    label: eat_bread
-book:
-  name: Ominous Book
-  description:
-    'An ominous book. Lorem ipsum dolor sit amet, consectetur adipiscing
-    elit. Quisque sed ullamcorper turpis. Aliquam tincidunt dolor sed mollis aliquet.
-    Duis in odio eros. Maecenas sapien arcu, fermentum id tincidunt non, accumsan
-    vel metus. Nullam pretium molestie accumsan. In ut rutrum tellus. Integer vitae
-    nisl eleifend lorem tristique auctor quis sed nulla. Cras gravida viverra tristique.
-    Mauris imperdiet tortor purus, fringilla vehicula metus ullamcorper eget. Lorem
-    ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta imperdiet justo,
-    sed blandit orci. Aenean accumsan hendrerit arcu, laoreet vestibulum turpis
-    vulputate eu. Etiam dignissim nibh dictum pharetra congue. Nulla ultrices, augue
-    a blandit laoreet, metus enim sodales arcu, eget pellentesque lorem justo et
-    ipsum. '
-  icon: img/items/book.webp
-  onUse:
-    action: run
-    label: read_book
-  tag: always_interactable
+---
+categories:
+  - id: default
+    title: Items
+  - id: books
+    title: Books
+
+items:
+  bread:
+    name: Bread
+    description: A bread in the game.
+    icon: img/items/bread.webp
+    onUse:
+      action: jump
+      label: eat_bread
+  book:
+    name: Ominous Book
+    description:
+      'An ominous book. Lorem ipsum dolor sit amet, consectetur adipiscing
+      elit. Quisque sed ullamcorper turpis. Aliquam tincidunt dolor sed mollis aliquet.
+      Duis in odio eros. Maecenas sapien arcu, fermentum id tincidunt non, accumsan
+      vel metus. Nullam pretium molestie accumsan. In ut rutrum tellus. Integer vitae
+      nisl eleifend lorem tristique auctor quis sed nulla. Cras gravida viverra tristique.
+      Mauris imperdiet tortor purus, fringilla vehicula metus ullamcorper eget. Lorem
+      ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta imperdiet justo,
+      sed blandit orci. Aenean accumsan hendrerit arcu, laoreet vestibulum turpis
+      vulputate eu. Etiam dignissim nibh dictum pharetra congue. Nulla ultrices, augue
+      a blandit laoreet, metus enim sodales arcu, eget pellentesque lorem justo et
+      ipsum. '
+    icon: img/items/book.webp
+    onUse:
+      action: run
+      label: read_book
+    tag: always_interactable
+    category: books

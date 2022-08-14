@@ -21,7 +21,6 @@ layout:
     width: 1280
     height: 720
   dialogBottomPadding: '2rem'
-  minTextWidth: 475
   mobileDialogHeightPercentage: 60
   verticalLayoutThreshold: 600
   portraits:

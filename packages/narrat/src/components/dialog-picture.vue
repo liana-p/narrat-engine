@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { getConfig, getAssetUrl } from '@/config';
+import { getConfig, getAssetUrl, getDialogPanelWidth } from '@/config';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { mapState } from 'pinia';
 import { defineComponent } from 'vue';
@@ -36,7 +36,7 @@ export default defineComponent({
       } else {
         const landscape = portrait.offset?.landscape ?? { right: 0, bottom: 0 };
         const panelOffset = layout.dialogPanel?.rightOffset ?? 0;
-        right = layout.minTextWidth - 10 + landscape.right + panelOffset;
+        right = getDialogPanelWidth() - 10 + landscape.right + panelOffset;
         bottom = 200 + landscape.bottom;
       }
       return {

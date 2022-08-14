@@ -3,6 +3,7 @@
 import { deepCopy } from '@/utils/data-helpers';
 import { defineStore } from 'pinia';
 import { getConfig, getItemConfig, ItemData } from '../config';
+import { useDialogStore } from './dialog-store';
 import { useNotifications } from './notification-store';
 
 export interface ItemState {
@@ -132,6 +133,18 @@ export const useInventory = defineStore('inventory', {
       if (existingItem) {
         this.items[id].amount = 0;
       }
+    },
+    canUseItem(item: ItemState) {
+      const conf = getItemConfig(item.id);
+      if (
+        conf &&
+        conf.onUse &&
+        !this.isInteractionTagBlocked(conf.tag) &&
+        !useDialogStore().currentDialog.choices
+      ) {
+        return true;
+      }
+      return false;
     },
   },
 });

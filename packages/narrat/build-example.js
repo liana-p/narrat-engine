@@ -21,10 +21,17 @@ if (typeof exampleName !== 'string') {
 }
 const DEST = path.join(BUILD_DIR, exampleName);
 
+if (!fs.existsSync(BUILD_DIR)) {
+  fs.mkdirSync(BUILD_DIR);
+}
 console.log(cyan(`Building demo game: ${exampleName}`));
 console.log(red('Deleting previous build...'));
 console.log(`delete path`, DEST);
-fs.rmdirSync(DEST, { recursive: true });
+if (fs.existsSync(DEST)) {
+  fs.rmdirSync(DEST, { recursive: true });
+}
+fs.mkdirSync(DEST);
+
 const staticAssetsFoldersToCopy = ['img', 'music', 'audio'];
 
 if (fs.existsSync(path.join(EXAMPLES_DIR, `assets/${exampleName}`))) {

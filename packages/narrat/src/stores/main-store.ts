@@ -382,7 +382,7 @@ export const useMain = defineStore('main', {
       const hudStore = useHud();
       hudStore.setupHudStats(config.hudStats);
       const inventoryStore = useInventory();
-      inventoryStore.setupItems(config.items);
+      inventoryStore.setupItems(config.items.items);
       const questsStore = useQuests();
       questsStore.setupQuests(config.quests);
       useDialogStore().reset();

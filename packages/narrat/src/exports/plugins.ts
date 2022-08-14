@@ -3,7 +3,7 @@ import { CommandPlugin, generateParser } from '../vm/commands/command-plugin';
 import type { CommandRunner } from '../vm/commands/command-plugin';
 import { vm } from '../vm/vm';
 import { StoreDefinition } from 'pinia';
-import { MenuButtonState } from '@/stores/menu-store';
+import { MenuState } from '@/stores/menu-store';
 
 export type NarratLifecycleHook = <T extends [...any[]]>(...args: T) => void;
 
@@ -27,7 +27,7 @@ export interface CustomStores {
 }
 
 export interface CustomMenuButton {
-  config: MenuButtonState;
+  config: MenuState;
   component: any;
 }
 export type NarratPluginObject<T> = {

@@ -1,9 +1,19 @@
 ---
 gameTitle: Narrat RPG Example
 images: {}
+dialoguePanel:
+  textSpeed: 30
+  animateText: true
+  timeBetweenLines: 100
 layout:
+  dialogPanel:
+    overlayMode: true
+    rightOffset: 50
+    bottomOffset: 50
+    width: 400
+    height: 680
   backgrounds:
-    width: 880
+    width: 1200
     height: 720
   dialogBottomPadding: 70
   minTextWidth: 475

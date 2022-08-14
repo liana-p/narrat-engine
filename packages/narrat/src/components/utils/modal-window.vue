@@ -11,7 +11,6 @@
             X
           </button>
           <slot name="header"> default header </slot>
-          <hr class="solid" />
         </div>
 
         <div class="modal-body">
@@ -30,7 +29,7 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
   props: {
-    containerCssClass: String,
+    containerCssClass: [String, Object],
     cantClose: {
       type: Boolean,
       default: false,
@@ -89,7 +88,6 @@ export default defineComponent({
 }
 
 .modal-body {
-  margin: 20px 0;
   overflow-y: auto;
   flex-shrink: 2;
 }

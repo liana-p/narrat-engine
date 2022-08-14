@@ -1,6 +1,6 @@
 import { aspectRatioFit } from '@/utils/helpers';
 import { defineStore } from 'pinia';
-import { getConfig } from '../config';
+import { getConfig, getDialogPanelWidth } from '../config';
 
 export interface RenderingState {
   screenWidth: number;
@@ -55,7 +55,7 @@ export const useRenderingStore = defineStore('rendering', {
       if (this.layoutMode === 'vertical' || this.overlayMode) {
         return config.layout.backgrounds.width;
       } else {
-        return config.layout.backgrounds.width + config.layout.minTextWidth;
+        return config.layout.backgrounds.width + getDialogPanelWidth();
       }
     },
     gameHeight(): number {
@@ -70,10 +70,7 @@ export const useRenderingStore = defineStore('rendering', {
       if (this.layoutMode === 'vertical') {
         return this.viewportWidth;
       } else {
-        const width =
-          getConfig().layout.dialogPanel?.width ??
-          getConfig().layout.minTextWidth ??
-          400;
+        const width = getDialogPanelWidth();
         return width;
       }
     },

@@ -50,6 +50,21 @@
 
   --dialog-box-bg: var(--bg-color);
   --dialog-box-border: none;
+
+  /* Tabs */
+  --tabs-background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(100, 100, 100, 1) 53%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  --tab-active-background: rgba(0, 0, 0, 0);
+  --tab-active-text-color: var(--text-color);
+  --tab-inactive-background: rgba(0, 0, 0, 0);
+  --tab-inactive-text-color: var(--text-color);
+  --tab-border-style: solid;
+  --tab-border-color: white;
+  --tab-selected-glow-color: var(--focus);
 }
 body {
   font-family: var(--font-family);
@@ -257,8 +272,8 @@ h3 {
 
 hr.solid {
   border: 1px solid var(--text-color);
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .card-1 {
