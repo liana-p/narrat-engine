@@ -45,8 +45,16 @@ export class CounterPlugin extends NarratPlugin {
       {
         config: {
           id: 'counter',
-          text: 'Counter',
-          component: 'CounterUi',
+          label: 'Counter',
+          cssClass: 'counter-menu-button',
+          activeTab: 0,
+          tabs: [
+            {
+              id: 'counter',
+              text: 'Counter',
+              component: 'CounterUi',
+            },
+          ],
         },
         component: CounterUi,
       },
