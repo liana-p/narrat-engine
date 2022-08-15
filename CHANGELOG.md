@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.7.2] - Sprites bugfix
+
+Fixed a bug where sprites wouldn't be able to move after reloading the game
+
 ## [2.7.1] - Small bugfixes
 
 Small bug fixes around items use
