@@ -6,6 +6,7 @@ import { defineStore } from 'pinia';
 import { useVM } from './vm-store';
 
 export interface SpriteState {
+  _entityType: 'sprite';
   id: string;
   x: number;
   y: number;
@@ -31,6 +32,14 @@ export type SpriteStoreSave = {
   sprites: SpriteState[];
 };
 
+export function isSprite(entity: any): entity is SpriteState {
+  return (
+    typeof entity === 'object' &&
+    entity !== null &&
+    entity._entityType === 'sprite'
+  );
+}
+
 export const useSprites = defineStore('sprites', {
   state: () =>
     ({
@@ -40,6 +49,7 @@ export const useSprites = defineStore('sprites', {
     createSprite(image: string, x: number, y: number) {
       const id = randomId();
       const sprite: SpriteState = {
+        _entityType: 'sprite',
         id,
         x,
         y,
@@ -63,6 +73,9 @@ export const useSprites = defineStore('sprites', {
         }
       });
       return sprite;
+    },
+    addSprite(sprite: SpriteState) {
+      this.sprites.push(sprite);
     },
     getSprite(id: string) {
       return this.sprites.find((sprite) => sprite.id === id);

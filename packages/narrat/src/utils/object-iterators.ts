@@ -44,3 +44,16 @@ export const filterObject = <T>(
   }
   return result;
 };
+
+export const deepEvery = <T>(
+  object: T,
+  predicate: (value: any, key: string | number, parent: any) => any,
+) => {
+  for (const key in object) {
+    const value = object[key];
+    predicate(value, key, object);
+    if (typeof value === 'object' && value !== null) {
+      deepEvery(value, predicate);
+    }
+  }
+};
