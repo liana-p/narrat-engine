@@ -458,6 +458,7 @@ export const useMain = defineStore('main', {
       const hudStore = useHud();
       const audioStore = useAudio();
       const inventoryStore = useInventory();
+      useSprites().loadSaveData(save.sprites);
       screensStore.loadSaveData(save.screen);
       skillsStore.loadSaveData(save.skills);
       dialogStore.loadSaveData(save.dialog);
@@ -466,7 +467,6 @@ export const useMain = defineStore('main', {
       hudStore.loadSaveData(save.hud);
       audioStore.loadSaveData(save.audio);
       inventoryStore.loadSaveData(save.inventory);
-      useSprites().loadSaveData(save.sprites);
       // Load save data from potential custom stores
       useQuests().loadSaveData(save.quests);
       vm.customStores().forEach(([storeName, store]) => {

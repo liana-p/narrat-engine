@@ -12,14 +12,17 @@ import {
   getModifiableDataPinia,
   setDataHelper,
 } from '@/utils/data-helpers';
-import { error, parserError } from '@/utils/error-handling';
+import { error, parserError, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
+import { deepEvery } from '@/utils/object-iterators';
+import { createSpriteCommand } from '@/vm/commands/sprite-commands';
 import { runCommand } from '@/vm/vm';
 import { ParserContext, parseScript } from '@/vm/vm-parser';
 import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useInventory } from './inventory-store';
 import { useMain } from './main-store';
+import { isSprite, useSprites } from './sprites-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -103,6 +106,22 @@ export const useVM = defineStore('vm', {
     loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
       this.data = data.data;
+      this.findEntitiesInData(this.data);
+    },
+    findEntitiesInData(data: any) {
+      deepEvery(this.data, (value, key, parent) => {
+        if (isSprite(value)) {
+          const spriteFromStore = useSprites().getSprite(value.id);
+          if (!spriteFromStore) {
+            warning(
+              `Trying to reload sprite ${key} (${value.image} - ${value.id}) but it does not exist.`,
+            );
+            useSprites().addSprite(value);
+          } else {
+            parent[key] = spriteFromStore;
+          }
+        }
+      });
     },
     setReturnValue(value: any) {
       this.currentFrame!.returnValue = value;
