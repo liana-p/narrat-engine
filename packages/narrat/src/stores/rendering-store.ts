@@ -8,8 +8,6 @@ export interface RenderingState {
   layoutMode: 'horizontal' | 'vertical';
 }
 
-// Generate a pinia store named rendering with a state using the type RenderingState, with actions:
-// updateScreenSize(width: number, height: number, textWidth: number): Updates the screen size
 export const useRenderingStore = defineStore('rendering', {
   state: () =>
     ({

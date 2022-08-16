@@ -44,11 +44,6 @@ export type AudioSave = {
   masterVolume: number;
 };
 
-// Generate a pinia store named audio with a state using the type AudioState, and save type AudioSave, with actions:
-// stopMusic(): Stops the current music
-// setMusic(music: string, soundId: number): Sets the current music to the given music
-// generateSaveData(): Function that generates an AudioSave object from the data in the state
-// loadSaveData(data: AudioSave): Function that loads the data into the state
 export const useAudio = defineStore('audio', {
   state: () => {
     const modes = new Map<AudioModeKey, AudioModeState>();

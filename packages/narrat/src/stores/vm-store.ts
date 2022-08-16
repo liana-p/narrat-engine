@@ -73,18 +73,6 @@ export interface VMSave {
   data: DataState;
 }
 
-// Create a pinia store named vm with a state using the type VMState and with save data type VMSave, with actions:
-// generateSaveData(): Function that generates a VMSave object from the data in the state
-// loadSaveData(data: VMSave): Function that loads the data into the state using a deepmerge of current state value and new value
-// setLastLabel(label: string): Sets the last label to the given label
-// reset(): Resets the state to its default values
-// setScript(script: Parser.ParsedScript): Sets the script state to the given script
-// overrideData(data: DataState): Overrides the data state with the given data
-// setStack(stack: MachineStack): Sets the stack state to the given stack, emptying the stack first and setting lastLabel to the new stack's label
-// setData(path: string, value: any): Sets the value of the data state at the given path to the given value
-// addStack(newStack: AddStackOptions): Adds a new stack to the stack state. If it has no label, use the label of the last stack.
-// nextLine(): Increments the current stack's currentIndex
-// previousStack(): Splices away the last stack from the stack state
 export const useVM = defineStore('vm', {
   state: () =>
     ({

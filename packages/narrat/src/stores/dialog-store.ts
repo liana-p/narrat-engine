@@ -30,7 +30,6 @@ type DialogState = {
 };
 export type DialogSave = Pick<DialogState, 'dialog'>;
 
-// Create a pinia store named dialog with a state using the type DialogState, with actions addDialog and clearDialog
 export const useDialogStore = defineStore('dialog', {
   state: () =>
     ({

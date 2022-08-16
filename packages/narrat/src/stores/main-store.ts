@@ -93,20 +93,6 @@ export interface MainSaveData {
   playTime: number;
 }
 
-// Create a pinia store named main with a state using the type MainState, with actions:
-// createError(text: string): Adds an error to the errors state
-// clearErrors(): Clears the errors state
-// setFlowState(flowState: 'menu' | 'playing'): Sets the flow state to the given value
-// openModal(modal: string): Sets the open modal state to the given value
-// closeModal(): Sets the open modal state to false
-// toggleMenu(): Toggles the flow state to 'playing' or 'menu'
-// pause(): Sets the paused state to true
-// unpause(): Sets the paused state to false
-// setOptions(options: AppOptions): Sets the options state to the given value
-// startPlaying(): Sets the playing state to true, sets the play time start to the current time
-// reset(): Resets the state to its default values
-// generateSaveData(): Function that generates a MainState object from the data in the state
-// loadSaveData(data: MainState): Function that loads the data into the state using a deepmerge of current state value and new value
 export const useMain = defineStore('main', {
   state: () =>
     ({

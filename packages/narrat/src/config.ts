@@ -3,6 +3,8 @@ import { AppOptions } from './types/app-types';
 import { loadDataFile } from './utils/ajax';
 import { error } from './utils/error-handling';
 import { transitionSettings, TransitionSettings } from './utils/transition';
+import { Static, Type } from '@sinclair/typebox';
+import { ButtonConfigSchema } from './config/screens-config';
 
 let config!: Config;
 
@@ -268,12 +270,6 @@ export interface Config {
     musicFadeInDelay: number;
     musicFadeOutTime: number;
   };
-  sound?: {
-    [key: string]: AudioConfig;
-  };
-  music?: {
-    [key: string]: AudioConfig;
-  };
   notifications: {
     timeOnScreen: number;
     alsoPrintInDialogue?: boolean;
@@ -410,3 +406,103 @@ export interface SkillData {
   hidden?: boolean;
   icon: string;
 }
+
+const LayoutConfigSchema = Type.Object({
+  dialogPanel: Type.Optional(
+    Type.Object({
+      overlayMode: Type.Optional(Type.Boolean()),
+      rightOffset: Type.Optional(Type.Number()),
+      bottomOffset: Type.Optional(Type.Number()),
+      width: Type.Optional(Type.Number()),
+      height: Type.Optional(Type.Number()),
+    }),
+  ),
+  backgrounds: Type.Object({
+    width: Type.Number(),
+    height: Type.Number(),
+  }),
+  dialogBottomPadding: Type.Number(),
+  minTextWidth: Type.Optional(Type.Number()),
+  verticalLayoutThreshold: Type.Number(),
+  portraits: Type.Object({
+    width: Type.Number(),
+    height: Type.Number(),
+    offset: Type.Optional(
+      Type.Object({
+        landscape: Type.Optional(
+          Type.Object({
+            right: Type.Number(),
+            bottom: Type.Number(),
+          }),
+        ),
+        portrait: Type.Optional(
+          Type.Object({
+            right: Type.Number(),
+            bottom: Type.Number(),
+          }),
+        ),
+      }),
+    ),
+  }),
+});
+
+const ButtonsConfigSchema = Type.Record(Type.String(), ButtonConfigSchema);
+
+const ScriptsConfigSchema = Type.Union([
+  Type.String(),
+  Type.Array(Type.String()),
+]);
+
+const NotificationsConfigSchema = Type.Object({
+  timeOnScreen: Type.Number(),
+  alsoPrintInConsole: Type.Optional(Type.Boolean()),
+});
+const HudStatConfigSchema = Type.Object({
+  name: Type.String(),
+  icon: Type.String(),
+  startingValue: Type.Number(),
+  maxValue: Type.Number(),
+  minValue: Type.Number(),
+});
+
+const InteractionTagConfigSchema = Type.Record(
+  Type.String(),
+  Type.Object({
+    onlyInteractOutsideOfScripts: Type.Optional(Type.Boolean()),
+  }),
+);
+const TransitionsConfigSchema = Type.Record(Type.String(), TransitionSchema);
+const AudioTriggersConfigSchema = Type.Record(Type.String(), Type.String());
+const MenuButtonConfigSchema = Type.Object({
+  text: Type.String(),
+});
+const MenuButtonsConfigSchema = Type.Record(
+  Type.String(),
+  MenuButtonConfigSchema,
+);
+const DebuggingConfigSchema = Type.Object({
+  showScriptFinishedMessage: Type.Optional(Type.Boolean()),
+});
+const SavesConfigSchema = Type.Object({
+  mode: Type.String(),
+  slots: Type.Number(),
+});
+// Create a typebox type object for the config interface
+const ConfigInputSchema = Type.Object({
+  baseAssetsPath: Type.Optional(Type.String()),
+  baseDataPath: Type.Optional(Type.String()),
+  gameTitle: Type.String(),
+  images: Type.Record(Type.String(), Type.String()),
+  layout: LayoutConfigSchema,
+  gameFlow: Type.Object({
+    labelToJumpOnScriptEnd: Type.Optional(Type.String()),
+  }),
+  dialoguePanel: Type.Object({
+    animateText: Type.Optional(Type.Boolean()),
+    textSpeed: Type.Optional(Type.Number()),
+    timeBetweenLines: Type.Optional(Type.Number()),
+  }),
+  dialogPanel: Type.Optional(DialogPanelConfigSchema),
+  splashScreens: Type.Optional(SplashScreenConfigSchema),
+  screens: Type.Optional(Type.Union([ScreenConfigSchema, Type.String()])),
+});

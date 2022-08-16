@@ -32,12 +32,6 @@ export type ScreenSave = {
   buttons: ButtonsState;
 };
 
-// Create a pinia store named screens with a state using the type ScreenState, with actions:
-// setScreen(screen: string): Sets the current screen to the given screen
-// setButtons(buttons: { [key: string]: ButtonConfig }): Adds buttons to the buttons state by using the values in the buttons config object
-// changeButton(button: string, newValue: boolean): Changes the value of a button in the buttons state
-// generateSaveData(): Function that generates a ScreenState object from the data in the state
-// loadSaveData(data: ScreenState): Function that loads the data into the state using a deepmerge of current state value and new value
 export const useScreens = defineStore('screens', {
   state: () =>
     ({

@@ -15,12 +15,6 @@ export interface HudState {
 }
 export type HudSave = HudState;
 
-// Create a pinia store named hud with a state using the type HudState, and save type HudSave, with actions:
-// setupHudStats(stats: { [key: string]: HudStatConfig }): Iterates the stats argument to add new stats to the state
-// setStat(stat: string, value: number): Sets the value of a stat
-// addStat(stat: string, value: number): Adds a value to a stat
-// generateSaveData(): Function that generates a HudSave object from the data in the state
-// loadSaveData(data: HudSave): Function that loads the data into the state
 export const useHud = defineStore('hud', {
   state: () =>
     ({

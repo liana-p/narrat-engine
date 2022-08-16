@@ -29,15 +29,7 @@ export interface Skills {
 }
 
 export type SkillsSave = Skills;
-// Create a pinia store named skills with a state using the type Skills, with actions:
-// setupSkillCheck(skillCheck: SkillCheckState, id: string)
-// passSkillCheck(skillCheckId: string)
-// failSkillCheck(skillCheckId: string)
-// generateSaveData(): Function that generates a Skills object from the data in the state
-// loadSaveData(data: Skills): Function that loads the data into the state
-// setupSkills(skills: { [key: string]: SkillData})
-// addXp(skill: string, xp: number): Adds xp to a skill, increases skill level if it reaches the max xp defined in the skillOptions.xpPerLevel key of the config
-// incrementSkill(skill: string, amount: number): Increments the level of a skill by amount
+
 export const useSkills = defineStore('skills', {
   state: () =>
     ({

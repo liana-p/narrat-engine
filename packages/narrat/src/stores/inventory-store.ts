@@ -25,7 +25,6 @@ export interface InventoryState {
 
 export type InventorySave = InventoryState;
 
-// create a pinia store named inventory with a state of type ItemState and actions to add and delete items. Adding items should increase the amount of any existing item that matches the id.
 export const useInventory = defineStore('inventory', {
   state: (): InventoryState => ({
     items: {},
