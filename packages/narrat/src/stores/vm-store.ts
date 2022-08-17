@@ -9,6 +9,7 @@ import { Parser } from '@/types/parser';
 import { getFile, loadDataFile } from '@/utils/ajax';
 import {
   addDataHelper,
+  deepCopy,
   getModifiableDataPinia,
   setDataHelper,
 } from '@/utils/data-helpers';
@@ -88,7 +89,7 @@ export const useVM = defineStore('vm', {
     generateSaveData(): VMSave {
       return {
         lastLabel: this.lastLabel,
-        data: this.data,
+        data: deepCopy(this.data),
       };
     },
     loadSaveData(data: VMSave) {

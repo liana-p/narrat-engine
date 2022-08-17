@@ -133,6 +133,10 @@ quests:
 
 The `audioTriggers` part of the config has been moved inside the `audio` config
 
+## [2.7.3] - Data save bug
+
+Fixed a bug where contents of the data object would get overwritten after saving
+
 ## [2.7.2] - Sprites bugfix
 
 Fixed a bug where sprites wouldn't be able to move after reloading the game
