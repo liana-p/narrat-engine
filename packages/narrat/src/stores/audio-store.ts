@@ -1,4 +1,4 @@
-import { getConfig } from '@/config';
+import { audioConfig, getConfig } from '@/config';
 import { getAudio, stopHowlerById } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
@@ -44,11 +44,6 @@ export type AudioSave = {
   masterVolume: number;
 };
 
-// Generate a pinia store named audio with a state using the type AudioState, and save type AudioSave, with actions:
-// stopMusic(): Stops the current music
-// setMusic(music: string, soundId: number): Sets the current music to the given music
-// generateSaveData(): Function that generates an AudioSave object from the data in the state
-// loadSaveData(data: AudioSave): Function that loads the data into the state
 export const useAudio = defineStore('audio', {
   state: () => {
     const modes = new Map<AudioModeKey, AudioModeState>();
@@ -82,17 +77,17 @@ export const useAudio = defineStore('audio', {
         return;
       }
       this.setAudioChannel(mode, channelIndex, null);
-      if (getConfig().audioOptions.musicFadeOutTime) {
+      if (audioConfig().options.musicFadeOutTime) {
         const audio = getAudio(audioChannel.audio);
         if (audio) {
           audio.fade(
             audio.volume(audioChannel.howlerId) as number,
             0,
-            getConfig().audioOptions.musicFadeOutTime * 1000,
+            audioConfig().options.musicFadeOutTime * 1000,
             audioChannel.howlerId,
           );
         }
-        await timeout(getConfig().audioOptions.musicFadeOutTime * 1000);
+        await timeout(audioConfig().options.musicFadeOutTime * 1000);
       }
       this.actuallyStopChannel(audioChannel);
     },
@@ -170,7 +165,7 @@ export const useAudio = defineStore('audio', {
           audio,
           howlerId: newId,
         });
-        await timeout(getConfig().audioOptions.musicFadeInDelay * 1000);
+        await timeout(audioConfig().options.musicFadeInDelay * 1000);
         // We're checking the the audio hasn't been changed again in the background before playing the audio
         const currentValue = this.getAudioChannel(mode, channelIndex);
         if (currentValue !== null && currentValue.audio === audio) {
@@ -179,7 +174,7 @@ export const useAudio = defineStore('audio', {
           newAudio.fade(
             0,
             this.modeVolume(mode),
-            getConfig().audioOptions.musicFadeInTime * 1000,
+            audioConfig().options.musicFadeInTime * 1000,
             newId,
           );
         }

@@ -15,9 +15,6 @@ export interface NotificationsState {
   enabled: boolean;
 }
 
-// Generate a pinia store named notifications with a state using the type NotificationsState, and save type NotificationsSave, with actions:
-// addNotification(text: string): Adds a new notification to the state, and deletes it after a timeout
-// deleteNotification(id: string): Deletes a notification from the state
 export const useNotifications = defineStore('notifications', {
   state: () => ({ notifications: {}, enabled: true } as NotificationsState),
   actions: {

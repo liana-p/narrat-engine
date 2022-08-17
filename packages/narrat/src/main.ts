@@ -6,8 +6,7 @@ import { Vue3Mq } from 'vue3-mq';
 import { createApp } from 'vue';
 import GameApp from './app.vue';
 import { AppOptions, AppOptionsInput } from './types/app-types';
-import { AppOptionsDeprecated, Config, getConfig, loadConfig } from './config';
-import { loadDataFile } from './utils/ajax';
+import { loadConfig } from './config';
 import { logManager } from './utils/logger';
 import { vm } from './vm/vm';
 import { registerBaseCommands } from './vm/commands';
@@ -21,29 +20,22 @@ import {
 } from './menu-buttons/menu-buttons';
 import { BUILD_DATE, VERSION } from './constants';
 import { addDirectives } from './utils/vue-directives';
+import { useConfig } from './stores/config-store';
 
 let app: any;
 
 vm.callHook('onPageLoaded');
-export async function startApp(
-  optionsInput: AppOptionsInput,
-  optionsOld?: AppOptionsDeprecated,
-) {
+export async function startApp(optionsInput: AppOptionsInput) {
   console.log('Starting narrat...');
   const options: AppOptions = Object.assign(defaultAppOptions(), optionsInput);
-  if (optionsOld) {
-    console.warn(
-      `Deprecation warning: startApp now only takes one object with config rather than two. You can move the values in the second parameter of startApp into the first one.`,
-    );
-    Object.assign(options, optionsOld);
-  }
-  await loadConfig(options);
   const pinia = createPinia();
   app = createApp(GameApp, {
     options,
   });
   addDirectives(app);
   app.use(pinia);
+  const config = await loadConfig(options);
+  useConfig().setConfig(config);
   vm.pinia = pinia;
   useMain();
   const narrat = {

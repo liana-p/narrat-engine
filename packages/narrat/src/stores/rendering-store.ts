@@ -8,8 +8,6 @@ export interface RenderingState {
   layoutMode: 'horizontal' | 'vertical';
 }
 
-// Generate a pinia store named rendering with a state using the type RenderingState, with actions:
-// updateScreenSize(width: number, height: number, textWidth: number): Updates the screen size
 export const useRenderingStore = defineStore('rendering', {
   state: () =>
     ({
@@ -32,7 +30,6 @@ export const useRenderingStore = defineStore('rendering', {
   },
   getters: {
     gameScaleRatio(state: RenderingState): number {
-      const config = getConfig();
       const ratio = aspectRatioFit(
         this.screenWidth,
         this.screenHeight,
@@ -43,7 +40,7 @@ export const useRenderingStore = defineStore('rendering', {
     },
     overlayMode(state: RenderingState): boolean {
       if (
-        getConfig()?.layout?.dialogPanel?.overlayMode &&
+        getConfig().dialogPanel.overlayMode &&
         state.layoutMode === 'horizontal'
       ) {
         return true;
@@ -78,7 +75,7 @@ export const useRenderingStore = defineStore('rendering', {
       if (this.layoutMode === 'vertical') {
         return this.actualGameHeight - this.gameHeight;
       } else {
-        return getConfig().layout.dialogPanel?.height ?? this.gameHeight;
+        return getConfig().dialogPanel.height ?? this.gameHeight;
       }
     },
     actualGameHeight(): number {

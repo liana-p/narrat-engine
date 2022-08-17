@@ -20,3 +20,7 @@ export function isReturnSignal(s: string): s is ReturnSignal {
 }
 export const VERSION = import.meta.env.VITE_BUILD_VERSION;
 export const BUILD_DATE = new Date(import.meta.env.VITE_BUILD_DATE);
+
+// Default values
+export const DEFAULT_DIALOG_WIDTH = 400;
+export const DEFAULT_TEXT_SPEED = 20;

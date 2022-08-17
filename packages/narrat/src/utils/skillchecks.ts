@@ -1,16 +1,16 @@
-import { getConfig, getSkillConfig } from '@/config';
+import { getConfig, getSkillConfig, skillsConfig } from '@/config';
 import { SkillCheckParams } from '@/vm/vm-helpers';
 import { logger } from './logger';
 import { useSkills } from '@/stores/skills';
 import { audioEvent } from './audio-loader';
 
 export function getSkillCheckDifficultyScore(value: number, level: number) {
-  return value - level * getConfig().skillChecks.skillMultiplier;
+  return value - level * skillsConfig().skillChecks.skillMultiplier;
 }
 
 export function getSkillCheckDifficultyText(value: number, level: number) {
   const difficultyScore = getSkillCheckDifficultyScore(value, level);
-  const checks = getConfig().skillChecks;
+  const checks = skillsConfig().skillChecks;
   let found = false;
   let i = 0;
   let checkText = checks.difficultyText[0][1];
@@ -82,7 +82,7 @@ export function calculateSkillCheckRoll(skill: string): {
   roll: number;
   unmodifiedRoll: number;
 } {
-  const { skillChecks } = getConfig();
+  const { skillChecks } = skillsConfig();
   const skillStore = useSkills();
   const unmodifiedRoll = Math.floor(Math.random() * skillChecks.rollRange);
   const rollModifier =
@@ -98,7 +98,7 @@ export function calculateSkillCheckRoll(skill: string): {
 }
 
 export function resolveSkillCheck(params: SkillCheckParams): boolean {
-  const { skills, skillChecks } = getConfig();
+  const { skills, skillChecks } = skillsConfig();
   let success = true;
   const { roll } = calculateSkillCheckRoll(params.skill);
   if (roll <= skillChecks.failureChance - 1) {

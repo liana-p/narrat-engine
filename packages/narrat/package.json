@@ -53,6 +53,9 @@
     "vue": "^3.2.37"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.24.28",
+    "ajv": "^8.11.0",
+    "ajv-formats": "^2.1.1",
     "deepmerge": "^4.2.2",
     "fuse.js": "^6.6.2",
     "howler": "^2.2.3",

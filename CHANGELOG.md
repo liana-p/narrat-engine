@@ -1,5 +1,138 @@
 # Narrat changelog
 
+## [2.8.0] - Improved config files
+
+### Breaking Change
+
+The format of the config files has been improved.
+
+- More consistent
+- The engine can now validate the game's config file and give info about incorrect or missing fields.
+
+Some of the fields in the config have slightly changed position, and some old options have been removed as they were replaced by others more recently.
+
+### Dialog panel config
+
+Previously the dialog panel config was split in two different parts. It now all goes into the `dialogPanel` at the root of the main config file:
+
+```yaml
+dialogPanel:
+  overlayMode: true
+  rightOffset: 100
+  bottomOffset: 50
+  width: 475
+  height: 680
+  textSpeed: 30
+  animateText: true
+  timeBetweenLines: 100
+```
+
+The previous values should be deleted
+
+### Changes to split configs
+
+Some of the split configs were directly a list of elements (like the quests config files or the screens file), which makes it impossible to add new options to those files without a breaking change.
+
+Those files have been changed where needed to have the list of elements inside a specific key, so that new options can be added to those specific files.
+
+This means existing configs will need to be updated in a few places, as explained below.
+
+### Screens config
+
+The screens config file now contains both the screens and the buttons instead of being directly a list of screens.
+
+Previous `buttons` defined in the config need to be moved inside the screens config
+
+Before:
+
+```yaml
+default:
+  background: narrat
+  buttons:
+    - shopButton
+overlay:
+  background: img/backgrounds/overlay.webp
+  buttons:
+    - id: testButton
+      enabled: true
+      text: Test
+      position:
+        left: 500
+        top: 300
+        width: 200
+        height: 50
+      action: shopButton
+```
+
+After:
+
+```yaml
+screens:
+  default:
+    background: narrat
+    buttons:
+      - shopButton
+  overlay:
+    background: img/backgrounds/overlay.webp
+    buttons:
+      - id: testButton
+        enabled: true
+        text: Test
+        position:
+          left: 500
+          top: 300
+          width: 200
+          height: 50
+        action: shopButton
+buttons:
+  shopButton:
+    enabled: false
+    text: 'Shop'
+    cssClass: test-class
+    position:
+      left: 272
+      top: 142
+      width: 200
+      height: 50
+```
+
+### Quests Config
+
+Similar to the screens config, the quests list is now inside the `quest` key of the quests config file:
+
+Before:
+
+```yaml
+breadShopping:
+  title: Bread Shopping
+  description: The helper cat asked you to buy bread for him.
+  objectives:
+    bread:
+      description: Buy bread for the helper cat.
+    delivery:
+      hidden: true
+      description: Deliver the bread to the helper cat.
+```
+
+After:
+
+```yaml
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+```
+
+### Audio triggers
+
+The `audioTriggers` part of the config has been moved inside the `audio` config
+
 ## [2.7.3] - Data save bug
 
 Fixed a bug where contents of the data object would get overwritten after saving

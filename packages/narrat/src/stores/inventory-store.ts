@@ -1,8 +1,9 @@
 // create a pinia store named inventory with a state containing items and actions to add and delete items
 
+import { ItemConfig } from '@/config/items-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { defineStore } from 'pinia';
-import { getConfig, getItemConfig, ItemData } from '../config';
+import { getConfig, getItemConfig } from '../config';
 import { useDialogStore } from './dialog-store';
 import { useNotifications } from './notification-store';
 
@@ -25,7 +26,6 @@ export interface InventoryState {
 
 export type InventorySave = InventoryState;
 
-// create a pinia store named inventory with a state of type ItemState and actions to add and delete items. Adding items should increase the amount of any existing item that matches the id.
 export const useInventory = defineStore('inventory', {
   state: (): InventoryState => ({
     items: {},
@@ -42,7 +42,7 @@ export const useInventory = defineStore('inventory', {
       this.items = { ...this.items, ...save.items };
       this.interactionTags = { ...save.interactionTags };
     },
-    setupItems(items: { [key: string]: ItemData }) {
+    setupItems(items: { [key: string]: ItemConfig }) {
       Object.keys(items).forEach((key) => {
         this.items[key] = {
           amount: 0,

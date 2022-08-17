@@ -65,6 +65,8 @@
 import { mapState } from 'pinia';
 import { defineComponent, PropType } from 'vue';
 import { getConfig } from './config';
+import { defaultConfig } from './config/config-output';
+import { DEFAULT_TEXT_SPEED } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
 import { useMain } from './stores/main-store';
 import { DialogStyle } from './types/character-types';
@@ -255,7 +257,7 @@ export default defineComponent({
       }
       if (useDialogStore().playMode === 'skip') {
         this.startSkip();
-      } else if (getConfig().dialoguePanel.animateText) {
+      } else if (getConfig().dialogPanel.animateText) {
         this.textAnimation = {
           text: '',
           index: 0,
@@ -272,7 +274,7 @@ export default defineComponent({
       } else if (useDialogStore().playMode !== 'auto' && this.isBasicChoice) {
         this.autoTimer = setTimeout(() => {
           this.endTextAnimation();
-        }, (getConfig().dialoguePanel?.textSpeed ?? 20) * this.options.text.length);
+        }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * this.options.text.length);
       }
     },
     startSkip() {
@@ -296,8 +298,9 @@ export default defineComponent({
       const elapsed = Date.now() - anim.startTime;
       let ended = false;
       let lettersAmount =
-        Math.round(elapsed / (getConfig().dialoguePanel?.textSpeed ?? 20)) +
-        anim.skippedChars;
+        Math.round(
+          elapsed / (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED),
+        ) + anim.skippedChars;
       if (lettersAmount > this.options.text.length) {
         ended = true;
         anim.finished = true;
@@ -348,7 +351,8 @@ export default defineComponent({
             this.next();
           },
           useDialogStore().playMode === 'auto'
-            ? getConfig().dialoguePanel?.timeBetweenLines ?? 100
+            ? getConfig().dialogPanel.timeBetweenLines ??
+                defaultConfig.dialogPanel.timeBetweenLines
             : 0,
         );
       }

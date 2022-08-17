@@ -46,7 +46,7 @@ import { SaveSlot } from '../../types/game-save';
 import { computed, defineProps, PropType, ref } from 'vue';
 import { toHHMMSS } from '../../utils/time-helpers';
 import { renameSave } from '../../utils/save-helpers';
-import { getConfig, getImageUrl } from '@/config';
+import { getConfig, getImageUrl, screensConfig } from '@/config';
 
 const props = defineProps({
   saveSlot: {
@@ -70,7 +70,7 @@ const saveScreenshot = computed(() => {
   const save = props.saveSlot.saveData;
   if (save) {
     if (save.screen.layers[0]) {
-      const conf = getConfig().screens[save.screen.layers[0]];
+      const conf = screensConfig().screens[save.screen.layers[0]];
       if (conf) {
         return {
           backgroundImage: `url(${getImageUrl(conf.background)})`,

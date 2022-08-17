@@ -1,9 +1,10 @@
-breadShopping:
-  title: Bread Shopping
-  description: The helper cat asked you to buy bread for him. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis varius augue vitae rutrum. Nulla elementum neque non orci posuere lobortis. Quisque hendrerit congue ultrices. Phasellus semper lacus urna. Vivamus elementum, odio a pulvinar pretium, orci metus tempor urna, at condimentum ligula est quis nulla. Maecenas at congue felis, non cursus leo. Proin tempus, lectus sit amet facilisis molestie, dolor justo molestie risus, sit amet rhoncus enim nunc eu arcu. Donec fringilla erat ut risus finibus, sed vestibulum tellus euismod. Aliquam venenatis tempor velit ut rhoncus. Suspendisse vulputate fringilla ipsum id venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis varius augue vitae rutrum. Nulla elementum neque non orci posuere lobortis. Quisque hendrerit congue ultrices. Phasellus semper lacus urna. Vivamus elementum, odio a pulvinar pretium, orci metus tempor urna, at condimentum ligula est quis nulla. Maecenas at congue felis, non cursus leo. Proin tempus, lectus sit amet facilisis molestie, dolor justo molestie risus, sit amet rhoncus enim nunc eu arcu. Donec fringilla erat ut risus finibus, sed vestibulum tellus euismod. Aliquam venenatis tempor velit ut rhoncus. Suspendisse vulputate fringilla ipsum id venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis varius augue vitae rutrum. Nulla elementum neque non orci posuere lobortis. Quisque hendrerit congue ultrices. Phasellus semper lacus urna. Vivamus elementum, odio a pulvinar pretium, orci metus tempor urna, at condimentum ligula est quis nulla. Maecenas at congue felis, non cursus leo. Proin tempus, lectus sit amet facilisis molestie, dolor justo molestie risus, sit amet rhoncus enim nunc eu arcu. Donec fringilla erat ut risus finibus, sed vestibulum tellus euismod. Aliquam venenatis tempor velit ut rhoncus. Suspendisse vulputate fringilla ipsum id venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis varius augue vitae rutrum. Nulla elementum neque non orci posuere lobortis. Quisque hendrerit congue ultrices. Phasellus semper lacus urna. Vivamus elementum, odio a pulvinar pretium, orci metus tempor urna, at condimentum ligula est quis nulla. Maecenas at congue felis, non cursus leo. Proin tempus, lectus sit amet facilisis molestie, dolor justo molestie risus, sit amet rhoncus enim nunc eu arcu. Donec fringilla erat ut risus finibus, sed vestibulum tellus euismod. Aliquam venenatis tempor velit ut rhoncus. Suspendisse vulputate fringilla ipsum id venenatis.
-  objectives:
-    bread:
-      description: Buy bread for the helper cat.
-    delivery:
-      hidden: true
-      description: Deliver the bread to the helper cat.
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.

@@ -136,8 +136,8 @@ function chosenSave({ slotId }: ChosenSlot) {
 
 onMounted(() => {
   const config = getConfig();
-  if (config.audioOptions.defaultMusic) {
-    useAudio().playChannel('music', config.audioOptions.defaultMusic, 0);
+  if (config.audio.options.defaultMusic) {
+    useAudio().playChannel('music', config.audio.options.defaultMusic, 0);
   }
   const save = getSaveFile();
   if (save.slots.some((slot) => slot.saveData)) {

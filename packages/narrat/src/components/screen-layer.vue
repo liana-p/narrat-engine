@@ -31,7 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import { getConfig, getButtonConfig, getImageUrl } from '@/config';
+import {
+  getConfig,
+  getButtonConfig,
+  getImageUrl,
+  screensConfig,
+} from '@/config';
 import { computed, CSSProperties } from 'vue';
 import { useMain } from '../stores/main-store';
 import { ButtonStateValue, useScreens } from '@/stores/screens-store';
@@ -70,7 +75,7 @@ const buttonsState = computed(() => {
 });
 
 const screenConfig = computed(() => {
-  const conf = getConfig().screens[currentScreen.value];
+  const conf = screensConfig().screens[currentScreen.value];
   if (!conf) {
     console.log(currentScreen);
     error(`Screen ${currentScreen.value} doesn't have a config`);

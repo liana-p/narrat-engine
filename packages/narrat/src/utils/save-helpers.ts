@@ -1,11 +1,6 @@
-import { getConfig } from '@/config';
+import { audioConfig, getConfig } from '@/config';
 import { SAVE_FILE } from '@/constants';
-import {
-  audioModes,
-  AudioModeState,
-  AudioSave,
-  AudioSaveMode,
-} from '@/stores/audio-store';
+import { audioModes, AudioSave, AudioSaveMode } from '@/stores/audio-store';
 import {
   GameSave,
   SaveFile,
@@ -153,21 +148,6 @@ export function generateMetadata(): SaveSlotMetadata {
   return {
     saveDate: new Date().toISOString(),
     name: 'New Save',
-  };
-}
-
-function defaultAudioSave(): AudioSave {
-  const modes = mapObject(audioModes, (mode) => {
-    return {
-      channels: [],
-      options: {
-        volume: 1,
-      },
-    } as AudioSaveMode;
-  });
-  return {
-    modes,
-    masterVolume: getConfig().audioOptions.volume ?? 1,
   };
 }
 
