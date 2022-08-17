@@ -21,7 +21,8 @@
 </template>
 
 <script lang="ts">
-import { getConfig, getItemConfig, ItemData } from '@/config';
+import { getConfig, getItemConfig } from '@/config';
+import { ItemConfig } from '@/config/items-config';
 import { useDialogStore } from '@/stores/dialog-store';
 import { useInventory, ItemState } from '@/stores/inventory-store';
 import { useVM } from '@/stores/vm-store';
@@ -86,14 +87,14 @@ export default defineComponent({
     canUseChosenItem() {
       return useInventory().canUseItem(this.chosenItem!);
     },
-    chosenItemConf(): null | ItemData {
+    chosenItemConf(): null | ItemConfig {
       if (this.chosenId) {
         return this.itemConf[this.chosenId];
       }
       return null;
     },
     itemConf(): {
-      [key: string]: ItemData;
+      [key: string]: ItemConfig;
     } {
       return getConfig().items.items;
     },

@@ -1,30 +1,23 @@
 import { Type, Static } from '@sinclair/typebox';
-import { AudioOptionsSchema, AudioRecordConfigSchema } from './audio-config';
+import { AudioInputConfigSchema } from './audio-config';
+import { ButtonsConfigSchema } from './buttons-config';
 import {
   DebuggingConfigSchema,
   DialogPanelConfigSchema,
   HudStatsConfigSchema,
   InteractionTagsConfigSchema,
-  MenuButtonConfigSchema,
+  MenuButtonsConfigSchema,
   NotificationsConfigSchema,
   SavesConfigSchema,
+  ScriptsConfigSchema,
   SplashScreenConfigSchema,
   TransitionsConfigSchema,
 } from './common-config';
 import { ItemsConfigSchema } from './items-config';
 import { LayoutConfigSchema } from './layout-config';
 import { QuestsConfigSchema } from './quests-config';
-import { ButtonConfigSchema, ScreensConfigSchema } from './screens-config';
-import {
-  SkillChecksConfigSchema,
-  SkillOptionsSchema,
-  SkillsListConfigSchema,
-} from './skills-config';
-
-export const ScreensInputSchema = Type.Union([
-  Type.String(),
-  ScreensConfigSchema,
-]);
+import { ScreensInputConfigSchema } from './screens-config';
+import { SkillsInputConfigSchema } from './skills-config';
 
 export const ConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
@@ -37,31 +30,25 @@ export const ConfigInputSchema = Type.Object({
       labelToJumpOnScriptEnd: Type.Optional(Type.String()),
     }),
   ),
-  dialoguePanel: Type.Optional(
-    Type.Object({
-      animateText: Type.Optional(Type.Boolean()),
-      textSpeed: Type.Optional(Type.Number()),
-      timeBetweenLines: Type.Optional(Type.Number()),
-    }),
-  ),
   dialogPanel: Type.Optional(DialogPanelConfigSchema),
   splashScreens: Type.Optional(SplashScreenConfigSchema),
-  screens: ScreensInputSchema,
-  buttons: Type.Optional(Type.Record(Type.String(), ButtonConfigSchema)),
-  skills: Type.Optional(Type.Union([Type.String(), SkillsListConfigSchema])),
-  skillOptions: Type.Optional(SkillOptionsSchema),
-  skillChecks: Type.Optional(SkillChecksConfigSchema),
-  scripts: Type.Union([Type.String(), Type.Array(Type.String())]),
-  audio: Type.Union([Type.String(), AudioRecordConfigSchema]),
-  audioOptions: Type.Optional(AudioOptionsSchema),
-  notifications: NotificationsConfigSchema,
+  // split: screens
+  screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
+  // split: skills
+  skills: Type.Optional(Type.Union([Type.String(), SkillsInputConfigSchema])),
+  // Split: scripts
+  scripts: Type.Union([Type.String(), ScriptsConfigSchema]),
+  // split: audio
+  audio: Type.Union([Type.String(), AudioInputConfigSchema]),
+  notifications: Type.Optional(NotificationsConfigSchema),
   hudStats: HudStatsConfigSchema,
-  items: Type.Union([Type.String(), ItemsConfigSchema]),
+  // split: items
+  items: Type.Optional(Type.Union([Type.String(), ItemsConfigSchema])),
   interactionTags: InteractionTagsConfigSchema,
-  quests: Type.Union([Type.String(), QuestsConfigSchema]),
+  // split: quests
+  quests: Type.Optional(Type.Union([Type.String(), QuestsConfigSchema])),
   transitions: Type.Optional(TransitionsConfigSchema),
-  audioTriggers: Type.Optional(Type.Record(Type.String(), Type.String())),
-  menuButtons: Type.Optional(MenuButtonConfigSchema),
+  menuButtons: Type.Optional(MenuButtonsConfigSchema),
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: SavesConfigSchema,
 });

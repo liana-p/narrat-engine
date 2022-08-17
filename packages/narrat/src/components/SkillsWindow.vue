@@ -32,7 +32,8 @@
 </template>
 
 <script lang="ts">
-import { getAssetUrl, getConfig, SkillData } from '@/config';
+import { getAssetUrl, skillsConfig } from '@/config';
+import { SkillConfig } from '@/config/skills-config';
 import { SkillsState, useSkills } from '@/stores/skills';
 import { computed, defineComponent } from 'vue';
 
@@ -81,11 +82,11 @@ export default defineComponent({
       }
       return skills;
     },
-    skillConf(): { [key: string]: SkillData } {
-      return getConfig().skills;
+    skillConf(): { [key: string]: SkillConfig } {
+      return skillsConfig().skills;
     },
     xpPerLevel(): number {
-      return getConfig().skillOptions.xpPerLevel;
+      return skillsConfig().skillOptions.xpPerLevel;
     },
   },
 });

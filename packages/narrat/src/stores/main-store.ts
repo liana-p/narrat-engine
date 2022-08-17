@@ -18,7 +18,14 @@ import {
 import { getPlayTime } from '@/utils/time-helpers';
 import { playerAnswered, vm } from '@/vm/vm';
 import { defineStore } from 'pinia';
-import { getConfig } from '../config';
+import {
+  audioConfig,
+  getConfig,
+  itemsConfig,
+  questsConfig,
+  screensConfig,
+  skillsConfig,
+} from '../config';
 import { useAudio } from './audio-store';
 import { useDialogStore } from './dialog-store';
 import { useHud } from './hud-stats-store';
@@ -129,7 +136,7 @@ export const useMain = defineStore('main', {
     async setup() {
       const config = getConfig();
       const scriptPaths = config.scripts;
-      useAudio().setMasterVolume(config.audioOptions.volume ?? 1);
+      useAudio().setMasterVolume(audioConfig().options.volume ?? 1);
       await useVM().loadScripts(scriptPaths);
       useMenu().setup();
       for (const [, store] of vm.customStores()) {
@@ -156,7 +163,7 @@ export const useMain = defineStore('main', {
       await loadImages(getConfig());
       this.loading.percentage = 0.7;
       this.loading.step = 'Audio';
-      await loadAudioAssets(getConfig());
+      await loadAudioAssets(audioConfig());
       vm.callHook('onAssetsLoaded');
       this.loading.percentage = 0.95;
       this.loading.step = 'Starting...';
@@ -295,12 +302,8 @@ export const useMain = defineStore('main', {
     menuReturn() {
       this.reset();
       this.setFlowState('menu');
-      if (getConfig().audioOptions.defaultMusic) {
-        useAudio().playChannel(
-          'music',
-          getConfig().audioOptions.defaultMusic!,
-          0,
-        );
+      if (audioConfig().options.defaultMusic) {
+        useAudio().playChannel('music', audioConfig().options.defaultMusic!, 0);
       }
     },
     createError(text: string) {
@@ -362,15 +365,15 @@ export const useMain = defineStore('main', {
       const screens = useScreens();
       const config = getConfig();
       useSprites().reset();
-      screens.setButtons(config);
+      screens.setButtons(screensConfig());
       const skillsStore = useSkills();
-      skillsStore.setupSkills(config.skills);
+      skillsStore.setupSkills(skillsConfig());
       const hudStore = useHud();
       hudStore.setupHudStats(config.hudStats);
       const inventoryStore = useInventory();
-      inventoryStore.setupItems(config.items.items);
+      inventoryStore.setupItems(itemsConfig().items);
       const questsStore = useQuests();
-      questsStore.setupQuests(config.quests);
+      questsStore.setupQuests(questsConfig());
       useDialogStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
         if (store.reset) {

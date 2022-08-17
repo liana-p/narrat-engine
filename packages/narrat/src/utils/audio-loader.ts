@@ -1,8 +1,9 @@
-import { Config, MusicConfig, AudioConfig, getAssetUrl } from '../config';
+import { getAssetUrl } from '../config';
 import { Howl, Howler } from 'howler';
-import { error, warning } from './error-handling';
+import { warning } from './error-handling';
 import { logger } from './logger';
 import { useAudio } from '@/stores/audio-store';
+import { AudioConfig, AudioFileConfig } from '@/config/audio-config';
 
 export const howlerMap: {
   [key: string]: Howl;
@@ -12,27 +13,12 @@ Howler.volume(0.5);
 
 let audioTriggers: { [key: string]: string } = {};
 
-export async function loadAudioAssets(config: Config): Promise<void[]> {
+export async function loadAudioAssets(config: AudioConfig): Promise<void[]> {
   logger.log(`Loading audio`);
   const loadingPromises: Array<Promise<void>> = [];
-  Howler.volume(config.audioOptions.volume);
-  for (const key in config.music) {
-    // Backward compatibility with old music list
-    const musicConf = {
-      loop: true,
-      ...config.music[key],
-    };
-    config.audio[key] = musicConf;
-    console.warn(
-      `Music config is deprecated, instead you can now add musics to the \`audio\` config as they behave the same as other sounds!`,
-    );
-  }
-  for (const key in config.sound) {
-    // more backward compatibility
-    config.audio[key] = config.sound[key];
-  }
-  for (const key in config.audio) {
-    const sound = config.audio[key];
+  Howler.volume(config.options.volume);
+  for (const key in config.files) {
+    const sound = config.files[key];
     if (!sound.src) {
       sound.src = sound.path!;
       if (!sound.path) {
@@ -44,7 +30,7 @@ export async function loadAudioAssets(config: Config): Promise<void[]> {
         'Using `path` for audio and musics is deprecated. Please replace `path` with `src` in your config file!',
       );
     }
-    loadingPromises.push(loadAudio(key, config.audio[key]));
+    loadingPromises.push(loadAudio(key, config.files[key]));
   }
   if (config.audioTriggers) {
     audioTriggers = config.audioTriggers;
@@ -60,7 +46,7 @@ export function audioEvent(event: string) {
 
 export async function loadAudio(
   key: string,
-  config: AudioConfig | MusicConfig,
+  config: AudioFileConfig,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     logger.log(`Loading audio ${config.src}`);

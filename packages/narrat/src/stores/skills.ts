@@ -1,8 +1,9 @@
+import { SkillsConfig } from '@/config/skills-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
-import { SkillData, getConfig } from '../config';
+import { getConfig, skillsConfig } from '../config';
 import { useNotifications } from './notification-store';
 
 export interface SkillState {
@@ -84,7 +85,8 @@ export const useSkills = defineStore('skills', {
       this.skillChecks = deepmerge(this.skillChecks, data.skillChecks);
       this.skills = deepmerge(this.skills, data.skills);
     },
-    setupSkills(skills: { [key: string]: SkillData }) {
+    setupSkills(skillsConfig: SkillsConfig) {
+      const skills = skillsConfig.skills;
       // Adds each skill in the skills object to the skills state. Add default values for startingLevel and xp of 0 if those keys are missing.
       for (const skill in skills) {
         this.skills[skill] = {
@@ -109,7 +111,7 @@ export const useSkills = defineStore('skills', {
         error(`Skill ${skill} doesn't exist`);
       }
       skillData.xp += xp;
-      if (skillData.xp >= getConfig().skillOptions.xpPerLevel) {
+      if (skillData.xp >= skillsConfig().skillOptions.xpPerLevel) {
         skillData.xp = 0;
         skillData.level++;
         this.levelledUp(skill);
@@ -128,9 +130,9 @@ export const useSkills = defineStore('skills', {
       this.levelledUp(skill);
     },
     levelledUp(skill: string) {
-      const skillName = getConfig().skills[skill].name;
+      const skillName = skillsConfig().skills[skill].name;
       const skillLevel = this.skills[skill].level;
-      if (getConfig().skillOptions.notifyLevelUp) {
+      if (skillsConfig().skillOptions.notifyLevelUp) {
         useNotifications().addNotification(
           `Your skill in ${skillName} is now level ${skillLevel}`,
         );

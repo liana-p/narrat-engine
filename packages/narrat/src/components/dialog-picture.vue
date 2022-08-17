@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { getConfig, getAssetUrl, getDialogPanelWidth } from '@/config';
+import { defaultConfig } from '@/config/config-output';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { mapState } from 'pinia';
 import { defineComponent } from 'vue';
@@ -35,7 +36,9 @@ export default defineComponent({
         bottom = rendering.dialogHeight + portraitMode.bottom;
       } else {
         const landscape = portrait.offset?.landscape ?? { right: 0, bottom: 0 };
-        const panelOffset = layout.dialogPanel?.rightOffset ?? 0;
+        const panelOffset =
+          getConfig().dialogPanel.rightOffset ??
+          defaultConfig.dialogPanel.rightOffset;
         right = getDialogPanelWidth() - 10 + landscape.right + panelOffset;
         bottom = 200 + landscape.bottom;
       }

@@ -11,13 +11,11 @@ import {
   HudStatsConfig,
 } from '@/config/common-config';
 import { defaultItemsConfig, ItemsConfig } from '@/config/items-config';
-import { defaultQuestsConfig, QuestsConfig } from '@/config/quests-config';
-import {
-  ButtonConfig,
-  defaultScreensConfig,
-  ScreensConfig,
-} from '@/config/screens-config';
+import { QuestsConfig } from '@/config/quests-config';
+import { defaultScreensConfig, ScreensConfig } from '@/config/screens-config';
 import { defaultSkillsConfig, SkillsConfig } from '@/config/skills-config';
+import { DEFAULT_TEXT_SPEED } from '@/constants';
+import { defaultLayoutConfig, LayoutConfig } from './layout-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -26,15 +24,13 @@ export interface Config {
   images: {
     [key: string]: string;
   };
+  layout: LayoutConfig;
   gameFlow: {
     labelToJumpOnScriptEnd?: string;
   };
   dialogPanel: DialogPanelConfig;
   splashScreens: SplashScreenConfig;
   screens: ScreensConfig;
-  buttons: {
-    [key: string]: ButtonConfig;
-  };
   skills: SkillsConfig;
   scripts: string[];
   audio: AudioConfig;
@@ -44,19 +40,17 @@ export interface Config {
   interactionTags: InteractionTagsConfig;
   quests: QuestsConfig;
   transitions: TransitionsConfig;
-  audioTriggers: {
-    [key: string]: string;
-  };
   menuButtons: MenuButtonsConfig;
   debugging: DebuggingConfig;
   saves: SavesConfig;
 }
 
-export const defaultConfig: Config = {
+export const defaultConfig = {
   baseAssetsPath: '',
   baseDataPath: '',
   gameTitle: 'Narrat Game',
   images: {},
+  layout: defaultLayoutConfig,
   gameFlow: {},
   dialogPanel: {
     overlayMode: true,
@@ -64,13 +58,12 @@ export const defaultConfig: Config = {
     bottomOffset: 50,
     width: 475,
     height: 680,
-    textSpeed: 30,
+    textSpeed: DEFAULT_TEXT_SPEED,
     animateText: true,
     timeBetweenLines: 100,
   },
   splashScreens: {},
   screens: defaultScreensConfig,
-  buttons: {},
   skills: defaultSkillsConfig,
   scripts: [],
   audio: defaultAudioConfig,
@@ -85,9 +78,10 @@ export const defaultConfig: Config = {
       onlyInteractOutsideOfScripts: true,
     },
   },
-  quests: {},
+  quests: {
+    quests: {},
+  },
   transitions: {},
-  audioTriggers: {},
   menuButtons: {},
   debugging: {
     showScriptFinishedMessage: false,
@@ -97,3 +91,5 @@ export const defaultConfig: Config = {
     slots: 10,
   },
 };
+// Hack so that the previous config has a static type
+export const defaultConfigTyped: Config = defaultConfig;

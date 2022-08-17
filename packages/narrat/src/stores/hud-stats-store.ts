@@ -1,7 +1,7 @@
+import { HudStatsConfig } from '@/config/common-config';
 import { deepCopy } from '@/utils/data-helpers';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
-import { HudStatConfig } from '../config';
 
 export interface HudStatsState {
   [key: string]: HudStat;
@@ -21,7 +21,7 @@ export const useHud = defineStore('hud', {
       hudStats: {},
     } as HudState),
   actions: {
-    setupHudStats(stats: { [key: string]: HudStatConfig }) {
+    setupHudStats(stats: HudStatsConfig) {
       for (const stat in stats) {
         this.hudStats[stat] = {
           value: stats[stat].startingValue,

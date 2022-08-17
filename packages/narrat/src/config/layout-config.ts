@@ -1,20 +1,11 @@
 import { Type, Static } from '@sinclair/typebox';
 
 export const LayoutConfigSchema = Type.Object({
-  dialogPanel: Type.Optional(
-    Type.Object({
-      overlayMode: Type.Optional(Type.Boolean()),
-      rightOffset: Type.Optional(Type.Number()),
-      bottomOffset: Type.Optional(Type.Number()),
-      width: Type.Optional(Type.Number()),
-      height: Type.Optional(Type.Number()),
-    }),
-  ),
   backgrounds: Type.Object({
     width: Type.Number(),
     height: Type.Number(),
   }),
-  dialogBottomPadding: Type.Number(),
+  dialogBottomPadding: Type.Union([Type.Number(), Type.String()]),
   minTextWidth: Type.Optional(Type.Number()),
   verticalLayoutThreshold: Type.Number(),
   portraits: Type.Object({
@@ -39,3 +30,16 @@ export const LayoutConfigSchema = Type.Object({
   }),
 });
 export type LayoutConfig = Static<typeof LayoutConfigSchema>;
+
+export const defaultLayoutConfig: LayoutConfig = {
+  backgrounds: {
+    width: 880,
+    height: 720,
+  },
+  dialogBottomPadding: 70,
+  verticalLayoutThreshold: 600,
+  portraits: {
+    width: 100,
+    height: 100,
+  },
+};

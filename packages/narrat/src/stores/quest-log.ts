@@ -1,7 +1,8 @@
+import { QuestsConfig } from '@/config/quests-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import { defineStore } from 'pinia';
-import { getObjectiveConfig, getQuestConfig, QuestData } from '../config';
+import { getObjectiveConfig, getQuestConfig } from '../config';
 import { useNotifications } from './notification-store';
 
 export interface QuestLogState {
@@ -60,7 +61,8 @@ export const useQuests = defineStore('quests', {
       error(err);
       throw new Error(err);
     },
-    setupQuests(quests: { [key: string]: QuestData }) {
+    setupQuests(questsConfig: QuestsConfig) {
+      const quests = questsConfig.quests;
       // iterate through quests to generate quest states to add to this.quests object
       for (const key of Object.keys(quests)) {
         const data = quests[key];

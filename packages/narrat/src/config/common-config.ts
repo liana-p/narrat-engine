@@ -94,3 +94,8 @@ export const SavesConfigSchema = Type.Object({
   slots: Type.Number(),
 });
 export type SavesConfig = Static<typeof SavesConfigSchema>;
+
+export const ScriptsConfigSchema = Type.Array(Type.String());
+export type ScriptsConfig = Static<typeof ScriptsConfigSchema>;
+
+export const defaultScriptsConfig = [];

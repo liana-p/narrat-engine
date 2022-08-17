@@ -1,4 +1,5 @@
-import { Config, getAssetUrl } from '../config';
+import { Config } from '@/config/config-output';
+import { getAssetUrl } from '../config';
 import { error } from './error-handling';
 import { logger } from './logger';
 
@@ -33,8 +34,8 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
     addImage(key, path);
   }
   // Find other images to load from config
-  for (const key in config.screens) {
-    const screen = config.screens[key];
+  for (const key in config.screens.screens) {
+    const screen = config.screens.screens[key];
     if (screen.background && !config.images[screen.background]) {
       addImage(screen.background, screen.background);
     }

@@ -1,105 +1,246 @@
-import { defaultConfig } from './defaultConfig';
 import { AppOptions } from './types/app-types';
-import { loadDataFile } from './utils/ajax';
 import { error } from './utils/error-handling';
-import { transitionSettings, TransitionSettings } from './utils/transition';
-import { Static, Type } from '@sinclair/typebox';
-import { ButtonConfigSchema } from './config/screens-config';
+import { useConfig } from './stores/config-store';
+import { Config, defaultConfig } from './config/config-output';
+import { DEFAULT_DIALOG_WIDTH } from './constants';
+import { defaultItemsConfig, ItemsConfigSchema } from './config/items-config';
+import {
+  defaultScreensConfig,
+  ScreensConfigSchema,
+  ScreensInputConfigSchema,
+} from './config/screens-config';
+import {
+  ButtonsConfigSchema,
+  defaultButtonsConfig,
+} from './config/buttons-config';
+import {
+  defaultSkillsConfig,
+  SkillsConfigSchema,
+  SkillsInputConfigSchema,
+} from './config/skills-config';
+import {
+  defaultScriptsConfig,
+  ScriptsConfigSchema,
+} from './config/common-config';
+import {
+  AudioInputConfigSchema,
+  defaultAudioConfig,
+} from './config/audio-config';
+import {
+  defaultQuestsConfig,
+  QuestsConfigSchema,
+} from './config/quests-config';
+import { loadDataFile } from './utils/ajax';
+import { ConfigInput, ConfigInputSchema } from './config/config-input';
+import Ajv from 'ajv';
 
-let config!: Config;
+let config: Config;
 
-export async function loadConfig(options: AppOptions) {
-  config = { ...defaultConfig };
-  if (options.baseAssetsPath) {
-    config.baseAssetsPath = options.baseAssetsPath;
-  }
-  if (options.baseDataPath) {
-    config.baseDataPath = options.baseDataPath;
-  }
-  const baseConf = await loadDataFile<Config>(options.configPath);
-  if (
-    baseConf.items &&
-    typeof baseConf.items !== 'string' &&
-    !baseConf.items.categories
-  ) {
-    // Handle older version of items config that was just a list of items...
-    baseConf.items = {
-      ...defaultConfig.items,
-      items: baseConf.items as any,
-    };
-  }
-  config = { ...config, ...baseConf };
-  // Loads all the possible split config files
-  if (typeof config.screens === 'string') {
-    const screensConf = await loadDataFile<SplitConfig['screens']>(
-      getDataUrl(config.screens),
-    );
-    config.screens = screensConf;
-  }
-  if (typeof config.buttons === 'string') {
-    const buttonsConf = await loadDataFile<SplitConfig['buttons']>(
-      getDataUrl(config.buttons),
-    );
-    config.buttons = buttonsConf;
-  }
-  if (typeof config.skills === 'string') {
-    const skillsConf = await loadDataFile<SplitConfig['skills']>(
-      getDataUrl(config.skills),
-    );
-    config.skills = skillsConf.skills;
-    config.skillOptions = { ...config.skillOptions, ...skillsConf.options };
-    config.skillChecks = { ...config.skillChecks, ...skillsConf.skillChecks };
-  }
-  if (typeof config.scripts === 'string') {
-    const scriptsConf = await loadDataFile<SplitConfig['scripts']>(
-      getDataUrl(config.scripts),
-    );
-    config.scripts = scriptsConf;
-  }
-  if (typeof config.audio === 'string') {
-    const audioConf = await loadDataFile<SplitConfig['audio']>(
-      getDataUrl(config.audio),
-    );
-    config.audio = audioConf.files;
-    config.audioOptions = { ...config.audioOptions, ...audioConf.options };
-  }
-  if (typeof config.items === 'string') {
-    let itemsConf = await loadDataFile<SplitConfig['items']>(
-      getDataUrl(config.items),
-    );
-    if (!itemsConf.categories) {
-      // Handle older version of items config that was just a list of items...
-      const oldItemsConf = itemsConf;
-      itemsConf = {
-        ...defaultConfig.items,
-        items: oldItemsConf as any,
-      };
-    }
-    config.items = itemsConf;
-  }
-  if (typeof config.quests === 'string') {
-    const questsConf = await loadDataFile<SplitConfig['quests']>(
-      getDataUrl(config.quests),
-    );
-    config.quests = questsConf;
-  }
-  if (config.transitions) {
-    for (const key in config.transitions) {
-      if (!transitionSettings[key]) {
-        transitionSettings[key] = config.transitions[key];
+// List of config keys loaded from split files
+
+// 0: key, 1: schema, 2: default value
+const splitConfigs = [
+  ['items', ItemsConfigSchema, defaultItemsConfig],
+  ['screens', ScreensInputConfigSchema, defaultScreensConfig],
+  ['skills', SkillsInputConfigSchema, defaultSkillsConfig],
+  ['scripts', ScriptsConfigSchema, defaultScriptsConfig],
+  ['audio', AudioInputConfigSchema, defaultAudioConfig],
+  ['quests', QuestsConfigSchema, defaultQuestsConfig],
+] as const;
+
+// List of other keys that are simply copied from input config to new config
+const baseConfigKeys = [
+  'baseAssetsPath',
+  'baseDataPath',
+  'gameTitle',
+  'images',
+  'layout',
+  'gameFlow',
+  'dialogPanel',
+  'splashScreens',
+  'notifications',
+  'hudStats',
+  'interactionTags',
+  'transitions',
+  'menuButtons',
+  'debugging',
+  'saves',
+] as const;
+
+export async function setupConfig(configInput: ConfigInput) {
+  const newConfig: Config = { ...defaultConfig };
+  // Setup the base keys from the config
+  for (const baseConfigKey of baseConfigKeys) {
+    const value = configInput[baseConfigKey];
+    if (value) {
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        newConfig[baseConfigKey] = {
+          ...(newConfig[baseConfigKey] as any),
+          ...value,
+        };
       } else {
-        Object.assign(transitionSettings[key], config.transitions[key]);
+        newConfig[baseConfigKey] = value as any;
       }
     }
   }
+  // Setup all the split config keys
+  for (const splitConfig of splitConfigs) {
+    const key = splitConfig[0];
+    const schema = splitConfig[1];
+    const defaultValue = splitConfig[2];
+    let currentValue = configInput[key];
+    if (currentValue && typeof currentValue === 'string') {
+      try {
+        currentValue = await loadDataFile<any>(
+          getSplitConfigUrl(configInput.baseDataPath!, currentValue),
+        );
+        const validator = new Ajv({ allErrors: true });
+        const result = validator.validate(schema, currentValue);
+        if (!result) {
+          console.error(validator.errors);
+          throw new Error(`${validator.errorsText()}`);
+        }
+      } catch (e) {
+        console.error(e);
+        error(`${key} config error: ${e}`);
+        currentValue = { ...defaultValue };
+      }
+    }
+    if (currentValue) {
+      if (Array.isArray(currentValue)) {
+        newConfig[key] = currentValue as any;
+      } else if (typeof currentValue === 'object') {
+        newConfig[key] = { ...defaultValue, ...currentValue } as any;
+      } else {
+        newConfig[key] = currentValue as any;
+      }
+    }
+  }
+  config = newConfig;
+  return newConfig;
+}
+export async function loadConfig(options: AppOptions) {
+  const userConfig = await loadDataFile<ConfigInput>(options.configPath);
+  if (options.baseAssetsPath) {
+    userConfig.baseAssetsPath = options.baseAssetsPath;
+  }
+  if (options.baseDataPath) {
+    userConfig.baseDataPath = options.baseDataPath;
+  }
+  const ajv = new Ajv({ allErrors: true });
+  const result = ajv.validate(ConfigInputSchema, userConfig);
+  if (!result) {
+    error(`Config file validation failed.`);
+    console.log(ajv.errors);
+    error(ajv.errorsText());
+  }
+  return setupConfig(userConfig);
+  // config = { ...defaultConfig };
+  // if (options.baseAssetsPath) {
+  //   config.baseAssetsPath = options.baseAssetsPath;
+  // }
+  // if (options.baseDataPath) {
+  //   config.baseDataPath = options.baseDataPath;
+  // }
+  // const baseConf = await loadDataFile<Config>(options.configPath);
+  // if (
+  //   baseConf.items &&
+  //   typeof baseConf.items !== 'string' &&
+  //   !baseConf.items.categories
+  // ) {
+  //   // Handle older version of items config that was just a list of items...
+  //   baseConf.items = {
+  //     ...defaultConfig.items,
+  //     items: baseConf.items as any,
+  //   };
+  // }
+  // config = { ...config, ...baseConf };
+  // // Loads all the possible split config files
+  // if (typeof config.screens === 'string') {
+  //   const screensConf = await loadDataFile<SplitConfig['screens']>(
+  //     getDataUrl(config.screens),
+  //   );
+  //   config.screens = screensConf;
+  // }
+  // if (typeof config.buttons === 'string') {
+  //   const buttonsConf = await loadDataFile<SplitConfig['buttons']>(
+  //     getDataUrl(config.buttons),
+  //   );
+  //   config.buttons = buttonsConf;
+  // }
+  // if (typeof config.skills === 'string') {
+  //   const skillsConf = await loadDataFile<SplitConfig['skills']>(
+  //     getDataUrl(config.skills),
+  //   );
+  //   config.skills = skillsConf.skills;
+  //   config.skillOptions = { ...config.skillOptions, ...skillsConf.options };
+  //   config.skillChecks = { ...config.skillChecks, ...skillsConf.skillChecks };
+  // }
+  // if (typeof config.scripts === 'string') {
+  //   const scriptsConf = await loadDataFile<SplitConfig['scripts']>(
+  //     getDataUrl(config.scripts),
+  //   );
+  //   config.scripts = scriptsConf;
+  // }
+  // if (typeof config.audio === 'string') {
+  //   const audioConf = await loadDataFile<SplitConfig['audio']>(
+  //     getDataUrl(config.audio),
+  //   );
+  //   config.audio = audioConf.files;
+  //   config.audioOptions = { ...config.audioOptions, ...audioConf.options };
+  // }
+  // if (typeof config.items === 'string') {
+  //   let itemsConf = await loadDataFile<SplitConfig['items']>(
+  //     getDataUrl(config.items),
+  //   );
+  //   if (!itemsConf.categories) {
+  //     // Handle older version of items config that was just a list of items...
+  //     const oldItemsConf = itemsConf;
+  //     itemsConf = {
+  //       ...defaultConfig.items,
+  //       items: oldItemsConf as any,
+  //     };
+  //   }
+  //   config.items = itemsConf;
+  // }
+  // if (typeof config.quests === 'string') {
+  //   const questsConf = await loadDataFile<SplitConfig['quests']>(
+  //     getDataUrl(config.quests),
+  //   );
+  //   config.quests = questsConf;
+  // }
+  // if (config.transitions) {
+  //   for (const key in config.transitions) {
+  //     if (!transitionSettings[key]) {
+  //       transitionSettings[key] = config.transitions[key];
+  //     } else {
+  //       Object.assign(transitionSettings[key], config.transitions[key]);
+  //     }
+  //   }
+  // }
 }
 
-export function getConfig() {
-  return config;
+export function getConfig(): Config {
+  return useConfig().config;
+}
+export function audioConfig() {
+  return getConfig().audio;
+}
+export function skillsConfig() {
+  return getConfig().skills;
+}
+export function itemsConfig() {
+  return getConfig().items;
+}
+export function questsConfig() {
+  return getConfig().quests;
+}
+export function screensConfig() {
+  return getConfig().screens;
 }
 
 export function getSkillConfig(id: string) {
-  const skill = config.skills[id];
+  const skill = getConfig().skills.skills[id];
   if (!skill) {
     error(`Skill config for skill ${id} doesn't exist`);
   }
@@ -110,8 +251,8 @@ export function getImageUrl(imageKeyOrUrl: string) {
   if (imageKeyOrUrl.startsWith('http')) {
     return imageKeyOrUrl;
   }
-  if (config.images[imageKeyOrUrl]) {
-    return getAssetUrl(config.images[imageKeyOrUrl]);
+  if (getConfig().images[imageKeyOrUrl]) {
+    return getAssetUrl(getConfig().images[imageKeyOrUrl]);
   } else {
     return getAssetUrl(imageKeyOrUrl);
   }
@@ -121,27 +262,31 @@ export function getAssetUrl(assetPath: string) {
   if (assetPath.startsWith('http')) {
     return assetPath;
   }
-  if (config.baseAssetsPath) {
-    return `${config.baseAssetsPath}${assetPath}`;
+  if (getConfig().baseAssetsPath) {
+    return `${getConfig().baseAssetsPath}${assetPath}`;
   } else {
     return assetPath;
   }
 }
 
+export function getSplitConfigUrl(basePath: string, url: string) {
+  return `${basePath}${url}`;
+}
+
 export function getDataUrl(dataPath: string) {
-  if (config.baseDataPath) {
-    return `${config.baseDataPath}${dataPath}`;
+  if (getConfig().baseDataPath) {
+    return `${getConfig().baseDataPath}${dataPath}`;
   } else {
     return dataPath;
   }
 }
 
 export function getButtonConfig(button: string) {
-  return config.buttons[button];
+  return screensConfig().buttons[button];
 }
 
 export function getItemConfig(id: string) {
-  const item = config.items.items[id];
+  const item = itemsConfig().items[id];
   if (!item) {
     error(`Item config for skill ${id} doesn't exist`);
   }
@@ -149,360 +294,13 @@ export function getItemConfig(id: string) {
 }
 
 export function getQuestConfig(questId: string) {
-  return config.quests[questId];
+  return questsConfig().quests[questId];
 }
 export function getObjectiveConfig(quest: string, objectiveId: string) {
   return getQuestConfig(quest).objectives[objectiveId];
 }
 
 export function getDialogPanelWidth(): number {
-  const layout = config.layout;
-  return layout.dialogPanel?.width ?? layout.minTextWidth ?? 400;
+  const dialogPanel = getConfig().dialogPanel;
+  return dialogPanel.width ?? DEFAULT_DIALOG_WIDTH;
 }
-
-export interface AppOptionsDeprecated {
-  logging: boolean;
-  debug: boolean;
-}
-
-export interface SplitConfig {
-  screens: Config['screens'];
-  buttons: Config['buttons'];
-  skills: {
-    skills: Config['skills'];
-    options: Config['skillOptions'];
-    skillChecks: Config['skillChecks'];
-  };
-  scripts: Config['scripts'];
-  audio: {
-    files: Config['audio'];
-    options: Config['audioOptions'];
-  };
-  items: Config['items'];
-  quests: Config['quests'];
-}
-
-export interface Config {
-  baseAssetsPath?: string;
-  baseDataPath?: string;
-  gameTitle: string;
-  images: {
-    [key: string]: string;
-  };
-  layout: {
-    dialogPanel?: {
-      overlayMode?: boolean;
-      rightOffset?: number;
-      bottomOffset?: number;
-      width?: number;
-      height?: number;
-    };
-    backgrounds: {
-      width: number;
-      height: number;
-    };
-    dialogBottomPadding: number;
-    minTextWidth?: number;
-    mobileDialogHeightPercentage: number;
-    verticalLayoutThreshold: number;
-    portraits: {
-      width: number;
-      height: number;
-      offset?: {
-        landscape?: {
-          right: number;
-          bottom: number;
-        };
-        portrait?: {
-          right: number;
-          bottom: number;
-        };
-      };
-    };
-  };
-  gameFlow: {
-    labelToJumpOnScriptEnd?: string;
-  };
-  dialoguePanel: {
-    animateText?: boolean;
-    textSpeed?: number;
-    timeBetweenLines?: number;
-  };
-  splashScreens: {
-    engineSplashScreen?: {
-      skip?: boolean;
-      fadeDuration?: number;
-      timeBeforeFadeout?: number;
-      overrideText?: string;
-      overrideLogo?: string;
-    };
-    gameSplashScreen?: {
-      startButtonText?: string;
-    };
-  };
-  screens: {
-    [key: string]: ScreenConfig;
-  };
-  buttons: {
-    [key: string]: ButtonConfig;
-  };
-  skills: {
-    [key: string]: SkillData;
-  };
-  skillOptions: {
-    xpPerLevel: number;
-    notifyLevelUp: boolean;
-  };
-  skillChecks: {
-    rollRange: number;
-    skillMultiplier: number;
-    failureChance: number;
-    difficultyText: Array<[number, string]>;
-  };
-  scripts: string[];
-  audio: {
-    [key: string]: AudioConfig;
-  };
-  audioOptions: {
-    volume: number;
-    defaultMusic?: string;
-    musicFadeInTime: number;
-    musicFadeInDelay: number;
-    musicFadeOutTime: number;
-  };
-  notifications: {
-    timeOnScreen: number;
-    alsoPrintInDialogue?: boolean;
-  };
-  hudStats: {
-    [key: string]: HudStatConfig;
-  };
-  items: {
-    categories: ItemCategory[];
-    items: {
-      [key: string]: ItemData;
-    };
-  };
-  interactionTags: {
-    [key: string]: {
-      onlyInteractOutsideOfScripts: boolean;
-    };
-  };
-  quests: {
-    [key: string]: QuestData;
-  };
-  transitions: {
-    [key: string]: TransitionSettings;
-  };
-  audioTriggers: {
-    [key: string]: string;
-  };
-  menuButtons: {
-    [key: string]: MenuButtonData;
-  };
-  debugging: {
-    showScriptFinishedMessage?: boolean;
-  };
-  saves: {
-    mode: 'game-slots' | 'manual';
-    slots: number;
-  };
-}
-
-export interface ScreenConfig {
-  background: string;
-  buttons: Array<string | InlineButtonConfig>;
-}
-
-export interface MenuButtonData {
-  text: string;
-}
-
-export interface QuestData {
-  title: string;
-  description: string;
-  objectives: {
-    [key: string]: ObjectiveData;
-  };
-}
-
-export interface ObjectiveData {
-  description: string;
-  hidden?: boolean;
-}
-
-export interface ItemData {
-  name: string;
-  description: string;
-  icon: string;
-  onUse?: {
-    action: 'jump' | 'run';
-    label: string;
-  };
-  tag?: string;
-  category?: string;
-}
-
-export interface ItemCategory {
-  id: string;
-  title: string;
-}
-
-export interface HudStatConfig {
-  name: string;
-  icon: string;
-  startingValue: number;
-  minValue?: number;
-  maxValue?: number;
-}
-export interface AudioConfig {
-  src: string;
-  path?: string;
-  volume?: number;
-  rate?: number;
-  html5?: boolean;
-}
-
-export interface MusicConfig extends AudioConfig {
-  loop?: boolean;
-}
-export interface ButtonConfig {
-  // Whether this button is enabled by default
-  enabled: boolean;
-  // Button background image
-  background?: string;
-  // Optional button text
-  text?: string;
-  // Optional css class
-  cssClass?: string;
-  // Position in pixels
-  position: {
-    left: number;
-    top: number;
-    width?: number;
-    height?: number;
-  };
-  // Anchor for the button's position. 0 means left/top, 1 means right/bottom, 0.5 means center.
-  anchor?: {
-    x: number;
-    y: number;
-  };
-  // Name of the label to run when clicking on the button
-  action: string;
-  // Default is using a jump
-  actionType?: 'jump' | 'run';
-  tag?: string;
-}
-
-export interface InlineButtonConfig extends ButtonConfig {
-  id: string;
-}
-
-export interface SkillData {
-  name: string;
-  description: string;
-  startingLevel: number;
-  // If supplied, this option makes the skill be hidden in the skill window until it reaches level 1 at least
-  hidden?: boolean;
-  icon: string;
-}
-
-const LayoutConfigSchema = Type.Object({
-  dialogPanel: Type.Optional(
-    Type.Object({
-      overlayMode: Type.Optional(Type.Boolean()),
-      rightOffset: Type.Optional(Type.Number()),
-      bottomOffset: Type.Optional(Type.Number()),
-      width: Type.Optional(Type.Number()),
-      height: Type.Optional(Type.Number()),
-    }),
-  ),
-  backgrounds: Type.Object({
-    width: Type.Number(),
-    height: Type.Number(),
-  }),
-  dialogBottomPadding: Type.Number(),
-  minTextWidth: Type.Optional(Type.Number()),
-  verticalLayoutThreshold: Type.Number(),
-  portraits: Type.Object({
-    width: Type.Number(),
-    height: Type.Number(),
-    offset: Type.Optional(
-      Type.Object({
-        landscape: Type.Optional(
-          Type.Object({
-            right: Type.Number(),
-            bottom: Type.Number(),
-          }),
-        ),
-        portrait: Type.Optional(
-          Type.Object({
-            right: Type.Number(),
-            bottom: Type.Number(),
-          }),
-        ),
-      }),
-    ),
-  }),
-});
-
-const ButtonsConfigSchema = Type.Record(Type.String(), ButtonConfigSchema);
-
-const ScriptsConfigSchema = Type.Union([
-  Type.String(),
-  Type.Array(Type.String()),
-]);
-
-const NotificationsConfigSchema = Type.Object({
-  timeOnScreen: Type.Number(),
-  alsoPrintInConsole: Type.Optional(Type.Boolean()),
-});
-const HudStatConfigSchema = Type.Object({
-  name: Type.String(),
-  icon: Type.String(),
-  startingValue: Type.Number(),
-  maxValue: Type.Number(),
-  minValue: Type.Number(),
-});
-
-const InteractionTagConfigSchema = Type.Record(
-  Type.String(),
-  Type.Object({
-    onlyInteractOutsideOfScripts: Type.Optional(Type.Boolean()),
-  }),
-);
-const TransitionsConfigSchema = Type.Record(Type.String(), TransitionSchema);
-const AudioTriggersConfigSchema = Type.Record(Type.String(), Type.String());
-const MenuButtonConfigSchema = Type.Object({
-  text: Type.String(),
-});
-const MenuButtonsConfigSchema = Type.Record(
-  Type.String(),
-  MenuButtonConfigSchema,
-);
-const DebuggingConfigSchema = Type.Object({
-  showScriptFinishedMessage: Type.Optional(Type.Boolean()),
-});
-const SavesConfigSchema = Type.Object({
-  mode: Type.String(),
-  slots: Type.Number(),
-});
-// Create a typebox type object for the config interface
-const ConfigInputSchema = Type.Object({
-  baseAssetsPath: Type.Optional(Type.String()),
-  baseDataPath: Type.Optional(Type.String()),
-  gameTitle: Type.String(),
-  images: Type.Record(Type.String(), Type.String()),
-  layout: LayoutConfigSchema,
-  gameFlow: Type.Object({
-    labelToJumpOnScriptEnd: Type.Optional(Type.String()),
-  }),
-  dialoguePanel: Type.Object({
-    animateText: Type.Optional(Type.Boolean()),
-    textSpeed: Type.Optional(Type.Number()),
-    timeBetweenLines: Type.Optional(Type.Number()),
-  }),
-  dialogPanel: Type.Optional(DialogPanelConfigSchema),
-  splashScreens: Type.Optional(SplashScreenConfigSchema),
-  screens: Type.Optional(Type.Union([ScreenConfigSchema, Type.String()])),
-});

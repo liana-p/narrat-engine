@@ -13,7 +13,14 @@ export const QuestDataSchema = Type.Object({
 });
 export type QuestData = Static<typeof QuestDataSchema>;
 
-export const QuestsConfigSchema = Type.Record(Type.String(), QuestDataSchema);
+export const QuestsListSchema = Type.Record(Type.String(), QuestDataSchema);
+export type QuestsList = Static<typeof QuestsListSchema>;
+
+export const QuestsConfigSchema = Type.Object({
+  quests: QuestsListSchema,
+});
 export type QuestsConfig = Static<typeof QuestsConfigSchema>;
 
-export const defaultQuestsConfig: QuestsConfig = {};
+export const defaultQuestsConfig: QuestsConfig = {
+  quests: {},
+};

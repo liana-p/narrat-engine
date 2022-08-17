@@ -24,14 +24,31 @@ export const AudioOptionsSchema = Type.Object({
 });
 export type AudioOptions = Static<typeof AudioOptionsSchema>;
 
-export const AudioConfigSchema = Type.Object({
+const AudioTriggersSchema = Type.Record(Type.String(), Type.String());
+export type AudioTriggers = Static<typeof AudioTriggersSchema>;
+
+export const AudioInputConfigSchema = Type.Object({
   files: AudioRecordConfigSchema,
-  options: Type.Optional(AudioOptionsSchema),
+  audioTriggers: AudioTriggersSchema,
+  options: AudioOptionsSchema,
 });
-export type AudioConfig = Static<typeof AudioConfigSchema>;
+export type AudioInputConfig = Static<typeof AudioInputConfigSchema>;
+
+export interface AudioConfig {
+  files: AudioRecordConfig;
+  audioTriggers: AudioTriggers;
+  options: {
+    volume: number;
+    defaultMusic?: string;
+    musicFadeInTime: number;
+    musicFadeOutTime: number;
+    musicFadeInDelay: number;
+  };
+}
 
 export const defaultAudioConfig: AudioConfig = {
   files: {},
+  audioTriggers: {},
   options: {
     volume: 1,
     musicFadeInTime: 0.5,

@@ -1,3 +1,4 @@
+import { ScreensConfig } from '@/config/screens-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
 import {
@@ -7,7 +8,6 @@ import {
 } from '@/utils/transition';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
-import { Config } from '../config';
 
 export type ButtonStateValue = boolean | 'hidden' | 'greyed';
 export interface ButtonsState {
@@ -109,28 +109,23 @@ export const useScreens = defineStore('screens', {
         }
       });
     },
-    setButtons(config: Config) {
-      const { buttons: buttonsConfig, screens: screensConfig, images } = config;
+    setButtons(config: ScreensConfig) {
+      const { buttons, screens } = config;
 
-      for (const key in buttonsConfig) {
+      for (const key in buttons) {
         this.buttons[key] = {
-          state: buttonsConfig[key].enabled,
+          state: buttons[key].enabled,
         };
       }
       // Support for inline button conf in screens as it's easier for end users
       // We basically copy the button's config to the buttons config object if we find any buttons defined inline in a screen
-      for (const key in screensConfig) {
-        if (screensConfig[key].buttons) {
-          const screen = screensConfig[key];
-          if (screen.background && images[screen.background]) {
-            // Also defaulting to specifying screen backgrounds inline now
-            screen.background = images[screen.background];
-          }
-          for (const index in screen.buttons) {
-            const button = screen.buttons[index];
+      for (const key in screens) {
+        const screen = screens[key];
+        if (screen.buttons) {
+          for (const [index, button] of screen.buttons.entries()) {
             // If the button is a config object, add it to the buttons config, and also create its state
             if (typeof button === 'object') {
-              buttonsConfig[button.id] = button;
+              config.buttons[button.id] = button;
               // Change the inline config to be a string again
               screen.buttons[index] = button.id;
               this.buttons[button.id] = {

@@ -37,7 +37,6 @@ saves:
   mode: manual
   slots: 10
 screens: data/screens.yaml
-buttons: {}
 skills: data/skills.yaml
 scripts: data/scripts.yaml
 audio: data/audio.yaml
@@ -47,6 +46,7 @@ hudStats:
     name: Money
     startingValue: 10
     minValue: 0
+    maxValue: 99999
   energy:
     icon: img/ui/energy.webp
     name: Energy

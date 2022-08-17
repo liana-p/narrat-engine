@@ -52,6 +52,7 @@ import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { useMain } from '@/lib';
+import { defaultConfig } from '@/config/config-output';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
@@ -99,9 +100,6 @@ const picture = computed((): string | undefined => {
 const dialogWidth = computed((): number => {
   return rendering.dialogWidth;
 });
-const dialogHeight = computed((): number => {
-  return rendering.dialogHeight;
-});
 
 const inScript = computed(() => {
   return useMain().inScript;
@@ -143,9 +141,13 @@ const dialogStyle = computed((): any => {
   const css: any = {};
   if (useRenderingStore().overlayMode) {
     css.position = 'absolute';
-    const rightOffset = getConfig().layout.dialogPanel?.rightOffset ?? 0;
+    const rightOffset =
+      getConfig().dialogPanel.rightOffset ??
+      defaultConfig.dialogPanel.rightOffset;
     css.right = `${rightOffset}px`;
-    const bottomOffset = getConfig().layout.dialogPanel?.bottomOffset ?? 0;
+    const bottomOffset =
+      getConfig().dialogPanel.bottomOffset ??
+      defaultConfig.dialogPanel.bottomOffset;
     css.bottom = `${bottomOffset}px`;
   }
   return {

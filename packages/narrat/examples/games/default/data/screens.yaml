@@ -1,51 +1,52 @@
-default:
-  background: narrat
-overlay:
-  background: img/backgrounds/overlay.webp
-  buttons:
-    - id: testButton
-      enabled: true
-      text: Test
-      position:
-        left: 500
-        top: 300
-        width: 200
-        height: 50
-      action: shopButton
-map:
-  background: img/backgrounds/map.webp
-  buttons:
-    # - id: saveButton
-    #   enabled: true
-    #   text: 'Manual Save'
-    #   position:
-    #     left: 0
-    #     top: 0
-    #     width: 200
-    #     height: 50
-    #   action: save
-    - id: shopButton
-      enabled: false
-      text: 'Shop'
-      cssClass: test-class
-      position:
-        left: 272
-        top: 142
-        width: 200
-        height: 50
-      anchor:
-        x: 0.5
-        y: 0.5
-      action: shopButton
-    - id: parkButton
-      enabled: false
-      text: Park
-      position:
-        left: 682
-        top: 462
-        width: 200
-        height: 50
-      anchor:
-        x: 0.5
-        y: 0.5
-      action: parkButton
+screens:
+  default:
+    background: narrat
+  overlay:
+    background: img/backgrounds/overlay.webp
+    buttons:
+      - id: testButton
+        enabled: true
+        text: Test
+        position:
+          left: 500
+          top: 300
+          width: 200
+          height: 50
+        action: shopButton
+  map:
+    background: img/backgrounds/map.webp
+    buttons:
+      # - id: saveButton
+      #   enabled: true
+      #   text: 'Manual Save'
+      #   position:
+      #     left: 0
+      #     top: 0
+      #     width: 200
+      #     height: 50
+      #   action: save
+      - id: shopButton
+        enabled: false
+        text: 'Shop'
+        cssClass: test-class
+        position:
+          left: 272
+          top: 142
+          width: 200
+          height: 50
+        anchor:
+          x: 0.5
+          y: 0.5
+        action: shopButton
+      - id: parkButton
+        enabled: false
+        text: Park
+        position:
+          left: 682
+          top: 462
+          width: 200
+          height: 50
+        anchor:
+          x: 0.5
+          y: 0.5
+        action: parkButton

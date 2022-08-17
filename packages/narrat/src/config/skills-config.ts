@@ -36,6 +36,13 @@ export const SkillsConfigSchema = Type.Object({
 });
 export type SkillsConfig = Static<typeof SkillsConfigSchema>;
 
+export const SkillsInputConfigSchema = Type.Object({
+  skills: Type.Optional(SkillsListConfigSchema),
+  skillChecks: Type.Optional(SkillChecksConfigSchema),
+  skillOptions: Type.Optional(SkillOptionsSchema),
+});
+export type SkillsInputConfig = Static<typeof SkillsInputConfigSchema>;
+
 export const defaultSkillsConfig: SkillsConfig = {
   skills: {},
   skillChecks: {

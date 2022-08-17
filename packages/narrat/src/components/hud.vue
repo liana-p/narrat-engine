@@ -11,12 +11,9 @@
 </template>
 
 <script lang="ts">
-import {
-  getAssetUrl,
-  getConfig,
-  getDialogPanelWidth,
-  HudStatConfig,
-} from '@/config';
+import { getAssetUrl, getConfig, getDialogPanelWidth } from '@/config';
+import { HudStatData } from '@/config/common-config';
+import { defaultConfig } from '@/config/config-output';
 import { HudStatsState, useHud } from '@/stores/hud-stats-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { mapState } from 'pinia';
@@ -34,7 +31,7 @@ export default defineComponent({
   computed: {
     ...mapState(useHud, ['hudStats']),
     ...mapState(useRenderingStore, ['layoutMode']),
-    statsConfig(): { [key: string]: HudStatConfig } {
+    statsConfig(): { [key: string]: HudStatData } {
       const config = getConfig();
       return config.hudStats;
     },
@@ -46,7 +43,8 @@ export default defineComponent({
       if (this.layoutMode === 'horizontal') {
         right = `${
           getDialogPanelWidth() +
-          (getConfig().layout.dialogPanel?.rightOffset ?? 0)
+          (getConfig().dialogPanel.rightOffset ??
+            defaultConfig.dialogPanel.rightOffset)
         }px`;
       }
       return {
