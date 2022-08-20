@@ -365,7 +365,7 @@ export const useMain = defineStore('main', {
       const screens = useScreens();
       const config = getConfig();
       useSprites().reset();
-      screens.setButtons(screensConfig());
+      screens.setButtons(config);
       const skillsStore = useSkills();
       skillsStore.setupSkills(skillsConfig());
       const hudStore = useHud();

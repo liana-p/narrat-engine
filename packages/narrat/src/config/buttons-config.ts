@@ -23,10 +23,14 @@ export const ButtonConfigSchema = Type.Object({
 });
 export type ButtonConfig = Static<typeof ButtonConfigSchema>;
 
-export const ButtonsConfigSchema = Type.Record(
-  Type.String(),
-  ButtonConfigSchema,
-);
+export const ButtonsListSchema = Type.Record(Type.String(), ButtonConfigSchema);
+export type ButtonsList = Static<typeof ButtonsListSchema>;
+
+export const ButtonsConfigSchema = Type.Object({
+  buttons: ButtonsListSchema,
+});
 export type ButtonsConfig = Static<typeof ButtonsConfigSchema>;
 
-export const defaultButtonsConfig: ButtonsConfig = {};
+export const defaultButtonsConfig: ButtonsConfig = {
+  buttons: {},
+};

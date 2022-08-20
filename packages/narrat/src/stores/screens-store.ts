@@ -1,3 +1,4 @@
+import { Config } from '@/config/config-output';
 import { ScreensConfig } from '@/config/screens-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
@@ -109,8 +110,9 @@ export const useScreens = defineStore('screens', {
         }
       });
     },
-    setButtons(config: ScreensConfig) {
-      const { buttons, screens } = config;
+    setButtons(config: Config) {
+      const screens = config.screens.screens;
+      const buttons = config.buttons.buttons;
 
       for (const key in buttons) {
         this.buttons[key] = {
@@ -125,7 +127,7 @@ export const useScreens = defineStore('screens', {
           for (const [index, button] of screen.buttons.entries()) {
             // If the button is a config object, add it to the buttons config, and also create its state
             if (typeof button === 'object') {
-              config.buttons[button.id] = button;
+              buttons[button.id] = button;
               // Change the inline config to be a string again
               screen.buttons[index] = button.id;
               this.buttons[button.id] = {
