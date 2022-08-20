@@ -1,3 +1,5 @@
 screens:
   default:
-    background: img/backgrounds/narrat.webp
+    background: img/backgrounds/curtain.webp
+  game:
+    background: img/backgrounds/map.webp

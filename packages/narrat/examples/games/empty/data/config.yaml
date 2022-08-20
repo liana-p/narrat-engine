@@ -6,7 +6,6 @@ dialogPanel:
   animateText: true
   timeBetweenLines: 100
   overlayMode: true
-  rightOffset: 30
   rightOffset: 100
   bottomOffset: 50
   width: 475
