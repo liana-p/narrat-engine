@@ -175,6 +175,9 @@ function clickOnButton(button: string) {
   if (state.state === true) {
     audioEvent('onButtonClicked');
     const scriptToRun = config.action;
+    if (!scriptToRun) {
+      return;
+    }
     if (config.actionType === 'run') {
       vmStore.runLabelFunction(scriptToRun);
     } else {

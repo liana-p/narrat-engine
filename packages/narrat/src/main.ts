@@ -59,7 +59,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
     },
   });
   registerBaseCommands(vm);
-  logManager.setupDebugger(options.debug);
+  logManager.setupDebugger(options.debug!);
   console.log(
     `%c Narrat game engine v${VERSION} - Built at ${BUILD_DATE.toLocaleString()}`,
     'background: #222; color: #bada55',
