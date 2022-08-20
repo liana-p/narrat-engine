@@ -22,17 +22,14 @@ export type ScreensList = Static<typeof ScreensListSchema>;
 
 export const ScreensConfigSchema = Type.Object({
   screens: ScreensListSchema,
-  buttons: Type.Record(Type.String(), ButtonConfigSchema),
 });
 export type ScreensConfig = Static<typeof ScreensConfigSchema>;
 
 export const ScreensInputConfigSchema = Type.Object({
   screens: Type.Optional(ScreensListSchema),
-  buttons: Type.Optional(Type.Record(Type.String(), ButtonConfigSchema)),
 });
 export type ScreensInputConfig = Static<typeof ScreensInputConfigSchema>;
 
 export const defaultScreensConfig: ScreensConfig = {
   screens: {},
-  buttons: {},
 };

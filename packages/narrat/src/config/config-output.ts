@@ -15,6 +15,7 @@ import { QuestsConfig } from '@/config/quests-config';
 import { defaultScreensConfig, ScreensConfig } from '@/config/screens-config';
 import { defaultSkillsConfig, SkillsConfig } from '@/config/skills-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
+import { ButtonsConfig, defaultButtonsConfig } from './buttons-config';
 import { defaultLayoutConfig, LayoutConfig } from './layout-config';
 
 export interface Config {
@@ -31,6 +32,7 @@ export interface Config {
   dialogPanel: DialogPanelConfig;
   splashScreens: SplashScreenConfig;
   screens: ScreensConfig;
+  buttons: ButtonsConfig;
   skills: SkillsConfig;
   scripts: string[];
   audio: AudioConfig;
@@ -64,6 +66,7 @@ export const defaultConfig = {
   },
   splashScreens: {},
   screens: defaultScreensConfig,
+  buttons: defaultButtonsConfig,
   skills: defaultSkillsConfig,
   scripts: [],
   audio: defaultAudioConfig,

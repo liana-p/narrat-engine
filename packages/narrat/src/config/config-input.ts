@@ -34,6 +34,8 @@ export const ConfigInputSchema = Type.Object({
   splashScreens: Type.Optional(SplashScreenConfigSchema),
   // split: screens
   screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
+  // split: buttons
+  buttons: Type.Optional(Type.Union([Type.String(), ButtonsConfigSchema])),
   // split: skills
   skills: Type.Optional(Type.Union([Type.String(), SkillsInputConfigSchema])),
   // Split: scripts

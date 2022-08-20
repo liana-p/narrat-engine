@@ -6,7 +6,6 @@ import { DEFAULT_DIALOG_WIDTH } from './constants';
 import { defaultItemsConfig, ItemsConfigSchema } from './config/items-config';
 import {
   defaultScreensConfig,
-  ScreensConfigSchema,
   ScreensInputConfigSchema,
 } from './config/screens-config';
 import {
@@ -15,7 +14,6 @@ import {
 } from './config/buttons-config';
 import {
   defaultSkillsConfig,
-  SkillsConfigSchema,
   SkillsInputConfigSchema,
 } from './config/skills-config';
 import {
@@ -33,6 +31,7 @@ import {
 import { loadDataFile } from './utils/ajax';
 import { ConfigInput, ConfigInputSchema } from './config/config-input';
 import Ajv from 'ajv';
+import { transitionSettings } from './utils/transition';
 
 let config: Config;
 
@@ -43,6 +42,7 @@ const splitConfigs = [
   ['items', ItemsConfigSchema, defaultItemsConfig],
   ['screens', ScreensInputConfigSchema, defaultScreensConfig],
   ['skills', SkillsInputConfigSchema, defaultSkillsConfig],
+  ['buttons', ButtonsConfigSchema, defaultButtonsConfig],
   ['scripts', ScriptsConfigSchema, defaultScriptsConfig],
   ['audio', AudioInputConfigSchema, defaultAudioConfig],
   ['quests', QuestsConfigSchema, defaultQuestsConfig],
@@ -117,6 +117,15 @@ export async function setupConfig(configInput: ConfigInput) {
     }
   }
   config = newConfig;
+  if (config.transitions) {
+    for (const key in config.transitions) {
+      if (!transitionSettings[key]) {
+        transitionSettings[key] = config.transitions[key];
+      } else {
+        Object.assign(transitionSettings[key], config.transitions[key]);
+      }
+    }
+  }
   return newConfig;
 }
 export async function loadConfig(options: AppOptions) {
@@ -135,89 +144,6 @@ export async function loadConfig(options: AppOptions) {
     error(ajv.errorsText());
   }
   return setupConfig(userConfig);
-  // config = { ...defaultConfig };
-  // if (options.baseAssetsPath) {
-  //   config.baseAssetsPath = options.baseAssetsPath;
-  // }
-  // if (options.baseDataPath) {
-  //   config.baseDataPath = options.baseDataPath;
-  // }
-  // const baseConf = await loadDataFile<Config>(options.configPath);
-  // if (
-  //   baseConf.items &&
-  //   typeof baseConf.items !== 'string' &&
-  //   !baseConf.items.categories
-  // ) {
-  //   // Handle older version of items config that was just a list of items...
-  //   baseConf.items = {
-  //     ...defaultConfig.items,
-  //     items: baseConf.items as any,
-  //   };
-  // }
-  // config = { ...config, ...baseConf };
-  // // Loads all the possible split config files
-  // if (typeof config.screens === 'string') {
-  //   const screensConf = await loadDataFile<SplitConfig['screens']>(
-  //     getDataUrl(config.screens),
-  //   );
-  //   config.screens = screensConf;
-  // }
-  // if (typeof config.buttons === 'string') {
-  //   const buttonsConf = await loadDataFile<SplitConfig['buttons']>(
-  //     getDataUrl(config.buttons),
-  //   );
-  //   config.buttons = buttonsConf;
-  // }
-  // if (typeof config.skills === 'string') {
-  //   const skillsConf = await loadDataFile<SplitConfig['skills']>(
-  //     getDataUrl(config.skills),
-  //   );
-  //   config.skills = skillsConf.skills;
-  //   config.skillOptions = { ...config.skillOptions, ...skillsConf.options };
-  //   config.skillChecks = { ...config.skillChecks, ...skillsConf.skillChecks };
-  // }
-  // if (typeof config.scripts === 'string') {
-  //   const scriptsConf = await loadDataFile<SplitConfig['scripts']>(
-  //     getDataUrl(config.scripts),
-  //   );
-  //   config.scripts = scriptsConf;
-  // }
-  // if (typeof config.audio === 'string') {
-  //   const audioConf = await loadDataFile<SplitConfig['audio']>(
-  //     getDataUrl(config.audio),
-  //   );
-  //   config.audio = audioConf.files;
-  //   config.audioOptions = { ...config.audioOptions, ...audioConf.options };
-  // }
-  // if (typeof config.items === 'string') {
-  //   let itemsConf = await loadDataFile<SplitConfig['items']>(
-  //     getDataUrl(config.items),
-  //   );
-  //   if (!itemsConf.categories) {
-  //     // Handle older version of items config that was just a list of items...
-  //     const oldItemsConf = itemsConf;
-  //     itemsConf = {
-  //       ...defaultConfig.items,
-  //       items: oldItemsConf as any,
-  //     };
-  //   }
-  //   config.items = itemsConf;
-  // }
-  // if (typeof config.quests === 'string') {
-  //   const questsConf = await loadDataFile<SplitConfig['quests']>(
-  //     getDataUrl(config.quests),
-  //   );
-  //   config.quests = questsConf;
-  // }
-  // if (config.transitions) {
-  //   for (const key in config.transitions) {
-  //     if (!transitionSettings[key]) {
-  //       transitionSettings[key] = config.transitions[key];
-  //     } else {
-  //       Object.assign(transitionSettings[key], config.transitions[key]);
-  //     }
-  //   }
-  // }
 }
 
 export function getConfig(): Config {
@@ -237,6 +163,9 @@ export function questsConfig() {
 }
 export function screensConfig() {
   return getConfig().screens;
+}
+export function buttonsConfig() {
+  return getConfig().buttons;
 }
 
 export function getSkillConfig(id: string) {
@@ -282,7 +211,7 @@ export function getDataUrl(dataPath: string) {
 }
 
 export function getButtonConfig(button: string) {
-  return screensConfig().buttons[button];
+  return buttonsConfig().buttons[button];
 }
 
 export function getItemConfig(id: string) {

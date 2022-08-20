@@ -39,9 +39,7 @@ This means existing configs will need to be updated in a few places, as explaine
 
 ### Screens config
 
-The screens config file now contains both the screens and the buttons instead of being directly a list of screens.
-
-Previous `buttons` defined in the config need to be moved inside the screens config
+The screens config file now contains the screens list inside a `screens` property, to allow adding other options in the same file in the future.
 
 Before:
 
@@ -84,16 +82,26 @@ screens:
           width: 200
           height: 50
         action: shopButton
+```
+
+### Buttons config
+
+Similar to the screens config, the buttons config now has buttons under the `buttons` property:
+
+```yaml
 buttons:
-  shopButton:
+  parkButton:
     enabled: false
-    text: 'Shop'
-    cssClass: test-class
+    text: Park
     position:
-      left: 272
-      top: 142
+      left: 682
+      top: 462
       width: 200
       height: 50
+    anchor:
+      x: 0.5
+      y: 0.5
+    action: parkButton
 ```
 
 ### Quests Config
