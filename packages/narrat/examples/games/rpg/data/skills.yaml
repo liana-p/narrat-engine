@@ -1,0 +1,35 @@
+skills:
+  strength:
+    name: Strength
+    description: Increases your attack power.
+    startingLevel: 1
+    icon: img/skills/agility.webp
+  intelligence:
+    name: Intelligence
+    description: Increases your magic power.
+    startingLevel: 1
+    icon: img/skills/logic.webp
+  agility:
+    name: Agility
+    description: How good you are at moving around.
+    startingLevel: 1
+    icon: img/skills/agility.webp
+skillChecks:
+  rollRange: 100
+  skillMultiplier: 10
+  failureChance: 1
+  difficultyText:
+    - - 0
+      - Very Easy
+    - - 10
+      - Easy
+    - - 30
+      - Medium
+    - - 50
+      - Hard
+    - - 70
+      - Very Hard
+    - - 80
+      - Extremely Hard
+    - - 90
+      - Near Impossible

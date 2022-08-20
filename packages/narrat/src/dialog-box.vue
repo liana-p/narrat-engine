@@ -359,7 +359,6 @@ export default defineComponent({
     },
     registerKeyboardShortcuts() {
       const listener = (e: KeyboardEvent) => {
-        console.log('key');
         if (!this.canInteract) {
           if (this.mounted && this.textAnimation && e.key === ' ') {
             this.endTextAnimation({ pressedSpace: true });
@@ -413,7 +412,7 @@ export default defineComponent({
       };
       this.listener = inputEvents.on('debouncedKeydown', listener);
       this.timeout = setTimeout(() => {
-        if (this.options.textField) {
+        if (this.options.textField && this.canInteract) {
           (this.$refs.playerInput as any).focus();
         }
       }, 10);

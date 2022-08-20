@@ -20,11 +20,20 @@ export const ItemCategorySchema = Type.Object({
 });
 export type ItemCategory = Static<typeof ItemCategorySchema>;
 
+export const ItemsListSchema = Type.Record(Type.String(), ItemConfigSchema);
+export type ItemsList = Static<typeof ItemsListSchema>;
+
 export const ItemsConfigSchema = Type.Object({
   categories: Type.Array(ItemCategorySchema),
-  items: Type.Record(Type.String(), ItemConfigSchema),
+  items: ItemsListSchema,
 });
 export type ItemsConfig = Static<typeof ItemsConfigSchema>;
+
+export const ItemsInputConfigSchema = Type.Object({
+  categories: Type.Optional(Type.Array(ItemCategorySchema)),
+  items: Type.Optional(ItemsListSchema),
+});
+export type ItemsInputConfig = Static<typeof ItemsInputConfigSchema>;
 
 export const defaultItemsConfig: ItemsConfig = {
   categories: [

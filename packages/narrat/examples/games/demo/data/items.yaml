@@ -1,0 +1,16 @@
+items:
+  bread:
+    name: Bread
+    description: A bread in the game.
+    icon: img/items/bread.webp
+    onUse:
+      action: jump
+      label: eat_bread
+  book:
+    name: Ominous Book
+    description: An ominous book.
+    icon: img/items/book.webp
+    onUse:
+      action: run
+      label: read_book
+    tag: always_interactable

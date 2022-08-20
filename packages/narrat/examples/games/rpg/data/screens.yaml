@@ -1,0 +1,70 @@
+screens:
+  default:
+    background: rpg/img/backgrounds/rpg.webp
+  rpg:
+    background: rpg/img/backgrounds/rpg.webp
+    buttons:
+      - id: startGame
+        background: rpg/img/ui/start.webp
+        enabled: true
+        position:
+          left: 440
+          top: 500
+          width: 291
+          height: 64
+        anchor:
+          x: 0.5
+          y: 0.5
+        action: setup_rpg
+  battle_grass:
+    background: rpg/img/levels/grass.webp
+    buttons:
+      - goblin
+      - slime
+      - skeleton
+      - wizard
+      - rogue
+      - warrior
+  battle_cave:
+    background: rpg/img/levels/cave.webp
+    buttons:
+      - goblin
+      - slime
+      - skeleton
+      - wizard
+      - rogue
+      - warrior
+  battle_dungeon:
+    background: rpg/img/levels/dungeon.webp
+    buttons:
+      - goblin
+      - slime
+      - skeleton
+      - wizard
+      - rogue
+      - warrior
+  dungeon_FRL:
+    background: rpg/img/levels/dungeon_FRL.webp
+    buttons:
+      - go_left
+      - go_front
+      - go_right
+  dungeon_F:
+    background: rpg/img/levels/dungeon_F.webp
+    buttons:
+      - go_front
+  dungeon_FL:
+    background: rpg/img/levels/dungeon_FL.webp
+    buttons:
+      - go_left
+      - go_front
+  dungeon_FR:
+    background: rpg/img/levels/dungeon_FR.webp
+    buttons:
+      - go_front
+      - go_right
+  dungeon_LR:
+    background: rpg/img/levels/dungeon_LR.webp
+    buttons:
+      - go_left
+      - go_right

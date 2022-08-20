@@ -42,8 +42,8 @@ export const HudStatDataSchema = Type.Object({
   name: Type.String(),
   icon: Type.String(),
   startingValue: Type.Number(),
-  maxValue: Type.Number(),
-  minValue: Type.Number(),
+  maxValue: Type.Optional(Type.Number()),
+  minValue: Type.Optional(Type.Number()),
 });
 export type HudStatData = Static<typeof HudStatDataSchema>;
 

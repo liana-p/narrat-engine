@@ -13,7 +13,7 @@ import {
   SplashScreenConfigSchema,
   TransitionsConfigSchema,
 } from './common-config';
-import { ItemsConfigSchema } from './items-config';
+import { ItemsConfigSchema, ItemsInputConfigSchema } from './items-config';
 import { LayoutConfigSchema } from './layout-config';
 import { QuestsConfigSchema } from './quests-config';
 import { ScreensInputConfigSchema } from './screens-config';
@@ -45,14 +45,14 @@ export const ConfigInputSchema = Type.Object({
   notifications: Type.Optional(NotificationsConfigSchema),
   hudStats: HudStatsConfigSchema,
   // split: items
-  items: Type.Optional(Type.Union([Type.String(), ItemsConfigSchema])),
-  interactionTags: InteractionTagsConfigSchema,
+  items: Type.Optional(Type.Union([Type.String(), ItemsInputConfigSchema])),
+  interactionTags: Type.Optional(InteractionTagsConfigSchema),
   // split: quests
   quests: Type.Optional(Type.Union([Type.String(), QuestsConfigSchema])),
   transitions: Type.Optional(TransitionsConfigSchema),
   menuButtons: Type.Optional(MenuButtonsConfigSchema),
   debugging: Type.Optional(DebuggingConfigSchema),
-  saves: SavesConfigSchema,
+  saves: Type.Optional(SavesConfigSchema),
 });
 
 export type ConfigInput = Static<typeof ConfigInputSchema>;

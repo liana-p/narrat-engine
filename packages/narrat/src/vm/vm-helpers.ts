@@ -40,7 +40,6 @@ export function runConditionCommand(
   const options = command.options;
   const staticOptions = command.staticOptions;
   const result = !!options.condition;
-  logger.log(result);
   if (result) {
     return staticOptions.success;
   }

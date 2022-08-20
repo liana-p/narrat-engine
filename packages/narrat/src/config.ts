@@ -3,7 +3,10 @@ import { error } from './utils/error-handling';
 import { useConfig } from './stores/config-store';
 import { Config, defaultConfig } from './config/config-output';
 import { DEFAULT_DIALOG_WIDTH } from './constants';
-import { defaultItemsConfig, ItemsConfigSchema } from './config/items-config';
+import {
+  defaultItemsConfig,
+  ItemsInputConfigSchema,
+} from './config/items-config';
 import {
   defaultScreensConfig,
   ScreensInputConfigSchema,
@@ -39,7 +42,7 @@ let config: Config;
 
 // 0: key, 1: schema, 2: default value
 const splitConfigs = [
-  ['items', ItemsConfigSchema, defaultItemsConfig],
+  ['items', ItemsInputConfigSchema, defaultItemsConfig],
   ['screens', ScreensInputConfigSchema, defaultScreensConfig],
   ['skills', SkillsInputConfigSchema, defaultSkillsConfig],
   ['buttons', ButtonsConfigSchema, defaultButtonsConfig],
@@ -132,9 +135,13 @@ export async function loadConfig(options: AppOptions) {
   const userConfig = await loadDataFile<ConfigInput>(options.configPath);
   if (options.baseAssetsPath) {
     userConfig.baseAssetsPath = options.baseAssetsPath;
+  } else {
+    userConfig.baseAssetsPath = userConfig.baseAssetsPath || '';
   }
   if (options.baseDataPath) {
     userConfig.baseDataPath = options.baseDataPath;
+  } else {
+    userConfig.baseDataPath = userConfig.baseDataPath || '';
   }
   const ajv = new Ajv({ allErrors: true });
   const result = ajv.validate(ConfigInputSchema, userConfig);

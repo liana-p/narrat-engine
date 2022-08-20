@@ -1,17 +1,16 @@
 ---
 gameTitle: Narrat RPG Example
 images: {}
-dialoguePanel:
+dialogPanel:
   textSpeed: 30
   animateText: true
   timeBetweenLines: 100
+  overlayMode: true
+  rightOffset: 50
+  bottomOffset: 50
+  width: 400
+  height: 680
 layout:
-  dialogPanel:
-    overlayMode: true
-    rightOffset: 50
-    bottomOffset: 50
-    width: 400
-    height: 680
   backgrounds:
     width: 1200
     height: 720
@@ -22,236 +21,12 @@ layout:
   portraits:
     width: 100
     height: 100
-screens:
-  default:
-    background: rpg/img/backgrounds/rpg.webp
-  rpg:
-    background: rpg/img/backgrounds/rpg.webp
-    buttons:
-      - id: startGame
-        background: rpg/img/ui/start.webp
-        enabled: true
-        position:
-          left: 440
-          top: 500
-          width: 291
-          height: 64
-        anchor:
-          x: 0.5
-          y: 0.5
-        action: setup_rpg
-  battle_grass:
-    background: rpg/img/levels/grass.webp
-    buttons:
-      - goblin
-      - slime
-      - skeleton
-      - wizard
-      - rogue
-      - warrior
-  battle_cave:
-    background: rpg/img/levels/cave.webp
-    buttons:
-      - goblin
-      - slime
-      - skeleton
-      - wizard
-      - rogue
-      - warrior
-  battle_dungeon:
-    background: rpg/img/levels/dungeon.webp
-    buttons:
-      - goblin
-      - slime
-      - skeleton
-      - wizard
-      - rogue
-      - warrior
-  dungeon_FRL:
-    background: rpg/img/levels/dungeon_FRL.webp
-    buttons:
-      - go_left
-      - go_front
-      - go_right
-  dungeon_F:
-    background: rpg/img/levels/dungeon_F.webp
-    buttons:
-      - go_front
-  dungeon_FL:
-    background: rpg/img/levels/dungeon_FL.webp
-    buttons:
-      - go_left
-      - go_front
-  dungeon_FR:
-    background: rpg/img/levels/dungeon_FR.webp
-    buttons:
-      - go_front
-      - go_right
-  dungeon_LR:
-    background: rpg/img/levels/dungeon_LR.webp
-    buttons:
-      - go_left
-      - go_right
-buttons:
-  goblin:
-    enabled: false
-    background: rpg/img/enemies/goblin.webp
-    position:
-      left: 100
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  slime:
-    enabled: false
-    background: rpg/img/enemies/slime.webp
-    position:
-      left: 150
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  skeleton:
-    enabled: false
-    background: rpg/img/enemies/skeleton.webp
-    position:
-      left: 100
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  wizard:
-    enabled: false
-    background: rpg/img/players/wizard.webp
-    position:
-      left: 600
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  rogue:
-    enabled: false
-    background: rpg/img/players/wizard.webp
-    position:
-      left: 600
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  warrior:
-    enabled: false
-    background: rpg/img/players/wizard.webp
-    position:
-      left: 600
-      top: 600
-      width: 255
-      height: 512
-    anchor:
-      x: 0.5
-      y: 1
-  go_left:
-    enabled: false
-    background: rpg/img/ui/left.webp
-    position:
-      left: 100
-      top: 250
-      width: 96
-      height: 96
-    anchor:
-      x: 0.5
-      y: 0.5
-    action: choose_left
-  go_right:
-    enabled: false
-    background: rpg/img/ui/right.webp
-    position:
-      left: 770
-      top: 250
-      width: 96
-      height: 96
-    anchor:
-      x: 0.5
-      y: 0.5
-    action: choose_right
-  go_front:
-    enabled: false
-    background: rpg/img/ui/front.webp
-    position:
-      left: 440
-      top: 120
-      width: 96
-      height: 96
-    anchor:
-      x: 0.5
-      y: 0.5
-    action: choose_front
-skills:
-  strength:
-    name: Strength
-    description: Increases your attack power.
-    startingLevel: 1
-    icon: img/skills/agility.webp
-  intelligence:
-    name: Intelligence
-    description: Increases your magic power.
-    startingLevel: 1
-    icon: img/skills/logic.webp
-  agility:
-    name: Agility
-    description: How good you are at moving around.
-    startingLevel: 1
-    icon: img/skills/agility.webp
-skillChecks:
-  rollRange: 100
-  skillMultiplier: 10
-  failureChance: 1
-  difficultyText:
-    - - 0
-      - Very Easy
-    - - 10
-      - Easy
-    - - 30
-      - Medium
-    - - 50
-      - Hard
-    - - 70
-      - Very Hard
-    - - 80
-      - Extremely Hard
-    - - 90
-      - Near Impossible
+screens: data/screens.yaml
+buttons: data/buttons.yaml
+skills: data/skills.yaml
 scripts:
   - data/rpg.nar
-audio:
-  game:
-    src: music/music.mp3
-    loop: true
-  battle:
-    src: music/battle.mp3
-    loop: true
-  click:
-    src: audio/click.ogg
-  game_start:
-    src: audio/game_start.ogg
-  failure:
-    src: audio/failure.ogg
-  success:
-    src: audio/success.wav
-audioOptions:
-  volume: 0.5
-  musicFadeInTime: 0.5
-  musicFadeInDelay: 0.5
-  musicFadeOutTime: 0.5
+audio: data/audio.yaml
 notifications:
   timeOnScreen: 2.5
 hudStats:
@@ -267,14 +42,12 @@ hudStats:
     startingValue: 100
     minValue: 0
     maxValue: 100
-items: {}
+items: data/items.yaml
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true
-quests: {}
-audioTriggers:
-  onPlayerAnswered: click
-  onPressStart: game_start
-  onSkillCheckFailure: failure
-  onSkillCheckSuccess: success
+quests: data/quests.yaml
 menuButtons: {}
+saves:
+  mode: manual
+  slots: 10

@@ -58,3 +58,6 @@ interactionTags:
 quests: {}
 audioTriggers: {}
 menuButtons: {}
+saves:
+  mode: manual
+  slots: 10

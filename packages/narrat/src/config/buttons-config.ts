@@ -17,7 +17,7 @@ export const ButtonConfigSchema = Type.Object({
       y: Type.Number(),
     }),
   ),
-  action: Type.String(),
+  action: Type.Optional(Type.String()),
   actionType: Type.Optional(Type.String()),
   tag: Type.Optional(Type.String()),
 });

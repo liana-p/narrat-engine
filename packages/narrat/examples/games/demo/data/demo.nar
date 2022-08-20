@@ -1,7 +1,7 @@
 main:
   "You open the narrat demo and wonder what narrat is and how it works"
   choice:
-    "How about asking for help?"
+    talk helper idle "Would you like some help?"
     "Ask for help":
       jump askForHelp
     "No, I don't want help 😡"
@@ -13,6 +13,7 @@ dontAskForHelp:
   jump main
 
 askForHelp:
+  talk player idle "Let's ask for help!"
   set_screen narrat 0 slide-top 2000
   talk helper idle "Hello! I'm Bob the helper cat. I heard you're trying to play the narrat demo!"
   talk helper idle "<a href=\"https:\/\/get-narrat.com\" target=\"_blank\">Narrat</a> is a game engine for narrative games that is based on web technologies. You can make games with it that will run on browsers (desktop and mobile) and can be built for PC too!"
