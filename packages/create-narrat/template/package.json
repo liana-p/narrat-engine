@@ -27,6 +27,7 @@
     "desktop": "npm run build && npm run electron",
     "electron": "electron .",
     "package": "npm run build && electron-forge package && shx cp steam_appid.txt out/narrat-template-win32-x64/steam_appid.txt",
+    "package-mac": "npm run build && electron-forge package",
     "make": "electron-forge make"
   },
   "dependencies": {
