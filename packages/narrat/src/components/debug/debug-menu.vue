@@ -205,7 +205,6 @@ export default defineComponent({
       }
       if (event.key === 'Escape') {
         this.finishJumping();
-        this.showDebug = false;
       }
       if (this.jumping && event.key === 'Enter') {
         if (this.matchCursor < this.matches.length) {
@@ -222,6 +221,7 @@ export default defineComponent({
       this.jumping = false;
       this.matches = [];
       this.searchString = '';
+      this.close();
     },
     labelSelected(event: any) {
       const labelName = event.target.value;
@@ -230,12 +230,14 @@ export default defineComponent({
     },
     close() {
       this.showDebug = false;
+      this.endDebug();
     },
     closeErrors() {
       useMain().clearErrors();
     },
     open() {
       this.showDebug = true;
+      this.startDebug();
       const vmStore = useVM();
       const mainStore = useMain();
       const questsStore = useQuests();
@@ -284,19 +286,26 @@ export default defineComponent({
       });
     },
     toggle() {
-      if (this.showDebug) {
-        this.showDebug = false;
-      } else if (this.jumping) {
+      if (this.jumping) {
         this.finishJumping();
+      } else if (this.showDebug) {
+        this.close();
       } else {
         this.open();
       }
+    },
+    startDebug() {
+      useMain().debugMode = true;
+    },
+    endDebug() {
+      useMain().debugMode = false;
     },
     jump() {
       fuse = new Fuse(this.labels, {
         includeScore: true,
       });
       this.jumping = true;
+      this.startDebug();
       setTimeout(() => {
         this.$nextTick(() => {
           (this.$refs.search as any).focus();

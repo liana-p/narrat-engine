@@ -1,5 +1,13 @@
 # Narrat changelog
 
+## [2.8.1] - Various bugfixes
+
+- There should be less bugs caused by using space to skip dialog
+- Using autoplay hotkeys won't interfere with the debug jump to label tool anymore
+- Menu tabs now correctly disappear if the feature isn't used
+- The Escape shortcut to open the menu has been fixed
+- Added clearer error messages when trying to use screens or buttons that don't exist
+
 ## [2.8.0] - Improved config files
 
 ### Breaking Change

@@ -72,7 +72,6 @@ import { useMain } from './stores/main-store';
 import { DialogStyle } from './types/character-types';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
-import { inputEvents } from './utils/InputsListener';
 import { findAllHtmlTags } from './utils/string-helpers';
 
 export interface TextAnimation {
@@ -89,7 +88,6 @@ export default defineComponent({
     return {
       playerText: '',
       passed: false,
-      listener: null as any,
       timeout: null as any,
       textAnimation: null as null | TextAnimation,
       mounted: false,
@@ -194,13 +192,61 @@ export default defineComponent({
   },
   methods: {
     clearListeners() {
-      if (this.listener) {
-        inputEvents.off('keydown', this.listener);
-        this.listener = null;
-      }
       if (this.timeout) {
         clearTimeout(this.timeout);
         this.timeout = null;
+      }
+    },
+    keyboardEvent(e: KeyboardEvent) {
+      if (!this.canInteract) {
+        if (this.mounted && this.textAnimation && e.key === ' ') {
+          this.endTextAnimation({ pressedSpace: true });
+        }
+        return;
+      }
+      if (this.canInteract && this.options.textField) {
+        if (e.key === 'Enter') {
+          this.submitText();
+        }
+      }
+      if (this.canInteract && !this.options.textField) {
+        let choice: any = -1;
+        switch (e.key) {
+          case ' ':
+            choice = 0;
+            break;
+          case '1':
+            choice = 0;
+            break;
+          case '2':
+            choice = 1;
+            break;
+          case '3':
+            choice = 2;
+            break;
+          case '4':
+            choice = 3;
+            break;
+          case '5':
+            choice = 4;
+            break;
+          case '6':
+            choice = 5;
+            break;
+          case '7':
+            choice = 6;
+            break;
+          case '8':
+            choice = 7;
+            break;
+        }
+        if (choice !== -1) {
+          if (this.choices && choice < this.choices.length) {
+            this.chooseOption(this.choices[choice]);
+          } else {
+            this.chooseOption(choice);
+          }
+        }
       }
     },
     next() {
@@ -358,59 +404,6 @@ export default defineComponent({
       }
     },
     registerKeyboardShortcuts() {
-      const listener = (e: KeyboardEvent) => {
-        if (!this.canInteract) {
-          if (this.mounted && this.textAnimation && e.key === ' ') {
-            this.endTextAnimation({ pressedSpace: true });
-          }
-          return;
-        }
-        if (this.canInteract && this.options.textField) {
-          if (e.key === 'Enter') {
-            this.submitText();
-          }
-        }
-        if (this.canInteract && !this.options.textField) {
-          let choice: any = -1;
-          switch (e.key) {
-            case ' ':
-              choice = 0;
-              break;
-            case '1':
-              choice = 0;
-              break;
-            case '2':
-              choice = 1;
-              break;
-            case '3':
-              choice = 2;
-              break;
-            case '4':
-              choice = 3;
-              break;
-            case '5':
-              choice = 4;
-              break;
-            case '6':
-              choice = 5;
-              break;
-            case '7':
-              choice = 6;
-              break;
-            case '8':
-              choice = 7;
-              break;
-          }
-          if (choice !== -1) {
-            if (this.choices && choice < this.choices.length) {
-              this.chooseOption(this.choices[choice]);
-            } else {
-              this.chooseOption(choice);
-            }
-          }
-        }
-      };
-      this.listener = inputEvents.on('debouncedKeydown', listener);
       this.timeout = setTimeout(() => {
         if (this.options.textField && this.canInteract) {
           (this.$refs.playerInput as any).focus();

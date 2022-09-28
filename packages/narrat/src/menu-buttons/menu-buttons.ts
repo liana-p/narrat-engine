@@ -50,7 +50,9 @@ export function registerDefaultMenuButtons(app: any) {
           id: 'quests',
           cssId: 'quests-menu-button',
           text: 'Quests',
-          condition: () => useMenu().showQuests,
+          condition: () => {
+            return useMenu().showQuests;
+          },
           component: 'QuestsUi',
         },
       ],

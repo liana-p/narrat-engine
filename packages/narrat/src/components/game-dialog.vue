@@ -17,6 +17,7 @@
       >
         <DialogBox
           v-for="(val, i) in dialog"
+          :ref="(el) => (lastDialogBox = el)"
           :key="val.id"
           :options="getDialogBoxOptions(val, i)"
           :active="isDialogActive(i)"
@@ -46,13 +47,22 @@ import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
 import { getCharacterInfo, getCharacterPictureUrl } from '@/utils/characters';
 import { processText } from '@/utils/string-helpers';
-import { computed, onUnmounted, PropType, ref, watch } from 'vue';
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  PropType,
+  reactive,
+  ref,
+  watch,
+} from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { useMain } from '@/lib';
 import { defaultConfig } from '@/config/config-output';
+import { inputEvents } from '../utils/InputsListener';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
@@ -67,6 +77,9 @@ const stack = computed(() => vmStore.stack);
 const dialogStore = useDialogStore();
 const dialog = computed(() => dialogStore.dialog);
 const dialogRef = ref(null);
+const lastDialogBox = ref<any>(null);
+const keyboardListener = ref<any>(null);
+
 const dialogContainerStyle = computed((): any => {
   let padding = '0px';
   const layoutPadding = getConfig().layout.dialogBottomPadding;
@@ -126,7 +139,18 @@ watch(inScript, (val) => {
     }
   }
 });
+onMounted(() => {
+  const listener = (e: KeyboardEvent) => {
+    if (lastDialogBox.value && lastDialogBox.value.keyboardEvent) {
+      lastDialogBox.value.keyboardEvent(e);
+    }
+  };
+  keyboardListener.value = inputEvents.on('debouncedKeydown', listener);
+});
 onUnmounted(() => {
+  if (keyboardListener.value) {
+    inputEvents.off('debouncedKeydown', keyboardListener.value);
+  }
   if (dialogueEndTimer.value) {
     clearTimeout(dialogueEndTimer.value);
   }

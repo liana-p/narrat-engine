@@ -121,7 +121,7 @@ export default defineComponent({
       };
     },
     appClass(): any {
-      if (useMain().modal || useMenu().activeMenu) {
+      if (useMenu().activeMenu) {
         return 'app-blurred-by-modal';
       }
       return {};

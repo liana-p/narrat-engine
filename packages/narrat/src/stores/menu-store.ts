@@ -1,4 +1,4 @@
-import { getConfig } from '@/config';
+import { getConfig, itemsConfig, questsConfig, skillsConfig } from '@/config';
 import { defineStore } from 'pinia';
 
 export interface MenuTabState {
@@ -36,19 +36,19 @@ export const useMenu = defineStore('menu', {
     } as MenuStoreState),
   getters: {
     showSkills(): boolean {
-      if (Object.entries(getConfig().skills).length > 0) {
+      if (Object.entries(skillsConfig().skills).length > 0) {
         return true;
       }
       return false;
     },
     showInventory(): boolean {
-      if (Object.entries(getConfig().items).length > 0) {
+      if (Object.entries(itemsConfig().items).length > 0) {
         return true;
       }
       return false;
     },
     showQuests(): boolean {
-      if (Object.entries(getConfig().quests).length > 0) {
+      if (Object.entries(questsConfig().quests).length > 0) {
         return true;
       }
       return false;
