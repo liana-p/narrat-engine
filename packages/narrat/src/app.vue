@@ -52,7 +52,6 @@ export default defineComponent({
     return {
       dialog: computed(() => dialogStore.dialog),
       stack: computed(() => vmStore.stack),
-      modal: computed(() => mainStore.modal),
       flowState: computed(() => mainStore.flowState),
       alerts: computed(() => mainStore.alerts),
     };
