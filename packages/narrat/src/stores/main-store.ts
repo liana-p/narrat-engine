@@ -73,13 +73,13 @@ interface MainState {
   saveSlot: string;
   options: AppOptions;
   flowState: 'engine-splash' | 'game-splash' | 'menu' | 'playing';
-  modal: string | false;
   paused: boolean;
   loading: {
     step: string;
     percentage: number;
     loaded: boolean;
   };
+  debugMode: boolean;
   alerts: {
     title: string;
     text: string;
@@ -112,8 +112,8 @@ export const useMain = defineStore('main', {
       },
       saveSlot: '',
       flowState: 'engine-splash',
-      modal: false,
       paused: false,
+      debugMode: true,
       options: {
         baseAssetsPath: '',
         baseDataPath: '',
@@ -324,19 +324,6 @@ export const useMain = defineStore('main', {
     setFlowState(flowState: 'menu' | 'playing') {
       this.flowState = flowState;
     },
-    openModal(modal: string) {
-      this.modal = modal;
-    },
-    closeModal() {
-      this.modal = false;
-    },
-    toggleMenu() {
-      if (this.modal) {
-        this.modal = false;
-      } else {
-        this.modal = 'menu';
-      }
-    },
     pause() {
       this.paused = true;
     },
@@ -353,7 +340,6 @@ export const useMain = defineStore('main', {
     reset() {
       this.ready = false;
       this.errors = [];
-      this.modal = false;
       this.paused = false;
       useVM().reset();
       useAudio().reset();

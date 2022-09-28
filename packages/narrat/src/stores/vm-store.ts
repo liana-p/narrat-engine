@@ -301,6 +301,14 @@ export const useVM = defineStore('vm', {
       return result;
     },
     cleanBlock() {
+      if (!this.currentFrame) {
+        error('Tried to clean a block but there is no current frame');
+        return;
+      }
+      if (!this.currentFrame.blocks) {
+        error('Tried to clean a block but there is no current block');
+        return;
+      }
       this.currentFrame!.blocks.splice(this.currentFrame!.blocks.length - 1, 1);
     },
     async runGame() {

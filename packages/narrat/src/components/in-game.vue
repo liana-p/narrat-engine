@@ -82,11 +82,13 @@ function saveRefuse() {
 
 onMounted(() => {
   keyboardListener.value = inputEvents.on('debouncedKeydown', (e) => {
-    if (e.key === 'a') {
-      dialog.toggleAutoPlay();
-    }
-    if (e.key === 's') {
-      dialog.toggleSkip();
+    if (!useMain().debugMode) {
+      if (e.key === 'a' || e.key === 'A') {
+        dialog.toggleAutoPlay();
+      }
+      if (e.key === 's' || e.key === 'S') {
+        dialog.toggleSkip();
+      }
     }
   });
 });

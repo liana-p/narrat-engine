@@ -47,7 +47,7 @@ onMounted(() => {
   keyboardListener.value = inputEvents.on('keydown', (event) => {
     const key = event.key;
     if (key === 'Escape') {
-      useMain().toggleMenu();
+      useMenu().toggleMenu();
     }
   });
   vm.callHook('onGameMounted');
@@ -67,13 +67,15 @@ const menuButtons = computed(() => {
 });
 const menu = computed(() => menuStore.menu);
 const menuTabs = computed((): TabOptions[] => {
-  return (menu.value?.tabs ?? []).map((menuTab) => {
-    return {
-      id: menuTab.id,
-      label: menuTab.text,
-      component: menuTab.component,
-    };
-  });
+  return (menu.value?.tabs ?? [])
+    .filter((tab) => (tab.condition ? tab.condition() : true))
+    .map((menuTab) => {
+      return {
+        id: menuTab.id,
+        label: menuTab.text,
+        component: menuTab.component,
+      };
+    });
 });
 function closeMenu() {
   menuStore.closeMenu();

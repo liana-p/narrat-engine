@@ -9,11 +9,13 @@ import {
 } from './config/items-config';
 import {
   defaultScreensConfig,
+  ScreenConfig,
   ScreensInputConfigSchema,
 } from './config/screens-config';
 import {
   ButtonsConfigSchema,
   defaultButtonsConfig,
+  ButtonConfig,
 } from './config/buttons-config';
 import {
   defaultSkillsConfig,
@@ -217,8 +219,20 @@ export function getDataUrl(dataPath: string) {
   }
 }
 
-export function getButtonConfig(button: string) {
-  return buttonsConfig().buttons[button];
+export function getButtonConfig(button: string): ButtonConfig {
+  const result = buttonsConfig().buttons[button];
+  if (!result) {
+    error(`Button config for button ${button} doesn't exist`);
+  }
+  return result;
+}
+
+export function getScreenConfig(screen: string): ScreenConfig {
+  const result = screensConfig().screens[screen];
+  if (!result) {
+    error(`Screen config for screen ${screen} doesn't exist`);
+  }
+  return result;
 }
 
 export function getItemConfig(id: string) {

@@ -1,3 +1,4 @@
+import { getButtonConfig, getScreenConfig, screensConfig } from '@/config';
 import { useScreens } from '@/stores/screens-store';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
@@ -19,6 +20,14 @@ export const setScreenCommand = new CommandPlugin<{
   ],
   async (cmd) => {
     const screens = useScreens();
+    const screenConfig = getScreenConfig(cmd.options.screen);
+    if (!screenConfig) {
+      commandRuntimeError(
+        cmd,
+        `Screen ${cmd.options.screen} doesn't exist in the config`,
+      );
+      return;
+    }
     if (cmd.options.transitionName) {
       return screens.transitionScreen(
         cmd.options.screen,
@@ -73,6 +82,14 @@ export const setButtonCommand = new CommandPlugin<{
   async (cmd) => {
     const { buttonId, state } = cmd.options;
     const screens = useScreens();
+    const config = getButtonConfig(buttonId);
+    if (!config) {
+      commandRuntimeError(
+        cmd,
+        `Button ${buttonId} doesn't exist in the config`,
+      );
+      return;
+    }
     screens.changeButton(buttonId, state);
   },
 );

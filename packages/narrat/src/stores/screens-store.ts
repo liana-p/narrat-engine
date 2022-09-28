@@ -139,6 +139,10 @@ export const useScreens = defineStore('screens', {
       }
     },
     changeButton(button: string, newValue: ButtonStateValue) {
+      if (!this.buttons[button]) {
+        error(`Tried to change button ${button} but it doesn't exist`);
+        return;
+      }
       this.buttons[button].state = newValue;
     },
     generateSaveData(): ScreenSave {
