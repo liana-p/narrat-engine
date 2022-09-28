@@ -3,11 +3,15 @@ import { findDataHelper, getModifiableDataPinia } from './data-helpers';
 export function processText(text: string): string {
   return text.replace(/%{[^}]*}/g, (match) => {
     const key = match.substr(2, match.length - 3);
-    const searchableState = getModifiableDataPinia();
-    const [obj, newKey] = findDataHelper<any>(searchableState, key);
-
-    return obj[newKey];
+    return findVariable(key);
   });
+}
+
+export function findVariable(text: string) {
+  const searchableState = getModifiableDataPinia();
+  const [obj, newKey] = findDataHelper<any>(searchableState, text);
+
+  return obj[newKey];
 }
 
 export const stringRegex = /\$\$"/;

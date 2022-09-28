@@ -6,45 +6,90 @@ import { useScreens } from '@/stores/screens-store';
 import { useSkills } from '@/stores/skills';
 import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
+import { findVariable } from './string-helpers';
+import { error } from './error-handling';
 
-export function findDataHelper<T>(sourceObj: any, path: string): [T, string] {
+export function findDataHelper<T>(
+  sourceObj: any,
+  path: string,
+): [T, string | number] {
   const keys = path.split('.');
   let obj = sourceObj;
-  const end = keys.length - 1;
-  let key = keys[0];
+  const end = keys.length;
+  let key: string | number = keys[0];
   let i = 0;
   for (i = 0; i < end; i++) {
     key = keys[i];
-    if (!obj[key]) {
-      obj[key] = {};
-    }
-    obj = obj[key];
+    [obj, key] = findArraysHelper(obj, key);
   }
-  key = keys[i];
   return [obj, key];
+}
+
+export function findArraysHelper<T>(
+  sourceObj: any,
+  path: string,
+): [T, string | number] {
+  // Regex finds all arrays
+  const regex = /\[[^\]]+]/g;
+  const firstMatch = path.search(regex);
+  let arrayKey: string | number | null = null;
+  let target = sourceObj;
+  if (firstMatch !== -1) {
+    // Handle first object
+    arrayKey = path.substring(0, firstMatch);
+    const arrays = path.matchAll(/\[[^\]]+]/g);
+    for (const array of arrays) {
+      const match = array[0];
+      if (arrayKey !== null) {
+        target = target[arrayKey];
+        // Get the target from the previous loop
+      }
+      arrayKey = match.slice(1, match.length - 1);
+      if (arrayKey.startsWith('$')) {
+        // Handle variables
+        arrayKey = findVariable(arrayKey.slice(1, arrayKey.length));
+      }
+      if (!isNaN(Number(arrayKey))) {
+        arrayKey = Number(arrayKey);
+      }
+      if (typeof arrayKey === 'string') {
+        if (typeof target !== 'object') {
+          target = {};
+        }
+      } else if (typeof arrayKey === 'number') {
+        if (!Array.isArray(target)) {
+          target = [];
+        }
+      } else {
+        error(`Invalid variable path key: ${arrayKey} (${path})`);
+      }
+    }
+  }
+  return [target, arrayKey ?? path];
 }
 
 export function findDataHelperWithoutAutoCreate<T>(
   sourceObj: any,
   path: string,
-): [T, string] | undefined {
-  const keys = path.split('.');
-  let obj = sourceObj;
-  const end = keys.length - 1;
-  let key = keys[0];
-  let i = 0;
-  for (i = 0; i < end; i++) {
-    key = keys[i];
-    if (!obj[key]) {
-      obj[key] = {};
-    }
-    obj = obj[key];
-  }
-  key = keys[i];
-  if (typeof obj[key] === 'undefined') {
-    obj[key] = null;
-  }
-  return [obj, key];
+): [T, string | number] | undefined {
+  return findDataHelper(sourceObj, path);
+  // const keys = path.split('.');
+  // let obj = sourceObj;
+  // const end = keys.length - 1;
+  // let key = keys[0];
+  // let i = 0;
+  // for (i = 0; i < end; i++) {
+  //   key = keys[i];
+  //   if (!obj[key]) {
+  //     obj[key] = {};
+  //   }
+  //   obj = obj[key];
+  // }
+  // key = keys[i];
+  // if (typeof obj[key] === 'undefined') {
+  //   obj[key] = null;
+  // }
+  // return [obj, key];
 }
 
 export function setDataHelper<T>(sourceObj: any, path: string, value: T) {
