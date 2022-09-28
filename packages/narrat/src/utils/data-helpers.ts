@@ -19,6 +19,9 @@ export function findDataHelper<T>(
   let key: string | number = keys[0];
   let i = 0;
   for (i = 0; i < end; i++) {
+    if (i > 0) {
+      obj = obj[key];
+    }
     key = keys[i];
     [obj, key] = findArraysHelper(obj, key);
   }

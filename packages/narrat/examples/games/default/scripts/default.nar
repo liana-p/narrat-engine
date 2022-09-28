@@ -1,8 +1,11 @@
 main:
-  set data.a 1
-  set data.b 2
-  set data.result (+ $data.a $data.b)
-  talk player idle "Hello %{data.result}"
+  // set data.a 1
+  // set data.b 2
+  // set data.result (+ $data.a $data.b)
+  // talk player idle "Hello %{data.result}"
+  set data.c (new Array)
+  set data.c[0] 4
+  talk player idle "c[0]: %{data.c[0]}"
   add_item bread 1
   add_item book 1
   // jump quest_demo

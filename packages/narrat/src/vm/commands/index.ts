@@ -12,6 +12,7 @@ import {
   defineVariablePlugin,
   jumpCommand,
   logPlugin,
+  newCommandPlugin,
   returnMainMenuPlugin,
   returnPlugin,
   runLabelPlugin,
@@ -166,6 +167,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(returnMainMenuPlugin);
   vm.addCommand(savePlugin);
   vm.addCommand(savePromptPlugin);
+  vm.addCommand(newCommandPlugin);
 
   // // Quests
   vm.addCommand(startQuestPlugin);
