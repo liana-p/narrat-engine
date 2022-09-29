@@ -14,7 +14,7 @@ export function newFindDataHelper<T>(
   sourceObj: any,
   path: string,
 ): [T | null, string | number] {
-  console.log('find data helper ', path);
+  // console.log('find data helper ', path);
   if (!path.startsWith('$')) {
     if (!isNaN(Number(path))) {
       return [null, Number(path)];
@@ -31,11 +31,11 @@ export function newFindDataHelper<T>(
   let currentIndex = 0;
   while (currentIndex < path.length) {
     if (currentIndex > 0) {
-      console.log(`we're looping`, obj, key);
-      console.log('current', currentIndex, 'start', startIndex);
+      // console.log(`we're looping`, obj, key);
+      // console.log('current', currentIndex, 'start', startIndex);
     }
     if (startIndex > currentIndex || startIndex === -1) {
-      console.log(startIndex, currentIndex);
+      // console.log(startIndex, currentIndex);
       const basePathEnd = startIndex > currentIndex ? startIndex : path.length;
       let basePathKey: string | number = path.substring(
         currentIndex,
@@ -48,17 +48,17 @@ export function newFindDataHelper<T>(
         // If we're about to look up a base path after the first iteration, get the final object first
         obj = obj[key];
       }
-      console.log('get path value', basePathKey, obj);
+      // console.log('get path value', basePathKey, obj);
       [obj, key] = getPathValueWithoutBrackets(obj, basePathKey);
-      console.log('get paht value result', obj, key);
+      // console.log('get paht value result', obj, key);
     }
     if (startIndex !== -1) {
       currentIndex = startIndex;
       const restOfString = path.substring(startIndex + 1);
-      console.log('rest of srting', restOfString);
+      // console.log('rest of srting', restOfString);
       const bracketsEnd = findBracketsEnd(restOfString) + startIndex;
       const pathToSearch = path.substring(startIndex + 1, bracketsEnd);
-      console.log('path to search', pathToSearch);
+      // console.log('path to search', pathToSearch);
       // Calculate the index to use for the next bit by processing the array brackets
       const [foundObj, foundKey] = newFindDataHelper(
         getModifiableDataPinia(),
@@ -69,7 +69,7 @@ export function newFindDataHelper<T>(
         // We're getting the final value returned for that expression
         newKey = (foundObj as any)[foundKey];
       }
-      console.log(`new key from ${pathToSearch}`, newKey);
+      // console.log(`new key from ${pathToSearch}`, newKey);
       if (typeof newKey === 'number' || !isNaN(Number(newKey))) {
         newKey = Number(newKey);
       } else if (typeof newKey !== 'string') {
@@ -79,10 +79,10 @@ export function newFindDataHelper<T>(
       }
       obj = obj[key];
       key = newKey;
-      console.log('obj, key', obj, key);
+      // console.log('obj, key', obj, key);
       currentIndex = bracketsEnd + 1;
       const afterBracket = path.substring(currentIndex);
-      console.log('after brackets', afterBracket);
+      // console.log('after brackets', afterBracket);
       startIndex = afterBracket.search(opening);
       if (startIndex !== -1) {
         startIndex += currentIndex;
@@ -91,10 +91,10 @@ export function newFindDataHelper<T>(
       if (endIndex !== -1) {
         endIndex += currentIndex;
       }
-      console.log('startIndex', startIndex);
-      console.log('endIndex', endIndex);
+      // console.log('startIndex', startIndex);
+      // console.log('endIndex', endIndex);
     } else {
-      console.log('no more parenthesis, going to the end');
+      // console.log('no more parenthesis, going to the end');
       currentIndex = path.length;
     }
   }
@@ -150,9 +150,6 @@ function getPathValueWithoutBrackets(sourceObj: any, path: string | number) {
     obj = obj[key];
   }
   key = keys[i];
-  if (typeof obj[key] === 'undefined') {
-    obj[key] = null;
-  }
   return [obj, key];
 }
 export function findDataHelper<T>(

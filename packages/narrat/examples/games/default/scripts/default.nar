@@ -4,9 +4,12 @@ main:
   // set data.result (+ $data.a $data.b)
   // talk player idle "Hello %{data.result}"
   set data.c (new Array)
+  log $data.c
+  set data.array_size 10
   set data.c[0] 4
   set data.counter 0
   talk player idle "c[0]: %{$data.c[$data.counter]}"
+  jump generate_map
   add_item bread 1
   add_item book 1
   // jump quest_demo
@@ -18,7 +21,50 @@ generate_map:
   set data.x 0
   set data.y 0
   set data.map (new Array)
+  run increase_x
+  jump print_map
+
+print_map:
+  set data.text "<span style='font-family:monospace;font-size:20px;font-weight:bold;line-height:20px;'><br />"
+  set data.x 0
+  set data.y 0
+  run print_map_x
+  set data.text (concat $data.text "</span>")
+  talk player idle $data.text
+
+print_map_x:
+  run print_map_y
+  add data.x 1
+  if (< $data.x $data.array_size):
+    set data.text (join "   " $data.text "<br />")
+    set data.y 0
+    run print_map_x
+
+print_map_y:
+  set data.text (join " " $data.text $data.map[$data.x][$data.y])
+  add data.y 1
+  if (< $data.y $data.array_size):
+    run print_map_y
+
+
+increase_x:
   set data.map[$data.x] (new Array)
+  run increase_y
+  add data.x 1
+  if (< $data.x $data.array_size):
+    set data.y 0
+    run increase_x
+
+increase_y:
+  var toSet "x"
+  if (== $data.x $data.y):
+    set toSet "o"
+  if (== $data.x (- 9 $data.y)):
+    set toSet "v"
+  set data.map[$data.x][$data.y] $toSet
+  add data.y 1
+  if (< $data.y $data.array_size):
+    run increase_y
 
 test_interpol:
   var count 3
