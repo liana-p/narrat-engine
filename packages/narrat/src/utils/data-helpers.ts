@@ -8,7 +8,98 @@ import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
 import { findVariable } from './string-helpers';
 import { error } from './error-handling';
+import { logger } from './logger';
 
+export function newFindDataHelper<T>(
+  sourceObj: any,
+  path: string,
+): [T, string | number] {
+  if (!path.startsWith('$')) {
+    return [sourceObj, path];
+  }
+  const opening = /\[/;
+  const closing = /\]/;
+  let startIndex = path.search(opening);
+  let endIndex = path.search(closing);
+  let key: string | number = path;
+  let obj: any = sourceObj;
+  let currentIndex = 0;
+  if (startIndex !== -1) {
+    key = path.substring(0, startIndex);
+    if (!isNaN(Number(key))) {
+      key = Number(key);
+    }
+    currentIndex = startIndex;
+  }
+  while (startIndex !== -1 && endIndex >= startIndex) {
+    const restOfString = path.substring(startIndex + 1);
+    const bracketsEnd = findBracketsEnd(restOfString) + startIndex;
+    [obj, key] = getPathValueWithoutBrackets(obj, key);
+    const pathToSearch = path.substring(startIndex + 1, bracketsEnd - 1);
+    const [obj, key] = newFindDataHelper(objectToSearch, pathToSearch);
+    const afterBracket = path.substring(bracketsEnd);
+    startIndex = afterBracket.search(opening);
+    endIndex = afterBracket.search(closing);
+  }
+
+  return [obj, key];
+}
+
+function findBracketsEnd(restOfString: string) {
+  let finishedString = false;
+  let index = 0;
+  let stringToAnalyse;
+  let openBrackets = 1;
+  // Find the end of the closing brackets, ignoring nested brackets
+  while (!finishedString) {
+    stringToAnalyse = restOfString.substring(index);
+    const opening = stringToAnalyse.search(/\[/);
+    const closing = stringToAnalyse.search(/\]/);
+    if (opening !== -1 && opening < closing) {
+      index += opening + 1;
+      openBrackets++;
+    } else {
+      index += closing + 1;
+      openBrackets--;
+    }
+    if (openBrackets === 0) {
+      finishedString = true;
+    }
+    if (opening === -1 && closing === -1 && !finishedString) {
+      error(`Could not find closing bracket in ${restOfString}`);
+    }
+  }
+  return index;
+}
+
+function getPathValueWithoutBrackets(sourceObj: any, path: string | number) {
+  if (typeof path === 'number') {
+    return [sourceObj, path];
+  }
+  if (path.startsWith('$')) {
+    // Find variables values
+    sourceObj = getModifiableDataPinia();
+    path = path.substring(1);
+  }
+  // Otherwise continue with the current value
+  const keys = path.split('.');
+  let obj = sourceObj;
+  const end = keys.length;
+  let key: string | number = keys[0];
+  let i = 0;
+  for (i = 0; i < end; i++) {
+    key = keys[i];
+    if (!obj[key]) {
+      obj[key] = {};
+    }
+    obj = obj[key];
+  }
+  key = keys[i];
+  if (typeof obj[key] === 'undefined') {
+    obj[key] = null;
+  }
+  return [obj, key];
+}
 export function findDataHelper<T>(
   sourceObj: any,
   path: string,
