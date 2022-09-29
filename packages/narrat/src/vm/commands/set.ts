@@ -13,7 +13,7 @@ export const setCommand = new CommandPlugin<any>(
   ],
   async (cmd) => {
     const state = getModifiableDataPinia();
-    setDataHelper(state, cmd.options.key, cmd.options.value);
+    setDataHelper(state, `$${cmd.options.key}`, cmd.options.value);
   },
 );
 
@@ -25,6 +25,6 @@ export const addPlugin = new CommandPlugin<{ key: any; value: number }>(
   ],
   async (cmd) => {
     const state = getModifiableDataPinia();
-    addDataHelper(state, cmd.options.key, cmd.options.value);
+    addDataHelper(state, `$${cmd.options.key}`, cmd.options.value);
   },
 );
