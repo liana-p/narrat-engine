@@ -11,6 +11,7 @@ export const ItemConfigSchema = Type.Object({
   ),
   tag: Type.Optional(Type.String()),
   category: Type.Optional(Type.String()),
+  showIfEmpty: Type.Optional(Type.Boolean()),
 });
 export type ItemConfig = Static<typeof ItemConfigSchema>;
 

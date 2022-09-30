@@ -32,7 +32,7 @@ const data = computed(() => {
   transform: translateY(-2px);
 }
 .quest-list-title {
-  padding-left: 20px;
+  padding-left: 10px;
   font-size: 1.2rem;
 }
 .quest-list-completed {

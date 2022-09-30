@@ -1,5 +1,62 @@
 # Narrat changelog
 
+## [2.9.0] - Arrays and other things
+
+# ⚠️☢️ Breaking Changes ⚠️☢️
+
+### String template syntax change
+
+The use of variables inside string templates now requires prefixing with `$` like in other pieces of code. For example:
+
+- old: `talk player idle "You have %{data.health} hp"
+- new: `talk player idle "You have %{$data.health} hp"
+
+This should be easy to do by simply doing a replace-all in your IDE from "%{" to "%{$"
+
+### Quest categories
+
+The config for quests now needs a config for categories. At the minimum, this needs to be added in the quests config file:
+
+```yaml
+categories:
+  - id: default
+    title: Quests
+```
+
+Example of a full file:
+
+```yaml
+categories:
+  - id: default
+    title: Quests
+
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+```
+
+### Arrays
+
+New array syntax! It is now possible to create arrays, and to dynamically access array indexes (or object properties) with variables.
+
+See the [tweet explaining the feature](https://twitter.com/NarratEngine/status/1575809637277761542) or the [other tweet showing another example](https://twitter.com/NarratEngine/status/1575809637277761542).
+
+There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.get-narrat.com/functions-documentation/all-commands-list) docs page.
+
+### Quest categories
+
+### Other things
+
+- Items the player has 0 of will no longer appear in the inventory
+- New `showIfEmpty` item config option to force an item to appear even if it's empty
+
 ## [2.8.1] - Various bugfixes
 
 - There should be less bugs caused by using space to skip dialog
