@@ -32,6 +32,7 @@ const style = computed((): any => {
   x = Math.min(x, window.innerWidth - x - 5);
   x = Math.max(props.width / 2, x);
   cssStyle.left = `${x}px`;
+
   let y = window.innerHeight - props.y;
   y = Math.min(y, window.innerHeight - 5);
   y = Math.max(y, height.value + 5);
