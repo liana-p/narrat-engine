@@ -76,7 +76,17 @@ export default defineComponent({
   },
   computed: {
     itemsToDisplay(): ItemState[] {
-      return Object.values(this.items);
+      return Object.values(this.items).filter((itemState) => {
+        if (itemState.amount > 0) {
+          return true;
+        } else {
+          const config = getItemConfig(itemState.id);
+          if (config.showIfEmpty) {
+            return true;
+          }
+        }
+        return false;
+      });
     },
     chosenItem(): null | ItemState {
       if (this.chosenId) {
