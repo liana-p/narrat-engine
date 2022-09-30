@@ -12,6 +12,7 @@ import {
   defineVariablePlugin,
   jumpCommand,
   logPlugin,
+  newCommandPlugin,
   returnMainMenuPlugin,
   returnPlugin,
   runLabelPlugin,
@@ -78,6 +79,7 @@ import { textFieldPlugin, textFieldPromptPlugin } from './text-field';
 import {
   randomFloatPlugin,
   randomFromArgsPlugin,
+  randomFromArrayPlugin,
   randomIntPlugin,
 } from './random-commands';
 import { stringConcatPlugin, stringJoinPlugin } from './string-commands';
@@ -92,6 +94,18 @@ import {
   sqrtPlugin,
 } from './math-commands';
 import { createSpriteCommand, deleteSpriteCommand } from './sprite-commands';
+import {
+  concatCommand,
+  includesCommand,
+  joinCommand,
+  popCommand,
+  pushCommand,
+  reverseCommand,
+  shiftCommand,
+  shuffleCommand,
+  sliceCommand,
+  spliceCommand,
+} from './array-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -166,6 +180,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(returnMainMenuPlugin);
   vm.addCommand(savePlugin);
   vm.addCommand(savePromptPlugin);
+  vm.addCommand(newCommandPlugin);
 
   // // Quests
   vm.addCommand(startQuestPlugin);
@@ -200,6 +215,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(randomIntPlugin);
   vm.addCommand(randomFloatPlugin);
   vm.addCommand(randomFromArgsPlugin);
+  vm.addCommand(randomFromArrayPlugin);
 
   // Strings
   vm.addCommand(stringConcatPlugin);
@@ -214,4 +230,16 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(ceilPlugin);
   vm.addCommand(sqrtPlugin);
   vm.addCommand(powPlugin);
+
+  // Arrays
+  vm.addCommand(shuffleCommand);
+  vm.addCommand(pushCommand);
+  vm.addCommand(popCommand);
+  vm.addCommand(shiftCommand);
+  vm.addCommand(joinCommand);
+  vm.addCommand(concatCommand);
+  vm.addCommand(includesCommand);
+  vm.addCommand(reverseCommand);
+  vm.addCommand(sliceCommand);
+  vm.addCommand(spliceCommand);
 }

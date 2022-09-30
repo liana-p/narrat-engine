@@ -6,6 +6,104 @@ main:
   "hello <span class='red'><i><b>world</i></b></span>"
   jump quest_demo
 
+test_arrays:
+  set data.c (new Array)
+  log $data.c
+  set data.array_size 10
+  set data.c[0] 4
+  set data.counter 0
+  talk player idle "c[0]: %{$data.c[$data.counter]}"
+  jump generate_map
+
+array_functions_test:
+  set data.test (new Array)
+  talk player idle "Declared empty array"
+  push $data.test 0
+  push $data.test 25
+  push $data.test 50
+  push $data.test 75
+  push $data.test 100
+  var array_string (array_join $data.test ", ")
+  talk player idle "Initial values pushed. array content: %{$array_string}"
+  var popped (pop $data.test)
+  talk player idle "Popped %{$popped}"
+  var shifted (shift $data.test)
+  talk player idle "Shifted %{$shifted}"
+  var joined (array_join $data.test ", "
+  talk player idle "Joined %{$joined}"
+  var concatenated (array_concat $data.test $data.test)
+  var concatenated_string (array_join $concatenated ", ")
+  talk player idle "Concatenated %{$concatenated_string}"
+  var include (includes $data.test 25)
+  talk player idle "Includes 25? %{$include}"
+  reverse $data.test
+  var reversed_string (array_join $data.test ", ")
+  talk player idle "Reversed %{$reversed_string}"
+  var slice (slice $data.test 1 2)
+  var slice_string (array_join $slice ", ")
+  talk player idle "Slice %{$slice_string}"
+  var long_array (array_concat $data.test $data.test $data.test $data.test)
+  var long_array_string (array_join $long_array ", ")
+  talk player idle "Long array %{$long_array_string}"
+  var shuffled (shuffle $long_array)
+  var shuffled_string (array_join $shuffled ", ")
+  talk player idle "Shuffled long array %{$shuffled_string}"
+  var spliced (splice $long_array 1 5)
+  var spliced_string (array_join $spliced ", ")
+  talk player idle "Spliced 5 elements from long array %{$spliced_string}"
+  var long_array_string (array_join $long_array ", ")
+  talk player idle "Left in long array after splice %{$long_array_string}"
+
+generate_map:
+  set data.x 0
+  set data.y 0
+  set data.map (new Array)
+  run increase_x
+  jump quest_demo
+  // jump print_map
+
+print_map:
+  set data.text "<span style='font-family:monospace;font-size:20px;font-weight:bold;line-height:20px;'><br />"
+  set data.x 0
+  set data.y 0
+  run print_map_x
+  set data.text (concat $data.text "</span>")
+  talk player idle $data.text
+
+print_map_x:
+  run print_map_y
+  add data.x 1
+  if (< $data.x $data.array_size):
+    set data.text (join "   " $data.text "<br />")
+    set data.y 0
+    run print_map_x
+
+print_map_y:
+  set data.text (join " " $data.text $data.map[$data.x][$data.y])
+  add data.y 1
+  if (< $data.y $data.array_size):
+    run print_map_y
+
+
+increase_x:
+  set data.map[$data.x] (new Array)
+  run increase_y
+  add data.x 1
+  if (< $data.x $data.array_size):
+    set data.y 0
+    run increase_x
+
+increase_y:
+  var toSet "x"
+  if (== $data.x $data.y):
+    set toSet "o"
+  if (== $data.x (- 9 $data.y)):
+    set toSet "v"
+  set data.map[$data.x][$data.y] $toSet
+  add data.y 1
+  if (< $data.y $data.array_size):
+    run increase_y
+
 test_interpol:
   var count 3
   save_prompt "Test %{count}"

@@ -116,10 +116,7 @@ export async function generateCommand(
         } else if (isVariable(arg)) {
           // This is potentially a variable token
           const modifiable = getModifiableDataPinia();
-          const result = findDataHelperWithoutAutoCreate<any>(
-            modifiable,
-            arg.substring(1),
-          );
+          const result = findDataHelperWithoutAutoCreate<any>(modifiable, arg);
           if (result) {
             const [target, key] = result;
             finalArg = target[key];

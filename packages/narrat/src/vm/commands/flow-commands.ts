@@ -104,3 +104,17 @@ export const savePromptPlugin = CommandPlugin.FromOptions<{ name?: string }>({
     });
   },
 });
+
+export const newCommandPlugin = CommandPlugin.FromOptions<{ name?: string }>({
+  keyword: 'new',
+  argTypes: [{ name: 'name', type: 'string' }],
+  runner: async (cmd) => {
+    const toInstantiate = cmd.options.name;
+    if (toInstantiate === 'Array') {
+      return [];
+    }
+    if (toInstantiate === 'Object') {
+      return {};
+    }
+  },
+});
