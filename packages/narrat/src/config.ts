@@ -37,6 +37,10 @@ import { loadDataFile } from './utils/ajax';
 import { ConfigInput, ConfigInputSchema } from './config/config-input';
 import Ajv from 'ajv';
 import { transitionSettings } from './utils/transition';
+import {
+  defaultTooltipsConfig,
+  TooltipsConfigSchema,
+} from './config/tooltips-config';
 
 let config: Config;
 
@@ -51,6 +55,7 @@ const splitConfigs = [
   ['scripts', ScriptsConfigSchema, defaultScriptsConfig],
   ['audio', AudioInputConfigSchema, defaultAudioConfig],
   ['quests', QuestsConfigSchema, defaultQuestsConfig],
+  ['tooltips', TooltipsConfigSchema, defaultTooltipsConfig],
 ] as const;
 
 // List of other keys that are simply copied from input config to new config
@@ -175,6 +180,19 @@ export function screensConfig() {
 }
 export function buttonsConfig() {
   return getConfig().buttons;
+}
+export function tooltipsConfig() {
+  return getConfig().tooltips;
+}
+
+export function getTooltipConfig(keyword: string) {
+  const config = tooltipsConfig();
+  const data = config.keywords.find((k) => k.keyword === keyword);
+  if (!data) {
+    error(`Tooltip config for keyword ${keyword} not found`);
+    return null;
+  }
+  return data;
 }
 
 export function getSkillConfig(id: string) {

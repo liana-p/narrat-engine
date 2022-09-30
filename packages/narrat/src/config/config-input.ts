@@ -18,6 +18,7 @@ import { LayoutConfigSchema } from './layout-config';
 import { QuestsConfigSchema } from './quests-config';
 import { ScreensInputConfigSchema } from './screens-config';
 import { SkillsInputConfigSchema } from './skills-config';
+import { TooltipsConfigSchema } from './tooltips-config';
 
 export const ConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
@@ -43,6 +44,7 @@ export const ConfigInputSchema = Type.Object({
   // split: audio
   audio: Type.Union([Type.String(), AudioInputConfigSchema]),
   notifications: Type.Optional(NotificationsConfigSchema),
+  tooltips: Type.Optional(Type.Union([Type.String(), TooltipsConfigSchema])),
   hudStats: HudStatsConfigSchema,
   // split: items
   items: Type.Optional(Type.Union([Type.String(), ItemsInputConfigSchema])),

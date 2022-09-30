@@ -20,6 +20,7 @@
         :text="alert.text"
         @close="() => closeAlert(alert.id)"
       />
+      <TooltipsUi />
     </div>
   </div>
 </template>
@@ -43,6 +44,8 @@ import EngineSplash from './components/engine-splash/engine-splash.vue';
 import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
 import { useMenu } from './stores/menu-store';
+import TooltipsUi from './components/tooltips/tooltips-ui.vue';
+import { useTooltips } from './stores/tooltip-store';
 
 export default defineComponent({
   setup() {
@@ -68,6 +71,7 @@ export default defineComponent({
     InGame,
     EngineSplash,
     GameSplash,
+    TooltipsUi,
   },
 
   data() {
@@ -99,6 +103,10 @@ export default defineComponent({
     setTimeout(() => {
       this.updateScreenSize();
     }, 50);
+    useTooltips().addTooltip('bread', {
+      x: 50,
+      y: 50,
+    });
   },
 
   computed: {

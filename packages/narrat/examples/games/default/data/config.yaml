@@ -40,6 +40,7 @@ screens: data/screens.yaml
 skills: data/skills.yaml
 scripts: data/scripts.yaml
 audio: data/audio.yaml
+tooltips: data/tooltips.yaml
 hudStats:
   money:
     icon: img/ui/money.webp
@@ -58,14 +59,6 @@ interactionTags:
   default:
     onlyInteractOutsideOfScripts: true
 quests: data/quests.yaml
-audioTriggers:
-  onButtonClicked: click
-  onSpriteClicked: click
-  onItemUsed: click
-  onPlayerAnswered: click
-  onPressStart: game_start
-  onSkillCheckFailure: failure
-  onSkillCheckSuccess: success
 menuButtons:
   menu:
     text: Menu

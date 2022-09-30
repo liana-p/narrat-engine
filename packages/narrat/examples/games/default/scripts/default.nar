@@ -1,4 +1,5 @@
 main:
+  talk player idle "I like bread"
   add_item bread 1
   start_quest breadShopping
   start_quest breadShopping2

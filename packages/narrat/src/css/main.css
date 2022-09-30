@@ -65,6 +65,18 @@
   --tab-border-style: solid;
   --tab-border-color: white;
   --tab-selected-glow-color: var(--focus);
+
+  --tooltip-background: var(--bg-color);
+  --tooltip-border: 1px solid orange;
+  --tooltip-border-radius: 5px;
+  --tooltip-title-font-size: 1.2rem;
+  --tooltip-font-size: 1rem;
+  --tooltip-title-color: var(--text-color);
+  --tooltip-color: var(--text-color);
+
+  --highlighted-tooltip-keyword-color: red;
+  --highlighted-tooltip-keyword-font-size: 1.1em;
+  --highlighted-tooltip-keyword-font-weight: bold;
 }
 body {
   font-family: var(--font-family);
@@ -465,4 +477,10 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 .dialog-transition-enter-from,
 .dialog-transition-leave-to {
   transform: translateY(-100%);
+}
+
+.highlighted-tooltip-keyword {
+  color: var(--highlighted-tooltip-keyword-color);
+  font-size: var(--highlighted-tooltip-keyword-font-size);
+  font-weight: var(--highlighted-tooltip-keyword-font-weight);
 }
