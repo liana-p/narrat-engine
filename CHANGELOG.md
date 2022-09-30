@@ -1,6 +1,6 @@
 # Narrat changelog
 
-## [2.9.0] - Arrays and other things
+## [2.9.0] - Arrays, tooltips, quest categories and other things
 
 # ⚠️☢️ Breaking Changes ⚠️☢️
 
