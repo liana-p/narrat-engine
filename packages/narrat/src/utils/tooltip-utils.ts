@@ -1,31 +1,32 @@
 import { getTooltipConfig, tooltipsConfig } from '@/config';
 import { useTooltips } from '@/stores/tooltip-store';
+import { getWindow } from './getWindow';
 
 export function processTooltipsInText(text: string) {
-  const keywords = tooltipsConfig().keywords;
-  for (const keyword of keywords) {
-    // Finding the keyword with word boundaries and also making sure we don't replace what's already been.
-    const reg = new RegExp(`\\b${keyword.keyword}\\b[^<]`, 'g');
-    text = text.replace(reg, addTooltipToKeyword(keyword.keyword));
-  }
+  const prefix = tooltipsConfig().options.keywordsPrefix;
+  const regex = new RegExp(`${prefix}(\\w*)`, 'gi');
+  text = text.replace(regex, addTooltipToKeyword);
   return text;
 }
 
-const wiwi = window as any;
-wiwi.onTooltipEnter = (keyword: string) => {
-  console.log('onTooltipEnter', keyword);
-  useTooltips().addTooltip(keyword);
+getWindow().onTooltipEnter = (event: MouseEvent, keyword: string) => {
+  const position = {
+    x: event.clientX,
+    y: event.clientY - 20,
+  };
+  useTooltips().addTooltip(keyword, position);
 };
-wiwi.onTooltipLeave = () => {
-  console.log('onTooltipLeave');
+
+getWindow().onTooltipLeave = () => {
   useTooltips().deleteTooltip();
 };
-export function addTooltipToKeyword(keyword: string) {
+export function addTooltipToKeyword(_: string, $1: string) {
+  const keyword = $1.toLowerCase();
   const config = getTooltipConfig(keyword);
   if (config) {
     return `<span class='highlighted-tooltip-keyword'
-      onmouseenter="onTooltipEnter('${keyword}')"
-      onmouseleave="onTooltipLeave()">${config.title ?? config.keyword}</span>`;
+      onmouseenter="onTooltipEnter(event, '${keyword}')"
+      onmouseleave="onTooltipLeave()">${$1}</span>`;
   }
   return keyword;
 }

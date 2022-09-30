@@ -20,9 +20,9 @@
         :text="alert.text"
         @close="() => closeAlert(alert.id)"
       />
-      <TooltipsUi />
     </div>
   </div>
+  <TooltipsUi />
 </template>
 
 <script lang="ts">
@@ -103,10 +103,6 @@ export default defineComponent({
     setTimeout(() => {
       this.updateScreenSize();
     }, 50);
-    useTooltips().addTooltip('bread', {
-      x: 50,
-      y: 50,
-    });
   },
 
   computed: {

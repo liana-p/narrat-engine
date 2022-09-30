@@ -187,7 +187,7 @@ export function tooltipsConfig() {
 
 export function getTooltipConfig(keyword: string) {
   const config = tooltipsConfig();
-  const data = config.keywords.find((k) => k.keyword === keyword);
+  const data = config.tooltips.find((k) => k.keywords.includes(keyword));
   if (!data) {
     error(`Tooltip config for keyword ${keyword} not found`);
     return null;

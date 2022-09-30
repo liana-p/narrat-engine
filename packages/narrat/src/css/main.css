@@ -66,12 +66,12 @@
   --tab-border-color: white;
   --tab-selected-glow-color: var(--focus);
 
-  --tooltip-background: var(--bg-color);
+  --tooltip-background: #331d00;
   --tooltip-border: 1px solid orange;
   --tooltip-border-radius: 5px;
   --tooltip-title-font-size: 1.2rem;
   --tooltip-font-size: 1rem;
-  --tooltip-title-color: var(--text-color);
+  --tooltip-title-color: red;
   --tooltip-color: var(--text-color);
 
   --highlighted-tooltip-keyword-color: red;

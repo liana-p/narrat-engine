@@ -4,20 +4,22 @@ export const TooltipsConfigSchema = Type.Object({
   options: Type.Object({
     delay: Type.Optional(Type.Number()),
     width: Type.Number(),
+    keywordsPrefix: Type.String(),
   }),
-  keywords: Type.Array(
+  tooltips: Type.Array(
     Type.Object({
-      keyword: Type.String(),
+      keywords: Type.Array(Type.String()),
       title: Type.String(),
       description: Type.String(),
     }),
   ),
 });
 export type TooltipsConfig = Static<typeof TooltipsConfigSchema>;
-export const defaultTooltipsConfig = {
+export const defaultTooltipsConfig: TooltipsConfig = {
   options: {
     delay: 0,
-    width: 300,
+    width: 350,
+    keywordsPrefix: '@@',
   },
-  keywords: [],
+  tooltips: [],
 };

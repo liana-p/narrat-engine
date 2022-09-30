@@ -1,6 +1,6 @@
 <template>
   <Transition name="fade">
-    <div class="floating-tooltip" :style="style">
+    <div class="floating-tooltip" :style="style" ref="element">
       <div class="floating-tooltip-title" v-if="title">
         {{ props.title }}
         <hr />
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 export interface FloatingTooltipProps {
   title?: string;
@@ -23,21 +23,27 @@ export interface FloatingTooltipProps {
   y: number;
 }
 const height = ref(150);
-
+const element = ref<HTMLElement | null>(null);
 const props = defineProps<FloatingTooltipProps>();
 
 const style = computed((): any => {
   const cssStyle: any = {};
   let x = props.x - props.width / 2;
-  x = Math.min(x, window.innerWidth - x - 5);
-  x = Math.max(props.width / 2, x);
+  x = Math.min(x, window.innerWidth - props.width - 5);
+  x = Math.max(5, x);
   cssStyle.left = `${x}px`;
   let y = window.innerHeight - props.y;
-  y = Math.min(y, window.innerHeight - 5);
-  y = Math.max(y, height.value + 5);
+  y = Math.max(y, 5);
+  y = Math.min(y, window.innerHeight - height.value - 5);
   cssStyle.bottom = `${y}px`;
   cssStyle.width = `${props.width}px`;
   return cssStyle;
+});
+
+onMounted(() => {
+  if (element.value) {
+    height.value = element.value.clientHeight;
+  }
 });
 </script>
 <style>
