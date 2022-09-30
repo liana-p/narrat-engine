@@ -11,7 +11,7 @@ import {
   HudStatsConfig,
 } from '@/config/common-config';
 import { defaultItemsConfig, ItemsConfig } from '@/config/items-config';
-import { QuestsConfig } from '@/config/quests-config';
+import { defaultQuestsConfig, QuestsConfig } from '@/config/quests-config';
 import { defaultScreensConfig, ScreensConfig } from '@/config/screens-config';
 import { defaultSkillsConfig, SkillsConfig } from '@/config/skills-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
@@ -81,9 +81,7 @@ export const defaultConfig = {
       onlyInteractOutsideOfScripts: true,
     },
   },
-  quests: {
-    quests: {},
-  },
+  quests: defaultQuestsConfig,
   transitions: {},
   menuButtons: {},
   debugging: {
