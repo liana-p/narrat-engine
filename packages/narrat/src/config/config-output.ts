@@ -17,6 +17,7 @@ import { defaultSkillsConfig, SkillsConfig } from '@/config/skills-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
 import { ButtonsConfig, defaultButtonsConfig } from './buttons-config';
 import { defaultLayoutConfig, LayoutConfig } from './layout-config';
+import { defaultTooltipsConfig, TooltipsConfig } from './tooltips-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -37,6 +38,7 @@ export interface Config {
   scripts: string[];
   audio: AudioConfig;
   notifications: NotificationsConfig;
+  tooltips: TooltipsConfig;
   hudStats: HudStatsConfig;
   items: ItemsConfig;
   interactionTags: InteractionTagsConfig;
@@ -74,6 +76,7 @@ export const defaultConfig = {
     timeOnScreen: 2.5,
     alsoPrintInDialogue: false,
   },
+  tooltips: defaultTooltipsConfig,
   hudStats: {},
   items: defaultItemsConfig,
   interactionTags: {

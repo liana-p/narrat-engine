@@ -42,6 +42,8 @@ quests:
         description: Deliver the bread to the helper cat.
 ```
 
+## Other non-breaking changes
+
 ### Arrays
 
 New array syntax! It is now possible to create arrays, and to dynamically access array indexes (or object properties) with variables.
@@ -51,6 +53,48 @@ See the [tweet explaining the feature](https://twitter.com/NarratEngine/status/1
 There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.get-narrat.com/functions-documentation/all-commands-list) docs page.
 
 ### Quest categories
+
+Quests UI is now split between categories. See the breaking change above for an explanation on how to use them. It works the same way as item categories
+
+### Tooltips
+
+There is a new tooltip feature allowing keywords in text to automatically appear highlighted and show a tooltip on hover. To use this feature, the new `tooltip.yaml` config file is needed:
+
+```yaml
+options:
+  width: 350
+  keywordsPrefix: '@@'
+tooltips:
+  - keywords: [bread, breads]
+    title: Bread
+    description: Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking. Throughout recorded history and around the world, it has been an important part of many cultures' diet. It is one of the oldest human-made foods, having been of significance since the dawn of agriculture, and plays an essential role in both religious rituals and secular culture.
+```
+
+Then, in `config.yaml` add the path to the file:
+
+```yaml
+tooltips: data/tooltips.yaml
+```
+
+#### Tooltip options:
+
+- `width`: Width of tooltip box in pixels
+- `keywordsPrefix`: The prefix to use before words in scripts to make the tooltip appear
+
+#### Tooltip config
+
+- `keywords`: A list of all possible keywords to match for showing this tooltip. It's case insensitive
+- `title`: The title of the tooltip popup that will appear
+- `description`: The content of the tooltip popup
+
+Then, to use in scripts, for example:
+
+```narrat
+main:
+  talk player idle "I like @@bread"
+```
+
+Having one of the keywords defined in the tooltips with the `keywordsPrefix` before it will make it be detected as a keyword and show the tooltip
 
 ### Other things
 

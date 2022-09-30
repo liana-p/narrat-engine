@@ -22,6 +22,7 @@
       />
     </div>
   </div>
+  <TooltipsUi />
 </template>
 
 <script lang="ts">
@@ -43,6 +44,8 @@ import EngineSplash from './components/engine-splash/engine-splash.vue';
 import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
 import { useMenu } from './stores/menu-store';
+import TooltipsUi from './components/tooltips/tooltips-ui.vue';
+import { useTooltips } from './stores/tooltip-store';
 
 export default defineComponent({
   setup() {
@@ -68,6 +71,7 @@ export default defineComponent({
     InGame,
     EngineSplash,
     GameSplash,
+    TooltipsUi,
   },
 
   data() {

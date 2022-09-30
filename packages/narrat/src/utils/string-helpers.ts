@@ -1,10 +1,12 @@
 import { findDataHelper, getModifiableDataPinia } from './data-helpers';
+import { processTooltipsInText } from './tooltip-utils';
 
 export function processText(text: string): string {
-  return text.replace(/%{[^}]*}/g, (match) => {
+  const res = text.replace(/%{[^}]*}/g, (match) => {
     const key = match.substr(2, match.length - 3);
     return findVariable(key);
   });
+  return processTooltipsInText(res);
 }
 
 export function findVariable(text: string) {
