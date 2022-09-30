@@ -36,12 +36,12 @@ const TEMPLATES = [
       'Game with a demo script and config/assets to have an example to work with',
     color: green,
   },
-  {
-    path: 'rpg',
-    name: 'RPG Game',
-    description: 'RPG Game Demo',
-    color: green,
-  },
+  // {
+  //   path: 'rpg',
+  //   name: 'RPG Game',
+  //   description: 'RPG Game Demo',
+  //   color: green,
+  // },
 ];
 
 const renameFiles = {

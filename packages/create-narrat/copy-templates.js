@@ -9,7 +9,7 @@ import { join } from 'path';
 const EXAMPLES_DIR = '../narrat/examples/';
 const BUILD_DIR = './template-games/';
 
-const templateGames = ['empty', 'demo', 'rpg'];
+const templateGames = ['empty', 'demo'];
 
 console.log(cyan(`Copying example games for the template`), templateGames);
 const staticAssetsFoldersToCopy = ['img', 'music', 'audio'];
