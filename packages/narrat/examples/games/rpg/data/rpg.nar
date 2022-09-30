@@ -66,7 +66,7 @@ go_direction:
   set_button go_left false
   set_button go_front false
   set_button go_right false
-  "%{player.name} turns %{player.direction}."
+  "%{$player.name} turns %{$player.direction}."
   var randomChance (random 1 5)
   run enter_and_process_room
 
@@ -79,7 +79,7 @@ random_battle:
   run start_level
   set_button $player.class true
   run random_enemy
-  "Suddenly, a %{enemy.name} appears!"
+  "Suddenly, a %{$enemy.name} appears!"
   jump battle
 
 battle_end:
@@ -89,13 +89,13 @@ battle_end:
   set_button $player.class false
   if (== $battle.result "won"):
     add victories 1
-    "You defeated %{enemy.name}!"
+    "You defeated %{$enemy.name}!"
     if (>= $victories $best_victories)
       set best_victories $victories
     run show_room
   else:
     set_screen rpg
-    "You were defeated by %{enemy.name}! after %{victories} victories. Your best record is %{best_victories} victories."
+    "You were defeated by %{$enemy.name}! after %{$victories} victories. Your best record is %{$best_victories} victories."
     choice:
       "Restart?"
       "Yes":
@@ -147,7 +147,7 @@ choose_class:
       set_level agility 3
       set_level intelligence 1
   set_button $player.class true
-  "Your stats: %{stats.hp.value} HP, %{stats.mp.value} MP <br /> %{skills.strength.level} strength, %{skills.agility.level} agility, %{skills.intelligence.level} intelligence <br /> Defence: %{player.def}, Speed: %{player.spd}"
+  "Your stats: %{$stats.hp.value} HP, %{$stats.mp.value} MP <br /> %{$skills.strength.level} strength, %{$skills.agility.level} agility, %{$skills.intelligence.level} intelligence <br /> Defence: %{$player.def}, Speed: %{$player.spd}"
 
 battle:
   run get_attacker
@@ -170,11 +170,11 @@ get_attacker:
   log $battle.attackedLast
   if (== $battle.attackedLast undefined):
     if (> $player.spd $enemy.spd):
-      "%{player.name} attacks first!"
+      "%{$player.name} attacks first!"
       set battle.attackedLast "player"
       set battle.attacker "player"
     else:
-      "%{enemy.name} attacks first!"
+      "%{$enemy.name} attacks first!"
       set battle.attackedLast "enemy"
       set battle.attacker "enemy"
   else:
@@ -198,7 +198,7 @@ warrior_combat:
     "Choose an action"
     "Attack":
       return (run attack)
-    "Whirlwind (%{spells.whirlwind.cost} MP)" if (>= (get_stat_value mp) $spells.whirlwind.cost):
+    "Whirlwind (%{$spells.whirlwind.cost} MP)" if (>= (get_stat_value mp) $spells.whirlwind.cost):
       return (run whirlwind)
 
 rogue_combat:
@@ -212,9 +212,9 @@ wizard_combat:
     "Choose an action"
     "Attack":
       return (run attack)
-    "Fireball (%{spells.fireball.cost} MP)" if (>= (get_stat_value mp) $spells.fireball.cost):
+    "Fireball (%{$spells.fireball.cost} MP)" if (>= (get_stat_value mp) $spells.fireball.cost):
       return (run fireball)
-    "Heal (%{spells.heal.cost} MP)" if (>= (get_stat_value mp) $spells.heal.cost):
+    "Heal (%{$spells.heal.cost} MP)" if (>= (get_stat_value mp) $spells.heal.cost):
       return (run heal)
 
 attack:
@@ -234,7 +234,7 @@ heal:
   add_xp intelligence 3
   add_stat mp (neg $spells.heal.cost)
   set_stat hp (min (get_stat_value hp) $player.maxHp)
-  "%{player.name} healed for %{heal} HP!"
+  "%{$player.name} healed for %{$heal} HP!"
 
 whirlwind:
   var damage (* 3 (get_level strength))
@@ -249,12 +249,12 @@ enemy_attack:
 process_hit_on_monster damage enemy:
   var final_dmg (run calculate_defenses $damage $enemy.def)
   add enemy.hp (neg $final_dmg)
-  "The %{enemy.name} takes %{final_dmg} damage!"
+  "The %{$enemy.name} takes %{$final_dmg} damage!"
 
 process_hit_on_player damage:
   var final_dmg (run calculate_defenses $damage $player.def)
   add_stat hp (neg $final_dmg)
-  "%{player.name} takes %{final_dmg} damage!"
+  "%{$player.name} takes %{$final_dmg} damage!"
 
 calculate_defenses damage def:
   return (max 0 (- $damage $def))

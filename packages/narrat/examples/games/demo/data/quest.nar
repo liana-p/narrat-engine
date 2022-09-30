@@ -43,7 +43,7 @@ parkButton:
 shop_menu:
   choice:
     talk shopkeeper idle "So, do you want some bread?"
-    "Buy bread (costs %{data.breadPrice})" if (>= $stats.money.value $data.breadPrice):
+    "Buy bread (costs %{$$data.breadPrice})" if (>= $stats.money.value $data.breadPrice):
       add_item bread 1
       if (== $data.breadPrice 5):
         add_stat money -5

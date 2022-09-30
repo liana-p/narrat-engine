@@ -1,5 +1,5 @@
 main:
-  talk player idle "I like @@bReAds"
+  talk player idle "I like @@bread"
   add_item bread 1
   start_quest breadShopping
   start_quest breadShopping2
@@ -113,7 +113,7 @@ increase_y:
 
 test_interpol:
   var count 3
-  save_prompt "Test %{count}"
+  save_prompt "Test %{$count}"
  
 test_skills_reset:
   choice:
@@ -208,9 +208,9 @@ takeout_menu third_option:
       return pizza
     "Burger":
       return burger
-    "%{third_option}":
+    "%{$third_option}":
       return $third_option
-  talk helper idle "Chosen %{meal}"
+  talk helper idle "Chosen %{$meal}"
 
 test_functions:
   talk player idle "Function test label"
@@ -218,20 +218,20 @@ test_functions:
 
 test_scopes:
   var test1 1
-  talk player idle "Declared test1: %{test1}"
+  talk player idle "Declared test1: %{$test1}"
   run test_scopes_2
-  talk player idle "Back to original scope, shouldn't have access to test2: %{test2}"
+  talk player idle "Back to original scope, shouldn't have access to test2: %{$test2}"
 
 test_scopes_2:
   var test2 2
-  talk player idle "Entered scope 2, still have access to test1: %{test1}"
-  talk player idle "Declared test2 in scope 2: %{test2}"
+  talk player idle "Entered scope 2, still have access to test1: %{$test1}"
+  talk player idle "Declared test2 in scope 2: %{$test2}"
 
 random_tests:
   var test 2
-  talk helper idle "%{test}"
+  talk helper idle "%{$test}"
   add test 1
-  talk helper idle "%{test}"
+  talk helper idle "%{$test}"
   talk helper idle "Hello world"
   start_quest breadShopping
   choice:
@@ -273,7 +273,7 @@ random_tests:
   add_item bread 15
   remove_item bread 10
   if (> $items.bread.amount 0):
-    talk helper idle "You have %{items.bread.amount} bread"
+    talk helper idle "You have %{$items.bread.amount} bread"
   else:
     talk helper idle "You have no bread"
   clear_dialog
@@ -304,7 +304,7 @@ functions_test:
   run some_function
 
 some_function:
-  talk player idle "Ran the function %{data.counter} times"
+  talk player idle "Ran the function %{$data.counter} times"
   add data.counter 1
 
 skillCheckTest:
@@ -453,7 +453,7 @@ parkButton:
 shop_menu:
   choice:
     talk shopkeeper idle "So, do you want some bread?"
-    "Buy bread (costs %{data.breadPrice})" if (>= $stats.money.value $data.breadPrice):
+    "Buy bread (costs %{$data.breadPrice})" if (>= $stats.money.value $data.breadPrice):
       add_item bread 1
       if (== $data.breadPrice 5):
         add_stat money -5

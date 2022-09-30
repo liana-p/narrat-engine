@@ -1,3 +1,6 @@
+categories:
+  - id: default
+    title: Default quest category
 quests:
   breadShopping:
     title: Bread Shopping
