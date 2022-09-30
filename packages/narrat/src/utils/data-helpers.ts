@@ -6,11 +6,10 @@ import { useScreens } from '@/stores/screens-store';
 import { useSkills } from '@/stores/skills';
 import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
-import { findVariable } from './string-helpers';
 import { error } from './error-handling';
-import { logger } from './logger';
 
 export function newFindDataHelper<T>(
+  baseState: any,
   sourceObj: any,
   path: string,
 ): [T | null, string | number] {
@@ -61,7 +60,8 @@ export function newFindDataHelper<T>(
       // console.log('path to search', pathToSearch);
       // Calculate the index to use for the next bit by processing the array brackets
       const [foundObj, foundKey] = newFindDataHelper(
-        getModifiableDataPinia(),
+        baseState,
+        baseState,
         pathToSearch,
       );
       let newKey = foundKey;
@@ -130,7 +130,10 @@ export function findBracketsEnd(restOfString: string) {
 }
 
 // This one works
-function getPathValueWithoutBrackets(sourceObj: any, path: string | number) {
+export function getPathValueWithoutBrackets(
+  sourceObj: any,
+  path: string | number,
+) {
   if (typeof path === 'number') {
     return [sourceObj, path];
   }
@@ -156,7 +159,7 @@ export function findDataHelper<T>(
   sourceObj: any,
   path: string,
 ): [T | null, string | number] {
-  return newFindDataHelper(sourceObj, path);
+  return newFindDataHelper(sourceObj, sourceObj, path);
   // const keys = path.split('.');
   // let obj = sourceObj;
   // const end = keys.length;

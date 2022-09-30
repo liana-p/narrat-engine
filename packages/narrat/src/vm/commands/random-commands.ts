@@ -54,3 +54,19 @@ export const randomFromArgsPlugin = new CommandPlugin<{}>(
     return args[Math.floor(Math.random() * args.length)];
   },
 );
+
+export const randomFromArrayPlugin = new CommandPlugin<{ a: any[] }>(
+  'random_from_array',
+  [{ name: 'a', type: 'any' }],
+  async (cmd) => {
+    const { a } = cmd.options;
+    if (!Array.isArray(a)) {
+      commandRuntimeError(
+        cmd,
+        `random_from_array command needs an array as parameter`,
+      );
+      return 0;
+    }
+    return a[Math.floor(Math.random() * a.length)];
+  },
+);

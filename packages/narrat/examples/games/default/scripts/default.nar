@@ -17,12 +17,52 @@ main:
   "hello <span class='red'><i><b>world</i></b></span>"
   jump quest_demo
 
+array_functions_test:
+  set data.test (new Array)
+  talk player idle "Declared empty array"
+  push $data.test 0
+  push $data.test 25
+  push $data.test 50
+  push $data.test 75
+  push $data.test 100
+  var array_string (array_join $data.test ", ")
+  talk player idle "Initial values pushed. array content: %{$array_string}"
+  var popped (pop $data.test)
+  talk player idle "Popped %{$popped}"
+  var shifted (shift $data.test)
+  talk player idle "Shifted %{$shifted}"
+  var joined (array_join $data.test ", "
+  talk player idle "Joined %{$joined}"
+  var concatenated (array_concat $data.test $data.test)
+  var concatenated_string (array_join $concatenated ", ")
+  talk player idle "Concatenated %{$concatenated_string}"
+  var include (includes $data.test 25)
+  talk player idle "Includes 25? %{$include}"
+  reverse $data.test
+  var reversed_string (array_join $data.test ", ")
+  talk player idle "Reversed %{$reversed_string}"
+  var slice (slice $data.test 1 2)
+  var slice_string (array_join $slice ", ")
+  talk player idle "Slice %{$slice_string}"
+  var long_array (array_concat $data.test $data.test $data.test $data.test)
+  var long_array_string (array_join $long_array ", ")
+  talk player idle "Long array %{$long_array_string}"
+  var shuffled (shuffle $long_array)
+  var shuffled_string (array_join $shuffled ", ")
+  talk player idle "Shuffled long array %{$shuffled_string}"
+  var spliced (splice $long_array 1 5)
+  var spliced_string (array_join $spliced ", ")
+  talk player idle "Spliced 5 elements from long array %{$spliced_string}"
+  var long_array_string (array_join $long_array ", ")
+  talk player idle "Left in long array after splice %{$long_array_string}"
+
 generate_map:
   set data.x 0
   set data.y 0
   set data.map (new Array)
   run increase_x
-  jump print_map
+  jump quest_demo
+  // jump print_map
 
 print_map:
   set data.text "<span style='font-family:monospace;font-size:20px;font-weight:bold;line-height:20px;'><br />"

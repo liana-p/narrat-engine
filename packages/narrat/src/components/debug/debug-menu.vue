@@ -324,7 +324,6 @@ export default defineComponent({
     },
     onSearchInput() {
       const value = this.searchString;
-      console.log(value);
       const result = fuse.search(value);
       this.matches = result.map((element) => element.item);
       if (

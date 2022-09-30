@@ -102,8 +102,7 @@ const lastDialog = computed((): DialogKey | undefined => {
 
 const picture = computed((): string | undefined => {
   if (lastDialog.value) {
-    console.log(lastDialog.value.speaker, lastDialog.value.pose);
-    let speaker = lastDialog.value.speaker;
+    const speaker = lastDialog.value.speaker;
     let pose = lastDialog.value.pose;
     if (!speaker) {
       return undefined;
