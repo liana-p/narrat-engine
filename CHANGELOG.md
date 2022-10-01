@@ -1,5 +1,11 @@
 # Narrat changelog
 
+## [2.9.2] - Time commands
+
+New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.get-narrat.com/functions-documentation/all-commands-list#time-commands)
+
+Fix: There was an issue when using the sprite `onClick` feature
+
 ## [2.9.1] - Array initialisation, data loading
 
 It is now possible to initialise an array with values:
