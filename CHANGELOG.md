@@ -1,5 +1,40 @@
 # Narrat changelog
 
+## [2.9.3] - Array find index function
+
+A new helper function to find the index of an element in an array using a predicate to run a custom condition.
+
+Syntax: `array_find_index [array] [predicate_label] [...args]`
+
+The predicate is a label (used as a function) which will be called with each element of the array and should return true or false. When the predicate returns true, a match has been found and `array_find_index` will return the index of that match. The `array_find_index` function will also forward any other passed arguments to the predicate, useful for generic options to a function.
+
+Example: We have an array with card objects in it and want to find the index of the card named "B" to delete it:
+
+```nar
+var card1 (new Object)
+  set card1.name "A"
+  var card2 (new Object)
+  set card2.name "B"
+  set data.deck (new Array $card1 $card2)
+```
+
+We can now create our custom predicate function to use with `array_find_index`
+
+```nar
+card_finder card name_to_match: // card is the array element, name_to_match is an extra parameter
+  if (== $card.name $name_to_match):
+    return true // If we found a card name that matches, return true
+  else:
+    return false
+```
+
+Then, to use this:
+
+```nar
+var index_to_delete (array_find_index $data.deck "card_finder" "B")
+splice $data.deck $index_to_delete 1
+```
+
 ## [2.9.2] - Time commands
 
 New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.get-narrat.com/functions-documentation/all-commands-list#time-commands)

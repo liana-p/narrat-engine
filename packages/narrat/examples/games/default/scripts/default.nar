@@ -5,9 +5,36 @@ main:
   "hello <span class='red'><i><b>world</i></b></span>"
   jump test_sprites_click
 
+array_find_index_command:
+  var card1 (new Object)
+  set card1.name "A"
+  var card2 (new Object)
+  set card2.name "B"
+  set data.deck (new Array $card1 $card2)
+  log $data.deck
+  var index_to_delete (array_find_index $data.deck "card_finder" "A")
+  log $index_to_delete
+  splice $data.deck $index_to_delete 1
+  log $data.deck
+
+card_finder card name_to_match:
+  if (== $card.name $name_to_match):
+    return true
+  else:
+    return false
+
 test_sprites_click:
   var sprite (create_sprite img/characters/cat_idle.webp 200 200)
   set sprite.onClick some_label
+  var card1 (new Object)
+  set card1.name "A"
+  var card2 (new Object)
+  set card2.name "B"
+  set data.deck (new Array $card1 $card2)
+  var index_to_delete (array_find_index $data.deck "card_finder" "B")
+  splice $data.deck $index_to_delete 1
+
+
 
 some_label:
   talk player idle "Clicked on sprite"

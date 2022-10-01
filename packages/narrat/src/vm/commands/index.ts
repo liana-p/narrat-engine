@@ -95,6 +95,7 @@ import {
 } from './math-commands';
 import { createSpriteCommand, deleteSpriteCommand } from './sprite-commands';
 import {
+  arrayFindIndexCommand,
   concatCommand,
   includesCommand,
   joinCommand,
@@ -252,6 +253,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(reverseCommand);
   vm.addCommand(sliceCommand);
   vm.addCommand(spliceCommand);
+  vm.addCommand(arrayFindIndexCommand);
 
   // Util commands
   vm.addCommand(loadDataPlugin);
