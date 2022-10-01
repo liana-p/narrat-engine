@@ -92,7 +92,10 @@ export const joinCommand = CommandPlugin.FromOptions<{
 
 export const concatCommand = CommandPlugin.FromOptions<{ array: any[] }>({
   keyword: 'array_concat',
-  argTypes: [{ name: 'array', type: 'any' }],
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
   runner: async (cmd) => {
     const { array } = cmd.options;
     const args = cmd.args;
@@ -200,6 +203,35 @@ export const spliceCommand = CommandPlugin.FromOptions<{
       );
     }
     return array.splice(start, end);
+  },
+});
+
+export const arrayFindIndexCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  predicateLabel: string;
+}>({
+  keyword: 'array_find_index',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'predicateLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, predicateLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        predicateLabel,
+        element,
+        ...cmd.args.slice(2),
+      );
+      if (predicateResult === true) {
+        return index;
+      }
+    }
+    return -1;
   },
 });
 
