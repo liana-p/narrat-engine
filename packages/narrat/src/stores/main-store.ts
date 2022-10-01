@@ -478,5 +478,11 @@ export const useMain = defineStore('main', {
     isInGame(state) {
       return state.flowState === 'playing';
     },
+    totalPlayTime(state) {
+      return getPlayTime(state.playTime.start, state.playTime.previousPlaytime);
+    },
+    sessionPlayTime(state) {
+      return getPlayTime(state.playTime.start, 0);
+    },
   },
 });
