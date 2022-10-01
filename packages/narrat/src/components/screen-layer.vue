@@ -206,8 +206,7 @@ function clickOnSprite(sprite: SpriteState) {
     return;
   }
   if (sprite.onClick) {
-    audioEvent('onSpriteClicked');
-    vmStore.runLabelFunction(sprite.onClick);
+    useSprites().clickSprite(sprite);
   }
 }
 

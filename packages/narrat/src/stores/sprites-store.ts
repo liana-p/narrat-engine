@@ -1,5 +1,6 @@
+import { audioEvent } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
-import { warning } from '@/utils/error-handling';
+import { error, warning } from '@/utils/error-handling';
 import { getImage } from '@/utils/images-loader';
 import { randomId } from '@/utils/randomId';
 import { defineStore } from 'pinia';
@@ -22,6 +23,7 @@ export interface SpriteState {
   layer: number;
   cssClass?: string;
   onClick?: string;
+  clickMethod?: 'jump' | 'run';
 }
 
 export interface SpriteStoreState {
@@ -90,7 +92,14 @@ export const useSprites = defineStore('sprites', {
     },
     clickSprite(sprite: SpriteState) {
       if (sprite.onClick) {
-        useVM().jumpToLabel(sprite.onClick);
+        audioEvent('onSpriteClicked');
+        if (sprite.clickMethod === 'run') {
+          useVM().runThenGoBackToPreviousDialog(sprite.onClick, true);
+        } else if (sprite.clickMethod === 'jump' || !sprite.clickMethod) {
+          useVM().jumpToLabel(sprite.onClick);
+        } else {
+          error(`Unknown sprite click method ${sprite.clickMethod}`);
+        }
       }
     },
     generateSaveData(): SpriteStoreSave {
