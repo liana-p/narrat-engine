@@ -106,6 +106,7 @@ import {
   sliceCommand,
   spliceCommand,
 } from './array-commands';
+import { loadDataPlugin } from './util-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -242,4 +243,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(reverseCommand);
   vm.addCommand(sliceCommand);
   vm.addCommand(spliceCommand);
+
+  // Util commands
+  vm.addCommand(loadDataPlugin);
 }

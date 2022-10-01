@@ -116,7 +116,7 @@ export class CommandPlugin<Options, StaticOptions = {}> {
 export type ArgTypes = ArgumentDescription[] | 'any';
 export interface ArgumentDescription {
   name: string;
-  type: 'string' | 'number' | 'boolean' | 'any';
+  type: 'string' | 'number' | 'boolean' | 'any' | 'rest';
   optional?: boolean;
 }
 export function generateParser<Options, StaticOptions = {}>(
@@ -126,10 +126,15 @@ export function generateParser<Options, StaticOptions = {}>(
   let expectedArgCount: number[] = [];
   if (argTypes !== 'any') {
     expectedArgCount = [];
-    const optionalArgs = argTypes.reduce(
-      (total, argType) => (argType.optional ? total + 1 : total),
-      0,
-    );
+    const optionalArgs = argTypes.reduce((total, argType) => {
+      if (argType.optional) {
+        total++;
+      }
+      if (argType.type === 'rest') {
+        total = Infinity;
+      }
+      return total;
+    }, 0);
     if (optionalArgs >= 1) {
       expectedArgCount.push(argTypes.length - optionalArgs);
     } else {
@@ -172,7 +177,11 @@ export function generateParser<Options, StaticOptions = {}>(
         if (!isExpression(arg) && !isVariable(arg)) {
           // Only run this if the arg isn't an expression, as expressions aren't currently typed
           // eslint-disable-next-line valid-typeof
-          const isValid = argType.type === 'any' || typeof arg === argType.type;
+          const isValid =
+            argType.type === 'any' ||
+            argType.type === 'rest' ||
+            // eslint-disable-next-line valid-typeof
+            typeof arg === argType.type;
           if (!isValid) {
             ctx.parserContext.error(
               ctx.line.line,

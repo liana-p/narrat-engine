@@ -13,6 +13,21 @@ main:
   "hello <span class='red'><i><b>world</i></b></span>"
   jump quest_demo
 
+
+test_load_data:
+  set data.all_cards (load_data data/cards/card.yaml)
+  set data.deck (new Array $data.all_cards.black_lotus $data.all_cards.blue_eyes_white_dragon)
+  shuffle $data.deck
+  run sprite_from_card (pop $data.deck) 200
+  run sprite_from_card (pop $data.deck) 400
+
+sprite_from_card card x:
+  var sprite (create_sprite $card.image $x 400)
+  wait 10
+  set sprite.width 100
+  set sprite.height 100
+  return $sprite
+
 test_arrays:
   set data.c (new Array)
   log $data.c

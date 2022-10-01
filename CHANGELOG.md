@@ -1,5 +1,26 @@
 # Narrat changelog
 
+## [2.9.1] - Array initialisation, data loading
+
+It is now possible to initialise an array with values:
+
+`var myArray (new Array 128 249 "hello")`
+
+It is now possible to load a data file into a variable:
+
+```yaml
+---
+black_lotus:
+  image: img/characters/cat_idle.webp
+blue_eyes_white_dragon:
+  image: img/characters/inner_voice.webp
+```
+
+```narrat
+set $data.cards (load_data data/cards.yaml)
+var dragon (create_sprite $data.cards.blue_eyes_white_dragon 200 300)
+```
+
 ## [2.9.0] - Arrays, tooltips, quest categories and other things
 
 # ⚠️☢️ Breaking Changes ⚠️☢️
