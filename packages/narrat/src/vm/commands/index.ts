@@ -107,6 +107,15 @@ import {
   spliceCommand,
 } from './array-commands';
 import { loadDataPlugin } from './util-commands';
+import {
+  nowPlugin,
+  sessionPlaytimePlugin,
+  toDaysPlugin,
+  toHoursPlugin,
+  toMinutesPlugin,
+  toSecondsPlugin,
+  totalPlaytimePlugin,
+} from './time-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -246,4 +255,13 @@ export function registerBaseCommands(vm: VM) {
 
   // Util commands
   vm.addCommand(loadDataPlugin);
+
+  // Time commands
+  vm.addCommand(nowPlugin);
+  vm.addCommand(totalPlaytimePlugin);
+  vm.addCommand(sessionPlaytimePlugin);
+  vm.addCommand(toDaysPlugin);
+  vm.addCommand(toHoursPlugin);
+  vm.addCommand(toMinutesPlugin);
+  vm.addCommand(toSecondsPlugin);
 }
