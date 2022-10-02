@@ -12,10 +12,10 @@ Example: We have an array with card objects in it and want to find the index of 
 
 ```nar
 var card1 (new Object)
-  set card1.name "A"
-  var card2 (new Object)
-  set card2.name "B"
-  set data.deck (new Array $card1 $card2)
+set card1.name "A"
+var card2 (new Object)
+set card2.name "B"
+set data.deck (new Array $card1 $card2)
 ```
 
 We can now create our custom predicate function to use with `array_find_index`
