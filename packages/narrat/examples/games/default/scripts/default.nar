@@ -26,7 +26,6 @@ card_finder card name_to_match:
 test_sprites_click:
   var sprite (create_sprite img/characters/cat_idle.webp 200 200)
   set sprite.onClick some_label
-  set sprite.clickMethod run
   var sprite2 (create_sprite img/characters/cat_idle.webp 50 100 $sprite)
   var text (create_object 50 100 $sprite2)
   set text.anchor.x 0.5
