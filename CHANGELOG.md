@@ -2,7 +2,7 @@
 
 ## [2.10.0] - Nested sprites and texts in the viewport
 
-# /!\ Breaking change
+### /!\ Breaking change
 
 There is a small breaking change with the **Characters config**
 
@@ -21,6 +21,8 @@ startApp({
   logging: false,
 });
 ```
+
+### Rest of changes
 
 ### Nested sprites and texts
 
