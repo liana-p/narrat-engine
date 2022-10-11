@@ -8,9 +8,9 @@ You can build your game as a static website
 npm run build
 ```
 
-{% hint style="info" %}
+::: tip
 &#x20;This will generate a built version of your game as a website in the `build/` folder
-{% endhint %}
+:::
 
 ## Building your game as an app
 
@@ -33,9 +33,9 @@ Or you can package it as an executable (should work on Windows, Mac, Linux):
 npm run package
 ```
 
-{% hint style="info" %}
+::: tip
 This will create an application for your OS in the `out/` folder
-{% endhint %}
+:::
 
 Please look at the [electron documentation](https://www.electronjs.org/docs/latest/) if you want to customise how your app is built, window sizes and other things (hint: Most of it takes place in the `electron-something.js` files at the root of the repo)
 

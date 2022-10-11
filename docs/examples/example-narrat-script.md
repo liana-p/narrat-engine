@@ -6,7 +6,7 @@ For more up to date versions and more different examples, look at the various sa
 
 [https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
 
-```renpy
+```
 main:
   "You open the narrat demo and wonder what narrat is and how it works"
   choice:

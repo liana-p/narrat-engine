@@ -6,8 +6,6 @@ The `play` function plays audio, either music or sounds.
 
 To use the `play` function, the game needs to have audio files loaded by adding them to the config file:
 
-{% code title="audio.yaml" %}
-
 ```yaml
 files:
   calm:
@@ -33,15 +31,9 @@ audioTriggers:
   onSkillCheckFailure: failure
 ```
 
-{% endcode %}
-
-{% code title="config.yaml" %}
-
 ```yaml
 audio: data/audio.yaml
 ```
-
-{% endcode %}
 
 The audio engine used is [Howler](https://howlerjs.com). Options added in the config of an audio file will also be passed to Howler. Refer to the [Howler docs](https://github.com/goldfire/howler.js#global-options) for possible options.
 

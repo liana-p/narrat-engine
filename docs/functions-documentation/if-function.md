@@ -4,16 +4,16 @@
 
 The `if` command is the main method of doing conditions in narrat. It can be used to branch inside a script, or to make choice options conditionally available.
 
-```renpy
+```
 if [condition]:
   "This code is run on condition success"
 else:
   "This code is run on condition failure"
 ```
 
-{% hint style="info" %}
+::: tip
 `else` is optional
-{% endhint %}
+:::
 
 The condition should be a boolean. You can directly pass a value (`if $data.someValue` ), or an expression that returns a boolean (for example `if (> $data.player.age 18)`
 
@@ -21,12 +21,12 @@ The condition should be a boolean. You can directly pass a value (`if $data.some
 
 Simple example:
 
-```renpy
+```
 main:
   talk player idle "Wow, I found the key!"
   add_item key 1
   jump tryDoor
-  
+
 tryDoor:
   if (has_item? key):
     "You open the door and get inside"
@@ -36,7 +36,7 @@ tryDoor:
 
 Example:
 
-```renpy
+```
 main:
   choice:
     talk alice idle "Do you prefer pizza or buger?"
@@ -44,7 +44,7 @@ main:
       set data.player.prefers "pizza"
     "Burger":
       set data.player.prefers "burger"
-  
+
 ifExample:
   if (== $data.player.prefers "pizza"):
     talk alice idle "Let's have pizza then"
@@ -52,10 +52,10 @@ ifExample:
   else:
     talk alice idle "Let's go for a burger"
     jump haveBurger
-    
+
 havePizza:
   //...
-  
+
 haveBurger:
   //...
 ```

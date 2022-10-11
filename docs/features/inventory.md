@@ -10,8 +10,6 @@ The inventory system allow players to collect and spend items. There is also a U
 
 Possible items can be defined in the `items.yaml` config file.
 
-{% code title="items.yaml" %}
-
 ```yaml
 items:
   bread:
@@ -31,21 +29,15 @@ items:
     tag: always_interactable
 ```
 
-{% endcode %}
-
 The location of `items.yaml` is set in `config.yaml`:
-
-{% code title="config.yaml" %}
 
 ```yaml
 items: data/items.yaml
 ```
 
-{% endcode %}
-
 Then items can be added/removed in scripts:
 
-```renpy
+```
 main:
   add_item bread 15
   remove_item bread 10
@@ -61,6 +53,6 @@ Items can also be used, see guide below:
 
 [using-items.md](../guides/using-items.md)
 
-![](<../.gitbook/assets/image (4) (1).png>)
+<!-- ![](<../.gitbook/assets/image (4) (1).png>) -->
 
-![](../.gitbook/assets/Animation.webp)
+<!-- ![](../.gitbook/assets/Animation.webp) -->

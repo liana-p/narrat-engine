@@ -2,6 +2,7 @@
  * @type {import('vitepress').UserConfig}
  */
 const config = {
+  ignoreDeadLinks: true,
   themeConfig: {
     siteTitle: 'Narrat Documentation',
     editLink: {
@@ -33,7 +34,7 @@ const config = {
         ],
       },
     ],
-    logo: '/logo.svg',
+    logo: 'logo.svg',
     nav: [
       { text: 'Get Started', link: '/guides/getting-started' },
       { text: 'Guides', link: '/guides/' },

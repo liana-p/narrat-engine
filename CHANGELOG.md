@@ -1273,7 +1273,7 @@ There is a [script updating tool](https://github.com/liana-pigeot/Narrat-Script-
 
 {% hint style="danger" %}
 The old syntax is largely compatible, but the $if instruction works very differently now. The script will update those $if instructions to match the new system, but might fail at updating long series of conditions in $if
-{% endhint %}
+:::
 
 ### Installing narrat 2.0
 
@@ -1387,7 +1387,7 @@ Labels are now "functions" and can take arguments or return values.
 
 Example:
 
-```renpy
+```
 main:
   var meal (run takeout_menu Cake)
   "The player chose to eat %{meal}"

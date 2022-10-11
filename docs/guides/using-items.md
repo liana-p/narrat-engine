@@ -8,7 +8,7 @@ description: >-
 
 It is possible to make items usable by players, which can trigger a dialogue script label
 
-![](../.gitbook/assets/useitem.webp)
+<!-- ![](../.gitbook/assets/useitem.webp) -->
 
 In an item config, an optional `onUse` value is available, which cn be set to a label to jump to when using the item.
 
@@ -16,7 +16,7 @@ There are also interaction groups which allow scripts to toggle on/off whether u
 
 Config:
 
-```renpy
+```
   "items": {
     "bread": {
       "name": "Bread",

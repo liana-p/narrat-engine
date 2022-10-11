@@ -6,7 +6,7 @@ description: >-
 
 # Set Level
 
-The set\_level function in narrat increases the level of the player in a specified skill
+The set_level function in narrat increases the level of the player in a specified skill
 
 Syntax: `set_level [skillId] [level]`
 
@@ -14,7 +14,7 @@ See the [skills system guide](../../features/skills-system.md) to know more
 
 Example:
 
-```renpy
+```
 skillCheckChoice:
   choice:
     "Should we try jumping over a fence?"

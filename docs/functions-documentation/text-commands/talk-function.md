@@ -20,4 +20,4 @@ talk_example:
 
 ```
 
-![Talk example result](../../.gitbook/assets/talk_example.gif)
+<!-- ![Talk example result](../../.gitbook/assets/talk_example.gif) -->

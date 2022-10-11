@@ -17,23 +17,21 @@ Those skills can then be used in skill checks in two ways:
 
 ## What it looks like
 
-![](<../.gitbook/assets/image (8).png>)Passive Skill check
+<!-- ![](<../.gitbook/assets/image (8).png>) -->Passive Skill check
 
 The difficulty of the skill check depends on a combination of how hard the skill check is configured to be, and the level of the player in this particular skill
 
 Skill check in a choice:
 
-![](<../.gitbook/assets/image (6).png>)
+<!-- ![](<../.gitbook/assets/image (6).png>) -->
 
-![](<../.gitbook/assets/image (5) (1).png>)
+<!-- ![](<../.gitbook/assets/image (5) (1).png>) -->
 
 ## How it works
 
 ### Skills configuration
 
 Skills are configured in `skills.yaml`:
-
-{% code title="skills.yaml" %}
 
 ```yaml
 skills:
@@ -78,17 +76,11 @@ skillChecks:
       - Near Impossible
 ```
 
-{% endcode %}
-
 The path of `skills.yaml` can be customised in the main config file:
-
-{% code title="config.yaml" %}
 
 ```yaml
 skills: data/skills.yaml
 ```
-
-{% endcode %}
 
 Each skill needs to have a name, description, startingLevel, and icon (for display in the skills screen).
 
@@ -115,7 +107,7 @@ Skill checks work in the following way:
 
 Practical example:
 
-```renpy
+```
 roll aSkillCheck agility 70 "Try jumping!":
 ```
 
@@ -125,15 +117,15 @@ Let's say the dice roll gives us 53. The player's level in agility is 3, and `sk
 
 Because 83 is above 70, the skill check is successful.
 
-{% hint style="info" %}
+::: tip
 The `difficultyText` config array specifies a list of thresholds and the corresponding difficulty text to show when the skill check's difficulty is past that threshold. It can have any amount of thresholds with any values. The choice for which text to print takes into account the player's current skill level and multiplier to reflect the real difficulty
-{% endhint %}
+:::
 
 ## Usage syntax
 
 ### Passive skill check
 
-```renpy
+```
   if (roll someSkillCheck agility 40): // You can use skillchecks in conditions
     "This line only appears if you passed a hidden passive skill check"
 ```
@@ -146,7 +138,7 @@ If the skill check succeeds, the branch inside the if command will be run. A mes
 
 ### Active skill check (in choices)
 
-```renpy
+```
 choice:
     "Should we try jumping over a fence?"
     roll fenceJump agility 70 "Try jumping!" hideAfterRoll:
@@ -175,7 +167,7 @@ Then, there is a `success` branch and a `failure` branch inside the roll. The en
 
 To make the player gain xp or levels, there are two commands: `add_level` and `add_xp`. Example:
 
-```renpy
+```
 add_level agility 1
 add_xp agility 3
 ```

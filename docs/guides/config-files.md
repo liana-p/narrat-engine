@@ -66,8 +66,6 @@ There are many possible options in the config. They are not currently all docume
 
 For example:
 
-{% code title="src/config/quests-config.ts" %}
-
 ```ts
 export const ObjectiveDataSchema = Type.Object({
   description: Type.String(),
@@ -79,8 +77,6 @@ export const QuestDataSchema = Type.Object({
   objectives: Type.Record(Type.String(), ObjectiveDataSchema),
 });
 ```
-
-{% endcode %}
 
 This quest config means a quest has the following properties:
 
@@ -118,8 +114,6 @@ A character's config can have the following values:
   - textCss: Same as above, but will apply to the text "spoken" by the character
 
 Example character config file:
-
-{% code title="characters.yaml" %}
 
 ```yaml
 ---
@@ -171,5 +165,3 @@ characters:
       color: red
     name: Inner Voice
 ```
-
-{% endcode %}

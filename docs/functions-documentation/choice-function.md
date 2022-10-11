@@ -21,7 +21,7 @@ choice_example:
             talk cat idle "I see you picked the second choice!"
 ```
 
-![Result of the above code](../.gitbook/assets/choice.gif)
+<!-- ![Result of the above code](../.gitbook/assets/choice.gif) -->
 
 ### Choice with conditions or skill rolls
 
@@ -31,7 +31,7 @@ It is also possible to make options roll a skill check and then branch on succes
 
 `roll [skillcheckid] [skill_id] [difficulty] [choice text prompt]`
 
- A skill roll needs at least a success branch inside it, and optionally a failure branch
+A skill roll needs at least a success branch inside it, and optionally a failure branch
 
 ```text
 choice_example_conditions:
@@ -50,5 +50,4 @@ choice_example_conditions:
 
 In the example above, the first choice won't appear because the condition isn't met, and the second option will appear as a skill check.
 
-![Choice with a skill check](../.gitbook/assets/choice-skillcheck.gif)
-
+<!-- ![Choice with a skill check](../.gitbook/assets/choice-skillcheck.gif) -->

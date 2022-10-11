@@ -10,7 +10,7 @@ Syntax: `set_screen [screenId] [layer (optional)]`
 
 Example:
 
-```renpy
+```
 set_screen map
 ```
 
@@ -25,4 +25,3 @@ main:
 ```
 
 See [Screens guide](../../features/screens.md) for more info
-

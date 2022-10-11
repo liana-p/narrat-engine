@@ -6,9 +6,7 @@ description: >-
 
 # Add XP
 
-The add\_xp function in narrat increases the xp of the player in a specified skill
-
-
+The add_xp function in narrat increases the xp of the player in a specified skill
 
 Syntax: `add_xp [skillId] [xp]`
 
@@ -16,7 +14,7 @@ See the [skills system guide](../../features/skills-system.md) to know more
 
 Example:
 
-```renpy
+```
 skillCheckChoice:
   choice:
     "Should we try jumping over a fence?"

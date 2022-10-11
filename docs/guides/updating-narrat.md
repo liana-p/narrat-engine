@@ -14,17 +14,17 @@ When there is a **breaking change** (that is, a change in the engine that requir
 
 {% hint style="warning" %}
 When updating to a new version, it's a good idea to at least check for **breaking changes** in the changelog
-{% endhint %}
+:::
 
-{% hint style="info" %}
+::: tip
 There are many new features frequently added to narrat which aren't always documented, so looking at the changelog can be a way of discovering new features.
-{% endhint %}
+:::
 
 ### How to update
 
 The narrat version used in a game is the one specified in the `dependencies` part of the `package.json` file at the root of the game. For example:
 
-![narrat version example](<../.gitbook/assets/image (7).png>)
+<!-- ![narrat version example](<../.gitbook/assets/image (7).png>) -->
 
 To update, simply run the command `npm install narrat@latest` in the terminal, which will pick up the latest released version.
 

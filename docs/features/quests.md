@@ -8,11 +8,9 @@ coverY: 0
 
 Narrat games can have quests with dynamic objectives and a quest log UI
 
-![](<../.gitbook/assets/image (27).png>)
+<!-- ![](<../.gitbook/assets/image (27).png>) -->
 
 Quests can be defined in the quests.yaml config file:
-
-{% code title="quests.yaml" %}
 
 ```yaml
 quests:
@@ -26,17 +24,11 @@ quests:
         description: Deliver the bread to the helper cat.
 ```
 
-{% endcode %}
-
 The path of `quests.yaml` can be customised in the main config file:
-
-{% code title="config.yaml" %}
 
 ```yaml
 quests: data/quests.yaml
 ```
-
-{% endcode %}
 
 Scripts can interact with the quest system:
 
@@ -47,7 +39,7 @@ Scripts can interact with the quest system:
 
 ::: details Example demo script
 
-```renpy
+```
 quest_demo:
   set_button shopButton true
   set_button parkButton false
@@ -124,4 +116,4 @@ map_update:
 
 :::
 
-![](../.gitbook/assets/Animation-2.webp)
+<!-- ![](../.gitbook/assets/Animation-2.webp) -->

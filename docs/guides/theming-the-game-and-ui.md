@@ -93,9 +93,9 @@ Here is a list of the CSS variables that exist in narrat:
 
 :::
 
-{% hint style="info" %}
+::: tip
 To see the most up to date list of CSS variables, look at [main.css](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/css/main.css#L1) in the engine
-{% endhint %}
+:::
 
 ## Creating custom CSS classes
 
@@ -116,9 +116,9 @@ For example, the `.interact-button` is the CSS class given to the "Continue" but
 }
 ```
 
-{% hint style="info" %}
+::: tip
 Note the `!important` parameter at the end. This helps your CSS property override an existing one in the engine, as it tells CSS to make this value take priority.
-{% endhint %}
+:::
 
 To be able to add custom CSS, you need a CSS file. The template already comes with one, but if for any reason you don't have any, all you need to do is create a `.css` file and import it inside your `index.ts`.
 
@@ -136,19 +136,19 @@ For example:
 
 The easiest way to find a CSS class name or id to override for theming a game is to use the browser inspector (right-click -> inspect on Chrome or Firefox).
 
-<img src="../.gitbook/assets/image (11).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (11).png" alt="" data-size="original"> -->
 
 The devtools have a list of all the elements on the page in the elements tab (bottom left in the screenshot). This tool shows a tree view of all the DOM elements that constitute a web page (the narrat UI is made of DOM elements)Available CSS classes to override
 
-<img src="../.gitbook/assets/image (31) (1).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (31) (1).png" alt="" data-size="original"> -->
 
 Clicking on the arrow icon in the top left of the devtools opens a "picker" tool that allows clicking anywhere on the page to select an element in the elements view of the devtools. This makes it very easy to browse and find elements on a page.
 
 Finding the css class or id for an element is then just a matter of looking at what's in the HTML for that element in the devtools after finding it with the picker:
 
-<img src="../.gitbook/assets/image (18).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (18).png" alt="" data-size="original"> -->
 
-<img src="../.gitbook/assets/image (30).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (30).png" alt="" data-size="original"> -->
 
 Hovering elements in the elements tab also highlights them on the page.
 
@@ -174,13 +174,13 @@ Once a css class or id has been found to edit an element, it's simply a matter o
 
 {% hint style="warning" %}
 Be careful not to confuse CSS classes and ids, as the syntax for their selector is different.
-{% endhint %}
+:::
 
 ### List of useful CSS classes to override
 
-{% hint style="info" %}
+::: tip
 `This list is a work in progress. If you can't find something or if it's been changed, use the instructions above to find it yourself in the game`
-{% endhint %}
+:::
 
 #### Buttons
 
@@ -188,25 +188,25 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 `.button`: Generic base class applied to all buttons
 
-<img src="../.gitbook/assets/image (34).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (34).png" alt="" data-size="original"> -->
 
 `.interact-button`: The "Continue" button during dialogue
 
-<img src="../.gitbook/assets/image (25).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (25).png" alt="" data-size="original"> -->
 
 `.dialog-choice`: The selectable choices in the dialogue
 
-<img src="../.gitbook/assets/image (22).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (22).png" alt="" data-size="original"> -->
 
 `.menu-button`: The two "start game" and "continue game" buttons
 
 `.start-button`
 
-<img src="../.gitbook/assets/image (13).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (13).png" alt="" data-size="original"> -->
 
 `.continue-button`
 
-<img src="../.gitbook/assets/image (29).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (29).png" alt="" data-size="original"> -->
 
 :::
 
@@ -216,23 +216,23 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 .dialog-container: Contains all the dialog
 
-<img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1).png" alt="" data-size="original"> -->
 
 .dialog: The entire right-side box of the screen that is scrollable with all the dialog in it
 
-<img src="../.gitbook/assets/image (20).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (20).png" alt="" data-size="original"> -->
 
 .menu-container
 
-<img src="../.gitbook/assets/image (4) (1) (1).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (4) (1) (1).png" alt="" data-size="original"> -->
 
 \#menu-button (note that it's an id and not a class)
 
-<img src="../.gitbook/assets/image (33).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (33).png" alt="" data-size="original"> -->
 
 \#skills-menu-button
 
-<img src="../.gitbook/assets/image (26).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (26).png" alt="" data-size="original"> -->
 
 :::
 
@@ -240,27 +240,27 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 .modal-mask: The half-opaque overlay on the page when a modal is open
 
-<img src="../.gitbook/assets/image (28).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (28).png" alt="" data-size="original"> -->
 
 .modal-container: The container class for all modals
 
-<img src="../.gitbook/assets/image (10).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (10).png" alt="" data-size="original"> -->
 
 .modal-header
 
-<img src="../.gitbook/assets/image (19).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (19).png" alt="" data-size="original"> -->
 
 .close-button: The button to close modals
 
-<img src="../.gitbook/assets/image (9).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (9).png" alt="" data-size="original"> -->
 
 .modal-body
 
-<img src="../.gitbook/assets/image (16).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (16).png" alt="" data-size="original"> -->
 
 .modal-footer: There's a footer space that is currently unused in modals
 
-<img src="../.gitbook/assets/image (7) (1).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (7) (1).png" alt="" data-size="original"> -->
 
 :::
 
@@ -270,11 +270,11 @@ Each modal in the game has its own CSS class applied to the `modal-container` to
 
 .menu-modal
 
-<img src="../.gitbook/assets/image (17).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (17).png" alt="" data-size="original"> -->
 
 .skills-modal
 
-<img src="../.gitbook/assets/image (35).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (35).png" alt="" data-size="original"> -->
 
 :::
 
@@ -284,7 +284,7 @@ Each modal in the game has its own CSS class applied to the `modal-container` to
 
 .skills-container
 
-<img src="../.gitbook/assets/image (14).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (14).png" alt="" data-size="original"> -->
 
 One thing worth knowing is the `.skills-container` class in the skills screen uses [CSS grid](https://learncssgrid.com/). To change how many columns there are per row, overriding the `grid-template-columns` works. For example:
 
@@ -300,20 +300,20 @@ One thing worth knowing is the `.skills-container` class in the skills screen us
 
 .skill-display: The individual tile for a skill
 
-<img src="../.gitbook/assets/image (32).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (32).png" alt="" data-size="original"> -->
 
 .skill-title
 
-<img src="../.gitbook/assets/image (12).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (12).png" alt="" data-size="original"> -->
 
 .skill-xp-container and .skill-xp-bar: skill-xp-container is the background of the xp progress bar, whereas skill-xp-bar is the inner bar that gets filled depending on the amount of xp
 
 .skill-xp-text is also the text of the xp
 
-<img src="../.gitbook/assets/image (21) (1).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (21) (1).png" alt="" data-size="original"> -->
 
 .skill-level
 
-<img src="../.gitbook/assets/image (24).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (24).png" alt="" data-size="original"> -->
 
 :::

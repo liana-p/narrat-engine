@@ -21,15 +21,3 @@ startApp({
   configPath: 'data/config.yaml',
 });
 ```
-
-## Customising your game
-
-See the Customising your Narrat game page for more info on how to edit the game
-
-{% page-ref page="customising-your-narrat-game.md" %}
-
-## Building and exporting your game
-
-See the Building and exporting your game page
-
-{% page-ref page="building-and-exporting-your-game.md" %}

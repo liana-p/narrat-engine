@@ -54,8 +54,8 @@ The color character names appears as can be changed with the `color` value in th
 
 Making a game is simply a matter of editing those files to write the game you want. To know more about available features, look at the left sidebar of this documentation website to see pages about all the features and guides on specific things.
 
-{% hint style="info" %}
+::: tip
 Many features get added to narrat frequently and some aren't documented yet but explained in the changelog. See the "Updating narrat" page below for more info.
-{% endhint %}
+:::
 
 [updating-narrat.md](updating-narrat.md)

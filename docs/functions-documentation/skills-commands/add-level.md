@@ -6,7 +6,7 @@ description: >-
 
 # Add Level
 
-The add\_level function in narrat increases the level of the player in a specified skill
+The add_level function in narrat increases the level of the player in a specified skill
 
 Syntax: `add_level [skillId] [amountOfLevels]`
 
@@ -14,7 +14,7 @@ See the [skills system guide](../../features/skills-system.md) to know more
 
 Example:
 
-```renpy
+```
 skillCheckChoice:
   choice:
     "Should we try jumping over a fence?"

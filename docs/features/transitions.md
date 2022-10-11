@@ -1,10 +1,10 @@
 # Transitions
 
-Transitions can be used to animate the change between two screens when using the [set\_screen ](../functions-documentation/left-side-viewport-commands/set-screen.md)command
+Transitions can be used to animate the change between two screens when using the [set_screen ](../functions-documentation/left-side-viewport-commands/set-screen.md)command
 
 ### Usage Example
 
-```renpy
+```
 transitions_test:
   set_screen default
   "normal set screen"
@@ -17,9 +17,9 @@ transitions_test:
   set_screen default 0 fade 2000 4000 // Make transition last 2 seconds and have the new screen be delayed by 4 seconds
 ```
 
-{% hint style="info" %}
+::: tip
 Note: Specifying the layer is necessary when using transitions.
-{% endhint %}
+:::
 
 ### Available transitions
 
@@ -27,13 +27,11 @@ Currently, there are two transitions available:
 
 #### fade
 
-![](../.gitbook/assets/transition.gif)
+<!-- ![](../.gitbook/assets/transition.gif) -->
 
 #### slide-right
 
-![](../.gitbook/assets/transition2.gif)
-
-
+<!-- ![](../.gitbook/assets/transition2.gif) -->
 
 ### **Creating custom transitions**
 
@@ -54,8 +52,6 @@ It is possible to define custom transitions by creating css classes for them. Fo
   opacity: 0;
 }
 ```
-
-
 
 **Slide-right transition**
 
@@ -83,15 +79,13 @@ New transitions can be created by copying those CSS classes (and changing the na
 
 Transitions can also have an optional config to change their default duration and delay. In `config.yaml`, for example:
 
-{% code title="config.yaml" %}
 ```yaml
 transitions:
   slide-right:
     duration: 100
     delay: 5000
 ```
-{% endcode %}
 
 If no config is provided, the default duration is 0.5s, and the default delay is 0 (the old and new screens effectively transition at the same time).
 
-The order of priority for choosing the duration or delay is: what's passed in the script --> If none, use the default for that command provided in the config -->  if none, use the global default
+The order of priority for choosing the duration or delay is: what's passed in the script --> If none, use the default for that command provided in the config --> if none, use the global default

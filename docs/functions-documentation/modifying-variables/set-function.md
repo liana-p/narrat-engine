@@ -6,8 +6,8 @@ The set function allows you to create variables that will be kept (and saved), w
 
 It takes two parameters:
 
-* **path**: The path where you want to save your value. It can be a deep path and will automatically generate nested objects. For example: `data.level_1.ending`
-* **value**: The value you want to assign to the variable. For example: `"good_ending"`
+- **path**: The path where you want to save your value. It can be a deep path and will automatically generate nested objects. For example: `data.level_1.ending`
+- **value**: The value you want to assign to the variable. For example: `"good_ending"`
 
 ### Example
 
@@ -26,5 +26,4 @@ set_example:
 
 ```
 
-![Result of the above code](../../.gitbook/assets/set\_function\_example.gif)
-
+<!-- ![Result of the above code](../../.gitbook/assets/set\_function\_example.gif) -->

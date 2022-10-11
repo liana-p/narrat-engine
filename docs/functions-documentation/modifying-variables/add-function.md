@@ -29,4 +29,4 @@ add_example_end:
 
 ```
 
-![Result of the above code](../../.gitbook/assets/add\_example.gif)
+<!-- ![Result of the above code](../../.gitbook/assets/add\_example.gif) -->

@@ -12,9 +12,9 @@ How saves works:
 - This object gets stored in the browser's [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 - On game load, the local storage gets read for a save, and if present all the data above gets placed in the state to continue playing
 
-{% hint style="info" %}
+::: tip
 Because there is no way to identify which specific line of dialogue the player is on, **saving only saves the last label the player started,** not the exact line they reached
-{% endhint %}
+:::
 
 ### Save Slots
 
@@ -25,19 +25,15 @@ A save slot is an individual save file. Each game can have any amount of save sl
 
 This value can be changed in `config.yaml` in `saves.mode`:
 
-{% code title="config.yaml" %}
-
 ```yaml
 saves:
   mode: manual
   slots: 10
 ```
 
-{% endcode %}
-
-{% hint style="info" %}
+::: tip
 If using `manual` mode, you should give the player a chance to create manual saves sometimes, as there is only one autosave which can get overwritten by starting a new game
-{% endhint %}
+:::
 
 ### Manual saving
 
@@ -45,9 +41,9 @@ To let the player save manually, there are two commands:
 
 [save-commands.md](../functions-documentation/save-commands.md)
 
-{% hint style="info" %}
+::: tip
 Because save data is only generated when jumping to a new label, save prompts should ideally be at the start of a label. Otherwise, the data saved will be outdated.
-{% endhint %}
+:::
 
 ### The problem with saving a specific line
 

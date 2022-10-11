@@ -12,7 +12,7 @@ Syntax: `wait [timeInMiliseconds]`
 
 Example:
 
-```renpy
+```
 talk presenter idle "The match will start in 3..."
 wait 1000
 talk presenter idle "2"

@@ -8,11 +8,9 @@ description: >-
 
 HUD Stats are number values that automatically appear in the HUD at the top right of the screen and can be controlled via game scripts.
 
-![](<../.gitbook/assets/image (21).png>)
+<!-- ![](<../.gitbook/assets/image (21).png>) -->
 
 ## HUD Stats config
-
-{% code title="config.yaml" %}
 
 ```yaml
 hudStats:
@@ -28,8 +26,6 @@ hudStats:
     minValue: 0
     maxValue: 10
 ```
-
-{% endcode %}
 
 Stats are defined in the `hudStats` part of the config.
 

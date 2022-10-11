@@ -10,7 +10,7 @@ Syntax `notify [text]`
 
 Example:
 
-```renpy
+```
 notify "Hello world!"
 ```
 

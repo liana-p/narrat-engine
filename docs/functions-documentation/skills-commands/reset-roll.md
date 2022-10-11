@@ -1,10 +1,10 @@
 # Reset Roll
 
-The `reset_roll`  command in narrat resets a skill roll, allowing the player to attempt it again as if it had never happened.
+The `reset_roll` command in narrat resets a skill roll, allowing the player to attempt it again as if it had never happened.
 
 Example:
 
-```renpy
+```
 main:
   jump test_skills_reset
 

@@ -11,15 +11,13 @@ coverY: 0
 
 ## Introduction
 
-<img src="../.gitbook/assets/image (31).png" alt="" data-size="original">
+<!-- <img src="../.gitbook/assets/image (31).png" alt="" data-size="original"> -->
 
 In narrat games, the right side of the screen has the dialogue system, while the left side has the screens.
 
 Screens mostly serve to illustrate a scene, in the way visual novel type games do. They can also be used to provide "point and click" features with interactive buttons, or be used as choice menus (for example an interactive map)
 
 ## Screens config
-
-{% code title="screens.yaml" %}
 
 ```yaml
 screens:
@@ -56,24 +54,16 @@ screens:
         action: parkButton
 ```
 
-{% endcode %}
-
 The path of `screens.yaml` can be customised in the main config file:
-
-{% code title="config.yaml" %}
 
 ```yaml
 screens: data/screens.yaml
 ```
 
-{% endcode %}
-
 - `background` : This is the id of an image loaded by the engine. Images are defined in the `images` section of the config
 - `buttons`: This is an array of ids of interactive buttons that exist in the screen.
 
 ## Buttons config
-
-{% code title="buttons.yaml" %}
 
 ```yaml
 buttons:
@@ -91,17 +81,11 @@ buttons:
     action: parkButton
 ```
 
-{% endcode %}
-
 The path of `buttons.yaml` can be customised in the main config file:
-
-{% code title="config.yaml" %}
 
 ```yaml
 buttons: data/buttons.yaml
 ```
-
-{% endcode %}
 
 - `enabled`: Whether this button is enabled by default or not (this can later be changed on and off in the game's script)
 - `background`: ID of the image to use as the image for that button
@@ -110,7 +94,7 @@ buttons: data/buttons.yaml
 
 For example, with the following game script:
 
-```renpy
+```
 parkButton:
   "You have reached the park!"
 ```
@@ -119,7 +103,7 @@ This script would be triggered by pressing the `parkButton` in the `map` screen 
 
 {% hint style="danger" %}
 The `default` screen must always exist, as it is the first screen the game gets loaded with.
-{% endhint %}
+:::
 
 ## Button interaction tags
 
@@ -133,7 +117,7 @@ Buttons can also have a `tag` property in their config to use interaction tag, t
 
 The `set_screen` function switches the game to a different screen:
 
-```renpy
+```
 set_screen map
 ```
 
@@ -141,6 +125,6 @@ set_screen map
 
 The `set_button` function can enable or disable a button
 
-```renpy
+```
 set_button parkButton true
 ```

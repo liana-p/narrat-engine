@@ -20,7 +20,7 @@ Levels of indentation in scripts are important as the indentation defines the br
 
 The first level of indentation is used to define labels like `main:`, then everything inside that label should be one level of indentation higher, until we get to the next label:
 
-```renpy
+```
 main:
   "Hello world" // This line is indented because it is inside the label main
   jump other_label
@@ -43,7 +43,7 @@ Script can jump from label to label using the jump command.
 
 Simple code example:
 
-```renpy
+```
 main:
   talk player idle "Hello world"
 ```
@@ -58,7 +58,7 @@ All lines of script in narrat are commands. A command is created by typing the n
 
 Example:
 
-```renpy
+```
 main:
   talk player idle "Hello!" // This is the "talk" command
 ```
@@ -77,7 +77,7 @@ Commands take arguments as parameters. In narrat syntax, arguments are space-sep
 
 Arguments can also be a variable value, in which case it needs to be written as `$variableName`. Example:
 
-```renpy
+```
 main:
   set data.day 3
   if (> $data.day 2):
@@ -92,7 +92,7 @@ As proven by the code above, an argument can also be an expression itself. In th
 
 Labels can be used as functions. This allows any script to use the `run` command to run a label's code and then come back to where it was. Example:
 
-```renpy
+```
 main:
   set data.counter 0
   run print_counter // Will print "Counter is 0"
@@ -111,7 +111,7 @@ Functions can also receive arguments and return values. The arguments they recei
 
 Example:
 
-```renpy
+```
 main:
   var meal (run takeout_menu Cake)
   "The player chose to eat %{meal}"
