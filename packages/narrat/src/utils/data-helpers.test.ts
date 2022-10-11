@@ -1,6 +1,5 @@
 import { test, expect, it, describe } from 'vitest';
 
-import { Parser } from '@/types/parser';
 import { error } from '@/utils/error-handling';
 import {
   getPathValueWithoutBrackets,
