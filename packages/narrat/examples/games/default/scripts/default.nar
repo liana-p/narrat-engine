@@ -26,18 +26,23 @@ card_finder card name_to_match:
 test_sprites_click:
   var sprite (create_sprite img/characters/cat_idle.webp 200 200)
   set sprite.onClick some_label
-  var card1 (new Object)
-  set card1.name "A"
-  var card2 (new Object)
-  set card2.name "B"
-  set data.deck (new Array $card1 $card2)
-  var index_to_delete (array_find_index $data.deck "card_finder" "B")
-  splice $data.deck $index_to_delete 1
-
+  set sprite.clickMethod run
+  var sprite2 (create_sprite img/characters/cat_idle.webp 50 100 $sprite)
+  var text (create_object 50 100 $sprite2)
+  set text.anchor.x 0.5
+  set text.anchor.y 0.5
+  set text.width 200
+  set text.height 200
+  set text.text "Hello world!!!"
+  wait 500
+  set sprite.x 400
+  wait 500
+  set sprite.y 100
 
 
 some_label:
   talk player idle "Clicked on sprite"
+  jump quest_demo
 
 test_load_data:
   set data.all_cards (load_data data/cards/card.yaml)

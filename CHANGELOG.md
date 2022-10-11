@@ -1,5 +1,79 @@
 # Narrat changelog
 
+## [2.10.0] - Nested sprites and texts in the viewport
+
+# /!\ Breaking change
+
+There is a small breaking change with the **Characters config**
+
+The path to `characters.yaml` now needs to be specified in the `characters` key of the `config.yaml` file.
+
+```yaml
+characters: data/characters.yaml
+```
+
+The previous mention of the path to `characters.yaml` at the bottom of `src/index.ts` should be removed:
+
+```ts
+startApp({
+  configPath: 'data/config.yaml',
+  debug,
+  logging: false,
+});
+```
+
+### Nested sprites and texts
+
+Previously there was a simple sprite feature to create and display individual sprites.
+
+Those **sprites are now called `Screen Objects`**, and can be of different types (empty object, text or sprite for now).
+
+They **can also be nested within in each other in a scene graph structure**, as you would see in many other game engine. Changing a parent will affect all the child objects within.
+
+Usage example:
+
+```nar
+test_sprites_click:
+  var sprite (create_sprite img/characters/cat_idle.webp 200 200)
+  var sprite2 (create_sprite img/characters/cat_idle.webp 50 100 $sprite)
+  var text (create_object 50 100 $sprite2)
+  set text.anchor.x 0.5
+  set text.anchor.y 0.5
+  set text.width 200
+  set text.height 200
+  set text.text "Hello world!!!"
+  wait 500
+  set sprite.x 400
+  wait 500
+  set sprite.y 100
+```
+
+The script above would create a sprite, with another nested sprite in it, and a nested text at the end. Then by moving the first sprite, everything will move together.
+
+### New options to disable buttons and sprite clicks during scripts by default
+
+- By default, clicking on buttons or sprites will be disabled during scripts (ie. when the dialog panel appears)
+- To change this behaviour, set `clickableDuringScriptsByDefault` to `true` in `buttons.yaml`. This will allow all buttons and sprites to be clickable during dialogs
+- Individual buttons or sprites have a `scriptClickable` option which can be set to true or false to override the default behaviour.
+
+Example:
+
+```buttons.yaml
+clickableDuringScriptsByDefault: false
+```
+
+```game.nar
+test_sprites_click:
+var sprite (create_sprite img/characters/cat_idle.webp 200 200)
+set sprite.onClick some_label
+```
+
+In this setup, the sprite will only be clickable during scripts.
+
+if we set `set sprite.scriptClickable true`, then the sprite will be clickable during scripts too.
+
+If we change the default options in `buttons.yaml` then all scripts will be clickable by default and we can disable them individually.
+
 ## [2.9.3] - Array find index function
 
 A new helper function to find the index of an element in an array using a predicate to run a custom condition.

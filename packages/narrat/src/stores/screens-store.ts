@@ -11,10 +11,11 @@ import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
 
 export type ButtonStateValue = boolean | 'hidden' | 'greyed';
+export interface ButtonState {
+  state: ButtonStateValue;
+}
 export interface ButtonsState {
-  [key: string]: {
-    state: ButtonStateValue;
-  };
+  [key: string]: ButtonState;
 }
 
 export interface FullLayerState {

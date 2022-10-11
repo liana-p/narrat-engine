@@ -53,7 +53,6 @@ window.addEventListener("load", () => {
     registerPlugin(new SteamPlugin());
   }
   startApp({
-    charactersPath: "data/characters.yaml",
     configPath: "data/config.yaml",
     debug,
     logging: false,

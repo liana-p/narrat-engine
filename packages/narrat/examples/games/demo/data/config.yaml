@@ -29,6 +29,7 @@ buttons: data/buttons.yaml
 skills: data/skills.yaml
 scripts: data/scripts.yaml
 audio: data/audio.yaml
+characters: data/characters.yaml
 notifications:
   timeOnScreen: 1.5
   alsoPrintInDialogue: true

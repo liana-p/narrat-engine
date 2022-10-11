@@ -23,7 +23,7 @@ import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useInventory } from './inventory-store';
 import { useMain } from './main-store';
-import { isSprite, useSprites } from './sprites-store';
+import { isSprite, useScreenObjects } from './screen-objects-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -100,12 +100,12 @@ export const useVM = defineStore('vm', {
     findEntitiesInData(data: any) {
       deepEvery(this.data, (value, key, parent) => {
         if (isSprite(value)) {
-          const spriteFromStore = useSprites().getSprite(value.id);
+          const spriteFromStore = useScreenObjects().getObject(value.id);
           if (!spriteFromStore) {
             warning(
               `Trying to reload sprite ${key} (${value.image} - ${value.id}) but it does not exist.`,
             );
-            useSprites().addSprite(value);
+            useScreenObjects().addObject(value);
           } else {
             parent[key] = spriteFromStore;
           }

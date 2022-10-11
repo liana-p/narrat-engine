@@ -19,6 +19,7 @@ export const ButtonConfigSchema = Type.Object({
   ),
   action: Type.Optional(Type.String()),
   actionType: Type.Optional(Type.String()),
+  scriptClickable: Type.Optional(Type.Boolean()),
   tag: Type.Optional(Type.String()),
 });
 export type ButtonConfig = Static<typeof ButtonConfigSchema>;
@@ -28,9 +29,11 @@ export type ButtonsList = Static<typeof ButtonsListSchema>;
 
 export const ButtonsConfigSchema = Type.Object({
   buttons: ButtonsListSchema,
+  clickableDuringScriptsByDefault: Type.Optional(Type.Boolean()),
 });
 export type ButtonsConfig = Static<typeof ButtonsConfigSchema>;
 
 export const defaultButtonsConfig: ButtonsConfig = {
   buttons: {},
+  clickableDuringScriptsByDefault: false,
 };

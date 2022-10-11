@@ -17,16 +17,12 @@
       :style="getButtonStyle(button as string)"
       v-html="getButtonText(button as string)"
     ></div>
-    <div
-      v-for="sprite in sprites"
-      :key="sprite.id"
-      tabindex="-1"
-      class="viewport-sprite"
-      :class="getSpriteClass(sprite)"
-      :id="`viewport-sprite-${sprite.id}`"
-      @click="clickOnSprite(sprite)"
-      :style="getSpriteStyle(sprite)"
-    ></div>
+    <ScreenObject
+      v-for="screenObject in screenObjectsStore.tree"
+      :key="screenObject.id"
+      :screenObject="screenObject"
+      :transitioning="transitioning"
+    />
   </div>
 </template>
 
@@ -42,10 +38,12 @@ import { useMain } from '../stores/main-store';
 import { ButtonStateValue, useScreens } from '@/stores/screens-store';
 import { useVM } from '@/stores/vm-store';
 import { useInventory } from '@/stores/inventory-store';
-import { SpriteState, useSprites } from '@/stores/sprites-store';
+import { SpriteState, useScreenObjects } from '@/stores/screen-objects-store';
 import { processText } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
+import ScreenObject from './screen-objects/screen-object.vue';
+import { isViewportElementClickable } from '@/utils/viewport-utils';
 
 const props = defineProps({
   layer: String,
@@ -57,10 +55,8 @@ const props = defineProps({
 const vmStore = useVM();
 const main = useMain();
 const screensStore = useScreens();
-const spritesStore = useSprites();
-const sprites = computed(() => {
-  return spritesStore.sprites;
-});
+const screenObjectsStore = useScreenObjects();
+
 const layoutWidth = computed(() => {
   return getConfig().layout.backgrounds.width;
 });
@@ -171,6 +167,9 @@ function clickOnButton(button: string) {
     return;
   }
   const config = getButtonConfig(button);
+  if (!isViewportElementClickable(config)) {
+    return false;
+  }
   const state = buttonsState.value[button];
   if (state.state === true) {
     audioEvent('onButtonClicked');
@@ -206,7 +205,7 @@ function clickOnSprite(sprite: SpriteState) {
     return;
   }
   if (sprite.onClick) {
-    useSprites().clickSprite(sprite);
+    useScreenObjects().clickObject(sprite);
   }
 }
 

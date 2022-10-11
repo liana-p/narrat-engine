@@ -1,6 +1,7 @@
 import { Type, Static } from '@sinclair/typebox';
 import { AudioInputConfigSchema } from './audio-config';
 import { ButtonsConfigSchema } from './buttons-config';
+import { CharactersFilesConfigSchema } from './characters-config';
 import {
   DebuggingConfigSchema,
   DialogPanelConfigSchema,
@@ -13,7 +14,7 @@ import {
   SplashScreenConfigSchema,
   TransitionsConfigSchema,
 } from './common-config';
-import { ItemsConfigSchema, ItemsInputConfigSchema } from './items-config';
+import { ItemsInputConfigSchema } from './items-config';
 import { LayoutConfigSchema } from './layout-config';
 import { QuestsConfigSchema } from './quests-config';
 import { ScreensInputConfigSchema } from './screens-config';
@@ -55,6 +56,7 @@ export const ConfigInputSchema = Type.Object({
   menuButtons: Type.Optional(MenuButtonsConfigSchema),
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: Type.Optional(SavesConfigSchema),
+  characters: Type.Union([Type.String(), CharactersFilesConfigSchema]),
 });
 
 export type ConfigInput = Static<typeof ConfigInputSchema>;
