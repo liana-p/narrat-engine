@@ -6,7 +6,7 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 
 [![Open in Codeflow](https://developer.stackblitz.com/codeflow/assets/button-open-in-codeflow-medium.svg)](https://pr.new/liana-p/narrat-engine)
 
-[Try editing the default game](https:///pr.new/github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/default/scripts/default.nar)
+[Try editing the default game](https:///pr.new/github.com/liana-p/narrat-engine/edit/main/packages/narrat/examples/games/default/scripts/default.nar)
 
 With Codeflow you can work on Narrat quickly without setting up an IDE
 
