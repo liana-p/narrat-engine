@@ -65,11 +65,11 @@
 import { mapState } from 'pinia';
 import { defineComponent, PropType } from 'vue';
 import { getConfig } from './config';
+import { DialogStyleConfig } from './config/characters-config';
 import { defaultConfig } from './config/config-output';
 import { DEFAULT_TEXT_SPEED } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
 import { useMain } from './stores/main-store';
-import { DialogStyle } from './types/character-types';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags } from './utils/string-helpers';
@@ -122,7 +122,7 @@ export default defineComponent({
         return '';
       }
     },
-    style(): DialogStyle {
+    style(): DialogStyleConfig {
       return getCharacterStyle((this.options as any)!.styleId);
     },
     dialogBoxStyle(): any {

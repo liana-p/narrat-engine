@@ -1,25 +1,24 @@
-import { CharacterData, CharactersConfigFile, DialogStyle } from '@/types/character-types';
-let config: CharactersConfigFile;
+import { charactersConfig } from '@/config';
+import { CharacterConfig, DialogStyleConfig } from '@/config/characters-config';
 
-export function setCharactersConfig(data: CharactersConfigFile) {
-  config = data;
+export function getCharacterInfo(character: string): CharacterConfig {
+  return charactersConfig().characters[character];
 }
 
-export function getCharacterInfo(character: string): CharacterData {
-  return config.characters[character];
-}
-
-export function getCharacterPictureUrl(character: string, pose?: string): string | undefined {
+export function getCharacterPictureUrl(
+  character: string,
+  pose?: string,
+): string | undefined {
   const info = getCharacterInfo(character);
   if (!pose) {
     pose = 'default';
   }
   if (info.sprites) {
-    return `${config.config.imagesPath}${info.sprites[pose]}`;
+    return `${charactersConfig().config.imagesPath}${info.sprites[pose]}`;
   }
 }
 
-export function getCharacterStyle(character?: string): DialogStyle {
+export function getCharacterStyle(character?: string): DialogStyleConfig {
   if (!character) {
     return {};
   }

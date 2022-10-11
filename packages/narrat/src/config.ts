@@ -41,6 +41,10 @@ import {
   defaultTooltipsConfig,
   TooltipsConfigSchema,
 } from './config/tooltips-config';
+import {
+  CharactersFilesConfigSchema,
+  defaultCharactersConfig,
+} from './config/characters-config';
 
 let config: Config;
 
@@ -56,6 +60,7 @@ const splitConfigs = [
   ['audio', AudioInputConfigSchema, defaultAudioConfig],
   ['quests', QuestsConfigSchema, defaultQuestsConfig],
   ['tooltips', TooltipsConfigSchema, defaultTooltipsConfig],
+  ['characters', CharactersFilesConfigSchema, defaultCharactersConfig],
 ] as const;
 
 // List of other keys that are simply copied from input config to new config
@@ -183,6 +188,9 @@ export function buttonsConfig() {
 }
 export function tooltipsConfig() {
   return getConfig().tooltips;
+}
+export function charactersConfig() {
+  return getConfig().characters;
 }
 
 export function getTooltipConfig(keyword: string) {

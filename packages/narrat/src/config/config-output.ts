@@ -16,6 +16,10 @@ import { defaultScreensConfig, ScreensConfig } from '@/config/screens-config';
 import { defaultSkillsConfig, SkillsConfig } from '@/config/skills-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
 import { ButtonsConfig, defaultButtonsConfig } from './buttons-config';
+import {
+  CharactersFilesConfig,
+  defaultCharactersConfig,
+} from './characters-config';
 import { defaultLayoutConfig, LayoutConfig } from './layout-config';
 import { defaultTooltipsConfig, TooltipsConfig } from './tooltips-config';
 
@@ -47,6 +51,7 @@ export interface Config {
   menuButtons: MenuButtonsConfig;
   debugging: DebuggingConfig;
   saves: SavesConfig;
+  characters: CharactersFilesConfig;
 }
 
 export const defaultConfig = {
@@ -94,6 +99,7 @@ export const defaultConfig = {
     mode: 'manual',
     slots: 10,
   },
+  characters: defaultCharactersConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

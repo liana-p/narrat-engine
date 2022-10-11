@@ -2,7 +2,6 @@ import { AppOptions } from '@/types/app-types';
 import { GameSave, SaveSlot } from '@/types/game-save';
 import { loadDataFile } from '@/utils/ajax';
 import { audioEvent, loadAudioAssets } from '@/utils/audio-loader';
-import { setCharactersConfig } from '@/utils/characters';
 import { loadImages } from '@/utils/images-loader';
 import { error } from '@/utils/error-handling';
 import { randomId } from '@/utils/randomId';
@@ -39,8 +38,7 @@ import { useVM } from './vm-store';
 import { TypedEmitter } from '@/utils/typed-emitter';
 import { isPromise } from '@/utils/type-utils';
 import { useMenu } from './menu-store';
-import { CharactersConfigFile } from '@/types/character-types';
-import { useSprites } from './sprites-store';
+import { useScreenObjects } from './screen-objects-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -151,19 +149,13 @@ export const useMain = defineStore('main', {
       this.resetAllStores();
     },
     async engineLoading() {
-      this.loading.step = 'Characters';
-      const charsFile = await loadDataFile<CharactersConfigFile>(
-        this.options.charactersPath,
-      );
-      await setCharactersConfig(charsFile);
-      this.loading.percentage = 0.2;
-      this.loading.step = 'Data';
-      this.loading.percentage = 0.3;
+      const imagesLoadWait = loadImages(getConfig());
+      const audioWait = loadAudioAssets(audioConfig());
       this.loading.step = 'Images';
-      await loadImages(getConfig());
+      await imagesLoadWait;
       this.loading.percentage = 0.7;
       this.loading.step = 'Audio';
-      await loadAudioAssets(audioConfig());
+      await audioWait;
       vm.callHook('onAssetsLoaded');
       this.loading.percentage = 0.95;
       this.loading.step = 'Starting...';
@@ -350,7 +342,7 @@ export const useMain = defineStore('main', {
     resetAllStores() {
       const screens = useScreens();
       const config = getConfig();
-      useSprites().reset();
+      useScreenObjects().reset();
       screens.setButtons(config);
       const skillsStore = useSkills();
       skillsStore.setupSkills(skillsConfig());
@@ -410,7 +402,7 @@ export const useMain = defineStore('main', {
         inventory: inventoryStore.generateSaveData(),
         quests: useQuests().generateSaveData(),
         metadata,
-        sprites: useSprites().generateSaveData(),
+        screenObjects: useScreenObjects().generateSaveData(),
       };
       // Add save data from potential custom stores
       vm.customStores().forEach(([storeName, store]) => {
@@ -433,7 +425,7 @@ export const useMain = defineStore('main', {
       const hudStore = useHud();
       const audioStore = useAudio();
       const inventoryStore = useInventory();
-      useSprites().loadSaveData(save.sprites);
+      useScreenObjects().loadSaveData(save.screenObjects);
       screensStore.loadSaveData(save.screen);
       skillsStore.loadSaveData(save.skills);
       dialogStore.loadSaveData(save.dialog);
@@ -463,7 +455,7 @@ export const useMain = defineStore('main', {
         notifications: useNotifications(),
         inventory: useInventory(),
         quests: useQuests(),
-        sprites: useSprites(),
+        sprites: useScreenObjects(),
       };
     },
     overrideStates(override: any) {
