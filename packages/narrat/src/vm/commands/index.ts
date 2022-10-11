@@ -93,7 +93,11 @@ import {
   roundPlugin,
   sqrtPlugin,
 } from './math-commands';
-import { createSpriteCommand, deleteSpriteCommand } from './sprite-commands';
+import {
+  createObjectCommand,
+  createSpriteCommand,
+  deleteSpriteCommand,
+} from './sprite-commands';
 import {
   arrayFindIndexCommand,
   concatCommand,
@@ -149,6 +153,7 @@ export function registerBaseCommands(vm: VM) {
 
   // Sprites
   vm.addCommand(createSpriteCommand);
+  vm.addCommand(createObjectCommand);
   vm.addCommand(deleteSpriteCommand);
 
   vm.addCommand(waitCommand);

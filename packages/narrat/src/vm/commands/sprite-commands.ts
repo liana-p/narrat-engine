@@ -1,4 +1,5 @@
 import {
+  CreateObjectOptions,
   CreateSpriteOptions,
   ScreenObjectState,
   useScreenObjects,
@@ -23,12 +24,37 @@ export const createSpriteCommand = new CommandPlugin<{
     const { x, y, image, parent } = cmd.options;
     const args: CreateSpriteOptions = { x, y, image };
     if (typeof parent === 'object') {
-      args.parent = parent.id;
-    }
-    if (typeof parent === 'string') {
       args.parent = parent;
     }
+    if (typeof parent === 'string') {
+      args.parent = useScreenObjects().getObject(parent);
+    }
     return screenObjects.createSprite(args);
+  },
+);
+
+export const createObjectCommand = new CommandPlugin<{
+  x: number;
+  y: number;
+  parent?: ScreenObjectState | string;
+}>(
+  'create_object',
+  [
+    { name: 'x', type: 'number' },
+    { name: 'y', type: 'number' },
+    { name: 'parent', type: 'any', optional: true },
+  ],
+  async (cmd) => {
+    const screenObjects = useScreenObjects();
+    const { x, y, parent } = cmd.options;
+    const args: CreateObjectOptions = { x, y };
+    if (typeof parent === 'object') {
+      args.parent = parent;
+    }
+    if (typeof parent === 'string') {
+      args.parent = useScreenObjects().getObject(parent);
+    }
+    return screenObjects.createObject(args);
   },
 );
 

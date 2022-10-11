@@ -1,6 +1,7 @@
 import { aspectRatioFit } from '@/utils/helpers';
 import { defineStore } from 'pinia';
 import { getConfig, getDialogPanelWidth } from '../config';
+import { useMain } from './main-store';
 
 export interface RenderingState {
   screenWidth: number;
@@ -97,6 +98,13 @@ export const useRenderingStore = defineStore('rendering', {
     },
     viewportWidth(state: RenderingState): number {
       return getConfig().layout.backgrounds.width * this.viewportRatio;
+    },
+    showDialog(state: RenderingState): boolean {
+      const inDialogue = useMain().inScript;
+      if (!this.overlayMode || this.layoutMode === 'vertical') {
+        return true;
+      }
+      return inDialogue;
     },
   },
 });

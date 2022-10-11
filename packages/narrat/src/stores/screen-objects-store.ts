@@ -2,7 +2,9 @@ import { audioEvent } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
 import { getImage } from '@/utils/images-loader';
+import { mapObject } from '@/utils/object-iterators';
 import { randomId } from '@/utils/randomId';
+import { isViewportElementClickable } from '@/utils/viewport-utils';
 import { defineStore } from 'pinia';
 import { useVM } from './vm-store';
 
@@ -28,16 +30,24 @@ export interface ScreenObjectState {
   onClick?: string;
   text?: string;
   clickMethod?: 'jump' | 'run';
+  children: ScreenObjectState[];
+  parent?: ScreenObjectState;
+  scriptClickable?: boolean;
+}
+export type ScreenObjectSaveState = Omit<
+  ScreenObjectState,
+  'children' | 'parent'
+> & {
   children: string[];
   parent?: string;
-}
+};
 export interface SpriteState extends ScreenObjectState {
   _entityType: 'sprite';
   image: string;
 }
 
 export interface ScreenObjectsStoreState {
-  tree: string[];
+  tree: ScreenObjectState[];
   objectsList: {
     [id: string]: ScreenObjectState;
   };
@@ -46,7 +56,7 @@ export interface ScreenObjectsStoreState {
 export type ScreenObjectsStoreSave = {
   tree: string[];
   objectsList: {
-    [id: string]: ScreenObjectState;
+    [id: string]: ScreenObjectSaveState;
   };
 };
 
@@ -73,10 +83,10 @@ export const useScreenObjects = defineStore('screenObjects', {
   actions: {
     addObject(object: ScreenObjectState) {
       if (object.parent) {
-        const parent = this.getObject(object.parent);
-        parent.children.push(object.id);
+        const parent = object.parent;
+        parent.children.push(object);
       } else {
-        this.tree.push(object.id);
+        this.tree.push(object);
       }
       this.objectsList[object.id] = object;
     },
@@ -115,15 +125,15 @@ export const useScreenObjects = defineStore('screenObjects', {
         this.destroyObject(child);
       }
       if (object.parent) {
-        const parent = this.getObject(object.parent);
-        const index = parent.children.indexOf(object.id);
+        const parent = object.parent;
+        const index = parent.children.indexOf(object);
         if (index !== -1) {
           parent.children.splice(index, 1);
         } else {
           warning(`Could not find object ${object.id} in parent's children`);
         }
       } else {
-        const index = this.tree.indexOf(object.id);
+        const index = this.tree.indexOf(object);
         if (index !== -1) {
           this.tree.splice(index, 1);
         } else {
@@ -134,10 +144,12 @@ export const useScreenObjects = defineStore('screenObjects', {
     },
     createSprite(options: CreateSpriteOptions) {
       const sprite: SpriteState = this.createObject(options);
+      sprite._entityType = 'sprite';
       getImage(options.image).then((image) => {
-        if (sprite.width !== 1 && sprite.height !== 1) {
-          sprite.width = image.width;
-          sprite.height = image.height;
+        const existingSprite = this.getObject(sprite.id);
+        if (existingSprite.width === 1 && existingSprite.height === 1) {
+          existingSprite.width = image.width;
+          existingSprite.height = image.height;
         }
       });
       return sprite;
@@ -146,7 +158,11 @@ export const useScreenObjects = defineStore('screenObjects', {
       return this.objectsList[id];
     },
     clickObject(thing: ScreenObjectState) {
+      if (!isViewportElementClickable(thing)) {
+        return;
+      }
       if (thing.onClick) {
+        console.log('click', Date.now());
         audioEvent('onSpriteClicked');
         if (thing.clickMethod === 'run') {
           useVM().runThenGoBackToPreviousDialog(thing.onClick, true);
@@ -157,19 +173,40 @@ export const useScreenObjects = defineStore('screenObjects', {
         }
       }
     },
+    // Turns objects into objects with string references
     generateSaveData(): ScreenObjectsStoreSave {
       return {
-        tree: deepCopy(this.tree),
-        objectsList: deepCopy(this.objectsList),
+        tree: deepCopy(this.tree.map((el) => el.id)),
+        objectsList: deepCopy(
+          mapObject(this.objectsList, (obj) => this.screenObjectToSave(obj)),
+        ),
       };
     },
+    // Loads save data where objects have string references, populating them
     loadSaveData(data: ScreenObjectsStoreSave) {
-      this.tree = data.tree;
-      this.objectsList = data.objectsList;
+      this.objectsList = this.loadAllObjects(data.objectsList);
+      this.tree = data.tree.map((obj) => this.objectsList[obj]);
     },
     reset() {
       this.tree = [];
       this.objectsList = {};
+    },
+    // Removes references from objects and turn them to string id refs
+    screenObjectToSave(object: ScreenObjectState): ScreenObjectSaveState {
+      return {
+        ...object,
+        children: object.children.map((child) => child.id),
+        parent: object.parent ? object.parent.id : undefined,
+      };
+    },
+    // Takes saved data objects (which only have string references) and populate references
+    loadAllObjects(objects: { [key: string]: ScreenObjectSaveState }) {
+      for (const saveObject of Object.values(objects)) {
+        const obj = saveObject as any;
+        obj.parent = obj.parent ? objects[obj.parent] : undefined;
+        obj.children = obj.children.map((child: any) => objects[child]);
+      }
+      return objects as any as { [key: string]: ScreenObjectState };
     },
   },
 });

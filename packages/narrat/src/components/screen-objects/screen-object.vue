@@ -1,26 +1,27 @@
 <template>
   <div
-    :key="object.id"
     tabindex="-1"
     class="viewport-object"
-    :class="getObjectClass(object)"
-    :id="`viewport-object-${object.id}`"
-    @click="clickOnObject(object)"
-    :style="getObjectStyle(object)"
+    :class="objectClass"
+    :id="`viewport-object-${props.screenObject.id}`"
+    @click="clickOnObject(screenObject)"
+    :style="objectStyle"
   >
-    {{ object.text ? processText(object.text) : undefined }}
+    {{
+      props.screenObject.text ? processText(props.screenObject.text) : undefined
+    }}
     <ScreenObject
       :transitioning="transitioning"
-      v-for="child in children"
+      v-for="child in props.screenObject.children"
       :key="child.id"
-      :object="child"
+      :screenObject="child"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { getImageUrl } from '@/config';
-import { computed, CSSProperties } from 'vue';
+import { computed, CSSProperties, reactive } from 'vue';
 import {
   useScreenObjects,
   ScreenObjectState,
@@ -29,59 +30,51 @@ import {
 import { processText } from '@/utils/string-helpers';
 
 const props = defineProps<{
-  object: ScreenObjectState;
+  screenObject: ScreenObjectState;
   transitioning: boolean;
 }>();
 
-const screenObjectsStore = useScreenObjects();
-
-const children = computed(() => {
-  return props.object.children.map((child) =>
-    screenObjectsStore.getObject(child),
-  );
-});
-
 // Sprites
-function clickOnObject(object: ScreenObjectState) {
+function clickOnObject(screenObject: ScreenObjectState) {
   if (props.transitioning) {
     return;
   }
-  if (object.onClick) {
-    useScreenObjects().clickObject(object);
+  if (props.screenObject.onClick) {
+    useScreenObjects().clickObject(screenObject);
   }
 }
 
-function getObjectClass(object: ScreenObjectState): { [key: string]: boolean } {
+const objectClass = computed(() => {
   const css: any = {};
-  if (object.onClick) {
+  if (props.screenObject.onClick) {
     css.interactable = true;
   } else {
     css.disabled = true;
   }
-  if (object.cssClass) {
-    css[object.cssClass] = true;
+  if (props.screenObject.cssClass) {
+    css[props.screenObject.cssClass] = true;
   }
   return css;
-}
+});
 
-function getObjectStyle(object: ScreenObjectState): CSSProperties {
+const objectStyle = computed(() => {
   const style: CSSProperties = {};
-  if (object.opacity !== 1) {
-    style.opacity = object.opacity;
+  if (props.screenObject.opacity !== 1) {
+    style.opacity = props.screenObject.opacity;
   }
-  let left = object.x;
-  let top = object.y;
-  if (object.anchor) {
-    const anchor = object.anchor;
-    left = object.x - object.width * anchor.x;
-    top = object.y - object.height * anchor.y;
+  let left = props.screenObject.x;
+  let top = props.screenObject.y;
+  let width = props.screenObject.width;
+  let height = props.screenObject.height;
+  if (props.screenObject.anchor) {
+    const anchor = props.screenObject.anchor;
+    left = props.screenObject.x - width * anchor.x;
+    top = props.screenObject.y - height * anchor.y;
     style.transformOrigin = `${anchor.x * 100}% ${anchor.y * 100}%`;
   }
-  let width = object.width;
-  let height = object.height;
-  if (object.scale) {
-    width = width * object.scale;
-    height = height * object.scale;
+  if (props.screenObject.scale) {
+    width = width * props.screenObject.scale;
+    height = height * props.screenObject.scale;
   }
   const css: CSSProperties = {
     ...style,
@@ -90,11 +83,11 @@ function getObjectStyle(object: ScreenObjectState): CSSProperties {
     width: `${width}px`,
     height: `${height}px`,
   };
-  if (isSprite(object)) {
-    css.backgroundImage = `url(${getImageUrl(object.image)})`;
+  if (isSprite(props.screenObject)) {
+    css.backgroundImage = `url(${getImageUrl(props.screenObject.image)})`;
   }
   return css;
-}
+});
 </script>
 <style>
 .viewport {
@@ -142,7 +135,7 @@ function getObjectStyle(object: ScreenObjectState): CSSProperties {
   display: none;
 }
 
-.viewport-sprite {
+.viewport-object {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -152,19 +145,19 @@ function getObjectStyle(object: ScreenObjectState): CSSProperties {
   font-weight: bold;
   background-size: cover;
   background-repeat: no-repeat;
-  animation: sprite-appear 0.3s ease-in;
+  animation: object-appear 0.3s ease-in;
 }
 
-.viewport-sprite.interactable {
+.viewport-object.interactable {
   cursor: pointer;
   pointer-events: auto;
 }
-.viewport-sprite.disabled {
+.viewport-object.disabled {
   pointer-events: none;
   user-select: none;
 }
 
-@keyframes sprite-appear {
+@keyframes object-appear {
   /* Make an animation rotating the logo in 3d */
   0% {
     transform: perspective(10000px) rotateX(-120deg) scale(1);

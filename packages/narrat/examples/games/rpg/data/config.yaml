@@ -24,6 +24,7 @@ layout:
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml
+characters: data/characters.yaml
 scripts:
   - data/rpg.nar
 audio: data/audio.yaml

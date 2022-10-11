@@ -18,9 +18,9 @@
       v-html="getButtonText(button as string)"
     ></div>
     <ScreenObject
-      v-for="object in tree"
-      :key="object.id"
-      :object="object"
+      v-for="screenObject in screenObjectsStore.tree"
+      :key="screenObject.id"
+      :screenObject="screenObject"
       :transitioning="transitioning"
     />
   </div>
@@ -43,6 +43,7 @@ import { processText } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
 import ScreenObject from './screen-objects/screen-object.vue';
+import { isViewportElementClickable } from '@/utils/viewport-utils';
 
 const props = defineProps({
   layer: String,
@@ -55,11 +56,7 @@ const vmStore = useVM();
 const main = useMain();
 const screensStore = useScreens();
 const screenObjectsStore = useScreenObjects();
-const tree = computed(() => {
-  return screenObjectsStore.tree.map((obj) =>
-    screenObjectsStore.getObject(obj),
-  );
-});
+
 const layoutWidth = computed(() => {
   return getConfig().layout.backgrounds.width;
 });
@@ -170,6 +167,9 @@ function clickOnButton(button: string) {
     return;
   }
   const config = getButtonConfig(button);
+  if (!isViewportElementClickable(config)) {
+    return false;
+  }
   const state = buttonsState.value[button];
   if (state.state === true) {
     audioEvent('onButtonClicked');

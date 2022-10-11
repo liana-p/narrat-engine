@@ -1,13 +1,16 @@
 <template>
   <transition name="fade">
-    <DialogPicture :pictureUrl="picture" v-if="picture && showDialog" />
+    <DialogPicture
+      :pictureUrl="picture"
+      v-if="picture && rendering.showDialog"
+    />
   </transition>
   <transition name="dialog-transition">
     <div
       class="dialog override"
       ref="dialogRef"
       :style="dialogStyle"
-      v-if="inGame && showDialog"
+      v-if="inGame && rendering.showDialog"
     >
       <transition-group
         name="list"
@@ -47,15 +50,7 @@ import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
 import { getCharacterInfo, getCharacterPictureUrl } from '@/utils/characters';
 import { processText } from '@/utils/string-helpers';
-import {
-  computed,
-  onMounted,
-  onUnmounted,
-  PropType,
-  reactive,
-  ref,
-  watch,
-} from 'vue';
+import { computed, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
@@ -153,15 +148,6 @@ onUnmounted(() => {
   if (dialogueEndTimer.value) {
     clearTimeout(dialogueEndTimer.value);
   }
-});
-const showDialog = computed(() => {
-  if (
-    !useRenderingStore().overlayMode ||
-    useRenderingStore().layoutMode === 'vertical'
-  ) {
-    return true;
-  }
-  return inDialogue.value;
 });
 
 const dialogStyle = computed((): any => {

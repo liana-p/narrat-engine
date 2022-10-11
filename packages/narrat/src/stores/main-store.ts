@@ -19,6 +19,7 @@ import { playerAnswered, vm } from '@/vm/vm';
 import { defineStore } from 'pinia';
 import {
   audioConfig,
+  buttonsConfig,
   getConfig,
   itemsConfig,
   questsConfig,
