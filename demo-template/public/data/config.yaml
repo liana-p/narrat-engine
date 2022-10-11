@@ -11,7 +11,7 @@ dialogPanel:
   bottomOffset: 50
   width: 475
   height: 680
-  textSpeed: 20
+  textSpeed: 30
   animateText: true
   timeBetweenLines: 100
 layout:

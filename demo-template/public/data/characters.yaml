@@ -1,0 +1,49 @@
+---
+config:
+  imagesPath: "./img/characters/"
+characters:
+  game:
+    name: ''
+    color: white
+  player:
+    style:
+      color: orange
+    sprites:
+      idle: player.webp
+    name: You
+  cat:
+    sprites:
+      idle: cat_idle.webp
+    style:
+      color: white
+    name: Generic Cat
+  shopkeeper:
+    sprites:
+      idle: shop_cat.webp
+    style:
+      color: white
+    name: Shopkeeper
+  helper:
+    sprites:
+      idle: helper_cat.webp
+    style:
+      color: green
+    name: Helper Cat
+  music_cat:
+    sprites:
+      idle: music_cat.webp
+    style:
+      color: "#7f06e2"
+      boxCss:
+        background-color: red
+      textCss:
+        color: white
+        font-family: Comic Sans MS
+    name: Music Cat
+  inner:
+    sprites:
+      idle: inner_voice.webp
+    style:
+      color: red
+    name: Inner Voice
+
