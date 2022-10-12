@@ -1,6 +1,6 @@
 # 🚀 Narrat
 
-![example workflow](https://github.com/liana-p/narrat-engine/actions/workflows/main.yml/badge.svg)
+![example workflow](https://github.com/liana-p/narrat-engine/actions/workflows/main.yml/badge.svg) [![Netlify Status](https://api.netlify.com/api/v1/badges/55d4b9ba-62b7-4c43-86ce-8bc2aaf98643/deploy-status)](https://app.netlify.com/sites/ornate-pie-561978/deploys)
 
 [![Open in Codeflow](https://developer.stackblitz.com/codeflow/assets/button-open-in-codeflow-medium.svg)](https://pr.new/liana-p/narrat-engine)
 
