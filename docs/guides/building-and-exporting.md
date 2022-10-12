@@ -1,4 +1,9 @@
-# Building and exporting your game
+---
+title: Building and exporting a Narrat game
+description: Follow these steps to build and export a narrat game for the web or desktop
+---
+
+# Building and exporting a Narrat game
 
 ## Building your game as a website
 
@@ -9,12 +14,12 @@ npm run build
 ```
 
 ::: tip
-&#x20;This will generate a built version of your game as a website in the `build/` folder
+This will generate a built version of your game as a website in the `build/` folder
 :::
 
 ## Building your game as an app
 
-The narrat template is already setup to use [electron](https://www.electronjs.org) to easily build a desktop application out of your game.
+The narrat template game is setup to use [electron](https://www.electronjs.org) to easily build a desktop application out of your game.
 
 #### Requirements
 
@@ -26,6 +31,8 @@ You can run your game as an app:
 ```bash
 npm run electron
 ```
+
+#### Building the game
 
 Or you can package it as an executable (should work on Windows, Mac, Linux):
 
@@ -41,6 +48,4 @@ Please look at the [electron documentation](https://www.electronjs.org/docs/late
 
 ## Building for Steam
 
-See the following page
-
-[publishing-on-steam-steamworks-integration.md](publishing-on-steam-steamworks-integration.md)
+[Building for Steam](/guides/steam-publishing.md)

@@ -113,7 +113,7 @@ splice $data.deck $index_to_delete 1
 
 ## [2.9.2] - Time commands
 
-New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.get-narrat.com/functions-documentation/all-commands-list#time-commands)
+New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.get-narrat.com/commandsall-commands#time-commands)
 
 Fix: There was an issue when using the sprite `onClick` feature
 
@@ -188,7 +188,7 @@ New array syntax! It is now possible to create arrays, and to dynamically access
 
 See the [tweet explaining the feature](https://twitter.com/NarratEngine/status/1575809637277761542) or the [other tweet showing another example](https://twitter.com/NarratEngine/status/1575809637277761542).
 
-There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.get-narrat.com/functions-documentation/all-commands-list) docs page.
+There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.get-narrat.com/commandsall-commands) docs page.
 
 ### Quest categories
 

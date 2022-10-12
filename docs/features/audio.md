@@ -1,3 +1,8 @@
+---
+title: Narrat Audio Guide
+description: This guide explains how to use the audio features of narrat to play sounds and musics
+---
+
 # Playing Audio
 
 ### Config

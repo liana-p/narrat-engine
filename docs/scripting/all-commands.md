@@ -6,7 +6,7 @@ description: This page contains a list of all the existing narrat commands
 
 ## Commands list
 
-#### Dialog commands
+#### Dialog
 
 | Command                                   | Example                                        | Description                                                                                              |
 | ----------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -15,7 +15,7 @@ description: This page contains a list of all the existing narrat commands
 | text command (Empty command)              | `"Hello world"`                                | Writing text without a command will print that text as if it was said "by the game", without a character |
 |                                           |
 
-#### Basic program flow functions
+#### Basic program flow
 
 | Command                            | Example                                                                                                                                                               | Description                                                                                                                                                                             |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -24,14 +24,14 @@ description: This page contains a list of all the existing narrat commands
 | [return](../features/functions.md) | `return $test`                                                                                                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
 | [if](if-function.md)               | <p><br><code>if $data.hasFood:</code><br><code>"I have food, so we can eat a meal!"</code><br><code>else:</code><br><code>"We have nothing to eat"</code><br><br></p> | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
 
-#### Choices and interactive commands
+#### Choices
 
 | Command                      | Example                                                                                                                                                                                                                             | Description                                                                                     |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | [choice](choice-function.md) | <p><br><code>choice:</code><br><code>"Would you like tea?"</code><br><code>"Yes":</code><br><code>"Your friend serves you a cup of tea"</code><br><code>"No":</code><br><code>"Your friend makes tea for themselves"</code><br></p> | Lets the player choose between two or more options. See the linked documentation for more info. |
 | [text_field](text-field.md)  | `text_field "A prompt text""`                                                                                                                                                                                                       | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
 
-#### Logic operators, conditions
+#### Logic operators and conditions
 
 | Command                                                | Example                                                                         | Description                                                              |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -65,7 +65,7 @@ description: This page contains a list of all the existing narrat commands
 | [pause](audio-commands-music-and-sounds/pause.md)                      | `pause music [channel]`        | Pauses a music mode with an optional channel number                                                                         |
 | [stop](audio-commands-music-and-sounds/stop.md)                        | `stop music [channel]`         | Same as pause but stops                                                                                                     |
 
-#### items
+#### Items
 
 | Command                                                            | Example                                                                                | Description                                  |
 | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | -------------------------------------------- |
@@ -76,7 +76,7 @@ description: This page contains a list of all the existing narrat commands
 | [enable_interaction](../guides/using-items.md#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
 | [`disable_interaction`](../guides/using-items.md#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
 
-#### notifications
+#### Notifications
 
 | Command                                                            | Example                 | Description                     |
 | ------------------------------------------------------------------ | ----------------------- | ------------------------------- |
@@ -97,7 +97,7 @@ description: This page contains a list of all the existing narrat commands
 | [quest_started?](../features/quests.md)          | `quest_started? myQuest` // Returns true or false                 | Check if a quest is started                                               |
 | [objective_started?](../features/quests.md)      | `objective_started? myQuest myObjective` // Returns true or false | Check if a quest objective is started                                     |
 
-#### Random generation
+#### Random
 
 | Command                                  | Example                                                                      | Description                                                     |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -106,7 +106,7 @@ description: This page contains a list of all the existing narrat commands
 | [random_from_args](random-generation.md) | `random_from_args 1 2 3 4 5` // Returns a random argument passed             | Returns a random argument passed                                |
 | random_from_array                        | `random_from_array $data.myArray` // Returns a random element from the array | Returns a random element from an array                          |
 
-#### Screens and buttons
+#### Viewport screen and buttons
 
 | Command                                                   | Example                       | Description                                                                             |
 | --------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------- |
@@ -114,7 +114,7 @@ description: This page contains a list of all the existing narrat commands
 | [empty_layer](left-side-viewport-commands/empty-layer.md) | `empty_layer 0`               | Removes all items from a layer                                                          |
 | [set_button](left-side-viewport-commands/set-button.md)   | `set_button myButton true`    | changes the value of a button (true, false, hidden) ID                                  |
 
-#### Variables manipulation
+#### Variables
 
 | Command                                    | Example                     | Description                                                                                                                                |
 | ------------------------------------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -122,7 +122,7 @@ description: This page contains a list of all the existing narrat commands
 | [add](modifying-variables/add-function.md) | `add data.playerHealth 10`  | Adds a value to a variable                                                                                                                 |
 | [var](modifying-variables/)                | `var test 3`                | Declares a local variable with a value. The variable will only exist in the current label and will stop existing once the label is exited. |
 
-#### Skills and skill checks
+#### Skills
 
 | Command                                     | Example                                                 | Description                                                       |
 | ------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
@@ -134,15 +134,15 @@ description: This page contains a list of all the existing narrat commands
 | [roll](skills-commands/roll.md)             | `roll mySkillCheck agility 50` // Returns true or false | Runs a skill check with a certain difficulty against a skill dice |
 | [reset_roll](skills-commands/reset-roll.md) | `reset_roll mySkillCheck`                               | Resets a skill check                                              |
 
-#### HUD stats
+#### Stats
 
-| Command                                   | Example                 | Description              |
-| ----------------------------------------- | ----------------------- | ------------------------ |
-| [add_stat](stats/add-stat.md)             | `add_stat myStat 10`    | Adds a value to a stat   |
-| [set_stat](stats/set-stat.md)             | `set_stat myStat 10`    | Sets a stat to a value   |
-| [get_stat_value](stats/get-stat-value.md) | `get_stat_value myStat` | Gets the value of a stat |
+| Command                                             | Example                 | Description              |
+| --------------------------------------------------- | ----------------------- | ------------------------ |
+| [add_stat](/commands/stats/add-stat.md)             | `add_stat myStat 10`    | Adds a value to a stat   |
+| [set_stat](/commands/stats/set-stat.md)             | `set_stat myStat 10`    | Sets a stat to a value   |
+| [get_stat_value](/commands/stats/get-stat-value.md) | `get_stat_value myStat` | Gets the value of a stat |
 
-#### Array commands
+#### Arrays
 
 Imagine $data.myArray contains an array with [25, 50, 75]
 
@@ -161,7 +161,7 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | random_from_array | `random_from_array $data.myArray` // Returns a random element from the array  | Returns a random element from an array                                                                                                                         |
 | shuffle           | `shuffle $data.myArray` // Returns a shuffled array                           | Shuffles an array                                                                                                                                              |
 
-#### Time commands
+#### Time
 
 | Command          | Example                                            | Description                                           |
 | ---------------- | -------------------------------------------------- | ----------------------------------------------------- |
@@ -173,16 +173,16 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | to_minutes       | `var minutes (to_minutes 100000)`                  | Converts a time in ms to minutes                      |
 | to_seconds       | `var seconds (to_seconds 100000)`                  | Converts a time in ms to seconds                      |
 
-#### String operations
+#### Strings
 
 | Command                    | Example                     | Description                                                                  |
 | -------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
 | [concat](string-commands/) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
 | [join](string-commands/)   | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
 
-#### sprites
+#### Screen Objects
 
-Sprites are new and not documented yet, basic usage is to put the result of create_sprite in a variable and then manipulate it. Example:
+Screen objects are new and not documented yet, basic usage is to put the result of `create_sprite` or `create_object` in a variable and then manipulate it. Example:
 
 ```
 set data.playerSprite (create_sprite img/player.png 50 50)
@@ -195,6 +195,7 @@ delete_sprite $data.playerSprite
 | Command       | Example                                  | Description                                   |
 | ------------- | ---------------------------------------- | --------------------------------------------- |
 | create_sprite | `create_sprite img/character.png 55 125` | Creates a sprite using an image at a position |
+| create_object | `create_object 55 125`                   | Creates an object at a position               |
 | delete_sprite | `delete_sprite $mySprite`                | Deletes a sprite (stored in a variable)       |
 
 #### Others

@@ -39,7 +39,7 @@ If using `manual` mode, you should give the player a chance to create manual sav
 
 To let the player save manually, there are two commands:
 
-[save-commands.md](../functions-documentation/save-commands.md)
+[save-commands.md](../commandssave-commands.md)
 
 ::: tip
 Because save data is only generated when jumping to a new label, save prompts should ideally be at the start of a label. Otherwise, the data saved will be outdated.

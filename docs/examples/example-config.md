@@ -1,4 +1,5 @@
 ---
+title: Example config files
 description: Those example config files are the ones used in the narrat demo
 ---
 
@@ -6,11 +7,15 @@ description: Those example config files are the ones used in the narrat demo
 
 Those example config files are the ones used in the narrat demo. For the most up to date versions, visit the GitHub links.
 
-[This folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/demo/data) contains all the config files used in the narrat demo and can serve as a good up to date example of every possible config file.
+::: tip
+[This folder on GitHub](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/demo/data) contains all the config files used in the narrat demo and can serve as a good up to date example of every possible config file.
+:::
 
 ## Game Config
 
-[https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/config.yaml](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/config.yaml)
+::: info
+See the most up to date config [directly on GitHub](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/config.yaml)
+:::
 
 ::: details Example game config.yaml
 
@@ -73,7 +78,9 @@ saves:
 
 ## Characters Config
 
-[https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/characters.yaml](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/characters.yaml)
+::: info
+See the most up to date config [directly on GitHub](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/examples/games/demo/data/characters.yaml)
+:::
 
 ```yaml
 ---
