@@ -15,9 +15,9 @@
     "test-unit": "pnpm -r --parallel --filter=./packages/* run test-unit",
     "check-types": "pnpm -r --parallel --filter=./packages/* run check-types",
     "lint": "pnpm -r --parallel --filter=./packages/* run lint",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs:dev": "npx vitepress dev docs",
+    "docs:build": "npx vitepress build docs",
+    "docs:serve": "npx vitepress serve docs"
   },
   "repository": {
     "type": "git",
