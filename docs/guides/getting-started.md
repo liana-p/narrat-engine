@@ -40,7 +40,7 @@ npm create narrat@latest
 
 This will download narrat and ask you some questions to configure your project. You can choose between a few game templates to get started. You can now follow the instructions from the tool to run the game, or follow the "Running the game" guide below
 
-## Running the game
+### Running the game
 
 ::: details How it works
 
@@ -48,7 +48,7 @@ The narrat template is essentially a template for a mostly empty web project, wi
 
 node.js is the JavaScript engine used to run our project (and build it or export it to an executable game later).
 
-We use [npm ](https://www.w3schools.com/whatis/whatis_npm.asp)to install libraries into the game. npm is simply a package manager for installing JS libraries with node.js
+We use [npm](https://www.w3schools.com/whatis/whatis_npm.asp)to install libraries into the game. npm is simply a package manager for installing JS libraries with node.js
 
 There is a [package.json](https://github.com/liana-p/narrat-engine-template/blob/main/package.json) file at the root of the template, which is a standard node.js file for defining a project and its dependencies, which get installed via npm. Inside the `dependencies` part of this file, you can find narrat with a version number. This is what tells the project to install a specific version of narrat.
 
@@ -94,12 +94,12 @@ Those `npm` commands come from node.js. If the commands aren't recognised, you p
 
 It is now easy to make a game by editing the narrat scripts and config files!
 
-[Customising the game](/guides/customising-your-narrat-game)
+[Editing the game](/guides/editing-the-game)
 
 ## Building and exporting the game
 
-[Building and exporting](/guides/building-and-exporting-your-game)
+[Building and exporting](/guides/building-and-exporting)
 
 ## Commands Documentation
 
-[All commands](/functions-documentation/all-commands-list)
+[All commands](/scripting/all-commands)

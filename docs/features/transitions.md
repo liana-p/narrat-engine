@@ -1,6 +1,6 @@
 # Transitions
 
-Transitions can be used to animate the change between two screens when using the [set_screen ](../functions-documentation/left-side-viewport-commands/set-screen.md)command
+Transitions can be used to animate the change between two screens when using the [set_screen ](../commandsleft-side-viewport-commands/set-screen.md)command
 
 ### Usage Example
 

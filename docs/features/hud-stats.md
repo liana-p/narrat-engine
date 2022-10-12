@@ -1,6 +1,7 @@
 ---
+title: HUD Stats
 description: >-
-  HUD Stats are number values that automatically appear in the HUD at the top
+  HUD Stats in Narrat are number values that automatically appear in the HUD at the top
   right of the screen and can be controlled via game scripts.
 ---
 
@@ -37,6 +38,4 @@ Stats are defined in the `hudStats` part of the config.
 
 ### Functions
 
-[stats](../functions-documentation/stats/)
-
-[add-stat.md](../functions-documentation/stats/add-stat.md)
+[stats](../commands/stats/)

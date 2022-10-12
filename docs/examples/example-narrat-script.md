@@ -1,10 +1,15 @@
+---
+title: Example narrat script
+description: An example narrat script
+---
+
 # Example narrat script
 
 This is a copy of one of the example game scripts from the demo game in the narrat [examples folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
 
 For more up to date versions and more different examples, look at the various sample demo scripts directly on GitHub.
 
-[https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
+[Example games folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
 
 ```
 main:
