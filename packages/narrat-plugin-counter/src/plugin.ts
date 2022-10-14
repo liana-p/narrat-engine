@@ -2,7 +2,7 @@ import CounterUi from './components/counter-ui.vue';
 import { useCounter } from './custom-stores/counter-store';
 import {
   CommandPlugin,
-  CustomMenuButton,
+  CustomMenuTab,
   CustomStores,
   NarratPlugin,
 } from 'narrat';
@@ -17,7 +17,7 @@ import {
 export class CounterPlugin extends NarratPlugin {
   customStores: CustomStores;
   customCommands: CommandPlugin<any>[];
-  customMenuButtons: CustomMenuButton[];
+  customMenuTabs: CustomMenuTab[];
 
   constructor() {
     super();
@@ -41,20 +41,14 @@ export class CounterPlugin extends NarratPlugin {
       new CommandPlugin('get_counter', [], async (ctx) => useCounter().count),
     ];
 
-    this.customMenuButtons = [
+    this.customMenuTabs = [
       {
+        menuId: 'menu',
         config: {
           id: 'counter',
-          label: 'Counter',
+          text: 'Counter',
           cssClass: 'counter-menu-button',
-          activeTab: 0,
-          tabs: [
-            {
-              id: 'counter',
-              text: 'Counter',
-              component: 'CounterUi',
-            },
-          ],
+          component: 'CounterUi',
         },
         component: CounterUi,
       },

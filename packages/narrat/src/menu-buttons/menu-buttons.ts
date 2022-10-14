@@ -87,7 +87,12 @@ export function addMenuButtonsFromPlugins() {
   for (const plugin of vm.plugins) {
     if (plugin.customMenuButtons) {
       for (const button of plugin.customMenuButtons) {
-        registerMenuButton(button.config.id, button.config, button.component);
+        registerMenuButton(button.config.id, button.config, button.components);
+      }
+    }
+    if (plugin.customMenuTabs) {
+      for (const tab of plugin.customMenuTabs) {
+        registerMenuTab(tab.config.id, tab.config, tab.component);
       }
     }
   }
