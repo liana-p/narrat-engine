@@ -1,5 +1,6 @@
 export { useMain } from '@/stores/main-store';
 export { useAudio } from '@/stores/audio-store';
+export { useConfig } from '@/stores/config-store';
 export { useDialogStore } from '@/stores/dialog-store';
 export { useHud } from '@/stores/hud-stats-store';
 export { useInventory } from '@/stores/inventory-store';

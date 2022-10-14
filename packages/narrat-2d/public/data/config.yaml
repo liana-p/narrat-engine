@@ -1,0 +1,41 @@
+---
+gameTitle: Narrat Game Example
+images: {}
+dialogPanel:
+  textSpeed: 30
+  animateText: true
+  timeBetweenLines: 100
+  overlayMode: true
+  rightOffset: 100
+  bottomOffset: 50
+  width: 475
+  height: 680
+layout:
+  backgrounds:
+    width: 1280
+    height: 720
+  dialogBottomPadding: 70
+  mobileDialogHeightPercentage: 60
+  verticalLayoutThreshold: 600
+  portraits:
+    width: 100
+    height: 100
+screens: data/screens.yaml
+buttons: data/buttons.yaml
+skills: data/skills.yaml
+scripts: data/scripts.yaml
+characters: data/characters.yaml
+audio: data/audio.yaml
+notifications:
+  timeOnScreen: 2.5
+  alsoPrintInDialogue: true
+hudStats: {}
+items: data/items.yaml
+interactionTags:
+  default:
+    onlyInteractOutsideOfScripts: true
+quests: data/quests.yaml
+menuButtons: {}
+saves:
+  mode: manual
+  slots: 10
