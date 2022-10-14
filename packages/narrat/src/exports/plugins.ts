@@ -3,7 +3,7 @@ import { CommandPlugin, generateParser } from '../vm/commands/command-plugin';
 import type { CommandRunner } from '../vm/commands/command-plugin';
 import { vm } from '../vm/vm';
 import { StoreDefinition } from 'pinia';
-import { MenuState } from '@/stores/menu-store';
+import { MenuState, MenuTabState } from '@/stores/menu-store';
 
 export type NarratLifecycleHook = <T extends [...any[]]>(...args: T) => void;
 
@@ -27,7 +27,13 @@ export interface CustomStores {
 }
 
 export interface CustomMenuButton {
+  menuId: string;
   config: MenuState;
+  components: { [key: string]: any };
+}
+export interface CustomMenuTab {
+  menuId: string;
+  config: MenuTabState;
   component: any;
 }
 export type NarratPluginObject<T> = {
@@ -42,6 +48,7 @@ export type NarratPluginObject<T> = {
   customCommands?: CommandPlugin<T>[];
   customStores?: CustomStores;
   customMenuButtons?: CustomMenuButton[];
+  customMenuTabs?: CustomMenuTab[];
 };
 
 function registerPlugin<T>(plugin: NarratPluginObject<T>) {

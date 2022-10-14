@@ -115,7 +115,6 @@ export const useMain = defineStore('main', {
       options: {
         baseAssetsPath: '',
         baseDataPath: '',
-        charactersPath: 'data/characters.json',
         configPath: 'data/config.json',
         logging: false,
         debug: false,
