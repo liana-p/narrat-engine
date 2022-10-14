@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.10.1] - Plugin API updates
+
+Small fixes to the plugin API after recent changes. No other functional changes
+
 ## [2.10.0] - Nested sprites and texts in the viewport
 
 ### /!\ Breaking change
