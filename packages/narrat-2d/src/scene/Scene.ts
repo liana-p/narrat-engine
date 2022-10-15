@@ -19,6 +19,7 @@ export class Scene {
   public allComponents: { [key: string]: Component } = {};
 
   attachToStage(pixiRoot: PIXI.Container) {
+    this.container = pixiRoot;
     if (!this.root) {
       this.root = new GameObject(
         {

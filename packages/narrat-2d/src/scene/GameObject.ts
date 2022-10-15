@@ -64,9 +64,7 @@ export class GameObject<
     } else if (!root) {
       this.scene.root.addChild(this);
     }
-    if (!root) {
-      this.scene.addObject(this);
-    }
+    this.scene.addObject(this);
   }
 
   destroy() {
@@ -81,6 +79,9 @@ export class GameObject<
   }
 
   addChild(child: GameObject<any>) {
+    if (this.children.indexOf(child) !== -1) {
+      return;
+    }
     this.children.push(child);
     this.node.addChild(child.node);
     child.parent = this;

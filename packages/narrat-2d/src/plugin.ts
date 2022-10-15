@@ -99,29 +99,36 @@ export class PixiPlugin extends NarratPlugin {
     obj2.node.y = viewport.clientHeight / 2;
     obj2.node.anchor.x = 0.5;
     obj2.node.anchor.y = 0.5;
-    // const tick = this.app.ticker.add(() => {
-    //   obj.node.rotation += 0.004;
-    //   obj2.node.rotation += 0.05;
-    // });
+    const tickRotation = () => {
+      obj.node.rotation += 0.004;
+      obj2.node.rotation += 0.05;
+    };
+    const tick = this.app.ticker.add(tickRotation);
     // const bunnyTick = this.app.ticker.add(() => {
     //   bunny.rotation += 0.01;
     //   bunny.x -= 0.005;
     // });
     console.log('========== Serialised');
 
+    await timeout(2000);
     const serialised = scene.serialise();
     console.log(serialised);
     console.log('==========');
     const serialisedString = JSON.stringify(serialised);
     console.log(serialisedString);
     console.log(obj2.node);
-    await timeout(20000);
     console.log('destroy scene');
+    this.app.ticker.remove(tickRotation);
     scene.destroy();
-    await timeout(20000);
+    await timeout(2000);
     console.log('recreate scene');
     scene = new Scene();
     scene.load(JSON.parse(serialisedString));
     scene.attachToStage(this.app.stage);
+    const serialised2 = scene.serialise();
+    console.log(serialised2);
+    const serialised2String = JSON.stringify(serialised2);
+    console.log('1', serialisedString);
+    console.log('2', serialised2String);
   }
 }

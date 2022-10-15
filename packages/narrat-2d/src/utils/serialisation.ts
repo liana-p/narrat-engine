@@ -21,6 +21,10 @@ export const pixiPropsToSerialise: FieldsToSerialise = {
     x: true,
     y: true,
   },
+  anchor: {
+    x: true,
+    y: true,
+  },
   rotation: true,
   pivot: {
     x: true,
@@ -152,7 +156,7 @@ export function getNodeTypeData<I extends RendererNodeInfo>(
 export type RendererNodeType = keyof typeof pixiNodeTypes;
 
 export interface SerialisedPixiNode {
-  props: any;
+  [key: string]: any;
 }
 export function serialisePixiNode(gameObject: GameObject): SerialisedPixiNode {
   const nodeType = gameObject.nodeInfo._type;
@@ -177,7 +181,8 @@ export function deserialisePixiNode<
   if (data.load) {
     data.load(node, info);
   }
-  deserialiseObjectWithFields(node, serialised.props);
+  console.log('deserialisePixiNode', node, info, serialised);
+  deserialiseObjectWithFields(node, serialised);
   return node;
 }
 
@@ -186,7 +191,7 @@ export function serialiseObjectWithFields(obj: any, fields: FieldsToSerialise) {
   for (const key in fields) {
     if (fields[key] === true) {
       res[key] = obj[key];
-    } else {
+    } else if (typeof obj[key] === 'object') {
       res[key] = serialiseObjectWithFields(
         obj[key],
         fields[key] as FieldsToSerialise,
@@ -203,6 +208,7 @@ export function deserialiseObjectWithFields(obj: any, serialised: any) {
       }
       deserialiseObjectWithFields(obj[key], serialised[key]);
     } else {
+      console.log(`assign ${key} to node ${serialised[key]}`);
       obj[key] = serialised[key];
     }
   }
