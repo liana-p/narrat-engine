@@ -49,7 +49,23 @@ export type NarratPluginObject<T> = {
   customStores?: CustomStores;
   customMenuButtons?: CustomMenuButton[];
   customMenuTabs?: CustomMenuTab[];
+  startMenuButtons?: CustomStartMenuButton[];
 };
+
+/**
+ * Custom buttons that get added to the start menu (where the New Game etc buttons are)
+ * Action option is to provide a function to run on click
+ * popupComponent option is to provide a component to display in a modal window on click (for custom pieces of UI)
+ */
+export interface CustomStartMenuButton {
+  id: string;
+  text: string;
+  action?: () => void;
+  popupComponent?: {
+    name: string;
+    component: any;
+  }
+}
 
 function registerPlugin<T>(plugin: NarratPluginObject<T>) {
   vm.addPlugin(plugin);

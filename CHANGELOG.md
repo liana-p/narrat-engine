@@ -1,5 +1,11 @@
 # Narrat changelog
 
+## [2.10.3] - Custom start menu buttons
+
+New plugin API to add custom buttons to the start menu additionally to the basic ones.
+
+See [Custom start menu buttons docs](https://docs2.get-narrat.com/guides/custom-start-buttons)
+
 ## [2.10.2] - Sprites nesting fix
 
 Fixed an edge case where sprites nesting would cause an infinite loop during saving
