@@ -60,6 +60,16 @@ export type ScreenObjectsStoreSave = {
   };
 };
 
+const entityTypes: ScreenObjectType[] = ['screenObject', 'sprite'];
+
+export function isScreenObject(entity: any): entity is ScreenObjectState {
+  return (
+    typeof entity === 'object' &&
+    entity !== null &&
+    entityTypes.includes(entity._entityType)
+  );
+}
+
 export function isSprite(entity: any): entity is SpriteState {
   return (
     typeof entity === 'object' &&

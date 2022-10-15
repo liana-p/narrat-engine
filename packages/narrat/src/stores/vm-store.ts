@@ -10,6 +10,7 @@ import { getFile, loadDataFile } from '@/utils/ajax';
 import {
   addDataHelper,
   deepCopy,
+  deepCopyMap,
   getModifiableDataPinia,
   setDataHelper,
 } from '@/utils/data-helpers';
@@ -23,7 +24,11 @@ import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useInventory } from './inventory-store';
 import { useMain } from './main-store';
-import { isSprite, useScreenObjects } from './screen-objects-store';
+import {
+  isScreenObject,
+  isSprite,
+  useScreenObjects,
+} from './screen-objects-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -89,7 +94,14 @@ export const useVM = defineStore('vm', {
     generateSaveData(): VMSave {
       return {
         lastLabel: this.lastLabel,
-        data: deepCopy(this.data),
+        data: deepCopyMap(this.data, (value) => {
+          if (isScreenObject(value)) {
+            return {
+              _entityType: value._entityType,
+              id: value.id,
+            };
+          }
+        }),
       };
     },
     loadSaveData(data: VMSave) {
@@ -99,15 +111,17 @@ export const useVM = defineStore('vm', {
     },
     findEntitiesInData(data: any) {
       deepEvery(this.data, (value, key, parent) => {
-        if (isSprite(value)) {
-          const spriteFromStore = useScreenObjects().getObject(value.id);
-          if (!spriteFromStore) {
+        if (isScreenObject(value)) {
+          const objectFromStore = useScreenObjects().getObject(value.id);
+          if (!objectFromStore) {
             warning(
-              `Trying to reload sprite ${key} (${value.image} - ${value.id}) but it does not exist.`,
+              `Trying to reload sprite ${key} (${JSON.stringify(value)} - ${
+                value.id
+              }) but it does not exist.`,
             );
-            useScreenObjects().addObject(value);
+            // useScreenObjects().addObject(value);
           } else {
-            parent[key] = spriteFromStore;
+            parent[key] = objectFromStore;
           }
         }
       });

@@ -59,6 +59,11 @@ const config = {
           },
           { text: 'Language Syntax', link: '/scripting/language-syntax' },
           { text: 'Functions', link: '/scripting/functions' },
+          {
+            text: 'Known limitations and issues',
+            link: '/others/scripting-limitations',
+          },
+          { text: 'Plugin API', link: '/scripting/plugins' },
         ],
       },
       {
