@@ -4,6 +4,10 @@ description: >-
   minute
 ---
 
+::: danger
+This is the **new documentation website**. It is better than the old one but might be missing some pages or have issues. If you need to refer to the old docs please go to [docs-old.get-narrat.com](https://docs-old.get-narrat.com)
+:::
+
 ::: tip
 Getting started with narrat is very quick. There is a ready-to-use template that can get you running your game in a minute
 :::
