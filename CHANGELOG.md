@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.10.2] - Sprites nesting fix
+
+Fixed an edge case where sprites nesting would cause an infinite loop during saving
+
 ## [2.10.1] - Plugin API updates
 
 Small fixes to the plugin API after recent changes. No other functional changes

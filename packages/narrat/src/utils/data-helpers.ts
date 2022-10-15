@@ -281,3 +281,30 @@ export function deepCopy<T>(a: T): T {
     return a;
   }
 }
+
+export function deepCopyMap<T>(a: T, predicate: (value: any) => any): T {
+  if (a === null) {
+    return null as any;
+  }
+  if (typeof a === 'object') {
+    const res = predicate(a);
+    if (predicate(a)) {
+      return res;
+    }
+    if (Array.isArray(a)) {
+      const b: any = [];
+      for (const key in a) {
+        b[key] = deepCopyMap(a[key], predicate);
+      }
+      return b;
+    } else {
+      const b: any = {};
+      for (const key in a) {
+        b[key] = deepCopyMap(a[key], predicate);
+      }
+      return b;
+    }
+  } else {
+    return predicate(a);
+  }
+}
