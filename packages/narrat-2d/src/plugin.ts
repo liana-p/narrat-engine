@@ -75,7 +75,9 @@ export class PixiPlugin extends NarratPlugin {
     // this.app.stage.addChild(curtain);
 
     let scene = new Scene(this.app.stage);
+    console.log('========== Scene');
     console.log(scene);
+    console.log('==========');
     const obj = new GameObject({
       scene,
     });
@@ -87,9 +89,12 @@ export class PixiPlugin extends NarratPlugin {
     const tick = this.app.ticker.add(() => {
       obj.node.rotation += 0.01;
     });
+    console.log('========== Serialised');
+
     const serialised = scene.serialise();
-    const serialisedString = JSON.stringify(serialised);
     console.log(serialised);
+    console.log('==========');
+    const serialisedString = JSON.stringify(serialised);
     console.log(serialisedString);
     await timeout(10000);
     scene.destroy();
