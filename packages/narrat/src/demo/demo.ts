@@ -1,4 +1,7 @@
+import { NarratPlugin } from '@/lib';
 import { startApp } from '@/main';
+import SkillsWindow from '@/components/SkillsWindow.vue';
+import { registerPlugin } from '@/exports/plugins';
 
 // This config is there to enable playing different demo games based on environment variables.
 // It is also used to build the different demos.

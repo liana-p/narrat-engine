@@ -32,6 +32,7 @@ const config = {
           { text: 'Getting Help', link: '/guides/getting-help' },
           { text: 'Steam publishing', link: '/guides/steam-publishing' },
           { text: 'Updating narrat', link: '/guides/updating-narrat' },
+          { text: 'Custom Start Menu Buttons', '/guides/custom-start-buttons' }
         ],
       },
       {

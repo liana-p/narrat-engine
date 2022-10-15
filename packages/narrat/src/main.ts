@@ -21,6 +21,7 @@ import {
 import { BUILD_DATE, VERSION } from './constants';
 import { addDirectives } from './utils/vue-directives';
 import { useConfig } from './stores/config-store';
+import { useStartMenu } from './stores/start-menu-store';
 
 let app: any;
 
@@ -49,6 +50,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   // Register menu components
   registerDefaultMenuButtons(app);
   addMenuButtonsFromPlugins();
+  useStartMenu().addButtonsFromPlugins();
   useMain().setOptions(options);
   app.use(Vue3Mq, {
     breakpoints: {

@@ -38,8 +38,29 @@
         >
           Load Game
         </button>
+        <button v-for="button in extraButtons" :key="button.id" class="button menu-button main-menu-button large override"
+        :class="`${button.id}-start-menu-button`"
+        @click="clickExtraButton(button)">
+          {{ button.text }}
+        </button>
       </div>
     </div>
+    <Teleport to="#app-container" v-if="popupComponent">
+      <ModalWindow @close="closePopupComponent" :class="`start-menu-popup-${popupComponent.id}`">
+        <template v-slot:header>
+          <h3 class="title">
+            {{ popupComponent.text }}
+          </h3>
+        </template>
+        <template v-slot:body>
+          <component
+            :is="popupComponent.popupComponent.component"
+            v-if="popupComponent.popupComponent"
+            @close="closePopupComponent"
+          />
+        </template>
+      </ModalWindow>
+    </Teleport>
   </div>
 </template>
 <script setup lang="ts">
@@ -58,6 +79,9 @@ import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import { useAudio } from '@/stores/audio-store';
 import { inputEvents } from '../utils/InputsListener';
+import { useStartMenu } from '@/stores/start-menu-store';
+import { CustomStartMenuButton } from '@/lib';
+import ModalWindow from './utils/modal-window.vue';
 
 const hasSave = ref(false);
 const hasFreeSlot = ref(false);
@@ -66,6 +90,10 @@ const saveSlot = ref<string | null>(null);
 const choosingSave = ref(false);
 const startingGame = ref(false);
 const listener = ref<null | Function>(null);
+const startMenuStore = useStartMenu();
+const popupComponent = ref<CustomStartMenuButton | false>(false)
+
+const extraButtons = computed(() => startMenuStore.buttons);
 
 async function startGame() {
   if (hasSave.value && getConfig().saves.mode === 'manual') {
@@ -96,6 +124,18 @@ async function confirmStartGame() {
   }
   startingGame.value = false;
   await main.startGame(saveSlot.value!);
+}
+
+function clickExtraButton(button: CustomStartMenuButton) {
+  if (button.action) {
+    button.action();
+  }
+  if (button.popupComponent) {
+    popupComponent.value = button;
+  }
+}
+function closePopupComponent() {
+  popupComponent.value = false;
 }
 
 function cancelStartGame() {
