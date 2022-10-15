@@ -1,146 +1,31 @@
 import { randomId } from 'narrat';
 import * as PIXI from 'pixi.js';
-export interface CreateGameObjectOptions {
+import { Component, ComponentTypes } from './Component';
+import { Scene } from './Scene';
+import {
+  deserialisePixiNode,
+  pixiNodeTypes,
+  RendererNodeInfo,
+  RendererNodeOptions,
+  RendererNodeType,
+  SerialisedPixiNode,
+  serialisePixiNode,
+} from '@/utils/serialisation';
+export interface CreateGameObjectOptions<
+  NodeType extends PIXI.Container = PIXI.Container,
+  NodeInfo extends RendererNodeInfo = RendererNodeInfo,
+> {
   scene: Scene;
-  node?: PIXI.Container;
-  parent?: GameObject;
+  node: RendererNodeOptions<NodeType, NodeInfo>;
+  parent?: GameObject<any>;
   name?: string;
   tags?: string[];
 }
 
-export type ComponentTypes = 'Character';
-
-export interface SerialisedReference {
-  _type: string;
-  _id: string;
-}
-
-export interface FieldsToSerialise {
-  [key: string]: FieldToSerialise;
-}
-export type FieldToSerialise = true | FieldsToSerialise;
-const pixiPropsToSerialise: FieldsToSerialise = {
-  x: true,
-  y: true,
-  scale: {
-    x: true,
-    y: true,
-  },
-  rotation: true,
-  pivot: {
-    x: true,
-    y: true,
-  },
-};
-
-export interface SerialisedScene {
-  allObjects: {
-    [key: string]: SerialisedGameObject;
-  };
-  allComponents: {
-    [key: string]: SerialisedComponent;
-  };
-  tree: string[];
-}
-
-export class Scene {
-  public root: GameObject;
-  public allObjects: { [key: string]: GameObject } = {};
-  public allComponents: { [key: string]: Component } = {};
-  public constructor(pixiRoot: PIXI.Container) {
-    this.root = new GameObject({ node: pixiRoot, scene: this }, true);
-  }
-
-  addObject(obj: GameObject) {
-    this.allObjects[obj.id] = obj;
-  }
-
-  removeObject(obj: GameObject) {
-    delete this.allObjects[obj.id];
-  }
-
-  addComponent(component: Component) {
-    this.allComponents[component.id] = component;
-  }
-
-  removeComponent(component: Component) {
-    delete this.allComponents[component.id];
-  }
-
-  serialise(): SerialisedScene {
-    return {
-      allObjects: Object.keys(this.allObjects).reduce((acc, key) => {
-        acc[key] = this.allObjects[key].serialise();
-        console.log(acc[key]);
-        return acc;
-      }, {} as { [key: string]: SerialisedGameObject }),
-      allComponents: Object.keys(this.allComponents).reduce((acc, key) => {
-        acc[key] = this.allComponents[key].serialise();
-        console.log(acc[key]);
-        return acc;
-      }, {} as { [key: string]: SerialisedComponent }),
-      tree: this.root.serialise().children,
-    };
-  }
-
-  load(serialisedScene: SerialisedScene) {
-    this.root = new GameObject(
-      { node: new PIXI.Container(), scene: this },
-      true,
-    );
-    this.allObjects = Object.keys(serialisedScene.allObjects).reduce(
-      (acc, key) => {
-        const serialisedObject = serialisedScene.allObjects[key];
-        const obj = GameObject.FromSerialised(serialisedObject, this);
-        acc[obj.id] = obj;
-        return acc;
-      },
-      {} as { [key: string]: GameObject },
-    );
-    this.allComponents = Object.keys(serialisedScene.allComponents).reduce(
-      (acc, key) => {
-        const serialisedComponent = serialisedScene.allComponents[key];
-        const component = Component.FromSerialised(serialisedComponent, this);
-        acc[component.id] = component;
-        return acc;
-      },
-      {} as { [key: string]: Component },
-    );
-    this.populateComponents();
-    this.populateGameObjects(serialisedScene);
-  }
-
-  populateGameObjects(serialisedScene: SerialisedScene) {
-    this.root.populateObjectFromLoadedData(serialisedScene.tree);
-    for (const key in this.allObjects) {
-      this.allObjects[key].populateObjectFromLoadedData(
-        serialisedScene.allObjects[key].children,
-      );
-    }
-  }
-
-  populateComponents() {
-    for (const key in this.allComponents) {
-      const component = this.allComponents[key];
-      component.data = deserialiseData(component.data, this);
-    }
-  }
-
-  getObject(id: string) {
-    return this.allObjects[id];
-  }
-
-  getComponent(id: string) {
-    return this.allComponents[id];
-  }
-
-  destroy() {
-    this.root.destroy();
-  }
-}
 export interface SerialisedGameObject {
   id: string;
-  node: Partial<PIXI.Container>;
+  node: SerialisedPixiNode;
+  nodeInfo: RendererNodeInfo;
   children: string[];
   parent?: string;
   components: string[];
@@ -148,20 +33,28 @@ export interface SerialisedGameObject {
   tags: string[];
 }
 
-export class GameObject {
+export class GameObject<
+  NodeType extends PIXI.Container = PIXI.Container,
+  NodeInfo extends RendererNodeInfo = RendererNodeInfo,
+> {
   public id: string;
-  public node: PIXI.Container;
+  public node: NodeType;
+  public nodeInfo: NodeInfo;
   public name: string;
   public tags: string[] = [];
   public components: Component[] = [];
-  public children: GameObject[] = [];
-  public parent?: GameObject;
+  public children: GameObject<any>[] = [];
+  public parent?: GameObject<any>;
   public scene: Scene;
   private _componentIds: string[] = [];
 
-  constructor(options: CreateGameObjectOptions, root?: boolean) {
+  constructor(
+    options: CreateGameObjectOptions<NodeType, NodeInfo>,
+    root?: boolean,
+  ) {
     this.id = randomId();
-    this.node = options.node ?? new PIXI.Container();
+    this.node = options.node.node;
+    this.nodeInfo = options.node.info;
     this.parent = options.parent;
     this.scene = options.scene;
     this.name = options.name ?? `GameObject ${this.id.substring(0, 10)}`;
@@ -187,7 +80,7 @@ export class GameObject {
     this.node.destroy();
   }
 
-  addChild(child: GameObject) {
+  addChild(child: GameObject<any>) {
     this.children.push(child);
     this.node.addChild(child.node);
     child.parent = this;
@@ -205,6 +98,7 @@ export class GameObject {
       this.children.splice(index, 1);
       this.node.removeChild(child.node);
     }
+    child.parent = undefined;
   }
 
   addComponent(component: Component) {
@@ -227,7 +121,8 @@ export class GameObject {
   serialise(): SerialisedGameObject {
     return {
       id: this.id,
-      node: this.serialisePixiNode(),
+      node: this.serialiseNode(),
+      nodeInfo: this.nodeInfo,
       children: this.children.map((child) => child.id),
       parent: this.parent?.id,
       components: this.components.map((component) => component.id),
@@ -236,9 +131,8 @@ export class GameObject {
     };
   }
 
-  serialisePixiNode() {
-    const node = this.node;
-    return serialiseObject(node, pixiPropsToSerialise);
+  serialiseNode(): SerialisedPixiNode {
+    return serialisePixiNode(this);
   }
 
   populateObjectFromLoadedData(serialisedChildren: string[]) {
@@ -266,139 +160,15 @@ export class GameObject {
     serialised: SerialisedGameObject,
     scene: Scene,
   ): GameObject {
-    const obj = new GameObject({ scene });
+    const node = deserialisePixiNode(serialised.nodeInfo, serialised.node);
+    const obj = new GameObject(
+      { scene, node: { node, info: serialised.nodeInfo } },
+      true,
+    );
     obj.id = serialised.id;
     obj.name = serialised.name;
     obj.tags = serialised.tags;
     obj._componentIds = serialised.components;
-    deserialiseObject(obj.node, serialised.node);
     return obj;
-  }
-}
-
-export type SerialisedComponent = {
-  id: string;
-  type: ComponentTypes;
-  gameObject: SerialisedReference;
-  data: {
-    [key: string]: any;
-  };
-};
-
-export function toSerialisedReference(
-  type: string,
-  id: string,
-): SerialisedReference {
-  return { _type: type, _id: id };
-}
-export function serialiseData(data: any): any {
-  if (data instanceof GameObject) {
-    return toSerialisedReference('GameObject', data.id);
-  }
-  if (data instanceof Component) {
-    return toSerialisedReference('Component', data.id);
-  }
-  if (Array.isArray(data)) {
-    return data.map((item) => serialiseData(item));
-  }
-  if (typeof data === 'object') {
-    return Object.keys(data).reduce((acc, key) => {
-      acc[key] = serialiseData(data[key]);
-      return acc;
-    }, {} as { [key: string]: any });
-  }
-  return data;
-}
-
-export function deserialiseData(data: any, scene: Scene): any {
-  if (data._type === 'GameObject') {
-    return scene.getObject(data._id);
-  }
-  if (data._type === 'Component') {
-    return scene.getComponent(data._id);
-  }
-  if (Array.isArray(data)) {
-    return data.map((item) => deserialiseData(item, scene));
-  }
-  if (typeof data === 'object') {
-    return Object.keys(data).reduce((acc, key) => {
-      acc[key] = deserialiseData(data[key], scene);
-      return acc;
-    }, {} as { [key: string]: any });
-  }
-  return data;
-}
-
-export interface ComponentOptions {
-  gameObject: GameObject;
-  type: ComponentTypes;
-  scene: Scene;
-}
-
-export class Component {
-  public id: string;
-  public type: ComponentTypes;
-  public gameObject!: GameObject;
-  public data: { [key: string]: any } = {};
-  public scene: Scene;
-  constructor(options: ComponentOptions) {
-    this.id = randomId();
-    this.type = options.type;
-    this.scene = options.scene;
-    this.gameObject = options.gameObject;
-    this.gameObject.addComponent(this);
-  }
-
-  serialise(): SerialisedComponent {
-    return {
-      id: this.id,
-      type: this.type,
-      gameObject: toSerialisedReference('GameObject', this.gameObject.id),
-      data: serialiseData(this.data),
-    };
-  }
-
-  static FromSerialised(serialised: SerialisedComponent, scene: Scene) {
-    const gameObject = deserialiseData(
-      serialised.gameObject,
-      scene,
-    ) as GameObject;
-    const component = new Component({
-      type: serialised.type,
-      gameObject,
-      scene,
-    });
-    component.id = serialised.id;
-    component.data = serialised.data;
-    return component;
-  }
-
-  destroy() {
-    this.gameObject.removeComponent(this);
-    this.scene.removeComponent(this);
-  }
-}
-
-function serialiseObject(obj: any, fields: FieldsToSerialise) {
-  const res: any = {};
-  for (const key in fields) {
-    if (fields[key] === true) {
-      res[key] = obj[key];
-    } else {
-      res[key] = serialiseObject(obj[key], fields[key] as FieldsToSerialise);
-    }
-  }
-  return res;
-}
-function deserialiseObject(obj: any, serialised: any) {
-  for (const key in serialised) {
-    if (typeof serialised[key] === 'object') {
-      if (!obj[key] || typeof obj[key] !== 'object') {
-        obj[key] = {};
-      }
-      deserialiseObject(obj[key], serialised[key]);
-    } else {
-      obj[key] = serialised[key];
-    }
   }
 }

@@ -7,9 +7,12 @@ import {
   getImageUrl,
   timeout,
 } from 'narrat';
-import { Application, Sprite } from 'pixi.js';
+import { Application, Sprite, Container } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import { Assets } from '@pixi/assets';
-import { GameObject, Scene } from './scene/GameObject';
+import { GameObject } from './scene/GameObject';
+import { Scene } from './scene/Scene';
+import { createContainerNode, createSpriteNode } from './utils/serialisation';
 /**
  * The CounterPlugin is a simple example plugin to showcase the various features plugins can use.
  * This plugin will use the `counter-store` custom store to store custom data (which gets saved and loaded)
@@ -54,7 +57,10 @@ export class PixiPlugin extends NarratPlugin {
   }
 
   async attachToViewport() {
-    this.app = new Application();
+    (window as any).PIXI = PIXI;
+    this.app = new Application({
+      backgroundColor: 0x1099bb,
+    });
     const viewport = document.querySelector('#narrat-viewport');
     if (!viewport) {
       error('Could not find viewport element');
@@ -66,29 +72,41 @@ export class PixiPlugin extends NarratPlugin {
     const texture = await Assets.load(
       getImageUrl('img/backgrounds/curtain.webp'),
     );
+    const bunnyTexture = await Assets.load(
+      getImageUrl('https://pixijs.io/examples/examples/assets/bunny.png'),
+    );
+    const bunny = new Sprite(bunnyTexture);
+    bunny.x = 100;
+    bunny.y = 100;
 
-    // const curtain = new Sprite(texture);
-    // curtain.x = this.app.renderer.width / 2;
-    // curtain.y = this.app.renderer.height / 2;
-    // curtain.anchor.x = 0.5;
-    // curtain.anchor.y = 0.5;
-    // this.app.stage.addChild(curtain);
+    let scene = new Scene();
+    scene.attachToStage(this.app.stage);
 
-    let scene = new Scene(this.app.stage);
+    // this.app.stage.addChild(bunny);
     console.log('========== Scene');
     console.log(scene);
     console.log('==========');
     const obj = new GameObject({
       scene,
+      node: createContainerNode(),
     });
     const obj2 = new GameObject({
-      node: new Sprite(texture),
+      node: createSpriteNode('img/backgrounds/curtain.webp'),
       parent: obj,
       scene,
     });
-    const tick = this.app.ticker.add(() => {
-      obj.node.rotation += 0.01;
-    });
+    obj2.node.x = viewport.clientWidth / 2;
+    obj2.node.y = viewport.clientHeight / 2;
+    obj2.node.anchor.x = 0.5;
+    obj2.node.anchor.y = 0.5;
+    // const tick = this.app.ticker.add(() => {
+    //   obj.node.rotation += 0.004;
+    //   obj2.node.rotation += 0.05;
+    // });
+    // const bunnyTick = this.app.ticker.add(() => {
+    //   bunny.rotation += 0.01;
+    //   bunny.x -= 0.005;
+    // });
     console.log('========== Serialised');
 
     const serialised = scene.serialise();
@@ -96,11 +114,14 @@ export class PixiPlugin extends NarratPlugin {
     console.log('==========');
     const serialisedString = JSON.stringify(serialised);
     console.log(serialisedString);
-    await timeout(10000);
+    console.log(obj2.node);
+    await timeout(20000);
+    console.log('destroy scene');
     scene.destroy();
-    this.app.ticker.destroy();
-    await timeout(5000);
-    scene = new Scene(this.app.stage);
+    await timeout(20000);
+    console.log('recreate scene');
+    scene = new Scene();
     scene.load(JSON.parse(serialisedString));
+    scene.attachToStage(this.app.stage);
   }
 }
