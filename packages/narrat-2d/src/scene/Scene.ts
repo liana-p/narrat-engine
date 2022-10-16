@@ -1,4 +1,5 @@
 import { createContainerNode, deserialiseData } from '@/utils/serialisation';
+import { Time } from '@/utils/Time';
 import * as PIXI from 'pixi.js';
 import { Component, SerialisedComponent } from './Component';
 import { GameObject, SerialisedGameObject } from './GameObject';
@@ -14,12 +15,18 @@ export interface SerialisedScene {
 
 export class Scene {
   public container!: PIXI.Container;
+  public time: Time = new Time();
+  public pixiApp!: PIXI.Application;
   public root!: GameObject;
   public allObjects: { [key: string]: GameObject } = {};
   public allComponents: { [key: string]: Component } = {};
+  public destroyed: boolean = false;
+  public isStarted: boolean = false;
 
-  attachToStage(pixiRoot: PIXI.Container) {
+  attachToStage(pixiRoot: PIXI.Container, app: PIXI.Application) {
+    this.destroyed = false;
     this.container = pixiRoot;
+    this.pixiApp = app;
     if (!this.root) {
       this.root = new GameObject(
         {
@@ -30,6 +37,8 @@ export class Scene {
       );
     }
     this.container.addChild(this.root.node);
+    this.start();
+    this.isStarted = true;
   }
 
   addObject(obj: GameObject) {
@@ -117,5 +126,30 @@ export class Scene {
   destroy() {
     this.container.removeChild(this.root.node);
     this.root.destroy();
+    this.destroyed = true;
+    this.isStarted = false;
+  }
+
+  start() {
+    this.time.start();
+  }
+
+  beforeUpdate() {
+    this.time.beforeUpdate();
+    for (const key in this.allComponents) {
+      this.allComponents[key].beforeUpdate();
+    }
+  }
+
+  update() {
+    for (const key in this.allComponents) {
+      this.allComponents[key].update();
+    }
+  }
+
+  postUpdate() {
+    for (const key in this.allComponents) {
+      this.allComponents[key].postUpdate();
+    }
   }
 }

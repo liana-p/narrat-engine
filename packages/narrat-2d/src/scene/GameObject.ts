@@ -104,6 +104,7 @@ export class GameObject<
 
   addComponent(component: Component) {
     this.components.push(component);
+    this.scene.addComponent(component);
   }
 
   removeComponent(component: Component) {
@@ -111,6 +112,7 @@ export class GameObject<
     if (index !== -1) {
       this.components.splice(index, 1);
     }
+    this.scene.removeComponent(component);
   }
 
   getComponent<T extends Component>(type: ComponentTypes): T | undefined {
