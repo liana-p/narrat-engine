@@ -134,7 +134,6 @@ importers:
 
   packages/narrat-2d:
     specifiers:
-      '@pixi/assets': ^6.5.6
       '@vitejs/plugin-vue': ^3.0.0
       narrat: workspace:*
       pinia: ^2.0.14
@@ -145,7 +144,6 @@ importers:
       vue: ^3.2.37
       vue-tsc: ^0.38.4
     dependencies:
-      '@pixi/assets': 6.5.6_dqmvhvcspvktjgixtkz7l7mfce
       pixi.js: 6.5.6
     devDependencies:
       '@vitejs/plugin-vue': 3.1.2_vite@3.1.7+vue@3.2.40
@@ -588,47 +586,6 @@ packages:
     dependencies:
       '@pixi/core': 6.5.6_ussu4kezscm7honobrbc2fy2fm
       '@pixi/display': 6.5.6_xerndaviflxpvugvxkxsqw7aim
-    dev: false
-
-  /@pixi/assets/6.5.6_dqmvhvcspvktjgixtkz7l7mfce:
-    resolution: {integrity: sha512-zgrcwiyJ+O3Nc/5Iux8e025+J+3gRIhbIgmR59GeHOV0171OwlRL1KAF1t50Gbfz0OyQwhP0asO5fPwuhrQL9g==}
-    peerDependencies:
-      '@pixi/basis': 6.5.6
-      '@pixi/compressed-textures': 6.5.6
-      '@pixi/constants': 6.5.6
-      '@pixi/core': 6.5.6
-      '@pixi/settings': 6.5.6
-      '@pixi/spritesheet': 6.5.6
-      '@pixi/text-bitmap': 6.5.6
-      '@pixi/utils': 6.5.6
-    dependencies:
-      '@pixi/basis': 6.5.6_adpuhlxl6kyspq3wbsh6ago34y
-      '@pixi/compressed-textures': 6.5.6_45xorr6qpoimixfqs4glaikr4q
-      '@pixi/constants': 6.5.6
-      '@pixi/core': 6.5.6_ussu4kezscm7honobrbc2fy2fm
-      '@pixi/settings': 6.5.6
-      '@pixi/spritesheet': 6.5.6_aydkyvlnpzluh2enirrqihudoy
-      '@pixi/text-bitmap': 6.5.6_uzyfyekd4bkxdw3mvavktjbfje
-      '@pixi/utils': 6.5.6_xr7kzfik4b5tlvo7jnnx6cuuua
-      '@types/css-font-loading-module': 0.0.7
-    dev: false
-
-  /@pixi/basis/6.5.6_adpuhlxl6kyspq3wbsh6ago34y:
-    resolution: {integrity: sha512-MML+FTDQ1/gdWkG0RpuhS97W8t2PatwnrEsvGrJYmx/re5bmG+BwJonpvYKXb5SaoL7XKu14fPK2ktJiIu8nGg==}
-    peerDependencies:
-      '@pixi/compressed-textures': 6.5.6
-      '@pixi/constants': 6.5.6
-      '@pixi/core': 6.5.6
-      '@pixi/loaders': 6.5.6
-      '@pixi/runner': 6.5.6
-      '@pixi/settings': 6.5.6
-    dependencies:
-      '@pixi/compressed-textures': 6.5.6_45xorr6qpoimixfqs4glaikr4q
-      '@pixi/constants': 6.5.6
-      '@pixi/core': 6.5.6_ussu4kezscm7honobrbc2fy2fm
-      '@pixi/loaders': 6.5.6_bne32vp555gejsmkywn5cztv34
-      '@pixi/runner': 6.5.6
-      '@pixi/settings': 6.5.6
     dev: false
 
   /@pixi/compressed-textures/6.5.6_45xorr6qpoimixfqs4glaikr4q:
@@ -1094,10 +1051,6 @@ packages:
   /@types/chai/4.3.3:
     resolution: {integrity: sha512-hC7OMnszpxhZPduX+m+nrx+uFoLkWOMiR4oa/AZF3MuSETYTZmFfJAHqZEM8MVlvfG7BEUcgvtwoCTxBp6hm3g==}
     dev: true
-
-  /@types/css-font-loading-module/0.0.7:
-    resolution: {integrity: sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==}
-    dev: false
 
   /@types/earcut/2.1.1:
     resolution: {integrity: sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==}

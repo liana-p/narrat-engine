@@ -1,5 +1,4 @@
 import { FieldsToSerialise } from '@/utils/serialisation';
-import { Assets } from '@pixi/assets';
 import { error, getImageUrl } from 'narrat';
 import * as PIXI from 'pixi.js';
 
@@ -71,7 +70,7 @@ export function createAnimatedSpriteNode(
   dataFile: string,
   defaultAnimation: string,
 ): RendererNodeOptions<PIXI.AnimatedSprite, AnimatedSpriteNodeInfo> {
-  const sheet = PIXI.Loader.shared.resources[dataFile].data;
+  const sheet = PIXI.Loader.shared.resources[dataFile].spritesheet!;
   const node = {
     node: new PIXI.AnimatedSprite(sheet.animations[defaultAnimation]),
     info: {
@@ -98,7 +97,8 @@ export const pixiNodeTypes: { [key: string]: PixiNodeTypeInfo } = {
   Sprite: {
     constructor: PIXI.Sprite,
     load: async (sprite: PIXI.Sprite, info: SpriteNodeInfo) => {
-      const texture = await Assets.load(getImageUrl(info.textureId));
+      const texture =
+        PIXI.Loader.shared.resources[getImageUrl(info.textureId)].texture!;
       sprite.texture = texture;
     },
     props: pixiPropsToSerialise,
@@ -106,7 +106,7 @@ export const pixiNodeTypes: { [key: string]: PixiNodeTypeInfo } = {
   AnimatedSprite: {
     constructor: PIXI.AnimatedSprite,
     create: (info: AnimatedSpriteNodeInfo) => {
-      const sheet = PIXI.Loader.shared.resources[info.dataFile].data;
+      const sheet = PIXI.Loader.shared.resources[info.dataFile].spritesheet!;
       const node = new PIXI.AnimatedSprite(
         sheet.animations[info.defaultAnimation],
       );

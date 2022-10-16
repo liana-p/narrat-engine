@@ -1,4 +1,3 @@
-import { NarratPlugin } from '@/lib';
 import { startApp } from '@/main';
 import SkillsWindow from '@/components/SkillsWindow.vue';
 import { registerPlugin } from '@/exports/plugins';

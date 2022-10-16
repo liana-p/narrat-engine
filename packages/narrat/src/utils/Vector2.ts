@@ -15,6 +15,9 @@ export namespace Vec2 {
   }
   export function normalize(v: Vector2) {
     const mag = magnitude(v);
+    if (mag === 0) {
+      return create(0, 0);
+    }
     return {
       x: v.x / mag,
       y: v.y / mag,

@@ -24,7 +24,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pixi/assets": "^6.5.6",
     "pixi.js": "^6.5.6"
   },
   "peerDependencies": {

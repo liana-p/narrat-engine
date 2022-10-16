@@ -10,3 +10,11 @@ export async function preloadAssets(assets: string[]): Promise<any> {
     });
   });
 }
+
+export function getSpritesheet(name: string): PIXI.Spritesheet {
+  return PIXI.Loader.shared.resources[name].spritesheet!;
+}
+
+export function getAnimation(spritesheet: string, animation: string) {
+  return getSpritesheet(spritesheet).animations[animation];
+}

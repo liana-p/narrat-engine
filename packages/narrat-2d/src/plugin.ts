@@ -4,6 +4,7 @@ import {
   CustomStores,
   NarratPlugin,
   error,
+  useInputs,
 } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { GameObject } from './scene/GameObject';
@@ -61,15 +62,17 @@ export class PixiPlugin extends NarratPlugin {
   }
 
   async attachToViewport() {
-    // (window as any).PIXI = PIXI;
+    (window as any).PIXI = PIXI;
     this.app = new PIXI.Application({
       backgroundColor: 0x1099bb,
     });
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     const viewport = document.querySelector('#narrat-viewport');
     if (!viewport) {
       error('Could not find viewport element');
       return;
     }
+    // (viewport as HTMLElement).style.imageRendering = 'pixelated';
     await preloadAssets([
       'img/characters/agumon/agumon.json',
       'img/backgrounds/level.jpg',
@@ -86,17 +89,18 @@ export class PixiPlugin extends NarratPlugin {
     console.log('========== Scene');
     console.log(scene);
     console.log('==========');
-    const obj = new GameObject({
-      scene,
-      node: createContainerNode(),
-    });
     const level = new GameObject({
       scene,
       node: createSpriteNode('img/backgrounds/level.jpg'),
     });
     level.node.scale.set(5);
+    const agumon = new GameObject({
+      scene,
+      node: createContainerNode(),
+    });
+
     const camera = createComponent<CameraComponent>({
-      gameObject: obj,
+      gameObject: scene.root,
       type: CameraComponent.type,
       scene,
     });
@@ -105,30 +109,43 @@ export class PixiPlugin extends NarratPlugin {
     //   parent: obj,
     //   scene,
     // });
-    const bunny = new GameObject({
-      node: createSpriteNode(
-        'https://pixijs.io/examples/examples/assets/bunny.png',
-      ),
-      scene,
-    });
+    // const bunny = new GameObject({
+    //   node: createSpriteNode(
+    //     'https://pixijs.io/examples/examples/assets/bunny.png',
+    //   ),
+    //   scene,
+    // });
     const data = await this.app.loader.resources[
       'img/characters/agumon/agumon.json'
     ];
     console.log(data);
-    const agumon = new GameObject({
+    const agumonSprite = new GameObject({
       node: createAnimatedSpriteNode(
         'img/characters/agumon/agumon.json',
         'idle-bottom',
       ),
       scene,
+      parent: agumon,
     });
-    camera.setTarget(bunny);
-    bunny.node.y = 2000;
-    bunny.node.x = 500;
-    bunny.node.anchor.set(0.5);
-    bunny.node.scale.set(5);
+    agumonSprite.node.scale.set(5);
+    agumonSprite.node.anchor.set(0.5, 1);
+    camera.setTarget(agumon);
+    agumon.node.y = 2000;
+    agumon.node.x = 500;
+    useInputs().inputs.addAction({
+      id: 'movement',
+      type: 'analog',
+      keybinds: [
+        {
+          left: 'ArrowLeft',
+          right: 'ArrowRight',
+          up: 'ArrowUp',
+          down: 'ArrowDown',
+        },
+      ],
+    });
     const player = createComponent<CharacterComponent>({
-      gameObject: bunny,
+      gameObject: agumon,
       type: CharacterComponent.type,
       scene,
     });

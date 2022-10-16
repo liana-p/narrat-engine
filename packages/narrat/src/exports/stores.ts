@@ -1,12 +1,16 @@
-export { useMain } from '@/stores/main-store';
 export { useAudio } from '@/stores/audio-store';
 export { useConfig } from '@/stores/config-store';
 export { useDialogStore } from '@/stores/dialog-store';
 export { useHud } from '@/stores/hud-stats-store';
+export { useInputs } from '@/stores/inputs-store';
 export { useInventory } from '@/stores/inventory-store';
+export { useMain } from '@/stores/main-store';
+export { useMenu } from '@/stores/menu-store';
 export { useNotifications } from '@/stores/notification-store';
 export { useQuests } from '@/stores/quest-log';
 export { useRenderingStore } from '@/stores/rendering-store';
+export { useScreenObjects } from '@/stores/screen-objects-store';
 export { useScreens } from '@/stores/screens-store';
 export { useSkills } from '@/stores/skills';
+export { useTooltips } from '@/stores/tooltip-store';
 export { useVM } from '@/stores/vm-store';
