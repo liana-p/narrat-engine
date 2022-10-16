@@ -1,16 +1,13 @@
 import { randomId } from 'narrat';
-import * as PIXI from 'pixi.js';
 import { Component, ComponentTypes } from './Component';
 import { Scene } from './Scene';
+import { deserialisePixiNode, serialisePixiNode } from '@/utils/serialisation';
 import {
-  deserialisePixiNode,
-  pixiNodeTypes,
   RendererNodeInfo,
   RendererNodeOptions,
-  RendererNodeType,
   SerialisedPixiNode,
-  serialisePixiNode,
-} from '@/utils/serialisation';
+} from './PixiNodes';
+import * as PIXI from 'pixi.js';
 export interface CreateGameObjectOptions<
   NodeType extends PIXI.Container = PIXI.Container,
   NodeInfo extends RendererNodeInfo = RendererNodeInfo,

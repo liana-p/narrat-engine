@@ -4,18 +4,19 @@ import {
   CustomStores,
   NarratPlugin,
   error,
-  getImageUrl,
-  timeout,
 } from 'narrat';
-import { Application, Sprite, Container } from 'pixi.js';
 import * as PIXI from 'pixi.js';
-import { Assets } from '@pixi/assets';
 import { GameObject } from './scene/GameObject';
 import { Scene } from './scene/Scene';
-import { createContainerNode, createSpriteNode } from './utils/serialisation';
 import { createComponent } from './scene/Component';
 import { CameraComponent } from './scene/CameraComponent';
 import { CharacterComponent } from './scene/CharacterComponent';
+import {
+  createAnimatedSpriteNode,
+  createContainerNode,
+  createSpriteNode,
+} from './scene/PixiNodes';
+import { preloadAssets } from './utils/loadAsset';
 /**
  * The CounterPlugin is a simple example plugin to showcase the various features plugins can use.
  * This plugin will use the `counter-store` custom store to store custom data (which gets saved and loaded)
@@ -28,7 +29,7 @@ export class PixiPlugin extends NarratPlugin {
   customCommands: CommandPlugin<any>[];
   customMenuTabs: CustomMenuTab[];
 
-  app!: Application;
+  app!: PIXI.Application;
   viewport?: Element;
   constructor() {
     super();
@@ -48,7 +49,7 @@ export class PixiPlugin extends NarratPlugin {
   }
 
   onNarratSetup(): void {
-    this.app = new Application();
+    this.app = new PIXI.Application();
   }
 
   onGameMounted() {
@@ -60,8 +61,8 @@ export class PixiPlugin extends NarratPlugin {
   }
 
   async attachToViewport() {
-    (window as any).PIXI = PIXI;
-    this.app = new Application({
+    // (window as any).PIXI = PIXI;
+    this.app = new PIXI.Application({
       backgroundColor: 0x1099bb,
     });
     const viewport = document.querySelector('#narrat-viewport');
@@ -69,6 +70,11 @@ export class PixiPlugin extends NarratPlugin {
       error('Could not find viewport element');
       return;
     }
+    await preloadAssets([
+      'img/characters/agumon/agumon.json',
+      'img/backgrounds/level.jpg',
+      'https://pixijs.io/examples/examples/assets/bunny.png',
+    ]);
     this.viewport = viewport;
     viewport.appendChild(this.app.view);
     this.app.renderer.resize(viewport.clientWidth, viewport.clientHeight);
@@ -102,6 +108,17 @@ export class PixiPlugin extends NarratPlugin {
     const bunny = new GameObject({
       node: createSpriteNode(
         'https://pixijs.io/examples/examples/assets/bunny.png',
+      ),
+      scene,
+    });
+    const data = await this.app.loader.resources[
+      'img/characters/agumon/agumon.json'
+    ];
+    console.log(data);
+    const agumon = new GameObject({
+      node: createAnimatedSpriteNode(
+        'img/characters/agumon/agumon.json',
+        'idle-bottom',
       ),
       scene,
     });

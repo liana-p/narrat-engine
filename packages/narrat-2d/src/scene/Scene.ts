@@ -1,8 +1,9 @@
-import { createContainerNode, deserialiseData } from '@/utils/serialisation';
+import { deserialiseData } from '@/utils/serialisation';
 import { Time } from '@/utils/Time';
 import * as PIXI from 'pixi.js';
 import { Component, SerialisedComponent } from './Component';
 import { GameObject, SerialisedGameObject } from './GameObject';
+import { createContainerNode } from './PixiNodes';
 export interface SerialisedScene {
   allObjects: {
     [key: string]: SerialisedGameObject;

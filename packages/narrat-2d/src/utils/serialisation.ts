@@ -1,8 +1,13 @@
 import { Component } from '@/scene/Component';
 import { GameObject } from '@/scene/GameObject';
+import {
+  PixiNodeTypeInfo,
+  pixiNodeTypes,
+  RendererNodeInfo,
+  SerialisedPixiNode,
+} from '@/scene/PixiNodes';
 import { Scene } from '@/scene/Scene';
-import { Assets } from '@pixi/assets';
-import { error, getImageUrl } from 'narrat';
+import { error } from 'narrat';
 import * as PIXI from 'pixi.js';
 
 export interface SerialisedReference {
@@ -14,23 +19,6 @@ export interface FieldsToSerialise {
   [key: string]: FieldToSerialise;
 }
 export type FieldToSerialise = true | FieldsToSerialise;
-export const pixiPropsToSerialise: FieldsToSerialise = {
-  x: true,
-  y: true,
-  scale: {
-    x: true,
-    y: true,
-  },
-  anchor: {
-    x: true,
-    y: true,
-  },
-  rotation: true,
-  pivot: {
-    x: true,
-    y: true,
-  },
-};
 
 export function toSerialisedReference(
   type: string,
@@ -76,88 +64,6 @@ export function deserialiseData(data: any, scene: Scene): any {
   return data;
 }
 
-export interface RendererNodeOptions<
-  T extends PIXI.DisplayObject,
-  I extends RendererNodeInfo,
-> {
-  node: T;
-  info: I;
-}
-
-export interface RendererNodeInfo {
-  _type: RendererNodeType;
-}
-
-export interface SpriteNodeInfo extends RendererNodeInfo {
-  textureId: string;
-}
-
-export function createContainerNode(): RendererNodeOptions<
-  PIXI.Container,
-  RendererNodeInfo
-> {
-  return {
-    node: new PIXI.Container(),
-    info: {
-      _type: 'Container',
-    },
-  };
-}
-export function createSpriteNode(
-  textureId: string,
-): RendererNodeOptions<PIXI.Sprite, SpriteNodeInfo> {
-  const node = {
-    node: new PIXI.Sprite(),
-    info: {
-      _type: 'Sprite',
-      textureId,
-    },
-  };
-  getNodeTypeData(node.info).load!(node.node, node.info);
-  return node;
-}
-
-export interface PixiNodeTypeInfo<
-  N extends PIXI.Container = PIXI.Container,
-  I extends RendererNodeInfo = RendererNodeInfo,
-> {
-  constructor: new (...args: any[]) => N;
-  props: FieldsToSerialise;
-  load?: (node: N, info: I) => Promise<void>;
-}
-
-export type PossibleNodeInfo =
-  | PixiNodeTypeInfo<PIXI.Container, RendererNodeInfo>
-  | PixiNodeTypeInfo<PIXI.Sprite, SpriteNodeInfo>;
-export const pixiNodeTypes: { [key: string]: PossibleNodeInfo } = {
-  Container: {
-    constructor: PIXI.Container,
-    props: pixiPropsToSerialise,
-  },
-  Sprite: {
-    constructor: PIXI.Sprite,
-    load: async (sprite: PIXI.Sprite, info: SpriteNodeInfo) => {
-      const texture = await Assets.load(getImageUrl(info.textureId));
-      sprite.texture = texture;
-    },
-    props: pixiPropsToSerialise,
-  },
-};
-
-export function getNodeTypeData<I extends RendererNodeInfo>(
-  info: I,
-): PossibleNodeInfo {
-  const type = pixiNodeTypes[info._type];
-  if (!type) {
-    error(`Unknown node type ${info._type}`);
-  }
-  return type;
-}
-export type RendererNodeType = keyof typeof pixiNodeTypes;
-
-export interface SerialisedPixiNode {
-  [key: string]: any;
-}
 export function serialisePixiNode(gameObject: GameObject): SerialisedPixiNode {
   const nodeType = gameObject.nodeInfo._type;
   const info = pixiNodeTypes[nodeType];
@@ -173,11 +79,16 @@ export function deserialisePixiNode<
   Info extends RendererNodeInfo = RendererNodeInfo,
 >(info: Info, serialised: SerialisedPixiNode): Node {
   const nodeType = info._type;
-  const data = pixiNodeTypes[nodeType] as any as PixiNodeTypeInfo<Node, Info>;
+  const data = pixiNodeTypes[nodeType];
   if (!data) {
     error(`No serialisation info for node type ${nodeType}`);
   }
-  const node = new data.constructor();
+  let node: Node;
+  if (data.create) {
+    node = data.create(info);
+  } else {
+    node = new data.constructor();
+  }
   if (data.load) {
     data.load(node, info);
   }
