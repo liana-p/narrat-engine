@@ -1,1 +1,21 @@
 export { getConfig } from '../config';
+export {
+  audioConfig,
+  skillsConfig,
+  itemsConfig,
+  questsConfig,
+  screensConfig,
+  buttonsConfig,
+  tooltipsConfig,
+  charactersConfig,
+  getSkillConfig,
+  getImageUrl,
+  getAssetUrl,
+  getSplitConfigUrl,
+  getDataUrl,
+  getButtonConfig,
+  getScreenConfig,
+  getItemConfig,
+  getQuestConfig,
+  getObjectiveConfig,
+} from '../config';

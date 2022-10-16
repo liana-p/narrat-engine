@@ -21,3 +21,4 @@ export * from '@/exports/events';
 export * from '@/exports/stores';
 export * from '@/exports/others';
 export * from '@/exports/components';
+export * from '@/exports/utils';

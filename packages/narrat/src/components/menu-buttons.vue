@@ -22,7 +22,7 @@
             @tab-change="tabChange"
             @close="close"
             :tabs="menuTabs"
-            :defaultTab="menuTabs[menu.activeTab!].id"
+            :defaultTab="menu.activeTab"
           />
         </template>
       </Modal>

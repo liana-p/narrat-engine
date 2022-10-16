@@ -16,6 +16,11 @@
         @close="$emit('close')"
       />
     </div>
+    <div v-else>
+      <div class="tab-content__empty">
+        <p>No tab selected</p>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -24,11 +29,13 @@ import TabSelector, { TabOptions } from './tab-selector.vue';
 
 export interface TabControllerProps {
   tabs: TabOptions[];
-  defaultTab: string;
+  defaultTab: number;
 }
 const emit = defineEmits(['tab-change', 'close']);
 const props = defineProps<TabControllerProps>();
-const activeTabId = ref(props.defaultTab);
+const activeTabId = ref<string | null>(
+  props.tabs[props.defaultTab]?.id ?? null,
+);
 
 function clickOnTab(tab: number) {
   activeTabId.value = props.tabs[tab].id;

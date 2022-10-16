@@ -22,11 +22,15 @@ import { BUILD_DATE, VERSION } from './constants';
 import { addDirectives } from './utils/vue-directives';
 import { useConfig } from './stores/config-store';
 import { useStartMenu } from './stores/start-menu-store';
+import { useInputs } from './stores/inputs-store';
+import { gameloop } from '@/utils/gameloop';
 
 let app: any;
 
 vm.callHook('onPageLoaded');
+
 export async function startApp(optionsInput: AppOptionsInput) {
+  gameloop.setup();
   console.log('Starting narrat...');
   const options: AppOptions = Object.assign(defaultAppOptions(), optionsInput);
   const pinia = createPinia();
@@ -37,6 +41,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   app.use(pinia);
   const config = await loadConfig(options);
   useConfig().setConfig(config);
+  useInputs().setupInputs();
   vm.pinia = pinia;
   useMain();
   const narrat = {
