@@ -150,6 +150,19 @@ export const useMain = defineStore('main', {
     async engineLoading() {
       const imagesLoadWait = loadImages(getConfig());
       const audioWait = loadAudioAssets(audioConfig());
+      if (vm.plugins) {
+        const pluginPromises: Promise<any>[] = [];
+        for (const plugin of vm.plugins) {
+          if (plugin.loadingPromises) {
+            pluginPromises.push(Promise.all(plugin.loadingPromises));
+          }
+        }
+        if (pluginPromises.length > 0) {
+          this.loading.step = 'Plugins';
+          this.loading.percentage = 0.3;
+          await Promise.all(pluginPromises);
+        }
+      }
       this.loading.step = 'Images';
       await imagesLoadWait;
       this.loading.percentage = 0.7;
@@ -337,6 +350,11 @@ export const useMain = defineStore('main', {
       this.resetAllStores();
       this.playing = false;
       this.ready = true;
+      vm.plugins.forEach((plugin) => {
+        if (plugin.reset) {
+          plugin.reset();
+        }
+      });
     },
     resetAllStores() {
       const screens = useScreens();
@@ -403,6 +421,11 @@ export const useMain = defineStore('main', {
         metadata,
         screenObjects: useScreenObjects().generateSaveData(),
       };
+      vm.plugins.forEach((plugin) => {
+        if (plugin.save) {
+          save[plugin.pluginId] = plugin.save();
+        }
+      });
       // Add save data from potential custom stores
       vm.customStores().forEach(([storeName, store]) => {
         if (store.save) {
@@ -435,6 +458,11 @@ export const useMain = defineStore('main', {
       inventoryStore.loadSaveData(save.inventory);
       // Load save data from potential custom stores
       useQuests().loadSaveData(save.quests);
+      vm.plugins.forEach((plugin) => {
+        if (plugin.load && save[plugin.pluginId]) {
+          plugin.load(save[plugin.pluginId]);
+        }
+      });
       vm.customStores().forEach(([storeName, store]) => {
         if (store.load) {
           store.load((save as any)[storeName]);

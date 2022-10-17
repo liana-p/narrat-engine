@@ -37,6 +37,7 @@ export interface CustomMenuTab {
   component: any;
 }
 export type NarratPluginObject<T> = {
+  pluginId: string;
   onPageLoaded?: NarratLifecycleHook;
   onNarratSetup?: NarratLifecycleHook;
   onAppMounted?: NarratLifecycleHook;
@@ -50,6 +51,10 @@ export type NarratPluginObject<T> = {
   customMenuButtons?: CustomMenuButton[];
   customMenuTabs?: CustomMenuTab[];
   startMenuButtons?: CustomStartMenuButton[];
+  save?: () => any;
+  load?: (data: any) => void;
+  reset?: () => void;
+  loadingPromises?: Promise<any>[];
 };
 
 /**
@@ -64,7 +69,7 @@ export interface CustomStartMenuButton {
   popupComponent?: {
     name: string;
     component: any;
-  }
+  };
 }
 
 function registerPlugin<T>(plugin: NarratPluginObject<T>) {

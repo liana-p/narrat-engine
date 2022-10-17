@@ -1,5 +1,6 @@
 import { deserialiseData } from '@/utils/serialisation';
 import { Time } from '@/utils/Time';
+import { useMain } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { Component, SerialisedComponent } from './Component';
 import { GameObject, SerialisedGameObject } from './GameObject';
@@ -137,18 +138,28 @@ export class Scene {
 
   beforeUpdate() {
     this.time.beforeUpdate();
+    const main = useMain();
+    if (main.inScript) {
+      return;
+    }
     for (const key in this.allComponents) {
       this.allComponents[key].beforeUpdate();
     }
   }
 
   update() {
+    if (useMain().inScript) {
+      return;
+    }
     for (const key in this.allComponents) {
       this.allComponents[key].update();
     }
   }
 
   postUpdate() {
+    if (useMain().inScript) {
+      return;
+    }
     for (const key in this.allComponents) {
       this.allComponents[key].postUpdate();
     }

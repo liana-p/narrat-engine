@@ -1,0 +1,8 @@
+main:
+  choice:
+    "Would you like to be a digimon?"
+    "Yes":
+      "Okay then"
+      show_scene
+    "No":
+      "That's a shame"

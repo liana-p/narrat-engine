@@ -5,13 +5,22 @@ import {
   NarratPlugin,
   error,
   useInputs,
+  warning,
+  gameloop,
+  Action,
 } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { GameObject } from './scene/GameObject';
-import { Scene } from './scene/Scene';
+import { Scene, SerialisedScene } from './scene/Scene';
 import { createComponent } from './scene/Component';
-import { CameraComponent } from './scene/CameraComponent';
-import { CharacterComponent } from './scene/CharacterComponent';
+import {
+  CameraComponent,
+  CameraComponentOptions,
+} from './scene/CameraComponent';
+import {
+  CharacterComponent,
+  CharacterComponentOptions,
+} from './scene/CharacterComponent';
 import {
   createAnimatedSpriteNode,
   createContainerNode,
@@ -26,12 +35,26 @@ import { preloadAssets } from './utils/loadAsset';
  * It uses the `CustomMenuButton` to add a new menu button to the menu bar
  */
 export class PixiPlugin extends NarratPlugin {
-  customStores: CustomStores;
-  customCommands: CommandPlugin<any>[];
-  customMenuTabs: CustomMenuTab[];
-
+  pluginId: string = 'narrat-2d';
   app!: PIXI.Application;
-  viewport?: Element;
+  viewport!: Element;
+  assetsToLoad: string[] = [];
+  assetsLoaded: boolean = false;
+  loadingPromises: Promise<void>[] = [];
+  scene: Scene = new Scene();
+  loadedSceneData: null | SerialisedScene = null;
+  gameloopListener?: () => void;
+  actions: Action[] = [];
+  actionsAdded: boolean = false;
+  customCommands = [
+    new CommandPlugin('show_scene', [], async (args: any) => {
+      this.showScene();
+    }),
+    new CommandPlugin('delete_scene', [], async (args: any) => {
+      this.deleteScene();
+    }),
+  ];
+
   constructor() {
     super();
     const version = import.meta.env.VITE_BUILD_VERSION;
@@ -42,26 +65,52 @@ export class PixiPlugin extends NarratPlugin {
       `%c [Narrat 2D plugin] [${name}]  v${version} - Built at ${date}`,
       'background: #222; color: #bada55',
     );
-    this.customStores = {};
-
-    this.customCommands = [];
-
-    this.customMenuTabs = [];
   }
 
-  onNarratSetup(): void {
-    this.app = new PIXI.Application();
+  async addAssets(assets: string[]) {
+    this.assetsToLoad.push(...assets);
+    const assetLoadPromise = this.preloadAssets(assets);
+    this.loadingPromises.push(assetLoadPromise);
+    const res = await assetLoadPromise;
+    this.assetsLoaded = true;
+    return res;
   }
 
-  onGameMounted() {
-    this.attachToViewport();
+  async addInputActions(actions: Action[]) {
+    this.actions = actions;
+  }
+
+  async preloadAssets(assets: string[]) {
+    return preloadAssets(assets);
   }
 
   onGameUnmounted() {
+    this.deleteScene();
+  }
+
+  save() {
+    if (this.scene && !this.scene.destroyed) {
+      return JSON.stringify(this.scene.serialise());
+    }
+  }
+
+  load(data: any) {
+    this.loadedSceneData = JSON.parse(data);
+  }
+
+  showScene() {
+    this.attachToViewport();
+  }
+
+  deleteScene() {
+    this.scene.destroy();
+    if (this.gameloopListener) {
+      gameloop.off('update', this.gameloopListener);
+    }
     this.app.destroy();
   }
 
-  async attachToViewport() {
+  createPixiApp() {
     (window as any).PIXI = PIXI;
     this.app = new PIXI.Application({
       backgroundColor: 0x1099bb,
@@ -72,102 +121,37 @@ export class PixiPlugin extends NarratPlugin {
       error('Could not find viewport element');
       return;
     }
-    // (viewport as HTMLElement).style.imageRendering = 'pixelated';
-    await preloadAssets([
-      'img/characters/agumon/agumon.json',
-      'img/backgrounds/level.jpg',
-      'https://pixijs.io/examples/examples/assets/bunny.png',
-    ]);
     this.viewport = viewport;
     viewport.appendChild(this.app.view);
-    this.app.renderer.resize(viewport.clientWidth, viewport.clientHeight);
+  }
 
-    let scene = new Scene();
+  createScene() {
+    const scene = new Scene();
+    this.scene = scene;
     scene.attachToStage(this.app.stage, this.app);
+  }
 
-    // this.app.stage.addChild(bunny);
-    console.log('========== Scene');
-    console.log(scene);
-    console.log('==========');
-    const level = new GameObject({
-      scene,
-      node: createSpriteNode('img/backgrounds/level.jpg'),
-    });
-    level.node.scale.set(5);
-    const agumon = new GameObject({
-      scene,
-      node: createContainerNode(),
-    });
-
-    const camera = createComponent<CameraComponent>({
-      gameObject: scene.root,
-      type: CameraComponent.type,
-      scene,
-    });
-    // const curtain = new GameObject({
-    //   node: createSpriteNode('img/backgrounds/curtain.webp'),
-    //   parent: obj,
-    //   scene,
-    // });
-    // const bunny = new GameObject({
-    //   node: createSpriteNode(
-    //     'https://pixijs.io/examples/examples/assets/bunny.png',
-    //   ),
-    //   scene,
-    // });
-    const data = await this.app.loader.resources[
-      'img/characters/agumon/agumon.json'
-    ];
-    console.log(data);
-    const agumonSprite = new GameObject({
-      node: createAnimatedSpriteNode(
-        'img/characters/agumon/agumon.json',
-        'idle-bottom',
-      ),
-      scene,
-      parent: agumon,
-    });
-    agumonSprite.node.scale.set(5);
-    agumonSprite.node.anchor.set(0.5, 1);
-    camera.setTarget(agumon);
-    agumon.node.y = 2000;
-    agumon.node.x = 500;
-    useInputs().inputs.addAction({
-      id: 'movement',
-      type: 'analog',
-      keybinds: [
-        {
-          left: 'ArrowLeft',
-          right: 'ArrowRight',
-          up: 'ArrowUp',
-          down: 'ArrowDown',
-        },
-      ],
-    });
-    const player = createComponent<CharacterComponent>({
-      gameObject: agumon,
-      type: CharacterComponent.type,
-      scene,
-    });
-    // curtain.node.anchor.x = 0.5;
-    // curtain.node.anchor.y = 0.5;
-    const tickRotation = () => {
-      // bunny.node.rotation += 0.05;
-    };
-    const tick = this.app.ticker.add(tickRotation);
-    this.app.ticker.add(() => {
-      if (scene.isStarted) {
-        scene.beforeUpdate();
-        scene.update();
-        scene.postUpdate();
+  async attachToViewport() {
+    if (!this.actionsAdded) {
+      for (const action of this.actions) {
+        useInputs().inputs.addAction(action);
+      }
+      this.actionsAdded = true;
+    }
+    this.createPixiApp();
+    this.app.renderer.resize(
+      this.viewport.clientWidth,
+      this.viewport.clientHeight,
+    );
+    this.createScene();
+    this.createStuff();
+    this.gameloopListener = gameloop.on('update', () => {
+      if (this.scene.isStarted) {
+        this.scene.beforeUpdate();
+        this.scene.update();
+        this.scene.postUpdate();
       }
     });
-    // const bunnyTick = this.app.ticker.add(() => {
-    //   bunny.rotation += 0.01;
-    //   bunny.x -= 0.005;
-    // });
-    console.log('========== Serialised');
-
     // await timeout(2000);
     // const serialised = scene.serialise();
     // console.log(serialised);
@@ -188,5 +172,85 @@ export class PixiPlugin extends NarratPlugin {
     // const serialised2String = JSON.stringify(serialised2);
     // console.log('1', serialisedString);
     // console.log('2', serialised2String);
+  }
+
+  startLoadedScene() {
+    if (!this.loadedSceneData) {
+      warning('No scene data to load');
+      return;
+    }
+    if (this.scene && !this.scene.destroyed) {
+      this.scene.destroy();
+    }
+    this.createScene();
+    this.scene.load(this.loadedSceneData);
+  }
+
+  createStuff() {
+    const level = new GameObject({
+      scene: this.scene,
+      node: createSpriteNode('img/backgrounds/level.jpg'),
+    });
+    level.node.scale.set(5);
+    const agumon = new GameObject({
+      scene: this.scene,
+      node: createContainerNode(),
+    });
+
+    const camera = createComponent<CameraComponent, CameraComponentOptions>(
+      CameraComponent,
+      this.scene.root,
+      {
+        target: agumon.id,
+      },
+    );
+    const agumonSprite = new GameObject({
+      node: createAnimatedSpriteNode(
+        'img/characters/agumon/agumon.json',
+        'idle-bottom',
+      ),
+      scene: this.scene,
+      parent: agumon,
+    });
+    agumonSprite.node.scale.set(5);
+    agumonSprite.node.anchor.set(0.5, 1);
+    agumon.node.y = 2000;
+    agumon.node.x = 500;
+    const player = createComponent<
+      CharacterComponent,
+      CharacterComponentOptions
+    >(CharacterComponent, agumon, {
+      speed: 500,
+      spritesheet: 'img/characters/agumon/agumon.json',
+      animations: CharacterComponent.GenerateAnimations(['idle', 'walk'], {
+        flipRight: true,
+      }),
+      // animations: {
+      //   idle: {
+      //     top: 'idle-top',
+      //     bottom: 'idle-bottom',
+      //     left: 'idle-left',
+      //     right: {
+      //       anim: 'idle-left',
+      //       flipX: true,
+      //     },
+      //     bottomLeft: 'idle-bottom-left',
+      //     topLeft: 'idle-top-left',
+      //     bottomRight: {
+      //       anim: 'idle-bottom-left',
+      //       flipX: true,
+      //     },
+      //     topRight: {
+      //       anim: 'idle-top-left',
+      //       flipX: true,
+      //     },
+      //   },
+      //   walk: {
+      //     top: 'walk-top',
+      //     bottom: 'walk-bottom',
+      //     left: 'walk-left',
+      //   },
+      // },
+    });
   }
 }

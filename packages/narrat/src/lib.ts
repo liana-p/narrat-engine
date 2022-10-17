@@ -18,6 +18,7 @@ export * from '@/exports/plugins';
 export * from '@/exports/display';
 export * from '@/exports/config';
 export * from '@/exports/events';
+export * from '@/exports/inputs';
 export * from '@/exports/stores';
 export * from '@/exports/others';
 export * from '@/exports/components';

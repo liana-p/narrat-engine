@@ -10,7 +10,10 @@ import { Scene } from './Scene';
 
 export type ComponentTypes = string;
 
-export type ComponentClass = new (options: ComponentOptions) => Component;
+export type ComponentClass = new (
+  gameObject: GameObject,
+  options?: { [key: string]: any },
+) => Component;
 
 export interface ComponentClassInfo {
   componentType: ComponentTypes;
@@ -27,15 +30,22 @@ export function registerComponentClass(componentInfo: ComponentClassInfo) {
 export function getComponentTypeInfo(type: ComponentTypes) {
   return componentClasses[type];
 }
-export function createComponent<T extends Component>(
-  options: ComponentOptions,
+export function createComponent<
+  T extends Component,
+  TOptions extends { [key: string]: any } = any,
+>(
+  ComponentClass: ComponentClass,
+  gameObject: GameObject,
+  options?: TOptions,
   skipStart?: boolean,
 ): T {
-  const info = getComponentTypeInfo(options.type);
+  const type = (ComponentClass as any).type;
+  const info = getComponentTypeInfo(type);
   if (!info) {
-    error(`No component class registered for type ${options.type}`);
+    error(`No component class registered for type ${type}`);
   }
-  const component = new info.constructor(options);
+  const component = new info.constructor(gameObject, options);
+  component.setOptions(options);
   if (!skipStart) {
     component.start();
   }
@@ -54,22 +64,28 @@ export type SerialisedComponent = {
 export interface ComponentOptions {
   gameObject: GameObject;
   type: ComponentTypes;
-  scene: Scene;
 }
 
 export class Component {
   public id: string;
   public static type: ComponentTypes = 'Component';
-  public type: ComponentTypes;
+  public static serialisableFields: string[] = [];
+  public type: ComponentTypes = 'Component';
   public gameObject!: GameObject;
-  public data: { [key: string]: any } = {};
   public scene: Scene;
-  constructor(options: ComponentOptions) {
+  constructor(gameObject: GameObject) {
     this.id = randomId();
-    this.type = options.type;
-    this.scene = options.scene;
-    this.gameObject = options.gameObject;
+    this.scene = gameObject.scene;
+    this.gameObject = gameObject;
     this.gameObject.addComponent(this);
+  }
+
+  setOptions(options?: { [key: string]: any }) {
+    if (options) {
+      for (const key in options) {
+        (this as any)[key] = options[key];
+      }
+    }
   }
 
   start() {}
@@ -80,12 +96,25 @@ export class Component {
 
   postUpdate() {}
 
+  getSerialisableFields(): string[] {
+    return (this as any).serialisableFields ?? [];
+  }
+
+  getSerialisableData(): { [key: string]: any } {
+    const result: { [key: string]: any } = {};
+    const fields = this.getSerialisableFields();
+    for (const field of fields) {
+      result[field] = (this as any)[field];
+    }
+    return result;
+  }
+
   serialise(): SerialisedComponent {
     return {
       id: this.id,
       type: this.type,
       gameObject: toSerialisedReference('GameObject', this.gameObject.id),
-      data: serialiseData(this.data),
+      data: serialiseData(this.getSerialisableData()),
     };
   }
 
@@ -94,14 +123,15 @@ export class Component {
       serialised.gameObject,
       scene,
     ) as GameObject;
-    const component = createComponent({
-      type: serialised.type,
-      gameObject,
-      scene,
-    });
     const info = getComponentTypeInfo(serialised.type);
+    const options = deserialiseData(serialised.data, scene);
+    const component = createComponent(
+      info.constructor,
+      gameObject,
+      options,
+      true,
+    );
     component.id = serialised.id;
-    component.data = serialised.data;
     if (info.load) {
       info.load(serialised);
     }
