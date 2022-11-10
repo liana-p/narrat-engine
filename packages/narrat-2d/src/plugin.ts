@@ -9,6 +9,7 @@ import {
   gameloop,
   Action,
   Vec2,
+  useMain,
 } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { GameObject } from './scene/GameObject';
@@ -33,6 +34,8 @@ import {
   ColliderComponentOptions,
 } from './components/ColliderComponent';
 import { processEntities } from './physics/physics';
+import { NpcComponent, NpcComponentOptions } from './components/NpcComponent';
+import { PlayerComponent } from './components/PlayerComponent';
 /**
  * The CounterPlugin is a simple example plugin to showcase the various features plugins can use.
  * This plugin will use the `counter-store` custom store to store custom data (which gets saved and loaded)
@@ -233,6 +236,10 @@ export class PixiPlugin extends NarratPlugin {
         y: -50,
       },
     });
+    const playerComponent = createComponent<PlayerComponent>(
+      PlayerComponent,
+      agumon,
+    );
     agumon.layer = 2;
     const npc = new GameObject({
       node: createSpriteNode('img/characters/npc/npc.png'),
@@ -253,6 +260,32 @@ export class PixiPlugin extends NarratPlugin {
         y: -50,
       },
     });
+    const npcTalkZone = new GameObject({
+      node: createContainerNode(),
+      scene: this.scene,
+      parent: npc,
+    });
+    npcTalkZone.layer = 2;
+    npcTalkZone.setPosition(Vec2.create(0, -50));
+    const npcComp = createComponent<NpcComponent, NpcComponentOptions>(
+      NpcComponent,
+      npcTalkZone,
+      {
+        dialogLabel: 'npc_talk',
+      },
+    );
+    const npcTalkCollider = createComponent<
+      ColliderComponent,
+      ColliderComponentOptions
+    >(ColliderComponent, npcTalkZone, {
+      shape: 'circle',
+      dimensions: {
+        radius: 100,
+        x: 0,
+        y: 0,
+      },
+    });
+    npcTalkCollider.isTrigger = true;
     const player = createComponent<
       CharacterComponent,
       CharacterComponentOptions

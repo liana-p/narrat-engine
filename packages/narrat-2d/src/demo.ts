@@ -10,6 +10,7 @@ window.addEventListener('load', () => {
     'img/characters/agumon/agumon.json',
     'img/backgrounds/level.jpg',
     'img/characters/npc/npc.png',
+    'img/ui/talk.png',
     'https://pixijs.io/examples/examples/assets/bunny.png',
   ]);
   pixi.addInputActions([
@@ -22,6 +23,16 @@ window.addEventListener('load', () => {
           right: 'ArrowRight',
           up: 'ArrowUp',
           down: 'ArrowDown',
+        },
+      ],
+    },
+    {
+      id: 'interact',
+      type: 'button',
+      action: 'press',
+      keybinds: [
+        {
+          keyboardKey: 'e',
         },
       ],
     },

@@ -97,9 +97,6 @@ export class Component {
 
   postUpdate() {}
 
-  onTriggerEnter(other: GameObject) {}
-  onCollisionEnter(other: GameObject) {}
-
   getSerialisableFields(): string[] {
     return (this as any).serialisableFields ?? [];
   }
@@ -144,6 +141,9 @@ export class Component {
   }
 
   destroy() {
+    if ((this as any).onDestroy) {
+      (this as any).onDestroy();
+    }
     this.gameObject.removeComponent(this);
   }
 }

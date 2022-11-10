@@ -57,31 +57,30 @@ export function processEntities(scene: Scene) {
         ColliderComponent.type,
       )!;
       if (collider.isTrigger) {
-        testCollider.onTriggerEnter(hitObject);
+        // For trigger, nothing happens other than the event
+        if (!testCollider.collidingWith.includes(collider)) {
+          testCollider.collidingWith.push(collider);
+          testCollider.gameObject.onTriggerEnter(hitObject);
+        }
       } else {
+        // For colliders, process the actual collision
         collided = true;
-        console.log(
-          `Collision happened. Position: [${obj.position.x}][${obj.position.y}], last: [${testCollider.lastPosition.x}][${testCollider.lastPosition.y}]`,
-        );
-        // Revert the position, since we collided
-        // testCollider.gameObject.setPosition(testCollider.lastPosition);
         if (collider.shape === 'rectangle') {
+          // For rectangles, slide against walls
           const motion = testCollider.getMotion();
           const collidedWall = findCollidedWall(motion, testCollider, collider);
-          // const newPosition = findIntersection(
-          //   testCollider.gameObject.node.getGlobalPosition(),
-          //   motion,
-          //   collidedWall[0],
-          //   collidedWall[1],
-          // );
           const newMotion = slideWalk(motion, collidedWall[0], collidedWall[1]);
           testCollider.gameObject.setPosition(
             Vec2.add(testCollider.gameObject.getPosition(), newMotion),
           );
         }
-        testCollider.onCollisionEnter(hitObject);
+        if (!testCollider.collidingWith.includes(collider)) {
+          testCollider.collidingWith.push(collider);
+          testCollider.gameObject.onCollisionEnter(hitObject);
+        }
       }
     }
+    // If no collision happened, move normally
     if (!collided) {
       testCollider.gameObject.setPosition(
         Vec2.add(
@@ -90,10 +89,19 @@ export function processEntities(scene: Scene) {
         ),
       );
     }
-  }
-  for (const obj of allObjects) {
-    obj.getComponent<ColliderComponent>(ColliderComponent.type)!.lastPosition =
-      Vec2.create(obj.position.x, obj.position.y);
+    // Detect ended collisions to trigger exit events
+    const existingCollisions = testCollider.collidingWith;
+    testCollider.collidingWith = existingCollisions.filter((collision) => {
+      if (!collidingWith.includes(collision.gameObject)) {
+        if (collision.isTrigger) {
+          testCollider.gameObject.onTriggerExit(collision.gameObject);
+        } else {
+          testCollider.gameObject.onCollisionExit(collision.gameObject);
+        }
+        return false;
+      }
+      return true;
+    });
   }
 }
 

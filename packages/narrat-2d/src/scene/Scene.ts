@@ -138,28 +138,18 @@ export class Scene {
 
   beforeUpdate() {
     this.time.beforeUpdate();
-    const main = useMain();
-    if (main.inScript) {
-      return;
-    }
     for (const key in this.allComponents) {
       this.allComponents[key].beforeUpdate();
     }
   }
 
   update() {
-    if (useMain().inScript) {
-      return;
-    }
     for (const key in this.allComponents) {
       this.allComponents[key].update();
     }
   }
 
   postUpdate() {
-    if (useMain().inScript) {
-      return;
-    }
     for (const key in this.allComponents) {
       this.allComponents[key].postUpdate();
     }

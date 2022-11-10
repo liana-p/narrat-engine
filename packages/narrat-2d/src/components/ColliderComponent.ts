@@ -2,7 +2,7 @@ import { Component, registerComponentClass } from '@/scene/Component';
 import { Vec2, Vector2 } from 'narrat';
 import { Graphics } from 'pixi.js';
 
-const debug = true;
+const debug = false;
 
 export interface RectangleShape {
   x: number;
@@ -25,7 +25,7 @@ export interface ColliderComponentOptions {
 
 export class ColliderComponent extends Component {
   public static type = 'ColliderComponent';
-  public lastPosition: Vector2 = Vec2.create();
+  public collidingWith: ColliderComponent[] = [];
   public static serialisableFields: string[] = [
     'isTrigger',
     'isStatic',
@@ -49,7 +49,6 @@ export class ColliderComponent extends Component {
   public isStatic: boolean = false;
 
   public start() {
-    this.lastPosition = this.gameObject.getPosition();
     if (debug) {
       const debugShape = new Graphics();
       debugShape.beginFill(0x00ff00, 0.5);

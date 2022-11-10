@@ -1,6 +1,6 @@
 import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
-
+import { error } from '@/utils/error-handling';
 export interface ButtonKeybind {
   keyboardKey: string;
 }
@@ -109,7 +109,17 @@ export class Inputs {
   }
 
   public getAnalog(actionId: string): AnalogActionState {
+    if (!this.actions[actionId]) {
+      error(`Action ${actionId} does not exist`);
+    }
     return this.actions[actionId] as AnalogActionState;
+  }
+
+  public getButton(actionId: string): ButtonActionState {
+    if (!this.actions[actionId]) {
+      error(`Action ${actionId} does not exist`);
+    }
+    return this.actions[actionId] as ButtonActionState;
   }
 
   public getKeyState(key: string) {
@@ -128,12 +138,17 @@ export class Inputs {
     Object.values(this.gameActions).forEach((action) => {
       if (action.type === 'button') {
         if (action.action === 'press') {
+          this.actions[action.id].previous = (
+            this.actions[action.id] as ButtonActionState
+          ).active;
           const isJustPressed = action.keybinds.some((keybind) => {
             const state = this.getKeyState(keybind.keyboardKey);
             return state.current === true && state.previous === false;
           });
           if (isJustPressed) {
             (this.actions[action.id] as ButtonActionState).active = true;
+          } else {
+            (this.actions[action.id] as ButtonActionState).active = false;
           }
         }
         // WIP future action system

@@ -1,4 +1,4 @@
-import { error, useInputs, Vec2, Vector2 } from 'narrat';
+import { error, useInputs, useMain, Vec2, Vector2 } from 'narrat';
 import { Component, registerComponentClass } from './Component';
 import { AnimatedSprite } from 'pixi.js';
 import { getAnimation } from '@/utils/loadAsset';
@@ -181,6 +181,12 @@ export class CharacterComponent extends Component {
 
   update() {
     const inputs = useInputs();
+    if (useMain().inScript) {
+      this.animationState = 'idle';
+      this.collider.velocity = Vec2.create(0, 0);
+      this.setAnimation();
+      return;
+    }
     this.direction = inputs.inputs.getAnalog(this.movementAction).value;
     this.lastAnimationState = this.animationState;
     if (Vec2.magnitude(this.direction) > 0) {

@@ -49,6 +49,7 @@ export class GameObject<
   public previousPosition: Vector2 = Vec2.create(0, 0);
   public scene: Scene;
   private _componentIds: string[] = [];
+  public destroyed: boolean = false;
 
   constructor(
     options: CreateGameObjectOptions<NodeType, NodeInfo>,
@@ -73,11 +74,47 @@ export class GameObject<
     for (const child of this.children) {
       child.destroy();
     }
+    for (const component of this.components) {
+      component.destroy();
+    }
     if (this.parent) {
       this.parent.removeChild(this);
     }
     this.scene.removeObject(this);
     this.node.destroy();
+    this.destroyed = true;
+  }
+
+  onTriggerEnter(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onTriggerEnter) {
+        component.onTriggerEnter(other);
+      }
+    }
+  }
+
+  onCollisionEnter(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onCollisionEnter) {
+        component.onCollisionEnter(other);
+      }
+    }
+  }
+
+  onTriggerExit(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onTriggerExit) {
+        component.onTriggerExit(other);
+      }
+    }
+  }
+
+  onCollisionExit(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onCollisionExit) {
+        component.onCollisionExit(other);
+      }
+    }
   }
 
   setPosition(position: Vector2) {
