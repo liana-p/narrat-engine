@@ -96,7 +96,7 @@ export class Scene {
       },
       {} as { [key: string]: Component },
     );
-    this.populateComponents();
+    // this.populateComponents();
     this.populateGameObjects(serialisedScene);
     console.log('tree', this.root);
   }
@@ -110,12 +110,12 @@ export class Scene {
     }
   }
 
-  populateComponents() {
-    for (const key in this.allComponents) {
-      const component = this.allComponents[key];
-      component.data = deserialiseData(component.data, this);
-    }
-  }
+  // populateComponents() {
+  //   for (const key in this.allComponents) {
+  //     const component = this.allComponents[key];
+  //     component.data = deserialiseData(component.data, this);
+  //   }
+  // }
 
   getObject(id: string) {
     return this.allObjects[id];
