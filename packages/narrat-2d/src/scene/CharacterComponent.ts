@@ -1,7 +1,8 @@
-import { useInputs, Vec2, Vector2 } from 'narrat';
+import { error, useInputs, Vec2, Vector2 } from 'narrat';
 import { Component, registerComponentClass } from './Component';
 import { AnimatedSprite } from 'pixi.js';
 import { getAnimation } from '@/utils/loadAsset';
+import { ColliderComponent } from '@/components/ColliderComponent';
 
 export type AnimationDirection =
   | 'bottom'
@@ -89,6 +90,7 @@ export class CharacterComponent extends Component {
     return animations;
   }
 
+  public collider!: ColliderComponent;
   public speed: number = 500;
   public direction: Vector2 = Vec2.create(0, 0);
   public spritesheet: string = '';
@@ -98,6 +100,15 @@ export class CharacterComponent extends Component {
   public animationDirection: AnimationDirection = 'bottom';
 
   public movementAction: string = 'movement';
+
+  public start() {
+    this.collider = this.gameObject.getComponent<ColliderComponent>(
+      ColliderComponent.type,
+    )!;
+    if (!this.collider) {
+      error('CharacterComponent requires a ColliderComponent');
+    }
+  }
 
   setAnimation() {
     const animData = this.animations[this.animationState];
@@ -177,11 +188,7 @@ export class CharacterComponent extends Component {
     } else {
       this.animationState = 'idle';
     }
-    const newPos = Vec2.add(
-      this.gameObject.node.position,
-      Vec2.scale(this.direction, this.speed * this.scene.time.deltaTime),
-    );
-    this.gameObject.node.position.set(newPos.x, newPos.y);
+    this.collider.velocity = Vec2.scale(this.direction, this.speed);
     this.setAnimation();
   }
 }

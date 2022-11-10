@@ -28,7 +28,7 @@ export class CameraComponent extends Component {
         this.target = undefined;
         return;
       }
-      const position = target.node.position;
+      const position = target.getPosition();
       this.x = position.x;
       this.y = position.y;
     }

@@ -1,6 +1,7 @@
 import 'narrat/dist/style.css';
 import { registerPlugin, startApp, useInputs } from 'narrat';
 import { PixiPlugin } from './plugin';
+import { createCollisionMatrix, setCollisionMatrix } from './physics/physics';
 
 window.addEventListener('load', () => {
   const pixi = new PixiPlugin();
@@ -8,6 +9,7 @@ window.addEventListener('load', () => {
   pixi.preloadAssets([
     'img/characters/agumon/agumon.json',
     'img/backgrounds/level.jpg',
+    'img/characters/npc/npc.png',
     'https://pixijs.io/examples/examples/assets/bunny.png',
   ]);
   pixi.addInputActions([
@@ -24,6 +26,15 @@ window.addEventListener('load', () => {
       ],
     },
   ]);
+  const collisionMatrix = createCollisionMatrix(
+    ['default', 'environment', 'entity'],
+    {
+      default: [],
+      environment: ['entity'],
+      entity: ['environment', 'entity'],
+    },
+  );
+  setCollisionMatrix(collisionMatrix);
   startApp({
     configPath: 'data/config.yaml',
     logging: false,

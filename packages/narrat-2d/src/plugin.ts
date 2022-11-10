@@ -8,6 +8,7 @@ import {
   warning,
   gameloop,
   Action,
+  Vec2,
 } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { GameObject } from './scene/GameObject';
@@ -27,6 +28,11 @@ import {
   createSpriteNode,
 } from './scene/PixiNodes';
 import { preloadAssets } from './utils/loadAsset';
+import {
+  ColliderComponent,
+  ColliderComponentOptions,
+} from './components/ColliderComponent';
+import { processEntities } from './physics/physics';
 /**
  * The CounterPlugin is a simple example plugin to showcase the various features plugins can use.
  * This plugin will use the `counter-store` custom store to store custom data (which gets saved and loaded)
@@ -147,6 +153,7 @@ export class PixiPlugin extends NarratPlugin {
     this.createStuff();
     this.gameloopListener = gameloop.on('update', () => {
       if (this.scene.isStarted) {
+        processEntities(this.scene);
         this.scene.beforeUpdate();
         this.scene.update();
         this.scene.postUpdate();
@@ -191,7 +198,7 @@ export class PixiPlugin extends NarratPlugin {
       scene: this.scene,
       node: createSpriteNode('img/backgrounds/level.jpg'),
     });
-    level.node.scale.set(5);
+    level.node.scale.set(3);
     const agumon = new GameObject({
       scene: this.scene,
       node: createContainerNode(),
@@ -212,15 +219,45 @@ export class PixiPlugin extends NarratPlugin {
       scene: this.scene,
       parent: agumon,
     });
-    agumonSprite.node.scale.set(5);
+    agumonSprite.node.scale.set(3);
     agumonSprite.node.anchor.set(0.5, 1);
-    agumon.node.y = 2000;
-    agumon.node.x = 500;
+    agumon.setPosition(Vec2.create(1100, 1200));
+    const agumonCollider = createComponent<
+      ColliderComponent,
+      ColliderComponentOptions
+    >(ColliderComponent, agumon, {
+      shape: 'circle',
+      dimensions: {
+        radius: 30,
+        x: 0,
+        y: -50,
+      },
+    });
+    agumon.layer = 2;
+    const npc = new GameObject({
+      node: createSpriteNode('img/characters/npc/npc.png'),
+      scene: this.scene,
+    });
+    npc.layer = 2;
+    npc.node.anchor.set(0.5, 1);
+    npc.setPosition(Vec2.create(1300, 1400));
+    const npcCollider = createComponent<
+      ColliderComponent,
+      ColliderComponentOptions
+    >(ColliderComponent, npc, {
+      shape: 'rectangle',
+      dimensions: {
+        width: 80,
+        height: 100,
+        x: 0,
+        y: -50,
+      },
+    });
     const player = createComponent<
       CharacterComponent,
       CharacterComponentOptions
     >(CharacterComponent, agumon, {
-      speed: 500,
+      speed: 320,
       spritesheet: 'img/characters/agumon/agumon.json',
       animations: CharacterComponent.GenerateAnimations(['idle', 'walk'], {
         flipRight: true,

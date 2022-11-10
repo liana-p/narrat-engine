@@ -45,6 +45,7 @@ export function createComponent<
     error(`No component class registered for type ${type}`);
   }
   const component = new info.constructor(gameObject, options);
+  component.type = type;
   component.setOptions(options);
   if (!skipStart) {
     component.start();
@@ -95,6 +96,9 @@ export class Component {
   update() {}
 
   postUpdate() {}
+
+  onTriggerEnter(other: GameObject) {}
+  onCollisionEnter(other: GameObject) {}
 
   getSerialisableFields(): string[] {
     return (this as any).serialisableFields ?? [];
