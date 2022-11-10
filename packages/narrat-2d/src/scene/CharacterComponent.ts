@@ -1,90 +1,178 @@
-import { useInputs, Vec2, Vector2 } from 'narrat';
+import { error, useInputs, useMain, Vec2, Vector2 } from 'narrat';
 import { Component, registerComponentClass } from './Component';
 import { AnimatedSprite } from 'pixi.js';
 import { getAnimation } from '@/utils/loadAsset';
+import { ColliderComponent } from '@/components/ColliderComponent';
 
+export type AnimationDirection =
+  | 'bottom'
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'topLeft'
+  | 'bottomLeft'
+  | 'topRight'
+  | 'bottomRight';
+
+export type AnimDirectionOptions =
+  | string
+  | {
+      anim: string;
+      flipX?: boolean;
+      flipY?: boolean;
+    };
 export interface AnimationDirections {
-  top: string;
-  bottom: string;
-  left: string;
-  right?: string;
+  top: AnimDirectionOptions;
+  bottom: AnimDirectionOptions;
+  left: AnimDirectionOptions;
+  right: AnimDirectionOptions;
+  topLeft: AnimDirectionOptions;
+  topRight: AnimDirectionOptions;
+  bottomLeft: AnimDirectionOptions;
+  bottomRight: AnimDirectionOptions;
 }
+
 export interface CharacterAnimations {
   [key: string]: AnimationDirections;
 }
+
+export interface CharacterComponentOptions {
+  spritesheet: string;
+  animations: CharacterAnimations;
+  speed?: number;
+  movementAction?: string;
+}
 export class CharacterComponent extends Component {
   public static type = 'CharacterComponent';
-  public data: {
-    speed: number;
-    direction: Vector2;
-    spritesheet: string;
-    animationState: string;
-    lastAnimationState: string;
-    animations: CharacterAnimations;
-    animationDirection: 'bottom' | 'top' | 'left' | 'right' | 'none';
-  } = {
-    speed: 500,
-    direction: Vec2.create(1, 0),
-    spritesheet: '',
-    animationState: 'idle',
-    lastAnimationState: 'none',
-    animations: {},
-    animationDirection: 'none',
-  };
+  public static serialisableFields: string[] = [
+    'speed',
+    'direction',
+    'spritesheet',
+    'animationState',
+    'lastAnimationState',
+    'animations',
+    'animationDirection',
+    'movementAction',
+  ];
 
-  start() {
-    this.data.spritesheet = 'img/characters/agumon/agumon.json';
-    this.data.animations = {
-      idle: {
-        top: 'idle-top',
-        bottom: 'idle-bottom',
-        left: 'idle-left',
-      },
-      walk: {
-        top: 'walk-top',
-        bottom: 'walk-bottom',
-        left: 'walk-left',
-      },
-    };
+  public static GenerateAnimations(
+    poses: string[],
+    options: { flipRight?: boolean; prefix?: string } = {},
+  ): CharacterAnimations {
+    const animations: CharacterAnimations = {};
+    const prefix = options.prefix ?? '';
+    poses.forEach((pose) => {
+      animations[pose] = {
+        top: `${prefix}${pose}-top`,
+        bottom: `${prefix}${pose}-bottom`,
+        left: `${prefix}${pose}-left`,
+        right: `${prefix}${pose}-right`,
+        topLeft: `${prefix}${pose}-top-left`,
+        topRight: `${prefix}${pose}-top-right`,
+        bottomLeft: `${prefix}${pose}-bottom-left`,
+        bottomRight: `${prefix}${pose}-bottom-right`,
+      };
+      if (options.flipRight) {
+        animations[pose].right = {
+          anim: animations[pose].left as string,
+          flipX: true,
+        };
+        animations[pose].topRight = {
+          anim: animations[pose].topLeft as string,
+          flipX: true,
+        };
+        animations[pose].bottomRight = {
+          anim: animations[pose].bottomLeft as string,
+          flipX: true,
+        };
+      }
+    });
+    return animations;
+  }
+
+  public collider!: ColliderComponent;
+  public speed: number = 500;
+  public direction: Vector2 = Vec2.create(0, 0);
+  public spritesheet: string = '';
+  public animationState: string = 'none';
+  public lastAnimationState: string = 'none';
+  public animations: CharacterAnimations = {};
+  public animationDirection: AnimationDirection = 'bottom';
+
+  public movementAction: string = 'movement';
+
+  public start() {
+    this.collider = this.gameObject.getComponent<ColliderComponent>(
+      ColliderComponent.type,
+    )!;
+    if (!this.collider) {
+      error('CharacterComponent requires a ColliderComponent');
+    }
   }
 
   setAnimation() {
-    const animData = this.data.animations[this.data.animationState];
-    let direction = this.data.animationDirection;
-    if (this.data.direction.y > 0) {
-      direction = 'bottom';
+    const animData = this.animations[this.animationState];
+    let animDirection = this.getAnimationDirectionFromDirection(this.direction);
+    if (animDirection === null) {
+      animDirection = this.animationDirection;
     }
-    if (this.data.direction.y < 0) {
-      direction = 'top';
-    }
-    if (this.data.direction.x < 0) {
-      direction = 'left';
-    }
-    if (this.data.direction.x > 0) {
-      direction = 'right';
-    }
-    if (direction === 'none') {
-      return;
-    }
-    let anim = animData[direction]!;
-    if (direction === 'right' && !animData.right) {
-      anim = animData.left;
-      this.gameObject.node.scale.x = -1;
-    } else {
-      this.gameObject.node.scale.x = 1;
-    }
+    const anim = animData[animDirection]!;
     if (
-      direction !== this.data.animationDirection ||
-      this.data.lastAnimationState !== this.data.animationState
+      animDirection !== this.animationDirection ||
+      this.lastAnimationState !== this.animationState
     ) {
+      this.gameObject.node.scale.set(1);
+      let animationName: string;
+      if (typeof anim === 'object') {
+        animationName = anim.anim;
+        if (anim.flipX) {
+          this.gameObject.node.scale.x = -1;
+        }
+        if (anim.flipY) {
+          this.gameObject.node.scale.y = -1;
+        }
+      } else {
+        animationName = anim;
+      }
       this.getAnimatedNode().textures = getAnimation(
-        this.data.spritesheet,
-        anim,
+        this.spritesheet,
+        animationName,
       );
       this.getAnimatedNode().animationSpeed = 0.1;
       this.getAnimatedNode().play();
-      this.data.animationDirection = direction;
+      this.animationDirection = animDirection;
     }
+  }
+
+  getAnimationDirectionFromDirection(
+    direction: Vector2,
+  ): AnimationDirection | null {
+    if (direction.y > 0) {
+      if (direction.x > 0) {
+        return 'bottomRight';
+      } else if (direction.x < 0) {
+        return 'bottomLeft';
+      } else {
+        return 'bottom';
+      }
+    }
+    if (direction.y < 0) {
+      if (direction.x > 0) {
+        return 'topRight';
+      } else if (direction.x < 0) {
+        return 'topLeft';
+      } else {
+        return 'top';
+      }
+    }
+    if (direction.y === 0) {
+      if (direction.x > 0) {
+        return 'right';
+      } else if (direction.x < 0) {
+        return 'left';
+      }
+    }
+    return null;
   }
 
   getAnimatedNode() {
@@ -93,19 +181,20 @@ export class CharacterComponent extends Component {
 
   update() {
     const inputs = useInputs();
-    this.data.direction = inputs.inputs.getAnalog('movement').value;
-    this.data.lastAnimationState = this.data.animationState;
-    if (Vec2.magnitude(this.data.direction) > 0) {
-      this.data.animationState = 'walk';
-    } else {
-      this.data.animationState = 'idle';
+    if (useMain().inScript) {
+      this.animationState = 'idle';
+      this.collider.velocity = Vec2.create(0, 0);
+      this.setAnimation();
+      return;
     }
-    const { speed, direction } = this.data;
-    const newPos = Vec2.add(
-      this.gameObject.node.position,
-      Vec2.scale(direction, speed * this.scene.time.deltaTime),
-    );
-    this.gameObject.node.position.set(newPos.x, newPos.y);
+    this.direction = inputs.inputs.getAnalog(this.movementAction).value;
+    this.lastAnimationState = this.animationState;
+    if (Vec2.magnitude(this.direction) > 0) {
+      this.animationState = 'walk';
+    } else {
+      this.animationState = 'idle';
+    }
+    this.collider.velocity = Vec2.scale(this.direction, this.speed);
     this.setAnimation();
   }
 }

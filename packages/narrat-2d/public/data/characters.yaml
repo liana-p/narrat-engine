@@ -9,3 +9,7 @@ characters:
     style:
       color: orange
     name: You
+  npc:
+    style:
+      color: green
+    name: Nice NPC

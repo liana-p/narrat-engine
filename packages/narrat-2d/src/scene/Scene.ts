@@ -1,5 +1,6 @@
 import { deserialiseData } from '@/utils/serialisation';
 import { Time } from '@/utils/Time';
+import { useMain } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { Component, SerialisedComponent } from './Component';
 import { GameObject, SerialisedGameObject } from './GameObject';
@@ -95,7 +96,7 @@ export class Scene {
       },
       {} as { [key: string]: Component },
     );
-    this.populateComponents();
+    // this.populateComponents();
     this.populateGameObjects(serialisedScene);
     console.log('tree', this.root);
   }
@@ -109,12 +110,12 @@ export class Scene {
     }
   }
 
-  populateComponents() {
-    for (const key in this.allComponents) {
-      const component = this.allComponents[key];
-      component.data = deserialiseData(component.data, this);
-    }
-  }
+  // populateComponents() {
+  //   for (const key in this.allComponents) {
+  //     const component = this.allComponents[key];
+  //     component.data = deserialiseData(component.data, this);
+  //   }
+  // }
 
   getObject(id: string) {
     return this.allObjects[id];

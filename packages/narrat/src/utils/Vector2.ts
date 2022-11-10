@@ -70,4 +70,14 @@ export namespace Vec2 {
       y: v.x * sin + v.y * cos,
     };
   }
+  export function normal(v1: Vector2, v2: Vector2) {
+    const v = subtract(v2, v1);
+    return Vec2.normalize({
+      x: -v.y,
+      y: v.x,
+    });
+  }
+  export function dot(a: Vector2, b: Vector2) {
+    return a.x * b.x + a.y * b.y;
+  }
 }

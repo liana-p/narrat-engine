@@ -16,6 +16,7 @@ export interface SaveSlot {
   slotNumber: number;
 }
 export type GameSave = {
+  [key: string]: any;
   version: string;
   skills: SkillsSave;
   screen: ScreenSave;

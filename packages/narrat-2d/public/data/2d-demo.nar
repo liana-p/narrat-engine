@@ -1,0 +1,11 @@
+main:
+  choice:
+    "Would you like to be a digimon?"
+    "Yes":
+      "Okay then"
+      show_scene
+    "No":
+      "That's a shame"
+
+npc_talk:
+  talk npc idle "wow, you triggered a dialog from the 2D engine"

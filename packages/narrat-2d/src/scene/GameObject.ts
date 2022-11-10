@@ -1,4 +1,4 @@
-import { randomId } from 'narrat';
+import { randomId, Vec2, Vector2 } from 'narrat';
 import { Component, ComponentTypes } from './Component';
 import { Scene } from './Scene';
 import { deserialisePixiNode, serialisePixiNode } from '@/utils/serialisation';
@@ -28,6 +28,8 @@ export interface SerialisedGameObject {
   components: string[];
   name: string;
   tags: string[];
+  position: Vector2;
+  layer: number;
 }
 
 export class GameObject<
@@ -38,12 +40,16 @@ export class GameObject<
   public node: NodeType;
   public nodeInfo: NodeInfo;
   public name: string;
+  public layer: number = 0;
   public tags: string[] = [];
   public components: Component[] = [];
   public children: GameObject<any>[] = [];
   public parent?: GameObject<any>;
+  public position: Vector2 = Vec2.create(0, 0);
+  public previousPosition: Vector2 = Vec2.create(0, 0);
   public scene: Scene;
   private _componentIds: string[] = [];
+  public destroyed: boolean = false;
 
   constructor(
     options: CreateGameObjectOptions<NodeType, NodeInfo>,
@@ -54,7 +60,7 @@ export class GameObject<
     this.nodeInfo = options.node.info;
     this.parent = options.parent;
     this.scene = options.scene;
-    this.name = options.name ?? `GameObject ${this.id.substring(0, 10)}`;
+    this.name = options.name ?? `GameObject ${this.id.substring(0, 30)}`;
     this.tags = options.tags ?? [];
     if (this.parent) {
       this.parent.addChild(this);
@@ -68,11 +74,56 @@ export class GameObject<
     for (const child of this.children) {
       child.destroy();
     }
+    for (const component of this.components) {
+      component.destroy();
+    }
     if (this.parent) {
       this.parent.removeChild(this);
     }
     this.scene.removeObject(this);
     this.node.destroy();
+    this.destroyed = true;
+  }
+
+  onTriggerEnter(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onTriggerEnter) {
+        component.onTriggerEnter(other);
+      }
+    }
+  }
+
+  onCollisionEnter(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onCollisionEnter) {
+        component.onCollisionEnter(other);
+      }
+    }
+  }
+
+  onTriggerExit(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onTriggerExit) {
+        component.onTriggerExit(other);
+      }
+    }
+  }
+
+  onCollisionExit(other: GameObject) {
+    for (const component of this.components as any) {
+      if (component.onCollisionExit) {
+        component.onCollisionExit(other);
+      }
+    }
+  }
+
+  setPosition(position: Vector2) {
+    this.position = Vec2.create(position.x, position.y);
+    this.node.position.set(position.x, position.y);
+  }
+
+  getPosition(): Vector2 {
+    return Vec2.create(this.position.x, this.position.y);
   }
 
   addChild(child: GameObject<any>) {
@@ -104,6 +155,13 @@ export class GameObject<
     this.scene.addComponent(component);
   }
 
+  hasComponent(type: ComponentTypes): boolean {
+    if (typeof type === 'string') {
+      return this.components.some((c) => c.type === type);
+    }
+    return false;
+  }
+
   removeComponent(component: Component) {
     const index = this.components.indexOf(component);
     if (index !== -1) {
@@ -126,6 +184,8 @@ export class GameObject<
       children: this.children.map((child) => child.id),
       parent: this.parent?.id,
       components: this.components.map((component) => component.id),
+      position: this.position,
+      layer: this.layer,
       name: this.name,
       tags: this.tags,
     };
@@ -169,6 +229,8 @@ export class GameObject<
     obj.name = serialised.name;
     obj.tags = serialised.tags;
     obj._componentIds = serialised.components;
+    obj.setPosition(serialised.position);
+    obj.layer = serialised.layer;
     return obj;
   }
 }
