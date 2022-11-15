@@ -1,6 +1,6 @@
 {
   "name": "narrat-template",
-  "version": "2.10.0",
+  "version": "2.10.4",
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
   "engines": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^2.10.0",
+    "narrat": "^2.10.4",
     "pinia": "^2.0.14",
     "steamworks.js": "^0.0.18",
     "vue": "^3.2.37"

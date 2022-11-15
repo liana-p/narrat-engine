@@ -1,5 +1,11 @@
 # Narrat changelog
 
+## [2.10.4] - Bugfixes
+
+- Improvement to error messages when the game tries to use characters that don't exist or have missing poses
+- Fix for CRLF line endings causing the create-narrat script to fail with Yarn on unix systems
+- Various new files are now exported in the narrat package (for development of plugins)
+
 ## [2.10.3] - Custom start menu buttons
 
 New plugin API to add custom buttons to the start menu additionally to the basic ones.
