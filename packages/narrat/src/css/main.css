@@ -483,4 +483,7 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
   color: var(--highlighted-tooltip-keyword-color);
   font-size: var(--highlighted-tooltip-keyword-font-size);
   font-weight: var(--highlighted-tooltip-keyword-font-weight);
+  /* Needed for tooltip box to work on sprites */
+  user-select: auto;
+  pointer-events: all;
 }
