@@ -7,9 +7,13 @@
     @click="clickOnObject(screenObject)"
     :style="objectStyle"
   >
-    {{
-      props.screenObject.text ? processText(props.screenObject.text) : undefined
-    }}
+    <span
+      v-html="
+        props.screenObject.text
+          ? processText(props.screenObject.text)
+          : undefined
+      "
+    />
     <ScreenObject
       :transitioning="transitioning"
       v-for="child in props.screenObject.children"

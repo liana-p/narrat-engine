@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.10.5] - Tooltip improvements
+
+Tooltips now work inside the text of sprites in the viewport
+
 ## [2.10.4] - Bugfixes
 
 - Improvement to error messages when the game tries to use characters that don't exist or have missing poses
