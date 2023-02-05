@@ -1,5 +1,32 @@
 # Narrat changelog
 
+## [2.10.6] - New `get_skill_check` and `skill_check_result` functions
+
+Those two new functions make it possible to access the data of a skill check.
+
+- `get_skill_check` returns the skill check object for a given skill check label (contains `happened`, `succeeded` and `hidden`)
+- `skill_check_result` returns the result of a skill check as `true` if succeeded or `false`
+
+Example:
+
+```narrat
+test_skill_checks:
+  choice:
+    "test skill roll"
+    roll testSkillCheck agility 50 "Test this skill roll":
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "no roll":
+      "hello"
+  var test (get_skill_check testSkillCheck)
+  log $test
+  log (skill_check_result testSkillCheck)
+```
+
+(See the logs in the js console after running this to see the skill check values appearing in it)
+
 ## [2.10.5] - Tooltip improvements
 
 Tooltips now work inside the text of sprites in the viewport
