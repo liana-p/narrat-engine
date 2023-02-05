@@ -219,6 +219,7 @@ export function getModifiableDataPinia() {
   const state = {
     data: vm.data,
     skills: skills.skills,
+    skillChecks: skills.skillChecks,
     buttons: screens.buttons,
     items: inventory.items,
     quests: useQuests().quests,

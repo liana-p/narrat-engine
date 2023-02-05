@@ -179,6 +179,28 @@ export const rollPlugin = new CommandPlugin<RollArgs>(
   },
 );
 
+export const getSkillCheckPlugin = new CommandPlugin<{
+  skillCheckId: string;
+}>(
+  'get_skill_check',
+  [{ name: 'skillCheckId', type: 'string' }],
+  async (cmd) => {
+    return useSkills().getSkillCheck(cmd.options.skillCheckId);
+  },
+);
+
+// Write a skillCheckResult plugin to get the result of a skill check as boolean
+export const getSkillCheckResultPlugin = new CommandPlugin<{
+  skillCheckId: string;
+}>(
+  'skill_check_result',
+  [{ name: 'skillCheckId', type: 'string' }],
+  async (cmd) => {
+    const skillCheck = useSkills().getSkillCheck(cmd.options.skillCheckId);
+    return skillCheck.succeeded;
+  },
+);
+
 export const resetSkillCheck = new CommandPlugin<{ id: string }>(
   'reset_roll',
   [
