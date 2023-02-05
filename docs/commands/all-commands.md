@@ -124,15 +124,17 @@ description: This page contains a list of all the existing narrat commands
 
 #### Skills
 
-| Command                                     | Example                                                 | Description                                                       |
-| ------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
-| [add_level](skills-commands/add-level.md)   | `add_level agility 1`                                   | Adds levels to a skill                                            |
-| [set_level](skills-commands/add-level-1.md) | `set_level agility 1`                                   | Sets the level of a skill                                         |
-| [add_xp](skills-commands/add-xp.md)         | `add_xp agility 10`                                     | Adds experience to a skill                                        |
-| [get_level](skills-commands/get-level.md)   | `get_level agility`                                     | Gets the level of a skill                                         |
-| [get_xp](skills-commands/get-xp.md)         | `get_xp agility`                                        | Gets the experience of a skill                                    |
-| [roll](skills-commands/roll.md)             | `roll mySkillCheck agility 50` // Returns true or false | Runs a skill check with a certain difficulty against a skill dice |
-| [reset_roll](skills-commands/reset-roll.md) | `reset_roll mySkillCheck`                               | Resets a skill check                                              |
+| Command                                                     | Example                                                         | Description                                                                                   |
+| ----------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [add_level](skills-commands/add-level.md)                   | `add_level agility 1`                                           | Adds levels to a skill                                                                        |
+| [set_level](skills-commands/add-level-1.md)                 | `set_level agility 1`                                           | Sets the level of a skill                                                                     |
+| [add_xp](skills-commands/add-xp.md)                         | `add_xp agility 10`                                             | Adds experience to a skill                                                                    |
+| [get_level](skills-commands/get-level.md)                   | `get_level agility`                                             | Gets the level of a skill                                                                     |
+| [get_xp](skills-commands/get-xp.md)                         | `get_xp agility`                                                | Gets the experience of a skill                                                                |
+| [roll](skills-commands/roll.md)                             | `roll mySkillCheck agility 50` // Returns true or false         | Runs a skill check with a certain difficulty against a skill dice                             |
+| [get_skill_check](skills-commands/get-skill-check.md)       | `get_skill_check mySkillCheck` // Returns a skill check's state | Gets the result of a skill check (object with `happened`, `succeeded`, and `hidden` booleans) |
+| [skill_check_result](skills-commands/skill-check-result.md) | `skill_check_result mySkillCheck` // Returns true or false      | Gets the result of a skill check as boolean                                                   |
+| [reset_roll](skills-commands/reset-roll.md)                 | `reset_roll mySkillCheck`                                       | Resets a skill check                                                                          |
 
 #### Stats
 

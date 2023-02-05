@@ -59,7 +59,7 @@ const config = {
         items: [
           {
             text: 'All commands',
-            link: '/scripting/all-commands',
+            link: '/commands/all-commands',
           },
           { text: 'Language Syntax', link: '/scripting/language-syntax' },
           { text: 'Functions', link: '/scripting/functions' },
@@ -88,7 +88,7 @@ const config = {
         text: 'Scripting',
         items: [
           {
-            link: '/scripting/all-commands',
+            link: '/commands/all-commands',
             text: 'All Commands Reference',
           },
           { text: 'Example Script', link: '/examples/example-narrat-script' },

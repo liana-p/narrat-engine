@@ -2,6 +2,8 @@ import {
   addLevelPlugin,
   addXpPlugin,
   getLevelPlugin,
+  getSkillCheckPlugin,
+  getSkillCheckResultPlugin,
   getXpPlugin,
   resetSkillCheck,
   rollPlugin,
@@ -221,6 +223,8 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(addXpPlugin);
   vm.addCommand(rollPlugin);
   vm.addCommand(resetSkillCheck);
+  vm.addCommand(getSkillCheckPlugin);
+  vm.addCommand(getSkillCheckResultPlugin);
   vm.addCommand(getLevelPlugin);
   vm.addCommand(getXpPlugin);
   // Text Fields
