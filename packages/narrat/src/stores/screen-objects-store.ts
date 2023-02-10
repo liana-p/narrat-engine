@@ -78,6 +78,17 @@ export function isSprite(entity: any): entity is SpriteState {
   );
 }
 
+//Helper function that parses arguments given to a screenObject's onClick parameter,
+//and runs the function with optional arguments.
+export function parseArgumentsAndRun(args:string){
+  if (args.includes(" ")){ //If it contains spaces, meaning multiple args
+    let splitArgs = args.split(" "); //Split at spaces
+     useVM().runThenGoBackToPreviousDialog(splitArgs[0], splitArgs.slice(1), true); //Pass in arguments and then the "true" at the end
+  }else{
+     useVM().runThenGoBackToPreviousDialog(args, true);
+  }
+}
+
 export interface CreateSpriteOptions extends CreateObjectOptions {
   image: string;
 }
@@ -175,12 +186,7 @@ export const useScreenObjects = defineStore('screenObjects', {
         console.log('click', Date.now());
         audioEvent('onSpriteClicked');
         if (thing.clickMethod === 'run') {
-          if (thing.onClick.includes(" ")){ //If it contains spaces, meaning multiple args
-            let splitArgs = thing.onClick.split(" "); //Split at spaces
-            useVM().runThenGoBackToPreviousDialog(splitArgs[0], splitArgs.slice(1), true); //Pass in arguments and then the "true" at the end
-          }else{
-            useVM().runThenGoBackToPreviousDialog(thing.onClick, true);
-          }
+          parseArgumentsAndRun(thing.onClick)
         } else if (thing.clickMethod === 'jump' || !thing.clickMethod) {
           useVM().jumpToLabel(thing.onClick);
         } else {
