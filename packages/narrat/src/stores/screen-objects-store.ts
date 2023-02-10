@@ -175,7 +175,12 @@ export const useScreenObjects = defineStore('screenObjects', {
         console.log('click', Date.now());
         audioEvent('onSpriteClicked');
         if (thing.clickMethod === 'run') {
-          useVM().runThenGoBackToPreviousDialog(thing.onClick, true);
+          if (thing.onClick.includes(" ")){ //If it contains spaces, meaning multiple args
+            let splitArgs = thing.onClick.split(" "); //Split at spaces
+            useVM().runThenGoBackToPreviousDialog(splitArgs[0], splitArgs.slice(1), true); //Pass in arguments and then the "true" at the end
+          }else{
+            useVM().runThenGoBackToPreviousDialog(thing.onClick, true);
+          }
         } else if (thing.clickMethod === 'jump' || !thing.clickMethod) {
           useVM().jumpToLabel(thing.onClick);
         } else {
