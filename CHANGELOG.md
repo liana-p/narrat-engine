@@ -1,5 +1,21 @@
 # Narrat changelog
 
+## [2.10.7] Passing arguments to sprite `onClick`
+
+Arguments can now be passed to the `onClick` property of a sprite, by passing a string with the label and space-separated arguments.
+
+It it also possible to make the `onClick` property be an object containing `label` (string), `method` (jump or run) and `args` (array of arguments) values for more advanced use cases.
+
+Example:
+
+```narrat
+test_sprites_click:
+  set data.sprite (create_sprite img/characters/cat_idle.webp 200 200)
+  set data.sprite.onClick "some_label someArgument"
+```
+
+Clicking on the sprite will jump to `some_label` and pass as first argument the value `someArgument`
+
 ## [2.10.6] - New `get_skill_check` and `skill_check_result` functions
 
 Those two new functions make it possible to access the data of a skill check.
