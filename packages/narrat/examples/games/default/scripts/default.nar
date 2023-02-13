@@ -41,7 +41,7 @@ card_finder card name_to_match:
 
 test_sprites_click:
   set data.sprite (create_sprite img/characters/cat_idle.webp 200 200)
-  set data.sprite.onClick some_label
+  set data.sprite.onClick "some_label someArgument"
   set data.sprite2 (create_sprite img/characters/cat_idle.webp 50 100 $data.sprite)
   set data.text (create_object 50 100 $data.sprite2)
   set data.text.anchor.x 0.5
@@ -55,8 +55,8 @@ test_sprites_click:
   set data.sprite.y 100
 
 
-some_label:
-  talk player idle "Clicked on sprite"
+some_label arg:
+  talk player idle "Clicked on sprite %{$arg}"
   jump quest_demo
 
 test_load_data:

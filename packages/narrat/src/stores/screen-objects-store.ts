@@ -10,6 +10,12 @@ import { useVM } from './vm-store';
 
 export type ScreenObjectType = 'screenObject' | 'sprite';
 
+export interface ObjectOnClick {
+  label: string;
+  method?: 'jump' | 'run';
+  args?: any[];
+}
+
 export interface ScreenObjectState {
   _entityType: ScreenObjectType;
   id: string;
@@ -27,7 +33,7 @@ export interface ScreenObjectState {
   scale: number;
   layer: number;
   cssClass?: string;
-  onClick?: string;
+  onClick?: ObjectOnClick | string;
   text?: string;
   clickMethod?: 'jump' | 'run';
   children: ScreenObjectState[];
@@ -76,6 +82,22 @@ export function isSprite(entity: any): entity is SpriteState {
     entity !== null &&
     entity._entityType === 'sprite'
   );
+}
+
+// Helper function that parses arguments given to a screenObject's onClick parameter,
+export function parseArgumentsFromOnClick(args: string) {
+  if (args.includes(' ')) {
+    // If it contains spaces, meaning multiple args
+    const splitArgs = args.split(' ');
+    return {
+      label: splitArgs[0],
+      args: splitArgs.slice(1),
+    };
+  } else {
+    return {
+      label: args,
+    };
+  }
 }
 
 export interface CreateSpriteOptions extends CreateObjectOptions {
@@ -174,10 +196,25 @@ export const useScreenObjects = defineStore('screenObjects', {
       if (thing.onClick) {
         console.log('click', Date.now());
         audioEvent('onSpriteClicked');
-        if (thing.clickMethod === 'run') {
-          useVM().runThenGoBackToPreviousDialog(thing.onClick, true);
-        } else if (thing.clickMethod === 'jump' || !thing.clickMethod) {
-          useVM().jumpToLabel(thing.onClick);
+        let clickArgs: ObjectOnClick;
+        if (typeof thing.onClick === 'string') {
+          const parsedOnClick = parseArgumentsFromOnClick(thing.onClick);
+          clickArgs = {
+            label: parsedOnClick.label,
+            args: parsedOnClick.args,
+          };
+        } else {
+          clickArgs = thing.onClick;
+        }
+        clickArgs.method = clickArgs.method ?? thing.clickMethod ?? 'jump';
+        clickArgs.args = clickArgs.args ?? [];
+        if (clickArgs.method === 'run') {
+          useVM().runThenGoBackToPreviousDialog(
+            clickArgs.label,
+            ...clickArgs.args,
+          );
+        } else if (clickArgs.method === 'jump') {
+          useVM().jumpToLabel(clickArgs.label, ...clickArgs.args);
         } else {
           error(`Unknown sprite click method ${thing.clickMethod}`);
         }
