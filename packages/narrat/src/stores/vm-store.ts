@@ -100,6 +100,8 @@ export const useVM = defineStore('vm', {
               _entityType: value._entityType,
               id: value.id,
             };
+          } else {
+            return value;
           }
         }),
       };
