@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.10.8] Fix to saves for non-object values
+
+A bug had sneaked in where non-object values (strings, numbers, booleans) were not saved properly in the save file.
+
 ## [2.10.7] Passing arguments to sprite `onClick`
 
 Arguments can now be passed to the `onClick` property of a sprite, by passing a string with the label and space-separated arguments.
