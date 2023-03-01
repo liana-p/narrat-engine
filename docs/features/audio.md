@@ -9,7 +9,7 @@ description: This guide explains how to use the audio features of narrat to play
 
 The `play` function plays audio, either music or sounds.
 
-To use the `play` function, the game needs to have audio files loaded by adding them to the config file:
+To use the `play` function, the game needs to have audio files loaded by adding them to the audio config file, usually located at `data/audio.yaml`:
 
 ```yaml
 files:
@@ -22,6 +22,7 @@ files:
   click:
     src: audio/click.ogg
   game_start:
+    volume: 0.9
     src: audio/game_start.ogg
   failure:
     src: audio/failure.ogg
@@ -35,6 +36,8 @@ audioTriggers:
   onPressStart: game_start
   onSkillCheckFailure: failure
 ```
+
+The path of the audio configuration yaml can be changed in the base `config.yaml`:
 
 ```yaml
 audio: data/audio.yaml
