@@ -180,7 +180,7 @@ export const useAudio = defineStore('audio', {
         }
       } else if (mode === 'sound') {
         const newId = newAudio.play();
-        newAudio.volume(this.modeVolume(mode), newId);
+        newAudio.volume(this.modeVolume(mode) * newAudio.volume(), newId);
         this.setAudioChannel(mode, channelIndex, {
           audio,
           howlerId: newId,
