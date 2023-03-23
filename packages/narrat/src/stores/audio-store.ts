@@ -173,14 +173,14 @@ export const useAudio = defineStore('audio', {
           // newAudio.volume(0.5, newId);
           newAudio.fade(
             0,
-            this.modeVolume(mode),
+            this.modeVolume(mode) * newAudio.volume(),
             audioConfig().options.musicFadeInTime * 1000,
             newId,
           );
         }
       } else if (mode === 'sound') {
         const newId = newAudio.play();
-        newAudio.volume(this.modeVolume(mode), newId);
+        newAudio.volume(this.modeVolume(mode) * newAudio.volume(), newId);
         this.setAudioChannel(mode, channelIndex, {
           audio,
           howlerId: newId,

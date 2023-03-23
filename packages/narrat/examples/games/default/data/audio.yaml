@@ -8,6 +8,7 @@ files:
   click:
     src: audio/click.ogg
   game_start:
+    volume: 0.9
     src: audio/game_start.ogg
   failure:
     src: audio/failure.ogg
