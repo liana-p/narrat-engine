@@ -1,5 +1,12 @@
 # Narrat changelog
 
+## [2.11.0] Audio volume improvement and saves fix
+
+* Audio volume in an individual audio file's config wasn't used properly and is now correctly mixed with the relevant volume for channels (by [@jornvandebeek](https://github.com/jornvandebeek))
+* There was a problem where some game data didn't reset properly if a player continued playing after a save was made, went back to the main menu and reloaded the saved without reloading the browser
+
+(technical note: pinia stores weren't all reset properly. If there are more bugs of this kind please signal them)
+
 ## [2.10.8] Fix to saves for non-object values
 
 A bug had sneaked in where non-object values (strings, numbers, booleans) were not saved properly in the save file.

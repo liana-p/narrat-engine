@@ -28,6 +28,10 @@ export const useHud = defineStore('hud', {
         };
       }
     },
+    reset(stats: HudStatsConfig) {
+      this.$reset();
+      this.setupHudStats(stats);
+    },
     setStat(stat: string, value: number) {
       this.hudStats[stat].value = value;
     },

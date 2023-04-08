@@ -235,8 +235,7 @@ export const useScreenObjects = defineStore('screenObjects', {
       this.tree = data.tree.map((obj) => this.objectsList[obj]);
     },
     reset() {
-      this.tree = [];
-      this.objectsList = {};
+      this.$reset();
     },
     // Removes references from objects and turn them to string id refs
     screenObjectToSave(object: ScreenObjectState): ScreenObjectSaveState {

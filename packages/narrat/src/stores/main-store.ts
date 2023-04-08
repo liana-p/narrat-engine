@@ -360,15 +360,15 @@ export const useMain = defineStore('main', {
       const screens = useScreens();
       const config = getConfig();
       useScreenObjects().reset();
-      screens.setButtons(config);
+      screens.reset(config);
       const skillsStore = useSkills();
-      skillsStore.setupSkills(skillsConfig());
+      skillsStore.reset(skillsConfig());
       const hudStore = useHud();
       hudStore.setupHudStats(config.hudStats);
       const inventoryStore = useInventory();
-      inventoryStore.setupItems(itemsConfig().items);
+      inventoryStore.reset(itemsConfig().items);
       const questsStore = useQuests();
-      questsStore.setupQuests(questsConfig());
+      questsStore.reset(questsConfig());
       useDialogStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
         if (store.reset) {

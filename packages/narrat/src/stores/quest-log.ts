@@ -81,6 +81,10 @@ export const useQuests = defineStore('quests', {
         }
       }
     },
+    reset(questsConfig: QuestsConfig) {
+      this.$reset();
+      this.setupQuests(questsConfig);
+    },
     startQuest(questId: string) {
       const quest = this.getQuest(questId);
       if (quest) {

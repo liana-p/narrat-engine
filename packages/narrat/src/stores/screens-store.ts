@@ -34,16 +34,17 @@ export type ScreenSave = {
   buttons: ButtonsState;
 };
 
+export const defaultScreensState = (): ScreenState => ({
+  layers: [
+    {
+      screen: 'default',
+    },
+  ],
+  buttons: {} as ButtonsState,
+} as ScreenState);
+
 export const useScreens = defineStore('screens', {
-  state: () =>
-    ({
-      layers: [
-        {
-          screen: 'default',
-        },
-      ],
-      buttons: {} as ButtonsState,
-    } as ScreenState),
+  state: defaultScreensState,
   actions: {
     setScreen(screen: string, layer: number, transition?: AddTransition) {
       return new Promise<void>((resolve) => {
@@ -138,6 +139,10 @@ export const useScreens = defineStore('screens', {
           }
         }
       }
+    },
+    reset(config: Config) {
+      this.$reset();
+      this.setButtons(config);
     },
     changeButton(button: string, newValue: ButtonStateValue) {
       if (!this.buttons[button]) {
