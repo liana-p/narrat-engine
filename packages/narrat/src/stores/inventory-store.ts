@@ -26,6 +26,9 @@ export interface InventoryState {
 
 export type InventorySave = InventoryState;
 
+export interface ItemsSetupConfig {
+  [key: string]: ItemConfig;
+}
 export const useInventory = defineStore('inventory', {
   state: (): InventoryState => ({
     items: {},
@@ -42,13 +45,17 @@ export const useInventory = defineStore('inventory', {
       this.items = { ...this.items, ...save.items };
       this.interactionTags = { ...save.interactionTags };
     },
-    setupItems(items: { [key: string]: ItemConfig }) {
+    setupItems(items: ItemsSetupConfig) {
       Object.keys(items).forEach((key) => {
         this.items[key] = {
           amount: 0,
           id: key,
         };
       });
+    },
+    reset(items: ItemsSetupConfig) {
+      this.$reset();
+      this.setupItems(items);
     },
     hasItem(itemId: string, amount?: number): boolean {
       if (!amount) {

@@ -96,6 +96,10 @@ export const useSkills = defineStore('skills', {
         };
       }
     },
+    reset(skillsConfig: SkillsConfig) {
+      this.$reset();
+      this.setupSkills(skillsConfig);
+    },
     getSkill(skill: string): SkillState {
       return this.skills[skill];
     },
