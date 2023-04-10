@@ -64,6 +64,7 @@
     "vue3-mq": "^3.0.0"
   },
   "devDependencies": {
+    "@pinia/testing": "^0.0.16",
     "@types/howler": "^2.2.3",
     "@types/js-yaml": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
@@ -82,18 +83,18 @@
     "eslint-plugin-vue": "^9.1.1",
     "jsdom": "^20.0.0",
     "kolorist": "^1.5.1",
-    "pinia": "^2.0.14",
+    "pinia": "^2.0.34",
     "prettier": "^2.7.1",
     "shelljs": "^0.8.5",
     "shx": "^0.3.4",
     "ts-prune": "^0.10.3",
     "tsc-alias": "^1.6.11",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.0",
+    "typescript": "^4.9.5",
+    "vite": "^3.2.5",
     "vite-plugin-windicss": "^1.8.7",
     "vitest": "^0.19.1",
-    "vue": "^3.2.37",
+    "vue": "^3.2.47",
     "vue-tsc": "^0.38.2",
     "windicss": "^3.5.6"
   }
