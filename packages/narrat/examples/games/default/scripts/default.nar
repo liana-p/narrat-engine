@@ -1,8 +1,21 @@
 main:
   // Note: This script is a dev testing thing and is a mess of random test commands, not meant to make sense
-  set config.characters.characters.player.name "Someone"
-  talk player idle "I like @@bread"
+  // jump test_choice_conditions
+  // set config.characters.characters.player.name "Someone"
+  // talk player idle "I like @@bread"
   jump quest_demo
+
+test_choice_conditions:
+  set data.falseCondition false
+  choice:
+    "Test"
+    "Option 1":
+      "Hello 1"
+    "Option 2":
+      "Hello 2"
+    "Option 3" if $data.falseCondition:
+      "Hello 3"
+  "End of test"
 
 test_skill_checks:
   choice:

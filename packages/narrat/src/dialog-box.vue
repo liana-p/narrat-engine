@@ -240,10 +240,10 @@ export default defineComponent({
             choice = 7;
             break;
         }
-        if (choice !== -1) {
+        if (choice !== -1  && this.choices && choice < this.choices.length) {
           if (this.choices && choice < this.choices.length) {
             this.chooseOption(this.choices[choice]);
-          } else {
+          } else if (choice === 0) {
             this.chooseOption(choice);
           }
         }
