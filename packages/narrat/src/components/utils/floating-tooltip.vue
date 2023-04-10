@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useConfig } from '@/lib';
 import { computed, onMounted, ref } from 'vue';
 
 export interface FloatingTooltipProps {
@@ -21,20 +22,22 @@ export interface FloatingTooltipProps {
   width: number;
   x: number;
   y: number;
+  screenMargin?: number;
 }
 const height = ref(150);
 const element = ref<HTMLElement | null>(null);
 const props = defineProps<FloatingTooltipProps>();
 
 const style = computed((): any => {
+  const screenMargin = props.screenMargin ?? 5;
   const cssStyle: any = {};
   let x = props.x - props.width / 2;
-  x = Math.min(x, window.innerWidth - props.width - 5);
-  x = Math.max(5, x);
+  x = Math.min(x, window.innerWidth - props.width - screenMargin);
+  x = Math.max(screenMargin, x);
   cssStyle.left = `${x}px`;
   let y = window.innerHeight - props.y;
-  y = Math.max(y, 5);
-  y = Math.min(y, window.innerHeight - height.value - 5);
+  y = Math.max(y, screenMargin);
+  y = Math.min(y, window.innerHeight - height.value - screenMargin);
   cssStyle.bottom = `${y}px`;
   cssStyle.width = `${props.width}px`;
   return cssStyle;

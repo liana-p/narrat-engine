@@ -19,8 +19,16 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "typeRoots": ["types/", "node_modules/@types/"]
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
+    "typeRoots": ["src/types/", "node_modules/@types/"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["**/*.spec.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/tests.setup.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

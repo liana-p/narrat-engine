@@ -1,4 +1,5 @@
 {
+  "vitest.enable": true,
   "editor.tabSize": 2,
   "files.exclude": {
     "**/*.rpyc": true,
