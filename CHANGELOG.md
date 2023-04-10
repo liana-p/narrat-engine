@@ -1,13 +1,42 @@
 # Narrat changelog
 
+## [2.12.0] Achievements and global save data
+
+## Achievements
+
+See [achievements docs](https://docs.get-narrat.com/features/achievements.html)
+
+## Global Save Data
+
+The engine now supports global save data. Global save data isn't associated with any save slot and is instead global for the entire game. This allows tracking meta data across multiple playthrough, or enabling features like achievements across multiple saves.
+
+To use, set values in the `global` object instead of `data`. For example:
+
+```narrat
+main:
+  talk player idle "hello world"
+  add global.counter 1
+  talk player idle "Global counter is %{$global.counter}"
+```
+
+Every time a new game is started, this script will increase the global counter despite it being a new save.
+
+To reset global save data, use the `reset_global_save` command.
+
+### Notable Change
+
+There is a change to the name of the save file. It has been renamed because using a static name can make multiple games have their save files clash if hosted on the same website (for example games hosted on [itch.io](https://itch.io)).
+
+The name of the save file is now generated based on the new `saveFileName` option configured in `config.yaml`.
+
 ## [2.11.1] Small bugfixes
 
-* fix: there was an issue where it was possible to select a "hidden" choice (choice that didn't pass a condition) by pressing the corresponding keyboard number
+- fix: there was an issue where it was possible to select a "hidden" choice (choice that didn't pass a condition) by pressing the corresponding keyboard number
 
 ## [2.11.0] Audio volume improvement and saves fix
 
-* Audio volume in an individual audio file's config wasn't used properly and is now correctly mixed with the relevant volume for channels (by [@jornvandebeek](https://github.com/jornvandebeek))
-* There was a problem where some game data didn't reset properly if a player continued playing after a save was made, went back to the main menu and reloaded the saved without reloading the browser
+- Audio volume in an individual audio file's config wasn't used properly and is now correctly mixed with the relevant volume for channels (by [@jornvandebeek](https://github.com/jornvandebeek))
+- There was a problem where some game data didn't reset properly if a player continued playing after a save was made, went back to the main menu and reloaded the saved without reloading the browser
 
 (technical note: pinia stores weren't all reset properly. If there are more bugs of this kind please signal them)
 
