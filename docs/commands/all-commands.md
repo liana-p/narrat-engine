@@ -17,12 +17,12 @@ description: This page contains a list of all the existing narrat commands
 
 #### Basic program flow
 
-| Command                            | Example                                                                                                                                                               | Description                                                                                                                                                                             |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [jump](api-jump.md)                | `jump myLabel`                                                                                                                                                        | Jumps to a label (stops current script)                                                                                                                                                 |
-| [run](../features/functions.md)    | `run myLabel [arg1] [arg2] [...] // Returns whatever the label returned, if anything`                                                                                 | Runs a label as a function with optional arguments passed to it, then continues back where the script was                                                                               |
-| [return](../features/functions.md) | `return $test`                                                                                                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
-| [if](if-function.md)               | <p><br><code>if $data.hasFood:</code><br><code>"I have food, so we can eat a meal!"</code><br><code>else:</code><br><code>"We have nothing to eat"</code><br><br></p> | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
+| Command                             | Example                                                                                                                                                               | Description                                                                                                                                                                             |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [jump](api-jump.md)                 | `jump myLabel`                                                                                                                                                        | Jumps to a label (stops current script)                                                                                                                                                 |
+| [run](../scripting/functions.md)    | `run myLabel [arg1] [arg2] [...] // Returns whatever the label returned, if anything`                                                                                 | Runs a label as a function with optional arguments passed to it, then continues back where the script was                                                                               |
+| [return](../scripting/functions.md) | `return $test`                                                                                                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
+| [if](if-function.md)                | <p><br><code>if $data.hasFood:</code><br><code>"I have food, so we can eat a meal!"</code><br><code>else:</code><br><code>"We have nothing to eat"</code><br><br></p> | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
 
 #### Choices
 
@@ -42,20 +42,20 @@ description: This page contains a list of all the existing narrat commands
 
 #### Math and arithmetic
 
-| Command                                          | Example                                                                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [+](math-commands/math-operators-+.md#operators) | `+ 1 2 // Returns 3`                                                                                                                                              | Adds numbers passed as arguments                                                                                   |
-| [-](math-commands/math-operators-+.md#operators) | `- 2 1 // Returns 1`                                                                                                                                              | Substracts the first number passed with the others                                                                 |
-| [\*](math-commands/math-operators-+.md)          | `* 2 3 // Returns 6`                                                                                                                                              | Multiplies the numbers together                                                                                    |
-| [/](math-commands/math-operators-+.md#operators) | `/ 1 2 // Returns 0.5`                                                                                                                                            | Divides the first number by the others, in sequence                                                                |
-| [min](math-commands/)                            | `min 100 50 // Returns 50`                                                                                                                                        | Returns the smallest value passed                                                                                  |
-| [max](math-commands/)                            | `max 50 100 // Returns 100`                                                                                                                                       | Returns the highest value passed                                                                                   |
-| [clamp](math-commands/)                          | `clamp 0 100 $data.playerHealth` If playerHealth is below 0, return 0. If playerHealth is between 0 and 100, returns it. If playerHealth is over 100, returns 100 | Returns the third value passed, constrained between a minimum and maximum value passed as the first two parameters |
-| [floor](math-commands/)                          | `floor 0.75 // Returns 0`                                                                                                                                         | Rounds a number, rounding down                                                                                     |
-| [ceil](math-commands/)                           | `ceil 0.25 // Returns 1`                                                                                                                                          | Rounds a number, rounding up                                                                                       |
-| [round](math-commands/)                          | `round 0.5 // Returns 1`                                                                                                                                          | Rounds a number to the nearest integer                                                                             |
-| [sqrt](math-commands/)                           | `sqrt 4 // Returns 2`                                                                                                                                             | Returns the square root of a number                                                                                |
-| [^](math-commands/)                              | `^ 3 2 // Returns 9`                                                                                                                                              | Returns the first number to the power of the second number                                                         |
+| Command                                      | Example                                                                                                                                                           | Description                                                                                                        |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| [+](math-commands/arithmetic-operators.md)   | `+ 1 2 // Returns 3`                                                                                                                                              | Adds numbers passed as arguments                                                                                   |
+| [-](math-commands/arithmetic-operators.md)   | `- 2 1 // Returns 1`                                                                                                                                              | Substracts the first number passed with the others                                                                 |
+| [\*](math-commands/arithmetic-operators.md)  | `* 2 3 // Returns 6`                                                                                                                                              | Multiplies the numbers together                                                                                    |
+| [/](math-commands/arithmetic-operators.md)   | `/ 1 2 // Returns 0.5`                                                                                                                                            | Divides the first number by the others, in sequence                                                                |
+| [min](math-commands/other-math-operations)   | `min 100 50 // Returns 50`                                                                                                                                        | Returns the smallest value passed                                                                                  |
+| [max](math-commands/other-math-operations)   | `max 50 100 // Returns 100`                                                                                                                                       | Returns the highest value passed                                                                                   |
+| [clamp](math-commands/other-math-operations) | `clamp 0 100 $data.playerHealth` If playerHealth is below 0, return 0. If playerHealth is between 0 and 100, returns it. If playerHealth is over 100, returns 100 | Returns the third value passed, constrained between a minimum and maximum value passed as the first two parameters |
+| [floor](math-commands/other-math-operations) | `floor 0.75 // Returns 0`                                                                                                                                         | Rounds a number, rounding down                                                                                     |
+| [ceil](math-commands/other-math-operations)  | `ceil 0.25 // Returns 1`                                                                                                                                          | Rounds a number, rounding up                                                                                       |
+| [round](math-commands/other-math-operations) | `round 0.5 // Returns 1`                                                                                                                                          | Rounds a number to the nearest integer                                                                             |
+| [sqrt](math-commands/other-math-operations)  | `sqrt 4 // Returns 2`                                                                                                                                             | Returns the square root of a number                                                                                |
+| [^](math-commands/other-math-operations)     | `^ 3 2 // Returns 9`                                                                                                                                              | Returns the first number to the power of the second number                                                         |
 
 #### Audio
 
@@ -67,14 +67,14 @@ description: This page contains a list of all the existing narrat commands
 
 #### Items
 
-| Command                                                            | Example                                                                                | Description                                  |
-| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | -------------------------------------------- |
-| [add_item](../features/inventory.md)                               | `add_item bread 1`                                                                     | Adds an amount of an item to the player      |
-| [remove_item](../features/inventory.md)                            | `remove_item bread 1`                                                                  | Removes an amount of an item                 |
-| [has_item?](../features/inventory.md)                              | <p><br><code>if (has_item? bread 1):</code><br><code>"Let's eat bread!"</code><br></p> | Returns true if there is enough of the item  |
-| [item_amount?](../features/inventory.md)                           | `item_amount? bread // returns the amount of bread`                                    | Returns the amount of an item the player has |
-| [enable_interaction](../guides/using-items.md#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
-| [`disable_interaction`](../guides/using-items.md#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
+| Command                                                   | Example                                                                                | Description                                  |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
+| [add_item](../features/inventory.md)                      | `add_item bread 1`                                                                     | Adds an amount of an item to the player      |
+| [remove_item](../features/inventory.md)                   | `remove_item bread 1`                                                                  | Removes an amount of an item                 |
+| [has_item?](../features/inventory.md)                     | <p><br><code>if (has_item? bread 1):</code><br><code>"Let's eat bread!"</code><br></p> | Returns true if there is enough of the item  |
+| [item_amount?](../features/inventory.md)                  | `item_amount? bread // returns the amount of bread`                                    | Returns the amount of an item the player has |
+| [enable_interaction](../guides/items#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
+| [`disable_interaction`](../guides/items#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
 
 #### Achievements
 
@@ -109,7 +109,7 @@ description: This page contains a list of all the existing narrat commands
 | Command                                  | Example                                                                      | Description                                                     |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | [random](random-generation.md)           | `random 0 100 // Returns a random integer between 0 and 100 `                | Returns a random integer between two numbers passed (inclusive) |
-| [random_float](../features/random.md)    | `random_float 0 100 // Returns a random float between 0 and 100 `            | Returns a random float between two numbers passed (inclusive)   |
+| [random_float](random-generation.md)     | `random_float 0 100 // Returns a random float between 0 and 100 `            | Returns a random float between two numbers passed (inclusive)   |
 | [random_from_args](random-generation.md) | `random_from_args 1 2 3 4 5 // Returns a random argument passed `            | Returns a random argument passed                                |
 | random_from_array                        | `random_from_array $data.myArray // Returns a random element from the array` | Returns a random element from an array                          |
 
@@ -127,21 +127,21 @@ description: This page contains a list of all the existing narrat commands
 | ------------------------------------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | [set](modifying-variables/set-function.md) | `set data.playerHealth 100` | Sets a variable to a value                                                                                                                 |
 | [add](modifying-variables/add-function.md) | `add data.playerHealth 10`  | Adds a value to a variable                                                                                                                 |
-| [var](modifying-variables/)                | `var test 3`                | Declares a local variable with a value. The variable will only exist in the current label and will stop existing once the label is exited. |
+| `var`                                      | `var test 3`                | Declares a local variable with a value. The variable will only exist in the current label and will stop existing once the label is exited. |
 
 #### Skills
 
-| Command                                                     | Example                                                         | Description                                                                                   |
-| ----------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| [add_level](skills-commands/add-level.md)                   | `add_level agility 1`                                           | Adds levels to a skill                                                                        |
-| [set_level](skills-commands/add-level-1.md)                 | `set_level agility 1`                                           | Sets the level of a skill                                                                     |
-| [add_xp](skills-commands/add-xp.md)                         | `add_xp agility 10`                                             | Adds experience to a skill                                                                    |
-| [get_level](skills-commands/get-level.md)                   | `get_level agility`                                             | Gets the level of a skill                                                                     |
-| [get_xp](skills-commands/get-xp.md)                         | `get_xp agility`                                                | Gets the experience of a skill                                                                |
-| [roll](skills-commands/roll.md)                             | `roll mySkillCheck agility 50 // Returns true or false`         | Runs a skill check with a certain difficulty against a skill dice                             |
-| [get_skill_check](skills-commands/get-skill-check.md)       | `get_skill_check mySkillCheck // Returns a skill check's state` | Gets the result of a skill check (object with `happened`, `succeeded`, and `hidden` booleans) |
-| [skill_check_result](skills-commands/skill-check-result.md) | `skill_check_result mySkillCheck // Returns true or false`      | Gets the result of a skill check as boolean                                                   |
-| [reset_roll](skills-commands/reset-roll.md)                 | `reset_roll mySkillCheck`                                       | Resets a skill check                                                                          |
+| Command                                     | Example                                                         | Description                                                                                   |
+| ------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [add_level](skills-commands/add-level.md)   | `add_level agility 1`                                           | Adds levels to a skill                                                                        |
+| [set_level](skills-commands/set-level.md)   | `set_level agility 1`                                           | Sets the level of a skill                                                                     |
+| [add_xp](skills-commands/add-xp.md)         | `add_xp agility 10`                                             | Adds experience to a skill                                                                    |
+| [get_level](skills-commands/get-level.md)   | `get_level agility`                                             | Gets the level of a skill                                                                     |
+| [get_xp](skills-commands/get-xp.md)         | `get_xp agility`                                                | Gets the experience of a skill                                                                |
+| [roll](skills-commands/roll.md)             | `roll mySkillCheck agility 50 // Returns true or false`         | Runs a skill check with a certain difficulty against a skill dice                             |
+| `get_skill_check`                           | `get_skill_check mySkillCheck // Returns a skill check's state` | Gets the result of a skill check (object with `happened`, `succeeded`, and `hidden` booleans) |
+| `skill_check_result`                        | `skill_check_result mySkillCheck // Returns true or false`      | Gets the result of a skill check as boolean                                                   |
+| [reset_roll](skills-commands/reset-roll.md) | `reset_roll mySkillCheck`                                       | Resets a skill check                                                                          |
 
 #### Stats
 
@@ -184,10 +184,10 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 
 #### Strings
 
-| Command                    | Example                     | Description                                                                  |
-| -------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
-| [concat](string-commands/) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
-| [join](string-commands/)   | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
+| Command                          | Example                     | Description                                                                  |
+| -------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
+| [concat](string-commands/concat) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
+| [join](string-commands/join)     | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
 
 #### Screen Objects
 

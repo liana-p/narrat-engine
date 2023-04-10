@@ -8,10 +8,6 @@
 
 [Getting Started](/guides/getting-started.md)
 
-::: danger
-This is the **new documentation website**. It is better than the old one but might be missing some pages or have issues. If you need to refer to the old docs please go to [docs-old.get-narrat.com](https://docs-old.get-narrat.com)
-:::
-
 ## Introduction
 
 Narrat is a game engine for making interactive narrative RPGs packed with features. Create your game by editing with a Simple scripting syntax. It supports Skills with skill check rolls, an Items inventory, and has a Quests System. The script system is very powerful and allows branching choices, functions, variables and conditions.

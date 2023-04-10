@@ -103,6 +103,16 @@ const config = {
           { text: 'Editing the config', link: '/guides/config-files' },
         ],
       },
+      {
+        text: 'Version',
+        items: [
+          { text: 'Current Version', link: 'https://docs.get-narrat.com' },
+          {
+            text: 'v2.12.0',
+            link: 'https://2.12.0.--ornate-pie-561978.netlify.app',
+          },
+        ],
+      },
     ],
   },
   title: 'Narrat Docs',

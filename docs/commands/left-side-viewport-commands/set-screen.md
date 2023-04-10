@@ -24,4 +24,4 @@ main:
   set_screen flashing_overlay 1 // Will set the screen flashing_overlay on layer 1, displaying it above the background
 ```
 
-See [Screens guide](../../features/screens.md) for more info
+See [Screens guide](../../features/viewport.md) for more info
