@@ -21,6 +21,6 @@
     },
     "typeRoots": ["types/", "node_modules/@types/"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/tests.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

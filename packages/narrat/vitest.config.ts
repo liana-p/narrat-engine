@@ -11,6 +11,10 @@ export default defineConfig({
   base: '',
   test: {
     environment: 'jsdom',
+    globals: true,
+    setupFiles: [
+      'src/tests/tests.setup.ts'
+    ]
   },
   plugins: [vue(), WindiCSS()],
   resolve: {
