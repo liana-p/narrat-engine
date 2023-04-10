@@ -109,7 +109,7 @@ const config = {
           { text: 'Current Version', link: 'https://docs.get-narrat.com' },
           {
             text: 'v2.12.0',
-            link: 'https://2.12.0.--ornate-pie-561978.netlify.app',
+            link: 'https://2-12-0--ornate-pie-561978.netlify.app/',
           },
         ],
       },
