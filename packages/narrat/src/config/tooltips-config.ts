@@ -5,6 +5,7 @@ export const TooltipsConfigSchema = Type.Object({
     delay: Type.Optional(Type.Number()),
     width: Type.Number(),
     keywordsPrefix: Type.String(),
+    screenEdgesMinimumMargin: Type.Optional(Type.Number()),
   }),
   tooltips: Type.Array(
     Type.Object({
