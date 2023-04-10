@@ -18,7 +18,7 @@ import { error, parserError, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { createSpriteCommand } from '@/vm/commands/sprite-commands';
-import { runCommand } from '@/vm/vm';
+import { runCommand, vm } from '@/vm/vm';
 import { ParserContext, parseScript } from '@/vm/vm-parser';
 import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
@@ -29,6 +29,8 @@ import {
   isSprite,
   useScreenObjects,
 } from './screen-objects-store';
+import { GlobalGameSave } from '@/types/game-save';
+import { getSaveFile } from '@/utils/save-helpers';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -66,8 +68,8 @@ export interface DataState {
 export interface VMState {
   commandsWaitingForPlayerAnswer: Parser.Command<any, any>[];
   stack: MachineFrame[];
-  script: Parser.ParsedScript;
   data: DataState;
+  globalData: DataState;
   lastLabel: string;
   jumpTarget?: SetFrameOptions;
   // Used as a hack to disable manual save until the game has jumped from where the last save was.
@@ -84,6 +86,7 @@ export const useVM = defineStore('vm', {
     ({
       stack: [],
       data: {},
+      globalData: {},
       lastLabel: 'main',
       script: {},
       labelStack: ['main'],
@@ -91,22 +94,25 @@ export const useVM = defineStore('vm', {
       hasJumped: false,
     } as VMState),
   actions: {
-    generateSaveData(): VMSave {
+    generateSaveData(): { vmSave: VMSave; globalData: DataState } {
       return {
-        lastLabel: this.lastLabel,
-        data: deepCopyMap(this.data, (value) => {
-          if (isScreenObject(value)) {
-            return {
-              _entityType: value._entityType,
-              id: value.id,
-            };
-          } else {
-            return value;
-          }
-        }),
+        vmSave: {
+          lastLabel: this.lastLabel,
+          data: deepCopyMap(this.data, (value) => {
+            if (isScreenObject(value)) {
+              return {
+                _entityType: value._entityType,
+                id: value.id,
+              };
+            } else {
+              return value;
+            }
+          }),
+        },
+        globalData: deepCopy(this.globalData),
       };
     },
-    loadSaveData(data: VMSave) {
+    loadSaveData(data: VMSave, globalSave: GlobalGameSave) {
       this.lastLabel = data.lastLabel;
       this.data = data.data;
       this.findEntitiesInData(this.data);
@@ -144,6 +150,7 @@ export const useVM = defineStore('vm', {
       }
     },
     async loadScripts(scriptPaths: string[]) {
+      this.readGlobalData();
       const filePromises: Array<Promise<string>> = [];
       for (const path of scriptPaths) {
         filePromises.push(getFile(getDataUrl(path)));
@@ -165,20 +172,20 @@ export const useVM = defineStore('vm', {
       }
       const end = Date.now();
       logger.log(`script parsed in ${end - start} ms`);
-      this.setScript(scripts);
+      vm.script = scripts;
     },
     start() {
       this.setStack({
         currentIndex: 0,
         branchData: {
-          branch: this.script.main.branch,
+          branch: vm.script.main.branch,
         },
         label: 'main',
       });
       this.setStack({
         currentIndex: 0,
         branchData: {
-          branch: this.script.main.branch,
+          branch: vm.script.main.branch,
         },
         label: 'main',
       });
@@ -187,19 +194,23 @@ export const useVM = defineStore('vm', {
       this.lastLabel = label;
     },
     reset() {
+      this.$reset();
       this.stack = [];
       this.data = {};
       this.hasJumped = true;
       this.setStack({
         currentIndex: 0,
         branchData: {
-          branch: this.script.main.branch,
+          branch: vm.script.main.branch,
         },
         label: 'main',
       });
     },
+    readGlobalData() {
+      this.globalData = getSaveFile().globalSave.data;
+    },
     setScript(script: Parser.ParsedScript) {
-      this.script = script;
+      vm.script = script;
     },
     overrideData(data: DataState) {
       this.data = data;
@@ -399,7 +410,7 @@ export const useVM = defineStore('vm', {
       return await runCommand(expression);
     },
     async runLabelFunction(label: string, ...args: any[]) {
-      const branchData = this.script[label];
+      const branchData = vm.script[label];
       if (!branchData) {
         error(`Tried to run a label that doesn't exist: ${label}`);
         return;
@@ -417,7 +428,7 @@ export const useVM = defineStore('vm', {
       this.addAndRunFrame(stack);
     },
     async jumpToLabel(label: string, ...args: any[]) {
-      const branchData = this.script[label];
+      const branchData = vm.script[label];
       if (!branchData) {
         error(
           `Label ${label} doesn't exist. Is the file with this label added in the list of script files to load in the config?`,

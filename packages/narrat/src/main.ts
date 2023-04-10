@@ -24,6 +24,7 @@ import { useConfig } from './stores/config-store';
 import { useStartMenu } from './stores/start-menu-store';
 import { useInputs } from './stores/inputs-store';
 import { gameloop } from '@/utils/gameloop';
+import { getSaveFile } from './utils/save-helpers';
 
 let app: any;
 
@@ -41,6 +42,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   app.use(pinia);
   const config = await loadConfig(options);
   useConfig().setConfig(config);
+  getSaveFile();
   useInputs().setupInputs();
   vm.pinia = pinia;
   useMain();
@@ -49,6 +51,9 @@ export async function startApp(optionsInput: AppOptionsInput) {
     vm,
     jump: (label: string) => {
       useVM().jumpToLabel(label);
+    },
+    getSave: () => {
+      return getSaveFile();
     },
   };
   (window as any).narrat = narrat;

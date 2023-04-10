@@ -25,6 +25,7 @@ export const ConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
   baseDataPath: Type.Optional(Type.String()),
   gameTitle: Type.String(),
+  saveFileName: Type.String(),
   images: Type.Optional(Type.Record(Type.String(), Type.String())),
   layout: LayoutConfigSchema,
   gameFlow: Type.Optional(

@@ -15,6 +15,7 @@ import {
   jumpCommand,
   logPlugin,
   newCommandPlugin,
+  resetGlobalPlugin,
   returnMainMenuPlugin,
   returnPlugin,
   runLabelPlugin,
@@ -197,6 +198,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(logPlugin);
   vm.addCommand(returnMainMenuPlugin);
   vm.addCommand(savePlugin);
+  vm.addCommand(resetGlobalPlugin);
   vm.addCommand(savePromptPlugin);
   vm.addCommand(newCommandPlugin);
 

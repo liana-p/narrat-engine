@@ -4,6 +4,7 @@ import { SetFrameOptions, useVM } from '@/stores/vm-store';
 import { error } from '@/utils/error-handling';
 import { commandLog, commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
+import { vm } from '../vm';
 
 export const jumpCommand = CommandPlugin.FromOptions<{ label: string }>({
   keyword: 'jump',
@@ -13,7 +14,7 @@ export const jumpCommand = CommandPlugin.FromOptions<{ label: string }>({
       commandRuntimeError(cmd, `requires a label argument`);
     }
     const label = cmd.args[0] as string;
-    const vm = useVM();
+    const vmStore = useVM();
     const newStack: SetFrameOptions = {
       branchData: vm.script[label],
       label,
@@ -24,7 +25,7 @@ export const jumpCommand = CommandPlugin.FromOptions<{ label: string }>({
       error(`Trying to jump but label ${label} not found`);
       return;
     }
-    vm.jumpTarget = newStack;
+    vmStore.jumpTarget = newStack;
     // await vm.runFrame();
     return JUMP_SIGNAL;
   },
@@ -102,6 +103,14 @@ export const savePromptPlugin = CommandPlugin.FromOptions<{ name?: string }>({
       saveName: cmd.options.name,
       withPrompt: true,
     });
+  },
+});
+
+export const resetGlobalPlugin = CommandPlugin.FromOptions<{}>({
+  keyword: 'reset_global_save',
+  argTypes: [],
+  runner: async (cmd) => {
+    await useMain().resetGlobalSave();
   },
 });
 

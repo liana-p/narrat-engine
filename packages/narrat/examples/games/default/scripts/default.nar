@@ -3,6 +3,9 @@ main:
   // jump test_choice_conditions
   // set config.characters.characters.player.name "Someone"
   // talk player idle "I like @@bread"
+  talk player idle "hello world"
+  add global.counter 1
+  talk player idle "Global counter is %{$global.counter}"
   jump quest_demo
 
 test_choice_conditions:
@@ -480,6 +483,7 @@ showMap:
   talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/nialna\/narrat-demo\">demo repo</a>"
 
 quest_demo:
+  reset_global_save
   set_button shopButton true
   set_button parkButton greyed
   jump bread_quest

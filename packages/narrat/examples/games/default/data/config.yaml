@@ -1,5 +1,6 @@
 ---
-gameTitle: Narrat Game Example
+gameTitle: Narrat Default
+saveFileName: Narrat Default
 images:
   narrat: img/backgrounds/narrat.webp
   map: img/backgrounds/map.webp

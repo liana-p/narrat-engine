@@ -1,5 +1,5 @@
 import { AppOptions } from '@/types/app-types';
-import { GameSave, SaveSlot } from '@/types/game-save';
+import { GameSave, GlobalGameSave, SaveSlot } from '@/types/game-save';
 import { loadDataFile } from '@/utils/ajax';
 import { audioEvent, loadAudioAssets } from '@/utils/audio-loader';
 import { loadImages } from '@/utils/images-loader';
@@ -10,6 +10,7 @@ import {
   CURRENT_SAVE_VERSION,
   findAutoSave,
   generateMetadata,
+  getSaveFile,
   getSaveSlot,
   saveSlot,
   setSaveSlot,
@@ -89,7 +90,10 @@ interface MainState {
     name?: string;
     resolver: () => void;
   } | null;
-  saveData?: GameSave;
+  saveData?: {
+    saveSlot: GameSave;
+    global: GlobalGameSave;
+  };
   listener: MainStoreListener;
   inScript: boolean;
 }
@@ -264,6 +268,11 @@ export const useMain = defineStore('main', {
         }
       });
     },
+    resetGlobalSave() {
+      useVM().globalData = {};
+      getSaveFile().globalSave.data = {};
+      this.autoSaveGame({});
+    },
     finishManualSave(slotData: ChosenSlot | null, yes: boolean) {
       if (!this.saving) {
         error(`Trying to save but there is no saving request!`);
@@ -275,22 +284,24 @@ export const useMain = defineStore('main', {
         return;
       }
       if (this.saveData) {
+        const slot = this.saveData.saveSlot;
         saveSlot(
           {
-            ...this.saveData,
+            ...slot,
             main: {
-              ...this.saveData.main,
+              ...slot.main,
               playTime: getPlayTime(
                 this.playTime.start,
                 this.playTime.previousPlaytime,
               ),
             },
             metadata: {
-              ...this.saveData.metadata,
+              ...slot.metadata,
               name: this.saving?.name ?? `Manual Save`,
               saveDate: new Date().toISOString(),
             },
           },
+          this.saveData.global,
           slotData.slotId,
         );
         this.alert('Success', 'Game saved!');
@@ -407,12 +418,13 @@ export const useMain = defineStore('main', {
       const hudStore = useHud();
       const audioStore = useAudio();
       const inventoryStore = useInventory();
+      const vmSave = vmStore.generateSaveData();
       const save: GameSave = {
         version: CURRENT_SAVE_VERSION,
         screen: screensStore.generateSaveData(),
         skills: skillsStore.generateSaveData(),
         dialog: dialogStore.generateSaveData(),
-        vm: vmStore.generateSaveData(),
+        vm: vmSave.vmSave,
         main: mainStore.generateSaveData(),
         hud: hudStore.generateSaveData(),
         audio: audioStore.generateSaveData(),
@@ -435,8 +447,13 @@ export const useMain = defineStore('main', {
           }
         }
       });
-      this.saveData = save;
-      saveSlot(save, this.saveSlot);
+      const globalSaveFile = getSaveFile().globalSave;
+      globalSaveFile.data = vmSave.globalData;
+      this.saveData = {
+        saveSlot: save,
+        global: globalSaveFile,
+      };
+      const globalSave = saveSlot(save, globalSaveFile, this.saveSlot);
     },
     setLoadedData(save: GameSave) {
       const screensStore = useScreens();
@@ -451,7 +468,7 @@ export const useMain = defineStore('main', {
       screensStore.loadSaveData(save.screen);
       skillsStore.loadSaveData(save.skills);
       dialogStore.loadSaveData(save.dialog);
-      vmStore.loadSaveData(save.vm);
+      vmStore.loadSaveData(save.vm, getSaveFile().globalSave);
       mainStore.loadSaveData(save.main);
       hudStore.loadSaveData(save.hud);
       audioStore.loadSaveData(save.audio);

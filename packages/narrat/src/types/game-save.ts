@@ -31,6 +31,12 @@ export type GameSave = {
   screenObjects: ScreenObjectsStoreSave;
 };
 
+export type GlobalGameSave = {
+  data: {
+    [key: string]: any;
+  };
+};
+
 export interface SaveSlotMetadata {
   saveDate: string;
   name: string;
@@ -41,4 +47,5 @@ export type SaveFile = {
   version: string;
   slots: Array<SaveSlot>;
   lastSaveSlot?: string;
+  globalSave: GlobalGameSave;
 };

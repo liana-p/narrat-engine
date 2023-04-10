@@ -1,5 +1,6 @@
 ---
-gameTitle: Narrat Game Example
+gameTitle: Narrat 2D
+saveFileName: narrat_2D
 images: {}
 dialogPanel:
   textSpeed: 30

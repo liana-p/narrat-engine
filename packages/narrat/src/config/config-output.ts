@@ -27,6 +27,7 @@ export interface Config {
   baseAssetsPath: string;
   baseDataPath: string;
   gameTitle: string;
+  saveFileName: string;
   images: {
     [key: string]: string;
   };
@@ -58,6 +59,7 @@ export const defaultConfig = {
   baseAssetsPath: '',
   baseDataPath: '',
   gameTitle: 'Narrat Game',
+  saveFileName: 'narrat save',
   images: {},
   layout: defaultLayoutConfig,
   gameFlow: {},

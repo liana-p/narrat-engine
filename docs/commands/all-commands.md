@@ -29,7 +29,7 @@ description: This page contains a list of all the existing narrat commands
 | Command                      | Example                                                                                                                                                                                                                             | Description                                                                                     |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | [choice](choice-function.md) | <p><br><code>choice:</code><br><code>"Would you like tea?"</code><br><code>"Yes":</code><br><code>"Your friend serves you a cup of tea"</code><br><code>"No":</code><br><code>"Your friend makes tea for themselves"</code><br></p> | Lets the player choose between two or more options. See the linked documentation for more info. |
-| [text_field](text-field.md)  | `text_field "A prompt text"`                                                                                                                                                                                                       | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
+| [text_field](text-field.md)  | `text_field "A prompt text"`                                                                                                                                                                                                        | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
 
 #### Logic operators and conditions
 
@@ -86,16 +86,16 @@ description: This page contains a list of all the existing narrat commands
 
 #### Quests
 
-| Command                                          | Example                                                           | Description                                                               |
-| ------------------------------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [start_quest](../features/quests.md)             | `start_quest myQuest`                                             | Starts a quest                                                            |
-| [complete_quest](../features/quests.md)          | `complete_quest myQuest`                                          | Completes a quest                                                         |
-| `` [`start_objective`](../features/quests.md) `` | `start_objective myQuest myObjective`                             | Starts an objective in a quest (useful for quests with hidden objectives) |
-| [complete_objective](../features/quests.md)      | `complete_objective myQuest myObjective`                          | Completes an objective                                                    |
-| [quest_completed?](../features/quests.md)        | `quest_completed? myQuest // returns true or false`                  | Check if a quest is completed                                             |
-| [objective_completed?](../features/quests.md)    | `objective_completed? myQuest myObjective //returns true or false`  | Check if a quest objective is completed                                   |
-| [quest_started?](../features/quests.md)          | `quest_started? myQuest // Returns true or false`               | Check if a quest is started                                               |
-| [objective_started?](../features/quests.md)      | `objective_started? myQuest myObjective // Returns true or false` | Check if a quest objective is started                                     |
+| Command                                          | Example                                                            | Description                                                               |
+| ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| [start_quest](../features/quests.md)             | `start_quest myQuest`                                              | Starts a quest                                                            |
+| [complete_quest](../features/quests.md)          | `complete_quest myQuest`                                           | Completes a quest                                                         |
+| `` [`start_objective`](../features/quests.md) `` | `start_objective myQuest myObjective`                              | Starts an objective in a quest (useful for quests with hidden objectives) |
+| [complete_objective](../features/quests.md)      | `complete_objective myQuest myObjective`                           | Completes an objective                                                    |
+| [quest_completed?](../features/quests.md)        | `quest_completed? myQuest // returns true or false`                | Check if a quest is completed                                             |
+| [objective_completed?](../features/quests.md)    | `objective_completed? myQuest myObjective //returns true or false` | Check if a quest objective is completed                                   |
+| [quest_started?](../features/quests.md)          | `quest_started? myQuest // Returns true or false`                  | Check if a quest is started                                               |
+| [objective_started?](../features/quests.md)      | `objective_started? myQuest myObjective // Returns true or false`  | Check if a quest objective is started                                     |
 
 #### Random
 
@@ -208,6 +208,7 @@ delete_sprite $data.playerSprite
 | log                                         | `log "what's the value of test? %{test}" // Will print this log in the console` | Prints a log in the browser developer tools. Useful for debugging or checking variable values                                                                             |
 | menu_return                                 | `menu_return`                                                                   | Exits the game and returns to the main menu                                                                                                                               |
 | [save](save-commands.md#save)               | `save [save file name]`                                                         | Opens the manual save screen for the player to save the game (optional parameter for the name of the save file, useful to pass the name of the level/chapter for example) |
+| `reset_global_save`                         | `reset_global_save`                                                             | Resets the global part of the save                                                                                                                                        |
 | [save_prompt](save-commands.md#save_prompt) | `save_prompt [save file name]`                                                  | Same as save, but asks the user if they want to save first                                                                                                                |
 | [wait](wait.md)                             | `wait 500`                                                                      | Makes the script pause for x milliseconds                                                                                                                                 |
 | load_data                                   | `set data.myData (load_data data/myDataFile.yaml)`                              | Loads data from the data file path passed and returns it                                                                                                                  |

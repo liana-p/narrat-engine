@@ -1,6 +1,6 @@
 <template>
   <div class="tooltips-ui">
-    <FloatingTooltip v-if="floatingTooltip" v-bind="floatingTooltip" />
+    <FloatingTooltip v-if="tooltip" v-bind="floatingTooltip" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -11,8 +11,8 @@ import FloatingTooltip, {
   FloatingTooltipProps,
 } from '../utils/floating-tooltip.vue';
 
+const tooltip = useTooltips().tooltip;
 const floatingTooltip = computed(() => {
-  const tooltip = useTooltips().tooltip;
   return {
     ...tooltip,
     screenMargin: tooltipsConfig().options.screenEdgesMinimumMargin ?? 5,

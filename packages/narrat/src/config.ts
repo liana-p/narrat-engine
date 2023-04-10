@@ -68,6 +68,7 @@ const baseConfigKeys = [
   'baseAssetsPath',
   'baseDataPath',
   'gameTitle',
+  'saveFileName',
   'images',
   'layout',
   'gameFlow',
