@@ -241,11 +241,10 @@ export default defineComponent({
             break;
         }
         if (choice !== -1  && this.choices && choice < this.choices.length) {
-          if (this.choices && choice < this.choices.length) {
-            this.chooseOption(this.choices[choice]);
-          } else if (choice === 0) {
-            this.chooseOption(choice);
-          }
+          this.chooseOption(this.choices[choice]);
+        } else if (choice === 0) {
+          // In some cases there are no "choices", so pressing space (0) just does the default action
+          this.chooseOption(choice);
         }
       }
     },
