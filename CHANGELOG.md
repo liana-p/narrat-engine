@@ -1,5 +1,9 @@
 # Narrat changelog
 
+## [2.11.1] Small bugfixes
+
+* fix: there was an issue where it was possible to select a "hidden" choice (choice that didn't pass a condition) by pressing the corresponding keyboard number
+
 ## [2.11.0] Audio volume improvement and saves fix
 
 * Audio volume in an individual audio file's config wasn't used properly and is now correctly mixed with the relevant volume for channels (by [@jornvandebeek](https://github.com/jornvandebeek))
