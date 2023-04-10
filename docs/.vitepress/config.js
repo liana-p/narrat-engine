@@ -42,15 +42,16 @@ const config = {
         text: 'Feature Guides',
         collapsible: true,
         items: [
+          { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
           { text: 'HUD Stats', link: '/features/hud-stats' },
           { text: 'Inventory', link: '/features/inventory' },
+          { text: 'Items', link: '/features/items' },
           { text: 'Quests', link: '/features/quests' },
           { text: 'Save and Load', link: '/features/save-and-load' },
-          { text: 'Viewport', link: '/features/viewport' },
           { text: 'Skills', link: '/features/skills' },
           { text: 'Transitions', link: '/features/transitions' },
-          { text: 'Items', link: '/features/items' },
+          { text: 'Viewport', link: '/features/viewport' },
         ],
       },
       {

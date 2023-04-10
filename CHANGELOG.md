@@ -1,6 +1,12 @@
 # Narrat changelog
 
-## [2.12.0] Global save data
+## [2.12.0] Achievements and global save data
+
+## Achievements
+
+See [achievements docs](https://docs.get-narrat.com/features/achievements.html)
+
+## Global Save Data
 
 The engine now supports global save data. Global save data isn't associated with any save slot and is instead global for the entire game. This allows tracking meta data across multiple playthrough, or enabling features like achievements across multiple saves.
 
