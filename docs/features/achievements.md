@@ -45,7 +45,7 @@ achievements: data/achievements.yaml
 
 Then achievements can be unlocked in game scripts:
 
-```narrat
+```yaml
 main:
   "There is a boss"
   choice:

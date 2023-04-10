@@ -86,7 +86,7 @@ You will probably see npm complain about "**security issues**". Those are false 
 npm start
 ```
 
-This should open a browser tab with the game running after a short build time. The game can be accessed at https://localhost:8080
+This should open a browser tab with the game running after a short build time. The game can be accessed at <a href="http://localhost:5173/" target="_blank" rel="noreferrer">http://localhost:5173/</a>
 
 The game is ready to edit!
 
@@ -98,7 +98,7 @@ Those `npm` commands come from node.js. If the commands aren't recognised, you p
 
 It is now easy to make a game by editing the narrat scripts and config files!
 
-[Editing the game](/guides/editing-the-game)
+[Editing the game](editing-game)
 
 ## Building and exporting the game
 
