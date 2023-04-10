@@ -26,7 +26,6 @@ export const stringConcatPlugin = new CommandPlugin<{ a: number; b: number }>(
   },
 );
 
-// write a string join plugin where the first arg is the join character
 export const stringJoinPlugin = new CommandPlugin<{ a: number; b: number }>(
   'join',
   'any',

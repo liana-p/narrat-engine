@@ -124,6 +124,10 @@ import {
   toSecondsPlugin,
   totalPlaytimePlugin,
 } from './time-commands';
+import {
+  hasAchievementPlugin,
+  unlockAchievement,
+} from './achievements-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -277,4 +281,8 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(toHoursPlugin);
   vm.addCommand(toMinutesPlugin);
   vm.addCommand(toSecondsPlugin);
+
+  // Achievements
+  vm.addCommand(unlockAchievement);
+  vm.addCommand(hasAchievementPlugin);
 }

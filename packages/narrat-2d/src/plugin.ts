@@ -1,7 +1,5 @@
 import {
   CommandPlugin,
-  CustomMenuTab,
-  CustomStores,
   NarratPlugin,
   error,
   useInputs,
@@ -9,7 +7,6 @@ import {
   gameloop,
   Action,
   Vec2,
-  useMain,
 } from 'narrat';
 import * as PIXI from 'pixi.js';
 import { GameObject } from './scene/GameObject';
@@ -207,7 +204,7 @@ export class PixiPlugin extends NarratPlugin {
       node: createContainerNode(),
     });
 
-    const camera = createComponent<CameraComponent, CameraComponentOptions>(
+    createComponent<CameraComponent, CameraComponentOptions>(
       CameraComponent,
       this.scene.root,
       {
@@ -225,7 +222,7 @@ export class PixiPlugin extends NarratPlugin {
     agumonSprite.node.scale.set(3);
     agumonSprite.node.anchor.set(0.5, 1);
     agumon.setPosition(Vec2.create(1100, 1200));
-    const agumonCollider = createComponent<
+    createComponent<
       ColliderComponent,
       ColliderComponentOptions
     >(ColliderComponent, agumon, {
@@ -236,7 +233,7 @@ export class PixiPlugin extends NarratPlugin {
         y: -50,
       },
     });
-    const playerComponent = createComponent<PlayerComponent>(
+    createComponent<PlayerComponent>(
       PlayerComponent,
       agumon,
     );
@@ -248,7 +245,7 @@ export class PixiPlugin extends NarratPlugin {
     npc.layer = 2;
     npc.node.anchor.set(0.5, 1);
     npc.setPosition(Vec2.create(1300, 1400));
-    const npcCollider = createComponent<
+    createComponent<
       ColliderComponent,
       ColliderComponentOptions
     >(ColliderComponent, npc, {
@@ -267,7 +264,7 @@ export class PixiPlugin extends NarratPlugin {
     });
     npcTalkZone.layer = 2;
     npcTalkZone.setPosition(Vec2.create(0, -50));
-    const npcComp = createComponent<NpcComponent, NpcComponentOptions>(
+    createComponent<NpcComponent, NpcComponentOptions>(
       NpcComponent,
       npcTalkZone,
       {
@@ -286,7 +283,7 @@ export class PixiPlugin extends NarratPlugin {
       },
     });
     npcTalkCollider.isTrigger = true;
-    const player = createComponent<
+    createComponent<
       CharacterComponent,
       CharacterComponentOptions
     >(CharacterComponent, agumon, {

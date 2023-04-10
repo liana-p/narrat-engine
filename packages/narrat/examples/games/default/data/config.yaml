@@ -58,6 +58,7 @@ hudStats:
     minValue: 0
     maxValue: 10
 items: data/items.yaml
+achievements: data/achievements.yaml
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true

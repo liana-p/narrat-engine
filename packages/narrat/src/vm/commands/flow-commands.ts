@@ -31,7 +31,6 @@ export const jumpCommand = CommandPlugin.FromOptions<{ label: string }>({
   },
 });
 
-// Write a CommandPlugin for running a label using the runLabelFunction of the useVM store
 export const runLabelPlugin = CommandPlugin.FromOptions<{ label: string }>({
   keyword: 'run',
   argTypes: 'any',

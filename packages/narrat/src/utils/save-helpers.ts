@@ -65,12 +65,18 @@ export function resetSave() {
   saveFile = createDefaultSaveFile();
   save();
 }
+function defaultGlobalSave() {
+  return {
+    achievements: {
+      achievements: {},
+    },
+    data: {},
+  };
+}
 function migrateSaveFile(saveFile: SaveFile) {
   if (saveFile.version === '1.4.0') {
     // Nothing to do
-    saveFile.globalSave = {
-      data: {},
-    };
+    saveFile.globalSave = defaultGlobalSave();
     saveFile.version = CURRENT_SAVE_VERSION;
   }
 }
@@ -79,9 +85,7 @@ function createDefaultSaveFile() {
   const saveFile: SaveFile = {
     version: CURRENT_SAVE_VERSION,
     slots: [],
-    globalSave: {
-      data: {},
-    },
+    globalSave: defaultGlobalSave(),
   };
   setupSaveSlots(saveFile);
   return saveFile;

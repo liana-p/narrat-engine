@@ -2,7 +2,6 @@ import { AddDialogParams, useDialogStore } from '@/stores/dialog-store';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
 
-// Write a CommandPlugin for running a label using the runLabelFunction of the useVM store
 export const textFieldPlugin = CommandPlugin.FromOptions<{ prompt: string }>({
   keyword: 'text_field',
   argTypes: [{ name: 'prompt', type: 'string' }],

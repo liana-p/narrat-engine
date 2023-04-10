@@ -5,6 +5,8 @@ main:
   // talk player idle "I like @@bread"
   talk player idle "hello world"
   add global.counter 1
+  if (== $global.counter 2):
+    unlock_achievement win_game
   talk player idle "Global counter is %{$global.counter}"
   jump quest_demo
 
@@ -483,7 +485,6 @@ showMap:
   talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/nialna\/narrat-demo\">demo repo</a>"
 
 quest_demo:
-  reset_global_save
   set_button shopButton true
   set_button parkButton greyed
   jump bread_quest

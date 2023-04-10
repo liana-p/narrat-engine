@@ -22,6 +22,10 @@ import {
 } from './characters-config';
 import { defaultLayoutConfig, LayoutConfig } from './layout-config';
 import { defaultTooltipsConfig, TooltipsConfig } from './tooltips-config';
+import {
+  AchievementsConfig,
+  defaultAchievementsConfig,
+} from './achievements-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -46,6 +50,7 @@ export interface Config {
   tooltips: TooltipsConfig;
   hudStats: HudStatsConfig;
   items: ItemsConfig;
+  achievements: AchievementsConfig;
   interactionTags: InteractionTagsConfig;
   quests: QuestsConfig;
   transitions: TransitionsConfig;
@@ -85,6 +90,7 @@ export const defaultConfig = {
   },
   tooltips: defaultTooltipsConfig,
   hudStats: {},
+  achievements: defaultAchievementsConfig,
   items: defaultItemsConfig,
   interactionTags: {
     default: {

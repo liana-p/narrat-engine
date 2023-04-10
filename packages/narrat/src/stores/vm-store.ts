@@ -1,4 +1,4 @@
-import { getAssetUrl, getConfig, getDataUrl } from '@/config';
+import { getConfig, getDataUrl } from '@/config';
 import {
   isReturnSignal,
   JUMP_SIGNAL,
@@ -6,7 +6,7 @@ import {
   STOP_SIGNAL,
 } from '@/constants';
 import { Parser } from '@/types/parser';
-import { getFile, loadDataFile } from '@/utils/ajax';
+import { getFile } from '@/utils/ajax';
 import {
   addDataHelper,
   deepCopy,
@@ -17,18 +17,12 @@ import {
 import { error, parserError, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
-import { createSpriteCommand } from '@/vm/commands/sprite-commands';
 import { runCommand, vm } from '@/vm/vm';
 import { ParserContext, parseScript } from '@/vm/vm-parser';
 import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
-import { useInventory } from './inventory-store';
 import { useMain } from './main-store';
-import {
-  isScreenObject,
-  isSprite,
-  useScreenObjects,
-} from './screen-objects-store';
+import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 
@@ -391,7 +385,7 @@ export const useVM = defineStore('vm', {
       useMain().endingScript();
       const mainStore = useMain();
       if (mainStore.options.debug) {
-        const dialogStore = useDialogStore();
+        // const dialogStore = useDialogStore();
         if (getConfig().debugging.showScriptFinishedMessage) {
           // dialogStore.addDialog({
           //   speaker: 'game',

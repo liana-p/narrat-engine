@@ -76,6 +76,13 @@ description: This page contains a list of all the existing narrat commands
 | [enable_interaction](../guides/using-items.md#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
 | [`disable_interaction`](../guides/using-items.md#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
 
+#### Achievements
+
+| Command                                           | Example                                       | Description                                                            |
+| ------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- |
+| [unlock_achievement](../features/achievements.md) | `unlock_achievement win_game`                 | Unlocks an achievement                                                 |
+| [has_achievement?](../features/achievements.md)   | `set data.hasWon (has_achievement? win_game)` | Returns true if the player has the passed achievement, otherwise false |
+
 #### Notifications
 
 | Command                                                            | Example                 | Description                     |
