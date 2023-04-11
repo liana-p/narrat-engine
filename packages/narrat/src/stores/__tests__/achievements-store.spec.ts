@@ -10,28 +10,22 @@ import { useConfig } from '@/stores/config-store';
 
 const mockData: AchievementsSetupConfig = {
   normalAchievement: {
-    id: 'normalAchievement',
     name: 'Normal Achievement',
     description: 'This is a normal achievement',
     icon: 'normal',
   },
   secretAchievement: {
-    id: 'secretAchievement',
     name: 'Secret Achievement',
     description: 'This is a secret achievement',
     icon: 'secret',
   },
 };
 
-const mockAchievementsConfig = {
-  achievements: mockData,
-};
-
 describe('Achievements Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     const config = cloneDeep(mockConfig);
-    config.achievements = mockAchievementsConfig;
+    config.achievements.achievements = mockData;
     useConfig().setConfig(config);
   });
 

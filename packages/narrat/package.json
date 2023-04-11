@@ -74,6 +74,7 @@
     "@pinia/testing": "^0.0.16",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/vue": "^7.0.0",
+    "@types/clone-deep": "^4.0.1",
     "@types/howler": "^2.2.3",
     "@types/jest": "^29.5.0",
     "@types/js-yaml": "^4.0.5",

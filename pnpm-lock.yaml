@@ -51,6 +51,7 @@ importers:
       '@sinclair/typebox': ^0.24.28
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/vue': ^7.0.0
+      '@types/clone-deep': ^4.0.1
       '@types/howler': ^2.2.3
       '@types/jest': ^29.5.0
       '@types/js-yaml': ^4.0.5
@@ -111,6 +112,7 @@ importers:
       '@pinia/testing': 0.0.16_pinia@2.0.34+vue@3.2.47
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/vue': 7.0.0_a2ihsjreowava2sm4iorpgwkom
+      '@types/clone-deep': 4.0.1
       '@types/howler': 2.2.7
       '@types/jest': 29.5.0
       '@types/js-yaml': 4.0.5
@@ -1259,6 +1261,10 @@ packages:
 
   /@types/chai/4.3.4:
     resolution: {integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw==}
+    dev: true
+
+  /@types/clone-deep/4.0.1:
+    resolution: {integrity: sha512-bdkCSkyVHsgl3Goe1y16T9k6JuQx7SiDREkq728QjKmTZkGJZuS8R3gGcnGzVuGBP0mssKrzM/GlMOQxtip9cg==}
     dev: true
 
   /@types/earcut/2.1.1:
