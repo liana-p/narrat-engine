@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "types": ["jsdom", "vitest/globals"],
+    "types": ["jsdom", "vitest/globals", "@testing-library/jest-dom"],
     "paths": {
       "@/*": ["src/*"]
     }
