@@ -23,7 +23,7 @@
 </template>
 <script lang="ts" setup>
 import { getAssetUrl, getConfig, getItemConfig } from '@/config';
-import { useDialogStore } from '@/lib';
+import { useDialogStore } from '@/stores/dialog-store';
 import { ItemState, useInventory } from '@/stores/inventory-store';
 import { computed } from 'vue';
 

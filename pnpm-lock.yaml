@@ -62,6 +62,7 @@ importers:
       ajv: ^8.11.0
       ajv-formats: ^2.1.1
       chai-style: ^1.0.3
+      clone-deep: ^4.0.1
       cross-env: ^7.0.3
       deepmerge: ^4.2.2
       es6-promise: ^4.2.8
@@ -99,6 +100,7 @@ importers:
       '@sinclair/typebox': 0.24.28
       ajv: 8.11.0
       ajv-formats: 2.1.1_ajv@8.11.0
+      clone-deep: 4.0.1
       deepmerge: 4.2.2
       fuse.js: 6.6.2
       howler: 2.2.3
@@ -2232,6 +2234,15 @@ packages:
     resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
     dev: false
 
+  /clone-deep/4.0.1:
+    resolution: {integrity: sha512-neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==}
+    engines: {node: '>=6'}
+    dependencies:
+      is-plain-object: 2.0.4
+      kind-of: 6.0.3
+      shallow-clone: 3.0.1
+    dev: false
+
   /code-block-writer/11.0.3:
     resolution: {integrity: sha512-NiujjUFB4SwScJq2bwbYUtXbZhBSlY6vYzm++3Q6oC+U+injTqfPYFK8wS9COOmb2lueqp0ZRB4nK1VYeHgNyw==}
     dev: true
@@ -4115,6 +4126,13 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
 
+  /is-plain-object/2.0.4:
+    resolution: {integrity: sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      isobject: 3.0.1
+    dev: false
+
   /is-potential-custom-element-name/1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
     dev: true
@@ -4193,6 +4211,11 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
+
+  /isobject/3.0.1:
+    resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /jest-diff/29.5.0:
     resolution: {integrity: sha512-LtxijLLZBduXnHSniy0WMdaHjmQnt3g5sa16W4p0HqukYTTsyTW3GD1q41TyGl5YFXj/5B2U6dlh5FM1LIMgxw==}
@@ -4368,6 +4391,11 @@ packages:
   /jsonrepair/2.2.1:
     resolution: {integrity: sha512-o9Je8TceILo872uQC9fIBJm957j1Io7z8Ca1iWIqY6S5S65HGE9XN7XEEw7+tUviB9Vq4sygV89MVTxl+rhZyg==}
     hasBin: true
+    dev: false
+
+  /kind-of/6.0.3:
+    resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
+    engines: {node: '>=0.10.0'}
     dev: false
 
   /kleur/3.0.3:
@@ -5139,6 +5167,13 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: true
+
+  /shallow-clone/3.0.1:
+    resolution: {integrity: sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==}
+    engines: {node: '>=8'}
+    dependencies:
+      kind-of: 6.0.3
+    dev: false
 
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
