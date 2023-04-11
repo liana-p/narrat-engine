@@ -14,7 +14,7 @@
     "build": "pnpm -r --filter=./packages/* run build",
     "dev": "cd packages/narrat && pnpm run dev",
     "test-unit": "pnpm -r --parallel --filter=./packages/* run test-unit",
-    "test": "pnpm test-unit",
+    "test": "pnpm -r --parallel --filter=./packages/* run test",
     "check-types": "pnpm -r --parallel --filter=./packages/* run check-types",
     "lint": "pnpm -r --parallel --filter=./packages/* run lint",
     "docs:dev": "npx vitepress dev docs",
