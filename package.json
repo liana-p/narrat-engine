@@ -1,5 +1,6 @@
 {
   "name": "narrat-monorepo",
+  "version": "2.11.1",
   "private": true,
   "type": "module",
   "engines": {
@@ -43,10 +44,12 @@
   "devDependencies": {
     "chalk": "^5.2.0",
     "conventional-changelog-cli": "^2.2.2",
+    "enquirer": "^2.3.6",
+    "execa": "^4.0.2",
     "minimist": "^1.2.6",
     "rimraf": "^3.0.2",
+    "semver": "^7.4.0",
     "simple-git-hooks": "^2.8.1",
     "vitepress": "1.0.0-alpha.19"
-  },
-  "version": "0.0.1"
+  }
 }
