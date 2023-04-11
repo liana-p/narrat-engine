@@ -1,6 +1,5 @@
 ---
 gameTitle: Narrat Game Example
-saveFileName: Narrat Empty
 images: {}
 dialogPanel:
   textSpeed: 30

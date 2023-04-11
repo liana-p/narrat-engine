@@ -6,6 +6,7 @@ const title = 'Tooltip test title';
 const text = 'Tooltip test text';
 const width = 200;
 const maxWidth = window.innerWidth;
+const maxHeight = window.innerHeight;
 const screenMargin = 5;
 describe('FloatingTooltip.vue tests', () => {
   it('renders a tooltip with the right title and text', () => {

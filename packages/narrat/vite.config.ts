@@ -3,13 +3,13 @@ import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'url';
 import { resolve } from 'path';
 import WindiCSS from 'vite-plugin-windicss';
-import packageJson from './package.json';
+import package from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   // Uses env variables to decide if we're building a demo, and if so which one
   process.env.VITE_BUILD_DATE = new Date().toISOString();
-  process.env.VITE_BUILD_VERSION = packageJson?.version ?? 'Unknown';
+  process.env.VITE_BUILD_VERSION = package?.version ?? 'Unknown';
   const isDemoBuild = process.env.VITE_DEMO_BUILD !== undefined;
   let exampleChoice = '';
   console.log(

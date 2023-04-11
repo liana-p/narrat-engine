@@ -5,6 +5,7 @@ export interface InventoryChangeArgs {
   id: string;
   amount: number;
 }
+// Write a CommandPlugin for adding items to the inventory store
 export const addItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   'add_item',
   [
@@ -21,6 +22,7 @@ export const addItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   },
 );
 
+// Write a CommandPlugin for removeing items to the inventory store
 export const removeItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   'remove_item',
   [
@@ -37,6 +39,7 @@ export const removeItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   },
 );
 
+// Write a CommandPlugin for command named 'has_item?' taking options itemId and optional parameter 'amount', which returns true if the inventory has the item, using the inventory store hasItem function and passing itemId and amount
 export const hasItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   'has_item?',
   [
@@ -50,6 +53,7 @@ export const hasItemPlugin = new CommandPlugin<InventoryChangeArgs>(
   },
 );
 
+// Write a CommandPlugin named 'item_amount?' taking option itemId and returning how many of itemId the player has using the inventory store getItemAmount function and passing itemId
 export const itemAmountPlugin = new CommandPlugin<InventoryChangeArgs>(
   'item_amount?',
   [{ name: 'id', type: 'string' }],
@@ -60,6 +64,7 @@ export const itemAmountPlugin = new CommandPlugin<InventoryChangeArgs>(
   },
 );
 
+// Write a CommandPlugin for enabling an interactiongTag in the inventory store
 export const enableInteractionPlugin = new CommandPlugin<{ tag: string }>(
   'enable_interaction',
   [{ name: 'tag', type: 'string' }],
@@ -70,6 +75,7 @@ export const enableInteractionPlugin = new CommandPlugin<{ tag: string }>(
   },
 );
 
+// Write a CommandPlugin for disabling an interactiongTag in the inventory store
 export const disableInteractionPlugin = new CommandPlugin<{ tag: string }>(
   'disable_interaction',
   [{ name: 'tag', type: 'string' }],

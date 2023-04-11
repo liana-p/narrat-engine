@@ -2,8 +2,6 @@
 
 ## Saving and Reloading
 
-**Important:** The `saveFileName` key in the `config.yaml` file is the name of the save file, and if this value is changed old saves will stop working. Once you have chosen a save file name for a game, do not change it in the future. The name you use should contain the name of your game to avoid clashes with other games
-
 ### How saving works
 
 Narrat supports automatic saving and reloading, but there are some important details worth knowing about.
@@ -41,28 +39,11 @@ If using `manual` mode, you should give the player a chance to create manual sav
 
 To let the player save manually, there are two commands:
 
-[save-commands.md](../commands/save-commands.md)
+[save-commands.md](../commandssave-commands.md)
 
 ::: tip
 Because save data is only generated when jumping to a new label, save prompts should ideally be at the start of a label. Otherwise, the data saved will be outdated.
 :::
-
-## Global Save Data
-
-The engine now supports global save data. Global save data isn't associated with any save slot and is instead global for the entire game. This allows tracking meta data across multiple playthrough, or enabling features like achievements across multiple saves.
-
-To use, set values in the `global` object instead of `data`. For example:
-
-```
-main:
-  talk player idle "hello world"
-  add global.counter 1
-  talk player idle "Global counter is %{$global.counter}"
-```
-
-Every time a new game is started, this script will increase the global counter despite it being a new save.
-
-To reset global save data, use the `reset_global_save` command.
 
 ### The problem with saving a specific line
 

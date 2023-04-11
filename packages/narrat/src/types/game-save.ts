@@ -8,7 +8,6 @@ import { ScreenSave } from '@/stores/screens-store';
 import { SkillsSave } from '@/stores/skills';
 import { ScreenObjectsStoreSave } from '@/stores/screen-objects-store';
 import { VMSave } from '@/stores/vm-store';
-import { AchievementsSave } from '@/stores/achievements-store';
 
 export interface SaveSlot {
   slotType: 'manual' | 'auto';
@@ -32,13 +31,6 @@ export type GameSave = {
   screenObjects: ScreenObjectsStoreSave;
 };
 
-export type GlobalGameSave = {
-  achievements: AchievementsSave;
-  data: {
-    [key: string]: any;
-  };
-};
-
 export interface SaveSlotMetadata {
   saveDate: string;
   name: string;
@@ -49,5 +41,4 @@ export type SaveFile = {
   version: string;
   slots: Array<SaveSlot>;
   lastSaveSlot?: string;
-  globalSave: GlobalGameSave;
 };

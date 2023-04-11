@@ -4,6 +4,10 @@ description: >-
   minute
 ---
 
+::: danger
+This is the **new documentation website**. It is better than the old one but might be missing some pages or have issues. If you need to refer to the old docs please go to [docs-old.get-narrat.com](https://docs-old.get-narrat.com)
+:::
+
 ::: tip
 Getting started with narrat is very quick. There is a ready-to-use template that can get you running your game in a minute
 :::
@@ -82,7 +86,7 @@ You will probably see npm complain about "**security issues**". Those are false 
 npm start
 ```
 
-This should open a browser tab with the game running after a short build time. The game can be accessed at <a href="http://localhost:5173/" target="_blank" rel="noreferrer">http://localhost:5173/</a>
+This should open a browser tab with the game running after a short build time. The game can be accessed at https://localhost:8080
 
 The game is ready to edit!
 
@@ -94,7 +98,7 @@ Those `npm` commands come from node.js. If the commands aren't recognised, you p
 
 It is now easy to make a game by editing the narrat scripts and config files!
 
-[Editing the game](editing-game)
+[Editing the game](/guides/editing-the-game)
 
 ## Building and exporting the game
 

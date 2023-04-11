@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useConfig } from '@/lib';
 import { computed, onMounted, ref } from 'vue';
 
 export interface FloatingTooltipProps {

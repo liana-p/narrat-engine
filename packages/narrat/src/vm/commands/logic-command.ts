@@ -43,6 +43,7 @@ export const greaterThanPlugin = new CommandPlugin<{ a: number; b: number }>(
   },
 );
 
+// Write a lesserThanPlugin, greaterOrEqualPlugin, lesserOrEqualPlugin, notEqualPlugin
 export const lesserThanPlugin = new CommandPlugin<{ a: number; b: number }>(
   '<',
   [
@@ -124,6 +125,7 @@ export const orPlugin = new CommandPlugin<{ a: number; b: number }>(
   },
 );
 
+// Write a ternaryPlugin
 export const ternaryPlugin = new CommandPlugin<{
   a: boolean;
   b: any;

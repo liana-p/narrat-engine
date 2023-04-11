@@ -10,7 +10,7 @@ The set_level function in narrat increases the level of the player in a specifie
 
 Syntax: `set_level [skillId] [level]`
 
-See the [skills system guide](../../features/skills.md) to know more
+See the [skills system guide](../../features/skills-system.md) to know more
 
 Example:
 

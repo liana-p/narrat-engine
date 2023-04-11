@@ -1,19 +1,16 @@
-import { getConfig } from '@/config';
+import { audioConfig, getConfig } from '@/config';
+import { SAVE_FILE } from '@/constants';
+import { audioModes, AudioSave, AudioSaveMode } from '@/stores/audio-store';
 import {
   GameSave,
-  GlobalGameSave,
   SaveFile,
   SaveSlotMetadata,
   StoredSaveFile,
 } from '@/types/game-save';
 import { error, warning } from './error-handling';
+import { mapObject } from './object-iterators';
 import { randomId } from './randomId';
-export const CURRENT_SAVE_VERSION = '1.5.0';
-
-export function saveFileName(): string {
-  return `NARRAT_SAVE_${getConfig().saveFileName}`;
-}
-const oldSaveFileName = 'gameSave';
+export const CURRENT_SAVE_VERSION = '1.4.0';
 
 let saveFile: SaveFile;
 export function getSaveFile(): SaveFile {
@@ -23,12 +20,8 @@ export function getSaveFile(): SaveFile {
     let storedSaveFile: StoredSaveFile | null = null;
     try {
       // Handle weird save files
-      let storedSavedFileText = localStorage.getItem(saveFileName());
-      if (!storedSavedFileText) {
-        storedSavedFileText = localStorage.getItem(oldSaveFileName);
-      }
+      const storedSavedFileText = localStorage.getItem(SAVE_FILE);
       if (storedSavedFileText) {
-        localStorage.setItem(`${saveFileName()}_BACKUP`, storedSavedFileText);
         storedSaveFile = JSON.parse(storedSavedFileText);
       }
       if (
@@ -61,23 +54,9 @@ export function getSaveFile(): SaveFile {
   return saveFile;
 }
 
-export function resetSave() {
-  saveFile = createDefaultSaveFile();
-  save();
-}
-function defaultGlobalSave() {
-  return {
-    achievements: {
-      achievements: {},
-    },
-    data: {},
-  };
-}
 function migrateSaveFile(saveFile: SaveFile) {
   if (saveFile.version === '1.4.0') {
     // Nothing to do
-    saveFile.globalSave = defaultGlobalSave();
-    saveFile.version = CURRENT_SAVE_VERSION;
   }
 }
 
@@ -85,7 +64,6 @@ function createDefaultSaveFile() {
   const saveFile: SaveFile = {
     version: CURRENT_SAVE_VERSION,
     slots: [],
-    globalSave: defaultGlobalSave(),
   };
   setupSaveSlots(saveFile);
   return saveFile;
@@ -114,11 +92,7 @@ function setupSaveSlots(saveFile: SaveFile) {
   }
 }
 
-export function saveSlot(
-  saveData: GameSave,
-  globalSaveData: GlobalGameSave,
-  slot: string,
-) {
+export function saveSlot(saveData: GameSave, slot: string) {
   const slotIndex = getSlotIndex(slot);
   if (saveFile.slots[slotIndex]) {
     saveFile.slots[slotIndex].saveData = saveData;
@@ -126,7 +100,6 @@ export function saveSlot(
     error(`Tried to save to slot ${slot} but it doesn't exist`);
     return;
   }
-  saveFile.globalSave = globalSaveData;
   save();
 }
 
@@ -135,7 +108,7 @@ export function setSaveSlot(slot: string) {
 }
 
 export function save() {
-  localStorage.setItem(saveFileName(), JSON.stringify(saveFile));
+  localStorage.setItem(SAVE_FILE, JSON.stringify(saveFile));
 }
 
 export function getFreeSlot(): string | false {

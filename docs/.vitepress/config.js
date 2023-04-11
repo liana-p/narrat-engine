@@ -42,16 +42,15 @@ const config = {
         text: 'Feature Guides',
         collapsible: true,
         items: [
-          { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
           { text: 'HUD Stats', link: '/features/hud-stats' },
           { text: 'Inventory', link: '/features/inventory' },
-          { text: 'Items', link: '/features/items' },
           { text: 'Quests', link: '/features/quests' },
           { text: 'Save and Load', link: '/features/save-and-load' },
+          { text: 'Viewport', link: '/features/viewport' },
           { text: 'Skills', link: '/features/skills' },
           { text: 'Transitions', link: '/features/transitions' },
-          { text: 'Viewport', link: '/features/viewport' },
+          { text: 'Items', link: '/features/items' },
         ],
       },
       {
@@ -101,16 +100,6 @@ const config = {
         items: [
           { text: 'Example Config', link: '/examples/example-config' },
           { text: 'Editing the config', link: '/guides/config-files' },
-        ],
-      },
-      {
-        text: 'Version',
-        items: [
-          { text: 'Current Version', link: 'https://docs.get-narrat.com' },
-          {
-            text: 'v2.12.0',
-            link: 'https://2-12-0--ornate-pie-561978.netlify.app/',
-          },
         ],
       },
     ],

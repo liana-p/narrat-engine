@@ -12,7 +12,7 @@ narrat now has a [Steamworks](https://partner.steamgames.com/) integration by de
 
 For a primer on how to generally build and export narrat games, see this page:
 
-[building-and-exporting-your-game.md](building-and-exporting)
+[building-and-exporting-your-game.md](building-and-exporting-your-game.md)
 
 ### How to build for Steam
 

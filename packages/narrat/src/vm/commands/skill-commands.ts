@@ -1,4 +1,5 @@
 import { useSkills } from '@/stores/skills';
+import { Parser } from '@/types/parser';
 import { runSkillCheck, SkillCheckParams } from '../vm-helpers';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
@@ -89,6 +90,7 @@ export const addXpPlugin = new CommandPlugin<AddXpArgs>(
   },
 );
 
+// Write a CommandPlugin to get a skill's level
 export interface GetLevelArgs {
   skillKey: string;
 }
@@ -116,6 +118,7 @@ export const getLevelPlugin = new CommandPlugin<GetLevelArgs>(
   },
 );
 
+// Write a CommandPlugin to get a skill's xp
 export interface GetXpArgs {
   xpKey: string;
 }
@@ -186,6 +189,7 @@ export const getSkillCheckPlugin = new CommandPlugin<{
   },
 );
 
+// Write a skillCheckResult plugin to get the result of a skill check as boolean
 export const getSkillCheckResultPlugin = new CommandPlugin<{
   skillCheckId: string;
 }>(
