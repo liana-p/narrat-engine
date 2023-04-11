@@ -15,7 +15,6 @@ import {
   jumpCommand,
   logPlugin,
   newCommandPlugin,
-  resetGlobalPlugin,
   returnMainMenuPlugin,
   returnPlugin,
   runLabelPlugin,
@@ -124,10 +123,6 @@ import {
   toSecondsPlugin,
   totalPlaytimePlugin,
 } from './time-commands';
-import {
-  hasAchievementPlugin,
-  unlockAchievement,
-} from './achievements-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -202,7 +197,6 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(logPlugin);
   vm.addCommand(returnMainMenuPlugin);
   vm.addCommand(savePlugin);
-  vm.addCommand(resetGlobalPlugin);
   vm.addCommand(savePromptPlugin);
   vm.addCommand(newCommandPlugin);
 
@@ -281,8 +275,4 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(toHoursPlugin);
   vm.addCommand(toMinutesPlugin);
   vm.addCommand(toSecondsPlugin);
-
-  // Achievements
-  vm.addCommand(unlockAchievement);
-  vm.addCommand(hasAchievementPlugin);
 }

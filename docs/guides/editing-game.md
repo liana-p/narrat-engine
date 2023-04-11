@@ -24,13 +24,13 @@ Narrat scripts are the main way a game is created. They contain the flow of the 
 In the `public/data` folder of the game, there is an `example.nar` file (or named differently depending on which template you used). This is where the actual game dialogue is written. The example dialogue there shows how to use a few basic features, so you can easily start writing your own dialogue. Just above is a link to the example narrat script page to find more examples as needed.
 
 {% hint style="warning" %}
-Narrat scripts are in a custom language nade for narrat, see the [Language Syntax](../scripting/language-syntax.md) page for more info.
+Narrat scripts are in a custom language nade for narrat, see the [Language Syntax](language-syntax-and-expressions.md) page for more info.
 
 We advise using [Visual Studio Code](https://code.visualstudio.com) for editing narrat scripts. There is a [Narrat Language VS Code extension](https://marketplace.visualstudio.com/items?itemName=NarratEngine.language-narrat) which will give you great syntax highlighting.
 
 See the page linked below for more details on how to write narrat scripts.
 
-[language-syntax-and-expressions.md](../scripting/language-syntax.md)
+[language-syntax-and-expressions.md](language-syntax-and-expressions.md)
 
 ### Config files
 

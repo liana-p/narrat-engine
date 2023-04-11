@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "composite": true,
     "module": "esnext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "types": ["jsdom", "vitest/globals", "@testing-library/jest-dom"],
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "moduleResolution": "node"
   },
-  "include": ["vite.config.ts", "package.json"]
+  "include": ["vite.config.ts"]
 }

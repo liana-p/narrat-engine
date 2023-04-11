@@ -22,7 +22,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useRenderingStore } from '@/stores/rendering-store';
+import { useRenderingStore } from '@/lib';
 import { computed, defineComponent, ref } from 'vue';
 import { QuestState, useQuests } from '../stores/quest-log';
 import QuestDetails from './quests/QuestDetails.vue';

@@ -21,7 +21,6 @@ import { Pinia, Store } from 'pinia';
 export class VM {
   plugins: NarratPluginObject<any>[] = [];
   pinia!: Pinia;
-  script: Parser.ParsedScript = {};
   commands: {
     [key: string]: CommandPlugin<any>;
   } = {};

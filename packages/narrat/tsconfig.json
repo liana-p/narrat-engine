@@ -19,9 +19,10 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["@testing-library/jest-dom"],
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "typeRoots": ["src/types/", "node_modules/@types/"]
   },
+  "exclude": ["**/*.spec.ts"],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

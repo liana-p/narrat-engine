@@ -132,7 +132,7 @@ The `difficultyText` config array specifies a list of thresholds and the corresp
 
 Passive skill checks are done by calling the `roll` function inside an `if` command.
 
-See the [roll function documentation](../commands/skills-commands/roll.md) for more info and a list of options
+See the [roll function documentation](../commandsskills-commands/roll.md) for more info and a list of options
 
 If the skill check succeeds, the branch inside the if command will be run. A message will also be printed in the dialogue to inform the player that a skill check happened.
 
@@ -174,4 +174,4 @@ add_xp agility 3
 
 ### Resetting a skill roll
 
-[reset-roll.md](../commands/skills-commands/reset-roll.md)
+[reset-roll.md](../commandsskills-commands/reset-roll.md)

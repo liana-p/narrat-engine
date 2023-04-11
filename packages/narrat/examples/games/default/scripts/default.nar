@@ -3,11 +3,6 @@ main:
   // jump test_choice_conditions
   // set config.characters.characters.player.name "Someone"
   // talk player idle "I like @@bread"
-  talk player idle "hello world"
-  add global.counter 1
-  if (== $global.counter 2):
-    unlock_achievement win_game
-  talk player idle "Global counter is %{$global.counter}"
   jump quest_demo
 
 test_choice_conditions:

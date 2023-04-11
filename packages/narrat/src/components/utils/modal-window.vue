@@ -54,7 +54,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   /* filter: blur(5px); */
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease;
   display: flex;
   flex-direction: column;

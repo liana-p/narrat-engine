@@ -38,22 +38,15 @@
         >
           Load Game
         </button>
-        <button
-          v-for="button in extraButtons"
-          :key="button.id"
-          class="button menu-button main-menu-button large override"
-          :class="`${button.id}-start-menu-button`"
-          @click="clickExtraButton(button)"
-        >
+        <button v-for="button in extraButtons" :key="button.id" class="button menu-button main-menu-button large override"
+        :class="`${button.id}-start-menu-button`"
+        @click="clickExtraButton(button)">
           {{ button.text }}
         </button>
       </div>
     </div>
     <Teleport to="#app-container" v-if="popupComponent">
-      <ModalWindow
-        @close="closePopupComponent"
-        :class="`start-menu-popup-${popupComponent.id}`"
-      >
+      <ModalWindow @close="closePopupComponent" :class="`start-menu-popup-${popupComponent.id}`">
         <template v-slot:header>
           <h3 class="title">
             {{ popupComponent.text }}
@@ -87,7 +80,7 @@ import YesNo from './utils/yes-no.vue';
 import { useAudio } from '@/stores/audio-store';
 import { inputEvents } from '../utils/InputsListener';
 import { useStartMenu } from '@/stores/start-menu-store';
-import { CustomStartMenuButton } from '@/exports/plugins';
+import { CustomStartMenuButton } from '@/lib';
 import ModalWindow from './utils/modal-window.vue';
 
 const hasSave = ref(false);
@@ -98,7 +91,7 @@ const choosingSave = ref(false);
 const startingGame = ref(false);
 const listener = ref<null | Function>(null);
 const startMenuStore = useStartMenu();
-const popupComponent = ref<CustomStartMenuButton | false>(false);
+const popupComponent = ref<CustomStartMenuButton | false>(false)
 
 const extraButtons = computed(() => startMenuStore.buttons);
 

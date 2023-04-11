@@ -12,4 +12,4 @@ Same as save, but will ask the player if they want to save first, and cancel if 
 
 ### More info about saving
 
-[saving-and-reloading.md](../features/save-and-load.md)
+[saving-and-reloading.md](../features/saving-and-reloading.md)

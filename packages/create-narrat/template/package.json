@@ -4,7 +4,7 @@
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
   "engines": {
-    "node": ">=16.x"
+    "node": "16.x"
   },
   "build": {
     "files": [

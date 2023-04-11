@@ -16,30 +16,37 @@ There are also interaction groups which allow scripts to toggle on/off whether u
 
 Config:
 
-```yaml
-items:
-  bread:
-    name: Bread
-    description: A bread in the game.
-    icon: img/items/bread.png
-    onUse:
-      action: jump
-      label: eat_bread
-    tag: default
-  book:
-    name: Ominous Book
-    description: An ominous book
-    icon: img/items/book.png
-    onUse:
-      action: run_label
-      label: read_book
-    tag: always_interactable
-interactionTags:
-  default:
-    onlyInteractOutsideOfScripts: true
+```
+  "items": {
+    "bread": {
+      "name": "Bread",
+      "description": "A bread in the game.",
+      "icon": "img/items/bread.png",
+      "onUse": {
+        "action": "jump",
+        "label": "eat_bread"
+      },
+      "tag": "default"
+    },
+    "book": {
+      "name": "Ominous Book",
+      "description": "An ominous book",
+      "icon": "img/items/book.png",
+      "onUse": {
+        "action": "run_label",
+        "label": "read_book"
+      },
+      "tag": "always_interactable"
+    }
+  },
+  "interactionTags": {
+    "default": {
+      "onlyInteractOutsideOfScripts": true
+    }
+  }
 ```
 
-The `onUse` `action` property can be either `jump` or `run`, allowing to either jump to a script, or run a script as a function (see [1.3.0 changes](https://github.com/liana-p/narrat-engine/blob/main/CHANGELOG.md#1.3.0) or [functions docs](../scripting/functions)), which effectively allows interrupting the current dialogue to run an item's function before going back to it.
+The `onUse` `action` property can be either `jump` or `run`, allowing to either jump to a script, or run a script as a function (see [1.3.0 changes](https://github.com/liana-p/narrat-engine/blob/main/CHANGELOG.md#1.3.0) or [functions docs](https://docs.get-narrat.com/features/functions)), which effectively allows interrupting the current dialogue to run an item's function before going back to it.
 
 ### Interaction tags
 
