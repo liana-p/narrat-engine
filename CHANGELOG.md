@@ -1,3 +1,25 @@
+# [2.12.0](https://github.com/liana-pigeot/narrat/compare/v2.10.4...v2.12.0) (2023-04-11)
+
+
+### Bug Fixes
+
+* issue with saving non-object values ([#42](https://github.com/liana-pigeot/narrat/issues/42)) ([41881df](https://github.com/liana-pigeot/narrat/commit/41881df425f1f25fa0d164dc38b8c13578b01a0d))
+* save data issues ([#44](https://github.com/liana-pigeot/narrat/issues/44)) ([f67826c](https://github.com/liana-pigeot/narrat/commit/f67826c25050befdbb83e3293f68003594f98514))
+
+
+### Features
+
+* achievements and global save ([#47](https://github.com/liana-pigeot/narrat/issues/47)) ([669c120](https://github.com/liana-pigeot/narrat/commit/669c12092c5c0add7234544b2a11cb08cdb1280a))
+* Apply configured audio file volume to played music and sound ([#43](https://github.com/liana-pigeot/narrat/issues/43)) ([63b56ca](https://github.com/liana-pigeot/narrat/commit/63b56ca117489341e4b437547bf2887a2a68ca18))
+* component testing setup with vitest and jest-dom ([#46](https://github.com/liana-pigeot/narrat/issues/46)) ([cef092e](https://github.com/liana-pigeot/narrat/commit/cef092e4fad5acd64a9ba2251031f8021a827eb7)), closes [#45](https://github.com/liana-pigeot/narrat/issues/45)
+* docs updates and automated release process ([#50](https://github.com/liana-pigeot/narrat/issues/50)) ([58fe210](https://github.com/liana-pigeot/narrat/commit/58fe21067a2c7a3933006d821c32797f966922a4))
+* Fix and improve doc links in various places ([#48](https://github.com/liana-pigeot/narrat/issues/48)) ([abed47a](https://github.com/liana-pigeot/narrat/commit/abed47a98a904f4baa54f2670156938bb655df32))
+* Get skill check ([#38](https://github.com/liana-pigeot/narrat/issues/38)) ([02b787e](https://github.com/liana-pigeot/narrat/commit/02b787e74c8d5e14d7f132feaaab335d8e8df212))
+* more tests setup ([#49](https://github.com/liana-pigeot/narrat/issues/49)) ([984de73](https://github.com/liana-pigeot/narrat/commit/984de73c0f243a6bff0e85b6480cfd340f193f0f))
+* sprite onclick arguments supports arguments ([#41](https://github.com/liana-pigeot/narrat/issues/41)) ([5c95e2f](https://github.com/liana-pigeot/narrat/commit/5c95e2f5fc0eeccec315d8d29b3c4424e1748ae7))
+
+
+
 # Narrat changelog
 
 ## [2.12.0] Achievements and global save data
