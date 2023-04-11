@@ -1,24 +1,20 @@
-# [2.12.0](https://github.com/liana-pigeot/narrat/compare/v2.10.4...v2.12.0) (2023-04-11)
-
+# [2.12.0](https://github.com/liana-p/narrat-engine/compare/v2.10.4...v2.12.0) (2023-04-11)
 
 ### Bug Fixes
 
-* issue with saving non-object values ([#42](https://github.com/liana-pigeot/narrat/issues/42)) ([41881df](https://github.com/liana-pigeot/narrat/commit/41881df425f1f25fa0d164dc38b8c13578b01a0d))
-* save data issues ([#44](https://github.com/liana-pigeot/narrat/issues/44)) ([f67826c](https://github.com/liana-pigeot/narrat/commit/f67826c25050befdbb83e3293f68003594f98514))
-
+- issue with saving non-object values ([#42](https://github.com/liana-p/narrat-engine/issues/42)) ([41881df](https://github.com/liana-p/narrat-engine/commit/41881df425f1f25fa0d164dc38b8c13578b01a0d))
+- save data issues ([#44](https://github.com/liana-p/narrat-engine/issues/44)) ([f67826c](https://github.com/liana-p/narrat-engine/commit/f67826c25050befdbb83e3293f68003594f98514))
 
 ### Features
 
-* achievements and global save ([#47](https://github.com/liana-pigeot/narrat/issues/47)) ([669c120](https://github.com/liana-pigeot/narrat/commit/669c12092c5c0add7234544b2a11cb08cdb1280a))
-* Apply configured audio file volume to played music and sound ([#43](https://github.com/liana-pigeot/narrat/issues/43)) ([63b56ca](https://github.com/liana-pigeot/narrat/commit/63b56ca117489341e4b437547bf2887a2a68ca18))
-* component testing setup with vitest and jest-dom ([#46](https://github.com/liana-pigeot/narrat/issues/46)) ([cef092e](https://github.com/liana-pigeot/narrat/commit/cef092e4fad5acd64a9ba2251031f8021a827eb7)), closes [#45](https://github.com/liana-pigeot/narrat/issues/45)
-* docs updates and automated release process ([#50](https://github.com/liana-pigeot/narrat/issues/50)) ([58fe210](https://github.com/liana-pigeot/narrat/commit/58fe21067a2c7a3933006d821c32797f966922a4))
-* Fix and improve doc links in various places ([#48](https://github.com/liana-pigeot/narrat/issues/48)) ([abed47a](https://github.com/liana-pigeot/narrat/commit/abed47a98a904f4baa54f2670156938bb655df32))
-* Get skill check ([#38](https://github.com/liana-pigeot/narrat/issues/38)) ([02b787e](https://github.com/liana-pigeot/narrat/commit/02b787e74c8d5e14d7f132feaaab335d8e8df212))
-* more tests setup ([#49](https://github.com/liana-pigeot/narrat/issues/49)) ([984de73](https://github.com/liana-pigeot/narrat/commit/984de73c0f243a6bff0e85b6480cfd340f193f0f))
-* sprite onclick arguments supports arguments ([#41](https://github.com/liana-pigeot/narrat/issues/41)) ([5c95e2f](https://github.com/liana-pigeot/narrat/commit/5c95e2f5fc0eeccec315d8d29b3c4424e1748ae7))
-
-
+- achievements and global save ([#47](https://github.com/liana-p/narrat-engine/issues/47)) ([669c120](https://github.com/liana-p/narrat-engine/commit/669c12092c5c0add7234544b2a11cb08cdb1280a))
+- Apply configured audio file volume to played music and sound ([#43](https://github.com/liana-p/narrat-engine/issues/43)) ([63b56ca](https://github.com/liana-p/narrat-engine/commit/63b56ca117489341e4b437547bf2887a2a68ca18))
+- component testing setup with vitest and jest-dom ([#46](https://github.com/liana-p/narrat-engine/issues/46)) ([cef092e](https://github.com/liana-p/narrat-engine/commit/cef092e4fad5acd64a9ba2251031f8021a827eb7)), closes [#45](https://github.com/liana-p/narrat-engine/issues/45)
+- docs updates and automated release process ([#50](https://github.com/liana-p/narrat-engine/issues/50)) ([58fe210](https://github.com/liana-p/narrat-engine/commit/58fe21067a2c7a3933006d821c32797f966922a4))
+- Fix and improve doc links in various places ([#48](https://github.com/liana-p/narrat-engine/issues/48)) ([abed47a](https://github.com/liana-p/narrat-engine/commit/abed47a98a904f4baa54f2670156938bb655df32))
+- Get skill check ([#38](https://github.com/liana-p/narrat-engine/issues/38)) ([02b787e](https://github.com/liana-p/narrat-engine/commit/02b787e74c8d5e14d7f132feaaab335d8e8df212))
+- more tests setup ([#49](https://github.com/liana-p/narrat-engine/issues/49)) ([984de73](https://github.com/liana-p/narrat-engine/commit/984de73c0f243a6bff0e85b6480cfd340f193f0f))
+- sprite onclick arguments supports arguments ([#41](https://github.com/liana-p/narrat-engine/issues/41)) ([5c95e2f](https://github.com/liana-p/narrat-engine/commit/5c95e2f5fc0eeccec315d8d29b3c4424e1748ae7))
 
 # Narrat changelog
 
@@ -1402,7 +1398,7 @@ The syntax is generally the same so existing scripts would mostly work, except f
 
 ### Script updating tool
 
-There is a [script updating tool](https://github.com/liana-pigeot/Narrat-Script-Updater) which can be used to help automatically update existing scripts from 1.x to work with the new syntax.
+There is a [script updating tool](https://github.com/liana-p/narrat-engine-Script-Updater) which can be used to help automatically update existing scripts from 1.x to work with the new syntax.
 
 {% hint style="danger" %}
 The old syntax is largely compatible, but the $if instruction works very differently now. The script will update those $if instructions to match the new system, but might fail at updating long series of conditions in $if
@@ -1835,7 +1831,7 @@ Fixed an error in how the narrat packaged is exported
 
 ### New Plugin system!
 
-There is now a plugin system developers can use to add new functionality to narrat (more documentation soon). See the [narrat-bitsy](https://github.com/liana-pigeot/narrat-bitsy) plugin for an example.
+There is now a plugin system developers can use to add new functionality to narrat (more documentation soon). See the [narrat-bitsy](https://github.com/liana-p/narrat-engine-bitsy) plugin for an example.
 
 ## 0.10.0
 
@@ -1868,7 +1864,7 @@ There is now a plugin system developers can use to add new functionality to narr
 
 - Added new CSS variables and id/classes to make it easier to theme games
 
-Current CSS variables list (Look at [main.css](https://github.com/liana-pigeot/narrat/blob/main/src/sass/main.css) in the narrat repo for up to date version):
+Current CSS variables list (Look at [main.css](https://github.com/liana-p/narrat-engine/blob/main/src/sass/main.css) in the narrat repo for up to date version):
 
 ```css
 :root {

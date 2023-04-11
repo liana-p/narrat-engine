@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liana-pigeot/narrat.git"
+    "url": "git+https://github.com/liana-p/narrat-engine.git"
   },
   "author": "Liana Pigeot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liana-pigeot/narrat/issues"
+    "url": "https://github.com/liana-p/narrat-engine/issues"
   },
   "homepage": "https://get-narrat.com",
   "packageManager": "pnpm@7.5.2",

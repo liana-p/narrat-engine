@@ -7,7 +7,7 @@
   "types": "dist/lib.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:liana-pigeot/narrat.git",
+    "url": "git@github.com:liana-p/narrat-engine.git",
     "directory": "packages/narrat"
   },
   "engines": {
