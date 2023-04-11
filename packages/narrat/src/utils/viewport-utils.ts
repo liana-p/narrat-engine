@@ -1,6 +1,6 @@
 import { buttonsConfig } from '@/config';
 import { ButtonConfig } from '@/config/buttons-config';
-import { useMain } from '@/lib';
+import { useMain } from '@/stores/main-store';
 import { ScreenObjectState } from '@/stores/screen-objects-store';
 
 export function isViewportElementClickable(

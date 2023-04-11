@@ -23,5 +23,10 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/lib/**"
+  ]
 }
