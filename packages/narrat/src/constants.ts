@@ -1,4 +1,3 @@
-export const SAVE_FILE = 'gameSave';
 export const PRE_SIGNAL = '###_--_~=:;';
 export const JUMP_SIGNAL = `###_--_~=:;_JUMP`;
 export const RETURN_SIGNAL = `###_--_~=:;_RETURN`;

@@ -12,7 +12,15 @@
   --light-background: rgba(255, 255, 255, 0.3);
   --button-background: var(--light-gradient);
   --button-text-color: var(--text-color);
-  --modal-background: rgba(0, 0, 0, 0.7);
+  --modal-gradient-1: rgba(18, 21, 26, 0.8);
+  --modal-gradient-2: rgba(37, 40, 44, 0.6);
+  --modal-background: linear-gradient(
+    90deg,
+    var(--modal-gradient-1) 0%,
+    var(--modal-gradient-2) 100%
+  );
+  --tile-background: var(--modal-background);
+  --tile-border-color: rgba(166, 166, 166, 0.3);
   --shadow-1: hsla(236, 50%, 50%, 0.3);
   --shadow-2: hsla(236, 50%, 50%, 0.4);
   --hud-background: rgba(0, 0, 0, 0.4);
@@ -77,6 +85,11 @@
   --highlighted-tooltip-keyword-color: red;
   --highlighted-tooltip-keyword-font-size: 1.1em;
   --highlighted-tooltip-keyword-font-weight: bold;
+
+  --achievement-title-color: var(--text-color);
+  --achievement-tile-background: var(--tile-background);
+  --achievement-tile-border-color: var(--tile-border-color);
+  --achievement-description-color: rgb(170, 170, 170);
 }
 body {
   font-family: var(--font-family);

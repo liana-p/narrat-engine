@@ -1,5 +1,6 @@
 ---
-gameTitle: Narrat Game Example
+gameTitle: Narrat Default
+saveFileName: Narrat Default
 images:
   narrat: img/backgrounds/narrat.webp
   map: img/backgrounds/map.webp
@@ -57,6 +58,7 @@ hudStats:
     minValue: 0
     maxValue: 10
 items: data/items.yaml
+achievements: data/achievements.yaml
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true

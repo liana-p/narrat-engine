@@ -218,6 +218,7 @@ export function getModifiableDataPinia() {
   const scope = useVM().scope;
   const state = {
     data: vm.data,
+    global: vm.globalData,
     skills: skills.skills,
     skillChecks: skills.skillChecks,
     buttons: screens.buttons,

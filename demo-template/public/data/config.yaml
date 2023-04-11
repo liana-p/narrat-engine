@@ -1,5 +1,6 @@
 ---
 gameTitle: Narrat Demo
+saveFileName: Narrat Demo
 images:
   narrat: img/backgrounds/narrat.webp
   map: img/backgrounds/map.webp

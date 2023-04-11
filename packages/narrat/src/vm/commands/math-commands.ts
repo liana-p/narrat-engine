@@ -26,7 +26,6 @@ export const minPlugin = CommandPlugin.FromOptions<{
   },
 });
 
-// Write a maxPlugin and clampPlugin
 export const maxPlugin = CommandPlugin.FromOptions<{
   max: number;
   value: number;

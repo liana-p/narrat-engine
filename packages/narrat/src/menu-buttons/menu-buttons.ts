@@ -1,5 +1,6 @@
 import MainMenu from '../components/MainMenu.vue';
 import InventoryUi from '../components/inventory-ui.vue';
+import AchievementsUI from '../components/achievements/achievements-ui.vue';
 import QuestsUi from '../components/quests-ui.vue';
 import Skills from '../components/SkillsWindow.vue';
 
@@ -10,6 +11,7 @@ export function registerDefaultMenuButtons(app: any) {
   // Register menu components
   app.component('MainMenu', MainMenu);
   app.component('InventoryUi', InventoryUi);
+  app.component('AchievementsUI', AchievementsUI);
   app.component('QuestsUi', QuestsUi);
   app.component('SkillsWindow', Skills);
   useMenu().menus = {
@@ -54,6 +56,13 @@ export function registerDefaultMenuButtons(app: any) {
             return useMenu().showQuests;
           },
           component: 'QuestsUi',
+        },
+        {
+          id: 'achievements',
+          cssId: 'achievements-menu-button',
+          text: 'Achievements',
+          condition: () => useMenu().showAchievements,
+          component: 'AchievementsUI',
         },
       ],
       activeTab: 0,
