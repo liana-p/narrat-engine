@@ -2,13 +2,9 @@
 
 ## Checklist
 
-- [ ] Linked an issue for this PR (create one if needed)
+- [ ] Linked an issue for this PR (or no issue is relevant)
 - [ ] Have you followed the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file?
 - [ ] Have you checked if there are breaking changes in this PR, and if so mentioned them below?
-- [ ] PR passes tests (`npm run test`)
-- [ ] PR passes linter (`npm run lint`)
-- [ ] PR passes type checking (`npm run check-types`)
-- [ ] PR builds (`npm run build`)
 
 ** Feel free to delete sections that aren't relevant to your changes **
 
@@ -16,7 +12,6 @@
 
 _What problem are you trying to solve?_:
 
-_Link to related issue_: #123 (Please create a relevant if there isn't one)
 
 ## Solution
 
@@ -38,12 +33,3 @@ _Any additional explanations needed about changes_:
 ## Breaking Changes
 
 _Do any of the changes cause breaking changes for users? For example: Changes in the config, in scripting syntax..._:
-
-## Deploy Notes
-
-_Notes regarding deployment of the contained body of work. These should note any
-new dependencies, new scripts, etc._
-
-## New dependencies
-
-_Any new dependencies added?_:
