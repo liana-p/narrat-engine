@@ -55,7 +55,7 @@ import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
 import { useRenderingStore } from '@/stores/rendering-store';
-import { useMain } from '@/lib';
+import { useMain } from '@/stores/main-store';
 import { defaultConfig } from '@/config/config-output';
 import { inputEvents } from '../utils/InputsListener';
 

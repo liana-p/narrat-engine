@@ -1,5 +1,5 @@
 import { CommandPlugin } from './command-plugin';
-import { useMain } from '@/lib';
+import { useMain } from '@/stores/main-store';
 export const nowPlugin = CommandPlugin.FromOptions<{}>({
   keyword: 'time_now',
   argTypes: [],

@@ -93,6 +93,10 @@
           <div class="grid grid-cols-3 gap-4">
             <button @click="wordCount" class="button">Word Count</button>
             <button @click="save" class="button">Save Game</button>
+            <button @click="resetSave" class="button">Reset Save</button>
+            <button @click="resetGlobalSave" class="button">
+              Reset GLOBAL Save
+            </button>
           </div>
           <h3>Play time: {{ getPlayTimeString() }}</h3>
           <h2>Variables Editor</h2>
@@ -154,6 +158,8 @@ import { StaticChoiceOptions } from '@/vm/commands/choice';
 import { IfStaticOptions } from '@/vm/commands/if';
 import { useQuests } from '../../stores/quest-log';
 import { useInventory } from '../../stores/inventory-store';
+import { resetSave } from '@/utils/save-helpers';
+import { vm } from '@/vm/vm';
 
 let fuse: Fuse<string>;
 
@@ -336,6 +342,12 @@ export default defineComponent({
     save() {
       useMain().autoSaveGame({});
     },
+    resetSave() {
+      resetSave();
+    },
+    resetGlobalSave() {
+      useMain().resetGlobalSave();
+    },
     wordCount() {
       const scripts = Object.values(this.script);
       const count = scripts.reduce((count, script) => {
@@ -402,11 +414,14 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapState(useVM, ['script', 'data']),
+    ...mapState(useVM, ['data']),
     ...mapState(useMain, ['playTime', 'errors', 'playing', 'flowState']),
     labels(): string[] {
       const scripts = this.script;
       return Object.keys(scripts).sort();
+    },
+    script() {
+      return vm.script;
     },
     variables(): { [key: string]: any } {
       return this.data;

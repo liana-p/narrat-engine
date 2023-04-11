@@ -10,7 +10,7 @@ The add_xp function in narrat increases the xp of the player in a specified skil
 
 Syntax: `add_xp [skillId] [xp]`
 
-See the [skills system guide](../../features/skills-system.md) to know more
+See the [skills system guide](../../features/skills.md) to know more
 
 Example:
 

@@ -45,6 +45,10 @@ import {
   CharactersFilesConfigSchema,
   defaultCharactersConfig,
 } from './config/characters-config';
+import {
+  AchievementsInputConfigSchema,
+  defaultAchievementsConfig,
+} from './config/achievements-config';
 
 let config: Config;
 
@@ -53,6 +57,7 @@ let config: Config;
 // 0: key, 1: schema, 2: default value
 const splitConfigs = [
   ['items', ItemsInputConfigSchema, defaultItemsConfig],
+  ['achievements', AchievementsInputConfigSchema, defaultAchievementsConfig],
   ['screens', ScreensInputConfigSchema, defaultScreensConfig],
   ['skills', SkillsInputConfigSchema, defaultSkillsConfig],
   ['buttons', ButtonsConfigSchema, defaultButtonsConfig],
@@ -68,6 +73,7 @@ const baseConfigKeys = [
   'baseAssetsPath',
   'baseDataPath',
   'gameTitle',
+  'saveFileName',
   'images',
   'layout',
   'gameFlow',
@@ -267,6 +273,18 @@ export function getItemConfig(id: string) {
     error(`Item config for skill ${id} doesn't exist`);
   }
   return item;
+}
+
+export function getAchievementsConfig() {
+  return getConfig().achievements;
+}
+
+export function getAchievementConfig(id: string) {
+  const achievement = getAchievementsConfig().achievements[id];
+  if (!achievement) {
+    error(`Achievement config for achievement ${id} doesn't exist`);
+  }
+  return achievement;
 }
 
 export function getQuestConfig(questId: string) {

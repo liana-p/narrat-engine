@@ -14,3 +14,4 @@ export { useScreens } from '@/stores/screens-store';
 export { useSkills } from '@/stores/skills';
 export { useTooltips } from '@/stores/tooltip-store';
 export { useVM } from '@/stores/vm-store';
+export { useAchievements } from '@/stores/achievements-store';

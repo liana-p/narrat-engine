@@ -1,5 +1,6 @@
 ---
 gameTitle: Narrat Game Example
+saveFileName: Narrat Test
 images: {}
 layout:
   dialogPanel:
