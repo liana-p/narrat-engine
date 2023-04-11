@@ -60,3 +60,5 @@ main:
 ## Achievements UI
 
 The achievements UI will automatically appear as a tab in the game menu if the game has any achievements defined.
+
+![Achievements UI](./images/achievements.png)
