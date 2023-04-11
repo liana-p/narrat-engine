@@ -17,7 +17,9 @@
     "lint": "pnpm -r --parallel --filter=./packages/* run lint",
     "docs:dev": "npx vitepress dev docs",
     "docs:build": "npx vitepress build docs",
-    "docs:serve": "npx vitepress serve docs"
+    "docs:serve": "npx vitepress serve docs",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postinstall": "simple-git-hooks"
   },
   "repository": {
     "type": "git",
@@ -35,9 +37,15 @@
       "narrat": "workspace:*"
     }
   },
+  "simple-git-hooks": {
+    "commit-msg": "node scripts/verifyCommit.js"
+  },
   "devDependencies": {
+    "chalk": "^5.2.0",
+    "conventional-changelog-cli": "^2.2.2",
     "minimist": "^1.2.6",
     "rimraf": "^3.0.2",
+    "simple-git-hooks": "^2.8.1",
     "vitepress": "1.0.0-alpha.19"
   },
   "version": "0.0.1"
