@@ -6,7 +6,7 @@ description: >-
 
 # Functions
 
-The `run_label` script command is similar to jump, but it runs a label and at the end goes back to where it was before. This is useful to create behaviour similar to **functions**, allowing the creation of reusable labels containing chunks of logic you may want to use in multiple places.
+The `run` script command is similar to jump, but it runs a label and at the end goes back to where it was before. This is useful to create behaviour similar to **functions**, allowing the creation of reusable labels containing chunks of logic you may want to use in multiple places.
 
 {% hint style="danger" %}
 It's important to understand the difference between jumping to a label and running a label.&#x20;
@@ -24,9 +24,9 @@ main:
   jump functions_test
 
 functions_test:
-  run_label some_function
+  run some_function
   talk player idle "Back to functions_test"
-  run_label some_function
+  run some_function
   talk player idle "We're back again"
 
 some_function:
