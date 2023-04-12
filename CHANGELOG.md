@@ -1,4 +1,10 @@
-# [2.12.0](https://github.com/liana-p/narrat-engine/compare/v2.10.4...v2.12.0) (2023-04-11)
+# [2.12.0](https://github.com/liana-p/narrat-engine/compare/v2.10.4...v2.12.0) (2023-04-11) - Achievements!
+
+## Achievements
+
+See the new achievements feature:
+
+https://docs.get-narrat.com/features/achievements.html
 
 ### Bug Fixes
 
@@ -15,6 +21,10 @@
 - Get skill check ([#38](https://github.com/liana-p/narrat-engine/issues/38)) ([02b787e](https://github.com/liana-p/narrat-engine/commit/02b787e74c8d5e14d7f132feaaab335d8e8df212))
 - more tests setup ([#49](https://github.com/liana-p/narrat-engine/issues/49)) ([984de73](https://github.com/liana-p/narrat-engine/commit/984de73c0f243a6bff0e85b6480cfd340f193f0f))
 - sprite onclick arguments supports arguments ([#41](https://github.com/liana-p/narrat-engine/issues/41)) ([5c95e2f](https://github.com/liana-p/narrat-engine/commit/5c95e2f5fc0eeccec315d8d29b3c4424e1748ae7))
+
+## Breaking Changes
+
+* There is a new `saveFileName` string property that must be added to the `config.yaml` file. More info in the [saving and loading docs](https://docs.get-narrat.com/features/save-and-load.html#saving-and-reloading-1).
 
 # Narrat changelog
 
