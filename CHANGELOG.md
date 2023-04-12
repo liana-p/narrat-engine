@@ -1,3 +1,12 @@
+## [2.12.1](https://github.com/liana-p/narrat-engine/compare/v2.12.0...v2.12.1) (2023-04-12)
+
+
+### Features
+
+* **achievements:** achievement notifications ([#65](https://github.com/liana-p/narrat-engine/issues/65)) ([c6fe5b3](https://github.com/liana-p/narrat-engine/commit/c6fe5b3b69a9a24de7d4019c537b23e5380fc402))
+
+
+
 # [2.12.0](https://github.com/liana-p/narrat-engine/compare/v2.10.4...v2.12.0) (2023-04-11) - Achievements!
 
 ## Achievements
