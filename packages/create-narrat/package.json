@@ -1,6 +1,6 @@
 {
   "name": "create-narrat",
-  "version": "2.12.1",
+  "version": "2.12.2",
   "type": "module",
   "description": "A tool to automatically create a narrat game",
   "main": "index.js",
@@ -8,6 +8,7 @@
     "create-narrat": "index.js"
   },
   "scripts": {
+    "build": "npm run copy-templates",
     "preversion": "npm run copy-templates",
     "prepublish": "npm run copy-templates",
     "copy-templates": "node copy-templates.js"
