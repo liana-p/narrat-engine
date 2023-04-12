@@ -71,8 +71,11 @@ export const useAchievements = defineStore('achievements', {
         );
       }
       if (getAchievementsConfig().notifyNewAchievements) {
+        const conf = getAchievementConfig(achievement);
         useNotifications().addNotification(
-          `Achievement Unlocked: ${getAchievementConfig(achievement).name}`,
+          `New Achievement: ${conf.name}`,
+          conf.description,
+          conf.icon,
         );
       }
     },

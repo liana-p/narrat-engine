@@ -47,6 +47,7 @@ import { isViewportElementClickable } from '@/utils/viewport-utils';
 
 const props = defineProps({
   layer: String,
+  layerIndex: Number,
   transitioning: {
     type: Boolean,
     default: false,
@@ -57,6 +58,9 @@ const main = useMain();
 const screensStore = useScreens();
 const screenObjectsStore = useScreenObjects();
 
+const screenObjects = computed(() => {
+  return screenObjectsStore.tree.filter((o) => o.layer === props.layerIndex);
+});
 const layoutWidth = computed(() => {
   return getConfig().layout.backgrounds.width;
 });
@@ -278,8 +282,6 @@ function getSpriteStyle(sprite: SpriteState): CSSProperties {
 
 .viewport-button.interactable {
   cursor: pointer;
-  animation: pulse 0.8s infinite;
-  animation-timing-function: linear;
   pointer-events: auto;
 }
 

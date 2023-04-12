@@ -1,12 +1,20 @@
 import { useNotifications } from '@/stores/notification-store';
 import { CommandPlugin } from './command-plugin';
 
-export const notifyPlugin = new CommandPlugin<{ text: string }>(
+export const notifyPlugin = new CommandPlugin<{
+  text: string;
+  description?: string;
+  icon?: string;
+}>(
   'notify',
-  [{ name: 'text', type: 'string' }],
+  [
+    { name: 'text', type: 'string' },
+    { name: 'description', type: 'string', optional: true },
+    { name: 'icon', type: 'string', optional: true },
+  ],
   async (cmd) => {
-    const { text } = cmd.options;
-    useNotifications().addNotification(text);
+    const { text, icon, description } = cmd.options;
+    useNotifications().addNotification(text, description, icon);
   },
 );
 

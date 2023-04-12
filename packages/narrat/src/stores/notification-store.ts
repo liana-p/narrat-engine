@@ -6,6 +6,8 @@ import { getConfig } from '../config';
 
 export interface NotificationState {
   text: string;
+  description?: string;
+  icon?: string;
 }
 
 export interface NotificationsState {
@@ -18,7 +20,7 @@ export interface NotificationsState {
 export const useNotifications = defineStore('notifications', {
   state: () => ({ notifications: {}, enabled: true } as NotificationsState),
   actions: {
-    async addNotification(text: string) {
+    async addNotification(text: string, description?: string, icon?: string) {
       if (!this.enabled) {
         return;
       }
@@ -26,12 +28,14 @@ export const useNotifications = defineStore('notifications', {
       const id = `${Date.now()}-${Math.random() * 10000}`;
       this.notifications[id] = {
         text,
+        description,
+        icon,
       };
       if (getConfig().notifications.alsoPrintInDialogue) {
         writeText(`[NOTIFICATION] ${text}`);
       }
       await timeout(getConfig().notifications.timeOnScreen * 1000);
-      this.deleteNotification(id);
+      // this.deleteNotification(id);
     },
     deleteNotification(id: string) {
       delete this.notifications[id];

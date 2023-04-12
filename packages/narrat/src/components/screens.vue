@@ -17,6 +17,7 @@
           <Layer
             v-if="layer.transition.oldScreen"
             :layer="layer.transition.oldScreen"
+            :layerIndex="index"
             :transitioning="true"
           />
         </template>
@@ -24,6 +25,7 @@
           <Layer
             v-if="layer.screen"
             :layer="layer.screen"
+            :layerIndex="index"
             :transitioning="true"
           />
         </template>

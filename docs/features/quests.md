@@ -115,5 +115,3 @@ map_update:
 ```
 
 :::
-
-<!-- ![](../.gitbook/assets/Animation-2.webp) -->

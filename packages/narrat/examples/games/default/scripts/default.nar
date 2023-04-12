@@ -3,12 +3,64 @@ main:
   // jump test_choice_conditions
   // set config.characters.characters.player.name "Someone"
   // talk player idle "I like @@bread"
-  talk player idle "hello world"
-  add global.counter 1
-  if (== $global.counter 2):
-    unlock_achievement win_game
-  talk player idle "Global counter is %{$global.counter}"
-  jump quest_demo
+  // talk player idle "hello world"
+  // add global.counter 1
+  // if (== $global.counter 2):
+  //   unlock_achievement win_game
+  // talk player idle "Global counter is %{$global.counter}"
+  // jump quest_demo
+  jump achievements_demo
+
+achievements_demo:
+  talk helper idle "Let's play rock paper scissors!"
+  talk helper idle "I will choose one of the three options before you, and once you choose yours I'll reveal mine."
+  jump janken
+
+janken:
+  talk helper idle "It's time to duel!"
+  set data.janken (new Array "rock" "paper" "scissors")
+  choice:
+    "Choose your weapon"
+    "Rock":
+      set data.player_choice "rock"
+    "Paper":
+      set data.player_choice "paper"
+    "Scissors":
+      set data.player_choice "scissors"
+  set data.computer_choice (random_from_array $data.janken)
+  talk helper idle "I chose %{$data.computer_choice}"
+  if (== $data.player_choice $data.computer_choice):
+    talk player idle "It's a tie!"
+  else:
+    if (== $data.player_choice "rock"):
+      if (== $data.computer_choice "paper"):
+        run janken_lose
+      else:
+        run janken_win
+    if (== $data.player_choice "paper"):
+      if (== $data.computer_choice "scissors"):
+        run janken_lose
+      else:
+        run janken_win
+    if (== $data.player_choice "scissors"):
+      if (== $data.computer_choice "rock"):
+        run janken_lose
+      else:
+        run janken_win
+  choice:
+    "Play again?"
+    "Yes":
+      jump janken
+    "No":
+      talk player idle "Bye!"
+      jump main
+
+janken_win:
+  talk helper idle "You won!"
+  unlock_achievement janken
+
+janken_lose:
+  talk helper idle "You lost!"
 
 test_choice_conditions:
   set data.falseCondition false

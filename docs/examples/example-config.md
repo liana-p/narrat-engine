@@ -21,57 +21,74 @@ See the most up to date config [directly on GitHub](https://github.com/liana-p/n
 
 ```yaml
 ---
-gameTitle: Narrat Demo
+gameTitle: Narrat Default
+saveFileName: Narrat Default
 images:
   narrat: img/backgrounds/narrat.webp
   map: img/backgrounds/map.webp
   shopButton: img/ui/shop-button.webp
   parkButton: img/ui/park-button.webp
-dialogPanel:
-  overlayMode: true
-  rightOffset: 100
-  bottomOffset: 50
-  width: 475
-  height: 680
+dialoguePanel:
   textSpeed: 30
   animateText: true
   timeBetweenLines: 100
 layout:
+  dialogPanel:
+    overlayMode: true
+    rightOffset: 100
+    bottomOffset: 50
+    width: 475
+    height: 680
   backgrounds:
+    # Default was 880 x 720
     width: 1280
     height: 720
-  dialogBottomPadding: 70
+  dialogBottomPadding: '2rem'
   mobileDialogHeightPercentage: 60
   verticalLayoutThreshold: 600
   portraits:
     width: 150
     height: 225
+    offset:
+      landscape:
+        right: 10
+        bottom: 0
+      portrait:
+        right: 10
+        bottom: 0
+saves:
+  mode: manual
+  slots: 10
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml
 scripts: data/scripts.yaml
 audio: data/audio.yaml
+tooltips: data/tooltips.yaml
 characters: data/characters.yaml
-notifications:
-  timeOnScreen: 1.5
-  alsoPrintInDialogue: true
-items: data/items.yaml
-quests: data/quests.yaml
 hudStats:
   money:
     icon: img/ui/money.webp
     name: Money
     startingValue: 10
     minValue: 0
+    maxValue: 99999
   energy:
     icon: img/ui/energy.webp
     name: Energy
     startingValue: 10
     minValue: 0
     maxValue: 10
-saves:
-  mode: manual
-  slots: 10
+items: data/items.yaml
+achievements: data/achievements.yaml
+interactionTags:
+  default:
+    onlyInteractOutsideOfScripts: true
+quests: data/quests.yaml
+menuButtons:
+  menu:
+    text: Menu
+    cssId: my-custom-id
 ```
 
 :::
