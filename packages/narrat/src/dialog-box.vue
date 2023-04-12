@@ -240,7 +240,7 @@ export default defineComponent({
             choice = 7;
             break;
         }
-        if (choice !== -1  && this.choices && choice < this.choices.length) {
+        if (choice !== -1 && this.choices && choice < this.choices.length) {
           this.chooseOption(this.choices[choice]);
         } else if (choice === 0) {
           // In some cases there are no "choices", so pressing space (0) just does the default action
@@ -458,7 +458,6 @@ export default defineComponent({
   cursor: pointer;
   user-select: none;
   color: var(--text-color);
-  border: 1px solid black;
   font-weight: bold;
   font-size: 1.3rem;
   text-align: center;

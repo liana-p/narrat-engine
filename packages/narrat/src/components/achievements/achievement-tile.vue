@@ -1,5 +1,5 @@
 <template>
-  <div class="achievement-display" :id="`achievement-${achievement}`">
+  <div class="achievement-display tile" :id="`achievement-${achievement}`">
     <div class="achievement-icon" :style="style"></div>
     <p class="obtained-status">
       {{ obtainedStatus }}
@@ -72,9 +72,6 @@ const obtainedStatus = computed(() => {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 20px;
-  border-radius: 15px;
-  border-width: 2px;
   border-color: var(--achievement-tile-border-color);
   position: relative;
   background: var(--achievement-tile-background);

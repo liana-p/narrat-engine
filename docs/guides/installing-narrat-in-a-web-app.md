@@ -1,5 +1,9 @@
 # Installing Narrat in a web app
 
+::: danger
+This is for advanced use. It's unlikely you want to follow those instructions unless you know what you're doing
+:::
+
 ## Install on a project
 
 `npm install narrat`

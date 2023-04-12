@@ -7,6 +7,10 @@ categories:
 defaultAchievementIcon: img/achievements/trophy.png
 
 achievements:
+  janken:
+    name: Janken
+    description: Win at Rock paper scissors Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt.
+    icon: img/achievements/janken.webp
   win_game:
     name: Won the game
     description: Get this achievement by being a true ultimate pro gamer

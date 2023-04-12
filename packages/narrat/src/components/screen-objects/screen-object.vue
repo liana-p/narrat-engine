@@ -120,8 +120,6 @@ const objectStyle = computed(() => {
 
 .viewport-button.interactable {
   cursor: pointer;
-  animation: pulse 0.8s infinite;
-  animation-timing-function: linear;
   pointer-events: auto;
 }
 
@@ -149,7 +147,6 @@ const objectStyle = computed(() => {
   font-weight: bold;
   background-size: cover;
   background-repeat: no-repeat;
-  animation: object-appear 0.3s ease-in;
 }
 
 .viewport-object.interactable {
@@ -159,19 +156,5 @@ const objectStyle = computed(() => {
 .viewport-object.disabled {
   pointer-events: none;
   user-select: none;
-}
-
-@keyframes object-appear {
-  /* Make an animation rotating the logo in 3d */
-  0% {
-    transform: perspective(10000px) rotateX(-120deg) scale(1);
-  }
-  80% {
-    transform: perspective(10000px) rotateX(10deg) scale(1.05, 1.05);
-  }
-
-  100% {
-    transform: perspective(10000px) rotateX(0deg) scale(1, 1);
-  }
 }
 </style>
