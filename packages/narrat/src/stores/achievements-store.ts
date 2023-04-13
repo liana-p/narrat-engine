@@ -61,14 +61,16 @@ export const useAchievements = defineStore('achievements', {
     },
     unlock(achievement: string) {
       const existingAchievement = this.getExistingAchievement(achievement);
-      if (existingAchievement) {
-        const unlockTime = new Date().toISOString();
-        existingAchievement.unlocked = true;
-        existingAchievement.unlockTime = unlockTime;
-      } else {
+      if (!existingAchievement) {
         error(
           `Tried to unlock achievement ${achievement} but it doesn't exist`,
         );
+        return;
+      }
+      if (!existingAchievement.unlocked) {
+        const unlockTime = new Date().toISOString();
+        existingAchievement.unlocked = true;
+        existingAchievement.unlockTime = unlockTime;
       }
       if (getAchievementsConfig().notifyNewAchievements) {
         const conf = getAchievementConfig(achievement);

@@ -8,8 +8,9 @@
     "create-narrat-plugin": "index.js"
   },
   "scripts": {
-    "preversion": "npm run copy-template",
-    "prepublish": "npm run copy-template",
+    "build": "pnpm run copy-template",
+    "preversion": "pnpm run copy-template",
+    "prepublish": "pnpm run copy-template",
     "copy-template": "node copy-template.js"
   },
   "files": [

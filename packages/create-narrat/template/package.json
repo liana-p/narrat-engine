@@ -1,6 +1,6 @@
 {
   "name": "narrat-template",
-  "version": "2.10.4",
+  "version": "2.13.0",
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
   "engines": {
