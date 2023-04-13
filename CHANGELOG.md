@@ -1,3 +1,12 @@
+# [2.13.0](https://github.com/liana-p/narrat-engine/compare/v2.13.0-alpha.1...v2.13.0) (2023-04-13)
+
+
+### Bug Fixes
+
+* **notifications:** notifications now disappear properly ([a1a8e21](https://github.com/liana-p/narrat-engine/commit/a1a8e219152c857bcb1857530e933d6d5cb2164a))
+
+
+
 # [2.13.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.12.1...v2.13.0-alpha.1) (2023-04-13)
 
 
