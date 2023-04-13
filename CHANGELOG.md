@@ -1,3 +1,13 @@
+# [2.13.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.12.1...v2.13.0-alpha.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* **build:** new release process is causing issues, trying a new version ([116b02f](https://github.com/liana-p/narrat-engine/commit/116b02f8320c5cfd79d44d54597cfbf3284884bc))
+* create-narrat script issue fix ([1c6cda2](https://github.com/liana-p/narrat-engine/commit/1c6cda223de6a21e7150e1543258f7a701a0190d))
+
+
+
 ## [2.12.1](https://github.com/liana-p/narrat-engine/compare/v2.12.0...v2.12.1) (2023-04-12)
 
 
