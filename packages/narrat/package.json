@@ -40,7 +40,7 @@
     "dev": "pnpm run run-example default",
     "generate-types": "vue-tsc --emitDeclarationOnly --outDir dist && pnpm run fix-type-aliases",
     "fix-type-aliases": "tsc-alias -p tsconfig.json",
-    "build": "rimraf lib && vite build && pnpm run generate-types",
+    "build": "rimraf lib && vue-tsc --noEmit && vite build && pnpm run generate-types",
     "preview": "vite preview",
     "lint": "eslint src --ext=.js,.jsx,.ts,.tsx",
     "preversion": "pnpm run build && pnpm run lint",

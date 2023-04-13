@@ -5,20 +5,19 @@ import { defineStore } from 'pinia';
 import { getConfig } from '../config';
 
 export interface NotificationState {
+  id: string;
   text: string;
   description?: string;
   icon?: string;
 }
 
 export interface NotificationsState {
-  notifications: {
-    [key: string]: NotificationState;
-  };
+  notifications: NotificationState[];
   enabled: boolean;
 }
 
 export const useNotifications = defineStore('notifications', {
-  state: () => ({ notifications: {}, enabled: true } as NotificationsState),
+  state: () => ({ notifications: [], enabled: true } as NotificationsState),
   actions: {
     async addNotification(text: string, description?: string, icon?: string) {
       if (!this.enabled) {
@@ -26,19 +25,26 @@ export const useNotifications = defineStore('notifications', {
       }
       text = processText(text);
       const id = `${Date.now()}-${Math.random() * 10000}`;
-      this.notifications[id] = {
+      this.notifications.push({
+        id,
         text,
         description,
         icon,
-      };
+      });
       if (getConfig().notifications.alsoPrintInDialogue) {
         writeText(`[NOTIFICATION] ${text}`);
       }
       await timeout(getConfig().notifications.timeOnScreen * 1000);
-      // this.deleteNotification(id);
+      this.deleteNotification(id);
     },
     deleteNotification(id: string) {
-      delete this.notifications[id];
+      const notification = this.findNotifications(id);
+      if (notification) {
+        this.notifications.splice(this.notifications.indexOf(notification), 1);
+      }
+    },
+    findNotifications(id: string) {
+      return this.notifications.find((n) => n.id === id);
     },
     disableNotifications() {
       this.enabled = false;

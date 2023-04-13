@@ -276,18 +276,18 @@ async function main() {
 }
 
 async function getCIResult() {
-  return true;
-  // try {
-  //   const { stdout: sha } = await execa('git', ['rev-parse', 'HEAD']);
-  //   const res = await fetch(
-  //     `https://api.github.com/repos/narratjs/core/actions/runs?head_sha=${sha}` +
-  //       `&status=success&exclude_pull_requests=true`,
-  //   );
-  //   const data = await res.json();
-  //   return data.workflow_runs.length > 0;
-  // } catch (e) {
-  //   return false;
-  // }
+  // return true;
+  try {
+    const { stdout: sha } = await execa('git', ['rev-parse', 'HEAD']);
+    const res = await fetch(
+      `https://api.github.com/repos/liana-p/narrat-engine/actions/runs?head_sha=${sha}` +
+        `&status=success&exclude_pull_requests=true`,
+    );
+    const data = await res.json();
+    return data.workflow_runs.length > 0;
+  } catch (e) {
+    return false;
+  }
 }
 
 function updateVersions(version, getNewPackageName = keepThePackageName) {
