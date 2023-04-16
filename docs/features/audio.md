@@ -65,6 +65,10 @@ It is also possible to pause or stop sounds or music:
 
 `stop sound soundName` (name must be specified)
 
+`pause music` will pause the music.
+
+It can later be resumed with `resume music` or with `play music musicName` (the play command requires the name of the music to play)
+
 For example, one could do a dramatic pause of the music
 
 ```
@@ -74,5 +78,5 @@ pause music
 play sound scary
 wait 100
 talk character idle "Suddenly, something happened!"
-play music # resume the music
+resume music # resume the music
 ```

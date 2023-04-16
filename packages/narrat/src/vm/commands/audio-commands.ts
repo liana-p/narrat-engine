@@ -27,6 +27,25 @@ export const playCommand = new CommandPlugin<PlayCommandArgs>(
   },
 );
 
+export const resumeCommand = new CommandPlugin<{
+  mode: string;
+  channel?: number;
+}>(
+  'resume',
+  [
+    { name: 'mode', type: 'string' },
+    { name: 'channel', type: 'number', optional: true },
+  ],
+  async (cmd) => {
+    const audioStore = useAudio();
+    const { mode: modeInput, channel } = cmd.options;
+    const mode = validateAudioMode(cmd, modeInput);
+    if (mode) {
+      audioStore.resumeChannel(mode, channel ?? 0);
+    }
+  },
+);
+
 export const pauseCommand = new CommandPlugin<{
   mode: string;
   channel?: number;
