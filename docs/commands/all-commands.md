@@ -59,11 +59,12 @@ description: This page contains a list of all the existing narrat commands
 
 #### Audio
 
-| Command                                                                | Example                        | Description                                                                                                                 |
-| ---------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| [play](audio-commands-music-and-sounds/play-function.md#play-function) | `play music myMusic [channel]` | Plays the music `myMusic` in the mode `music` (possible modes: `music`, `ambiance, sound), with an optional channel number` |
-| [pause](audio-commands-music-and-sounds/pause.md)                      | `pause music [channel]`        | Pauses a music mode with an optional channel number                                                                         |
-| [stop](audio-commands-music-and-sounds/stop.md)                        | `stop music [channel]`         | Same as pause but stops                                                                                                     |
+| Command                                      | Example                        | Description                                                                                                                 |
+| -------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| [play](audio/play-function.md#play-function) | `play music myMusic [channel]` | Plays the music `myMusic` in the mode `music` (possible modes: `music`, `ambiance, sound), with an optional channel number` |
+| [pause](audio/pause.md)                      | `pause music [channel]`        | Pauses a music mode with an optional channel number                                                                         |
+| [resume]((audio/pause.md) /resume.md)        | `resume music [channel]`       | Resumes a music mode with an optional channel number                                                                        |
+| [stop](audio/stop.md)                        | `stop music [channel]`         | Same as pause but stops                                                                                                     |
 
 #### Items
 

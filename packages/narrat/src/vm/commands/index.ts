@@ -22,7 +22,12 @@ import {
   savePlugin,
   savePromptPlugin,
 } from './flow-commands';
-import { pauseCommand, playCommand, stopCommand } from './audio-commands';
+import {
+  pauseCommand,
+  playCommand,
+  resumeCommand,
+  stopCommand,
+} from './audio-commands';
 import { addPlugin, setCommand } from './set';
 import {
   emptyLayerCommand,
@@ -151,6 +156,7 @@ export function registerBaseCommands(vm: VM) {
   // Audio
   vm.addCommand(pauseCommand);
   vm.addCommand(playCommand);
+  vm.addCommand(resumeCommand);
   vm.addCommand(stopCommand);
 
   // Screens

@@ -115,10 +115,22 @@ export const useAudio = defineStore('audio', {
       if (audioChannel && audioChannel.audio !== audio) {
         await this.changeChannel(mode, audio, channelIndex);
       } else if (audioChannel && audioChannel.audio === audio) {
-        // Ignore, it's the same music
+        await this.resumeChannel(mode, channelIndex);
       } else {
         await this.actuallyPlayChannel(mode, channelIndex, audio);
       }
+    },
+    async resumeChannel(mode: AudioModeKey, channelIndex: number) {
+      const audioChannel = this.getAudioChannel(mode, channelIndex);
+      if (!audioChannel) {
+        return;
+      }
+      const audio = getAudio(audioChannel.audio);
+      if (!audio) {
+        error(`Could not find audio ${audioChannel.audio}`);
+        return;
+      }
+      audio.play(audioChannel.howlerId);
     },
     async changeChannel(
       mode: AudioModeKey,

@@ -8,13 +8,19 @@ main:
   // if (== $global.counter 2):
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
-  // jump quest_demo
-  jump achievements_demo
+  jump quest_demo
 
 achievements_demo:
   talk helper idle "Let's play rock paper scissors!"
   talk helper idle "I will choose one of the three options before you, and once you choose yours I'll reveal mine."
   jump janken
+
+audio_test:
+  play music battle
+  wait 3000
+  pause music
+  wait 500
+  resume music
 
 janken:
   talk helper idle "It's time to duel!"
