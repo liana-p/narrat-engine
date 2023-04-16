@@ -1,3 +1,17 @@
+## [2.13.1](https://github.com/liana-p/narrat-engine/compare/v2.13.0...v2.13.1) (2023-04-16)
+
+
+### Bug Fixes
+
+* issue with create-narrat publish ([d1a1c95](https://github.com/liana-p/narrat-engine/commit/d1a1c95c3fdf8f429c650ef71a7583b68a029620))
+
+
+### Features
+
+* **audio:** new audio resume command and fix for playing audio that was paused ([#66](https://github.com/liana-p/narrat-engine/issues/66)) ([64713de](https://github.com/liana-p/narrat-engine/commit/64713debf5a86725568fb16eef812731c6607213))
+
+
+
 # [2.13.0](https://github.com/liana-p/narrat-engine/compare/v2.13.0-alpha.1...v2.13.0) (2023-04-13)
 
 
