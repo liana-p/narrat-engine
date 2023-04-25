@@ -14,7 +14,7 @@ npm run build
 ```
 
 ::: tip
-This will generate a built version of your game as a website in the `build/` folder
+This will generate a built version of your game as a website in the `dist/` folder
 :::
 
 ## Building your game as an app
