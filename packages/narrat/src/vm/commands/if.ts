@@ -2,12 +2,19 @@ import { getLine, runConditionCommand } from '@/vm/vm-helpers';
 import { CommandPlugin, generateParser } from './command-plugin';
 import { Parser } from '@/types/parser';
 import { MachineBlock, useVM } from '@/stores/vm-store';
+import { parseExpression } from '../vm-parser';
+import { runExpression } from '../vm';
 
 export interface IfOptions {
   condition: boolean;
 }
+export interface ElseIfOptions {
+  branch: Parser.Branch;
+  condition: Parser.ParsedExpression;
+}
 export interface IfStaticOptions {
   success: Parser.Branch;
+  elseifs: ElseIfOptions[];
   failure?: Parser.Branch;
 }
 
@@ -15,7 +22,13 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
   'if',
   [{ name: 'condition', type: 'boolean' }],
   async (cmd) => {
-    const newBranch = runConditionCommand(cmd);
+    const elseIfResults: boolean[] = [];
+    for (const elseif of cmd.staticOptions.elseifs) {
+      const condition = elseif.condition;
+      const finalCondition = await runExpression(condition);
+      elseIfResults.push(finalCondition);
+    }
+    const newBranch = runConditionCommand(cmd, elseIfResults);
     const vmStore = useVM();
     if (newBranch) {
       const newBlock: MachineBlock = {
@@ -36,14 +49,53 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
     const { lines, currentLine, line } = ctx;
     const command = parsed.command;
     let failure: Parser.Branch | undefined;
-    const nextLine = getLine(lines, currentLine + 1);
-    if (nextLine && nextLine.code === 'else:') {
-      failure = ctx.processCommandsFunction(
-        ctx.parserContext,
-        nextLine.branch!,
-        line,
-      );
-      newLine++;
+    let lineToTest = currentLine;
+    let foundOtherThing = false;
+    const elseifs: ElseIfOptions[] = [];
+    while (!foundOtherThing) {
+      lineToTest++;
+      const nextLine = getLine(lines, lineToTest);
+      if (nextLine && nextLine.code.startsWith('elseif')) {
+        const expression = nextLine.expression;
+        console.log(nextLine);
+        if (!Array.isArray(expression)) {
+          ctx.parserContext.error(
+            nextLine.line,
+            'Expected an expression after elseif',
+          );
+          foundOtherThing = true;
+          break;
+        }
+        if (expression.length > 2) {
+          ctx.parserContext.error(
+            nextLine.line,
+            'Expected only one argument after elseif',
+          );
+          foundOtherThing = true;
+          break;
+        }
+        elseifs.push({
+          branch: ctx.processCommandsFunction(
+            ctx.parserContext,
+            nextLine.branch!,
+            line,
+          ),
+          condition: parseExpression(
+            ctx.parserContext,
+            nextLine,
+            expression[1] as Parser.Expression,
+          ),
+        });
+      } else if (nextLine && nextLine.code === 'else:') {
+        failure = ctx.processCommandsFunction(
+          ctx.parserContext,
+          nextLine.branch!,
+          line,
+        );
+      } else {
+        foundOtherThing = true;
+        lineToTest--;
+      }
     }
     command.staticOptions = {
       success: ctx.processCommandsFunction(
@@ -51,9 +103,11 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
         line.branch!,
         line,
       ),
+      elseifs,
       failure,
     };
-    newLine++;
+    lineToTest++;
+    newLine = lineToTest;
     return {
       newLine,
     };
