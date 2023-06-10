@@ -72,14 +72,6 @@ function processCommands(
   parentLine: Parser.Line | undefined,
 ): Parser.Branch {
   const startLine = ctx.currentLine;
-  const branchContext: CommandParsingContext = {
-    processCommandsFunction: processCommands,
-    parserContext: ctx,
-    lines,
-    currentLine: 0,
-    line: lines[0],
-  };
-  const branch: Parser.Branch = [];
   if (!lines) {
     let lineNumber = 0;
     if (parentLine) {
@@ -91,6 +83,14 @@ function processCommands(
     );
     return [];
   }
+  const branchContext: CommandParsingContext = {
+    processCommandsFunction: processCommands,
+    parserContext: ctx,
+    lines,
+    currentLine: 0,
+    line: lines[0],
+  };
+  const branch: Parser.Branch = [];
   while (branchContext.currentLine < lines.length) {
     const line = lines[branchContext.currentLine];
     branchContext.line = line;
@@ -110,7 +110,7 @@ function processCommands(
   return branch;
 }
 
-function parseExpression(
+export function parseExpression(
   ctx: ParserContext,
   line: Parser.Line,
   expression: Parser.Expression,

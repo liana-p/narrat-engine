@@ -36,12 +36,20 @@ export function runSkillCheck(params: SkillCheckParams): SkillCheckState {
 
 export function runConditionCommand(
   command: Parser.Command<IfOptions, IfStaticOptions>,
+  elseIfResults: boolean[] = [],
 ): Parser.Branch | undefined {
   const options = command.options;
   const staticOptions = command.staticOptions;
   const result = !!options.condition;
   if (result) {
     return staticOptions.success;
+  }
+  if (!result) {
+    for (const [index, elseIf] of staticOptions.elseifs.entries()) {
+      if (elseIfResults[index] === true) {
+        return elseIf.branch;
+      }
+    }
   }
   if (!result && staticOptions.failure) {
     return staticOptions.failure;
