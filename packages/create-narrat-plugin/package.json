@@ -1,6 +1,6 @@
 {
   "name": "create-narrat-plugin",
-  "version": "2.13.1",
+  "version": "2.14.0-alpha.1",
   "type": "module",
   "description": "A tool to automatically create a narrat plugin",
   "main": "index.js",

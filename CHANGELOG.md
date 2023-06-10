@@ -1,3 +1,12 @@
+# [2.14.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.13.1...v2.14.0-alpha.1) (2023-06-10)
+
+
+### Features
+
+* **conditions:** new elseif conditions feature ([#68](https://github.com/liana-p/narrat-engine/issues/68)) ([1704e14](https://github.com/liana-p/narrat-engine/commit/1704e144ed0cf34c4a0f1fe580378673c530b22f))
+
+
+
 ## [2.13.1](https://github.com/liana-p/narrat-engine/compare/v2.13.0...v2.13.1) (2023-04-16)
 
 
