@@ -1,3 +1,12 @@
+## [2.14.2](https://github.com/liana-p/narrat-engine/compare/v2.14.1-alpha.1...v2.14.2) (2023-06-11)
+
+
+### Bug Fixes
+
+* **template:** fix publishing issue with npm publish for create-narrat ([1000336](https://github.com/liana-p/narrat-engine/commit/1000336ba75a052eb0534b34cf6631ab3dff145a))
+
+
+
 ## [2.14.1-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.0...v2.14.1-alpha.1) (2023-06-11)
 
 
