@@ -1,0 +1,40 @@
+skills:
+  agility:
+    name: Agility
+    description: How good you are at moving around.
+    startingLevel: 0
+    icon: img/skills/agility.webp
+    hidden: true
+  logic:
+    name: Logic
+    description: How good you are at solving problems
+    icon: img/skills/logic.webp
+    hidden: true
+    startingLevel: 0
+  haggling:
+    name: Haggling
+    description: Get the best prices!
+    icon: img/skills/logic.webp
+    startingLevel: 1
+skillOptions:
+  xpPerLevel: 10
+  notifyLevelUp: false
+skillChecks:
+  rollRange: 100
+  skillMultiplier: 10
+  failureChance: 1
+  difficultyText:
+    - - 0
+      - Very Easy
+    - - 10
+      - Easy
+    - - 30
+      - Medium
+    - - 50
+      - Hard
+    - - 70
+      - Very Hard
+    - - 80
+      - Extremely Hard
+    - - 90
+      - Near Impossible

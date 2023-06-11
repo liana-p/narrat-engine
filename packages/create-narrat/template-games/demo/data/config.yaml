@@ -1,0 +1,48 @@
+---
+gameTitle: Narrat Demo
+saveFileName: Narrat Demo
+dialogPanel:
+  overlayMode: true
+  rightOffset: 100
+  bottomOffset: 50
+  width: 475
+  height: 680
+  textSpeed: 20
+  animateText: true
+  timeBetweenLines: 100
+layout:
+  backgrounds:
+    width: 1280
+    height: 720
+  dialogBottomPadding: 70
+  mobileDialogHeightPercentage: 60
+  verticalLayoutThreshold: 600
+  portraits:
+    width: 150
+    height: 225
+screens: data/screens.yaml
+buttons: data/buttons.yaml
+skills: data/skills.yaml
+scripts: data/scripts.yaml
+audio: data/audio.yaml
+characters: data/characters.yaml
+notifications:
+  timeOnScreen: 1.5
+  alsoPrintInDialogue: true
+items: data/items.yaml
+quests: data/quests.yaml
+hudStats:
+  money:
+    icon: img/ui/money.webp
+    name: Money
+    startingValue: 10
+    minValue: 0
+  energy:
+    icon: img/ui/energy.webp
+    name: Energy
+    startingValue: 10
+    minValue: 0
+    maxValue: 10
+saves:
+  mode: manual
+  slots: 10
