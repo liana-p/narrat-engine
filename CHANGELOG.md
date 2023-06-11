@@ -1,62 +1,43 @@
 # [2.14.0](https://github.com/liana-p/narrat-engine/compare/v2.13.1...v2.14.0) (2023-06-11)
 
-
 ### Features
 
-* **conditions:** new elseif conditions feature ([#68](https://github.com/liana-p/narrat-engine/issues/68)) ([1704e14](https://github.com/liana-p/narrat-engine/commit/1704e144ed0cf34c4a0f1fe580378673c530b22f))
-
-
+- **conditions:** new elseif conditions feature ([#68](https://github.com/liana-p/narrat-engine/issues/68)) ([1704e14](https://github.com/liana-p/narrat-engine/commit/1704e144ed0cf34c4a0f1fe580378673c530b22f))
 
 # [2.14.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.13.1...v2.14.0-alpha.1) (2023-06-10)
 
-
 ### Features
 
-* **conditions:** new elseif conditions feature ([#68](https://github.com/liana-p/narrat-engine/issues/68)) ([1704e14](https://github.com/liana-p/narrat-engine/commit/1704e144ed0cf34c4a0f1fe580378673c530b22f))
-
-
+- **conditions:** new elseif conditions feature ([#68](https://github.com/liana-p/narrat-engine/issues/68)) ([1704e14](https://github.com/liana-p/narrat-engine/commit/1704e144ed0cf34c4a0f1fe580378673c530b22f))
 
 ## [2.13.1](https://github.com/liana-p/narrat-engine/compare/v2.13.0...v2.13.1) (2023-04-16)
 
-
 ### Bug Fixes
 
-* issue with create-narrat publish ([d1a1c95](https://github.com/liana-p/narrat-engine/commit/d1a1c95c3fdf8f429c650ef71a7583b68a029620))
-
+- issue with create-narrat publish ([d1a1c95](https://github.com/liana-p/narrat-engine/commit/d1a1c95c3fdf8f429c650ef71a7583b68a029620))
 
 ### Features
 
-* **audio:** new audio resume command and fix for playing audio that was paused ([#66](https://github.com/liana-p/narrat-engine/issues/66)) ([64713de](https://github.com/liana-p/narrat-engine/commit/64713debf5a86725568fb16eef812731c6607213))
-
-
+- **audio:** new audio resume command and fix for playing audio that was paused ([#66](https://github.com/liana-p/narrat-engine/issues/66)) ([64713de](https://github.com/liana-p/narrat-engine/commit/64713debf5a86725568fb16eef812731c6607213))
 
 # [2.13.0](https://github.com/liana-p/narrat-engine/compare/v2.13.0-alpha.1...v2.13.0) (2023-04-13)
 
-
 ### Bug Fixes
 
-* **notifications:** notifications now disappear properly ([a1a8e21](https://github.com/liana-p/narrat-engine/commit/a1a8e219152c857bcb1857530e933d6d5cb2164a))
-
-
+- **notifications:** notifications now disappear properly ([a1a8e21](https://github.com/liana-p/narrat-engine/commit/a1a8e219152c857bcb1857530e933d6d5cb2164a))
 
 # [2.13.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.12.1...v2.13.0-alpha.1) (2023-04-13)
 
-
 ### Bug Fixes
 
-* **build:** new release process is causing issues, trying a new version ([116b02f](https://github.com/liana-p/narrat-engine/commit/116b02f8320c5cfd79d44d54597cfbf3284884bc))
-* create-narrat script issue fix ([1c6cda2](https://github.com/liana-p/narrat-engine/commit/1c6cda223de6a21e7150e1543258f7a701a0190d))
-
-
+- **build:** new release process is causing issues, trying a new version ([116b02f](https://github.com/liana-p/narrat-engine/commit/116b02f8320c5cfd79d44d54597cfbf3284884bc))
+- create-narrat script issue fix ([1c6cda2](https://github.com/liana-p/narrat-engine/commit/1c6cda223de6a21e7150e1543258f7a701a0190d))
 
 ## [2.12.1](https://github.com/liana-p/narrat-engine/compare/v2.12.0...v2.12.1) (2023-04-12)
 
-
 ### Features
 
-* **achievements:** achievement notifications ([#65](https://github.com/liana-p/narrat-engine/issues/65)) ([c6fe5b3](https://github.com/liana-p/narrat-engine/commit/c6fe5b3b69a9a24de7d4019c537b23e5380fc402))
-
-
+- **achievements:** achievement notifications ([#65](https://github.com/liana-p/narrat-engine/issues/65)) ([c6fe5b3](https://github.com/liana-p/narrat-engine/commit/c6fe5b3b69a9a24de7d4019c537b23e5380fc402))
 
 # [2.12.0](https://github.com/liana-p/narrat-engine/compare/v2.10.4...v2.12.0) (2023-04-11) - Achievements!
 
@@ -84,7 +65,7 @@ https://docs.get-narrat.com/features/achievements.html
 
 ## Breaking Changes
 
-* There is a new `saveFileName` string property that must be added to the `config.yaml` file. More info in the [saving and loading docs](https://docs.get-narrat.com/features/save-and-load.html#saving-and-reloading-1).
+- There is a new `saveFileName` string property that must be added to the `config.yaml` file. More info in the [saving and loading docs](https://docs.get-narrat.com/features/save-and-load.html#saving-and-reloading-1).
 
 # Narrat changelog
 
@@ -942,9 +923,9 @@ fix: A bug where manual saves would get overriden as autosaves in manual save mo
 
 The plugin API has been improved to allow for more features (not documented yet).
 
-There is now an [example plugin](https://github.com/liana-p/narrat/tree/main/packages/narrat-plugin-counter) in the repo that serves as an example of how to write plugin.
+There is now an [example plugin](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat-plugin-counter) in the repo that serves as an example of how to write plugin.
 
-There is also a [create-narrat-plugin](https://github.com/liana-p/narrat/tree/main/packages/create-narrat-plugin) tool to easily create a plugin project, similar to the create-narrat tool.
+There is also a [create-narrat-plugin](https://github.com/liana-p/narrat-engine/tree/main/packages/create-narrat-plugin) tool to easily create a plugin project, similar to the create-narrat tool.
 
 ## 2.2.18
 
@@ -1068,7 +1049,7 @@ Syntax: `save [save_name]`: The first argument is an optional name for the save 
 
 ## 2.2.12 and 2.2.13
 
-Internal architecture updates to support the new [create-narrat](https://github.com/liana-p/narrat/tree/main/packages/create-narrat) tool to generate narrat projects automatically.
+Internal architecture updates to support the new [create-narrat](https://github.com/liana-p/narrat-engine/tree/main/packages/create-narrat) tool to generate narrat projects automatically.
 
 The narrat template is now retired in favor of this new tools, and there are now multiple choices of templates in the create-narrat tool for people to use when setting up projects.
 
@@ -1235,7 +1216,7 @@ The way the system works when looking up variables is:
 
 ### New example RPG game
 
-There is now an example [dungeon crawler turn based RPG](https://github.com/liana-p/narrat/tree/main/examples/rpg) game made as a test to push the engine and scripting features. It is not meant to be a full game, but can be a useful reference for advanced usage.
+There is now an example [dungeon crawler turn based RPG](https://github.com/liana-p/narrat-engine/tree/main/examples/rpg) game made as a test to push the engine and scripting features. It is not meant to be a full game, but can be a useful reference for advanced usage.
 
 ### Anchor feature for buttons
 
