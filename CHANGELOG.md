@@ -1,3 +1,17 @@
+## [2.14.3](https://github.com/liana-p/narrat-engine/compare/v2.14.2...v2.14.3) (2023-06-11)
+
+
+### Bug Fixes
+
+* **docs:** fix dead link to items docs ([0c54914](https://github.com/liana-p/narrat-engine/commit/0c549142f43049b0a1c28addd983c33483eddbac))
+
+
+### Features
+
+* **choices:** choices with both skill checks and ifs working ([#73](https://github.com/liana-p/narrat-engine/issues/73)) ([227d054](https://github.com/liana-p/narrat-engine/commit/227d054295bf01099fb199b629995a356fe321db))
+
+
+
 ## [2.14.2](https://github.com/liana-p/narrat-engine/compare/v2.14.1-alpha.1...v2.14.2) (2023-06-11)
 
 
