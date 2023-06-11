@@ -1,3 +1,12 @@
+## [2.14.1-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.0...v2.14.1-alpha.1) (2023-06-11)
+
+
+### Features
+
+* **template:** narrat template improvements and updates + new doc pages ([#69](https://github.com/liana-p/narrat-engine/issues/69)) ([cd4a7c4](https://github.com/liana-p/narrat-engine/commit/cd4a7c403ca36c9ffc9efc3589d3548bf7c36806))
+
+
+
 # [2.14.0](https://github.com/liana-p/narrat-engine/compare/v2.13.1...v2.14.0) (2023-06-11)
 
 ### Features
