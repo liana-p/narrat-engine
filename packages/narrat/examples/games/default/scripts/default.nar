@@ -8,7 +8,21 @@ main:
   // if (== $global.counter 2):
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
-  set data.n 5
+  jump quest_demo
+
+test_roll_if:
+  set data.n 2
+  choice:
+    talk player idle "what will u do"
+    roll someTest agility 50 "test roll" repeatable if (== $data.n 2):
+      success:
+        talk player idle "success"
+      failure:
+        talk player idle "failure"
+    "other option":
+      talk player idle "other option"
+
+test_elseif:
   if (== $data.n 1):
     "Test 1"
   elseif (== $data.n 2):
@@ -17,7 +31,6 @@ main:
     "test 5"
   else:
     "test else"
-  jump quest_demo
 
 achievements_demo:
   talk helper idle "Let's play rock paper scissors!"
