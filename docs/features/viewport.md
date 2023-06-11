@@ -109,7 +109,7 @@ The `default` screen must always exist, as it is the first screen the game gets 
 
 Buttons can also have a `tag` property in their config to use interaction tag, the same way inventory items can. See the guide below for more info on interaction tags (in the interaction tags section):
 
-[items.md](../guides/items.md)
+[items.md](../features/items.md)
 
 ## Controlling screens and buttons in scripts
 

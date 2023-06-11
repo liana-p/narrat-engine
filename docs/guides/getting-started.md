@@ -82,7 +82,7 @@ You will probably see npm complain about "**security issues**". Those are false 
 npm start
 ```
 
-This should open a browser tab with the game running after a short build time. The game can be accessed at <a href="http://localhost:5173/" target="_blank" rel="noreferrer">http://localhost:5173/</a>
+This should open a browser tab with the game running after a short build time. The game can be accessed at <a href="http://localhost:5173/" target="_blank" rel="noreferrer">localhost:5173</a>
 
 The game is ready to edit!
 

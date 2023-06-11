@@ -68,14 +68,14 @@ description: This page contains a list of all the existing narrat commands
 
 #### Items
 
-| Command                                                   | Example                                                                                | Description                                  |
-| --------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
-| [add_item](../features/inventory.md)                      | `add_item bread 1`                                                                     | Adds an amount of an item to the player      |
-| [remove_item](../features/inventory.md)                   | `remove_item bread 1`                                                                  | Removes an amount of an item                 |
-| [has_item?](../features/inventory.md)                     | <p><br><code>if (has_item? bread 1):</code><br><code>"Let's eat bread!"</code><br></p> | Returns true if there is enough of the item  |
-| [item_amount?](../features/inventory.md)                  | `item_amount? bread // returns the amount of bread`                                    | Returns the amount of an item the player has |
-| [enable_interaction](../guides/items#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
-| [`disable_interaction`](../guides/items#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
+| Command                                                     | Example                                                                                | Description                                  |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
+| [add_item](../features/inventory.md)                        | `add_item bread 1`                                                                     | Adds an amount of an item to the player      |
+| [remove_item](../features/inventory.md)                     | `remove_item bread 1`                                                                  | Removes an amount of an item                 |
+| [has_item?](../features/inventory.md)                       | <p><br><code>if (has_item? bread 1):</code><br><code>"Let's eat bread!"</code><br></p> | Returns true if there is enough of the item  |
+| [item_amount?](../features/inventory.md)                    | `item_amount? bread // returns the amount of bread`                                    | Returns the amount of an item the player has |
+| [enable_interaction](../features/items#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
+| [`disable_interaction`](../features/items#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
 
 #### Achievements
 

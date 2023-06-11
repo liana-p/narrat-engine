@@ -51,7 +51,7 @@ main:
 
 Items can also be used, see guide below:
 
-[items.md](../guides/items.md)
+[items.md](../features/items.md)
 
 <!-- ![](<../.gitbook/assets/image (4) (1).png>) -->
 
