@@ -15,7 +15,7 @@
   },
   "files": [
     "index.js",
-    "template/"
+    "template/*"
   ],
   "engines": {
     "node": ">= 16.0.0"
