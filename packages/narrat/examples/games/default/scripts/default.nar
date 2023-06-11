@@ -10,7 +10,7 @@ main:
   // talk player idle "Global counter is %{$global.counter}"
   set data.n 5
   if (== $data.n 1):
-  "Test 1"
+    "Test 1"
   elseif (== $data.n 2):
     "test 2"
   elseif (== $data.n 5):
