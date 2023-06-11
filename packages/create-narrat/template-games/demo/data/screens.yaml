@@ -2,7 +2,7 @@ screens:
   default:
     background: img/backgrounds/curtain.webp
   narrat:
-    background: narrat
+    background: img/backgrounds/narrat.webp
   map:
     background: img/backgrounds/map.webp
     buttons:

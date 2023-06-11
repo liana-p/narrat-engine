@@ -22,6 +22,11 @@ This rule would give a red background color to any element with the `button` css
 
 There are two ways to use CSS to customise your UI in Narrat. One is to edit CSS variables provided to override things like common colors, and the other is to write your own CSS classes to override existing ones from the engine.
 
+::: danger
+If you use images in your css, paths should start with `/`, or the assets won't be found in the built version.
+For example: `background-image: url('/images/my-image.png');` instead of `background-image: url('images/my-image.png');`
+:::
+
 ## CSS Variables
 
 ### Introduction

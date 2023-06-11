@@ -1,4 +1,9 @@
+# Narrat template local testing files so they're not included in releases
+dist/
+out/
+**/template/public/
 packages/create-narrat-plugin/template/
+
 built-example/
 web_modules/
 lib/
