@@ -1,0 +1,13 @@
+buttons:
+  parkButton:
+    enabled: false
+    text: Park
+    position:
+      left: 682
+      top: 462
+      width: 200
+      height: 50
+    anchor:
+      x: 0.5
+      y: 0.5
+    action: parkButton

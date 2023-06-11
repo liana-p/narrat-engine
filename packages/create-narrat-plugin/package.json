@@ -31,9 +31,9 @@
   "author": "Liana Pigeot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liana-p/narrat/issues"
+    "url": "https://github.com/liana-p/narrat-engine/issues"
   },
-  "homepage": "https://github.com/liana-p/narrat/tree/main/packages/create-narrat#readme",
+  "homepage": "https://github.com/liana-p/narrat-engine/tree/main/packages/create-narrat#readme",
   "dependencies": {
     "kolorist": "^1.5.1",
     "minimist": "^1.2.6",

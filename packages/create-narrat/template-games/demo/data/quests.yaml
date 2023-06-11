@@ -1,0 +1,13 @@
+categories:
+  - id: default
+    title: Default quest category
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.

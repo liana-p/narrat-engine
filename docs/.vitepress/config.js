@@ -74,7 +74,10 @@ const config = {
       {
         text: 'Others',
         collapsible: true,
-        items: [{ text: 'Useful Links', link: '/others/useful-links' }],
+        items: [
+          { text: 'Useful Links', link: '/others/useful-links' },
+          { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
+        ],
       },
       {
         text: 'Command docs',
