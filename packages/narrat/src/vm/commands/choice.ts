@@ -17,6 +17,7 @@ import {
 import { ParserContext } from '../vm-parser';
 import { MachineBlock, useVM } from '@/stores/vm-store';
 import { useSkills } from '@/stores/skills';
+import { commandRuntimeError } from './command-helpers';
 
 export const runChoice: CommandRunner<
   ChoiceOptions,
@@ -257,8 +258,45 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
       const difficulty = args[3] as number;
       const skillText = args[4] as string;
       let mode: any = false;
+      let hasCondition: any = false;
+      let condition: undefined | boolean;
       if (args.length > 5) {
-        mode = args[5] as string;
+        const nextArg = args[5];
+        if (nextArg === 'if') {
+          // There's an if but no optional mode.
+          hasCondition = true;
+          if (args.length < 7) {
+            // Not enough arguments
+            commandRuntimeError(
+              cmd,
+              `Missing condition argument after "if" in choice with a skill check`,
+            );
+          }
+          condition = args[6] as boolean;
+        } else {
+          // There's an optional mode
+          mode = args[5] as string;
+          if (args.length > 6) {
+            if (args[6] === 'if') {
+              // There's an optional mode and also an if
+              hasCondition = true;
+              if (args.length < 8) {
+                // optional mode + if but not enough arguments
+                commandRuntimeError(
+                  cmd,
+                  `Missing condition argument after "if" in choice with a skill check`,
+                );
+              }
+              condition = args[7] as boolean;
+            } else {
+              // There's some unknown argument after the optional mode
+              commandRuntimeError(
+                cmd,
+                `Invalid argument after skill check mode: ${args[6]}. The next argument can only be an if condition.`,
+              );
+            }
+          }
+        }
       }
       let hideAfterRoll = false;
       let repeatable = false;
@@ -269,7 +307,7 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
         repeatable = true;
       }
       const state = useSkills().getSkillCheck(skillCheckId);
-      if (state.hidden) {
+      if (state.hidden || (hasCondition && !condition)) {
         return {
           text: null,
         };
