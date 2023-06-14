@@ -19,6 +19,7 @@ import { LayoutConfigSchema } from './layout-config';
 import { QuestsConfigSchema } from './quests-config';
 import { ScreensInputConfigSchema } from './screens-config';
 import { SkillsInputConfigSchema } from './skills-config';
+import { SkillChecksInputConfigSchema } from './skillchecks-config';
 import { TooltipsConfigSchema } from './tooltips-config';
 
 export const ConfigInputSchema = Type.Object({
@@ -41,6 +42,9 @@ export const ConfigInputSchema = Type.Object({
   buttons: Type.Optional(Type.Union([Type.String(), ButtonsConfigSchema])),
   // split: skills
   skills: Type.Optional(Type.Union([Type.String(), SkillsInputConfigSchema])),
+  skillChecks: Type.Optional(
+    Type.Union([Type.String(), SkillChecksInputConfigSchema]),
+  ),
   // Split: scripts
   scripts: Type.Union([Type.String(), ScriptsConfigSchema]),
   // split: audio

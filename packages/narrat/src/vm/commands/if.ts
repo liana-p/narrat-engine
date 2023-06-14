@@ -57,7 +57,6 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
       const nextLine = getLine(lines, lineToTest);
       if (nextLine && nextLine.code.startsWith('elseif')) {
         const expression = nextLine.expression;
-        console.log(nextLine);
         if (!Array.isArray(expression)) {
           ctx.parserContext.error(
             nextLine.line,

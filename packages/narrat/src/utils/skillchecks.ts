@@ -1,16 +1,21 @@
-import { getConfig, getSkillConfig, skillsConfig } from '@/config';
+import {
+  getConfig,
+  getSkillConfig,
+  skillChecksConfig,
+  skillsConfig,
+} from '@/config';
 import { SkillCheckParams } from '@/vm/vm-helpers';
 import { logger } from './logger';
 import { useSkills } from '@/stores/skills';
 import { audioEvent } from './audio-loader';
 
 export function getSkillCheckDifficultyScore(value: number, level: number) {
-  return value - level * skillsConfig().skillChecks.skillMultiplier;
+  return value - level * skillChecksConfig().options.extraPointsPerLevel;
 }
 
 export function getSkillCheckDifficultyText(value: number, level: number) {
   const difficultyScore = getSkillCheckDifficultyScore(value, level);
-  const checks = skillsConfig().skillChecks;
+  const checks = skillChecksConfig().options;
   let found = false;
   let i = 0;
   let checkText = checks.difficultyText[0][1];
@@ -82,11 +87,12 @@ export function calculateSkillCheckRoll(skill: string): {
   roll: number;
   unmodifiedRoll: number;
 } {
-  const { skillChecks } = skillsConfig();
+  const { options } = skillChecksConfig();
   const skillStore = useSkills();
-  const unmodifiedRoll = Math.floor(Math.random() * skillChecks.rollRange);
+  const unmodifiedRoll =
+    Math.floor(Math.random() * options.diceRange[1]) + options.diceRange[0];
   const rollModifier =
-    skillStore.skills[skill].level * skillChecks.skillMultiplier;
+    skillStore.skills[skill].level * options.extraPointsPerLevel;
   const roll = unmodifiedRoll + rollModifier;
   logger.log(
     `[SKILL CHECK] Roll: ${roll}. (Base roll: ${unmodifiedRoll}, modifier: ${rollModifier} - Skill level: ${skillStore.skills[skill].level})`,
@@ -98,15 +104,20 @@ export function calculateSkillCheckRoll(skill: string): {
 }
 
 export function resolveSkillCheck(params: SkillCheckParams): boolean {
-  const { skills, skillChecks } = skillsConfig();
+  const { skills } = skillsConfig();
+  const { options } = skillChecksConfig();
   let success = true;
   const { roll } = calculateSkillCheckRoll(params.skill);
-  if (roll <= skillChecks.failureChance - 1) {
+  // TODO: Replace this with unlucky rolls
+  // if (roll <= options.failureChance - 1) {
+  //   success = false;
+  // }
+  const skill = skills[params.skill];
+  if (roll <= params.value) {
     success = false;
   }
-  const skill = skills[params.skill];
-  if (roll < params.value) {
-    success = false;
+  if (options.successOnRollsBelowThreshold) {
+    success = !success;
   }
   logger.log(
     `[SKILL CHECK ${skill.name}]: ${success ? '✅' : '❌'}`,

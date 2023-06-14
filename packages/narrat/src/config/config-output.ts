@@ -26,6 +26,10 @@ import {
   AchievementsConfig,
   defaultAchievementsConfig,
 } from './achievements-config';
+import {
+  SkillChecksConfig,
+  defaultSkillChecksConfig,
+} from './skillchecks-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -44,6 +48,7 @@ export interface Config {
   screens: ScreensConfig;
   buttons: ButtonsConfig;
   skills: SkillsConfig;
+  skillChecks: SkillChecksConfig;
   scripts: string[];
   audio: AudioConfig;
   notifications: NotificationsConfig;
@@ -82,6 +87,7 @@ export const defaultConfig = {
   screens: defaultScreensConfig,
   buttons: defaultButtonsConfig,
   skills: defaultSkillsConfig,
+  skillChecks: defaultSkillChecksConfig,
   scripts: [],
   audio: defaultAudioConfig,
   notifications: {

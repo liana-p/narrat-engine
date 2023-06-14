@@ -49,6 +49,10 @@ import {
   AchievementsInputConfigSchema,
   defaultAchievementsConfig,
 } from './config/achievements-config';
+import {
+  SkillChecksInputConfigSchema,
+  defaultSkillChecksConfig,
+} from './config/skillchecks-config';
 
 let config: Config;
 
@@ -60,6 +64,7 @@ const splitConfigs = [
   ['achievements', AchievementsInputConfigSchema, defaultAchievementsConfig],
   ['screens', ScreensInputConfigSchema, defaultScreensConfig],
   ['skills', SkillsInputConfigSchema, defaultSkillsConfig],
+  ['skillChecks', SkillChecksInputConfigSchema, defaultSkillChecksConfig],
   ['buttons', ButtonsConfigSchema, defaultButtonsConfig],
   ['scripts', ScriptsConfigSchema, defaultScriptsConfig],
   ['audio', AudioInputConfigSchema, defaultAudioConfig],
@@ -138,15 +143,16 @@ export async function setupConfig(configInput: ConfigInput) {
     }
   }
   config = newConfig;
-  if (config.transitions) {
-    for (const key in config.transitions) {
-      if (!transitionSettings[key]) {
-        transitionSettings[key] = config.transitions[key];
-      } else {
-        Object.assign(transitionSettings[key], config.transitions[key]);
+  if (configInput.skills && configInput)
+    if (config.transitions) {
+      for (const key in config.transitions) {
+        if (!transitionSettings[key]) {
+          transitionSettings[key] = config.transitions[key];
+        } else {
+          Object.assign(transitionSettings[key], config.transitions[key]);
+        }
       }
     }
-  }
   return newConfig;
 }
 export async function loadConfig(options: AppOptions) {
@@ -179,6 +185,9 @@ export function audioConfig() {
 }
 export function skillsConfig() {
   return getConfig().skills;
+}
+export function skillChecksConfig() {
+  return getConfig().skillChecks;
 }
 export function itemsConfig() {
   return getConfig().items;
@@ -215,6 +224,14 @@ export function getSkillConfig(id: string) {
     error(`Skill config for skill ${id} doesn't exist`);
   }
   return skill;
+}
+
+export function getSkillCheckConfig(id: string) {
+  const skillCheck = getConfig().skillChecks.skillChecks[id];
+  if (!skillCheck) {
+    error(`Skill check config for skill check ${id} doesn't exist`);
+  }
+  return skillCheck;
 }
 
 export function getImageUrl(imageKeyOrUrl: string) {

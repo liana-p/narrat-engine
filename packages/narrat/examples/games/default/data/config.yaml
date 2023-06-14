@@ -40,6 +40,7 @@ saves:
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml
+skillChecks: data/skillchecks.yaml
 scripts: data/scripts.yaml
 audio: data/audio.yaml
 tooltips: data/tooltips.yaml
