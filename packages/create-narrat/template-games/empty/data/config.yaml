@@ -24,6 +24,7 @@ layout:
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml
+skillChecks: data/skillchecks.yaml
 scripts: data/scripts.yaml
 characters: data/characters.yaml
 audio: data/audio.yaml

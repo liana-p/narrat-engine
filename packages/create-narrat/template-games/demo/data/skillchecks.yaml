@@ -1,0 +1,14 @@
+options:
+  diceRange: [1, 6]
+  extraPointsPerLevel: 1
+  diceCount: 2
+  successOnRollsBelowThreshold: false
+  difficultyText:
+    - [2, 'Very Easy']
+    - [4, 'Easy']
+    - [6, 'Medium']
+    - [8, 'Hard']
+    - [10, 'Very Hard']
+    - [11, 'Extremely Hard']
+    - [12, 'Near Impossible']
+skillChecks: {}
