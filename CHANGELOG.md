@@ -1,3 +1,22 @@
+# [2.15.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.1) (2023-06-14)
+
+
+### chore
+
+* **break:** breaking change commit ([8a28a4f](https://github.com/liana-p/narrat-engine/commit/8a28a4fb35d780904991906c0b95a4dcb04c952b))
+
+
+### Features
+
+* **skillChecks:** new skill check config file with dice-based options ([c8389a0](https://github.com/liana-p/narrat-engine/commit/c8389a060a32d57b98c2219f46a5d4a6b1b4f091))
+
+
+### BREAKING CHANGES
+
+* **break:** a new config file for skill checks is needed, and some config values for them have changed.
+
+
+
 ## [2.14.3](https://github.com/liana-p/narrat-engine/compare/v2.14.2...v2.14.3) (2023-06-11)
 
 
