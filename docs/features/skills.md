@@ -17,19 +17,17 @@ Those skills can then be used in skill checks in two ways:
 
 ## What it looks like
 
-<!-- ![](<../.gitbook/assets/image (8).png>) -->Passive Skill check
+![Passive skill check](./skills/passive-skillcheck.webp) Passive Skill check
 
 The difficulty of the skill check depends on a combination of how hard the skill check is configured to be, and the level of the player in this particular skill
 
 Skill check in a choice:
 
-<!-- ![](<../.gitbook/assets/image (6).png>) -->
+![Choice skill check](./skills/choice-skillcheck.png)
 
-<!-- ![](<../.gitbook/assets/image (5) (1).png>) -->
+![Skill check result](./skills/skillcheck-result.png)
 
-## How it works
-
-### Skills configuration
+## Skills configuration
 
 Skills are configured in `skills.yaml`:
 
@@ -55,25 +53,6 @@ skills:
 skillOptions:
   xpPerLevel: 10
   notifyLevelUp: false
-skillChecks:
-  rollRange: 100
-  skillMultiplier: 10
-  failureChance: 1
-  difficultyText:
-    - - 0
-      - Very Easy
-    - - 10
-      - Easy
-    - - 30
-      - Medium
-    - - 50
-      - Hard
-    - - 70
-      - Very Hard
-    - - 80
-      - Extremely Hard
-    - - 90
-      - Near Impossible
 ```
 
 The path of `skills.yaml` can be customised in the main config file:
@@ -93,32 +72,52 @@ The `skillOptions` object contains global options about skills in general.
 - `xpPerLevel` option, which defines how many XP points a player needs to gain to level up in a skill. XP is currently linear and the same for all skills
 - `notifyLevelUp`: If not set to false, players leveling in a skill will make a notification appear in the game
 
-### Skill Checks
+## Skill Checks
 
-#### System explanation
+The skill checks config is defined in `skillchecks.yaml`:
+
+```yaml
+options:
+  diceRange: [1, 6]
+  extraPointsPerLevel: 1
+  diceCount: 2
+  successOnRollsBelowThreshold: false
+  difficultyText:
+    - [2, 'Very Easy']
+    - [4, 'Easy']
+    - [6, 'Medium']
+    - [8, 'Hard']
+    - [10, 'Very Hard']
+    - [11, 'Extremely Hard']
+    - [12, 'Near Impossible']
+skillChecks: {} # This option will be used in the future to define custom options for individual skill checks
+```
+
+## System explanation
 
 Skill checks work in the following way:
 
-1. The engine generates a "dice roll" between 0 and `rollRange` (default 100)
-2. The skill check's difficulty value is the roll to beat. For example a skill check with a difficulty of 90 means that the dice roll needs to be above 90, or about 10% chance of success.
-3. Each level the player has in the corresponding skill adds extra points to their roll, that are multiplied by `skillMultiplier` (default: 10)
-4. There is an optional `failureChance` value, below which any roll will automatically fail.
-5. Each skill check has its own `id` which allows the engine to save the state of each skill check
+1. The engine generates dice rolls (the amount of dice and their range is configured per game). All the rolls get added up as a final score
+2. The skill check's difficulty value is compared to the total dice roll. For example a skill check with a difficulty of 6 means that the total dice roll needs to be above 6.
+3. Each level the player has in the corresponding skill adds extra points to their roll, that are multiplied by the `extraPointsPerLevel` value from the config (default: 1 per level)
+4. Each skill check has its own `id` which allows the engine to save the state of each skill check
+
+For more info, see the [Narrat forum dice-based skill checks development thread](https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24?u=liana)
 
 Practical example:
 
 ```
-roll aSkillCheck agility 70 "Try jumping!":
+roll aSkillCheck agility 8 "Try jumping!":
 ```
 
-This skill check uses the agility skill. It has a difficulty of 70.
+This skill check uses the agility skill. It has a difficulty of 8.
 
-Let's say the dice roll gives us 53. The player's level in agility is 3, and `skillMultiplier` is 10, so 30 gets added to the roll. This means the total roll of the player is 83.
+Let's say the dice roll gives us 2 and 3. The player's level in agility is 3, and `extraPointsPerLevel` is 1, so 3 gets added to the total roll. This means the total roll of the player is 2 + 3 + 3, 8.
 
-Because 83 is above 70, the skill check is successful.
+Because the difficulty was set to 8 and the result is above or equal to 8, the skill check succeeds.
 
 ::: tip
-The `difficultyText` config array specifies a list of thresholds and the corresponding difficulty text to show when the skill check's difficulty is past that threshold. It can have any amount of thresholds with any values. The choice for which text to print takes into account the player's current skill level and multiplier to reflect the real difficulty
+The `difficultyText` config array specifies a list of thresholds and the corresponding difficulty text to show when the skill check's difficulty is past that threshold. It can have any amount of thresholds with any values. The choice for which text to print takes into account the player's current skill level and multiplier to reflect the real difficulty, so a higher level player would potentially see a different text.
 :::
 
 ## Usage syntax
@@ -136,7 +135,7 @@ See the [roll function documentation](../commands/skills-commands/roll.md) for m
 
 If the skill check succeeds, the branch inside the if command will be run. A message will also be printed in the dialogue to inform the player that a skill check happened.
 
-### Active skill check (in choices)
+#### Active skill check (in choices)
 
 ```
 choice:
@@ -154,7 +153,7 @@ choice:
 
 Active skill checks happen in a `choice` command, as one of the options the player can choose.
 
-The syntax is `roll [skillCheckId] [skillId] [difficulty] [promptText] [optional mode]:`
+The syntax is `roll [skillCheckId] [skillId] [difficulty] [promptText] [optional mode] [optional if condition]:`
 
 The options are the same as the roll function, except there is a `promptText` option before the optional `mode` option.
 
