@@ -8,6 +8,10 @@ import { SkillCheckParams } from '@/vm/vm-helpers';
 import { logger } from './logger';
 import { useSkills } from '@/stores/skills';
 import { audioEvent } from './audio-loader';
+import {
+  SkillCheckOptionsConfig,
+  SkillChecksConfig,
+} from '@/config/skillchecks-config';
 
 export function getSkillCheckDifficultyScore(value: number, level: number) {
   return value - level * skillChecksConfig().options.extraPointsPerLevel;
@@ -89,8 +93,8 @@ export function calculateSkillCheckRoll(skill: string): {
 } {
   const { options } = skillChecksConfig();
   const skillStore = useSkills();
-  const unmodifiedRoll =
-    Math.floor(Math.random() * options.diceRange[1]) + options.diceRange[0];
+  const rolls = rollAllDice(options);
+  const unmodifiedRoll = rolls.reduce((a, b) => a + b, 0);
   const rollModifier =
     skillStore.skills[skill].level * options.extraPointsPerLevel;
   const roll = unmodifiedRoll + rollModifier;
@@ -101,6 +105,19 @@ export function calculateSkillCheckRoll(skill: string): {
     roll,
     unmodifiedRoll,
   };
+}
+
+function rollAllDice(options: SkillCheckOptionsConfig) {
+  const { diceRange, diceCount } = options;
+  const rolls = [];
+  for (let i = 0; i < diceCount; i++) {
+    rolls.push(rollDice(diceRange));
+  }
+  return rolls;
+}
+
+function rollDice(diceRange: [number, number]) {
+  return Math.floor(Math.random() * diceRange[1]) + diceRange[0];
 }
 
 export function resolveSkillCheck(params: SkillCheckParams): boolean {
