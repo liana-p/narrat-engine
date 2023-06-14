@@ -6,7 +6,7 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 
 ## Getting Started
 
-Go to the [Getting Started Guide](https://docs.get-narrat.com/guides/getting-started.html)
+Go to the [Getting Started Guide](https://docs.get-narrat.com/guides/getting-started.html).
 
 Try the engine directly in your browser (experimental, only works on desktop):
 
