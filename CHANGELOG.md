@@ -1,3 +1,14 @@
+# [2.15.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.2...v2.15.0-alpha.3) (2023-06-15)
+
+
+### Bug Fixes
+
+* **audio:** howler suspended context ([8411931](https://github.com/liana-p/narrat-engine/commit/8411931361b9d443b13053541dabdc552b6caf48))
+* **audio:** trying to remove suspended audio context issue ([525374c](https://github.com/liana-p/narrat-engine/commit/525374cbba717f5b3479ce35143f5a72d6608173))
+* **docs:** restore missing bit of readme for contributors docs ([f58d53b](https://github.com/liana-p/narrat-engine/commit/f58d53ba863e692c0b2e3bd54c9bff08f2857fcf))
+
+
+
 # [2.15.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.2) (2023-06-15)
 
 ### Features
