@@ -7,7 +7,14 @@
 ### BREAKING CHANGES
 
 - The new skill check format requires creating a new skillChecks.yaml file, see https://docs.get-narrat.com/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
-- **break:** a new config file for skill checks is needed, and some config values for them have changed.
+
+The new needed file should be listed in `config.yaml` as such:
+
+```yaml
+skillChecks: data/skillchecks.yaml
+```
+
+Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.com/features/skills.html#skill-checks).
 
 # [2.15.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.1) (2023-06-14)
 
