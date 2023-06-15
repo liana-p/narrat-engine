@@ -1,53 +1,49 @@
-# [2.15.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.1) (2023-06-14)
-
-
-### chore
-
-* **break:** breaking change commit ([8a28a4f](https://github.com/liana-p/narrat-engine/commit/8a28a4fb35d780904991906c0b95a4dcb04c952b))
-
+# [2.15.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.2) (2023-06-15)
 
 ### Features
 
-* **skillChecks:** new skill check config file with dice-based options ([c8389a0](https://github.com/liana-p/narrat-engine/commit/c8389a060a32d57b98c2219f46a5d4a6b1b4f091))
-
+- **skillChecks:** new skill check config file with dice-based options ([c8389a0](https://github.com/liana-p/narrat-engine/commit/c8389a060a32d57b98c2219f46a5d4a6b1b4f091))
 
 ### BREAKING CHANGES
 
-* **break:** a new config file for skill checks is needed, and some config values for them have changed.
+- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.get-narrat.com/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
+- **break:** a new config file for skill checks is needed, and some config values for them have changed.
 
+# [2.15.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.1) (2023-06-14)
 
+### chore
+
+- **break:** breaking change commit ([8a28a4f](https://github.com/liana-p/narrat-engine/commit/8a28a4fb35d780904991906c0b95a4dcb04c952b))
+
+### Features
+
+- **skillChecks:** new skill check config file with dice-based options ([c8389a0](https://github.com/liana-p/narrat-engine/commit/c8389a060a32d57b98c2219f46a5d4a6b1b4f091))
+
+### BREAKING CHANGES
+
+- **break:** a new config file for skill checks is needed, and some config values for them have changed.
 
 ## [2.14.3](https://github.com/liana-p/narrat-engine/compare/v2.14.2...v2.14.3) (2023-06-11)
 
-
 ### Bug Fixes
 
-* **docs:** fix dead link to items docs ([0c54914](https://github.com/liana-p/narrat-engine/commit/0c549142f43049b0a1c28addd983c33483eddbac))
-
+- **docs:** fix dead link to items docs ([0c54914](https://github.com/liana-p/narrat-engine/commit/0c549142f43049b0a1c28addd983c33483eddbac))
 
 ### Features
 
-* **choices:** choices with both skill checks and ifs working ([#73](https://github.com/liana-p/narrat-engine/issues/73)) ([227d054](https://github.com/liana-p/narrat-engine/commit/227d054295bf01099fb199b629995a356fe321db))
-
-
+- **choices:** choices with both skill checks and ifs working ([#73](https://github.com/liana-p/narrat-engine/issues/73)) ([227d054](https://github.com/liana-p/narrat-engine/commit/227d054295bf01099fb199b629995a356fe321db))
 
 ## [2.14.2](https://github.com/liana-p/narrat-engine/compare/v2.14.1-alpha.1...v2.14.2) (2023-06-11)
 
-
 ### Bug Fixes
 
-* **template:** fix publishing issue with npm publish for create-narrat ([1000336](https://github.com/liana-p/narrat-engine/commit/1000336ba75a052eb0534b34cf6631ab3dff145a))
-
-
+- **template:** fix publishing issue with npm publish for create-narrat ([1000336](https://github.com/liana-p/narrat-engine/commit/1000336ba75a052eb0534b34cf6631ab3dff145a))
 
 ## [2.14.1-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.0...v2.14.1-alpha.1) (2023-06-11)
 
-
 ### Features
 
-* **template:** narrat template improvements and updates + new doc pages ([#69](https://github.com/liana-p/narrat-engine/issues/69)) ([cd4a7c4](https://github.com/liana-p/narrat-engine/commit/cd4a7c403ca36c9ffc9efc3589d3548bf7c36806))
-
-
+- **template:** narrat template improvements and updates + new doc pages ([#69](https://github.com/liana-p/narrat-engine/issues/69)) ([cd4a7c4](https://github.com/liana-p/narrat-engine/commit/cd4a7c403ca36c9ffc9efc3589d3548bf7c36806))
 
 # [2.14.0](https://github.com/liana-p/narrat-engine/compare/v2.13.1...v2.14.0) (2023-06-11)
 
