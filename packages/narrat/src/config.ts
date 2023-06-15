@@ -233,6 +233,9 @@ export function getSkillCheckConfig(id: string) {
   }
   return skillCheck;
 }
+export function skillCheckConfigExists(id: string) {
+  return !!getConfig().skillChecks.skillChecks[id];
+}
 
 export function getImageUrl(imageKeyOrUrl: string) {
   if (imageKeyOrUrl.startsWith('http')) {

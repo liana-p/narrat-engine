@@ -10,8 +10,9 @@ import { IfOptions, IfStaticOptions } from './commands/if';
 
 export interface SkillCheckParams {
   skill: string;
-  value: number;
+  difficulty: number;
   id: string;
+  winsNeeded?: number;
   hideAfterRoll?: boolean;
   repeatable?: boolean;
 }

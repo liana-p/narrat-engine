@@ -5,7 +5,13 @@ export const SkillCheckOptionsConfigSchema = Type.Object({
   diceCount: Type.Number(),
   difficultyText: Type.Array(Type.Tuple([Type.Number(), Type.String()])),
   extraPointsPerLevel: Type.Number(),
+  extraDicePerLevel: Type.Optional(Type.Number()),
   successOnRollsBelowThreshold: Type.Boolean(),
+  showDifficultyText: Type.Boolean(),
+  showDifficultyNumber: Type.Boolean(),
+  showDifficultyWithoutModifiers: Type.Boolean(),
+  finalRollIsHighest: Type.Optional(Type.Boolean()),
+  finalRollIsLowest: Type.Optional(Type.Boolean()),
 });
 
 export type SkillCheckOptionsConfig = Static<
@@ -15,6 +21,7 @@ export type SkillCheckOptionsConfig = Static<
 export const SkillCheckConfigSchema = Type.Object({
   skill: Type.String(),
   difficulty: Type.Number(),
+  winsNeeded: Type.Optional(Type.Number()),
   hideAfterRoll: Type.Optional(Type.Boolean()),
   repeatable: Type.Optional(Type.Boolean()),
 });
@@ -33,8 +40,14 @@ export const defaultSkillChecksConfig: SkillChecksConfig = {
   options: {
     diceRange: [1, 6],
     extraPointsPerLevel: 1,
+    extraDicePerLevel: 0,
     diceCount: 2,
     successOnRollsBelowThreshold: false,
+    showDifficultyText: true,
+    showDifficultyNumber: false,
+    showDifficultyWithoutModifiers: false,
+    finalRollIsHighest: false,
+    finalRollIsLowest: false,
     difficultyText: [
       [2, 'Very Easy'],
       [4, 'Easy'],

@@ -78,11 +78,17 @@ The skill checks config is defined in `skillchecks.yaml`:
 
 ```yaml
 options:
-  diceRange: [1, 6]
-  extraPointsPerLevel: 1
-  diceCount: 2
-  successOnRollsBelowThreshold: false
-  difficultyText:
+  diceRange: [1, 6] # Dice rolls will be between those 2 numbers, inclusive
+  diceCount: 2 # How many dice are rolled by default on skill checks
+  extraPointsPerLevel: 1 # How many extra points to your rolls are given per level in the skill
+  extraDicePerLevel: 0 # How many extra dice the player gets per level in the skill (Default 0)
+  successOnRollsBelowThreshold: false # Inverts the skillcheck behaviour so that success is when the roll is *below* the difficulty threshold
+  showDifficultyText: true # Whether to show the difficulty text on the skill check
+  showDifficultyNumber: true # Whether to show the difficulty number on the skill check
+  showDifficultyWithoutModifiers: false # Whether to show the original difficulty without modifiers applied on the skill check
+  totalRollIsHighest: false # Uses only the highest roll to do the final skill check comparison, instead of adding up all rolls
+  totalRollIsLowest: false # Uses only the lowest roll to do the final skill check comparison, instead of adding up all rolls
+  difficultyText: # Text to show for each band of difficulty level
     - [2, 'Very Easy']
     - [4, 'Easy']
     - [6, 'Medium']
@@ -90,7 +96,13 @@ options:
     - [10, 'Very Hard']
     - [11, 'Extremely Hard']
     - [12, 'Near Impossible']
-skillChecks: {} # This option will be used in the future to define custom options for individual skill checks
+skillChecks:
+  testDicePool:
+    skill: agility # skill id
+    difficulty: 6 # score to beat during rolls
+    winsNeeded: 2 # [Optional] How many rolls need to beat the score (uses total of all rolls if this option isn't present)
+    hideAfterRoll: false # [Optional] Whether to hide the skill check from options after it happened once
+    repeatable: false # [Optional] Whether the skill check can be repeated if failed
 ```
 
 ## System explanation
@@ -162,7 +174,46 @@ The options are the same as the roll function, except there is a `promptText` op
 
 Then, there is a `success` branch and a `failure` branch inside the roll. The engine will go to one of those depending on the result.
 
-### Gaining levels and XP
+## Advanced skill checks config
+
+Due to the amount of possible options for skill checks, there is a way to configure individual skill checks outside of scripts in the config. For example in `skillchecks.yaml`:
+
+```yaml
+options:
+  # ...
+skillChecks:
+  mySkillCheck:
+    skill: agility
+    difficulty: 8
+    winsNeeded: 2
+    hideAfterRoll: false
+    repeatable: false
+```
+
+Then, in the script, for a passive skill check:
+
+```
+if (roll mySkillCheck):
+  "This line only appears if you passed the skill check configured above"
+```
+
+Or for an active skill check in a choice (this one also uses a condition with the skill check to decide if the option should appear!)
+
+```
+choice:
+    "Should we try jumping over a fence?"
+    roll mySkillCheck "Try jumping!" if ($data.allowedToJump):
+      success:
+        "You graciously jump over a fence, hair blowing in the wind, and land in a heroic pose that would be used in a movie trailer."
+        talk inner idle "Woo I did it!!!"
+      failure:
+        "You try jumping over the fence, but not high enough. You stab your toe against the fence and fall head first into a puddle of mud. It's also in the background of a tiktok a passerby was filming now."
+        talk inner idle "Ouch!"
+    "No I'm a coward, I'd rather not":
+      "Well okay then"
+```
+
+## Gaining levels and XP
 
 To make the player gain xp or levels, there are two commands: `add_level` and `add_xp`. Example:
 

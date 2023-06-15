@@ -1,24 +1,26 @@
-import {
-  getConfig,
-  getSkillConfig,
-  skillChecksConfig,
-  skillsConfig,
-} from '@/config';
+import { getSkillConfig, skillChecksConfig, skillsConfig } from '@/config';
 import { SkillCheckParams } from '@/vm/vm-helpers';
 import { logger } from './logger';
 import { useSkills } from '@/stores/skills';
 import { audioEvent } from './audio-loader';
-import {
-  SkillCheckOptionsConfig,
-  SkillChecksConfig,
-} from '@/config/skillchecks-config';
+import { SkillCheckOptionsConfig } from '@/config/skillchecks-config';
+
+export type Roll = {
+  unmodified: number;
+  modified: number;
+};
+export type DiceRoll = Roll[];
 
 export function getSkillCheckDifficultyScore(value: number, level: number) {
   return value - level * skillChecksConfig().options.extraPointsPerLevel;
 }
 
 export function getSkillCheckDifficultyText(value: number, level: number) {
-  const difficultyScore = getSkillCheckDifficultyScore(value, level);
+  const { options } = skillChecksConfig();
+  let difficultyScore = value;
+  if (!options.showDifficultyWithoutModifiers) {
+    difficultyScore = getSkillCheckDifficultyScore(value, level);
+  }
   const checks = skillChecksConfig().options;
   let found = false;
   let i = 0;
@@ -35,7 +37,15 @@ export function getSkillCheckDifficultyText(value: number, level: number) {
     }
     i++;
   }
-  return checkText;
+  let finalText = '';
+  if (options.showDifficultyText && options.showDifficultyNumber) {
+    finalText = `${checkText} (${difficultyScore})`;
+  } else if (options.showDifficultyText) {
+    finalText = checkText;
+  } else if (options.showDifficultyNumber) {
+    finalText = difficultyScore.toString();
+  }
+  return finalText;
 }
 
 export function getSkillCheckText({
@@ -75,7 +85,7 @@ export function getPassiveSkillCheckText(
   const skillStore = useSkills();
   const skillConf = getSkillConfig(params.skill);
   const difficultyText = getSkillCheckDifficultyText(
-    params.value,
+    params.difficulty,
     skillStore.skills[params.skill].level,
   );
   return `<span class='passive-skill-check skill-check'>[<span class='skill-check-name'>${
@@ -87,61 +97,123 @@ export function getPassiveSkillCheckText(
   }]</span>`;
 }
 
-export function calculateSkillCheckRoll(skill: string): {
-  roll: number;
-  unmodifiedRoll: number;
-} {
+export function calculateSkillCheckRoll(skill: string) {
   const { options } = skillChecksConfig();
+  const rolls = rollAllDice(options, skill);
   const skillStore = useSkills();
-  const rolls = rollAllDice(options);
-  const unmodifiedRoll = rolls.reduce((a, b) => a + b, 0);
-  const rollModifier =
-    skillStore.skills[skill].level * options.extraPointsPerLevel;
-  const roll = unmodifiedRoll + rollModifier;
-  logger.log(
-    `[SKILL CHECK] Roll: ${roll}. (Base roll: ${unmodifiedRoll}, modifier: ${rollModifier} - Skill level: ${skillStore.skills[skill].level})`,
+  const skillData = skillStore.skills[skill];
+  const rollModifier = skillData.level * options.extraPointsPerLevel;
+  // Add all the dice together, and add the modifier at the end
+  let finalRoll = rolls.reduce(
+    (acc, roll) => acc + roll.unmodified,
+    rollModifier,
   );
+  // Optional mode where we only keep the highest or lowest roll
+  if (options.finalRollIsHighest) {
+    finalRoll = rolls.reduce((acc, roll) => {
+      if (roll.modified > acc) {
+        return roll.modified;
+      }
+      return acc;
+    }, 0);
+    logger.log(`[SKILL CHECK] Keeping only highest roll: ${finalRoll}`);
+  } else if (options.finalRollIsLowest) {
+    finalRoll = rolls.reduce((acc, roll) => {
+      if (roll.modified < acc) {
+        return roll.modified;
+      }
+      return acc;
+    }, rolls[0].modified);
+    logger.log(`[SKILL CHECK] Keeping only lowest roll: ${finalRoll}`);
+  }
   return {
-    roll,
-    unmodifiedRoll,
+    roll: finalRoll,
+    rolls,
   };
 }
 
-function rollAllDice(options: SkillCheckOptionsConfig) {
-  const { diceRange, diceCount } = options;
+export function rollAllDice(
+  options: SkillCheckOptionsConfig,
+  skill: string,
+): DiceRoll {
+  const skillStore = useSkills();
+  const skillData = skillStore.skills[skill];
+  const rollModifier = skillData.level * options.extraPointsPerLevel;
+  let { diceRange, diceCount } = options;
+  if (options.extraDicePerLevel) {
+    diceCount += options.extraDicePerLevel * skillData.level;
+  }
   const rolls = [];
   for (let i = 0; i < diceCount; i++) {
-    rolls.push(rollDice(diceRange));
+    const unmodifiedRoll = rollDice(diceRange);
+    const roll = unmodifiedRoll + rollModifier;
+    logger.log(
+      `[SKILL CHECK] Roll ${
+        i + 1
+      }/${diceCount}: ${roll}. (Base roll: ${unmodifiedRoll}, modifier: ${rollModifier} - Skill level: ${
+        skillData.level
+      })`,
+    );
+    rolls.push({
+      unmodified: unmodifiedRoll,
+      modified: roll,
+    });
   }
   return rolls;
 }
 
-function rollDice(diceRange: [number, number]) {
+export function rollDice(diceRange: [number, number]) {
   return Math.floor(Math.random() * diceRange[1]) + diceRange[0];
 }
 
 export function resolveSkillCheck(params: SkillCheckParams): boolean {
   const { skills } = skillsConfig();
-  const { options } = skillChecksConfig();
-  let success = true;
-  const { roll } = calculateSkillCheckRoll(params.skill);
+  const { roll, rolls } = calculateSkillCheckRoll(params.skill);
   // TODO: Replace this with unlucky rolls
   // if (roll <= options.failureChance - 1) {
   //   success = false;
   // }
   const skill = skills[params.skill];
-  if (roll <= params.value) {
+  let success = false;
+  if (typeof params.winsNeeded === 'number') {
+    const successes = rolls.reduce((acc, roll) => {
+      if (checkIfRollSucceeded(roll.modified, params.difficulty)) {
+        acc++;
+      }
+      return acc;
+    }, 0);
+    if (successes >= params.winsNeeded) {
+      success = true;
+    }
+    logger.log(
+      `[SKILL CHECK ${skill.name}] - Dice pool mode. ${
+        params.winsNeeded
+      } wins needed. Got ${successes} successes.
+      (${params.id} - ${successes}/${
+        params.winsNeeded
+      } - rolls: ${JSON.stringify(rolls.map((r) => r.modified))})`,
+    );
+  } else {
+    success = checkIfRollSucceeded(roll, params.difficulty);
+    logger.log(
+      `[SKILL CHECK ${skill.name}]: ${success ? '✅' : '❌'}`,
+      `(${params.id}) - ${roll}/${params.difficulty}`,
+    );
+  }
+  success
+    ? audioEvent('onSkillCheckSuccess')
+    : audioEvent('onSkillCheckFailure');
+  return success;
+}
+
+export function checkIfRollSucceeded(roll: number, value: number) {
+  const { options } = skillChecksConfig();
+  let success = true;
+  if (roll < value) {
     success = false;
   }
   if (options.successOnRollsBelowThreshold) {
     success = !success;
   }
-  logger.log(
-    `[SKILL CHECK ${skill.name}]: ${success ? '✅' : '❌'}`,
-    `(${params.id}) - ${roll}/${params.value}`,
-  );
-  success
-    ? audioEvent('onSkillCheckSuccess')
-    : audioEvent('onSkillCheckFailure');
   return success;
 }
