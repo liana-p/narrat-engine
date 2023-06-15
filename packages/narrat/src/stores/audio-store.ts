@@ -106,6 +106,7 @@ export const useAudio = defineStore('audio', {
     async playChannel(mode: AudioModeKey, audio: string, channelIndex: number) {
       if (Howler.ctx.state === 'suspended') {
         console.warn('Audio context is suspended :o');
+        Howler.ctx.resume();
         // return;
       }
       const audioChannel = this.getAudioChannel(mode, channelIndex);
