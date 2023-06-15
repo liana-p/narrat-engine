@@ -1,4 +1,4 @@
-import { runSkillCheck } from '@/vm/vm-helpers';
+import { SkillCheckParams, runSkillCheck } from '@/vm/vm-helpers';
 import { getSkillCheckText } from '@/utils/skillchecks';
 import { runCommand, runExpression } from '../vm';
 import {
@@ -18,6 +18,7 @@ import { ParserContext } from '../vm-parser';
 import { MachineBlock, useVM } from '@/stores/vm-store';
 import { useSkills } from '@/stores/skills';
 import { commandRuntimeError } from './command-helpers';
+import { getSkillCheckConfig, skillCheckConfigExists } from '@/config';
 
 export const runChoice: CommandRunner<
   ChoiceOptions,
@@ -177,13 +178,7 @@ const onChoicePlayerAnswered = async (
   let newBranch: Parser.Branch | undefined;
   if (choicePromptResult.skillCheck) {
     playerText = null;
-    const result = runSkillCheck({
-      skill: choicePromptResult.skillCheck.skillId,
-      value: choicePromptResult.skillCheck.difficulty,
-      id: choicePromptResult.skillCheck.skillCheckId,
-      hideAfterRoll: choicePromptResult.skillCheck.hideAfterRoll,
-      repeatable: choicePromptResult.skillCheck.repeatable,
-    });
+    const result = runSkillCheck(choicePromptResult.skillCheck!.options);
     if (result.succeeded) {
       newBranch = choice.skillBranches!.success;
     } else {
@@ -236,12 +231,8 @@ export interface ChoicePromptOptions {
 export interface ChoicePromptReturnValue {
   text: string | null;
   skillCheck?: {
-    allowed: boolean;
-    skillId: string;
-    skillCheckId: string;
-    difficulty: number;
-    hideAfterRoll?: boolean;
-    repeatable?: boolean;
+    allowed?: boolean;
+    options: SkillCheckParams;
   };
 }
 export type ChoicePromptReturn = ChoicePromptReturnValue;
@@ -254,40 +245,59 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
     const args = cmd.args;
     if (args[0] === 'roll') {
       const skillCheckId = args[1] as string;
-      const skillId = args[2] as string;
-      const difficulty = args[3] as number;
-      const skillText = args[4] as string;
+      let skillOptions: SkillCheckParams = {} as any;
+      let nextArgIndex = 2;
+      if (skillCheckConfigExists(skillCheckId)) {
+        // We have a skill config, read skill check info from that
+        skillOptions = {
+          ...getSkillCheckConfig(skillCheckId),
+          id: skillCheckId,
+        };
+      } else {
+        // Read skill check info from inline arguments
+        skillOptions = {
+          id: skillCheckId,
+          skill: args[2] as string,
+          difficulty: args[3] as number,
+        };
+        nextArgIndex = 4;
+      }
+
+      // We use the argIndex argument because the index things are changes depending on whether we used a skill check with a config or inline.
+      const skillText = args[nextArgIndex] as string;
+      nextArgIndex++;
       let mode: any = false;
       let hasCondition: any = false;
       let condition: undefined | boolean;
-      if (args.length > 5) {
-        const nextArg = args[5];
+      if (args.length > nextArgIndex) {
+        const nextArg = args[nextArgIndex];
         if (nextArg === 'if') {
           // There's an if but no optional mode.
           hasCondition = true;
-          if (args.length < 7) {
+          if (args.length < nextArgIndex + 2) {
             // Not enough arguments
             commandRuntimeError(
               cmd,
               `Missing condition argument after "if" in choice with a skill check`,
             );
           }
-          condition = args[6] as boolean;
+          condition = args[nextArgIndex + 1] as boolean;
         } else {
           // There's an optional mode
-          mode = args[5] as string;
-          if (args.length > 6) {
-            if (args[6] === 'if') {
+          mode = args[nextArgIndex] as string;
+          if (args.length > nextArgIndex + 1) {
+            nextArgIndex++;
+            if (args[nextArgIndex] === 'if') {
               // There's an optional mode and also an if
               hasCondition = true;
-              if (args.length < 8) {
+              if (args.length < nextArgIndex + 2) {
                 // optional mode + if but not enough arguments
                 commandRuntimeError(
                   cmd,
                   `Missing condition argument after "if" in choice with a skill check`,
                 );
               }
-              condition = args[7] as boolean;
+              condition = args[nextArgIndex + 1] as boolean;
             } else {
               // There's some unknown argument after the optional mode
               commandRuntimeError(
@@ -298,13 +308,11 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
           }
         }
       }
-      let hideAfterRoll = false;
-      let repeatable = false;
       if (mode === 'hideAfterRoll') {
-        hideAfterRoll = true;
+        skillOptions.hideAfterRoll = true;
       }
       if (mode === 'repeatable') {
-        repeatable = true;
+        skillOptions.repeatable = true;
       }
       const state = useSkills().getSkillCheck(skillCheckId);
       if (state.hidden || (hasCondition && !condition)) {
@@ -313,22 +321,20 @@ export const choicePromptCommandPlugin = new CommandPlugin<ChoicePromptOptions>(
         };
       }
       const skillCheckAllowed =
-        !state.happened || (state.happened && state.succeeded) || repeatable;
+        !state.happened ||
+        (state.happened && state.succeeded) ||
+        skillOptions.repeatable;
       const { difficultyText } = getSkillCheckText({
-        skill: skillId,
+        skill: skillOptions.skill,
         skillCheckId,
-        value: difficulty,
+        value: skillOptions.difficulty,
       });
       const text = `${difficultyText} ${skillText}`;
       return {
         text,
         skillCheck: {
           allowed: skillCheckAllowed,
-          skillId,
-          skillCheckId,
-          difficulty,
-          hideAfterRoll,
-          repeatable,
+          options: skillOptions,
         },
       };
     } else if (args.length > 1 && args[1] === 'if') {

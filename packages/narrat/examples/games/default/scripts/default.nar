@@ -102,10 +102,22 @@ test_choice_conditions:
       "Hello 3"
   "End of test"
 
+test_dice_pool_check:
+  set data.allowed true
+  choice:
+    "Skill roll dice pool test"
+    roll testDicePool "Run the dice pool roll" if (== $data.allowed true):
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "Other option":
+      "Hello"
+
 test_skill_checks:
   choice:
     "test skill roll"
-    roll testSkillCheck agility 6 "Test this skill roll":
+    roll testSkillCheck agility 14 "Test this skill roll":
       success:
         "You succeed!"
       failure:

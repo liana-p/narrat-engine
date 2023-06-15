@@ -2,6 +2,7 @@ import { useSkills } from '@/stores/skills';
 import { runSkillCheck, SkillCheckParams } from '../vm-helpers';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
+import { getSkillCheckConfig, skillCheckConfigExists } from '@/config';
 
 export interface AddLevelArgs {
   skillKey: string;
@@ -142,36 +143,50 @@ export const getXpPlugin = new CommandPlugin<GetXpArgs>(
 
 export interface RollArgs {
   id: string;
-  skill: string;
-  value: number;
+  skill?: string;
+  difficulty?: number;
   mode?: string;
 }
 export const rollPlugin = new CommandPlugin<RollArgs>(
   'roll',
   [
     { name: 'id', type: 'string' },
-    { name: 'skill', type: 'string' },
-    { name: 'value', type: 'number' },
+    { name: 'skill', type: 'string', optional: true },
+    { name: 'difficulty', type: 'number', optional: true },
     { name: 'mode', type: 'string', optional: true },
   ],
   async (cmd) => {
-    const { id, skill, value, mode } = cmd.options;
-    let hideAfterRoll = false;
-    let repeatable = false;
-    if (mode === 'hideAfterRoll') {
-      hideAfterRoll = true;
-    }
-    if (mode === 'repeatable') {
-      repeatable = true;
-    }
-    const skillCheck: SkillCheckParams = {
+    const { id } = cmd.options;
+    let config: SkillCheckParams = {
       id,
-      skill,
-      value,
-      hideAfterRoll,
-      repeatable,
-    };
-    const result = runSkillCheck(skillCheck);
+    } as any;
+    if (cmd.args.length === 1 && skillCheckConfigExists(id)) {
+      config = {
+        ...getSkillCheckConfig(id),
+        id,
+      };
+    } else {
+      const { skill, difficulty, mode } = cmd.options;
+      if (!skill || !difficulty) {
+        commandRuntimeError(
+          cmd,
+          `roll command needs a skill and a difficulty as parameters, or the skill check id to be configured in skillChecks.yaml`,
+        );
+        return;
+      }
+      config = {
+        skill,
+        difficulty,
+        id,
+      };
+      if (mode === 'hideAfterRoll') {
+        config.hideAfterRoll = true;
+      }
+      if (mode === 'repeatable') {
+        config.repeatable = true;
+      }
+    }
+    const result = runSkillCheck(config);
     return result.succeeded;
   },
 );

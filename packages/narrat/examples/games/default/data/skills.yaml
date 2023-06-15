@@ -2,7 +2,7 @@ skills:
   agility:
     name: Agility
     description: How good you are at moving around.
-    startingLevel: 0
+    startingLevel: 3
     icon: img/skills/agility.webp
     hidden: true
   haggling:
@@ -10,4 +10,3 @@ skills:
     description: Get good prices on items
     icon: img/skills/logic.webp
     startingLevel: 1
-test: 'lol'
