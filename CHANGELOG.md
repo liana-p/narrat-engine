@@ -1,13 +1,28 @@
-# [2.15.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.2...v2.15.0-alpha.3) (2023-06-15)
+# [2.15.0](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.3...v2.15.0) (2023-06-16)
 
+### Features
+
+- **skillChecks:** new skill check config file with dice-based options ([c8389a0](https://github.com/liana-p/narrat-engine/commit/c8389a060a32d57b98c2219f46a5d4a6b1b4f091))
+
+### BREAKING CHANGES
+
+- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.get-narrat.com/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
+
+The new needed file should be listed in `config.yaml` as such:
+
+```yaml
+skillChecks: data/skillchecks.yaml
+```
+
+Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.com/features/skills.html#skill-checks).
+
+# [2.15.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.2...v2.15.0-alpha.3) (2023-06-15)
 
 ### Bug Fixes
 
-* **audio:** howler suspended context ([8411931](https://github.com/liana-p/narrat-engine/commit/8411931361b9d443b13053541dabdc552b6caf48))
-* **audio:** trying to remove suspended audio context issue ([525374c](https://github.com/liana-p/narrat-engine/commit/525374cbba717f5b3479ce35143f5a72d6608173))
-* **docs:** restore missing bit of readme for contributors docs ([f58d53b](https://github.com/liana-p/narrat-engine/commit/f58d53ba863e692c0b2e3bd54c9bff08f2857fcf))
-
-
+- **audio:** howler suspended context ([8411931](https://github.com/liana-p/narrat-engine/commit/8411931361b9d443b13053541dabdc552b6caf48))
+- **audio:** trying to remove suspended audio context issue ([525374c](https://github.com/liana-p/narrat-engine/commit/525374cbba717f5b3479ce35143f5a72d6608173))
+- **docs:** restore missing bit of readme for contributors docs ([f58d53b](https://github.com/liana-p/narrat-engine/commit/f58d53ba863e692c0b2e3bd54c9bff08f2857fcf))
 
 # [2.15.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.2) (2023-06-15)
 
