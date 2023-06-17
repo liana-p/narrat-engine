@@ -33,6 +33,7 @@ const skillChecksConfigMock: SkillChecksConfig = {
     showDifficultyWithoutModifiers: false,
     finalRollIsHighest: false,
     finalRollIsLowest: false,
+    failOnRollsEqualToThreshold: false,
     difficultyText: [
       [2, 'Very Easy'],
       [4, 'Easy'],
@@ -160,18 +161,30 @@ describe('checkIfRollSucceeded', () => {
     const result = checkIfRollSucceeded(4, 6);
     expect(result).toBe(false);
   });
-  it('succeeds if the roll is equal or above the threshold', () => {
+  it('succeeds if the roll is above the threshold', () => {
     const result = checkIfRollSucceeded(6, 4);
     expect(result).toBe(true);
-    const resultEqual = checkIfRollSucceeded(4, 4);
-    expect(resultEqual).toBe(true);
   });
-  it('succeeds if the roll is below the threshold if the option is given', () => {
+  it('Succeeds if the roll is equal to the threshold by default', () => {
+    const result = checkIfRollSucceeded(4, 4);
+    expect(result).toBe(true);
+  });
+  it('succeeds if the roll is below the threshold if the `successOnRollsBelowThreshold` option is true', () => {
     skillChecksConfig().options.successOnRollsBelowThreshold = true;
     const result = checkIfRollSucceeded(4, 6);
     expect(result).toBe(true);
     const resultFail = checkIfRollSucceeded(6, 4);
     expect(resultFail).toBe(false);
+    const resultEqual = checkIfRollSucceeded(4, 4);
+    expect(resultEqual).toBe(true);
+  });
+  it('Fails if the roll is equal to the threshold and the `failOnRollsEqualToThreshold` option is true', () => {
+    skillChecksConfig().options.failOnRollsEqualToThreshold = true;
+    let result = checkIfRollSucceeded(4, 4);
+    expect(result).toBe(false);
+    skillChecksConfig().options.successOnRollsBelowThreshold = true;
+    result = checkIfRollSucceeded(4, 4);
+    expect(result).toBe(false);
   });
 });
 
@@ -196,7 +209,7 @@ describe('calculateSkillCheckRoll', () => {
       rolls: fakeRolls,
     });
   });
-  it('returns the highest roll if the option is given', () => {
+  it('returns the highest roll if the `finalRollIsHighest` option is given', () => {
     let i = 0;
     Math.random = () => (i++ === 0 ? 0.5 : 0.1);
     skillChecksConfig().options.finalRollIsHighest = true;
@@ -207,7 +220,7 @@ describe('calculateSkillCheckRoll', () => {
       rolls: fakeRolls,
     });
   });
-  it('returns the lowest roll if the option is given', () => {
+  it('returns the lowest roll if the `finalRollIsLowest` option is given', () => {
     let i = 0;
     Math.random = () => (i++ === 0 ? 0.5 : 0.1);
     skillChecksConfig().options.finalRollIsLowest = true;
@@ -253,7 +266,7 @@ describe('resolveSkillCheck', () => {
     });
     expect(result).toBe(true);
   });
-  it('windsNeeded mode fails if not enough rolls succeeded', () => {
+  it('windsNeeded mode fails if not enough rolls succeeded, even if one of them succeeded', () => {
     // first roll will be 2, second will be 5
     let i = 0;
     Math.random = () => (i++ === 0 ? 0.1 : 0.5);
