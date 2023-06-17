@@ -40,6 +40,7 @@ import { isPromise } from '@/utils/type-utils';
 import { useMenu } from './menu-store';
 import { useScreenObjects } from './screen-objects-store';
 import { useAchievements } from './achievements-store';
+import { useConfig } from './config-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -246,6 +247,10 @@ export const useMain = defineStore('main', {
         this.setLoadedData(save.saveData);
         useAudio().reloadAudio(save.saveData.audio);
         const vm = useVM();
+        const runOnReload = getConfig().saves.runOnReload;
+        if (typeof runOnReload === 'string') {
+          await useVM().runLabelFunction(runOnReload);
+        }
         vm.jumpToLabel(save.saveData.vm.lastLabel);
       }
     },

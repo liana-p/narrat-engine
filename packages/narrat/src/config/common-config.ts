@@ -92,6 +92,7 @@ export type DebuggingConfig = Static<typeof DebuggingConfigSchema>;
 export const SavesConfigSchema = Type.Object({
   mode: Type.String(),
   slots: Type.Number(),
+  runOnReload: Type.Optional(Type.String()),
 });
 export type SavesConfig = Static<typeof SavesConfigSchema>;
 

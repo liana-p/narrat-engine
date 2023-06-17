@@ -10,6 +10,23 @@ main:
   // talk player idle "Global counter is %{$global.counter}"
   jump quest_demo
 
+test_label_reload:
+  run set_config_overrides
+  "Game reloaded"
+  talk player idle "Welcome back"
+
+set_config_overrides:
+  set config.characters.characters.player.name $data.playerName
+
+test_edit_config:
+  set data.playerName (text_field "Enter your name")
+  run set_config_overrides
+  run verify_edit_config
+
+verify_edit_config:
+  talk player idle "It's me, %{$config.characters.characters.player.name}"
+  jump achievements_demo
+
 test_roll_if:
   set data.n 2
   choice:
