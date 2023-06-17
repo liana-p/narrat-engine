@@ -41,7 +41,7 @@ skillChecks:
     - - 90
       - Near Impossible
 scripts:
-  - data/game.nar
+  - data/game.narrat
 audio: {}
 audioOptions:
   volume: 0.5

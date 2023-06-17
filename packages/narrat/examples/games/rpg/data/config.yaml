@@ -28,7 +28,7 @@ skills: data/skills.yaml
 skillChecks: data/skillchecks.yaml
 characters: data/characters.yaml
 scripts:
-  - data/rpg.nar
+  - data/rpg.narrat
 audio: data/audio.yaml
 notifications:
   timeOnScreen: 2.5

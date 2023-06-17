@@ -6,7 +6,7 @@ description: This documentation page explains how to edit a narrat game
 
 There are two types of content to edit to make a narrat game:
 
-- Dialogue scripts: `.nar` files that contain the branching narrative of the game
+- Dialogue scripts: `.narrat` files that contain the branching narrative of the game
 - Config files: `.yaml` files that contain config data about the game
 
 ### Public folder
@@ -21,7 +21,7 @@ For advanced uses, it is also possible to change code itself or integrate plugin
 
 Narrat scripts are the main way a game is created. They contain the flow of the game and lines of dialogue.
 
-In the `public/data` folder of the game, there is an `example.nar` file (or named differently depending on which template you used). This is where the actual game dialogue is written. The example dialogue there shows how to use a few basic features, so you can easily start writing your own dialogue. Just above is a link to the example narrat script page to find more examples as needed.
+In the `public/data` folder of the game, there is an `example.narrat` file (or named differently depending on which template you used). This is where the actual game dialogue is written. The example dialogue there shows how to use a few basic features, so you can easily start writing your own dialogue. Just above is a link to the example narrat script page to find more examples as needed.
 
 {% hint style="warning" %}
 Narrat scripts are in a custom language nade for narrat, see the [Language Syntax](../scripting/language-syntax.md) page for more info.
@@ -40,7 +40,7 @@ See the page linked below for more details on how to write narrat scripts.
 
 The config file contains basic info about the game. In it are defined images, screens, buttons, musics, skill checks, items, quests and more.
 
-This is also where the script files used in game are listed. By default it only uses `data/example.nar` but any amount of scripts can be added to the list and they will all get loaded.
+This is also where the script files used in game are listed. By default it only uses `data/example.narrat` but any amount of scripts can be added to the list and they will all get loaded.
 
 More info about the config files in the [Config Files guide](config-files.md)
 

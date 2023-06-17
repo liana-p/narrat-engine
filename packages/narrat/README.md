@@ -14,7 +14,7 @@ Try the engine directly in your browser (experimental, only works on desktop):
 
 Or try editing the default narrat game easily:
 
-[![Try editing the default game](./docs/open-in-codeflow.svg)](https:///pr.new/github.com/liana-p/narrat-engine/edit/main/packages/narrat/examples/games/default/scripts/default.nar)
+[![Try editing the default game](./docs/open-in-codeflow.svg)](https:///pr.new/github.com/liana-p/narrat-engine/edit/main/packages/narrat/examples/games/default/scripts/default.narrat)
 
 With Codeflow you can test Narrat quickly without setting up an IDE
 

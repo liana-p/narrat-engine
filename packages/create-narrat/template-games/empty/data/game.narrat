@@ -1,0 +1,4 @@
+main:
+  "Hello world"
+  set_screen game 0 slide-top 1000
+  "(This game is empty so nothing will happen past this point. Open game.narrat to start editing)"
