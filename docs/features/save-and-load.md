@@ -114,7 +114,7 @@ Without the `reset_config_overrides` function running on game load to add the ap
 
 ::: details Why we can only save on label change
 
-We could save the dialog line number the player is at, but it would cause issues with game updates. Say the player is at line 53 of `some_script.nar`, but you update the game and the code changes. Suddenly line 53 refers to a completely different bit of dialogue.
+We could save the dialog line number the player is at, but it would cause issues with game updates. Say the player is at line 53 of `some_script.narrat`, but you update the game and the code changes. Suddenly line 53 refers to a completely different bit of dialogue.
 
 One solution could be to give every line of dialogue a unique identifier (which would also allow for localisation), but this would be very tedious for users and isn't planned at the moment.
 

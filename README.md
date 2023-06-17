@@ -14,7 +14,7 @@ Try the engine directly in your browser (experimental, only works on desktop):
 
 Or try editing the default narrat game easily:
 
-[![Try editing the default game](./docs/open-in-codeflow.svg)](https:///pr.new/github.com/liana-p/narrat-engine/edit/main/packages/narrat/examples/games/default/scripts/default.nar)
+[![Try editing the default game](./docs/open-in-codeflow.svg)](https:///pr.new/github.com/liana-p/narrat-engine/edit/main/packages/narrat/examples/games/default/scripts/default.narrat)
 
 With Codeflow you can test Narrat quickly without setting up an IDE
 
@@ -42,7 +42,7 @@ Narrat is written in [TypeScript](https://www.typescriptlang.org/). It uses the 
 
 `pnpm dev`
 
-This starts the engine on the demo page with the `example.nar` demo script loaded for testing.
+This starts the engine on the demo page with the `example.narrat` demo script loaded for testing.
 
 ### Developping narrat specifically
 
@@ -105,7 +105,7 @@ All stores can be accessed anywhere in the code with the `use` hooks (example: `
 
 The scripting language for narrat runs in a virtual machine which has its state stored in the Vue app with Pinia.
 
-The narrat scripting language relies on the parser and the vm. The code for the parser is mainly in [src/vm/vm-parser.ts](src/vm/vm-parser.ts). The parser is in charge of taking the `.nar` files as input, and returning a tree of parsed expressions that the engine can use.
+The narrat scripting language relies on the parser and the vm. The code for the parser is mainly in [src/vm/vm-parser.ts](src/vm/vm-parser.ts). The parser is in charge of taking the `.narrat` files as input, and returning a tree of parsed expressions that the engine can use.
 
 The actual VM is what runs narrat games, and generally controls the flow of the application. The general logic for the vm is in the `vm` store, but there is also some logic sprinkled in the `src/vm` file.
 

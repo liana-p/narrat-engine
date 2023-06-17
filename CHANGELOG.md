@@ -330,7 +330,7 @@ Example:
 clickableDuringScriptsByDefault: false
 ```
 
-```game.nar
+```game.narrat
 test_sprites_click:
 var sprite (create_sprite img/characters/cat_idle.webp 200 200)
 set sprite.onClick some_label

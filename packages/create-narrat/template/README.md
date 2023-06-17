@@ -40,7 +40,7 @@ This should work on Windows, Mac and Linux
 
 ## Changing game code
 
-You can edit game code and config in the data folder (`data/example.nar`).
+You can edit game code and config in the data folder (`data/example.narrat`).
 
 [See docs](https://docs.get-narrat.com) for more usage info
 

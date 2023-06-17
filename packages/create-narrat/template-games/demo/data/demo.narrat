@@ -17,7 +17,7 @@ askForHelp:
   set_screen narrat 0 slide-top 2000
   talk helper idle "Hello! I'm Bob the helper cat. I heard you're trying to play the narrat demo!"
   talk helper idle "<a href=\"https:\/\/get-narrat.com\" target=\"_blank\">Narrat</a> is a game engine for narrative games that is based on web technologies. You can make games with it that will run on browsers (desktop and mobile) and can be built for PC too!"
-  talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/liana-p\/narrat/tree/main/packages/narrat/examples\" target=\"_blank\">narrat examples folder</a>"
+  talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/liana-p\/narrat-engine/tree/main/packages/narrat/examples\" target=\"_blank\">narrat examples folder</a>"
   talk helper idle "If you want more info, you can look at the <a href=\"https:\/\/docs.get-narrat.com/guides/getting-started\" target=\"_blank\">Getting Started guide</a>"
   talk helper idle "But for now, this is the demo! I will show you the most common features of narrat and how they work in practice."
   talk helper idle "As you've probably noticed, you can make choices in narrat games. Player choices are the basic building blocks of a narrative game, as it's what makes it interactive!"
@@ -126,7 +126,7 @@ stats_2:
 saveLoad:
   talk helper idle "Narrat can save and load the game too. It is done automatically, so no need to worry about it."
   talk helper idle "The game gets saved whenever the script reaches a new label. Labels are different parts of the game script to organise the game."
-  talk helper idle "For example right now we're in the 'saveLoad' label of the script (you can look at it in the demo.nar file!). So the game just saved recently"
+  talk helper idle "For example right now we're in the 'saveLoad' label of the script (you can look at it in the demo.narrat file!). So the game just saved recently"
   talk helper idle "If you try using the menu button to go back to the main menu and reload the game, it will resume at the start of this label."
   jump showMap
 
