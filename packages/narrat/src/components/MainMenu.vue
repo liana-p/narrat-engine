@@ -7,17 +7,20 @@
       Main Menu
     </button>
     <button class="button title quit-button" @click="quit">Exit</button>
+    <SettingsMenu />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import VolumeControls from './volume-controls.vue';
+import SettingsMenu from './settings/settings-menu.vue';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
 
 export default defineComponent({
   components: {
     VolumeControls,
+    SettingsMenu,
   },
   data() {
     return {};

@@ -40,7 +40,7 @@ import { isPromise } from '@/utils/type-utils';
 import { useMenu } from './menu-store';
 import { useScreenObjects } from './screen-objects-store';
 import { useAchievements } from './achievements-store';
-import { useConfig } from './config-store';
+import { useSettings } from './settings-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -387,6 +387,8 @@ export const useMain = defineStore('main', {
       achievementsStore.reset(getAchievementsConfig().achievements);
       const questsStore = useQuests();
       questsStore.reset(questsConfig());
+      const settingsStore = useSettings();
+      settingsStore.reset(getConfig());
       useDialogStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
         if (store.reset) {
@@ -439,6 +441,7 @@ export const useMain = defineStore('main', {
         inventory: inventoryStore.generateSaveData(),
         quests: useQuests().generateSaveData(),
         metadata,
+        settings: useSettings().generateSaveData(),
         screenObjects: useScreenObjects().generateSaveData(),
       };
       vm.plugins.forEach((plugin) => {
@@ -488,6 +491,7 @@ export const useMain = defineStore('main', {
       hudStore.loadSaveData(save.hud);
       audioStore.loadSaveData(save.audio);
       inventoryStore.loadSaveData(save.inventory);
+      useSettings().loadSaveData(save.settings);
       // Load save data from potential custom stores
       useQuests().loadSaveData(save.quests);
       vm.plugins.forEach((plugin) => {
@@ -515,6 +519,7 @@ export const useMain = defineStore('main', {
         inventory: useInventory(),
         quests: useQuests(),
         sprites: useScreenObjects(),
+        settings: useSettings(),
       };
     },
     overrideStates(override: any) {

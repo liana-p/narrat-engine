@@ -81,6 +81,7 @@ const baseConfigKeys = [
   'saveFileName',
   'images',
   'layout',
+  'settings',
   'gameFlow',
   'dialogPanel',
   'splashScreens',

@@ -22,15 +22,14 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { getAssetUrl, getConfig, getItemConfig } from '@/config';
-import { useDialogStore } from '@/stores/dialog-store';
+import { getAssetUrl, getItemConfig } from '@/config';
 import { ItemState, useInventory } from '@/stores/inventory-store';
 import { computed } from 'vue';
 
 const props = defineProps<{
   item: ItemState;
 }>();
-const emit = defineEmits(['close', 'use']);
+defineEmits(['close', 'use']);
 
 const itemData = computed(() => {
   return getItemConfig(props.item.id);

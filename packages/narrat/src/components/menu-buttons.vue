@@ -31,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { useMain } from '../stores/main-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { vm } from '../vm/vm';
 import { useMenu } from '@/stores/menu-store';

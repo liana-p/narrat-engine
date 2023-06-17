@@ -101,6 +101,10 @@
   --achievement-tile-background: var(--tile-background);
   --achievement-tile-border-color: var(--tile-border-color);
   --achievement-description-color: rgb(170, 170, 170);
+
+  --separator-bg-color: rgba(250, 250, 250, 0.8);
+  --separator-height: 1px;
+  --separator-width: 100%;
 }
 body {
   font-family: var(--font-family);

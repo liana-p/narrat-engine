@@ -1,5 +1,7 @@
 import 'es6-promise/auto';
 import 'virtual:windi.css';
+import 'virtual:windi-devtools';
+
 import './css/main.css';
 
 import { Vue3Mq } from 'vue3-mq';

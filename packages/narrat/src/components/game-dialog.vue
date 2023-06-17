@@ -252,12 +252,6 @@ watch(dialog.value, (newValue) => {
   display: none; /* webkit */
 }
 
-.dialog-box {
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  /* border-top: 1px dashed rgba(255, 255, 255, 0.2);
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.2); */
-}
-
 .dialog * {
   overflow-anchor: none;
 }
