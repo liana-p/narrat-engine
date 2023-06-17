@@ -1,3 +1,9 @@
+# [2.16.0](https://github.com/liana-p/narrat-engine/compare/v2.15.0...v2.16.0) (2023-06-17)
+
+### Features
+
+- **saving:** new dynamic label to run on game load ([6c3cb8b](https://github.com/liana-p/narrat-engine/commit/6c3cb8bd2c9a9bc51999fa4caa8eb6652a46e2f1)). See [docs on how to use it](https://docs.get-narrat.com/features/save-and-load.html#run-a-function-on-game-load)
+
 # [2.15.0](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.3...v2.15.0) (2023-06-16)
 
 ### Features
