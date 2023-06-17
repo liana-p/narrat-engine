@@ -8,6 +8,7 @@ export const LayoutConfigSchema = Type.Object({
   dialogBottomPadding: Type.Union([Type.Number(), Type.String()]),
   minTextWidth: Type.Optional(Type.Number()),
   verticalLayoutThreshold: Type.Number(),
+  defaultFontSize: Type.Optional(Type.Number()),
   portraits: Type.Object({
     width: Type.Number(),
     height: Type.Number(),
@@ -38,6 +39,7 @@ export const defaultLayoutConfig: LayoutConfig = {
   },
   dialogBottomPadding: 70,
   verticalLayoutThreshold: 600,
+  defaultFontSize: 16,
   portraits: {
     width: 100,
     height: 100,

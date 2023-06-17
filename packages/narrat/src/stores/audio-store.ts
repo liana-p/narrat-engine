@@ -1,7 +1,7 @@
-import { audioConfig, getConfig } from '@/config';
+import { audioConfig } from '@/config';
 import { getAudio, stopHowlerById } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
-import { error, warning } from '@/utils/error-handling';
+import { error } from '@/utils/error-handling';
 import { timeout } from '@/utils/promises';
 import { generateObjectFromList } from '@/utils/type-utils';
 import { Howler } from 'howler';

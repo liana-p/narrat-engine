@@ -9,6 +9,7 @@ import { SkillsSave } from '@/stores/skills';
 import { ScreenObjectsStoreSave } from '@/stores/screen-objects-store';
 import { VMSave } from '@/stores/vm-store';
 import { AchievementsSave } from '@/stores/achievements-store';
+import { GameUserSettingsSave } from '@/stores/settings-store';
 
 export interface SaveSlot {
   slotType: 'manual' | 'auto';
@@ -30,6 +31,7 @@ export type GameSave = {
   quests: QuestLogSave;
   metadata: SaveSlotMetadata;
   screenObjects: ScreenObjectsStoreSave;
+  settings: GameUserSettingsSave;
 };
 
 export type GlobalGameSave = {

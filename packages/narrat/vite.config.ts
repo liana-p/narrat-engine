@@ -51,7 +51,7 @@ export default defineConfig(({ command }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    plugins: [vue(), WindiCSS()],
+    plugins: [WindiCSS(), vue()],
   };
   if (command !== 'build') {
     delete conf.build.lib;
@@ -63,6 +63,5 @@ export default defineConfig(({ command }) => {
     delete conf.build.cssCodeSplit;
     conf.build.outDir = `built-example/${exampleChoice}`;
   }
-  console.log(conf);
   return conf;
 });

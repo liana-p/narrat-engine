@@ -21,6 +21,7 @@ import { ScreensInputConfigSchema } from './screens-config';
 import { SkillsInputConfigSchema } from './skills-config';
 import { SkillChecksInputConfigSchema } from './skillchecks-config';
 import { TooltipsConfigSchema } from './tooltips-config';
+import { SettingsConfigSchema } from './settings-config';
 
 export const ConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
@@ -29,6 +30,7 @@ export const ConfigInputSchema = Type.Object({
   saveFileName: Type.String(),
   images: Type.Optional(Type.Record(Type.String(), Type.String())),
   layout: LayoutConfigSchema,
+  settings: Type.Optional(SettingsConfigSchema),
   gameFlow: Type.Optional(
     Type.Object({
       labelToJumpOnScriptEnd: Type.Optional(Type.String()),

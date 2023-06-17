@@ -30,6 +30,7 @@ import {
   SkillChecksConfig,
   defaultSkillChecksConfig,
 } from './skillchecks-config';
+import { SettingsConfig } from './settings-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -40,6 +41,7 @@ export interface Config {
     [key: string]: string;
   };
   layout: LayoutConfig;
+  settings: SettingsConfig;
   gameFlow: {
     labelToJumpOnScriptEnd?: string;
   };
@@ -72,6 +74,7 @@ export const defaultConfig = {
   saveFileName: 'narrat save',
   images: {},
   layout: defaultLayoutConfig,
+  settings: {},
   gameFlow: {},
   dialogPanel: {
     overlayMode: true,

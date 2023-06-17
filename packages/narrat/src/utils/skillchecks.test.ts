@@ -1,9 +1,8 @@
-import { test, expect, it, describe, vi } from 'vitest';
+import { expect, it, describe } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 import { mockConfig } from '@/tests/mock-config';
 import cloneDeep from 'clone-deep';
 import { useConfig } from '@/stores/config-store';
-import { error } from '@/utils/error-handling';
 import {
   SkillCheckOptionsConfig,
   SkillChecksConfig,

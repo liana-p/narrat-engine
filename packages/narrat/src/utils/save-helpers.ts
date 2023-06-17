@@ -8,7 +8,7 @@ import {
 } from '@/types/game-save';
 import { error, warning } from './error-handling';
 import { randomId } from './randomId';
-export const CURRENT_SAVE_VERSION = '1.5.0';
+export const CURRENT_SAVE_VERSION = '2.17.0';
 
 export function saveFileName(): string {
   return `NARRAT_SAVE_${getConfig().saveFileName}`;
@@ -77,7 +77,25 @@ function migrateSaveFile(saveFile: SaveFile) {
   if (saveFile.version === '1.4.0') {
     // Nothing to do
     saveFile.globalSave = defaultGlobalSave();
-    saveFile.version = CURRENT_SAVE_VERSION;
+    saveFile.version = '1.5.0';
+  }
+  if (saveFile.version === '1.5.0') {
+    // Switching to save versions that match engine version for clarity
+    saveFile.version = '2.16.0';
+  }
+  if (saveFile.version === '2.16.0') {
+    // The new settings feature was added
+    saveFile.slots.forEach((slot) => {
+      if (slot && slot.saveData) {
+        slot.saveData.settings = {
+          textSpeed: 30,
+          animateText: true,
+          fontSize: 16,
+          customSettings: {},
+        };
+      }
+    });
+    saveFile.version = '2.17.0';
   }
 }
 
