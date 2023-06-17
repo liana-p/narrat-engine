@@ -3,11 +3,15 @@ title: Troubleshooting
 description: This page describes troubleshooting steps for narrat issues
 ---
 
+# How to get help
+
+Please create a thread on the [help forum](https://narrat.discourse.group/c/help/5) with as much information as you can, including: Any logs if relevant, narrat version, browser used, description of the issue, and what you've attempted. You can also ask for help [on Discord](https://discord.gg/Xgz7EQ2Xgh) if it's a small thing, but the forum is preferred as it's easier to keep track of issues and other people who have the same issue will be able to find that thread in the future.
+
 # How to debug errors
 
 Most errors on startup come from the script compiler, which usually means there is a syntax error in your script. The error box will usually tell you what the error is, but sometimes unexpected errors can happen which don't have a helpful error message. This is where more advanced troubleshooting is needed.
 
-## Opening the browser developer toold
+## Opening the browser developer tools
 
 If you right click on the page and click "inspect" (on Chrome or Firefox), it will open the dev console. The usual shortcut for that is ctrl+shift+J.
 
@@ -29,9 +33,35 @@ Make sure this is the version you're expecting, and if you ask for help please i
 
 Sometimes errors can be caused by a file not loading (a typo in a path for example). Looking in the network tab of the dev tools (you might have to click reload) can help see if any assets are failing to load.
 
-## Errors when building or launching the game
+## Errors in the terminal when building the game
 
-f you get errors in the actual terminal when building the game, it means something is probably wrong with your local setup, and you should ask about those errors on the narrat discord (link on the [website](https://get-narrat.com/))
+If you get errors in the actual terminal when building the game, it means something is wrong with your local setup. Possible options:
+
+- Have you run `npm install`?
+- Try deleting the `node_modules` folder and running `npm install` again (this is where all the dependencies are installed).
+- `npm` warning about security can be ignored (see below)
+
+## Errors in the game itself or in the browser console
+
+Those errors happen when running the actual game and will appear directly in the game's screen, or sometimes only in the browser console
+
+If you see an error **when booting the game**, it likely means your narrat script files couldn't compile properly or your config has issues. The error message should help figure out which file is wrong. If not, you'll need to [ask for help](#how-to-get-help).
+
+If your error happens while playing through the game, then it's a runtime error where something went wrong. It can be an issue in your scripts that broke the game, or potentially a bug in the engine. Again, look for any helpful logs, and if lost, [ask for help](#how-to-get-help).
+
+Some examples:
+
+![config-error](./config-error.png)
+This type of error means that a value in your config is invalid. The error message should tell you which part of the config is invalid. You just need to fix the config to match the correct format. If unsure, ask for help and include your config
+
+![script-error](./script-error.png)
+This type of error means that there is a syntax error in your script. The error message should tell you which narrat file and specific line is wrong. Sometimes the error may not be on the exact same line as it can be caused by a mistake higher up in the file, but it should give you a general idea.
+
+A common reason for script mistakes is having an incorrect level of identation somewhere. Another one (as in this screenshot), is using a command with the wrong type or amounts of parameters.
+
+### Native JavaScript error
+
+Sometimes you might see an error in the console that refers to JavaScript code and may be harder to understand. This means that something unexpected errored in the engine and narrat doesn't have a specific error message for it. In this case, you can try to figure out what the error message is saying, or ask for help.
 
 ## Game not launching or missing images after creating a build with electron
 
