@@ -18,6 +18,15 @@ test_label_reload:
 set_config_overrides:
   set config.characters.characters.player.name $data.playerName
 
+long_label:
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus suscipit diam, vitae feugiat mi malesuada eget. Morbi eget leo volutpat"
+
 test_edit_config:
   set data.playerName (text_field "Enter your name")
   run set_config_overrides

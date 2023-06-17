@@ -6,17 +6,16 @@ images:
   map: img/backgrounds/map.webp
   shopButton: img/ui/shop-button.webp
   parkButton: img/ui/park-button.webp
-dialoguePanel:
+dialogPanel:
   textSpeed: 30
   animateText: true
   timeBetweenLines: 100
+  overlayMode: true
+  rightOffset: 100
+  bottomOffset: 50
+  width: 475
+  height: 680
 layout:
-  dialogPanel:
-    overlayMode: true
-    rightOffset: 100
-    bottomOffset: 50
-    width: 475
-    height: 680
   backgrounds:
     # Default was 880 x 720
     width: 1280

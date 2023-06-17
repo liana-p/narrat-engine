@@ -4,7 +4,7 @@
     :style="dialogBoxStyle"
     :class="dialogBoxClass"
   >
-    <div class="dialog-content">
+    <div class="dialog-content" v-on:click="dialogClick">
       <span
         class="dialog-title override"
         v-if="options.title"
@@ -166,6 +166,9 @@ export default defineComponent({
     skipping() {
       return useDialogStore().playMode === 'skip';
     },
+    autoPlay() {
+      return useDialogStore().playMode === 'auto';
+    },
     canInteract(): boolean {
       return (
         this.active &&
@@ -187,6 +190,11 @@ export default defineComponent({
     skipping(newValue, oldValue) {
       if (newValue && !oldValue) {
         this.startSkip();
+      }
+    },
+    autoPlay(newValue, oldValue) {
+      if (newValue && !oldValue) {
+        this.startAutoPlay();
       }
     },
   },
@@ -245,6 +253,13 @@ export default defineComponent({
         } else if (choice === 0) {
           // In some cases there are no "choices", so pressing space (0) just does the default action
           this.chooseOption(choice);
+        }
+      }
+    },
+    dialogClick() {
+      if (!this.canInteract) {
+        if (this.mounted && this.textAnimation) {
+          this.endTextAnimation({ pressedSpace: true });
         }
       }
     },
@@ -316,7 +331,7 @@ export default defineComponent({
         anim.timer = setInterval(() => {
           this.updateTextAnimation();
         }, 30);
-      } else if (useDialogStore().playMode !== 'auto' && this.isBasicChoice) {
+      } else if (this.isBasicChoice) {
         this.autoTimer = setTimeout(() => {
           this.endTextAnimation();
         }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * this.options.text.length);
@@ -331,6 +346,13 @@ export default defineComponent({
         } else {
           useDialogStore().toggleSkip();
           this.endTextAnimation({ unmounted: true });
+        }
+      }
+    },
+    startAutoPlay() {
+      if (useDialogStore().playMode === 'auto' && !this.options.old) {
+        if (this.isBasicChoice && this.canInteract) {
+          this.next();
         }
       }
     },
