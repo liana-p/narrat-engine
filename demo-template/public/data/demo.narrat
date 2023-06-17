@@ -16,9 +16,9 @@ askForHelp:
   talk player idle "Let's ask for help!"
   set_screen narrat 0 slide-top 2000
   talk helper idle "Hello! I'm Bob the helper cat. I heard you're trying to play the narrat demo!"
-  talk helper idle "<a href=\"https:\/\/get-narrat.com\" target=\"_blank\">Narrat</a> is a game engine for narrative games that is based on web technologies. You can make games with it that will run on browsers (desktop and mobile) and can be built for PC too!"
+  talk helper idle "<a href=\"https:\/\/narrat.dev\" target=\"_blank\">Narrat</a> is a game engine for narrative games that is based on web technologies. You can make games with it that will run on browsers (desktop and mobile) and can be built for PC too!"
   talk helper idle "You can view the source script for this demo in the <a href=\"https:\/\/github.com\/liana-p\/narrat/tree/main/packages/narrat/examples\" target=\"_blank\">narrat examples folder</a>"
-  talk helper idle "If you want more info, you can look at the <a href=\"https:\/\/docs.get-narrat.com/guides/getting-started\" target=\"_blank\">Getting Started guide</a>"
+  talk helper idle "If you want more info, you can look at the <a href=\"https:\/\/docs.narrat.dev/guides/getting-started\" target=\"_blank\">Getting Started guide</a>"
   talk helper idle "But for now, this is the demo! I will show you the most common features of narrat and how they work in practice."
   talk helper idle "As you've probably noticed, you can make choices in narrat games. Player choices are the basic building blocks of a narrative game, as it's what makes it interactive!"
   talk helper idle "There are lots of things you can do to make an interactive story in Narrat really. Choices are only one of the many features."

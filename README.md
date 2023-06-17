@@ -6,7 +6,7 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 
 ## Getting Started
 
-Go to the [Getting Started Guide](https://docs.get-narrat.com/guides/getting-started.html).
+Go to the [Getting Started Guide](https://docs.narrat.dev/guides/getting-started.html).
 
 Try the engine directly in your browser (experimental, only works on desktop):
 
@@ -18,7 +18,7 @@ Or try editing the default narrat game easily:
 
 With Codeflow you can test Narrat quickly without setting up an IDE
 
-More info on the [narrat website](https://get-narrat.com). There is an [online demo](https://get-narrat.com/demo/) available to try in the browser.
+More info on the [narrat website](https://narrat.dev). There is an [online demo](https://narrat.dev/demo/) available to try in the browser.
 
 ## Development (for contributors)
 
@@ -78,7 +78,7 @@ Please make sure your code passes lint/tests/build/type checks before opening a 
 
 ### Working on the code
 
-The narrat codebase isn't currently documented, outside of the [usage docs](https://docs.get-narrat.com). The code is fully written in TypeScript though and should be clearly separated enough to be approachable.
+The narrat codebase isn't currently documented, outside of the [usage docs](https://docs.narrat.dev). The code is fully written in TypeScript though and should be clearly separated enough to be approachable.
 
 ### Engine architecture
 

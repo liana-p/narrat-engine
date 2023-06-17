@@ -2,7 +2,7 @@
 
 ### Features
 
-- **saving:** new dynamic label to run on game load ([6c3cb8b](https://github.com/liana-p/narrat-engine/commit/6c3cb8bd2c9a9bc51999fa4caa8eb6652a46e2f1)). See [docs on how to use it](https://docs.get-narrat.com/features/save-and-load.html#run-a-function-on-game-load)
+- **saving:** new dynamic label to run on game load ([6c3cb8b](https://github.com/liana-p/narrat-engine/commit/6c3cb8bd2c9a9bc51999fa4caa8eb6652a46e2f1)). See [docs on how to use it](https://docs.narrat.dev/features/save-and-load.html#run-a-function-on-game-load)
 
 # [2.15.0](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.3...v2.15.0) (2023-06-16)
 
@@ -12,7 +12,7 @@
 
 ### BREAKING CHANGES
 
-- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.get-narrat.com/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
+- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.narrat.dev/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
 
 The new needed file should be listed in `config.yaml` as such:
 
@@ -20,7 +20,7 @@ The new needed file should be listed in `config.yaml` as such:
 skillChecks: data/skillchecks.yaml
 ```
 
-Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.com/features/skills.html#skill-checks).
+Then `skillChecks.yaml` should contain [valid config](https://docs.narrat.dev/features/skills.html#skill-checks).
 
 # [2.15.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v2.15.0-alpha.2...v2.15.0-alpha.3) (2023-06-15)
 
@@ -38,7 +38,7 @@ Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.co
 
 ### BREAKING CHANGES
 
-- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.get-narrat.com/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
+- The new skill check format requires creating a new skillChecks.yaml file, see https://docs.narrat.dev/features/skills.html#skill-checks and https://narrat.discourse.group/t/proposal-for-dice-based-skill-checks/24/8?u=liana for background info.
 
 The new needed file should be listed in `config.yaml` as such:
 
@@ -46,7 +46,7 @@ The new needed file should be listed in `config.yaml` as such:
 skillChecks: data/skillchecks.yaml
 ```
 
-Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.com/features/skills.html#skill-checks).
+Then `skillChecks.yaml` should contain [valid config](https://docs.narrat.dev/features/skills.html#skill-checks).
 
 # [2.15.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.14.3...v2.15.0-alpha.1) (2023-06-14)
 
@@ -131,7 +131,7 @@ Then `skillChecks.yaml` should contain [valid config](https://docs.get-narrat.co
 
 See the new achievements feature:
 
-https://docs.get-narrat.com/features/achievements.html
+https://docs.narrat.dev/features/achievements.html
 
 ### Bug Fixes
 
@@ -151,7 +151,7 @@ https://docs.get-narrat.com/features/achievements.html
 
 ## Breaking Changes
 
-- There is a new `saveFileName` string property that must be added to the `config.yaml` file. More info in the [saving and loading docs](https://docs.get-narrat.com/features/save-and-load.html#saving-and-reloading-1).
+- There is a new `saveFileName` string property that must be added to the `config.yaml` file. More info in the [saving and loading docs](https://docs.narrat.dev/features/save-and-load.html#saving-and-reloading-1).
 
 # Narrat changelog
 
@@ -159,7 +159,7 @@ https://docs.get-narrat.com/features/achievements.html
 
 ## Achievements
 
-See [achievements docs](https://docs.get-narrat.com/features/achievements.html)
+See [achievements docs](https://docs.narrat.dev/features/achievements.html)
 
 ## Global Save Data
 
@@ -256,7 +256,7 @@ Tooltips now work inside the text of sprites in the viewport
 
 New plugin API to add custom buttons to the start menu additionally to the basic ones.
 
-See [Custom start menu buttons docs](https://docs2.get-narrat.com/guides/custom-start-buttons)
+See [Custom start menu buttons docs](https://docs2.narrat.dev/guides/custom-start-buttons)
 
 ## [2.10.2] - Sprites nesting fix
 
@@ -379,7 +379,7 @@ splice $data.deck $index_to_delete 1
 
 ## [2.9.2] - Time commands
 
-New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.get-narrat.com/commandsall-commands#time-commands)
+New commands for getting and manipulating time, including reading total play time and session time. See [time functions docs](https://docs.narrat.dev/commandsall-commands#time-commands)
 
 Fix: There was an issue when using the sprite `onClick` feature
 
@@ -454,7 +454,7 @@ New array syntax! It is now possible to create arrays, and to dynamically access
 
 See the [tweet explaining the feature](https://twitter.com/NarratEngine/status/1575809637277761542) or the [other tweet showing another example](https://twitter.com/NarratEngine/status/1575809637277761542).
 
-There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.get-narrat.com/commandsall-commands) docs page.
+There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.narrat.dev/commandsall-commands) docs page.
 
 ### Quest categories
 
@@ -1143,7 +1143,7 @@ The narrat template is now retired in favor of this new tools, and there are now
 
 ### Transitions feature
 
-See [Transitions](https://docs.get-narrat.com/features/transitions) docs for more info
+See [Transitions](https://docs.narrat.dev/features/transitions) docs for more info
 
 ## 2.2.10
 
@@ -1501,7 +1501,7 @@ Narrat 1.x has been deprecated and moved to the `v1-latest` tag on npm.
 
 To install old v 1.x for legacy games, use `npm install narrat@v1-latest` instead of just `npm install narrat`
 
-To know more about how to update a game to 2.x, see the [narrat 2.0.0 docs](https://docs.get-narrat.com/readme/narrat-2.0)
+To know more about how to update a game to 2.x, see the [narrat 2.0.0 docs](https://docs.narrat.dev/readme/narrat-2.0)
 
 ## 2.0.0-rc4
 
@@ -1696,7 +1696,7 @@ Keys are event names, and values are the id of an audio you've defined in the co
 
 1.x branch is now deprecated as 2.x is being pushed to main.
 
-See [Narrat 2.0 update](https://docs.get-narrat.com/readme/narrat-2.0) docs for more info on how to update to 2.x
+See [Narrat 2.0 update](https://docs.narrat.dev/readme/narrat-2.0) docs for more info on how to update to 2.x
 
 The main breaking change is the syntax for $if has changed, and also a CSS file needs to be imported in the game's `index.ts`:
 
@@ -1747,7 +1747,7 @@ Config:
   }
 ```
 
-The `onUse` `action` property can be either `jump` or `run`, allowing to either jump to a script, or run a script as a function (see [1.3.0 changes](#1.3.0) or [functions docs](https://docs.get-narrat.com/features/functions)), which effectively allows interrupting the current dialogue to run an item's function before going back to it.
+The `onUse` `action` property can be either `jump` or `run`, allowing to either jump to a script, or run a script as a function (see [1.3.0 changes](#1.3.0) or [functions docs](https://docs.narrat.dev/features/functions)), which effectively allows interrupting the current dialogue to run an item's function before going back to it.
 
 The `tag` property on an item data sets which interaction group it is part of. This allows fine control of which items can be allowed to be used when. For example, some items might be available to use all the time, while some should only be allowed to be used at certain points.
 

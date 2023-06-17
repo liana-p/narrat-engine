@@ -8,7 +8,7 @@ This guide contains an overview of how this repo works and how to get started ma
 
 Narrat is a game engine for making interactive narrative RPGs packed with features like fully fledged scripting language with branching choices, skills system, inventory, quests and more.
 
-To know more about how narrat is used, go to [docs.get-narrat.com](https://docs.get-narrat.com/).
+To know more about how narrat is used, go to [docs.narrat.dev](https://docs.narrat.dev/).
 
 ## How to contribute
 

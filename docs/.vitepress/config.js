@@ -11,7 +11,7 @@ const config = {
     socialLinks: [
       { icon: 'github', link: 'https://github.com/liana-p/narrat-engine' },
       { icon: 'twitter', link: 'https://twitter.com/NarratEngine' },
-      { icon: 'website', link: 'https://get-narrat.com' },
+      { icon: 'website', link: 'https://narrat.dev' },
     ],
     sidebar: [
       {
@@ -109,7 +109,7 @@ const config = {
       {
         text: 'Version',
         items: [
-          { text: 'Current Version', link: 'https://docs.get-narrat.com' },
+          { text: 'Current Version', link: 'https://docs.narrat.dev' },
           {
             text: 'v2.12.0',
             link: 'https://2-12-0--ornate-pie-561978.netlify.app/',

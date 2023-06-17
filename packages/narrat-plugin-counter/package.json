@@ -14,7 +14,7 @@
     "node": ">=16"
   },
   "type": "module",
-  "homepage": "https://get-narrat.com",
+  "homepage": "https://narrat.dev",
   "scripts": {
     "dev": "vite",
     "generate-types": "vue-tsc --emitDeclarationOnly --outDir dist && pnpm run fix-type-aliases",

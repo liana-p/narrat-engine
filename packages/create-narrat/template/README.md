@@ -36,13 +36,13 @@ This should work on Windows, Mac and Linux
 
 ## Narrat documentation
 
-[See docs](https://docs.get-narrat.com)
+[See docs](https://docs.narrat.dev)
 
 ## Changing game code
 
 You can edit game code and config in the data folder (`data/example.narrat`).
 
-[See docs](https://docs.get-narrat.com) for more usage info
+[See docs](https://docs.narrat.dev) for more usage info
 
 ## Available Scripts
 

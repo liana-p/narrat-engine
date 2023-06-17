@@ -17,7 +17,7 @@ export class StartButtonsPlugin extends NarratPlugin {
     {
       id: 'test1',
       text: 'Test 1',
-      action: () => window.open('https://get-narrat.com')
+      action: () => window.open('https://narrat.dev')
     },
     {
       id: 'test2',
