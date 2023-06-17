@@ -12,6 +12,7 @@ export const SkillCheckOptionsConfigSchema = Type.Object({
   showDifficultyWithoutModifiers: Type.Boolean(),
   finalRollIsHighest: Type.Optional(Type.Boolean()),
   finalRollIsLowest: Type.Optional(Type.Boolean()),
+  failOnRollsEqualToThreshold: Type.Optional(Type.Boolean()),
 });
 
 export type SkillCheckOptionsConfig = Static<

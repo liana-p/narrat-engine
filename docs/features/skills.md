@@ -88,6 +88,7 @@ options:
   showDifficultyWithoutModifiers: false # Whether to show the original difficulty without modifiers applied on the skill check
   totalRollIsHighest: false # Uses only the highest roll to do the final skill check comparison, instead of adding up all rolls
   totalRollIsLowest: false # Uses only the lowest roll to do the final skill check comparison, instead of adding up all rolls
+  failOnRollsEqualToThreshold: false # [OPTIONAL, default true]: If this option is on, rolls will fail if they're equal to the score to beat. Otherwise they will succeed. This effectively makes it use `>` instead of `>=` for the comparison.
   difficultyText: # Text to show for each band of difficulty level
     - [2, 'Very Easy']
     - [4, 'Easy']

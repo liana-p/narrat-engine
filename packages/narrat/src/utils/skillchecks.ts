@@ -208,12 +208,12 @@ export function resolveSkillCheck(params: SkillCheckParams): boolean {
 
 export function checkIfRollSucceeded(roll: number, value: number) {
   const { options } = skillChecksConfig();
-  let success = true;
-  if (roll < value) {
-    success = false;
-  }
+  let success = roll >= value;
   if (options.successOnRollsBelowThreshold) {
-    success = !success;
+    success = roll <= value;
+  }
+  if (options.failOnRollsEqualToThreshold && roll === value) {
+    success = false;
   }
   return success;
 }
