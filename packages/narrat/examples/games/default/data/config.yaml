@@ -37,6 +37,7 @@ layout:
 saves:
   mode: manual
   slots: 10
+  runOnReload: 'test_label_reload'
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml

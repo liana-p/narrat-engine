@@ -4,7 +4,7 @@
 
 **Important:** The `saveFileName` key in the `config.yaml` file is the name of the save file, and if this value is changed old saves will stop working. Once you have chosen a save file name for a game, do not change it in the future. The name you use should contain the name of your game to avoid clashes with other games
 
-### How saving works
+## How saving works
 
 Narrat supports automatic saving and reloading, but there are some important details worth knowing about.
 
@@ -18,7 +18,7 @@ How saves works:
 Because there is no way to identify which specific line of dialogue the player is on, **saving only saves the last label the player started,** not the exact line they reached
 :::
 
-### Save Slots
+## Save Slots
 
 A save slot is an individual save file. Each game can have any amount of save slots. There are two different ways save slots are managed, depending on how the game is configured:
 
@@ -37,7 +37,7 @@ saves:
 If using `manual` mode, you should give the player a chance to create manual saves sometimes, as there is only one autosave which can get overwritten by starting a new game
 :::
 
-### Manual saving
+## Manual saving
 
 To let the player save manually, there are two commands:
 
@@ -63,6 +63,52 @@ main:
 Every time a new game is started, this script will increase the global counter despite it being a new save.
 
 To reset global save data, use the `reset_global_save` command.
+
+## Run a function on game load
+
+Sometimes, you might need your game to edit data that can't be saved. For example games can dynamically change the config after starting. A common example would be changing the player's name:
+
+```
+test_edit_config:
+  set data.playerName (text_field "Enter your name")
+  set config.characters.characters.player.name $data.playerName
+```
+
+This works fine, but if you reload the game, the player's name will be reset to its default as the game config gets loaded by the engine.
+
+To be able to reapply your dynamic changes on every game reload, or to perform any task you want to perform when the player comes back after loading the game, you can use the `runOnReload` config key:
+
+```config.yaml
+saves:
+  mode: manual
+  slots: 10
+  runOnReload: "game_reload"
+```
+
+Then for example in the game code:
+
+```
+main:
+  jump ask_player_name
+
+reset_config_overrides:
+  set config.characters.characters.player.name $data.playerName
+
+ask_player_name:
+  set data.playerName (text_field "Enter your name")
+  run reset_config_overrides
+  run verify_edit_config
+
+verify_edit_config:
+  talk player idle "It's me, %{$config.characters.characters.player.name}"
+
+game_reload:
+  run set_config_overrides
+  talk helper idle "The game reloaded, welcome back %{$config.characters.characters.player.name}"
+  talk player idle "Wow it's me, and my name is still here!"
+```
+
+Without the `reset_config_overrides` function running on game load to add the appropriate values to the config, the player name in the config would still be its default value when reloading a save.
 
 ### The problem with saving a specific line
 
