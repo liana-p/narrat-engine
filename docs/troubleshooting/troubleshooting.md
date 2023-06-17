@@ -17,6 +17,14 @@ If you right click on the page and click "inspect" (on Chrome or Firefox), it wi
 
 The `console` part of the devtools is where errors will appear. It can help find hints about issues. If the errors you find are obscure javascript error and don't help you, you can try asking for help in the narrat discord, preferably with screenshots or copy paste of all error messages you found.
 
+## Check which version of narrat is running
+
+Near the top of the logs in the browser console should be a log indicating which specific version of narrat is running and when it was built.
+
+Make sure this is the version you're expecting, and if you ask for help please include this information.
+
+![narrat version screenshot](./version.png)
+
 ### The network tab
 
 Sometimes errors can be caused by a file not loading (a typo in a path for example). Looking in the network tab of the dev tools (you might have to click reload) can help see if any assets are failing to load.
