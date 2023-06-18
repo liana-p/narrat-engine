@@ -18,7 +18,8 @@ This one minute video shows the entire setup from start to having the game runni
 
 ### Prerequisites
 
-- Have [node.js ](https://nodejs.org/en/)16 or above installed (LTS version is fine)
+- Be on a computer running Windows, MacOS or Linux
+- Have [node.js ](https://nodejs.org/en/) 16+ installed (pick the current LTS version on the website)
 
 ### Creating the game project
 
