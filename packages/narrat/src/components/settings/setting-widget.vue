@@ -45,13 +45,13 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { useSettings } from '../../stores/settings-store';
+import { useSettings } from '@/stores/settings-store';
 import {
   isSettingNumber,
   isSettingBoolean,
   isSettingInteger,
   isSettingString,
-} from '../../config/settings-config';
+} from '@/config/settings-config';
 export interface SettingWidgetProps {
   settingId: string;
 }
@@ -78,6 +78,9 @@ watch(settingValue, (newValue: any) => {
 });
 </script>
 <style>
+.yellow {
+  background-color: yellow;
+}
 .setting-label {
   /* margin: 5px 20px; */
   margin-right: 10px;
