@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSettings } from '../../stores/settings-store';
+import { useSettings } from '@/stores/settings-store';
 import SettingWidget from './setting-widget.vue';
 
 const settings = useSettings();

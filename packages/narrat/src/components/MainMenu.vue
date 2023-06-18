@@ -10,43 +10,34 @@
     <SettingsMenu />
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import VolumeControls from './volume-controls.vue';
 import SettingsMenu from './settings/settings-menu.vue';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
 
-export default defineComponent({
-  components: {
-    VolumeControls,
-    SettingsMenu,
-  },
-  data() {
-    return {};
-  },
-  mounted() {},
-  methods: {
-    quit() {
-      window.close();
-      // quit
-    },
-    mainMenu() {
-      useMain().menuReturn();
-      this.closeMenu();
-    },
-    closeMenu() {
-      this.$emit('close');
-    },
-    getPlayTimeString(): string {
-      const time = getPlayTime(
-        useMain().playTime.start,
-        useMain().playTime.previousPlaytime,
-      );
-      return toHHMMSS(time / 1000);
-    },
-  },
-});
+const emit = defineEmits(['close']);
+function quit() {
+  window.close();
+  // quit
+}
+
+function mainMenu() {
+  useMain().menuReturn();
+  closeMenu();
+}
+
+function closeMenu() {
+  emit('close');
+}
+
+function getPlayTimeString(): string {
+  const time = getPlayTime(
+    useMain().playTime.start,
+    useMain().playTime.previousPlaytime,
+  );
+  return toHHMMSS(time / 1000);
+}
 </script>
 
 <style>
