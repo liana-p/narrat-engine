@@ -1,4 +1,4 @@
-# [2.17.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.16.0...v2.17.0-alpha.1) (2023-06-21)
+# [2.17.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0-alpha.1...v2.17.0) (2023-06-21)
 
 ### Features
 
