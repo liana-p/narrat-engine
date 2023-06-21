@@ -8,9 +8,15 @@ const config = {
     editLink: {
       pattern: 'https://github.com/liana-p/narrat-engine/edit/main/docs/:path',
     },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2021-present Liana Pigeot',
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/liana-p/narrat-engine' },
       { icon: 'twitter', link: 'https://twitter.com/NarratEngine' },
+      { icon: 'mastodon', link: 'https://mastodon.gamedev.place/@narrat' },
+      { icon: 'discord', link: 'https://discord.gg/Xgz7EQ2Xgh' },
       { icon: 'website', link: 'https://narrat.dev' },
     ],
     sidebar: [
@@ -119,8 +125,9 @@ const config = {
       },
     ],
   },
-  title: 'Narrat Docs',
-  description: 'Narrat documentation website.',
+  title: 'Narrat Documentation',
+  description:
+    'Documentation for the narrat game engine for narrative RPGs and interactive fiction or visual novels.',
   lastUpdated: true,
   markdown: {
     lineNumbers: true,
