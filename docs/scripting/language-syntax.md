@@ -52,7 +52,7 @@ Here the command operator keyword is `talk`, so the engine will run the talk fun
 
 :::
 
-### Commands <a href="#expressions" id="expressions"></a>
+### Commands
 
 All lines of script in narrat are commands. A command is created by typing the name of the command, followed with arguments separated by spaces. Commands are also effectively expressions, they simply don't have parenthesis around them to be easier to write.
 
@@ -63,7 +63,7 @@ main:
   talk player idle "Hello!" // This is the "talk" command
 ```
 
-### Expressions <a href="#expressions" id="expressions"></a>
+### Expressions
 
 An expression is any command between parenthesis. Any command in the game can be used as an expression, if it returns a value. For example `(+ 2 3)` is an expression that would get evaluated to `5`. (command `+` with arguments 2 and 3)
 
