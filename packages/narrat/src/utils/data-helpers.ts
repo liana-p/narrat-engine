@@ -7,6 +7,7 @@ import { useSkills } from '@/stores/skills';
 import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
 import { error } from './error-handling';
+import { useSettings } from '@/stores/settings-store';
 
 export function newFindDataHelper<T>(
   baseState: any,
@@ -228,6 +229,8 @@ export function getModifiableDataPinia() {
     scope,
     config: getConfig(),
     gameOptions: useMain().options,
+    baseSettings: useSettings().baseSettings,
+    customSettings: useSettings().customSettings,
   };
   const proxy = new Proxy(state, {
     get: (target, prop, receiver) => {

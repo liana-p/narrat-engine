@@ -21,7 +21,7 @@ settings:
       name: Player Name
       type: string
       defaultValue: Someone
-      description: The name of the player.
+      description: The name of the player. (not actually used, this is just to test custom settings)
 layout:
   backgrounds:
     # Default was 880 x 720

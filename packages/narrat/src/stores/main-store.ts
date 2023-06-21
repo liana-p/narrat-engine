@@ -149,6 +149,7 @@ export const useMain = defineStore('main', {
           }
         }
       }
+      vm.addCustomSettings();
       this.resetAllStores();
     },
     async engineLoading() {

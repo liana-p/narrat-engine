@@ -4,6 +4,7 @@ import type { CommandRunner } from '../vm/commands/command-plugin';
 import { vm } from '../vm/vm';
 import { StoreDefinition } from 'pinia';
 import { MenuState, MenuTabState } from '@/stores/menu-store';
+import { CustomSetting } from '@/config/settings-config';
 
 export type NarratLifecycleHook = <T extends [...any[]]>(...args: T) => void;
 
@@ -51,6 +52,7 @@ export type NarratPluginObject<T> = {
   customMenuButtons?: CustomMenuButton[];
   customMenuTabs?: CustomMenuTab[];
   startMenuButtons?: CustomStartMenuButton[];
+  customSettings?: Record<string, CustomSetting>;
   save?: () => any;
   load?: (data: any) => void;
   reset?: () => void;
