@@ -1,7 +1,8 @@
 import { Config } from '@/config/config-output';
 import { CustomSetting } from '@/config/settings-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
-import { error, useConfig } from '@/lib';
+import { useConfig } from '@/stores/config-store';
+import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 import { defineStore } from 'pinia';
 
