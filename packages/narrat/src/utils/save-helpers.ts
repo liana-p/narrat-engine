@@ -88,9 +88,11 @@ function migrateSaveFile(saveFile: SaveFile) {
     saveFile.slots.forEach((slot) => {
       if (slot && slot.saveData) {
         slot.saveData.settings = {
-          textSpeed: 30,
-          animateText: true,
-          fontSize: 16,
+          baseSettings: {
+            textSpeed: 30,
+            animateText: true,
+            fontSize: 16,
+          },
           customSettings: {},
         };
       }
