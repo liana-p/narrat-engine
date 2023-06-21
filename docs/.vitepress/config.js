@@ -52,6 +52,7 @@ const config = {
           { text: 'Skills', link: '/features/skills' },
           { text: 'Transitions', link: '/features/transitions' },
           { text: 'Viewport', link: '/features/viewport' },
+          { text: 'Game Settings', link: '/features/game-settings' },
         ],
       },
       {
