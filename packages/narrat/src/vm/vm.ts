@@ -17,6 +17,7 @@ import {
 import { processText, stringRegex } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { Pinia, Store } from 'pinia';
+import { useSettings } from '@/stores/settings-store';
 
 export class VM {
   plugins: NarratPluginObject<any>[] = [];
@@ -58,6 +59,16 @@ export class VM {
       }
     }
     return result;
+  }
+
+  addCustomSettings() {
+    for (const plugin of this.plugins) {
+      if (plugin.customSettings) {
+        for (const key in plugin.customSettings) {
+          useSettings().addCustomSetting(key, plugin.customSettings[key]);
+        }
+      }
+    }
   }
 }
 

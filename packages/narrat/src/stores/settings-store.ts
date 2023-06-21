@@ -1,14 +1,17 @@
 import { Config } from '@/config/config-output';
 import { CustomSetting } from '@/config/settings-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
-import { error } from '@/lib';
+import { error, useConfig } from '@/lib';
 import { deepCopy } from '@/utils/data-helpers';
 import { defineStore } from 'pinia';
 
 export interface GameUserSettings {
-  textSpeed: number;
-  animateText: boolean;
-  fontSize: number;
+  baseSettings: {
+    [key: string]: any;
+    textSpeed: number;
+    animateText: boolean;
+    fontSize: number;
+  };
   customSettings: {
     [key: string]: any;
   };
@@ -27,9 +30,11 @@ export type GameUserSettingsSave = Omit<
 export const useSettings = defineStore('settings', {
   state: () =>
     ({
-      textSpeed: 30,
-      animateText: true,
-      fontSize: 16,
+      baseSettings: {
+        textSpeed: 30,
+        animateText: true,
+        fontSize: 16,
+      },
       settingsSchema: {
         textSpeed: {
           type: 'number',
@@ -65,8 +70,8 @@ export const useSettings = defineStore('settings', {
       this.setupSettings(config);
     },
     getSetting(key: string) {
-      if (typeof (this as any)[key] !== 'undefined') {
-        return (this as any)[key];
+      if (typeof this.baseSettings[key] !== 'undefined') {
+        return this.baseSettings[key];
       } else if (typeof this.customSettings[key] !== 'undefined') {
         return this.customSettings[key];
       }
@@ -88,8 +93,8 @@ export const useSettings = defineStore('settings', {
       };
     },
     setSetting(key: string, value: any) {
-      if (typeof (this as any)[key] !== 'undefined') {
-        (this as any)[key] = value;
+      if (typeof this.baseSettings[key] !== 'undefined') {
+        this.baseSettings[key] = value;
       } else if (typeof this.customSettings[key] !== 'undefined') {
         this.customSettings[key] = value;
       } else {
@@ -98,11 +103,20 @@ export const useSettings = defineStore('settings', {
       if (key === 'fontSize') {
         document.documentElement.style.setProperty('font-size', `${value}px`);
       }
+      if (key === 'textSpeed') {
+        useConfig().config.dialogPanel.textSpeed = value;
+      }
+      if (key === 'animateText') {
+        useConfig().config.dialogPanel.animateText = value;
+      }
     },
     setupSettings(config: Config) {
-      this.textSpeed = config.dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED;
-      this.animateText = config.dialogPanel.animateText ?? true;
-      this.fontSize = config.layout.defaultFontSize ?? 16;
+      this.setSetting(
+        'textSpeed',
+        config.dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED,
+      );
+      this.setSetting('animateText', config.dialogPanel.animateText ?? true);
+      this.setSetting('fontSize', config.layout.defaultFontSize ?? 16);
       if (config.settings?.customSettings) {
         for (const key in config.settings.customSettings) {
           this.addCustomSetting(key, config.settings.customSettings[key]);
@@ -115,17 +129,19 @@ export const useSettings = defineStore('settings', {
     },
     generateSaveData(): GameUserSettingsSave {
       return {
-        textSpeed: this.textSpeed,
-        animateText: this.animateText,
-        fontSize: this.fontSize,
+        baseSettings: deepCopy(this.baseSettings),
         customSettings: deepCopy(this.customSettings),
       };
     },
     loadSaveData(data: GameUserSettingsSave) {
-      this.textSpeed = data.textSpeed;
-      this.animateText = data.animateText;
-      this.fontSize = data.fontSize;
-      this.customSettings = data.customSettings;
+      for (const key in data.baseSettings) {
+        this.setSetting(key, data.baseSettings[key]);
+      }
+      for (const key in data.customSettings) {
+        if (typeof this.customSettings[key] !== 'undefined') {
+          this.setSetting(key, data.customSettings[key]);
+        }
+      }
     },
   },
 });

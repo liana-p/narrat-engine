@@ -133,6 +133,7 @@ import {
   hasAchievementPlugin,
   unlockAchievement,
 } from './achievements-commands';
+import { getSettingPlugin, setSettingPlugin } from './settings-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -291,4 +292,8 @@ export function registerBaseCommands(vm: VM) {
   // Achievements
   vm.addCommand(unlockAchievement);
   vm.addCommand(hasAchievementPlugin);
+
+  // Settings
+  vm.addCommand(setSettingPlugin);
+  vm.addCommand(getSettingPlugin);
 }

@@ -10,6 +10,14 @@ main:
   // talk player idle "Global counter is %{$global.counter}"
   jump quest_demo
 
+test_custom_settings:
+  "Hello, %{$customSettings.playerName}"
+  set data.name (get_setting playerName)
+  "Test, %{$data.name}"
+  set_setting playerName "tester"
+  set data.name (get_setting playerName)
+  "Test, %{$data.name}"
+
 test_label_reload:
   run set_config_overrides
   "Game reloaded"
