@@ -1,3 +1,7 @@
+# Vitepress
+
+docs/.vitepress/cache/
+
 # Narrat template local testing files so they're not included in releases
 dist/
 out/
