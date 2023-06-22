@@ -3,6 +3,20 @@
  */
 const config = {
   ignoreDeadLinks: true,
+  head: [
+    [
+      'script',
+      {
+        async: true,
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-1LLT0JWVV5',
+      },
+    ],
+    [
+      'script',
+      {},
+      "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-1LLT0JWVV5');",
+    ],
+  ],
   themeConfig: {
     search: {
       provider: 'local',
