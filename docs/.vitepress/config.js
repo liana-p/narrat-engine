@@ -101,7 +101,7 @@ const config = {
         items: [],
       },
     ],
-    logo: 'logo.svg',
+    logo: '/logo.svg',
     nav: [
       { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
       { text: 'Get Started', link: '/guides/getting-started' },
