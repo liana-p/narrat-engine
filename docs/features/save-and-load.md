@@ -78,11 +78,11 @@ This works fine, but if you reload the game, the player's name will be reset to 
 
 To be able to reapply your dynamic changes on every game reload, or to perform any task you want to perform when the player comes back after loading the game, you can use the `runOnReload` config key:
 
-```config.yaml
+```yaml
 saves:
   mode: manual
   slots: 10
-  runOnReload: "game_reload"
+  runOnReload: 'game_reload'
 ```
 
 Then for example in the game code:

@@ -17,7 +17,7 @@ Copy the content of one of the [example games](https://github.com/liana-p/narrat
 
 Then in your javascript code to launch narrat, use:
 
-```text
+```
 import { startApp } from 'narrat';
 // Call `startApp` to run the game, passing the path to your config file and characters file.
 startApp({
