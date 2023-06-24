@@ -1,10 +1,24 @@
+# [3.0.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v3.0.0) (2023-06-24)
+
+### Features
+
+#### Hot Module Reloading
+
+- Hot module reloading via vite plugin ([#86](https://github.com/liana-p/narrat-engine/issues/86)) ([c700d67](https://github.com/liana-p/narrat-engine/commit/c700d67e7ba520a46923e77187a80ea42f15be72)).
+
+This new feature treats `.narrat` as script files, which allows the development server to [hot reload](https://vitejs.dev/guide/features.html#hot-module-replacement) them.
+
+This means that narrat scripts can be edited while playing a game, and when a file is saved the changes will be picked up live, without having to restart the game.
+
+When a narrat file is hot-reloaded, all the labels in it are updated. The next time the game jumps to any of those labels, they will have the new version.
+
+This should increase productivity by allowing people to make changes in the middle of a playthrough without needing to restart.
+
+To make this change happen, the default structure of projects has changed. Narrat files are instead imported and listed in `src/scripts.ts`. The game template has been updated to default to this method, but existing games will need to make manual changes to implement this change.
+
 # [2.18.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v2.18.0-alpha.2...v2.18.0-alpha.3) (2023-06-24)
 
-
-
 # [2.18.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v2.18.0-alpha.1...v2.18.0-alpha.2) (2023-06-24)
-
-
 
 # [2.18.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v2.18.0-alpha.1) (2023-06-24)
 

@@ -82,6 +82,10 @@ const config = {
           { text: 'Transitions', link: '/features/transitions' },
           { text: 'Viewport', link: '/features/viewport' },
           { text: 'Game Settings', link: '/features/game-settings' },
+          {
+            text: 'Hot Module Reloading',
+            link: '/features/hot-module-reloading',
+          },
         ],
       },
       {
