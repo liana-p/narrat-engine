@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import WindiCSS from 'vite-plugin-windicss';
 import packageJson from './package.json';
 import Inspect from 'vite-plugin-inspect';
-import Narrat from './vite-plugin-narrat/index';
+import Narrat from 'vite-plugin-narrat';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {

@@ -104,6 +104,7 @@ importers:
       typescript: ^4.9.5
       vite: ^4.3.9
       vite-plugin-inspect: ^0.7.28
+      vite-plugin-narrat: workspace:*
       vite-plugin-windicss: ^1.9.0
       vitest: ^0.32.2
       vue: ^3.2.47
@@ -158,6 +159,7 @@ importers:
       typescript: 4.9.5
       vite: 4.3.9_@types+node@18.15.11
       vite-plugin-inspect: 0.7.28_vite@4.3.9
+      vite-plugin-narrat: link:../vite-plugin-narrat
       vite-plugin-windicss: 1.9.0_vite@4.3.9
       vitest: 0.32.2_jsdom@20.0.0
       vue: 3.2.47
@@ -206,6 +208,9 @@ importers:
       vite: 3.0.8
       vue: 3.2.37
       vue-tsc: 0.38.9_typescript@4.7.4
+
+  packages/vite-plugin-narrat:
+    specifiers: {}
 
 packages:
 

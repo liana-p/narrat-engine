@@ -48,7 +48,7 @@ export const ConfigInputSchema = Type.Object({
     Type.Union([Type.String(), SkillChecksInputConfigSchema]),
   ),
   // Split: scripts
-  scripts: Type.Union([Type.String(), ScriptsConfigSchema]),
+  scripts: Type.Optional(Type.Union([Type.String(), ScriptsConfigSchema])),
   // split: audio
   audio: Type.Union([Type.String(), AudioInputConfigSchema]),
   notifications: Type.Optional(NotificationsConfigSchema),

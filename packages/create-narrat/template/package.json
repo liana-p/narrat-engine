@@ -33,7 +33,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^2.14.0",
+    "narrat": "^2.18.0-alpha.1",
     "pinia": "^2.1.3",
     "steamworks.js": "^0.2.0",
     "vue": "^3.3.4"
@@ -52,7 +52,8 @@
     "prettier": "^2.8.8",
     "shx": "^0.3.4",
     "typescript": "^5.1.3",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vite-plugin-narrat": "2.18.0-alpha.1"
   },
   "config": {
     "forge": {

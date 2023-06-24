@@ -1,11 +1,12 @@
 const fileRegex = /\.(narrat|nar)$/;
 
-export default function narratPlugin() {
+function narratPlugin() {
   return {
     name: 'narrat',
 
     transform(src, id) {
       if (fileRegex.test(id)) {
+        const fileName = id.match(/[^/\\]*$/)[0];
         return {
           code: `
 const narratCode = ${JSON.stringify(src)};
@@ -14,7 +15,7 @@ const HMREventHandler = (newModule) => {
   console.log('Received HMR update for ' + '${id}');
   const narrat = window.narrat
   if (narrat) {
-    narrat.vm.handleHMR(newModule);
+    narrat.handleHMR(newModule);
   }
   const event = new CustomEvent('narrat-hmr', {
     detail: {
@@ -29,7 +30,7 @@ if (import.meta.hot) {
 }
 export default {
   code: narratCode,
-  fileName: '${id.split('/').pop()}',
+  fileName: '${fileName}',
   id: '${id}',
 };
 `,
@@ -39,3 +40,5 @@ export default {
     },
   };
 }
+
+module.exports = narratPlugin;

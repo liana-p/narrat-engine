@@ -28,6 +28,7 @@ import { useInputs } from './stores/inputs-store';
 import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
 import { ModuleNamespace } from 'vite/types/hot';
+import { handleHMR } from './hmr/hmr';
 
 let app: any;
 
@@ -54,6 +55,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   const narrat = {
     app,
     vm,
+    handleHMR,
     HMREventHandler: (newModule: ModuleNamespace | undefined) =>
       vm.handleHMR(newModule),
     jump: (label: string) => {

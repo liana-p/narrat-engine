@@ -148,11 +148,7 @@ export const useVM = defineStore('vm', {
       this.readGlobalData();
       const configScripts = await this.loadConfigScriptFiles(scriptPaths);
       const builtInScripts = useMain().options.scripts;
-      const scripts = this.parseAllScripts([
-        ...configScripts,
-        ...builtInScripts,
-      ]);
-      vm.script = scripts;
+      this.addAllScripts([...configScripts, ...builtInScripts]);
     },
     async loadConfigScriptFiles(
       scriptPaths: string[],
@@ -168,18 +164,13 @@ export const useVM = defineStore('vm', {
         id: scriptPaths[index],
       }));
     },
-    parseAllScripts(scriptsToParse: NarratScript[]): Parser.ParsedScript {
+    addAllScripts(scriptsToParse: NarratScript[]) {
       const start = Date.now();
-      let scripts: Parser.ParsedScript = {};
       for (const script of scriptsToParse) {
-        scripts = {
-          ...scripts,
-          ...parseScript(script),
-        };
+        vm.addNarratScript(script);
       }
       const end = Date.now();
       logger.log(`scripts parsed in ${end - start} ms`);
-      return scripts;
     },
     start() {
       this.setStack({
