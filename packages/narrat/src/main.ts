@@ -56,8 +56,6 @@ export async function startApp(optionsInput: AppOptionsInput) {
     app,
     vm,
     handleHMR,
-    HMREventHandler: (newModule: ModuleNamespace | undefined) =>
-      vm.handleHMR(newModule),
     jump: (label: string) => {
       useVM().jumpToLabel(label);
     },
