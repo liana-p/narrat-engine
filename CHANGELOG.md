@@ -2,7 +2,7 @@
 
 ### Features
 
-- **settings:** new game settings feature ([8864665](https://github.com/liana-p/narrat-engine/commit/8864665f94f97af4a187970cfe85649f371d2338)) See new [game settings docs](https://docs.narrat.dev/features/game-settings.html)
+- **settings:** new game settings feature ([8864665](https://github.com/liana-p/narrat-engine/commit/8864665f94f97af4a187970cfe85649f371d2338)) See new [game settings docs](https://docs.narrat.dev/features/game-settings.html).
 - **skillChecks:** new option to control whether rolls fail on equality or not ([9835cc3](https://github.com/liana-p/narrat-engine/commit/9835cc3a4104e9ee21b01bfb88100c408f1e76ec)). See [options docs](https://docs.narrat.dev/features/skills.html#skill-checks)
 - **text:** autoplay now works on games without animate text ([af8e215](https://github.com/liana-p/narrat-engine/commit/af8e215f905827a2cb1efb77f3b98bf20578f560))
 
