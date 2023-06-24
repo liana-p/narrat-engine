@@ -55,7 +55,7 @@ To add or remove new `narrat` scripts to your game, simply modify this file.
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml
-scripts: data/scripts.yaml # [!code --]
+scripts: data/scripts.yaml // [!code --]
 audio: data/audio.yaml
 ```
 
@@ -76,7 +76,7 @@ window.addEventListener('load', () => {
     configPath: 'data/config.yaml',
     debug,
     logging: false,
-    scripts, // [!code  ++]
+    scripts, // [!code ++]
   });
 });
 ```
@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
     "shx": "^0.3.4",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
-    "vite-plugin-narrat": "^2.18.0" // [!code  ++]
+    "vite-plugin-narrat": "^2.18.0" // [!code ++]
   },
 ```
 
@@ -107,7 +107,7 @@ window.addEventListener('load', () => {
 
 ```json
   "dependencies": {
-    "narrat": "^3.0.0" // [!code  ++]
+    "narrat": "^3.0.0" // [!code ++]
   },
 ```
 
