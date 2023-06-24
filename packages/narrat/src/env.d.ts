@@ -13,6 +13,7 @@ interface ImportMetaEnv {
   readonly VITE_BASE_DATA_PATH: string;
   readonly VITE_BASE_ASSET_PATH: string;
   readonly VITE_DEMO_BUILD: string;
+  readonly VITE_DEMO_GAME: string;
   readonly VITE_DEBUG: string;
   readonly VITE_BUILD_DATE: string;
   readonly VITE_BUILD_VERSION: string;

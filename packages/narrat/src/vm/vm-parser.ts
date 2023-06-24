@@ -6,6 +6,8 @@ import {
   ProcessCommandsFunction,
 } from './commands/command-plugin';
 import { vm } from './vm';
+import { NarratScript } from '@/types/app-types';
+import { parserError } from '@/utils/error-handling';
 
 const loggerManager = new LogManager();
 loggerManager.setupDebugger(false);
@@ -27,7 +29,15 @@ export interface ParserContext {
   indentSize: number;
 }
 
-export function parseScript(
+export function parseScript(script: NarratScript): Parser.ParsedScript {
+  return parseScriptFunction(
+    (ctx: ParserContext, line: number, error: string) =>
+      parserError(ctx, line, error),
+    script.code,
+    script.fileName,
+  );
+}
+export function parseScriptFunction(
   errorHandler: ParserErrorHandler,
   code: string,
   fileName: string,

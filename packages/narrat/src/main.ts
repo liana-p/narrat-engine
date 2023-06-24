@@ -27,10 +27,14 @@ import { useStartMenu } from './stores/start-menu-store';
 import { useInputs } from './stores/inputs-store';
 import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
+import { ModuleNamespace } from 'vite/types/hot';
+import { handleHMR } from './hmr/hmr';
 
 let app: any;
 
 vm.callHook('onPageLoaded');
+
+export type HMRCallback = (mod: ModuleNamespace | undefined) => void;
 
 export async function startApp(optionsInput: AppOptionsInput) {
   gameloop.setup();
@@ -51,6 +55,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   const narrat = {
     app,
     vm,
+    handleHMR,
     jump: (label: string) => {
       useVM().jumpToLabel(label);
     },

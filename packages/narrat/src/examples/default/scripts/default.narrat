@@ -8,7 +8,16 @@ main:
   // if (== $global.counter 2):
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
+  jump test_hmr
   jump quest_demo
+
+test_hmr:
+  talk helper idle "Hello hmr 1"
+  jump test_hmr_2
+
+test_hmr_2:
+  talk helper idle "Hello hmr 2"
+  jump test_hmr
 
 test_custom_settings:
   "Hello, %{$customSettings.playerName}"

@@ -14,17 +14,18 @@ import {
   getModifiableDataPinia,
   setDataHelper,
 } from '@/utils/data-helpers';
-import { error, parserError, warning } from '@/utils/error-handling';
+import { error, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { runCommand, vm } from '@/vm/vm';
-import { ParserContext, parseScript } from '@/vm/vm-parser';
+import { parseScript } from '@/vm/vm-parser';
 import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useMain } from './main-store';
 import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
+import { NarratScript } from '@/types/app-types';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -145,28 +146,31 @@ export const useVM = defineStore('vm', {
     },
     async loadScripts(scriptPaths: string[]) {
       this.readGlobalData();
+      const configScripts = await this.loadConfigScriptFiles(scriptPaths);
+      const builtInScripts = useMain().options.scripts;
+      this.addAllScripts([...configScripts, ...builtInScripts]);
+    },
+    async loadConfigScriptFiles(
+      scriptPaths: string[],
+    ): Promise<NarratScript[]> {
       const filePromises: Array<Promise<string>> = [];
       for (const path of scriptPaths) {
         filePromises.push(getFile(getDataUrl(path)));
       }
       const files = await Promise.all(filePromises);
+      return files.map((file, index) => ({
+        fileName: scriptPaths[index],
+        code: file,
+        id: scriptPaths[index],
+      }));
+    },
+    addAllScripts(scriptsToParse: NarratScript[]) {
       const start = Date.now();
-      let scripts: Parser.ParsedScript = {};
-      for (const index in files) {
-        const file = files[index];
-        scripts = {
-          ...scripts,
-          ...parseScript(
-            (ctx: ParserContext, line: number, error: string) =>
-              parserError(ctx, line, error),
-            file,
-            scriptPaths[index],
-          ),
-        };
+      for (const script of scriptsToParse) {
+        vm.addNarratScript(script);
       }
       const end = Date.now();
-      logger.log(`script parsed in ${end - start} ms`);
-      vm.script = scripts;
+      logger.log(`scripts parsed in ${end - start} ms`);
     },
     start() {
       this.setStack({

@@ -18,11 +18,15 @@ import { processText, stringRegex } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { Pinia, Store } from 'pinia';
 import { useSettings } from '@/stores/settings-store';
+import { NarratScript } from '@/types/app-types';
+import { ModuleNamespace } from 'vite/types/hot';
+import { parseScript } from './vm-parser';
 
 export class VM {
   plugins: NarratPluginObject<any>[] = [];
   pinia!: Pinia;
   script: Parser.ParsedScript = {};
+  scripts: NarratScript[] = [];
   commands: {
     [key: string]: CommandPlugin<any>;
   } = {};
@@ -46,6 +50,12 @@ export class VM {
         (plugin as any)[hookName](...args);
       }
     }
+  }
+
+  addNarratScript(script: NarratScript) {
+    const parsed = parseScript(script);
+    this.script = { ...this.script, ...parsed };
+    this.scripts.push(script);
   }
 
   customStores(): [string, Store<any, any, any, NarratCustomStoreActions>][] {

@@ -48,12 +48,12 @@ const spinningLogo = computed(() => splashConfig.value.overrideLogo ?? logo);
 const fadeDuration = computed(() =>
   typeof splashConfig.value.fadeDuration === 'number'
     ? splashConfig.value.fadeDuration
-    : 2,
+    : 0.8,
 );
 const timeBeforeFadeout = computed(() =>
   typeof splashConfig.value.timeBeforeFadeout === 'number'
     ? splashConfig.value.timeBeforeFadeout
-    : 3,
+    : 1.5,
 );
 
 onMounted(async () => {

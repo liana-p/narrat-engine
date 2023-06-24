@@ -1,4 +1,5 @@
 import { App } from 'vue';
+import type { NarratScript } from '@/types/app-types';
 
 import 'es6-promise/auto';
 
@@ -23,3 +24,4 @@ export * from '@/exports/stores';
 export * from '@/exports/others';
 export * from '@/exports/components';
 export * from '@/exports/utils';
+export { NarratScript };

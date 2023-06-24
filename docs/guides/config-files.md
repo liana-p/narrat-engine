@@ -22,35 +22,19 @@ There are example files available:
 
 ## Editing the config
 
-By default `config.yaml` should be in `public/data`. If you want to change its position, edit `src/index.ts` to have the correct path to your new localisation
+By default `config.yaml` should be in `public/data`. If you want to change its position, edit `src/index.ts` to have the correct path to your new localisation.
 
-::: details How to manually setup config files (ignore this if using the template)
+The `config.yaml` file is a [yaml](https://fileinfo.com/extension/yaml) file which should already contain everything necessary if using the template, but some optional values can be omitted. For an example config file, look at the [example configs page](../examples/example-config.md). It may also be relevant to look at other yaml files in the example games.
 
-To manually setup config files to use with narrat, you need your code to call the `startApp` function from narrat, passing it a config object that includes the path to config files:
+## Other config files
 
-```typescript
-import './css/main.css';
-import { startApp } from 'narrat';
-
-window.addEventListener('load', () => {
-  startApp(
-    {
-      charactersPath: 'data/characters.yaml',
-      configPath: 'data/config.yaml',
-    },
-    {
-      debug: true,
-      logging: false,
-    },
-  );
-});
-```
-
-:::
-
-The `config.yaml` file is a [yaml](https://fileinfo.com/extension/yaml) file which should already contain everything necessary if using the template, but some optional values can be omitted. For an example config file, look at the [example configs page](../examples/example-config.md)
+Many parts of config.yaml list a path to another `.yaml` file. This is to separate config into manageable chunks where you only edit the file relevant to a feature (like `skills.yaml`, or `items.yaml`).
 
 The various features and guides sections of this documentation can give more information about how to use each option.
+
+::: tip
+The [examples folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games) of narrat contains the config for a bunch of example games, which can help you discover available options.
+:::
 
 ## Validation
 

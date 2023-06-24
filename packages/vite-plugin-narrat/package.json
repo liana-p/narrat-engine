@@ -1,0 +1,18 @@
+{
+  "name": "vite-plugin-narrat",
+  "description": "vite plugin for narrat hot reload",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://narrat.dev",
+  "keywords": [
+    "vite-plugin",
+    "narrat",
+    "game"
+  ],
+  "author": "Liana Pigeot",
+  "license": "MIT",
+  "version": "2.18.0-alpha.3",
+  "main": "src/plugin.js",
+  "scripts": {}
+}

@@ -22,6 +22,7 @@ if (typeof exampleName !== 'string') {
 
 console.log(cyan(`Running example game: ${exampleName}`));
 const finalArgs = [
+  `VITE_DEMO_GAME=${exampleName}`,
   'VITE_BASE_ASSET_PATH=examples/assets/',
   `VITE_BASE_DATA_PATH=examples/games/${exampleName}/`,
 ];

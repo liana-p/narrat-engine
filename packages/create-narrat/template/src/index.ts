@@ -1,7 +1,7 @@
 import "narrat/dist/style.css";
 import "./css/main.css";
 import { NarratPlugin, registerPlugin, startApp } from "narrat";
-
+import scripts from "./scripts";
 // Enable this when releasing for steam
 const useSteam = false;
 
@@ -56,5 +56,6 @@ window.addEventListener("load", () => {
     configPath: "data/config.yaml",
     debug,
     logging: false,
+    scripts,
   });
 });

@@ -11,5 +11,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["vite.config.ts", "package.json"]
+  "include": ["vite.config.ts", "package.json", "vite-plugin-narrat/**/*.*"]
 }

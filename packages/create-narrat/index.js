@@ -6,16 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import minimist from 'minimist';
 import prompts from 'prompts';
-import {
-  blue,
-  cyan,
-  green,
-  lightRed,
-  magenta,
-  red,
-  reset,
-  yellow,
-} from 'kolorist';
+import { green, red, reset, yellow } from 'kolorist';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string. See #4606
@@ -192,7 +183,7 @@ async function init() {
 
   const gameFiles = fs.readdirSync(gameTemplateDir);
   for (const file of gameFiles) {
-    write(path.join(root, 'public'), gameTemplateDir, file);
+    write(root, gameTemplateDir, file);
   }
 
   // 4. Finish and show run instructions
