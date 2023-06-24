@@ -14,11 +14,11 @@ import {
   getModifiableDataPinia,
   setDataHelper,
 } from '@/utils/data-helpers';
-import { error, parserError, warning } from '@/utils/error-handling';
+import { error, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { runCommand, vm } from '@/vm/vm';
-import { ParserContext, parseScript } from '@/vm/vm-parser';
+import { parseScript } from '@/vm/vm-parser';
 import { defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useMain } from './main-store';
@@ -174,12 +174,7 @@ export const useVM = defineStore('vm', {
       for (const script of scriptsToParse) {
         scripts = {
           ...scripts,
-          ...parseScript(
-            (ctx: ParserContext, line: number, error: string) =>
-              parserError(ctx, line, error),
-            script.code,
-            script.fileName,
-          ),
+          ...parseScript(script),
         };
       }
       const end = Date.now();

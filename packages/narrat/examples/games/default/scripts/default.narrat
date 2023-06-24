@@ -8,7 +8,6 @@ main:
   // if (== $global.counter 2):
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
-  talk helper idle test test "hello"
   jump quest_demo
 
 test_custom_settings:
