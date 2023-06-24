@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/liana-p/narrat-engine/compare/v3.0.0...v3.0.1) (2023-06-24)
+
+
+### Bug Fixes
+
+* typo in template ([d772f54](https://github.com/liana-p/narrat-engine/commit/d772f544d5fad2044ceeb079030bd75eaedf52af))
+
+
+
 # [3.0.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v3.0.0) (2023-06-24)
 
 ### Features
