@@ -1,3 +1,7 @@
+# [2.18.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v2.18.0-alpha.1...v2.18.0-alpha.2) (2023-06-24)
+
+
+
 # [2.18.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v2.18.0-alpha.1) (2023-06-24)
 
 - WIP: New module-based import of narrat scripts to enable usage of [HMR](https://vitejs.dev/guide/api-hmr.html) with the new vite-plugin-narrat
