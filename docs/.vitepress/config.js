@@ -146,6 +146,14 @@ const config = {
         items: [
           { text: 'Current Version', link: 'https://docs.narrat.dev' },
           {
+            text: 'v3.0.0',
+            link: 'https://2-17-0--ornate-pie-561978.netlify.app/',
+          },
+          {
+            text: 'v2.17.0',
+            link: 'https://2-17-0--ornate-pie-561978.netlify.app/',
+          },
+          {
             text: 'v2.12.0',
             link: 'https://2-12-0--ornate-pie-561978.netlify.app/',
           },
