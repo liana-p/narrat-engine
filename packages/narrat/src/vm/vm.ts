@@ -19,6 +19,8 @@ import { audioEvent } from '@/utils/audio-loader';
 import { Pinia, Store } from 'pinia';
 import { useSettings } from '@/stores/settings-store';
 import { NarratScript } from '@/types/app-types';
+import { ModuleNamespace } from 'vite/types/hot';
+import { parseScript } from './vm-parser';
 
 export class VM {
   plugins: NarratPluginObject<any>[] = [];
@@ -52,6 +54,29 @@ export class VM {
 
   addNarratScript(script: NarratScript) {
     this.scripts.push(script);
+  }
+
+  handleHMR(newModule: ModuleNamespace | undefined) {
+    console.log('VM received HMR update');
+    console.log(newModule);
+    if (!newModule || !newModule.default) {
+      return;
+    }
+    const scriptModule = newModule.default;
+    if (this.isNarratScript(scriptModule)) {
+      const parsed = parseScript(scriptModule);
+      this.script = { ...this.script, ...parsed };
+    }
+  }
+
+  isNarratScript(scriptModule: any): scriptModule is NarratScript {
+    return (
+      typeof scriptModule === 'object' &&
+      scriptModule !== null &&
+      typeof scriptModule.code === 'string' &&
+      typeof scriptModule.fileName === 'string' &&
+      typeof scriptModule.id === 'string'
+    );
   }
 
   customStores(): [string, Store<any, any, any, NarratCustomStoreActions>][] {
