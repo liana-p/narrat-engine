@@ -63,6 +63,9 @@ main:
   talk player idle "Hello!" // This is the "talk" command
 ```
 
+::: tip
+There is a [cheatsheet of all available commands](../commands/all-commands.md) with usage examples.
+
 ### Expressions
 
 An expression is any command between parenthesis. Any command in the game can be used as an expression, if it returns a value. For example `(+ 2 3)` is an expression that would get evaluated to `5`. (command `+` with arguments 2 and 3)

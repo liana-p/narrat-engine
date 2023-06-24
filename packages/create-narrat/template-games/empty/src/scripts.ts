@@ -1,3 +1,3 @@
-import game from './game.narrat';
+import game from './scripts/game.narrat';
 
 export default [game];
