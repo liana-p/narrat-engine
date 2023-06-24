@@ -49,6 +49,7 @@ export function defaultAppOptions(): AppOptions {
     configPath: 'data/config.json',
     logging: false,
     debug: false,
+    scripts: [],
   };
 }
 
@@ -122,6 +123,7 @@ export const useMain = defineStore('main', {
         configPath: 'data/config.json',
         logging: false,
         debug: false,
+        scripts: [],
       },
       loading: {
         step: 'Loading',

@@ -25,6 +25,7 @@ import { useMain } from './main-store';
 import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
+import { NarratScript } from '@/types/app-types';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -145,28 +146,45 @@ export const useVM = defineStore('vm', {
     },
     async loadScripts(scriptPaths: string[]) {
       this.readGlobalData();
+      const configScripts = await this.loadConfigScriptFiles(scriptPaths);
+      const builtInScripts = useMain().options.scripts;
+      const scripts = this.parseAllScripts([
+        ...configScripts,
+        ...builtInScripts,
+      ]);
+      vm.script = scripts;
+    },
+    async loadConfigScriptFiles(
+      scriptPaths: string[],
+    ): Promise<NarratScript[]> {
       const filePromises: Array<Promise<string>> = [];
       for (const path of scriptPaths) {
         filePromises.push(getFile(getDataUrl(path)));
       }
       const files = await Promise.all(filePromises);
+      return files.map((file, index) => ({
+        fileName: scriptPaths[index],
+        code: file,
+        id: scriptPaths[index],
+      }));
+    },
+    parseAllScripts(scriptsToParse: NarratScript[]): Parser.ParsedScript {
       const start = Date.now();
       let scripts: Parser.ParsedScript = {};
-      for (const index in files) {
-        const file = files[index];
+      for (const script of scriptsToParse) {
         scripts = {
           ...scripts,
           ...parseScript(
             (ctx: ParserContext, line: number, error: string) =>
               parserError(ctx, line, error),
-            file,
-            scriptPaths[index],
+            script.code,
+            script.fileName,
           ),
         };
       }
       const end = Date.now();
-      logger.log(`script parsed in ${end - start} ms`);
-      vm.script = scripts;
+      logger.log(`scripts parsed in ${end - start} ms`);
+      return scripts;
     },
     start() {
       this.setStack({

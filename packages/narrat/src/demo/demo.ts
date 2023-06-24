@@ -1,5 +1,7 @@
 import { startApp } from '@/main';
 
+import Main from '../../examples/games/default/scripts/default.narrat';
+
 // This config is there to enable playing different demo games based on environment variables.
 // It is also used to build the different demos.
 // There is one path for assets and one for other data files. This allows us to reuse assets in the demo (for git LFS storage limits...)
@@ -19,6 +21,7 @@ const onPageLoad = () => {
     configPath: `${dataPath}data/config.yaml`,
     logging: false,
     debug,
+    scripts: [Main],
   });
 };
 window.addEventListener('load', onPageLoad);
