@@ -1,9 +1,9 @@
 import { startApp } from '@/main';
 
-import defaultGame from '../../examples/games/default/scripts';
-import demoGame from '../../examples/games/demo/scripts';
-import rpgGame from '../../examples/games/rpg/scripts';
-import emptyGame from '../../examples/games/empty/scripts';
+import defaultGame from '@/examples/default/scripts';
+import demoGame from '@/examples/demo/scripts';
+import rpgGame from '@/examples/rpg/scripts';
+import emptyGame from '@/examples/empty/scripts';
 import { NarratScript } from '@/types/app-types';
 
 const gameScripts: Record<string, NarratScript[]> = {
