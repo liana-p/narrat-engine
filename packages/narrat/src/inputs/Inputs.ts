@@ -1,6 +1,18 @@
 import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
+
+export type ButtonEvent = (
+  action: ButtonAction,
+  state: ButtonActionState,
+  previousState: ButtonActionState,
+) => void;
+export type AnalogEvent = (
+  action: AnalogAction,
+  state: AnalogActionState,
+  previousState: AnalogActionState,
+) => void;
+
 export interface ButtonKeybind {
   keyboardKey: string;
 }
