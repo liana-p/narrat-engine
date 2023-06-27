@@ -298,23 +298,15 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 .dialog-container: Contains all the dialog
 
-<!-- <img src="../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/dialog-container.png)
 
 .dialog: The entire right-side box of the screen that is scrollable with all the dialog in it
 
-<!-- <img src="../.gitbook/assets/image (20).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/dialog.png)
 
 .menu-container
 
-<!-- <img src="../.gitbook/assets/image (4) (1) (1).png" alt="" data-size="original"> -->
-
-\#menu-button (note that it's an id and not a class)
-
-<!-- <img src="../.gitbook/assets/image (33).png" alt="" data-size="original"> -->
-
-\#skills-menu-button
-
-<!-- <img src="../.gitbook/assets/image (26).png" alt="" data-size="original"> -->
+![Menu container](./css/elements/menu-container.png)
 
 :::
 
@@ -322,41 +314,19 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 .modal-mask: The half-opaque overlay on the page when a modal is open
 
-<!-- <img src="../.gitbook/assets/image (28).png" alt="" data-size="original"> -->
+![modal mask](./css/elements/modal-mask.png)
 
 .modal-container: The container class for all modals
 
-<!-- <img src="../.gitbook/assets/image (10).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/modal-container.png)
 
 .modal-header
 
-<!-- <img src="../.gitbook/assets/image (19).png" alt="" data-size="original"> -->
-
-.close-button: The button to close modals
-
-<!-- <img src="../.gitbook/assets/image (9).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/modal-header.png)
 
 .modal-body
 
-<!-- <img src="../.gitbook/assets/image (16).png" alt="" data-size="original"> -->
-
-.modal-footer: There's a footer space that is currently unused in modals
-
-<!-- <img src="../.gitbook/assets/image (7) (1).png" alt="" data-size="original"> -->
-
-:::
-
-::: details Specific popups CSS
-
-Each modal in the game has its own CSS class applied to the `modal-container` to allow overriding things like width/height on a per-screen basis.
-
-.menu-modal
-
-<!-- <img src="../.gitbook/assets/image (17).png" alt="" data-size="original"> -->
-
-.skills-modal
-
-<!-- <img src="../.gitbook/assets/image (35).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/modal-body.png)
 
 :::
 
@@ -366,7 +336,7 @@ Each modal in the game has its own CSS class applied to the `modal-container` to
 
 .skills-container
 
-<!-- <img src="../.gitbook/assets/image (14).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/skills-container.png)
 
 One thing worth knowing is the `.skills-container` class in the skills screen uses [CSS grid](https://learncssgrid.com/). To change how many columns there are per row, overriding the `grid-template-columns` works. For example:
 
@@ -382,20 +352,20 @@ One thing worth knowing is the `.skills-container` class in the skills screen us
 
 .skill-display: The individual tile for a skill
 
-<!-- <img src="../.gitbook/assets/image (32).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/skill-display.png)
 
 .skill-title
 
-<!-- <img src="../.gitbook/assets/image (12).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/skill-title.png)
 
 .skill-xp-container and .skill-xp-bar: skill-xp-container is the background of the xp progress bar, whereas skill-xp-bar is the inner bar that gets filled depending on the amount of xp
 
 .skill-xp-text is also the text of the xp
 
-<!-- <img src="../.gitbook/assets/image (21) (1).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/skill-xp.png)
 
 .skill-level
 
-<!-- <img src="../.gitbook/assets/image (24).png" alt="" data-size="original"> -->
+![Dialog container](./css/elements/skill-level.png)
 
 :::

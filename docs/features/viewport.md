@@ -11,7 +11,7 @@ coverY: 0
 
 ## Introduction
 
-<!-- <img src="../.gitbook/assets/image (31).png" alt="" data-size="original"> -->
+![Viewport](./viewport/viewport.png)
 
 In narrat games, the right side of the screen has the dialogue system, while the left side has the screens.
 
