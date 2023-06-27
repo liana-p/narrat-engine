@@ -4,7 +4,7 @@
 
 The `if` command is the main method of doing conditions in narrat. It can be used to branch inside a script, or to make choice options conditionally available.
 
-```
+```narrat
 if [condition]:
   "This code is run on condition success"
 elseif [condition]:
@@ -19,11 +19,11 @@ you can have 0 or any amount of `elseif`, and `else` is optional
 
 The condition should be a boolean. You can directly pass a value (`if $data.someValue` ), or an expression that returns a boolean (for example `if (> $data.player.age 18)`
 
-### Examples
+## Examples
 
 Simple example:
 
-```
+```narrat
 main:
   talk player idle "Wow, I found the key!"
   add_item key 1
@@ -38,7 +38,7 @@ tryDoor:
 
 Example:
 
-```
+```narrat
 main:
   choice:
     talk alice idle "Do you prefer pizza or buger?"

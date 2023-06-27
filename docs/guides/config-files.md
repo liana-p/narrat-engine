@@ -75,7 +75,7 @@ Then, an objective config has:
 
 :::
 
-### How the config works
+## How the config works
 
 The engine follows this process for loading the config:
 
@@ -83,7 +83,7 @@ The engine follows this process for loading the config:
 - The engine loads the **game's config files**. Those are the files coming from the game itself
 - Each **default config is merged with the game's config** so that whatever the game customised overrides what's in the default options
 
-### Characters config
+## Characters config
 
 Additionally to `config.yaml`, there is a separate `characters.yaml` file containing the config for all characters in the game.
 

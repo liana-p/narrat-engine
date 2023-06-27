@@ -8,20 +8,20 @@ description: >-
 Getting started with narrat is very quick. There is a ready-to-use template that can get you running your game in a minute
 :::
 
-## Video Guide
+# Video Guide
 
 This one minute video shows the entire setup from start to having the game running
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/516YTDxSO9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Text Instructions
+# Text Instructions
 
-### Prerequisites
+## Prerequisites
 
 - Be on a computer running Windows, MacOS or Linux
 - Have [node.js ](https://nodejs.org/en/) 16+ installed (pick the current LTS version on the website)
 
-### Creating the game project
+## Creating the game project
 
 Open a terminal in a folder of your choice (on Windows, you can shift-right-click in your folder and choose "Open PowerShell window here")
 
@@ -41,7 +41,7 @@ npm create narrat@latest
 
 This will download narrat and ask you some questions to configure your project. You can choose between a few game templates to get started. You can now follow the instructions from the tool to run the game, or follow the "Running the game" guide below
 
-### Running the game
+# Setting up the project
 
 ::: details How it works
 
@@ -57,7 +57,7 @@ Our template uses npm to download and install narrat (and other dependencies) an
 
 :::
 
-#### Install libraries (only the first time or when updating)
+## Install libraries (only the first time or when updating)
 
 With the narrat game setup, [open a terminal inside the folder](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 
@@ -71,13 +71,13 @@ npm install
 
 Unless you see actual errors, **warnings can generally be ignored**
 
-#### **Security issues warning**
+### **Security issues warning**
 
 You will probably see npm complain about "**security issues**". Those are false positives and **can be ignored** caused by a very careless implementation of security by NPM. Those security issues are irrelevant to the use case of narrat. Feel free to read more about why npm security warnings are broken in [this article ](https://overreacted.io/npm-audit-broken-by-design/)by Dan Abramov, creator of React
 
 :::
 
-#### Running the game
+## Running the game
 
 ```bash
 npm start

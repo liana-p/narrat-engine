@@ -51,7 +51,7 @@ In the example above, the bread can only be interacted with outside of scripts a
 
 In scripts, interaction tags can be controlled:
 
-```
+```narrat
 main:
   disable_interaction someTag
   talk player idle "Impossible to use items with the tag someTag for now"

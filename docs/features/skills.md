@@ -119,7 +119,7 @@ For more info, see the [Narrat forum dice-based skill checks development thread]
 
 Practical example:
 
-```
+```narrat
 roll aSkillCheck agility 8 "Try jumping!":
 ```
 
@@ -137,7 +137,7 @@ The `difficultyText` config array specifies a list of thresholds and the corresp
 
 ### Passive skill check
 
-```
+```narrat
   if (roll someSkillCheck agility 40): // You can use skillchecks in conditions
     "This line only appears if you passed a hidden passive skill check"
 ```
@@ -150,7 +150,7 @@ If the skill check succeeds, the branch inside the if command will be run. A mes
 
 #### Active skill check (in choices)
 
-```
+```narrat
 choice:
     "Should we try jumping over a fence?"
     roll fenceJump agility 70 "Try jumping!" hideAfterRoll:
@@ -193,14 +193,14 @@ skillChecks:
 
 Then, in the script, for a passive skill check:
 
-```
+```narrat
 if (roll mySkillCheck):
   "This line only appears if you passed the skill check configured above"
 ```
 
 Or for an active skill check in a choice (this one also uses a condition with the skill check to decide if the option should appear!)
 
-```
+```narrat
 choice:
     "Should we try jumping over a fence?"
     roll mySkillCheck "Try jumping!" if ($data.allowedToJump):
@@ -218,7 +218,7 @@ choice:
 
 To make the player gain xp or levels, there are two commands: `add_level` and `add_xp`. Example:
 
-```
+```narrat
 add_level agility 1
 add_xp agility 3
 ```

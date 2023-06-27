@@ -71,7 +71,7 @@ It can later be resumed with `resume music` or with `play music musicName` (the 
 
 For example, one could do a dramatic pause of the music
 
-```
+```narrat
 play music suspense
 wait 1500
 pause music

@@ -14,7 +14,7 @@ Refer to the [screens feature](../../features/viewport.md) guide for more info
 
 Example:
 
-```
+```narrat
 set_button parkButton true
 ```
 

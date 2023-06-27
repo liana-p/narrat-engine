@@ -94,14 +94,14 @@ buttons: data/buttons.yaml
 
 For example, with the following game script:
 
-```
+```narrat
 parkButton:
   "You have reached the park!"
 ```
 
 This script would be triggered by pressing the `parkButton` in the `map` screen defined above.
 
-{% hint style="danger" %}
+::: danger
 The `default` screen must always exist, as it is the first screen the game gets loaded with.
 :::
 
@@ -117,7 +117,7 @@ Buttons can also have a `tag` property in their config to use interaction tag, t
 
 The `set_screen` function switches the game to a different screen:
 
-```
+```narrat
 set_screen map
 ```
 
@@ -125,6 +125,6 @@ set_screen map
 
 The `set_button` function can enable or disable a button
 
-```
+```narrat
 set_button parkButton true
 ```

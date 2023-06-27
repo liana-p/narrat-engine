@@ -37,7 +37,8 @@
   "packageManager": "pnpm@7.5.2",
   "pnpm": {
     "overrides": {
-      "narrat": "workspace:*"
+      "narrat": "workspace:*",
+      "shiki": "^0.14.3"
     }
   },
   "simple-git-hooks": {

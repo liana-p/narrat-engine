@@ -13,7 +13,7 @@ It takes two parameters:
 
 In this example, we ask the player a question, store the answer in a variable, and then use that variable in a condition to play a line of dialogue only for players who like surprises
 
-```
+```narrat
 set_example:
     choice:
         talk cat idle "Do you like surprises?"

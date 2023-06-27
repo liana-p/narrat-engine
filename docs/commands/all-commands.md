@@ -4,9 +4,9 @@ description: This page contains a list of all the existing narrat commands
 
 # All commands list
 
-## Commands list
+This page lists all available narrat commands as well as usage examples.
 
-#### Dialog
+## Dialog
 
 | Command                                   | Example                                        | Description                                                                                              |
 | ----------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -15,7 +15,7 @@ description: This page contains a list of all the existing narrat commands
 | text command (Empty command)              | `"Hello world"`                                | Writing text without a command will print that text as if it was said "by the game", without a character |
 |                                           |
 
-#### Basic program flow
+## Basic program flow
 
 | Command                             | Example                                                                                                                                                               | Description                                                                                                                                                                             |
 | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -24,14 +24,14 @@ description: This page contains a list of all the existing narrat commands
 | [return](../scripting/functions.md) | `return $test`                                                                                                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
 | [if](if-function.md)                | <p><br><code>if $data.hasFood:</code><br><code>"I have food, so we can eat a meal!"</code><br><code>else:</code><br><code>"We have nothing to eat"</code><br><br></p> | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
 
-#### Choices
+## Choices
 
 | Command                      | Example                                                                                                                                                                                                                             | Description                                                                                     |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | [choice](choice-function.md) | <p><br><code>choice:</code><br><code>"Would you like tea?"</code><br><code>"Yes":</code><br><code>"Your friend serves you a cup of tea"</code><br><code>"No":</code><br><code>"Your friend makes tea for themselves"</code><br></p> | Lets the player choose between two or more options. See the linked documentation for more info. |
 | [text_field](text-field.md)  | `text_field "A prompt text"`                                                                                                                                                                                                        | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
 
-#### Logic operators and conditions
+## Logic operators and conditions
 
 | Command                                                | Example                                                                         | Description                                                              |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -40,7 +40,7 @@ description: This page contains a list of all the existing narrat commands
 | [&&, \|\|](logical-operators.md)                       | `if (\|\| $data.doorOpen $data.hasKey):`                                        | And and Or logical operators                                             |
 | [?](logical-operators.md)                              | `var isDead (? (<= $data.life 0) true : false)`                                 | Ternary operator                                                         |
 
-#### Math and arithmetic
+## Math and arithmetic
 
 | Command                                      | Example                                                                                                                                                           | Description                                                                                                        |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -57,7 +57,7 @@ description: This page contains a list of all the existing narrat commands
 | [sqrt](math-commands/other-math-operations)  | `sqrt 4 // Returns 2`                                                                                                                                             | Returns the square root of a number                                                                                |
 | [^](math-commands/other-math-operations)     | `^ 3 2 // Returns 9`                                                                                                                                              | Returns the first number to the power of the second number                                                         |
 
-#### Audio
+## Audio
 
 | Command                                      | Example                        | Description                                                                                                                 |
 | -------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ description: This page contains a list of all the existing narrat commands
 | [resume]((audio/pause.md) /resume.md)        | `resume music [channel]`       | Resumes a music mode with an optional channel number                                                                        |
 | [stop](audio/stop.md)                        | `stop music [channel]`         | Same as pause but stops                                                                                                     |
 
-#### Items
+## Items
 
 | Command                                                     | Example                                                                                | Description                                  |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
@@ -77,14 +77,14 @@ description: This page contains a list of all the existing narrat commands
 | [enable_interaction](../features/items#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
 | [`disable_interaction`](../features/items#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
 
-#### Achievements
+## Achievements
 
 | Command                                           | Example                                       | Description                                                            |
 | ------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- |
 | [unlock_achievement](../features/achievements.md) | `unlock_achievement win_game`                 | Unlocks an achievement                                                 |
 | [has_achievement?](../features/achievements.md)   | `set data.hasWon (has_achievement? win_game)` | Returns true if the player has the passed achievement, otherwise false |
 
-#### Notifications
+## Notifications
 
 | Command                                                            | Example                 | Description                     |
 | ------------------------------------------------------------------ | ----------------------- | ------------------------------- |
@@ -92,7 +92,7 @@ description: This page contains a list of all the existing narrat commands
 | [disable_notifications](notify/disable-or-enable-notifications.md) | `disable_notifications` | Disables all notifications      |
 | [enable_notifications](notify/disable-or-enable-notifications.md)  | `enable_notifications`  | Enables notifications           |
 
-#### Quests
+## Quests
 
 | Command                                          | Example                                                            | Description                                                               |
 | ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
@@ -105,7 +105,7 @@ description: This page contains a list of all the existing narrat commands
 | [quest_started?](../features/quests.md)          | `quest_started? myQuest // Returns true or false`                  | Check if a quest is started                                               |
 | [objective_started?](../features/quests.md)      | `objective_started? myQuest myObjective // Returns true or false`  | Check if a quest objective is started                                     |
 
-#### Random
+## Random
 
 | Command                                  | Example                                                                      | Description                                                     |
 | ---------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -114,7 +114,7 @@ description: This page contains a list of all the existing narrat commands
 | [random_from_args](random-generation.md) | `random_from_args 1 2 3 4 5 // Returns a random argument passed `            | Returns a random argument passed                                |
 | random_from_array                        | `random_from_array $data.myArray // Returns a random element from the array` | Returns a random element from an array                          |
 
-#### Viewport screen and buttons
+## Viewport screen and buttons
 
 | Command                                                   | Example                       | Description                                                                             |
 | --------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------- |
@@ -122,7 +122,7 @@ description: This page contains a list of all the existing narrat commands
 | [empty_layer](left-side-viewport-commands/empty-layer.md) | `empty_layer 0`               | Removes all items from a layer                                                          |
 | [set_button](left-side-viewport-commands/set-button.md)   | `set_button myButton true`    | changes the value of a button (true, false, hidden) ID                                  |
 
-#### Variables
+## Variables
 
 | Command                                    | Example                     | Description                                                                                                                                |
 | ------------------------------------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -130,7 +130,7 @@ description: This page contains a list of all the existing narrat commands
 | [add](modifying-variables/add-function.md) | `add data.playerHealth 10`  | Adds a value to a variable                                                                                                                 |
 | `var`                                      | `var test 3`                | Declares a local variable with a value. The variable will only exist in the current label and will stop existing once the label is exited. |
 
-#### Skills
+## Skills
 
 | Command                                     | Example                                                         | Description                                                                                   |
 | ------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -144,7 +144,7 @@ description: This page contains a list of all the existing narrat commands
 | `skill_check_result`                        | `skill_check_result mySkillCheck // Returns true or false`      | Gets the result of a skill check as boolean                                                   |
 | [reset_roll](skills-commands/reset-roll.md) | `reset_roll mySkillCheck`                                       | Resets a skill check                                                                          |
 
-#### Stats
+## Stats
 
 | Command                                             | Example                 | Description              |
 | --------------------------------------------------- | ----------------------- | ------------------------ |
@@ -152,7 +152,7 @@ description: This page contains a list of all the existing narrat commands
 | [set_stat](/commands/stats/set-stat.md)             | `set_stat myStat 10`    | Sets a stat to a value   |
 | [get_stat_value](/commands/stats/get-stat-value.md) | `get_stat_value myStat` | Gets the value of a stat |
 
-#### Arrays
+## Arrays
 
 Imagine $data.myArray contains an array with [25, 50, 75]
 
@@ -171,7 +171,7 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | random_from_array | `random_from_array $data.myArray // Returns a random element from the array`  | Returns a random element from an array                                                                                                                         |
 | shuffle           | `shuffle $data.myArray // Returns a shuffled array`                           | Shuffles an array                                                                                                                                              |
 
-#### Time
+## Time
 
 | Command          | Example                                            | Description                                           |
 | ---------------- | -------------------------------------------------- | ----------------------------------------------------- |
@@ -183,18 +183,18 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | to_minutes       | `var minutes (to_minutes 100000)`                  | Converts a time in ms to minutes                      |
 | to_seconds       | `var seconds (to_seconds 100000)`                  | Converts a time in ms to seconds                      |
 
-#### Strings
+## Strings
 
 | Command                          | Example                     | Description                                                                  |
 | -------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
 | [concat](string-commands/concat) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
 | [join](string-commands/join)     | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
 
-#### Screen Objects
+## Screen Objects
 
 Screen objects are new and not documented yet, basic usage is to put the result of `create_sprite` or `create_object` in a variable and then manipulate it. Example:
 
-```
+```narrat
 set data.playerSprite (create_sprite img/player.png 50 50)
 wait 1000
 set data.playerSprite.x 100 // moves the player to x 100
@@ -208,7 +208,7 @@ delete_sprite $data.playerSprite
 | create_object | `create_object 55 125`                   | Creates an object at a position               |
 | delete_sprite | `delete_sprite $mySprite`                | Deletes a sprite (stored in a variable)       |
 
-#### Others
+## Others
 
 | command                                     | example                                                                         | description                                                                                                                                                               |
 | ------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

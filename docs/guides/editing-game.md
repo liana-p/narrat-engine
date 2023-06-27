@@ -58,19 +58,19 @@ There are various config files in narrat games which allow to extensively custom
 
 By default, games ship with a default config so you don't need to do anything. As you start using more features, you will need to edit the config as needed.
 
-#### config.yaml
+## config.yaml
 
 The config file contains basic info about the game. In it are defined images, screens, buttons, musics, skill checks, items, quests and more.
 
 More info about the config files in the [Config Files guide](config-files.md)
 
-#### characters.yaml
+## characters.yaml
 
 The `characters.yaml` file contains the config for all characters that can speak in the game. They should all at least have a name value, and an `idle` sprite. The sprite is used for displaying character portraits during dialogue, and the value should be a file path relative to the `imagesPath` value defined in the config part of this file
 
 The color character names appears as can be changed with the `color` value in the `style` property of the character (the value can be any valid CSS color).
 
-### What next?
+## What next?
 
 Making a game is simply a matter of editing those files to write the game you want. To know more about available features, look at the left sidebar of this documentation website to see pages about all the features and guides on specific things.
 
