@@ -1,0 +1,24 @@
+enter_and_process_room:
+  run enter_new_room
+
+enter_new_room:
+  play music game
+  set dungeon_pattern (run random_pattern)
+  run show_room
+
+show_room:
+  var roomData $ROOMS.dungeon_rooms[$dungeon_pattern]
+  set_screen $roomData.screen
+  if $roomData.directions.left:
+    run show_room_direction "go_left"
+  if $roomData.directions.front:
+    run show_room_direction "go_front"
+  if $roomData.directions.right:
+    run show_room_direction "go_right"
+
+show_room_direction direction:
+  var spriteData $SPRITES[$direction]
+  run load_sprite $spriteData
+
+random_pattern:
+  return (random_from_args "F" "FL" "FR" "LR" "FRL")

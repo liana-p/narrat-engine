@@ -254,5 +254,17 @@ export const useScreenObjects = defineStore('screenObjects', {
       }
       return objects as any as { [key: string]: ScreenObjectState };
     },
+    emptyLayer(layer: number) {
+      for (const obj of this.tree) {
+        if (obj.layer === layer) {
+          this.destroyObject(obj);
+        }
+      }
+    },
+    emptyAllLayers() {
+      for (const obj of this.tree) {
+        this.destroyObject(obj);
+      }
+    },
   },
 });

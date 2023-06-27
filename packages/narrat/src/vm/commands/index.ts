@@ -105,6 +105,7 @@ import {
   createObjectCommand,
   createSpriteCommand,
   deleteSpriteCommand,
+  emptySpritesCommand,
 } from './sprite-commands';
 import {
   arrayFindIndexCommand,
@@ -169,6 +170,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(createSpriteCommand);
   vm.addCommand(createObjectCommand);
   vm.addCommand(deleteSpriteCommand);
+  vm.addCommand(emptySpritesCommand);
 
   vm.addCommand(waitCommand);
 

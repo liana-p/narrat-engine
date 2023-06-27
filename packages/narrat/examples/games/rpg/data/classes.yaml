@@ -1,0 +1,62 @@
+wizard:
+  stats:
+    maxHp: 30
+    maxMp: 60
+    def: 1
+    spd: 1
+    strength: 1
+    agility: 2
+    intelligence: 3
+  spells:
+    fireball:
+      cost: 10
+    heal:
+      cost: 12
+  sprite:
+    background: rpg/img/players/wizard.webp
+    x: 600
+    y: 600
+    width: 255
+    height: 512
+    anchor:
+      x: 0.5
+      y: 1
+rogue:
+  stats:
+    maxHp: 50
+    maxMp: 30
+    def: 2
+    spd: 3
+    strength: 2
+    agility: 3
+    intelligence: 1
+  sprite:
+    background: rpg/img/players/wizard.webp
+    x: 600
+    y: 600
+    width: 255
+    height: 512
+    anchor:
+      x: 0.5
+      y: 1
+warrior:
+  stats:
+    maxHp: 100
+    maxMp: 15
+    def: 3
+    spd: 2
+    strength: 2
+    agility: 3
+    intelligence: 1
+  skills:
+    whirlwind:
+      cost: 12
+  sprite:
+    background: rpg/img/players/wizard.webp
+    x: 600
+    y: 600
+    width: 255
+    height: 512
+    anchor:
+      x: 0.5
+      y: 1

@@ -65,3 +65,18 @@ export const deleteSpriteCommand = new CommandPlugin<{
   const screenObjects = useScreenObjects();
   return screenObjects.destroyObject(cmd.options.sprite);
 });
+
+export const emptySpritesCommand = CommandPlugin.FromOptions<{
+  layer?: number;
+}>({
+  keyword: 'empty_sprites',
+  argTypes: [{ name: 'layer', type: 'number', optional: true }],
+  runner: async (cmd) => {
+    const screenObjects = useScreenObjects();
+    const { layer } = cmd.options;
+    if (typeof layer === 'number') {
+      return screenObjects.emptyLayer(layer);
+    }
+    return screenObjects.emptyAllLayers();
+  },
+});

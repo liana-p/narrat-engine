@@ -14,8 +14,8 @@ export const equalPlugin = new CommandPlugin<{ a: number; b: number }>(
   '==',
   'any',
   async (cmd) => {
-    if (cmd.args.length < 2) {
-      commandRuntimeError(cmd, `requires at least two arguments`);
+    if (cmd.args.length < 1) {
+      commandRuntimeError(cmd, `requires at least 1 arguments`);
     }
     let previousValue = cmd.args[0];
     let allEqual = true;

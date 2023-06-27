@@ -1,0 +1,164 @@
+random_battle:
+  empty_sprites
+  play music battle
+  set battle.attackedLast undefined
+  run select_battle_level
+  run show_player_battle_sprite
+  run random_enemy
+  "Suddenly, a %{$enemy.name} appears!"
+  jump battle
+
+select_battle_level:
+  var level (random_from_array $ROOMS.battle_rooms)
+  set battle.room $level
+  set_screen $level.screen
+
+show_player_battle_sprite:
+  set player.sprite (run load_sprite $player.classData.sprite)
+
+battle_end:
+  stop music
+  log $battle.result
+  delete_sprite $enemy.sprite
+  delete_sprite $player.sprite
+  if (== $battle.result "won"):
+    add victories 1
+    "You defeated %{$enemy.name}!"
+    if (>= $victories $best_victories)
+      set best_victories $victories
+  else:
+    set_screen rpg
+    "You were defeated by %{$enemy.name}! after %{$victories} victories. Your best record is %{$best_victories} victories."
+    choice:
+      "Restart?"
+      "Yes":
+        jump start_rpg
+      "No":
+        "Game over."
+  
+random_enemy:
+  set enemy.info (random_from_array $ENEMIES.enemies)
+  set enemy.name $enemy.info.name
+  set enemy.sprite (run load_sprite $enemy.info.sprite)
+  set enemy.hp $enemy.info.stats.hp
+  set enemy.str $enemy.info.stats.str
+  set enemy.def $enemy.info.stats.def
+  set enemy.spd $enemy.info.stats.spd
+
+battle:
+  run get_attacker
+  log $battle.attacker
+  if (== $battle.attacker "player")
+    run process_combat_options
+  else:
+    run enemy_attack
+  if (<= (get_stat_value hp) 0):
+    set battle.result "lost"
+  else:
+    if (<= $enemy.hp 0):
+      set battle.result "won"
+    else:
+      run tick
+      jump battle
+  jump battle_end
+
+get_attacker:
+  log $battle.attackedLast
+  if (== $battle.attackedLast undefined):
+    if (> $player.spd $enemy.spd):
+      "%{$player.name} attacks first!"
+      set battle.attackedLast "player"
+      set battle.attacker "player"
+    else:
+      "%{$enemy.name} attacks first!"
+      set battle.attackedLast "enemy"
+      set battle.attacker "enemy"
+  else:
+    if (== $battle.attackedLast "player"):
+      set battle.attackedLast "enemy"
+      set battle.attacker "enemy"
+    else:
+      set battle.attackedLast "player"
+      set battle.attacker "player"
+
+process_combat_options:
+  if (== $player.class warrior):
+    return (run warrior_combat)
+  if (== $player.class wizard):
+    return (run wizard_combat)
+  if (== $player.class rogue):
+    return (run rogue_combat)
+
+warrior_combat:
+  choice:
+    "Choose an action"
+    "Attack":
+      return (run attack)
+    "Whirlwind (%{$player.classData.skills.whirlwind.cost} MP)" if (>= (get_stat_value mp) $player.classData.skills.whirlwind.cost):
+      return (run whirlwind)
+
+rogue_combat:
+  choice:
+    "Choose an action"
+    "Attack":
+      return (run attack)
+
+wizard_combat:
+  choice:
+    "Choose an action"
+    "Attack":
+      return (run attack)
+    "Fireball (%{$player.classData.spells.fireball.cost} MP)" if (>= (get_stat_value mp) $player.classData.spells.fireball.cost):
+      return (run fireball)
+    "Heal (%{$player.classData.spells.heal.cost} MP)" if (>= (get_stat_value mp) $player.classData.spells.heal.cost):
+      return (run heal)
+
+attack:
+  var damage (+ 1 $skills.strength.level)
+  run process_hit_on_monster $damage $enemy
+  add_xp strength 1
+
+fireball:
+  var damage (* 3 (get_level intelligence))
+  run process_hit_on_monster $damage $enemy
+  add_xp intelligence 3
+  add_stat mp (neg $player.classData.spells.fireball.cost)
+
+heal:
+  var heal (* 2 (get_level intelligence))
+  add_stat hp $heal
+  add_xp intelligence 3
+  add_stat mp (neg $player.classData.spells.heal.cost)
+  set_stat hp (min (get_stat_value hp) $player.maxHp)
+  "%{$player.name} healed for %{$heal} HP!"
+
+whirlwind:
+  var damage (* 3 (get_level strength))
+  run process_hit_on_monster $damage $enemy
+  add_stat mp (neg $player.classData.spells.whirlwind.cost)
+  add_xp strength 3
+
+enemy_attack:
+  var damage (+ 1 $enemy.str)
+  run process_hit_on_player $damage
+
+process_hit_on_monster damage enemy:
+  var final_dmg (run calculate_defenses $damage $enemy.def)
+  add enemy.hp (neg $final_dmg)
+  "The %{$enemy.name} takes %{$final_dmg} damage!"
+
+process_hit_on_player damage:
+  var final_dmg (run calculate_defenses $damage $player.def)
+  add_stat hp (neg $final_dmg)
+  "%{$player.name} takes %{$final_dmg} damage!"
+
+calculate_defenses damage def:
+  return (max 0 (- $damage $def))
+
+tick:
+  if (== $player.class "wizard"):
+    add_stat mp 5
+  if (== $player.class "warrior"):
+    add_stat mp 1
+  if (== $player.class "rogue"):
+    add_stat mp 2

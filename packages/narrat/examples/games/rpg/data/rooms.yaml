@@ -1,0 +1,33 @@
+battle_rooms:
+  - screen: battle_grass
+    id: grass
+  - screen: battle_cave
+    id: cave
+  - screen: battle_dungeon
+    id: dungeon
+dungeon_rooms:
+  FRL:
+    screen: dungeon_FRL
+    directions:
+      left: true
+      right: true
+      front: true
+  F:
+    screen: dungeon_F
+    directions:
+      front: true
+  FL:
+    screen: dungeon_FL
+    directions:
+      front: true
+      left: true
+  FR:
+    screen: dungeon_FR
+    directions:
+      front: true
+      right: true
+  LR:
+    screen: dungeon_LR
+    directions:
+      left: true
+      right: true
