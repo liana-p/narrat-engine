@@ -17,11 +17,16 @@ Copy the content of one of the [example games](https://github.com/liana-p/narrat
 
 Then in your javascript code to launch narrat, use:
 
-```
+```ts
 import { startApp } from 'narrat';
+import scripts from './scripts';
+
+const debug = true;
 // Call `startApp` to run the game, passing the path to your config file and characters file.
 startApp({
   charactersPath: 'data/characters.yaml', // Replace with whatever path you have
   configPath: 'data/config.yaml',
+  scripts,
+  debug,
 });
 ```

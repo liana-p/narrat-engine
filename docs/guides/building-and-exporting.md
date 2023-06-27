@@ -9,7 +9,7 @@ description: Follow these steps to build and export a narrat game for the web or
 
 You can build your game as a static website
 
-```
+```bash
 npm run build
 ```
 
@@ -21,7 +21,7 @@ This will generate a built version of your game as a website in the `dist/` fold
 
 The narrat template game is setup to use [electron](https://www.electronjs.org) and [electron-forge](https://www.electronforge.io) to easily build a desktop application out of your game.
 
-#### Requirements
+## Requirements
 
 - Have [git](https://git-scm.com) installed
 - If you're installing git on windows, using the default options for every step in the setup process is fine
@@ -32,7 +32,7 @@ You can run your game as an app:
 npm run electron
 ```
 
-#### Building the game
+## Building the game
 
 Or you can package it as an executable (should work on Windows, Mac, Linux):
 
@@ -66,7 +66,7 @@ To release your game as a normal desktop application on itch.io, follow the inst
 
 Electron is able to create release packages of the game for most common platforms. Included in the default setup of narrat are the configs to release for Windows, Mac and Linux.
 
-### Creating a distributable (a "setup file")
+## Creating a distributable (a "setup file")
 
 To create a distributable, you need to run the following command:
 
@@ -86,7 +86,7 @@ The options configured by default should help if you want to publish a simple ga
 
 In some cases, you might need to add a new dependency to your package to use a new maker. For example you might need to run `npm install --save-dev @electron-forge/maker-pkg` to use the .pkg maker to release on the MacOS App Store.
 
-### Windows Distribution
+## Windows Distribution
 
 The default (and recommended by Electron) way to create a Windows distributable is to use [Squirrel.Windows](https://www.electronforge.io/config/makers/squirrel.windows), which is already configured for you in narrat games and should happen if you run `npm run make` on Windows. You can see its config in the `package.json` file.
 
@@ -94,11 +94,11 @@ There is also the option to create a more old school .msi installer with the [Wi
 
 Finally, the [AppX maker](https://www.electronforge.io/config/makers/appx) can create Windows Store releases.
 
-### MacOS Distribution
+## MacOS Distribution
 
 Running `npm run package` on a Mac should create a file that can be executed on MacOS, but if you want to distribute your app as a dmg or pkg, or on the App Store, then you should add your own config for the [DMG maker](https://www.electronforge.io/config/makers/dmg) or [pkg maker](https://www.electronforge.io/config/makers/pkg). This should allow creation of a DMG or PKG file that can be distributed either directly or on the App Store..
 
-### Linux Distribution
+## Linux Distribution
 
 There are all sorts of ways to distribute Linux applications depending on distributions and their package managers. The list of makers in the electron-forge list a few of the options, including [.deb](https://www.electronforge.io/config/makers/deb) and [.snap](https://www.electronforge.io/config/makers/snapcraft)
 

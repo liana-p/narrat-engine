@@ -12,7 +12,7 @@ See [HUD Stats](../../features/hud-stats.md) page for more info on this feature
 
 Example:
 
-```
+```narrat
 choice:
   talk shopkeeper idle "So, what do you want to buy?"
   "I want to buy a little snack" $if this.stats.money > 5:

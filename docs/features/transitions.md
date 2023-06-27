@@ -2,9 +2,9 @@
 
 Transitions can be used to animate the change between two screens when using the [set_screen ](../commands/left-side-viewport-commands/set-screen.md)command
 
-### Usage Example
+## Usage Example
 
-```
+```narrat
 transitions_test:
   set_screen default
   "normal set screen"
@@ -21,19 +21,19 @@ transitions_test:
 Note: Specifying the layer is necessary when using transitions.
 :::
 
-### Available transitions
+## Available transitions
 
 Currently, there are two transitions available:
 
-#### fade
+### fade
 
 <!-- ![](../.gitbook/assets/transition.gif) -->
 
-#### slide-right
+### slide-right
 
 <!-- ![](../.gitbook/assets/transition2.gif) -->
 
-### **Creating custom transitions**
+## **Creating custom transitions**
 
 It is possible to define custom transitions by creating css classes for them. For example, here are the CSS classes for the current transitions:
 
@@ -72,8 +72,6 @@ It is possible to define custom transitions by creating css classes for them. Fo
 ```
 
 New transitions can be created by copying those CSS classes (and changing the name like `fade` or `slide-right` in them) and adding them to the game's CSS, editing the values to whatever is desired.
-
-####
 
 ### Default transition durations config
 

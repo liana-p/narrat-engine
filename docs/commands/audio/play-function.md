@@ -13,6 +13,6 @@ Syntax: `$play [mode] [audioName] [channel (optional)]`
 
 ## Example
 
-```
+```narrat
 play music musicName 0
 ```

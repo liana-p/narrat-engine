@@ -12,12 +12,12 @@ See [playing audio](../../features/audio.md) for more info on how to setup the a
 
 Syntax: `play [mode] [channel]`
 
-* mode: `music, ambiant,` or `sound`
-* `channel:` The index of the channel to stop
+- mode: `music, ambiant,` or `sound`
+- `channel:` The index of the channel to stop
 
 ## Example
 
-```
+```narrat
 stop music
 stop music 1
 ```

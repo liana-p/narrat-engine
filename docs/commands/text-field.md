@@ -12,7 +12,7 @@ Usage: `text_field [prompt]`
 
 Example:
 
-```py
+```narrat
 main:
   set player.name (text_field "Enter your name")
   "Your name is %{playerName}"

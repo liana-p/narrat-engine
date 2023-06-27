@@ -38,7 +38,7 @@ All settings need to specify the `type` property, as well as `name` and `descrip
 
 To use custom settings in script, new commands `get_setting` and `set_setting` are be available:
 
-```
+```narrat
 main:
   set $data.noSpiders (get_setting arachnophobia)
 
@@ -48,7 +48,7 @@ change_setting:
 
 You can also access settings directly as variables:
 
-```
+```narrat
 main:
   talk helper idle "Hello, %{customSettings.playerName}"
 ```

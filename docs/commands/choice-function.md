@@ -10,7 +10,7 @@ It takes no parameters, but opens a block that needs to contain at least a text 
 
 ### Simple Choice
 
-```
+```narrat
 choice_example:
     talk cat idle "This example shows how to use the choice command"
     choice:
@@ -33,7 +33,7 @@ It is also possible to make options roll a skill check and then branch on succes
 
 A skill roll needs at least a success branch inside it, and optionally a failure branch
 
-```
+```narrat
 choice_example_conditions:
     talk cat idle "This example shows how to use conditions in choices"
     choice:

@@ -64,20 +64,44 @@ Here is a list of the CSS variables that exist in narrat:
 
 ```css
 :root {
-  --bg-color: #131720;
+  --font-family: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
+  --bg-color: rgba(19, 23, 32, 0.9);
   --text-color: #d9e1f2;
+  --grey-text-color: #a6a6a6;
   --primary: hsl(255, 30%, 55%);
   --focus: hsl(210, 90%, 50%);
   --secondary: #42b983;
   --border-color: hsla(0, 0%, 100%, 0.2);
   --light-1: hsl(210, 30%, 40%);
   --light-2: hsl(255, 30%, 50%);
-  --light-background: linear-gradient(to right, var(--light-1), var(--light-2));
+  --light-gradient: linear-gradient(to right, var(--light-1), var(--light-2));
+  --light-background: rgba(255, 255, 255, 0.3);
+  --button-background: var(--tile-background);
+  --button-text-color: var(--text-color);
+  --modal-gradient-1: rgba(18, 21, 26, 0.8);
+  --modal-gradient-2: rgba(37, 40, 44, 0.6);
+  --modal-background: linear-gradient(
+    90deg,
+    var(--modal-gradient-1) 0%,
+    var(--modal-gradient-2) 100%
+  );
+  --tile-gradient-1: rgba(18, 21, 26, 0.9);
+  --tile-gradient-2: rgba(37, 40, 44, 0.7);
+  --tile-background: linear-gradient(
+    90deg,
+    var(--tile-gradient-1) 0%,
+    var(--tile-gradient-2) 100%
+  );
+  --tile-border-color: rgba(166, 166, 166, 0.3);
   --shadow-1: hsla(236, 50%, 50%, 0.3);
   --shadow-2: hsla(236, 50%, 50%, 0.4);
   --hud-background: rgba(0, 0, 0, 0.4);
   --hud-text-color: var(--text-color);
-  --notifications-bg: darkslateblue;
+
+  --notification-bg: var(--tile-background);
+  --notification-text-color: var(--text-color);
+  --notification-description-color: var(--grey-text-color);
+  --notification-icon-size: 40px;
 
   --skills-text-background: rgba(0, 0, 0, 0.5);
   --skills-text-color: var(--text-color);
@@ -93,6 +117,59 @@ Here is a list of the CSS variables that exist in narrat:
 
   --dialog-choice-color: orange;
   --dialog-choice-hover-color: var(--text-color);
+
+  --inventory-text-background: rgba(0, 0, 0, 0.5);
+  --inventory-text-color: var(--text-color);
+  --inventory-amount-background: rgba(0, 0, 0, 0.5);
+  --inventory-amount-color: orange;
+
+  --quest-title-color: yellow;
+  --completed-quest-title-color: grey;
+
+  --objective-in-progress-color: white;
+  --objective-completed-color: grey;
+
+  --loading-bar-inner-bg: var(--light-background);
+  --loading-bar-outer-bg: var(--bg-color);
+
+  --dialog-box-bg: var(--bg-color);
+  --dialog-box-border: none;
+
+  /* Tabs */
+  --tabs-background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(100, 100, 100, 1) 53%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  --tab-active-background: rgba(0, 0, 0, 0);
+  --tab-active-text-color: var(--text-color);
+  --tab-inactive-background: rgba(0, 0, 0, 0);
+  --tab-inactive-text-color: var(--text-color);
+  --tab-border-style: solid;
+  --tab-border-color: white;
+  --tab-selected-glow-color: var(--focus);
+
+  --tooltip-background: #331d00;
+  --tooltip-border: 1px solid orange;
+  --tooltip-border-radius: 5px;
+  --tooltip-title-font-size: 1.2rem;
+  --tooltip-font-size: 1rem;
+  --tooltip-title-color: red;
+  --tooltip-color: var(--text-color);
+
+  --highlighted-tooltip-keyword-color: red;
+  --highlighted-tooltip-keyword-font-size: 1.1em;
+  --highlighted-tooltip-keyword-font-weight: bold;
+
+  --achievement-title-color: var(--text-color);
+  --achievement-tile-background: var(--tile-background);
+  --achievement-tile-border-color: var(--tile-border-color);
+  --achievement-description-color: rgb(170, 170, 170);
+
+  --separator-bg-color: rgba(250, 250, 250, 0.8);
+  --separator-height: 1px;
+  --separator-width: 100%;
 }
 ```
 
@@ -141,19 +218,19 @@ For example:
 
 The easiest way to find a CSS class name or id to override for theming a game is to use the browser inspector (right-click -> inspect on Chrome or Firefox).
 
-<!-- <img src="../.gitbook/assets/image (11).png" alt="" data-size="original"> -->
+![Devtools screnshot 1](./css/devtools-1.png)
 
 The devtools have a list of all the elements on the page in the elements tab (bottom left in the screenshot). This tool shows a tree view of all the DOM elements that constitute a web page (the narrat UI is made of DOM elements)Available CSS classes to override
 
-<!-- <img src="../.gitbook/assets/image (31) (1).png" alt="" data-size="original"> -->
+![Devtools picker](./css/devtools-picker.png)
 
 Clicking on the arrow icon in the top left of the devtools opens a "picker" tool that allows clicking anywhere on the page to select an element in the elements view of the devtools. This makes it very easy to browse and find elements on a page.
 
 Finding the css class or id for an element is then just a matter of looking at what's in the HTML for that element in the devtools after finding it with the picker:
 
-<!-- <img src="../.gitbook/assets/image (18).png" alt="" data-size="original"> -->
+![Element picker](./css/picker.png)
 
-<!-- <img src="../.gitbook/assets/image (30).png" alt="" data-size="original"> -->
+![Element tabs of devtools with picked element highlighted](./css/inspector.png)
 
 Hovering elements in the elements tab also highlights them on the page.
 
@@ -161,23 +238,23 @@ The `class` property in an element is the CSS class name. Some elements also hav
 
 :::
 
-#### CSS class and CSS id
+### CSS class and CSS id
 
 Once a css class or id has been found to edit an element, it's simply a matter of adding CSS for it. To create CSS for a class, the selector needs to start with `.` followed by the class name. For an id it's `#`. For example:
 
 ```css
 .interact-button {
-    /* This selector applies to the CSS class named "interact-button"
-    color: red !important;
+  /* This selector applies to the CSS class named "interact-button" */
+  color: red !important;
 }
 
 #interact-button {
-    /* This selector applies to the css ID named "interact-button"
-    color: red !important;
+  /* This selector applies to the css ID named "interact-button" */
+  color: red !important;
 }
 ```
 
-{% hint style="warning" %}
+::: warning
 Be careful not to confuse CSS classes and ids, as the syntax for their selector is different.
 :::
 
@@ -193,25 +270,25 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 `.button`: Generic base class applied to all buttons
 
-<!-- <img src="../.gitbook/assets/image (34).png" alt="" data-size="original"> -->
+![Button](./css/elements/button.png)
 
 `.interact-button`: The "Continue" button during dialogue
 
-<!-- <img src="../.gitbook/assets/image (25).png" alt="" data-size="original"> -->
+![Interact Button](./css/elements/interact-button.png)
 
 `.dialog-choice`: The selectable choices in the dialogue
 
-<!-- <img src="../.gitbook/assets/image (22).png" alt="" data-size="original"> -->
+![Dialog Choice](./css/elements/dialog-choice.png)
 
 `.menu-button`: The two "start game" and "continue game" buttons
 
 `.start-button`
 
-<!-- <img src="../.gitbook/assets/image (13).png" alt="" data-size="original"> -->
+![Start Button](./css/elements/start-button.png)
 
 `.continue-button`
 
-<!-- <img src="../.gitbook/assets/image (29).png" alt="" data-size="original"> -->
+![Continue Button](./css/elements/continue-button.png)
 
 :::
 
