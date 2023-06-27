@@ -4,9 +4,13 @@ description: Need help for something or stuck with an issue using narrat? We hav
 
 # Getting Help
 
+## Narrat Forum
+
+Please create a thread on the [help forum](https://narrat.discourse.group/c/help/5) with as much information as you can, including: Any logs if relevant, narrat version, browser used, description of the issue, and what you've attempted.
+
 ### Discord server
 
-The [Discord server](https://discord.gg/Xgz7EQ2Xgh) is a good place to get help, as the main developer is on it to answer questions or make bugfixes. Other users can also help with common issues
+You can also ask for help [on Discord](https://discord.gg/Xgz7EQ2Xgh) if it's a small thing, but the forum is preferred as it's easier to keep track of issues and other people who have the same issue will be able to find that thread in the future.
 
 ### GitHub issues
 

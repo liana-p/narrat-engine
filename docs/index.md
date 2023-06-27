@@ -42,6 +42,11 @@ features:
     details: Narrat games are web apps and work on the web out of the box. They also come with preconfigured build systems for releasing on Windows, Mac, Linux, and Steam.
     link: /guides/building-and-exporting
     linkText: Build and export guide
+  - icon: 🔥
+    title: Hot module reloading for fast writing
+    details: The game reloads script live as you make changes, so you can edit your writing halfway through playing and continue with the changes without needing to restart.
+    link: /features/hot-module-reloading
+    linkTest: Hot module reloading guide
   - icon: 🎨
     title: Easy and powerful UI theming with CSS
     details: Narrat uses CSS for styling, so you can easily customize the look of your game. CSS is very easy to learn, powerful, and widely used so you can find resources easily.

@@ -16,7 +16,7 @@ By using labels, we can save the last label that was reached and guarantee that 
 
 Running this code will play the script inside `jump_example`, then run the script inside `label_to_jump`
 
-```
+```narrat
 label_to_jump:
     talk cat idle "The code has now jumped to this label"
 

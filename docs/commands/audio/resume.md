@@ -13,7 +13,7 @@ Syntax: `$play [mode] [channel (optional)]`
 
 ## Example
 
-```
+```narrat
 play music musicName
 wait 3000
 pause music

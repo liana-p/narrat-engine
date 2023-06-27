@@ -39,7 +39,7 @@ Scripts can interact with the quest system:
 
 ::: details Example demo script
 
-```
+```narrat
 quest_demo:
   set_button shopButton true
   set_button parkButton false

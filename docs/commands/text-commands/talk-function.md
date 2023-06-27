@@ -12,7 +12,7 @@ A shorthand for the narrator speaking (without any character sprite or name) is 
 
 ## Example
 
-```
+```narrat
 talk_example:
     talk cat idle "I'm talking to you!"
     "This is a shortcut for the narrator talking"

@@ -4,7 +4,7 @@ description: The clear_dialog function empties the dialogue screen of previous e
 
 # Clear Dialog
 
-```
+```narrat
 clear_dialog
 ```
 

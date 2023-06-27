@@ -8,7 +8,7 @@ The `add` function is similar to the `set` function, but increments values. You 
 
 The following code will setup a `counter` variable, then effectively put the player in a loop where they can increase the counter up to 10 times until they have a new choice to move on.
 
-```
+```narrat
 add_example:
     set data.counter 0
     jump add_example_add

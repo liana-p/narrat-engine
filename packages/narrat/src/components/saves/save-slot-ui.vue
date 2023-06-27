@@ -43,7 +43,7 @@
 </template>
 <script setup lang="ts">
 import { SaveSlot } from '../../types/game-save';
-import { computed, defineProps, PropType, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 import { toHHMMSS } from '../../utils/time-helpers';
 import { renameSave } from '../../utils/save-helpers';
 import { getConfig, getImageUrl, screensConfig } from '@/config';

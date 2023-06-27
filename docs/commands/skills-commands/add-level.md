@@ -14,7 +14,7 @@ See the [skills system guide](../../features/skills.md) to know more
 
 Example:
 
-```
+```narrat
 skillCheckChoice:
   choice:
     "Should we try jumping over a fence?"

@@ -6,9 +6,8 @@ Syntax: `concat [joiner] [string1] [string2] [string 3]...`
 
 Example:
 
-```
+```narrat
 main:
   var helloWorld (join ", " "Hello" "world")
   "%{helloWorld}" // Will print "Hello, world"
 ```
-

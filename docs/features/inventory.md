@@ -37,7 +37,7 @@ items: data/items.yaml
 
 Then items can be added/removed in scripts:
 
-```
+```narrat
 main:
   add_item bread 15
   remove_item bread 10
@@ -47,7 +47,7 @@ main:
     talk helper idle "You have no bread"
 ```
 
-### Using items
+## Using items
 
 Items can also be used, see guide below:
 

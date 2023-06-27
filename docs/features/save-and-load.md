@@ -53,7 +53,7 @@ The engine now supports global save data. Global save data isn't associated with
 
 To use, set values in the `global` object instead of `data`. For example:
 
-```
+```narrat
 main:
   talk player idle "hello world"
   add global.counter 1
@@ -68,7 +68,7 @@ To reset global save data, use the `reset_global_save` command.
 
 Sometimes, you might need your game to edit data that can't be saved. For example games can dynamically change the config after starting. A common example would be changing the player's name:
 
-```
+```narrat
 test_edit_config:
   set data.playerName (text_field "Enter your name")
   set config.characters.characters.player.name $data.playerName
@@ -87,7 +87,7 @@ saves:
 
 Then for example in the game code:
 
-```
+```narrat
 main:
   jump ask_player_name
 

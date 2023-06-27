@@ -11,7 +11,7 @@ They are used by using the keyword of the operator (the command) followed by its
 
 Example:
 
-```
+```narrat
 main:
   set player.score 100
   set player.alive true
