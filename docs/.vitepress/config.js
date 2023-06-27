@@ -19,7 +19,12 @@ const config = {
   ],
   themeConfig: {
     search: {
-      provider: 'local',
+      provider: 'algolia',
+      options: {
+        appId: '3F0NL3DOSQ',
+        apiKey: '9aaa5c269e5220f82c43a7307508cb2d',
+        indexName: 'narrat',
+      },
     },
     siteTitle: 'Narrat Documentation',
     editLink: {
@@ -73,6 +78,11 @@ const config = {
         items: [
           { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
+          { text: 'Game Settings', link: '/features/game-settings' },
+          {
+            text: 'Hot Module Reloading',
+            link: '/features/hot-module-reloading',
+          },
           { text: 'HUD Stats', link: '/features/hud-stats' },
           { text: 'Inventory', link: '/features/inventory' },
           { text: 'Items', link: '/features/items' },
@@ -81,11 +91,6 @@ const config = {
           { text: 'Skills', link: '/features/skills' },
           { text: 'Transitions', link: '/features/transitions' },
           { text: 'Viewport', link: '/features/viewport' },
-          { text: 'Game Settings', link: '/features/game-settings' },
-          {
-            text: 'Hot Module Reloading',
-            link: '/features/hot-module-reloading',
-          },
         ],
       },
       {
