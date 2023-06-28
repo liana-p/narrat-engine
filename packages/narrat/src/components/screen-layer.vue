@@ -18,7 +18,7 @@
       v-html="getButtonText(button as string)"
     ></div>
     <ScreenObject
-      v-for="screenObject in screenObjectsStore.tree"
+      v-for="screenObject in screenObjects"
       :key="screenObject.id"
       :screenObject="screenObject"
       :transitioning="transitioning"
@@ -45,14 +45,11 @@ import { error } from '@/utils/error-handling';
 import ScreenObject from './screen-objects/screen-object.vue';
 import { isViewportElementClickable } from '@/utils/viewport-utils';
 
-const props = defineProps({
-  layer: String,
-  layerIndex: Number,
-  transitioning: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = defineProps<{
+  layer: string;
+  layerIndex: number;
+  transitioning: boolean;
+}>();
 const vmStore = useVM();
 const main = useMain();
 const screensStore = useScreens();

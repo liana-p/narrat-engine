@@ -1,0 +1,30 @@
+go_left:
+  background: rpg/img/ui/left.webp
+  x: 100
+  y: 250
+  anchor:
+    x: 0.5
+    y: 0.5
+  onClick: choose_left
+go_right:
+  enabled: false
+  background: rpg/img/ui/right.webp
+  x: 770
+  y: 250
+  width: 96
+  height: 96
+  anchor:
+    x: 0.5
+    y: 0.5
+  onClick: choose_right
+go_front:
+  enabled: false
+  background: rpg/img/ui/front.webp
+  x: 440
+  y: 120
+  width: 96
+  height: 96
+  anchor:
+    x: 0.5
+    y: 0.5
+  onClick: choose_front

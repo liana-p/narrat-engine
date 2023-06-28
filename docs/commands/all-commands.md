@@ -202,11 +202,12 @@ wait 1000
 delete_sprite $data.playerSprite
 ```
 
-| Command       | Example                                  | Description                                   |
-| ------------- | ---------------------------------------- | --------------------------------------------- |
-| create_sprite | `create_sprite img/character.png 55 125` | Creates a sprite using an image at a position |
-| create_object | `create_object 55 125`                   | Creates an object at a position               |
-| delete_sprite | `delete_sprite $mySprite`                | Deletes a sprite (stored in a variable)       |
+| Command       | Example                                  | Description                                                                 |
+| ------------- | ---------------------------------------- | --------------------------------------------------------------------------- |
+| create_sprite | `create_sprite img/character.png 55 125` | Creates a sprite using an image at a position                               |
+| create_object | `create_object 55 125`                   | Creates an object at a position                                             |
+| delete_sprite | `delete_sprite $mySprite`                | Deletes a sprite (stored in a variable)                                     |
+| empty_sprites | `empty_sprites [optional layer number]`  | Deletes all sprites, on specified layer or all layers if no layer is passed |
 
 ## Others
 

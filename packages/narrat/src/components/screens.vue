@@ -30,7 +30,12 @@
           />
         </template>
       </NarratTransition>
-      <Layer :layer="layer.screen" v-else-if="layer.screen" />
+      <Layer
+        :layer="layer.screen"
+        v-else-if="layer.screen"
+        :layerIndex="index"
+        :transitioning="false"
+      />
     </div>
   </div>
 </template>
