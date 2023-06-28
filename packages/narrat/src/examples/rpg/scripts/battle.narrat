@@ -6,7 +6,7 @@ random_battle:
   run show_player_battle_sprite
   run random_enemy
   "Suddenly, a %{$enemy.name} appears!"
-  jump battle
+  run battle
 
 select_battle_level:
   var level (random_from_array $ROOMS.battle_rooms)
@@ -54,13 +54,14 @@ battle:
     run enemy_attack
   if (<= (get_stat_value hp) 0):
     set battle.result "lost"
+    run battle_end
   else:
     if (<= $enemy.hp 0):
       set battle.result "won"
+      run battle_end
     else:
       run tick
-      jump battle
-  jump battle_end
+      run battle
 
 get_attacker:
   log $battle.attackedLast
