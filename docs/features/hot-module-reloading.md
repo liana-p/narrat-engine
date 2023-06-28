@@ -6,6 +6,8 @@ title: Hot Module reloading
 
 The development server can [hot reload](https://vitejs.dev/guide/features.html#hot-module-replacement) narrat scripts.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4a5dIUiaj2w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 Essentially, narrat scripts can be edited while playing a game, and when a file is saved the changes will be picked up live, without having to restart the game.
 
 When a narrat file is hot-reloaded, all the labels in it are updated. The next time the game jumps to any of those labels, they will have the new version.
