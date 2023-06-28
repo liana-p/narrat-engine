@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/liana-p/narrat-engine/compare/v3.0.2...v3.1.0) (2023-06-28)
+
+### Bug Fixes
+
+- issue with typescript compilation of vue files probably caused by a dep update ([90f9cf1](https://github.com/liana-p/narrat-engine/commit/90f9cf1b9b38d66a65823acc7c2bc981167a3a60))
+- issue with sprites rendering duplicated on every layer instead of only the layer they should be on.
+
+### Features
+
+- `empty_sprites`: New [`empty_sprites`](https://docs.narrat.dev/commands/all-commands.html#screen-objects) command
+- **Demo:** improved RPG demo to modernise scripting syntax ([2faaad6](https://github.com/liana-p/narrat-engine/commit/2faaad6a1ec3cca0bfdd0d475f61327119124d61)). See [PR](https://narrat.discourse.group/t/narrat-rpg-demo-updated-to-use-more-modern-syntax/38)
+
 ## [3.0.2](https://github.com/liana-p/narrat-engine/compare/v3.0.1...v3.0.2) (2023-06-24)
 
 Release to make sure the create-narrat template uses at least narrat 3.0.1.
