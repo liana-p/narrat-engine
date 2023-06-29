@@ -9,7 +9,7 @@ description: >-
 
 HUD Stats are number values that automatically appear in the HUD at the top right of the screen and can be controlled via game scripts.
 
-<!-- ![](<../.gitbook/assets/image (21).png>) -->
+![HUD Stats](./images/hud-stats.webp)
 
 ## HUD Stats config
 

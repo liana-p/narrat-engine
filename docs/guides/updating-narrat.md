@@ -24,7 +24,7 @@ There are many new features frequently added to narrat which aren't always docum
 
 The narrat version used in a game is the one specified in the `dependencies` part of the `package.json` file at the root of the game. For example:
 
-<!-- ![narrat version example](<../.gitbook/assets/image (7).png>) -->
+![package.json](./updating/image.png)
 
 To update, simply run the command `npm install narrat@latest` in the terminal, which will pick up the latest released version.
 

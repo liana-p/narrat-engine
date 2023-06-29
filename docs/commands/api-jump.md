@@ -26,4 +26,4 @@ jump_example:
     jump label_to_jump
 ```
 
-<!-- ![Result of the above code](../.gitbook/assets/jump_example.gif) -->
+![Result of the above code](./images/jump_example.gif)

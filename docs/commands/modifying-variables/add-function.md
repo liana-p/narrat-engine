@@ -28,5 +28,3 @@ add_example_end:
     talk cat idle "It seems you're done with the counter now"
 
 ```
-
-<!-- ![Result of the above code](../../.gitbook/assets/add\_example.gif) -->

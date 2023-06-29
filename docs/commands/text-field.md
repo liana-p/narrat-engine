@@ -18,6 +18,6 @@ main:
   "Your name is %{playerName}"
 ```
 
-<!-- ![](<../.gitbook/assets/image (7) (2).png>) -->
+![Text field example](./images/text-field.png)
 
-<!-- ![](<../.gitbook/assets/image (4).png>) -->
+![Text field result](./images/text-field-result.png)

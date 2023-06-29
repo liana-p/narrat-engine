@@ -27,11 +27,11 @@ Currently, there are two transitions available:
 
 ### fade
 
-<!-- ![](../.gitbook/assets/transition.gif) -->
+![Fade transition](./images/transition-fade.gif)
 
 ### slide-right
 
-<!-- ![](../.gitbook/assets/transition2.gif) -->
+![Slide-right transition](./images/transition-slide.gif)
 
 ## **Creating custom transitions**
 

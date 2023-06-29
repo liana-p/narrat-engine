@@ -21,7 +21,7 @@ choice_example:
             talk cat idle "I see you picked the second choice!"
 ```
 
-<!-- ![Result of the above code](../.gitbook/assets/choice.gif) -->
+![Choice](./images/choice.gif)
 
 ### Choice with conditions or skill rolls
 
@@ -50,4 +50,4 @@ choice_example_conditions:
 
 In the example above, the first choice won't appear because the condition isn't met, and the second option will appear as a skill check.
 
-<!-- ![Choice with a skill check](../.gitbook/assets/choice-skillcheck.gif) -->
+![Choice with a skill check](./images/choice-skillcheck.gif)

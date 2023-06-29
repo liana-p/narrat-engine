@@ -19,5 +19,3 @@ talk_example:
     talk player idle "The player can also talk"
 
 ```
-
-<!-- ![Talk example result](../../.gitbook/assets/talk_example.gif) -->

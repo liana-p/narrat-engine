@@ -53,6 +53,6 @@ Items can also be used, see guide below:
 
 [items.md](../features/items.md)
 
-<!-- ![](<../.gitbook/assets/image (4) (1).png>) -->
+![Inventory](./images/inventory.png)
 
-<!-- ![](../.gitbook/assets/Animation.webp) -->
+![Inventory demo](./images/inventory-demo.webp)

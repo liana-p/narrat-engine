@@ -25,5 +25,3 @@ set_example:
         talk cat idle "Since you like surprises, here's a surprise message"
 
 ```
-
-<!-- ![Result of the above code](../../.gitbook/assets/set\_function\_example.gif) -->

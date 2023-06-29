@@ -8,7 +8,7 @@ description: >-
 
 It is possible to make items usable by players, which can trigger a dialogue script label
 
-<!-- ![](../.gitbook/assets/useitem.webp) -->
+![Using items](./images/items.webp)
 
 In an item config, an optional `onUse` value is available, which cn be set to a label to jump to when using the item.
 

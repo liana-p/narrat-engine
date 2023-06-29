@@ -8,7 +8,7 @@ coverY: 0
 
 Narrat games can have quests with dynamic objectives and a quest log UI
 
-<!-- ![](<../.gitbook/assets/image (27).png>) -->
+![Quests](./images/quests.png)
 
 Quests can be defined in the quests.yaml config file:
 
