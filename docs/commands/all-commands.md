@@ -17,28 +17,28 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Basic program flow
 
-| Command                             | Example                                                                                                                                                               | Description                                                                                                                                                                             |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [jump](api-jump.md)                 | `jump myLabel`                                                                                                                                                        | Jumps to a label (stops current script)                                                                                                                                                 |
-| [run](../scripting/functions.md)    | `run myLabel [arg1] [arg2] [...] // Returns whatever the label returned, if anything`                                                                                 | Runs a label as a function with optional arguments passed to it, then continues back where the script was                                                                               |
-| [return](../scripting/functions.md) | `return $test`                                                                                                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
-| [if](if-function.md)                | <p><br><code>if $data.hasFood:</code><br><code>"I have food, so we can eat a meal!"</code><br><code>else:</code><br><code>"We have nothing to eat"</code><br><br></p> | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
+| Command                             | Example                                                                               | Description                                                                                                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [jump](api-jump.md)                 | `jump myLabel`                                                                        | Jumps to a label (stops current script)                                                                                                                                                 |
+| [run](../scripting/functions.md)    | `run myLabel [arg1] [arg2] [...] // Returns whatever the label returned, if anything` | Runs a label as a function with optional arguments passed to it, then continues back where the script was                                                                               |
+| [return](../scripting/functions.md) | `return $test`                                                                        | Returns a value. Exits the current label and returns the first argument                                                                                                                 |
+| [if](if-function.md)                | if $data.hasFood:"I have food, so we can eat a meal!"else:"We have nothing to eat"    | Runs a condition on the passed value. If the condition is true, the first branch is run. Otherwise, an optional `else:` branch can be provided for what to run when the condition fails |
 
 ## Choices
 
-| Command                      | Example                                                                                                                                                                                                                             | Description                                                                                     |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [choice](choice-function.md) | <p><br><code>choice:</code><br><code>"Would you like tea?"</code><br><code>"Yes":</code><br><code>"Your friend serves you a cup of tea"</code><br><code>"No":</code><br><code>"Your friend makes tea for themselves"</code><br></p> | Lets the player choose between two or more options. See the linked documentation for more info. |
-| [text_field](text-field.md)  | `text_field "A prompt text"`                                                                                                                                                                                                        | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
+| Command                      | Example                                                                                                            | Description                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| [choice](choice-function.md) | choice:"Would you like tea?""Yes":"Your friend serves you a cup of tea""No":"Your friend makes tea for themselves" | Lets the player choose between two or more options. See the linked documentation for more info. |
+| [text_field](text-field.md)  | `text_field "A prompt text"`                                                                                       | Creates a text field for the player to enter text with a prompt. Returns the text entered       |
 
 ## Logic operators and conditions
 
-| Command                                                | Example                                                                         | Description                                                              |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [==](logical-operators.md) ,`>`, `<`, `<=`, `>=`, `!=` | `== 5 5 // Returns true`                                                        | Comparison operators to check if things are equal/unequal/lower than/etc |
-| [!](logical-operators.md)                              | <p><code>if (! $data.doorOpen):</code><br><code>"The door is closed"</code></p> | Negates a value                                                          |
-| [&&, \|\|](logical-operators.md)                       | `if (\|\| $data.doorOpen $data.hasKey):`                                        | And and Or logical operators                                             |
-| [?](logical-operators.md)                              | `var isDead (? (<= $data.life 0) true : false)`                                 | Ternary operator                                                         |
+| Command                                                | Example                                         | Description                                                              |
+| ------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| [==](logical-operators.md) ,`>`, `<`, `<=`, `>=`, `!=` | `== 5 5 // Returns true`                        | Comparison operators to check if things are equal/unequal/lower than/etc |
+| [!](logical-operators.md)                              | if (! $data.doorOpen):"The door is closed"      | Negates a value                                                          |
+| [&&, \|\|](logical-operators.md)                       | `if (\|\| $data.doorOpen $data.hasKey):`        | And and Or logical operators                                             |
+| [?](logical-operators.md)                              | `var isDead (? (<= $data.life 0) true : false)` | Ternary operator                                                         |
 
 ## Math and arithmetic
 
@@ -68,14 +68,14 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Items
 
-| Command                                                     | Example                                                                                | Description                                  |
-| ----------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
-| [add_item](../features/inventory.md)                        | `add_item bread 1`                                                                     | Adds an amount of an item to the player      |
-| [remove_item](../features/inventory.md)                     | `remove_item bread 1`                                                                  | Removes an amount of an item                 |
-| [has_item?](../features/inventory.md)                       | <p><br><code>if (has_item? bread 1):</code><br><code>"Let's eat bread!"</code><br></p> | Returns true if there is enough of the item  |
-| [item_amount?](../features/inventory.md)                    | `item_amount? bread // returns the amount of bread`                                    | Returns the amount of an item the player has |
-| [enable_interaction](../features/items#interaction-tags)    | `enable_interaction mytag`                                                             | Enables an interaction tag (see docs)        |
-| [`disable_interaction`](../features/items#interaction-tags) | `disable_interaction mytag`                                                            | Disables an interaction tag (see docs)       |
+| Command                                                     | Example                                             | Description                                  |
+| ----------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------- |
+| [add_item](../features/inventory.md)                        | `add_item bread 1`                                  | Adds an amount of an item to the player      |
+| [remove_item](../features/inventory.md)                     | `remove_item bread 1`                               | Removes an amount of an item                 |
+| [has_item?](../features/inventory.md)                       | if (has_item? bread 1):"Let's eat bread!"           | Returns true if there is enough of the item  |
+| [item_amount?](../features/inventory.md)                    | `item_amount? bread // returns the amount of bread` | Returns the amount of an item the player has |
+| [enable_interaction](../features/items#interaction-tags)    | `enable_interaction mytag`                          | Enables an interaction tag (see docs)        |
+| [`disable_interaction`](../features/items#interaction-tags) | `disable_interaction mytag`                         | Disables an interaction tag (see docs)       |
 
 ## Achievements
 
