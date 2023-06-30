@@ -6,7 +6,7 @@ They are used by using the keyword of the operator (the command) followed by its
 
 - `==`, `<`, `>`, `<=`, `>=`, `!=` - Example: `(< 2 3)`
 - `&&`, `||` - Example: `if (&& $player.alive (> $player.score 100))`
-- ! Negates a value. Example: `if (! false)` <-- will be true
+- `!` Negates a value. Example: `if (! false)` <-- will be true
 - `?`: Ternary operation. Syntax: `? [condition] [valueIfTrue] [valueIfFalse]`
 
 Example:
