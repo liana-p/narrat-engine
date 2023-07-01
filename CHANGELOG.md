@@ -1,3 +1,12 @@
+## [3.1.1](https://github.com/liana-p/narrat-engine/compare/v3.1.0...v3.1.1) (2023-07-01)
+
+
+### Features
+
+* export more config types in the narrat lib for plugins use ([d80aca2](https://github.com/liana-p/narrat-engine/commit/d80aca2c48aa8d1262c82357f6b6eb5589c9f073))
+
+
+
 # [3.1.0](https://github.com/liana-p/narrat-engine/compare/v3.0.2...v3.1.0) (2023-06-28)
 
 ### Bug Fixes
