@@ -1,4 +1,6 @@
 export { getConfig } from '../config';
+export type { Config } from '../config/config-output';
+export * from '../config/config-input';
 export {
   audioConfig,
   skillsConfig,
