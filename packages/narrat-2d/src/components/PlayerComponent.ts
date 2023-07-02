@@ -31,7 +31,10 @@ export class PlayerComponent extends Component {
     if (useMain().inScript) {
       return;
     }
-    if (this.interactableNpc && inputs.inputs.getButton('interact').active) {
+    if (
+      this.interactableNpc &&
+      inputs.getInputs().getButton('interact').active
+    ) {
       this.startNpcInteraction();
     }
   }

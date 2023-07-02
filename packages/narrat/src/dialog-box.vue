@@ -23,7 +23,7 @@
         v-html="text"
       ></span>
       <div v-visible="canInteract" v-if="!options.old">
-        <div class="dialog-choices" v-if="choices">
+        <div class="dialog-choices" v-if="choices" ref="choicesDiv">
           <p
             v-for="(choice, index) in choices"
             :key="index"
@@ -31,7 +31,6 @@
             :class="dialogClass(choice)"
             v-on:click="chooseOption(choice)"
             class="dialog-choice override"
-            ref="choices"
             v-html="`${index + 1}. –&nbsp; ${choice.choice}`"
           ></p>
         </div>
@@ -61,11 +60,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { mapState } from 'pinia';
-import { defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { getConfig } from './config';
-import { DialogStyleConfig } from './config/characters-config';
 import { defaultConfig } from './config/config-output';
 import { DEFAULT_TEXT_SPEED } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
@@ -73,6 +70,8 @@ import { useMain } from './stores/main-store';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags } from './utils/string-helpers';
+import { useNavigation } from './inputs/useNavigation';
+import { useInputs } from '@/stores/inputs-store';
 
 export interface TextAnimation {
   text: string;
@@ -83,355 +82,406 @@ export interface TextAnimation {
   tags: RegExpExecArray[];
   finished: boolean;
 }
-export default defineComponent({
-  data() {
-    return {
-      playerText: '',
-      passed: false,
-      timeout: null as any,
-      textAnimation: null as null | TextAnimation,
-      mounted: false,
-      autoTimer: null as null | NodeJS.Timer,
-      skipTimer: null as null | NodeJS.Timer,
-      nextLineTimer: null as null | NodeJS.Timer,
-    };
-  },
 
-  props: {
-    options: {
-      type: Object as PropType<DialogBoxParameters>,
-      required: true,
-    },
-    active: Boolean,
+const choicesDiv = ref<HTMLDivElement | null>(null);
+const playerText = ref('');
+const passed = ref(false);
+const timeout = ref<any>(null);
+const textAnimation = ref<TextAnimation | null>(null);
+const mounted = ref(false);
+const autoTimer = ref<NodeJS.Timer | null>(null);
+const skipTimer = ref<NodeJS.Timer | null>(null);
+const nextLineTimer = ref<NodeJS.Timer | null>(null);
+const playerInput = ref<HTMLInputElement | null>(null);
+
+const navigation = useNavigation({
+  mode: 'list',
+  container: choicesDiv,
+  listener: useInputs().baseInputListener,
+  onSelected: (index) => {
+    if (canInteract.value && choices.value) {
+      chooseOption(choices.value[index]);
+    } else {
+      keyboardPress(' ');
+    }
   },
-  mounted() {
-    this.startTextAnimation();
-    this.registerKeyboardShortcuts();
-    this.mounted = true;
+});
+
+const props = defineProps<{
+  options: DialogBoxParameters;
+  active: boolean;
+}>();
+
+onMounted(() => {
+  startTextAnimation();
+  registerKeyboardShortcuts();
+  mounted.value = true;
+});
+onUnmounted(() => {
+  clearListeners();
+  endTextAnimation({ unmounted: true });
+});
+
+function clearListeners() {
+  if (timeout.value) {
+    clearTimeout(timeout);
+    timeout.value = null;
+  }
+}
+
+function keyboardEvent(e: KeyboardEvent) {
+  keyboardPress(e.key);
+}
+
+function keyboardPress(key: string) {
+  if (!canInteract.value) {
+    if (mounted.value && textAnimation && key === ' ') {
+      endTextAnimation({ pressedSpace: true });
+    }
+    return;
+  }
+  if (canInteract.value && props.options.textField) {
+    if (key === 'Enter') {
+      submitText();
+    }
+  }
+  if (canInteract.value && !props.options.textField) {
+    let choice: any = -1;
+    switch (key) {
+      case ' ':
+        choice = 0;
+        break;
+      case '1':
+        choice = 0;
+        break;
+      case '2':
+        choice = 1;
+        break;
+      case '3':
+        choice = 2;
+        break;
+      case '4':
+        choice = 3;
+        break;
+      case '5':
+        choice = 4;
+        break;
+      case '6':
+        choice = 5;
+        break;
+      case '7':
+        choice = 6;
+        break;
+      case '8':
+        choice = 7;
+        break;
+    }
+    if (choice !== -1 && choices.value && choice < choices.value.length) {
+      chooseOption(choices.value[choice]);
+    } else if (choice === 0) {
+      // In some cases there are no "choices", so pressing space (0) just does the default action
+      chooseOption(choice);
+    }
+  }
+}
+function dialogClick() {
+  if (!canInteract.value) {
+    if (mounted.value && textAnimation) {
+      endTextAnimation({ pressedSpace: true });
+    }
+  }
+}
+
+function next() {
+  if (!passed.value) {
+    chooseOption(0);
+  }
+}
+
+function chooseOption(choice: DialogChoice | number) {
+  finishLine();
+  let choiceValue: number;
+  if (typeof choice === 'object') {
+    choiceValue = choice.originalIndex;
+  } else {
+    choiceValue = choice;
+  }
+  useMain().playerAnswered(choiceValue);
+}
+
+function finishLine() {
+  clearListeners();
+  endTextAnimation({ unmounted: true });
+  passed.value = true;
+}
+
+function dialogStyle(choice: DialogChoice) {
+  const style: any = {};
+  if (!choice.allowed) {
+    style.pointerEvents = 'none';
+    style.textDecoration = 'line-through';
+  }
+  return style;
+}
+
+function dialogClass(choice: DialogChoice) {
+  if (!choice.allowed) {
+    return 'strike-anim';
+  }
+}
+
+function submitText() {
+  const text = playerText.value;
+  useMain().playerAnswered(text);
+}
+
+function addTextSection(start: number, end: number) {
+  const text = props.options.text.substring(start, end);
+  textAnimation.value!.text += text;
+  return end;
+}
+
+function addHtmlTag(tag: RegExpExecArray) {
+  const text = tag[0];
+  textAnimation.value!.text += text;
+  textAnimation.value!.skippedChars += text.length;
+  return text.length;
+}
+
+function startTextAnimation() {
+  if (props.options.old) {
+    return;
+  }
+  if (useDialogStore().playMode === 'skip') {
+    startSkip();
+  } else if (getConfig().dialogPanel.animateText) {
+    textAnimation.value = {
+      text: '',
+      index: 0,
+      startTime: Date.now(),
+      timer: null as NodeJS.Timer | null,
+      skippedChars: 0,
+      tags: findAllHtmlTags(props.options.text),
+      finished: false,
+    };
+    const anim = textAnimation.value;
+    anim.timer = setInterval(() => {
+      updateTextAnimation();
+    }, 30);
+  } else if (isBasicChoice.value) {
+    autoTimer.value = setTimeout(() => {
+      endTextAnimation();
+    }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * props.options.text.length);
+  }
+}
+
+function startSkip() {
+  if (useDialogStore().playMode === 'skip' && !props.options.old) {
+    if (isBasicChoice.value) {
+      skipTimer.value = setTimeout(() => {
+        endTextAnimation();
+      }, 100);
+    } else {
+      useDialogStore().toggleSkip();
+      endTextAnimation({ unmounted: true });
+    }
+  }
+}
+
+function startAutoPlay() {
+  if (useDialogStore().playMode === 'auto' && !props.options.old) {
+    if (isBasicChoice.value && canInteract) {
+      next();
+    }
+  }
+}
+
+function updateTextAnimation() {
+  const anim = textAnimation.value;
+  if (!anim) {
+    return;
+  }
+  const previousIndex = anim.index;
+  const elapsed = Date.now() - anim.startTime;
+  let ended = false;
+  let lettersAmount =
+    Math.round(
+      elapsed / (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED),
+    ) + anim.skippedChars;
+  if (lettersAmount > props.options.text.length) {
+    ended = true;
+    anim.finished = true;
+    lettersAmount = props.options.text.length;
+  }
+  if (lettersAmount !== anim.index) {
+    let cursor = previousIndex;
+    while (anim.tags.length > 0 && lettersAmount >= anim.tags[0].index) {
+      cursor = addTextSection(cursor, anim.tags[0].index);
+      const tagLength = addHtmlTag(anim.tags.shift()!);
+      cursor += tagLength;
+      lettersAmount += tagLength;
+    }
+    cursor = addTextSection(cursor, lettersAmount);
+    anim.index = cursor;
+  }
+  if (ended) {
+    endTextAnimation();
+  }
+}
+
+function endTextAnimation({
+  unmounted,
+  pressedSpace,
+}: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
+  setTimeout(() => {
+    navigation.select(0);
+  }, 10);
+  if (textAnimation.value) {
+    if (textAnimation.value.timer) {
+      clearInterval(textAnimation.value.timer);
+    }
+    textAnimation.value = null;
+  }
+  if (autoTimer.value && !pressedSpace) {
+    clearTimeout(autoTimer.value);
+  }
+  if (skipTimer.value) {
+    clearTimeout(skipTimer.value);
+  }
+  if (nextLineTimer.value) {
+    clearTimeout(nextLineTimer.value);
+  }
+  if (
+    !unmounted &&
+    !pressedSpace &&
+    useDialogStore().playMode !== 'normal' &&
+    isBasicChoice
+  ) {
+    nextLineTimer.value = setTimeout(
+      () => {
+        next();
+      },
+      useDialogStore().playMode === 'auto'
+        ? getConfig().dialogPanel.timeBetweenLines ??
+            defaultConfig.dialogPanel.timeBetweenLines
+        : 0,
+    );
+  }
+}
+
+function registerKeyboardShortcuts() {
+  timeout.value = setTimeout(() => {
+    if (props.options.textField && canInteract.value) {
+      playerInput.value!.focus();
+    }
+  }, 10);
+}
+
+const preText = computed(() => {
+  if (props.options.title) {
+    return ' &nbsp;–&nbsp; ';
+  } else {
+    return '';
+  }
+});
+
+const style = computed(() => {
+  return getCharacterStyle(props.options.styleId);
+});
+
+const dialogBoxStyle = computed(() => {
+  const style = getCharacterStyle(props.options.styleId);
+  const css: any = {
+    opacity: props.options.old ? '0.7' : '1',
+  };
+  return { ...style.boxCss, ...css };
+});
+
+const isBasicChoice = computed(() => {
+  return !choices.value && !props.options.textField;
+});
+
+const dialogBoxClass = computed(() => {
+  if (props.options.title) {
+    return 'dialog-box-followup';
+  }
+  return false;
+});
+
+const titleStyle = computed(() => {
+  const style = getCharacterStyle(props.options.styleId);
+  const result = { color: style.color, ...style.nameCss };
+  return result;
+});
+
+const textStyle = computed(() => {
+  const style = getCharacterStyle(props.options.styleId);
+  return style.textCss;
+});
+
+const text = computed(() => {
+  if (textAnimation.value) {
+    return textAnimation.value.text;
+  } else {
+    return props.options.text;
+  }
+});
+
+const choices = computed(() => {
+  if ((props.options as any)!.choices) {
+    return (props.options as any)!.choices;
+  }
+  return undefined;
+});
+
+const skipping = computed(() => {
+  return useDialogStore().playMode === 'skip';
+});
+
+const autoPlay = computed(() => {
+  return useDialogStore().playMode === 'auto';
+});
+
+const canInteract = computed(() => {
+  return (
+    props.active &&
+    mounted.value &&
+    !passed.value &&
+    !nextLineTimer.value &&
+    !textAnimation.value &&
+    props.options.interactive &&
+    !paused.value
+  );
+});
+
+const main = useMain();
+const paused = computed(() => {
+  return main.paused;
+});
+
+watch(
+  () => props.options,
+  (newOptions, oldOptions) => {
+    if (!oldOptions.old && newOptions.old && textAnimation) {
+      endTextAnimation({ unmounted: true });
+    }
   },
-  unmounted() {
-    this.clearListeners();
-    this.endTextAnimation({ unmounted: true });
-  },
-  computed: {
-    ...mapState(useMain, ['paused']),
-    preText(): string {
-      if ((this.options as any).title) {
-        return ' &nbsp;–&nbsp; ';
-      } else {
-        return '';
-      }
-    },
-    style(): DialogStyleConfig {
-      return getCharacterStyle((this.options as any)!.styleId);
-    },
-    dialogBoxStyle(): any {
-      const style = getCharacterStyle((this.options as any)!.styleId);
-      const css: any = {
-        opacity: (this.options as any)!.old ? '0.7' : '1',
-      };
-      return { ...style.boxCss, ...css };
-    },
-    isBasicChoice() {
-      return !this.choices && !this.options.textField;
-    },
-    dialogBoxClass() {
-      if (!(this.options as any)!.title) {
-        return 'dialog-box-followup';
-      }
-      return false;
-    },
-    titleStyle(): any {
-      const style = getCharacterStyle((this.options as any)!.styleId);
-      const result = { color: style.color, ...style.nameCss };
-      return result;
-    },
-    textStyle(): any {
-      const style = getCharacterStyle((this.options as any)!.styleId);
-      return style.textCss;
-    },
-    text(): string {
-      if (this.textAnimation) {
-        return this.textAnimation.text;
-      } else {
-        return this.options.text;
-      }
-    },
-    choices(): DialogChoice[] | undefined {
-      if ((this.options as any)!.choices) {
-        return (this.options as any)!.choices;
-      }
-      return undefined;
-    },
-    skipping() {
-      return useDialogStore().playMode === 'skip';
-    },
-    autoPlay() {
-      return useDialogStore().playMode === 'auto';
-    },
-    canInteract(): boolean {
-      return (
-        this.active &&
-        this.mounted &&
-        !this.passed &&
-        !this.nextLineTimer &&
-        !this.textAnimation &&
-        (this.options as any).interactive &&
-        !this.paused
-      );
-    },
-  },
-  watch: {
-    options(newOptions, oldOptions) {
-      if (!oldOptions.old && newOptions.old && this.textAnimation) {
-        this.endTextAnimation({ unmounted: true });
-      }
-    },
-    skipping(newValue, oldValue) {
-      if (newValue && !oldValue) {
-        this.startSkip();
-      }
-    },
-    autoPlay(newValue, oldValue) {
-      if (newValue && !oldValue) {
-        this.startAutoPlay();
-      }
-    },
-  },
-  methods: {
-    clearListeners() {
-      if (this.timeout) {
-        clearTimeout(this.timeout);
-        this.timeout = null;
-      }
-    },
-    keyboardEvent(e: KeyboardEvent) {
-      if (!this.canInteract) {
-        if (this.mounted && this.textAnimation && e.key === ' ') {
-          this.endTextAnimation({ pressedSpace: true });
-        }
-        return;
-      }
-      if (this.canInteract && this.options.textField) {
-        if (e.key === 'Enter') {
-          this.submitText();
-        }
-      }
-      if (this.canInteract && !this.options.textField) {
-        let choice: any = -1;
-        switch (e.key) {
-          case ' ':
-            choice = 0;
-            break;
-          case '1':
-            choice = 0;
-            break;
-          case '2':
-            choice = 1;
-            break;
-          case '3':
-            choice = 2;
-            break;
-          case '4':
-            choice = 3;
-            break;
-          case '5':
-            choice = 4;
-            break;
-          case '6':
-            choice = 5;
-            break;
-          case '7':
-            choice = 6;
-            break;
-          case '8':
-            choice = 7;
-            break;
-        }
-        if (choice !== -1 && this.choices && choice < this.choices.length) {
-          this.chooseOption(this.choices[choice]);
-        } else if (choice === 0) {
-          // In some cases there are no "choices", so pressing space (0) just does the default action
-          this.chooseOption(choice);
-        }
-      }
-    },
-    dialogClick() {
-      if (!this.canInteract) {
-        if (this.mounted && this.textAnimation) {
-          this.endTextAnimation({ pressedSpace: true });
-        }
-      }
-    },
-    next() {
-      if (!this.passed) {
-        this.chooseOption(0);
-      }
-    },
-    chooseOption(choice: DialogChoice | number) {
-      this.finishLine();
-      let choiceValue: number;
-      if (typeof choice === 'object') {
-        choiceValue = choice.originalIndex;
-      } else {
-        choiceValue = choice;
-      }
-      useMain().playerAnswered(choiceValue);
-    },
-    finishLine() {
-      this.clearListeners();
-      this.endTextAnimation({ unmounted: true });
-      this.passed = true;
-    },
-    dialogStyle(choice: DialogChoice) {
-      const style: any = {};
-      if (!choice.allowed) {
-        style.pointerEvents = 'none';
-        style.textDecoration = 'line-through';
-      }
-      return style;
-    },
-    dialogClass(choice: DialogChoice) {
-      if (!choice.allowed) {
-        return 'strike-anim';
-      }
-    },
-    submitText() {
-      const text = this.playerText;
-      useMain().playerAnswered(text);
-    },
-    addTextSection(start: number, end: number) {
-      const text = this.options.text.substring(start, end);
-      this.textAnimation!.text += text;
-      return end;
-    },
-    addHtmlTag(tag: RegExpExecArray) {
-      const text = tag[0];
-      this.textAnimation!.text += text;
-      this.textAnimation!.skippedChars += text.length;
-      return text.length;
-    },
-    startTextAnimation() {
-      if (this.options.old) {
-        return;
-      }
-      if (useDialogStore().playMode === 'skip') {
-        this.startSkip();
-      } else if (getConfig().dialogPanel.animateText) {
-        this.textAnimation = {
-          text: '',
-          index: 0,
-          startTime: Date.now(),
-          timer: null as NodeJS.Timer | null,
-          skippedChars: 0,
-          tags: findAllHtmlTags(this.options.text),
-          finished: false,
-        };
-        const anim = this.textAnimation;
-        anim.timer = setInterval(() => {
-          this.updateTextAnimation();
-        }, 30);
-      } else if (this.isBasicChoice) {
-        this.autoTimer = setTimeout(() => {
-          this.endTextAnimation();
-        }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * this.options.text.length);
-      }
-    },
-    startSkip() {
-      if (useDialogStore().playMode === 'skip' && !this.options.old) {
-        if (this.isBasicChoice) {
-          this.skipTimer = setTimeout(() => {
-            this.endTextAnimation();
-          }, 100);
-        } else {
-          useDialogStore().toggleSkip();
-          this.endTextAnimation({ unmounted: true });
-        }
-      }
-    },
-    startAutoPlay() {
-      if (useDialogStore().playMode === 'auto' && !this.options.old) {
-        if (this.isBasicChoice && this.canInteract) {
-          this.next();
-        }
-      }
-    },
-    updateTextAnimation() {
-      const anim = this.textAnimation;
-      if (!anim) {
-        return;
-      }
-      const previousIndex = anim.index;
-      const elapsed = Date.now() - anim.startTime;
-      let ended = false;
-      let lettersAmount =
-        Math.round(
-          elapsed / (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED),
-        ) + anim.skippedChars;
-      if (lettersAmount > this.options.text.length) {
-        ended = true;
-        anim.finished = true;
-        lettersAmount = this.options.text.length;
-      }
-      if (lettersAmount !== anim.index) {
-        let cursor = previousIndex;
-        while (anim.tags.length > 0 && lettersAmount >= anim.tags[0].index) {
-          cursor = this.addTextSection(cursor, anim.tags[0].index);
-          const tagLength = this.addHtmlTag(anim.tags.shift()!);
-          cursor += tagLength;
-          lettersAmount += tagLength;
-        }
-        cursor = this.addTextSection(cursor, lettersAmount);
-        anim.index = cursor;
-      }
-      if (ended) {
-        this.endTextAnimation();
-      }
-    },
-    endTextAnimation({
-      unmounted,
-      pressedSpace,
-    }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
-      if (this.textAnimation) {
-        if (this.textAnimation.timer) {
-          clearInterval(this.textAnimation.timer);
-        }
-        this.textAnimation = null;
-      }
-      if (this.autoTimer && !pressedSpace) {
-        clearTimeout(this.autoTimer);
-      }
-      if (this.skipTimer) {
-        clearTimeout(this.skipTimer);
-      }
-      if (this.nextLineTimer) {
-        clearTimeout(this.nextLineTimer);
-      }
-      if (
-        !unmounted &&
-        !pressedSpace &&
-        useDialogStore().playMode !== 'normal' &&
-        this.isBasicChoice
-      ) {
-        this.nextLineTimer = setTimeout(
-          () => {
-            this.next();
-          },
-          useDialogStore().playMode === 'auto'
-            ? getConfig().dialogPanel.timeBetweenLines ??
-                defaultConfig.dialogPanel.timeBetweenLines
-            : 0,
-        );
-      }
-    },
-    registerKeyboardShortcuts() {
-      this.timeout = setTimeout(() => {
-        if (this.options.textField && this.canInteract) {
-          (this.$refs.playerInput as any).focus();
-        }
-      }, 10);
-    },
-  },
+);
+
+watch(skipping, (newValue, oldValue) => {
+  if (newValue && !oldValue) {
+    startSkip();
+  }
+});
+
+watch(autoPlay, (newValue, oldValue) => {
+  if (newValue && !oldValue) {
+    startAutoPlay();
+  }
+});
+
+defineExpose({
+  keyboardEvent,
 });
 </script>
 

@@ -353,8 +353,10 @@ hr.solid {
   transition: 0.2s;
 }
 
-.dialog-choice:hover {
+.dialog-choice:hover,
+.dialog-choice.selected {
   transform: scale(1.05, 1.05);
+  background-color: rgba(250, 173, 57, 0.3);
   transform-origin: center;
 }
 
