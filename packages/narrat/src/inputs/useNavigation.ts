@@ -1,6 +1,5 @@
-import { useInputs } from '@/lib';
 import { InputListener } from '@/stores/inputs-store';
-import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { computed, ref, onMounted, onUnmounted, Ref } from 'vue';
 
 export type GridNavigationOptions = {
   mode: 'grid';
@@ -11,8 +10,10 @@ export type ListNavigationOptions = {
 };
 export type NavigationOptions = {
   mode: 'grid' | 'list';
-  container: HTMLElement;
+  container: Ref<HTMLElement | null>;
   listener: InputListener;
+  loopForbidden?: boolean;
+  onSelected?: (index: number) => void;
 } & (GridNavigationOptions | ListNavigationOptions);
 
 export function useNavigation(options: NavigationOptions) {
@@ -25,8 +26,11 @@ export function useNavigation(options: NavigationOptions) {
       ? selectedIndex.value % (options as GridNavigationOptions).columns
       : 0,
   );
-  function isValid(index: number) {
-    return index >= 0 && index < options.container.children.length;
+  function isValid(index: number): boolean {
+    if (options.container.value) {
+      return index >= 0 && index < options.container.value.children.length;
+    }
+    return false;
   }
 
   function select(index: number) {
@@ -34,27 +38,59 @@ export function useNavigation(options: NavigationOptions) {
     if (isValid(index)) {
       if (previousIndex !== index) {
         selectedIndex.value = index;
-        selectedElement.value.classList.add('selected');
-        getElementAtIndex(previousIndex).classList.remove('selected');
+        if (selectedElement.value) {
+          selectedElement.value.classList.add('selected');
+          getElementAtIndex(previousIndex)!.classList.remove('selected');
+        }
       }
     }
   }
 
   function getElementAtIndex(index: number) {
-    return options.container.children[index];
+    if (options.container.value) {
+      return options.container.value.children[index];
+    }
+    return null;
   }
 
   function selectPrevious() {
-    select(selectedIndex.value - 1);
+    if (selectedIndex.value === 0) {
+      if (!options.loopForbidden) {
+        select(options.container.value!.children.length - 1);
+      }
+    } else {
+      select(selectedIndex.value - 1);
+    }
   }
   function selectNext() {
-    select(selectedIndex.value + 1);
+    if (selectedIndex.value === options.container.value!.children.length - 1) {
+      if (!options.loopForbidden) {
+        select(0);
+      }
+    } else {
+      select(selectedIndex.value + 1);
+    }
   }
   function selectUp() {
-    select(selectedIndex.value - (options as GridNavigationOptions).columns);
+    const opts = options as GridNavigationOptions;
+    const index = selectedIndex.value;
+    if (!options.loopForbidden && index < opts.columns) {
+      select(options.container.value!.children.length - 1);
+    } else {
+      select(selectedIndex.value - (options as GridNavigationOptions).columns);
+    }
   }
   function selectDown() {
-    select(selectedIndex.value + (options as GridNavigationOptions).columns);
+    const opts = options as GridNavigationOptions;
+    const index = selectedIndex.value;
+    if (
+      !options.loopForbidden &&
+      index >= options.container.value!.children.length - opts.columns
+    ) {
+      select(0);
+    } else {
+      select(selectedIndex.value + (options as GridNavigationOptions).columns);
+    }
   }
   function buttonUp() {
     if (options.mode === 'grid') {
@@ -67,6 +103,7 @@ export function useNavigation(options: NavigationOptions) {
     if (options.mode === 'grid') {
       selectDown();
     } else if (options.mode === 'list') {
+      console.log('button down');
       selectNext();
     }
   }
@@ -85,6 +122,12 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
 
+  function buttonContinue() {
+    if (options.onSelected) {
+      options.onSelected(selectedIndex.value);
+    }
+  }
+
   onMounted(() => {
     options.listener.actions.left = {
       press: buttonLeft,
@@ -98,12 +141,17 @@ export function useNavigation(options: NavigationOptions) {
     options.listener.actions.down = {
       press: buttonDown,
     };
+    options.listener.actions.continue = {
+      press: buttonContinue,
+    };
+    select(0);
   });
   onUnmounted(() => {
     delete options.listener.actions.left;
     delete options.listener.actions.right;
     delete options.listener.actions.up;
     delete options.listener.actions.down;
+    delete options.listener.actions.continue;
   });
   return {
     selectedIndex,
@@ -117,5 +165,6 @@ export function useNavigation(options: NavigationOptions) {
     selectDown,
     selectPrevious,
     selectNext,
+    select,
   };
 }

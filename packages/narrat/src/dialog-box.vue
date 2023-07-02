@@ -70,6 +70,8 @@ import { useMain } from './stores/main-store';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags } from './utils/string-helpers';
+import { useNavigation } from './inputs/useNavigation';
+import { useInputs } from '@/stores/inputs-store';
 
 export interface TextAnimation {
   text: string;
@@ -91,6 +93,19 @@ const autoTimer = ref<NodeJS.Timer | null>(null);
 const skipTimer = ref<NodeJS.Timer | null>(null);
 const nextLineTimer = ref<NodeJS.Timer | null>(null);
 const playerInput = ref<HTMLInputElement | null>(null);
+
+const navigation = useNavigation({
+  mode: 'list',
+  container: choicesDiv,
+  listener: useInputs().baseInputListener,
+  onSelected: (index) => {
+    if (canInteract.value && choices.value) {
+      chooseOption(choices.value[index]);
+    } else {
+      keyboardPress(' ');
+    }
+  },
+});
 
 const props = defineProps<{
   options: DialogBoxParameters;
@@ -115,20 +130,24 @@ function clearListeners() {
 }
 
 function keyboardEvent(e: KeyboardEvent) {
+  keyboardPress(e.key);
+}
+
+function keyboardPress(key: string) {
   if (!canInteract.value) {
-    if (mounted.value && textAnimation && e.key === ' ') {
+    if (mounted.value && textAnimation && key === ' ') {
       endTextAnimation({ pressedSpace: true });
     }
     return;
   }
   if (canInteract.value && props.options.textField) {
-    if (e.key === 'Enter') {
+    if (key === 'Enter') {
       submitText();
     }
   }
   if (canInteract.value && !props.options.textField) {
     let choice: any = -1;
-    switch (e.key) {
+    switch (key) {
       case ' ':
         choice = 0;
         break;
@@ -165,7 +184,6 @@ function keyboardEvent(e: KeyboardEvent) {
     }
   }
 }
-
 function dialogClick() {
   if (!canInteract.value) {
     if (mounted.value && textAnimation) {
@@ -315,6 +333,9 @@ function endTextAnimation({
   unmounted,
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
+  setTimeout(() => {
+    navigation.select(0);
+  }, 10);
   if (textAnimation.value) {
     if (textAnimation.value.timer) {
       clearInterval(textAnimation.value.timer);

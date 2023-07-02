@@ -16,6 +16,7 @@ import { Gameloop, gameloop } from '@/utils/gameloop';
 import { InputEvents } from '@/utils/typed-emitter';
 import { defineStore } from 'pinia';
 import { useMenu } from './menu-store';
+import { useGamepad } from './gamepad-store';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -31,6 +32,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'ArrowLeft',
+        gamepadButton: 14,
       },
     ],
   },
@@ -41,6 +43,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'ArrowRight',
+        gamepadButton: 15,
       },
     ],
   },
@@ -51,6 +54,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'ArrowUp',
+        gamepadButton: 12,
       },
     ],
   },
@@ -61,6 +65,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'ArrowDown',
+        gamepadButton: 13,
       },
     ],
   },
@@ -70,7 +75,8 @@ const defaultActions: Action[] = [
     action: 'press',
     keybinds: [
       {
-        keyboardKey: 'Space',
+        keyboardKey: 'Enter',
+        gamepadButton: 0,
       },
     ],
   },
@@ -81,6 +87,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'Escape',
+        gamepadButton: 1,
       },
     ],
   },
@@ -91,6 +98,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 's',
+        gamepadButton: 9,
       },
     ],
   },
@@ -101,6 +109,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'm',
+        gamepadButton: 8,
       },
     ],
   },
@@ -111,6 +120,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'p',
+        gamepadButton: 4,
       },
     ],
   },
@@ -121,96 +131,7 @@ const defaultActions: Action[] = [
     keybinds: [
       {
         keyboardKey: 'n',
-      },
-    ],
-  },
-  {
-    id: 'choice-0',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '1',
-      },
-    ],
-  },
-  {
-    id: 'choice-1',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '2',
-      },
-    ],
-  },
-  {
-    id: 'choice-2',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '3',
-      },
-    ],
-  },
-  {
-    id: 'choice-3',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '4',
-      },
-    ],
-  },
-  {
-    id: 'choice-4',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '5',
-      },
-    ],
-  },
-  {
-    id: 'choice-5',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '6',
-      },
-    ],
-  },
-  {
-    id: 'choice-6',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '7',
-      },
-    ],
-  },
-  {
-    id: 'choice-7',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '8',
-      },
-    ],
-  },
-  {
-    id: 'choice-8',
-    type: 'button',
-    action: 'press',
-    keybinds: [
-      {
-        keyboardKey: '9',
+        gamepadButton: 5,
       },
     ],
   },
@@ -223,15 +144,18 @@ export interface InputListener {
 
 export interface InputsStoreState {
   inputStack: InputListener[];
+  baseInputListener: InputListener;
 }
 
 export const useInputs = defineStore('inputs', {
   state: () =>
     ({
       inputStack: [],
+      baseInputListener: null as any,
     } as InputsStoreState),
   actions: {
     setupInputs() {
+      useGamepad().setupGamepads();
       inputs.startListening();
       for (const action of defaultActions) {
         inputs.addAction(action);
@@ -254,7 +178,7 @@ export const useInputs = defineStore('inputs', {
       });
     },
     listenToBaseNarratInputs() {
-      this.registerInputListener({
+      this.baseInputListener = this.registerInputListener({
         system: {
           press: () => {
             useMenu().openMenu('system');

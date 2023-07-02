@@ -2,6 +2,18 @@ import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
+import { useGamepad } from '@/stores/gamepad-store';
+
+export type NarratGamepadButton = {
+  index: number;
+  state: GamepadButton;
+  previous: GamepadButton;
+};
+export type NarratGamepad = {
+  id: string;
+  gamepad: Gamepad;
+  buttons: NarratGamepadButton[];
+};
 
 export type ButtonEvent = (
   action: ButtonAction,
@@ -15,7 +27,8 @@ export type AnalogEvent = (
 ) => void;
 
 export interface ButtonKeybind {
-  keyboardKey: string;
+  keyboardKey?: string;
+  gamepadButton?: number;
 }
 
 export interface AnalogKeybind {
@@ -85,10 +98,13 @@ export class Inputs {
     [key: string]: ActionStatus;
   } = {};
 
+  public gamepad: NarratGamepad | null = null;
+
   public startListening() {
+    this.updateGamepad();
     window.addEventListener('keydown', (event) => {
       console.log('keydown', event.key);
-      const previous = this.getKeyState(event.key).current;
+      const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,
         current: true,
@@ -96,7 +112,7 @@ export class Inputs {
     });
     window.addEventListener('keyup', (event) => {
       console.log('keyup', event.key);
-      const previous = this.getKeyState(event.key).current;
+      const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,
         current: false,
@@ -105,6 +121,53 @@ export class Inputs {
     gameloop.on('preUpdate', () => {
       this.update();
     });
+  }
+
+  public updateGamepad() {
+    const gamepadStore = useGamepad();
+    if (gamepadStore.gamepad) {
+      if (!this.gamepad) {
+        this.gamepad = this.setupNarratGamepad(gamepadStore.gamepad);
+      } else {
+        this.updateAllNarratButtons(gamepadStore.gamepad, this.gamepad);
+      }
+    } else {
+      this.gamepad = null;
+    }
+  }
+
+  public setupNarratGamepad(gamepad: Gamepad): NarratGamepad {
+    const narratGamepad = {
+      id: gamepad.id,
+      gamepad,
+      buttons: gamepad.buttons.map((button, index) => {
+        return this.getNarratButtonFromGamepad(button, button, index);
+      }),
+    };
+    return narratGamepad;
+  }
+
+  public updateAllNarratButtons(
+    gamepad: Gamepad,
+    narratGamepad: NarratGamepad,
+  ) {
+    for (const [index, button] of gamepad.buttons.entries()) {
+      const narratButton = narratGamepad.buttons[index];
+      narratButton.previous = deepCopy(narratButton.state);
+      narratButton.state = deepCopy(button);
+    }
+  }
+
+  public getNarratButtonFromGamepad(
+    previous: GamepadButton,
+    gamepadButton: GamepadButton,
+    index: number,
+  ): NarratGamepadButton {
+    return {
+      index,
+      state: deepCopy(gamepadButton),
+      previous: deepCopy(gamepadButton),
+    };
   }
 
   public addAction(action: Action) {
@@ -152,7 +215,7 @@ export class Inputs {
     return this.actions[actionId].state as ButtonActionState;
   }
 
-  public getKeyState(key: string) {
+  public getKeyboardState(key: string) {
     if (this.keyboardState[key]) {
       return this.keyboardState[key];
     } else {
@@ -164,8 +227,33 @@ export class Inputs {
     }
   }
 
+  public getGamepadState(key: number) {
+    if (this.gamepad && this.gamepad.buttons.length > key) {
+      return {
+        current: this.gamepad.buttons[key].state,
+        previous: this.gamepad.buttons[key].previous,
+      };
+    } else {
+      return null;
+    }
+  }
+
+  public debugGamepad() {
+    if (this.gamepad) {
+      for (const [index, button] of this.gamepad.buttons.entries()) {
+        if (button.state.pressed !== button.previous.pressed) {
+          console.log(
+            `Button ${index} ${button.state.pressed ? 'pressed' : 'released'}`,
+          );
+        }
+      }
+    }
+  }
+
   public update() {
     // console.log('inputs update');
+    this.updateGamepad();
+    this.debugGamepad();
     for (const config of Object.values(this.gameActions)) {
       if (config.type === 'button') {
         const action = this.actions[config.id];
@@ -175,8 +263,20 @@ export class Inputs {
         // console.log(`${config.id} Previous State ${previous.active}`);
         if (config.action === 'press') {
           const isPressed = config.keybinds.some((keybind) => {
-            const keyState = this.getKeyState(keybind.keyboardKey);
-            return keyState.current === true;
+            let keyState = false;
+            if (typeof keybind.keyboardKey === 'string') {
+              const keyboardState = this.getKeyboardState(keybind.keyboardKey);
+              if (keyboardState.current === true) {
+                keyState = true;
+              }
+            }
+            if (typeof keybind.gamepadButton === 'number') {
+              const gamepadState = this.getGamepadState(keybind.gamepadButton);
+              if (gamepadState && gamepadState.current.pressed === true) {
+                keyState = true;
+              }
+            }
+            return keyState;
           });
           if (isPressed) {
             // console.log(`${config.id} set true`);
@@ -206,19 +306,19 @@ export class Inputs {
         action.previous = deepCopy(state);
         let analogValue = Vec2.create(0, 0);
         config.keybinds.forEach((keybind) => {
-          if (this.getKeyState(keybind.left).current) {
+          if (this.getKeyboardState(keybind.left).current) {
             state.fullState.left = 1;
             analogValue.x -= 1;
           }
-          if (this.getKeyState(keybind.right).current) {
+          if (this.getKeyboardState(keybind.right).current) {
             state.fullState.right = 1;
             analogValue.x += 1;
           }
-          if (this.getKeyState(keybind.up).current) {
+          if (this.getKeyboardState(keybind.up).current) {
             state.fullState.up = 1;
             analogValue.y -= 1;
           }
-          if (this.getKeyState(keybind.down).current) {
+          if (this.getKeyboardState(keybind.down).current) {
             state.fullState.down = 1;
             analogValue.y += 1;
           }
