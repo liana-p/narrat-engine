@@ -140,7 +140,7 @@ export class PixiPlugin extends NarratPlugin {
   async attachToViewport() {
     if (!this.actionsAdded) {
       for (const action of this.actions) {
-        useInputs().inputs.addAction(action);
+        useInputs().getInputs().addAction(action);
       }
       this.actionsAdded = true;
     }
@@ -222,21 +222,19 @@ export class PixiPlugin extends NarratPlugin {
     agumonSprite.node.scale.set(3);
     agumonSprite.node.anchor.set(0.5, 1);
     agumon.setPosition(Vec2.create(1100, 1200));
-    createComponent<
+    createComponent<ColliderComponent, ColliderComponentOptions>(
       ColliderComponent,
-      ColliderComponentOptions
-    >(ColliderComponent, agumon, {
-      shape: 'circle',
-      dimensions: {
-        radius: 30,
-        x: 0,
-        y: -50,
-      },
-    });
-    createComponent<PlayerComponent>(
-      PlayerComponent,
       agumon,
+      {
+        shape: 'circle',
+        dimensions: {
+          radius: 30,
+          x: 0,
+          y: -50,
+        },
+      },
     );
+    createComponent<PlayerComponent>(PlayerComponent, agumon);
     agumon.layer = 2;
     const npc = new GameObject({
       node: createSpriteNode('img/characters/npc/npc.png'),
@@ -245,18 +243,19 @@ export class PixiPlugin extends NarratPlugin {
     npc.layer = 2;
     npc.node.anchor.set(0.5, 1);
     npc.setPosition(Vec2.create(1300, 1400));
-    createComponent<
+    createComponent<ColliderComponent, ColliderComponentOptions>(
       ColliderComponent,
-      ColliderComponentOptions
-    >(ColliderComponent, npc, {
-      shape: 'rectangle',
-      dimensions: {
-        width: 80,
-        height: 100,
-        x: 0,
-        y: -50,
+      npc,
+      {
+        shape: 'rectangle',
+        dimensions: {
+          width: 80,
+          height: 100,
+          x: 0,
+          y: -50,
+        },
       },
-    });
+    );
     const npcTalkZone = new GameObject({
       node: createContainerNode(),
       scene: this.scene,
@@ -283,41 +282,42 @@ export class PixiPlugin extends NarratPlugin {
       },
     });
     npcTalkCollider.isTrigger = true;
-    createComponent<
+    createComponent<CharacterComponent, CharacterComponentOptions>(
       CharacterComponent,
-      CharacterComponentOptions
-    >(CharacterComponent, agumon, {
-      speed: 320,
-      spritesheet: 'img/characters/agumon/agumon.json',
-      animations: CharacterComponent.GenerateAnimations(['idle', 'walk'], {
-        flipRight: true,
-      }),
-      // animations: {
-      //   idle: {
-      //     top: 'idle-top',
-      //     bottom: 'idle-bottom',
-      //     left: 'idle-left',
-      //     right: {
-      //       anim: 'idle-left',
-      //       flipX: true,
-      //     },
-      //     bottomLeft: 'idle-bottom-left',
-      //     topLeft: 'idle-top-left',
-      //     bottomRight: {
-      //       anim: 'idle-bottom-left',
-      //       flipX: true,
-      //     },
-      //     topRight: {
-      //       anim: 'idle-top-left',
-      //       flipX: true,
-      //     },
-      //   },
-      //   walk: {
-      //     top: 'walk-top',
-      //     bottom: 'walk-bottom',
-      //     left: 'walk-left',
-      //   },
-      // },
-    });
+      agumon,
+      {
+        speed: 320,
+        spritesheet: 'img/characters/agumon/agumon.json',
+        animations: CharacterComponent.GenerateAnimations(['idle', 'walk'], {
+          flipRight: true,
+        }),
+        // animations: {
+        //   idle: {
+        //     top: 'idle-top',
+        //     bottom: 'idle-bottom',
+        //     left: 'idle-left',
+        //     right: {
+        //       anim: 'idle-left',
+        //       flipX: true,
+        //     },
+        //     bottomLeft: 'idle-bottom-left',
+        //     topLeft: 'idle-top-left',
+        //     bottomRight: {
+        //       anim: 'idle-bottom-left',
+        //       flipX: true,
+        //     },
+        //     topRight: {
+        //       anim: 'idle-top-left',
+        //       flipX: true,
+        //     },
+        //   },
+        //   walk: {
+        //     top: 'walk-top',
+        //     bottom: 'walk-bottom',
+        //     left: 'walk-left',
+        //   },
+        // },
+      },
+    );
   }
 }

@@ -43,17 +43,19 @@ const menuStore = useMenu();
 const keyboardListener = ref<any>(null);
 
 onMounted(() => {
-  keyboardListener.value = inputEvents.on('keydown', (event) => {
-    const key = event.key;
-    if (key === 'Escape') {
-      useMenu().toggleMenu();
-    }
-  });
+  // keyboardListener.value = inputEvents.on('keydown', (event) => {
+  //   const key = event.key;
+  //   if (key === 'Escape') {
+  //     useMenu().toggleMenu();
+  //   }
+  // });
   vm.callHook('onGameMounted');
 });
 
 onUnmounted(() => {
-  inputEvents.off('keydown', keyboardListener.value);
+  if (keyboardListener.value) {
+    inputEvents.off('keydown', keyboardListener.value);
+  }
   vm.callHook('onGameUnmounted');
 });
 

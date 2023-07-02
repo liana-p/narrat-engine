@@ -23,7 +23,7 @@
         v-html="text"
       ></span>
       <div v-visible="canInteract" v-if="!options.old">
-        <div class="dialog-choices" v-if="choices">
+        <div class="dialog-choices" v-if="choices" ref="choicesDiv">
           <p
             v-for="(choice, index) in choices"
             :key="index"
@@ -31,7 +31,6 @@
             :class="dialogClass(choice)"
             v-on:click="chooseOption(choice)"
             class="dialog-choice override"
-            ref="choices"
             v-html="`${index + 1}. –&nbsp; ${choice.choice}`"
           ></p>
         </div>
@@ -86,6 +85,7 @@ export interface TextAnimation {
 export default defineComponent({
   data() {
     return {
+      choicesDiv: null as null | HTMLDivElement,
       playerText: '',
       passed: false,
       timeout: null as any,

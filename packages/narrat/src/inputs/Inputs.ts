@@ -1,6 +1,7 @@
 import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
+import { deepCopy } from '@/utils/data-helpers';
 
 export type ButtonEvent = (
   action: ButtonAction,
@@ -38,8 +39,10 @@ export interface AnalogAction {
 }
 
 export interface ButtonActionState {
+  config: ButtonAction;
   active: boolean;
-  previous: boolean;
+  justPressed: boolean;
+  justReleased: boolean;
 }
 
 export interface AnalogDirectionState {
@@ -50,13 +53,22 @@ export interface AnalogDirectionState {
 }
 
 export interface AnalogActionState {
+  config: AnalogAction;
   value: Vector2;
-  previous: Vector2;
   fullState: AnalogDirectionState;
-  previousFullState: AnalogDirectionState;
 }
 export type Action = ButtonAction | AnalogAction;
 
+export type ActionState = ButtonActionState | AnalogActionState;
+export type ButtonActionStatus = {
+  state: ButtonActionState;
+  previous: ButtonActionState;
+};
+export type AnalogActionStatus = {
+  state: AnalogActionState;
+  previous: AnalogActionState;
+};
+export type ActionStatus = ButtonActionStatus | AnalogActionStatus;
 export class Inputs {
   public gameActions: {
     [key: string]: Action;
@@ -70,21 +82,23 @@ export class Inputs {
   } = {};
 
   public actions: {
-    [key: string]: ButtonActionState | AnalogActionState;
+    [key: string]: ActionStatus;
   } = {};
 
   public startListening() {
     window.addEventListener('keydown', (event) => {
-      const state = this.getKeyState(event.key);
+      console.log('keydown', event.key);
+      const previous = this.getKeyState(event.key).current;
       this.keyboardState[event.key] = {
-        previous: state.current,
+        previous,
         current: true,
       };
     });
     window.addEventListener('keyup', (event) => {
-      const state = this.getKeyState(event.key);
+      console.log('keyup', event.key);
+      const previous = this.getKeyState(event.key).current;
       this.keyboardState[event.key] = {
-        previous: state.current,
+        previous,
         current: false,
       };
     });
@@ -96,26 +110,30 @@ export class Inputs {
   public addAction(action: Action) {
     this.gameActions[action.id] = action;
     if (action.type === 'button') {
-      this.actions[action.id] = {
+      const state: ButtonActionState = {
+        config: action,
         active: false,
-        previous: false,
+        justPressed: false,
+        justReleased: false,
+      };
+      this.actions[action.id] = {
+        state,
+        previous: deepCopy(state),
       };
     } else {
-      this.actions[action.id] = {
+      const state: AnalogActionState = {
+        config: action,
         value: Vec2.create(0, 0),
-        previous: Vec2.create(0, 0),
         fullState: {
           left: 0,
           right: 0,
           up: 0,
           down: 0,
         },
-        previousFullState: {
-          left: 0,
-          right: 0,
-          up: 0,
-          down: 0,
-        },
+      };
+      this.actions[action.id] = {
+        state,
+        previous: deepCopy(state),
       };
     }
   }
@@ -124,14 +142,14 @@ export class Inputs {
     if (!this.actions[actionId]) {
       error(`Action ${actionId} does not exist`);
     }
-    return this.actions[actionId] as AnalogActionState;
+    return this.actions[actionId].state as AnalogActionState;
   }
 
   public getButton(actionId: string): ButtonActionState {
     if (!this.actions[actionId]) {
       error(`Action ${actionId} does not exist`);
     }
-    return this.actions[actionId] as ButtonActionState;
+    return this.actions[actionId].state as ButtonActionState;
   }
 
   public getKeyState(key: string) {
@@ -147,49 +165,69 @@ export class Inputs {
   }
 
   public update() {
-    Object.values(this.gameActions).forEach((action) => {
-      if (action.type === 'button') {
-        if (action.action === 'press') {
-          this.actions[action.id].previous = (
-            this.actions[action.id] as ButtonActionState
-          ).active;
-          const isJustPressed = action.keybinds.some((keybind) => {
-            const state = this.getKeyState(keybind.keyboardKey);
-            return state.current === true && state.previous === false;
+    // console.log('inputs update');
+    for (const config of Object.values(this.gameActions)) {
+      if (config.type === 'button') {
+        const action = this.actions[config.id];
+        const previous = deepCopy(action.state) as ButtonActionState;
+        const state = action.state as ButtonActionState;
+        action.previous = previous;
+        // console.log(`${config.id} Previous State ${previous.active}`);
+        if (config.action === 'press') {
+          const isPressed = config.keybinds.some((keybind) => {
+            const keyState = this.getKeyState(keybind.keyboardKey);
+            return keyState.current === true;
           });
-          if (isJustPressed) {
-            (this.actions[action.id] as ButtonActionState).active = true;
+          if (isPressed) {
+            // console.log(`${config.id} set true`);
+            state.active = true;
           } else {
-            (this.actions[action.id] as ButtonActionState).active = false;
+            // console.log(`${config.id} set false`);
+            state.active = false;
+          }
+          if (state.active && !previous.active) {
+            // console.log(`Just pressed ${config.id}`);
+            state.justPressed = true;
+          } else {
+            state.justPressed = false;
+          }
+          if (!state.active && previous.active) {
+            // console.log(`Just released ${config.id}`);
+            state.justReleased = true;
+          } else {
+            state.justReleased = false;
           }
         }
         // WIP future action system
-      } else if (action.type === 'analog') {
-        const actionState = this.actions[action.id] as AnalogActionState;
-        actionState.previous = actionState.value;
-        actionState.previousFullState = actionState.fullState;
+      } else if (config.type === 'analog') {
+        const action = this.actions[config.id];
+        const state = action.state as AnalogActionState;
+        const previous = deepCopy(action.state) as AnalogActionState;
+        action.previous = deepCopy(state);
         let analogValue = Vec2.create(0, 0);
-        action.keybinds.forEach((keybind) => {
+        config.keybinds.forEach((keybind) => {
           if (this.getKeyState(keybind.left).current) {
-            actionState.fullState.left = 1;
+            state.fullState.left = 1;
             analogValue.x -= 1;
           }
           if (this.getKeyState(keybind.right).current) {
-            actionState.fullState.right = 1;
+            state.fullState.right = 1;
             analogValue.x += 1;
           }
           if (this.getKeyState(keybind.up).current) {
-            actionState.fullState.up = 1;
+            state.fullState.up = 1;
             analogValue.y -= 1;
           }
           if (this.getKeyState(keybind.down).current) {
-            actionState.fullState.down = 1;
+            state.fullState.down = 1;
             analogValue.y += 1;
           }
         });
         analogValue = Vec2.normalize(analogValue);
-        actionState.value = analogValue;
+        state.value = analogValue;
       }
-    });
+    }
   }
 }
+
+export const inputs = new Inputs();

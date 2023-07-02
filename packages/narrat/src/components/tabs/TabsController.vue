@@ -5,8 +5,9 @@
         v-for="(tab, index) in tabs"
         :key="tab.id"
         :tab="tab"
-        :active="tab.id === activeTabId"
+        :active="index === activeTabIndex"
         @click="() => clickOnTab(index)"
+        :inputListener="listener"
       />
     </div>
     <div class="tab-content" v-if="activeTab">
@@ -24,26 +25,58 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import TabSelector, { TabOptions } from './tab-selector.vue';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
 export interface TabControllerProps {
   tabs: TabOptions[];
   defaultTab: number;
 }
+const listener = ref<InputListener | null>(null);
+
 const emit = defineEmits(['tab-change', 'close']);
 const props = defineProps<TabControllerProps>();
-const activeTabId = ref<string | null>(
-  props.tabs[props.defaultTab]?.id ?? null,
-);
+const activeTabIndex = ref<number>(props.defaultTab);
 
 function clickOnTab(tab: number) {
-  activeTabId.value = props.tabs[tab].id;
+  activeTabIndex.value = tab;
   emit('tab-change', tab);
 }
 
 const activeTab = computed(() => {
-  return props.tabs.find((t) => t.id === activeTabId.value);
+  return props.tabs[activeTabIndex.value];
+});
+
+onMounted(() => {
+  listener.value = useInputs().registerInputListener({
+    cancel: {
+      press: () => {
+        emit('close');
+      },
+    },
+    previousTab: {
+      press: () => {
+        if (activeTabIndex.value > 0) {
+          clickOnTab(activeTabIndex.value - 1);
+        }
+      },
+    },
+    nextTab: {
+      press: () => {
+        if (activeTabIndex.value < props.tabs.length - 1) {
+          console.log(`Next tab ${activeTabIndex.value + 1}`);
+          clickOnTab(activeTabIndex.value + 1);
+        }
+      },
+    },
+  });
+});
+onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value!);
+    listener.value = null;
+  }
 });
 </script>
 <style>

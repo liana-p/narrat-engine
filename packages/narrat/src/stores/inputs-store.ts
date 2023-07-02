@@ -1,14 +1,21 @@
 import {
+  Action,
+  ActionState,
   AnalogAction,
   AnalogActionState,
+  ActionStatus,
   AnalogEvent,
   ButtonAction,
   ButtonActionState,
   ButtonEvent,
   Inputs,
+  inputs,
+  ButtonActionStatus,
 } from '@/inputs/Inputs';
+import { Gameloop, gameloop } from '@/utils/gameloop';
 import { InputEvents } from '@/utils/typed-emitter';
 import { defineStore } from 'pinia';
+import { useMenu } from './menu-store';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -16,25 +23,278 @@ export interface InputStoreEvents {
   analogChange?: AnalogEvent;
 }
 
+const defaultActions: Action[] = [
+  {
+    id: 'left',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'ArrowLeft',
+      },
+    ],
+  },
+  {
+    id: 'right',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'ArrowRight',
+      },
+    ],
+  },
+  {
+    id: 'up',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'ArrowUp',
+      },
+    ],
+  },
+  {
+    id: 'down',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'ArrowDown',
+      },
+    ],
+  },
+  {
+    id: 'continue',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'Space',
+      },
+    ],
+  },
+  {
+    id: 'cancel',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'Escape',
+      },
+    ],
+  },
+  {
+    id: 'system',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 's',
+      },
+    ],
+  },
+  {
+    id: 'menu',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'm',
+      },
+    ],
+  },
+  {
+    id: 'previousTab',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'p',
+      },
+    ],
+  },
+  {
+    id: 'nextTab',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'n',
+      },
+    ],
+  },
+  {
+    id: 'choice-0',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '1',
+      },
+    ],
+  },
+  {
+    id: 'choice-1',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '2',
+      },
+    ],
+  },
+  {
+    id: 'choice-2',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '3',
+      },
+    ],
+  },
+  {
+    id: 'choice-3',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '4',
+      },
+    ],
+  },
+  {
+    id: 'choice-4',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '5',
+      },
+    ],
+  },
+  {
+    id: 'choice-5',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '6',
+      },
+    ],
+  },
+  {
+    id: 'choice-6',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '7',
+      },
+    ],
+  },
+  {
+    id: 'choice-7',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '8',
+      },
+    ],
+  },
+  {
+    id: 'choice-8',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: '9',
+      },
+    ],
+  },
+];
+
 export interface InputListener {
   id: string;
   actions: Record<string, InputStoreEvents>;
 }
 
 export interface InputsStoreState {
-  inputs: Inputs;
   inputStack: InputListener[];
 }
 
 export const useInputs = defineStore('inputs', {
   state: () =>
     ({
-      inputs: new Inputs(),
       inputStack: [],
     } as InputsStoreState),
   actions: {
     setupInputs() {
-      this.inputs.startListening();
+      inputs.startListening();
+      for (const action of defaultActions) {
+        inputs.addAction(action);
+      }
+      this.listenToBaseNarratInputs();
+      gameloop.on('preUpdate', () => {
+        for (const [key, value] of Object.entries(inputs.actions)) {
+          if (value.state.config.type === 'button') {
+            const buttonStatus = value as ButtonActionStatus;
+            if (buttonStatus.state.justPressed) {
+              this.triggerListeners(key, 'press', buttonStatus);
+            }
+            if (buttonStatus.state.justReleased) {
+              this.triggerListeners(key, 'release', buttonStatus);
+            }
+          } else if (value.state.config.type === 'analog') {
+            // TODO: Implement analog events
+          }
+        }
+      });
+    },
+    listenToBaseNarratInputs() {
+      this.registerInputListener({
+        system: {
+          press: () => {
+            useMenu().openMenu('system');
+          },
+        },
+        menu: {
+          press: () => {
+            useMenu().openMenu('menu');
+          },
+        },
+      });
+    },
+    triggerListeners(
+      actionKey: string,
+      eventType: keyof InputStoreEvents,
+      status: ActionStatus,
+    ) {
+      console.log(`Triggering action ${actionKey} ${eventType}`);
+      for (const listener of this.inputStack) {
+        if (listener.actions[actionKey]) {
+          if (listener.actions[actionKey][eventType]) {
+            if (status.state.config.type === 'button') {
+              const listenerEvent = listener.actions[actionKey][
+                eventType
+              ] as ButtonEvent;
+              const buttonStatus = status as ButtonActionStatus;
+              listenerEvent(
+                status.state.config,
+                buttonStatus.state,
+                buttonStatus.previous,
+              );
+            } else {
+              console.warn('Analog events not implemented yet');
+            }
+          }
+        }
+      }
+    },
+    getInputs() {
+      return inputs;
     },
     registerInputListener(
       listeners?: Record<string, InputStoreEvents>,

@@ -9,9 +9,11 @@ export interface GameloopEvents {
 export class Gameloop extends TypedEmitter<GameloopEvents> {
   setup() {
     const update = () => {
+      // console.log('============== gameloop');
       this.emit('preUpdate');
       this.emit('update');
       this.emit('postUpdate');
+      // window.setTimeout(update, 4000);
       requestAnimationFrame(update);
     };
     update();

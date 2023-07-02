@@ -187,7 +187,7 @@ export class CharacterComponent extends Component {
       this.setAnimation();
       return;
     }
-    this.direction = inputs.inputs.getAnalog(this.movementAction).value;
+    this.direction = inputs.getInputs().getAnalog(this.movementAction).value;
     this.lastAnimationState = this.animationState;
     if (Vec2.magnitude(this.direction) > 0) {
       this.animationState = 'walk';
