@@ -1,15 +1,28 @@
-## [3.1.2](https://github.com/liana-p/narrat-engine/compare/v3.1.1...v3.1.2) (2023-07-01)
+# [3.2.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v3.2.0) (2023-07-02)
 
+### Gamepad Support
 
+There is now a first version of gamepad support. It can't interact with everything yet but it's possible to interact with the dialog panel, as well as open and close menus. More complete gamepad integration will come soon. see [PR](https://github.com/liana-p/narrat-engine/pull/89) for details.
 
-## [3.1.1](https://github.com/liana-p/narrat-engine/compare/v3.1.0...v3.1.1) (2023-07-01)
+### Bug Fixes
 
+- issue with typescript compilation of vue files probably caused by a dep update ([90f9cf1](https://github.com/liana-p/narrat-engine/commit/90f9cf1b9b38d66a65823acc7c2bc981167a3a60))
+- typo in template ([d772f54](https://github.com/liana-p/narrat-engine/commit/d772f544d5fad2044ceeb079030bd75eaedf52af))
 
 ### Features
 
-* export more config types in the narrat lib for plugins use ([d80aca2](https://github.com/liana-p/narrat-engine/commit/d80aca2c48aa8d1262c82357f6b6eb5589c9f073))
+- export more config types in the narrat lib for plugins use ([d80aca2](https://github.com/liana-p/narrat-engine/commit/d80aca2c48aa8d1262c82357f6b6eb5589c9f073))
+- gamepad support first version ([#89](https://github.com/liana-p/narrat-engine/issues/89)) ([510c560](https://github.com/liana-p/narrat-engine/commit/510c560f1a1c06bfd7e2ae8d6a435813c6affc8e))
+- Hot module reloading via vite plugin ([#86](https://github.com/liana-p/narrat-engine/issues/86)) ([c700d67](https://github.com/liana-p/narrat-engine/commit/c700d67e7ba520a46923e77187a80ea42f15be72))
+- **WIP:** improve RPG demo to modernise scripting syntax ([2faaad6](https://github.com/liana-p/narrat-engine/commit/2faaad6a1ec3cca0bfdd0d475f61327119124d61))
 
+## [3.1.2](https://github.com/liana-p/narrat-engine/compare/v3.1.1...v3.1.2) (2023-07-01)
 
+## [3.1.1](https://github.com/liana-p/narrat-engine/compare/v3.1.0...v3.1.1) (2023-07-01)
+
+### Features
+
+- export more config types in the narrat lib for plugins use ([d80aca2](https://github.com/liana-p/narrat-engine/commit/d80aca2c48aa8d1262c82357f6b6eb5589c9f073))
 
 # [3.1.0](https://github.com/liana-p/narrat-engine/compare/v3.0.2...v3.1.0) (2023-06-28)
 
