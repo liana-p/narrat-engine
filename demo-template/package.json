@@ -33,7 +33,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^2.10.0",
+    "narrat": "^3.2.0",
     "pinia": "^2.0.14",
     "steamworks.js": "^0.0.18",
     "vue": "^3.2.37"
@@ -44,14 +44,14 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.57",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
-    "@vitejs/plugin-vue": "^3.0.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "cross-env": "^7.0.3",
     "electron": "25.2.0",
     "electron-rebuild": "^3.2.8",
     "prettier": "2.6.2",
     "shx": "^0.3.4",
     "typescript": "^4.7.4",
-    "vite": "^3.2.7"
+    "vite": "^4.3.9"
   },
   "config": {
     "forge": {
