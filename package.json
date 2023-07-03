@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "chalk": "^5.2.0",
-    "conventional-changelog-cli": "^2.2.2",
+    "conventional-changelog-cli": "^3.0.0",
     "enquirer": "^2.3.6",
     "execa": "^4.0.2",
     "minimist": "^1.2.6",
