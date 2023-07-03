@@ -65,6 +65,7 @@ main:
 
 ::: tip
 There is a [cheatsheet of all available commands](../commands/all-commands.md) with usage examples.
+:::
 
 ## Expressions
 

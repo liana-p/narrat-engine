@@ -78,7 +78,12 @@ const config = {
         items: [
           { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
+          {
+            text: 'Branching dialogue and choices',
+            link: '/features/branching-dialogue',
+          },
           { text: 'Game Settings', link: '/features/game-settings' },
+          { text: 'Gamepad support', link: '/features/gamepad' },
           {
             text: 'Hot Module Reloading',
             link: '/features/hot-module-reloading',
@@ -98,7 +103,7 @@ const config = {
         collapsible: true,
         items: [
           {
-            text: 'All commands',
+            text: 'All commands cheatsheet',
             link: '/commands/all-commands',
           },
           { text: 'Language Syntax', link: '/scripting/language-syntax' },
@@ -119,9 +124,16 @@ const config = {
         ],
       },
       {
-        text: 'Command docs',
+        text: 'Common commands docs',
         collapsible: true,
-        items: [],
+        items: [
+          { text: 'All commands cheatsheet', link: '/commands/all-commands' },
+          { text: 'Jump', link: '/commands/api-jump' },
+          { text: 'Choices', link: '/commands/choice-function' },
+          { text: 'If', link: '/commands/if-function' },
+          { text: 'Logical operators', link: '/commands/logical-operators' },
+          { text: 'Random generation', link: '/commands/random-generation' },
+        ],
       },
     ],
     logo: '/logo.svg',
@@ -133,7 +145,7 @@ const config = {
         items: [
           {
             link: '/commands/all-commands',
-            text: 'All Commands Reference',
+            text: 'All Commands Reference cheatsheet',
           },
           { text: 'Example Script', link: '/examples/example-narrat-script' },
           { text: 'Language Syntax', link: '/scripting/language-syntax' },
