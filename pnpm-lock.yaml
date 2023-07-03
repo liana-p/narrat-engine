@@ -169,7 +169,7 @@ importers:
 
   packages/narrat-2d:
     specifiers:
-      '@vitejs/plugin-vue': ^3.0.0
+      '@vitejs/plugin-vue': ^4.2.3
       narrat: workspace:*
       pinia: ^2.0.14
       pixi.js: ^6.5.6
@@ -181,7 +181,7 @@ importers:
     dependencies:
       pixi.js: 6.5.9
     devDependencies:
-      '@vitejs/plugin-vue': 3.2.0_vite@3.2.7+vue@3.3.4
+      '@vitejs/plugin-vue': 4.2.3_vite@3.2.7+vue@3.3.4
       narrat: link:../narrat
       pinia: 2.1.4_typescript@4.9.5+vue@3.3.4
       tsc-alias: 1.8.6
@@ -192,7 +192,7 @@ importers:
 
   packages/narrat-plugin-counter:
     specifiers:
-      '@vitejs/plugin-vue': ^3.0.0
+      '@vitejs/plugin-vue': ^4.2.3
       narrat: workspace:*
       pinia: ^2.0.14
       tsc-alias: ^1.6.11
@@ -201,7 +201,7 @@ importers:
       vue: ^3.2.37
       vue-tsc: ^0.38.4
     devDependencies:
-      '@vitejs/plugin-vue': 3.2.0_vite@3.2.7+vue@3.3.4
+      '@vitejs/plugin-vue': 4.2.3_vite@3.2.7+vue@3.3.4
       narrat: link:../narrat
       pinia: 2.1.4_typescript@4.9.5+vue@3.3.4
       tsc-alias: 1.8.6
@@ -1951,17 +1951,6 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@vitejs/plugin-vue/3.2.0_vite@3.2.7+vue@3.3.4:
-    resolution: {integrity: sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^3.0.0
-      vue: ^3.2.25
-    dependencies:
-      vite: 3.2.7
-      vue: 3.3.4
-    dev: true
-
   /@vitejs/plugin-vue/4.2.3_v6jephi5mcvi5e46pp5rj2e64i:
     resolution: {integrity: sha512-R6JDUfiZbJA9cMiguQ7jxALsgiprjBeHL5ikpXfJCH62pPHtI+JdJ5xWj6Ev73yXSlYl86+blXn1kZHQ7uElxw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -1970,6 +1959,17 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 4.4.0-beta.3
+      vue: 3.3.4
+    dev: true
+
+  /@vitejs/plugin-vue/4.2.3_vite@3.2.7+vue@3.3.4:
+    resolution: {integrity: sha512-R6JDUfiZbJA9cMiguQ7jxALsgiprjBeHL5ikpXfJCH62pPHtI+JdJ5xWj6Ev73yXSlYl86+blXn1kZHQ7uElxw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^4.0.0
+      vue: ^3.2.25
+    dependencies:
+      vite: 3.2.7
       vue: 3.3.4
     dev: true
 
