@@ -14,7 +14,11 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue';
 import ModalWindow from './modal-window.vue';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+
+const listener = ref<InputListener | null>(null);
 
 const props = defineProps({
   prompt: {
@@ -40,6 +44,26 @@ function chosen(choice: boolean) {
   }
   emit('choice', choice);
 }
+
+onMounted(() => {
+  listener.value = useInputs().registerInputListener({
+    cancel: {
+      press: () => {
+        chosen(false);
+      },
+    },
+    confirm: {
+      press: () => {
+        chosen(true);
+      },
+    },
+  });
+});
+onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value);
+  }
+});
 </script>
 <style>
 .save-modal {
