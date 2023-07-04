@@ -3,8 +3,6 @@ description: >-
   Narrat games can have different screens which are 2D images used to illustrate
   the story. Screens are also interactive and can have buttons to click on
   elementsNarrat games can have different screens
-cover: ../.gitbook/assets/image (31).png
-coverY: 0
 ---
 
 # Screens
@@ -104,6 +102,23 @@ This script would be triggered by pressing the `parkButton` in the `map` screen 
 ::: danger
 The `default` screen must always exist, as it is the first screen the game gets loaded with.
 :::
+
+## Empty screens
+
+Sometimes, you might need an empty placeholder screen on a layer that has no background. To avoid needing to create a placeholder background, there is a shortcut.
+
+Setting the screen to a screen called `@empty`, or setting the background of any screen in the config to `@empty`, will make the screen have no background. This way you don't need an asset for the placeholder layer
+
+This is useful if you want multiple layers of sprites but don't need screens for all of them. You can just create set empty screens for those layers.
+
+Example:
+
+```narrat
+main:
+  set_screen @empty 2
+  var sprite (create_sprite img/my_sprite.png 150 150)
+  set sprite.layer 2 // The sprite can appear because there is a placeholder empty screen on layer 2
+```
 
 ## Button interaction tags
 

@@ -95,7 +95,7 @@ features:
   - icon: 👾
     title: Sprites system for advanced use
     details: A sprite system allows dynamic creation of sprites and text with a scene graph to dynamically create custom elements, UI, etc.
-    link: /commands/all-commands#screen-objects
+    link: /features/dynamic-sprites-text-objects
     linkText: Screen Objects docs
   - icon: ⚙️
     title: Powerful plugin API
