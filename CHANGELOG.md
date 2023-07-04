@@ -1,3 +1,9 @@
+## [3.2.1](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.1) (2023-07-04)
+
+### Features
+
+- **Screens:** Add a way to easily create empty screens ([#114](https://github.com/liana-p/narrat-engine/issues/114)) ([3f5488d](https://github.com/liana-p/narrat-engine/commit/3f5488d07cf3033248ba60d36828bf9c8d6deaa3)). See [documentation](https://docs.narrat.dev/features/viewport.html#empty-screens)
+
 # [3.2.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v3.2.0) (2023-07-02)
 
 ### Gamepad Support
