@@ -58,7 +58,8 @@ const config = {
             link: '/guides/editing-game',
           },
           { text: 'Editing the config', link: '/guides/config-files' },
-          { text: 'Customising the UI', link: '/guides/theming-ui' },
+          { text: 'Customising the UI', link: '/guides/customising-ui' },
+          { text: 'Using Custom Fonts', link: '/guides/using-custom-fonts' },
           {
             text: 'Building and exporting',
             link: '/guides/building-and-exporting',
