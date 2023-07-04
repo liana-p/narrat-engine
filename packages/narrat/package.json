@@ -67,7 +67,7 @@
     "fuse.js": "^6.6.2",
     "howler": "^2.2.3",
     "js-yaml": "^4.1.0",
-    "svelte-jsoneditor": "^0.3.58",
+    "svelte-jsoneditor": "^0.17.8",
     "vue3-mq": "^3.0.0"
   },
   "devDependencies": {
