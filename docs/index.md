@@ -50,7 +50,7 @@ features:
   - icon: 🎨
     title: Easy and powerful UI theming with CSS
     details: Narrat uses CSS for styling, so you can easily customize the look of your game. CSS is very easy to learn, powerful, and widely used so you can find resources easily.
-    link: /guides/theming-ui
+    link: /guides/customising-ui
     linkText: Theming Guide
   - icon: 📜
     title: Quests System

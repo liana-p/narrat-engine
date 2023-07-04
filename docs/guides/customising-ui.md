@@ -1,8 +1,8 @@
 ---
-description: This page explains how to use CSS to theme the game and UI
+description: This page explains how to use CSS to customise the visual look and theme the game and UI in Narrat
 ---
 
-# Theming the game and UI
+# Customising the UI theme
 
 Because narrat games are built using standard web tools (HTML/CSS/JS), it is possible to customise the styling of every element in the game using custom CSS.
 
@@ -178,6 +178,10 @@ Here is a list of the CSS variables that exist in narrat:
 ::: tip
 To see the most up to date list of CSS variables, look at [main.css](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/css/main.css#L1) in the engine
 :::
+
+## Using custom fonts
+
+You can use custom fonts in narrat, see the [Custom fonts guide](./using-custom-fonts.md) to learn how to do it.
 
 ## Creating custom CSS classes
 
