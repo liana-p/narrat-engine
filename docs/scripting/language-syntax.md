@@ -254,8 +254,9 @@ The script above goes through every item in the inventory one by one and prints 
 
 ### Array commands
 
-There are various available commands for arrays, see them [in the commands reference](http://localhost:5173/commands/all-commands.html#arrays).
+There are various available commands for arrays, see them [in the commands reference](../commands/all-commands.md#arrays).
 
 ::: tip
 Those array commands are generally based on javascript array functions, and use the same API
 :::
+§

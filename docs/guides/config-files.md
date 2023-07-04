@@ -97,6 +97,13 @@ A character's config can have the following values:
   - nameCss: Same as above, but the styling will apply to the name of the character specifically
   - textCss: Same as above, but will apply to the text "spoken" by the character
 
+::: danger
+Do not delete the default game and player characters.
+
+The `game` character is the placeholder one used for empty text commands.
+The `player` character is the one used for the text when the player makes choices.
+:::
+
 Example character config file:
 
 ```yaml
