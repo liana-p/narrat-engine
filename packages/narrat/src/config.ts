@@ -213,7 +213,7 @@ export function charactersConfig() {
   return getConfig().characters;
 }
 
-export function getScreenConfig(screen: string) {
+export function getScreenConfig(screen: string): ScreenConfig {
   if (screen === EMPTY_SCREEN) {
     return defaultScreenConfig;
   }

@@ -1,3 +1,5 @@
+import { ScreenConfig } from './config/screens-config';
+
 export const PRE_SIGNAL = '###_--_~=:;';
 export const JUMP_SIGNAL = `###_--_~=:;_JUMP`;
 export const RETURN_SIGNAL = `###_--_~=:;_RETURN`;
@@ -24,6 +26,6 @@ export const BUILD_DATE = new Date(import.meta.env.VITE_BUILD_DATE);
 export const DEFAULT_DIALOG_WIDTH = 400;
 export const DEFAULT_TEXT_SPEED = 20;
 export const EMPTY_SCREEN = '@empty';
-export const defaultScreenConfig = {
+export const defaultScreenConfig: ScreenConfig = {
   background: EMPTY_SCREEN,
 };
