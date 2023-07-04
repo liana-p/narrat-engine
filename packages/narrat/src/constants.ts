@@ -23,3 +23,7 @@ export const BUILD_DATE = new Date(import.meta.env.VITE_BUILD_DATE);
 // Default values
 export const DEFAULT_DIALOG_WIDTH = 400;
 export const DEFAULT_TEXT_SPEED = 20;
+export const EMPTY_SCREEN = '@empty';
+export const defaultScreenConfig = {
+  background: EMPTY_SCREEN,
+};

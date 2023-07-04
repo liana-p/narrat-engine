@@ -192,15 +192,7 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 
 ## Screen Objects
 
-Screen objects are new and not documented yet, basic usage is to put the result of `create_sprite` or `create_object` in a variable and then manipulate it. Example:
-
-```narrat
-set data.playerSprite (create_sprite img/player.png 50 50)
-wait 1000
-set data.playerSprite.x 100 // moves the player to x 100
-wait 1000
-delete_sprite $data.playerSprite
-```
+See [Dynamic sprites and text documentation](../features/dynamic-sprites-text-objects.md) for info on how to use screen objects.
 
 | Command       | Example                                  | Description                                                                 |
 | ------------- | ---------------------------------------- | --------------------------------------------------------------------------- |

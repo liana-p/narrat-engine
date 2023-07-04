@@ -2,7 +2,11 @@ import { AppOptions } from './types/app-types';
 import { error } from './utils/error-handling';
 import { useConfig } from './stores/config-store';
 import { Config, defaultConfig } from './config/config-output';
-import { DEFAULT_DIALOG_WIDTH } from './constants';
+import {
+  DEFAULT_DIALOG_WIDTH,
+  EMPTY_SCREEN,
+  defaultScreenConfig,
+} from './constants';
 import {
   defaultItemsConfig,
   ItemsInputConfigSchema,
@@ -209,6 +213,17 @@ export function charactersConfig() {
   return getConfig().characters;
 }
 
+export function getScreenConfig(screen: string) {
+  if (screen === EMPTY_SCREEN) {
+    return defaultScreenConfig;
+  }
+  if (!screensConfig().screens[screen]) {
+    error(`Screen config for screen ${screen} doesn't exist`);
+    return defaultScreenConfig;
+  }
+  return screensConfig().screens[screen];
+}
+
 export function getTooltipConfig(keyword: string) {
   const config = tooltipsConfig();
   const data = config.tooltips.find((k) => k.keywords.includes(keyword));
@@ -276,14 +291,6 @@ export function getButtonConfig(button: string): ButtonConfig {
   const result = buttonsConfig().buttons[button];
   if (!result) {
     error(`Button config for button ${button} doesn't exist`);
-  }
-  return result;
-}
-
-export function getScreenConfig(screen: string): ScreenConfig {
-  const result = screensConfig().screens[screen];
-  if (!result) {
-    error(`Screen config for screen ${screen} doesn't exist`);
   }
   return result;
 }

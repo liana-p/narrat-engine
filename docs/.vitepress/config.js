@@ -95,6 +95,10 @@ const config = {
           { text: 'Quests', link: '/features/quests' },
           { text: 'Save and Load', link: '/features/save-and-load' },
           { text: 'Skills', link: '/features/skills' },
+          {
+            text: 'Sprites and text',
+            link: '/features/dynamic-sprites-text-objects.md',
+          },
           { text: 'Transitions', link: '/features/transitions' },
           { text: 'Viewport', link: '/features/viewport' },
         ],

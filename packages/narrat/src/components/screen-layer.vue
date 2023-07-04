@@ -31,7 +31,7 @@ import {
   getConfig,
   getButtonConfig,
   getImageUrl,
-  screensConfig,
+  getScreenConfig,
 } from '@/config';
 import { computed, CSSProperties } from 'vue';
 import { useMain } from '../stores/main-store';
@@ -44,6 +44,7 @@ import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
 import ScreenObject from './screen-objects/screen-object.vue';
 import { isViewportElementClickable } from '@/utils/viewport-utils';
+import { EMPTY_SCREEN } from '@/constants';
 
 const props = defineProps<{
   layer: string;
@@ -72,7 +73,7 @@ const buttonsState = computed(() => {
 });
 
 const screenConfig = computed(() => {
-  const conf = screensConfig().screens[currentScreen.value];
+  const conf = getScreenConfig(currentScreen.value);
   if (!conf) {
     console.log(currentScreen);
     error(`Screen ${currentScreen.value} doesn't have a config`);
@@ -193,64 +194,18 @@ function getButtonText(button: string): string {
 }
 
 const layerStyle = computed<CSSProperties>(() => {
+  let backgroundImage: string | undefined = `url(${getImageUrl(
+    screenConfig.value.background,
+  )})`;
+  if (screenConfig.value.background === EMPTY_SCREEN) {
+    backgroundImage = undefined;
+  }
   return {
-    backgroundImage: `url(${getImageUrl(screenConfig.value.background)})`,
+    backgroundImage,
     width: `${layoutWidth.value}px`,
     height: `${layoutHeight.value}px`,
   };
 });
-
-// Sprites
-function clickOnSprite(sprite: SpriteState) {
-  if (props.transitioning) {
-    return;
-  }
-  if (sprite.onClick) {
-    useScreenObjects().clickObject(sprite);
-  }
-}
-
-function getSpriteClass(sprite: SpriteState): { [key: string]: boolean } {
-  const css: any = {};
-  if (sprite.onClick) {
-    css.interactable = true;
-  } else {
-    css.disabled = true;
-  }
-  if (sprite.cssClass) {
-    css[sprite.cssClass] = true;
-  }
-  return css;
-}
-
-function getSpriteStyle(sprite: SpriteState): CSSProperties {
-  const style: CSSProperties = {};
-  if (sprite.opacity !== 1) {
-    style.opacity = sprite.opacity;
-  }
-  let left = sprite.x;
-  let top = sprite.y;
-  if (sprite.anchor) {
-    const anchor = sprite.anchor;
-    left = sprite.x - sprite.width * anchor.x;
-    top = sprite.y - sprite.height * anchor.y;
-    style.transformOrigin = `${anchor.x * 100}% ${anchor.y * 100}%`;
-  }
-  let width = sprite.width;
-  let height = sprite.height;
-  if (sprite.scale) {
-    width = width * sprite.scale;
-    height = height * sprite.scale;
-  }
-  return {
-    ...style,
-    left: `${left}px`,
-    top: `${top}px`,
-    backgroundImage: `url(${getImageUrl(sprite.image)})`,
-    width: `${width}px`,
-    height: `${height}px`,
-  };
-}
 </script>
 <style>
 .viewport {

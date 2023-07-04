@@ -162,14 +162,18 @@ export const useScreenObjects = defineStore('screenObjects', {
         if (index !== -1) {
           parent.children.splice(index, 1);
         } else {
-          warning(`Could not find object ${object.id} in parent's children`);
+          // console.warning(`Could not find object ${object.id} in parent's children`);
+          console.warn(
+            `Could not find object ${object.id} in parent's children`,
+          );
         }
       } else {
         const index = this.tree.indexOf(object);
         if (index !== -1) {
           this.tree.splice(index, 1);
         } else {
-          warning(`Object to destroy not found in store (${object.id})`);
+          // warning(`Object to destroy not found in store (${object.id})`);
+          console.warn(`Object to destroy not found in store (${object.id})`);
         }
       }
       delete this.objectsList[object.id];

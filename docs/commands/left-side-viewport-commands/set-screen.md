@@ -14,7 +14,7 @@ Example:
 set_screen map
 ```
 
-### Layers
+## Layers
 
 Screens can use layers, to make it possible to overlay screens on top of each other. By passing a number as the second parameter to `set_screen`, it will set a screen on this layer. Example:
 
@@ -25,3 +25,7 @@ main:
 ```
 
 See [Screens guide](../../features/viewport.md) for more info
+
+### Placeholder screens
+
+Sometimes you might want placeholder screens that are empty and don't need a background image. See [Empty screens](../../features/viewport.md#empty-screens) for more info.

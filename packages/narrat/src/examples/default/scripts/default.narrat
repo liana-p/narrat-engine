@@ -9,6 +9,7 @@ main:
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
   // jump test_hmr
+  set_screen @empty 2
   jump quest_demo
 
 test_hmr:
