@@ -3,9 +3,13 @@ title: Using custom fonts in narrat
 description: How to add custom fonts in your narrat game
 ---
 
-## Using custom fonts in narrat
+# Using custom fonts in narrat
 
 You probably want to use custom fonts in your games. This is easy to do in Narrat, because Narrat uses web technology and can be [customised with CSS](./customising-ui.md).
+
+For custom fonts, you will need to load a web font ([see below](#about-web-fonts)). For basic built-in fonts, you can use the default fonts available in CSS.
+
+## How to use a font in CSS
 
 Generally, in CSS, to use a font you simply need to specify its name in a CSS class (in `src/css/main.css`):
 
