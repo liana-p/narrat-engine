@@ -1,7 +1,8 @@
----
+f---
 description: >-
-  This documentation page explains how the syntax of the narrat scripting
-  language works
+This documentation page explains how the syntax of the narrat scripting
+language works
+
 ---
 
 # Language syntax and expressions
@@ -137,3 +138,124 @@ takeout_menu third_option:
 In this example, we `run` the `takeout_menu` function, passing the value `Cake` for the `third_option` argument. This function uses that argument to add an option to its menu.
 
 Once the player has chosen a meal, the `takeout_menu` function returnrs the choice. The main label creates a variable `meal` and stores the returned value to later display it.
+
+## Objects
+
+Narrat scripting supports objects in a transparent way. Objects are automatically created when you created nested properties. For example:
+
+```narrat
+main:
+  set data.player.name "Alice"
+  set data.player.age 25
+  "The player's name is %{data.player.name} and they are %{data.player.age} years old"
+```
+
+This script created a `player` object which contains the following:
+
+```json
+{
+  "name": "Alice",
+  "age": 25
+}
+```
+
+### Dynamic indexing
+
+Object keys can be dynamically accessed via variables, which can be useful if you have dynamic content.
+
+The syntax is: `$objectName[$key]`, where `key` is a variable you're using to access the object's property.
+
+For example, imagine we want to load data about various player classes. Let's start with a config file:
+
+```yaml
+warrior:
+  hp: 100
+rogue:
+  hp: 50
+mage:
+  hp: 25
+```
+
+Then in narrat:
+
+```narrat
+main:
+  set data.classes (load_data data/classes.yaml) // the file above
+  choice:
+  "Choose your class":
+    "Warrior":
+      set data.player.class warrior
+    "Rogue":
+      set data.player.class rogue
+    "Mage":
+      set data.player.class mage
+
+show_player_stats:
+  var classInfo $data.classes[$data.player.class] // We're dynamically accessing the class info based on the value of data.player.class
+  "You are a %{data.player.class} with %{classInfo.hp} HP"
+```
+
+### Empty object
+
+Empty objects can be created with the command `new Object`:
+
+```
+main:
+  set data.player (new Object)
+```
+
+## Arrays
+
+Arrays are possible in narrat and can be created with `new Array`, or loaded from a yaml file with the `load_data` command, like with objects above.
+
+Here's an example of an array of strings:
+
+```narrat
+main:
+  set data.player.inventory (new Array)
+  push $data.player.inventory "Sword"
+  push $data.player.inventory "Shield"
+  push $data.player.inventory "Potion"
+  var array_contents (array_join $data.player.inventory)
+  "Your inventory contains  %{array_contents}"
+```
+
+Or, you can initialise an array directly with properties:
+
+```narrat
+main:
+  set data.player.inventory (new Array "Sword" "Shield" "Potion")
+  var array_contents (array_join $data.player.inventory)
+  "Your inventory contains  %{array_contents}"
+```
+
+### Dynamic indexing
+
+Similarly to with objects, arrays can be dynamically indexed with variables:
+
+```narrat
+
+main:
+  set data.player.inventory (new Array "Sword" "Shield" "Potion")
+
+print_every_item inventory:
+  run print_inventory 0
+
+
+print_inventory_item index:
+  var item $data.player.inventory[$index]
+  "You have a %{item}"
+  add index 1
+  if (< $index $data.player.inventory.length):
+    run print_inventory $index
+```
+
+The script above goes through every item in the inventory one by one and prints them.
+
+### Array commands
+
+There are various available commands for arrays, see them [in the commands reference](http://localhost:5173/commands/all-commands.html#arrays).
+
+::: tip
+Those array commands are generally based on javascript array functions, and use the same API
+:::
