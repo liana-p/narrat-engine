@@ -1,3 +1,12 @@
+## [3.2.6-alpha.2](https://github.com/liana-p/narrat-engine/compare/v3.2.6-alpha.1...v3.2.6-alpha.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* mistake in save migration code ([6de08af](https://github.com/liana-p/narrat-engine/commit/6de08af8cf83178bbc2447435a11f9daba54b9c2))
+
+
+
 ## [3.2.6-alpha.1](https://github.com/liana-p/narrat-engine/compare/v3.2.3...v3.2.6-alpha.1) (2023-07-05)
 
 
