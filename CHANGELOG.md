@@ -1,3 +1,9 @@
+## [3.2.2](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.2) (2023-07-05)
+
+### Features
+
+- **characters:** Ability to change the player character during the game ([#115](https://github.com/liana-p/narrat-engine/issues/115)) ([91205ce](https://github.com/liana-p/narrat-engine/commit/91205ce4a501a1108544b8936486802173594fa9)). See [documentation](https://docs.narrat.dev/features/changing-player-character.html#changing-the-player-and-game-characters-during-gameplay).
+
 ## [3.2.1](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.1) (2023-07-04)
 
 ### Features
