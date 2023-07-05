@@ -1,3 +1,7 @@
+## [3.2.4](https://github.com/liana-p/narrat-engine/compare/v3.2.1...v3.2.4) (2023-07-05)
+
+
+
 ## [3.2.1](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.1) (2023-07-04)
 
 ### Features
