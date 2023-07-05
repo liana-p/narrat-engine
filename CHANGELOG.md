@@ -1,3 +1,7 @@
+## [3.2.5](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.5) (2023-07-05)
+
+
+
 # [3.2.0](https://github.com/liana-p/narrat-engine/compare/v2.17.0...v3.2.0) (2023-07-02)
 
 ### Gamepad Support
