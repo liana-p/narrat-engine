@@ -41,6 +41,7 @@ import { useMenu } from './menu-store';
 import { useScreenObjects } from './screen-objects-store';
 import { useAchievements } from './achievements-store';
 import { useSettings } from './settings-store';
+import { useConfig } from './config-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -446,6 +447,7 @@ export const useMain = defineStore('main', {
         metadata,
         settings: useSettings().generateSaveData(),
         screenObjects: useScreenObjects().generateSaveData(),
+        config: useConfig().generateSaveData(),
       };
       vm.plugins.forEach((plugin) => {
         if (plugin.save) {
@@ -486,6 +488,7 @@ export const useMain = defineStore('main', {
       const inventoryStore = useInventory();
       this.loadGlobalData();
       useScreenObjects().loadSaveData(save.screenObjects);
+      useConfig().loadSaveData(save.config);
       screensStore.loadSaveData(save.screen);
       skillsStore.loadSaveData(save.skills);
       dialogStore.loadSaveData(save.dialog);

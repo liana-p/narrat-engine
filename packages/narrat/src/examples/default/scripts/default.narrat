@@ -8,9 +8,33 @@ main:
   // if (== $global.counter 2):
   //   unlock_achievement win_game
   // talk player idle "Global counter is %{$global.counter}"
+  // jump test_change_player
   // jump test_hmr
-  set_screen @empty 2
   jump quest_demo
+
+test_change_player:
+  talk helper idle "Let's change who the player character is."
+  choice:
+    "change character?"
+    "Default player character":
+      change_player_character player
+    "Second player character":
+      change_player_character player2
+  jump test_change_player_2
+
+test_change_player_2:
+  talk helper idle "Ok, we've changed player character. The new name should appear when making choices now."
+  choice:
+    talk helper idle "Did you like changing the player character?"
+    "Yes":
+      talk helper idle "I'm glad you liked it"
+    "No":
+      talk helper idle "I'm sorry you didn't like it. We can change again if you want."
+  change_game_character game2
+  "Hello game"
+  change_game_character game
+  "Hello 2"
+  jump test_change_player
 
 test_hmr:
   talk helper idle "Hello hmr 1"
@@ -29,9 +53,9 @@ test_custom_settings:
   "Test, %{$data.name}"
 
 test_label_reload:
-  run set_config_overrides
+  // run set_config_overrides
   "Game reloaded"
-  talk player idle "Welcome back"
+  talk helper idle "Welcome back"
 
 set_config_overrides:
   set config.characters.characters.player.name $data.playerName

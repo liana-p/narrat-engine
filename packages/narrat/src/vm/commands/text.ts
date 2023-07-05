@@ -4,6 +4,7 @@ import {
   generateParser,
 } from './command-plugin';
 import { textCommand } from '../vm-helpers';
+import { useConfig } from '@/stores/config-store';
 
 export interface TalkArgs {
   speaker: string;
@@ -86,7 +87,7 @@ export const textCommandPlugin = CommandPlugin.FromOptions<
   argTypes: [],
   runner: async (cmd, choices) => {
     await textCommand({
-      speaker: 'game',
+      speaker: useConfig().gameCharacter,
       cssClass: 'text-command',
       text: cmd.staticOptions.text,
       choices,

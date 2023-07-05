@@ -19,6 +19,7 @@ import { MachineBlock, useVM } from '@/stores/vm-store';
 import { useSkills } from '@/stores/skills';
 import { commandRuntimeError } from './command-helpers';
 import { getSkillCheckConfig, skillCheckConfigExists } from '@/config';
+import { useConfig } from '@/stores/config-store';
 
 export const runChoice: CommandRunner<
   ChoiceOptions,
@@ -190,7 +191,7 @@ const onChoicePlayerAnswered = async (
   if (playerText) {
     // If the choice involves printing a player dialog, show it
     const dialog: AddDialogParams = {
-      speaker: 'player',
+      speaker: useConfig().playerCharacter,
       text: playerText,
       interactive: false,
     };

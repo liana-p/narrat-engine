@@ -1,6 +1,8 @@
 ---
 config:
   imagesPath: img/characters/
+  playerCharacter: player
+  gameCharacter: game
 characters:
   game:
     name: ''
@@ -11,6 +13,18 @@ characters:
     sprites:
       idle: player.webp
     name: You
+  player2:
+    style:
+      color: green
+    sprites:
+      idle: player.webp
+    name: Player 2
+  game2:
+    name: 'The Narrator'
+    style:
+      color: red
+    sprites:
+      idle: helper_cat.webp
   cat:
     sprites:
       idle: cat_idle.webp

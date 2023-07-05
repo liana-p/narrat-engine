@@ -1,6 +1,7 @@
 import { AddDialogParams, useDialogStore } from '@/stores/dialog-store';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
+import { useConfig } from '@/stores/config-store';
 
 export const textFieldPlugin = CommandPlugin.FromOptions<{ prompt: string }>({
   keyword: 'text_field',
@@ -8,7 +9,7 @@ export const textFieldPlugin = CommandPlugin.FromOptions<{ prompt: string }>({
   returnAfterPlayerAnswer: true,
   runner: async (cmd) => {
     const dialog: AddDialogParams = {
-      speaker: 'game',
+      speaker: useConfig().gameCharacter,
       text: cmd.options.prompt,
       textField: true,
       interactive: true,
@@ -31,7 +32,7 @@ export const textFieldPromptPlugin = CommandPlugin.FromOptions<{
   argTypes: [{ name: 'prompt', type: 'string' }],
   runner: async (cmd) => {
     const dialog: AddDialogParams = {
-      speaker: 'game',
+      speaker: useConfig().gameCharacter,
       text: cmd.options.prompt,
       textField: true,
       interactive: true,

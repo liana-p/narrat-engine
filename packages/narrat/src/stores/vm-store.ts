@@ -26,6 +26,7 @@ import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 import { NarratScript } from '@/types/app-types';
+import { useConfig } from './config-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -392,7 +393,7 @@ export const useVM = defineStore('vm', {
         // const dialogStore = useDialogStore();
         if (getConfig().debugging.showScriptFinishedMessage) {
           // dialogStore.addDialog({
-          //   speaker: 'game',
+          //   speaker: useConfig().gameCharacter,
           //   text: '[DEBUG] Game Script is finished. This is the end of the game flow. This message only appears in debug mode.',
           // });
         }

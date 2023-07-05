@@ -83,6 +83,10 @@ const config = {
             text: 'Branching dialogue and choices',
             link: '/features/branching-dialogue',
           },
+          {
+            text: 'Changing the player character',
+            link: '/features/changing-player-character',
+          },
           { text: 'Game Settings', link: '/features/game-settings' },
           { text: 'Gamepad support', link: '/features/gamepad' },
           {

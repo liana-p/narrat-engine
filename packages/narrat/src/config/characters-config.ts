@@ -17,6 +17,8 @@ export type CharacterConfig = Static<typeof CharacterConfigSchema>;
 export const CharactersFilesConfigSchema = Type.Object({
   config: Type.Object({
     imagesPath: Type.String(),
+    playerCharacter: Type.Optional(Type.String()),
+    gameCharacter: Type.Optional(Type.String()),
   }),
   characters: Type.Record(Type.String(), CharacterConfigSchema),
 });
@@ -24,6 +26,8 @@ export type CharactersFilesConfig = Static<typeof CharactersFilesConfigSchema>;
 export const defaultCharactersConfig: CharactersFilesConfig = {
   config: {
     imagesPath: '',
+    playerCharacter: 'player',
+    gameCharacter: 'game',
   },
   characters: {},
 };

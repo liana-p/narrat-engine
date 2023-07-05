@@ -120,7 +120,11 @@ import {
   sliceCommand,
   spliceCommand,
 } from './array-commands';
-import { loadDataPlugin } from './util-commands';
+import {
+  changeGameCharacterPlugin,
+  changePlayerCharacterPlugin,
+  loadDataPlugin,
+} from './util-commands';
 import {
   nowPlugin,
   sessionPlaytimePlugin,
@@ -281,6 +285,8 @@ export function registerBaseCommands(vm: VM) {
 
   // Util commands
   vm.addCommand(loadDataPlugin);
+  vm.addCommand(changePlayerCharacterPlugin);
+  vm.addCommand(changeGameCharacterPlugin);
 
   // Time commands
   vm.addCommand(nowPlugin);
