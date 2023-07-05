@@ -7,6 +7,7 @@ import {
   resolveSkillCheck,
 } from '@/utils/skillchecks';
 import { IfOptions, IfStaticOptions } from './commands/if';
+import { useConfig } from '@/stores/config-store';
 
 export interface SkillCheckParams {
   skill: string;
@@ -72,7 +73,7 @@ export function isVariable(arg: Parser.Arg): arg is Variable {
 
 export function writeText(text: string) {
   const dialog: AddDialogParams = {
-    speaker: 'game',
+    speaker: useConfig().gameCharacter,
     text,
     interactive: false,
   };

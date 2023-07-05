@@ -201,6 +201,15 @@ See [Dynamic sprites and text documentation](../features/dynamic-sprites-text-ob
 | delete_sprite | `delete_sprite $mySprite`                | Deletes a sprite (stored in a variable)                                     |
 | empty_sprites | `empty_sprites [optional layer number]`  | Deletes all sprites, on specified layer or all layers if no layer is passed |
 
+## Characters
+
+It is possible to change which character is used by the player (which is used when making choices). See the [changing player character feature docs](../features/changing-player-character.md) for more info.
+
+| Command                 | Example                            | Description                                                                                       |
+| ----------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------- |
+| change_player_character | `change_player_character player_2` | Will use `player_2` as the character for the player's words in choices etc.                       |
+| change_game_character   | `change_game_character game_2`     | Changes the default character used to represent the game (by default is a character with no name) |
+
 ## Others
 
 | command                                     | example                                                                         | description                                                                                                                                                               |
