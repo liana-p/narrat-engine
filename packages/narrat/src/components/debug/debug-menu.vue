@@ -148,7 +148,7 @@ import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { computed, defineComponent } from 'vue';
 import Modal from '../utils/modal-window.vue';
 import Fuse from 'fuse.js';
-import { JSONEditor } from 'svelte-jsoneditor/dist/jsoneditor.js';
+import { JSONEditor } from 'vanilla-jsoneditor';
 import { Parser } from '@/types/parser';
 import { useSkills } from '@/stores/skills';
 import { useMain } from '@/stores/main-store';
