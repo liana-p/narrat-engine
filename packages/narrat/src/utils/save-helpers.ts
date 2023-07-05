@@ -102,8 +102,10 @@ function migrateSaveFile(saveFile: SaveFile) {
   if (saveFile.version === '2.17.0') {
     saveFile.slots.forEach((slot) => {
       if (slot && slot.saveData) {
-        slot.saveData.config.gameCharacter = 'game';
-        slot.saveData.config.playerCharacter = 'player';
+        slot.saveData.config = {
+          gameCharacter: 'game',
+          playerCharacter: 'player',
+        };
       }
     });
     saveFile.version = '3.2.3';
