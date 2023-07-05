@@ -1,3 +1,12 @@
+## [3.2.6](https://github.com/liana-p/narrat-engine/compare/v3.2.3...v3.2.6) (2023-07-05)
+
+
+### Bug Fixes
+
+* Issues with broken build, trying to fix by fixing dependencies and mistakes in new config code ([#116](https://github.com/liana-p/narrat-engine/issues/116)) ([f90bd3f](https://github.com/liana-p/narrat-engine/commit/f90bd3f9e5d63ca20a235e409d8c5b2f7c271c68))
+
+
+
 ## [3.2.6-alpha.2](https://github.com/liana-p/narrat-engine/compare/v3.2.6-alpha.1...v3.2.6-alpha.2) (2023-07-05)
 
 
