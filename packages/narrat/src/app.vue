@@ -62,7 +62,6 @@ export default defineComponent({
   $refs: {
     dialogContainer: HTMLInputElement,
   },
-  inject: ['mq'],
   components: {
     DebugMenu,
     NotificationToast,

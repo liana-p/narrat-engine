@@ -4,7 +4,6 @@ import 'virtual:windi-devtools';
 
 import './css/main.css';
 
-import { Vue3Mq } from 'vue3-mq';
 import { createApp } from 'vue';
 import GameApp from './app.vue';
 import { AppOptions, AppOptionsInput } from './types/app-types';
@@ -69,14 +68,6 @@ export async function startApp(optionsInput: AppOptionsInput) {
   addMenuButtonsFromPlugins();
   useStartMenu().addButtonsFromPlugins();
   useMain().setOptions(options);
-  app.use(Vue3Mq, {
-    breakpoints: {
-      // default breakpoints - customize this
-      s: 0,
-      m: 800,
-      l: 1200,
-    },
-  });
   registerBaseCommands(vm);
   logManager.setupDebugger(options.debug!);
   console.log(

@@ -1,6 +1,6 @@
 {
   "name": "narrat",
-  "version": "3.2.3",
+  "version": "3.2.6-alpha.2",
   "description": "narrat narrative engine",
   "main": "dist/narrat.umd.js",
   "module": "dist/narrat.es.js",
@@ -67,8 +67,7 @@
     "fuse.js": "^6.6.2",
     "howler": "^2.2.3",
     "js-yaml": "^4.1.0",
-    "svelte-jsoneditor": "^0.3.58",
-    "vue3-mq": "^3.0.0"
+    "vanilla-jsoneditor": "^0.17.8"
   },
   "devDependencies": {
     "@pinia/testing": "^0.0.16",

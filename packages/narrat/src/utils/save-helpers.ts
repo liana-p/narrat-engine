@@ -8,7 +8,7 @@ import {
 } from '@/types/game-save';
 import { error, warning } from './error-handling';
 import { randomId } from './randomId';
-export const CURRENT_SAVE_VERSION = '2.17.0';
+export const CURRENT_SAVE_VERSION = '3.2.3';
 
 export function saveFileName(): string {
   return `NARRAT_SAVE_${getConfig().saveFileName}`;
@@ -98,6 +98,17 @@ function migrateSaveFile(saveFile: SaveFile) {
       }
     });
     saveFile.version = '2.17.0';
+  }
+  if (saveFile.version === '2.17.0') {
+    saveFile.slots.forEach((slot) => {
+      if (slot && slot.saveData) {
+        slot.saveData.config = {
+          gameCharacter: 'game',
+          playerCharacter: 'player',
+        };
+      }
+    });
+    saveFile.version = '3.2.3';
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "narrat-monorepo",
-  "version": "3.2.3",
+  "version": "3.2.6-alpha.2",
   "private": true,
   "type": "module",
   "engines": {
