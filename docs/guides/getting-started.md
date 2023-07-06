@@ -20,6 +20,7 @@ This one minute video shows the entire setup from start to having the game runni
 
 - Be on a computer running Windows, MacOS or Linux
 - Have [node.js ](https://nodejs.org/en/) 16+ installed (pick the current LTS version on the website)
+- A text editor, we recommend [VS Code](https://code.visualstudio.com/Download).
 
 ## Creating the game project
 

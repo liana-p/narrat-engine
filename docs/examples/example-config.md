@@ -11,6 +11,10 @@ Those example config files are the ones used in the narrat demo. For the most up
 [This folder on GitHub](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/demo/data) contains all the config files used in the narrat demo and can serve as a good up to date example of every possible config file.
 :::
 
+::: tip
+You can also refer to the [narrat-examples](https://github.com/liana-p/narrat-examples) repository which contains various example narrat projects.
+:::
+
 ## Game Config
 
 ::: info

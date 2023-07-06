@@ -5,11 +5,13 @@ description: An example narrat script
 
 # Example narrat script
 
-This is a copy of one of the example game scripts from the demo game in the narrat [examples folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games).
+This is a copy of one of the example game scripts from the demo game in the narrat [examples folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/src/examples).
 
 The narrat scripts used are in the [src/examples](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/src/examples) folder of the narrat package, while the config and assets are in the [base examples folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples)
 
 For more up to date versions and more different examples, look at the various sample demo scripts directly on GitHub.
+
+You can also refer to the [narrat-examples](https://github.com/liana-p/narrat-examples) repository which contains various example narrat projects.
 
 ```narrat
 main:
