@@ -153,8 +153,8 @@ export const useScreenObjects = defineStore('screenObjects', {
       if (typeof object === 'string') {
         object = this.getObject(object);
       }
-      for (const child of object.children) {
-        this.destroyObject(child);
+      for (let i = object.children.length - 1; i >= 0; i--) {
+        this.destroyObject(object.children[i]);
       }
       if (object.parent) {
         const parent = object.parent;
@@ -259,14 +259,18 @@ export const useScreenObjects = defineStore('screenObjects', {
       return objects as any as { [key: string]: ScreenObjectState };
     },
     emptyLayer(layer: number) {
-      for (const obj of this.tree) {
+      // Reverse looping since we may be deleting elements
+      for (let i = this.tree.length - 1; i >= 0; i--) {
+        const obj = this.tree[i];
         if (obj.layer === layer) {
           this.destroyObject(obj);
         }
       }
     },
     emptyAllLayers() {
-      for (const obj of this.tree) {
+      // Reverse looping since we may be deleting elements
+      for (let i = this.tree.length - 1; i >= 0; i--) {
+        const obj = this.tree[i];
         this.destroyObject(obj);
       }
     },
