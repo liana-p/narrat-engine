@@ -497,3 +497,7 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
   user-select: auto;
   pointer-events: all;
 }
+
+.button.selected {
+  border: 2px solid cyan;
+}

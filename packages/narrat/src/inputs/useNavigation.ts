@@ -11,12 +11,16 @@ export type ListNavigationOptions = {
 export type NavigationOptions = {
   mode: 'grid' | 'list';
   container: Ref<HTMLElement | null>;
-  listener: InputListener;
+  listener?: InputListener | null;
   loopForbidden?: boolean;
   onSelected?: (index: number) => void;
 } & (GridNavigationOptions | ListNavigationOptions);
 
 export function useNavigation(options: NavigationOptions) {
+  if (!options.listener) {
+    console.warn('No input listener provided for navigation');
+    return;
+  }
   const selectedIndex = ref(0);
   const selectedElement = computed(() =>
     getElementAtIndex(selectedIndex.value),
@@ -36,12 +40,10 @@ export function useNavigation(options: NavigationOptions) {
   function select(index: number) {
     const previousIndex = selectedIndex.value;
     if (isValid(index)) {
-      if (previousIndex !== index) {
-        selectedIndex.value = index;
-        if (selectedElement.value) {
-          selectedElement.value.classList.add('selected');
-          getElementAtIndex(previousIndex)!.classList.remove('selected');
-        }
+      selectedIndex.value = index;
+      if (selectedElement.value) {
+        selectedElement.value.classList.add('selected');
+        getElementAtIndex(previousIndex)!.classList.remove('selected');
       }
     }
   }
@@ -54,6 +56,9 @@ export function useNavigation(options: NavigationOptions) {
   }
 
   function selectPrevious() {
+    if (!options.container.value) {
+      return;
+    }
     if (selectedIndex.value === 0) {
       if (!options.loopForbidden) {
         select(options.container.value!.children.length - 1);
@@ -63,7 +68,10 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
   function selectNext() {
-    if (selectedIndex.value === options.container.value!.children.length - 1) {
+    if (!options.container.value) {
+      return;
+    }
+    if (selectedIndex.value === options.container.value.children.length - 1) {
       if (!options.loopForbidden) {
         select(0);
       }
@@ -72,6 +80,9 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
   function selectUp() {
+    if (!options.container.value) {
+      return;
+    }
     const opts = options as GridNavigationOptions;
     const index = selectedIndex.value;
     if (!options.loopForbidden && index < opts.columns) {
@@ -81,6 +92,9 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
   function selectDown() {
+    if (!options.container.value) {
+      return;
+    }
     const opts = options as GridNavigationOptions;
     const index = selectedIndex.value;
     if (
@@ -129,6 +143,9 @@ export function useNavigation(options: NavigationOptions) {
   }
 
   onMounted(() => {
+    if (!options.listener) {
+      return;
+    }
     options.listener.actions.left = {
       press: buttonLeft,
     };
@@ -146,12 +163,18 @@ export function useNavigation(options: NavigationOptions) {
     };
     select(0);
   });
-  onUnmounted(() => {
+  function disable() {
+    if (!options.listener) {
+      return;
+    }
     delete options.listener.actions.left;
     delete options.listener.actions.right;
     delete options.listener.actions.up;
     delete options.listener.actions.down;
     delete options.listener.actions.continue;
+  }
+  onUnmounted(() => {
+    disable();
   });
   return {
     selectedIndex,
@@ -166,5 +189,6 @@ export function useNavigation(options: NavigationOptions) {
     selectPrevious,
     selectNext,
     select,
+    disable,
   };
 }

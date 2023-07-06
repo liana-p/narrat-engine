@@ -21,8 +21,11 @@
 </template>
 <script setup lang="ts">
 import { useMain } from '@/stores/main-store';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { getConfig } from '../../config';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+const inputListener = ref<InputListener | null>(null);
+
 const main = useMain();
 const splashConfig = computed(
   () => getConfig().splashScreens?.gameSplashScreen ?? {},
@@ -39,8 +42,20 @@ function goToMainMenu() {
   main.flowState = 'menu';
 }
 onMounted(() => {
+  inputListener.value = useInputs().registerInputListener({
+    continue: {
+      press: () => {
+        goToMainMenu();
+      },
+    },
+  });
   if (main.options.debug) {
     goToMainMenu();
+  }
+});
+onUnmounted(() => {
+  if (inputListener.value) {
+    useInputs().unregisterInputListener(inputListener.value);
   }
 });
 </script>

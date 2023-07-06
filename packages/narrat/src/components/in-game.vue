@@ -3,7 +3,11 @@
     <Hud />
     <MenuButtons class="menu-toggle" />
     <Screens />
-    <GameDialog :inGame="true" :layoutMode="layoutMode" />
+    <GameDialog
+      :inGame="true"
+      :layoutMode="layoutMode"
+      v-if="renderingStore.showDialog"
+    />
     <SaveSlots
       v-if="actuallySaving"
       :mode="'pick'"
@@ -36,6 +40,10 @@ import Hud from './hud.vue';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 import { useDialogStore } from '@/stores/dialog-store';
 import { inputEvents } from '@/utils/InputsListener';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useMenu } from '@/stores/menu-store';
+
+const listener = ref<InputListener | null>(null);
 
 const mainStore = useMain();
 const renderingStore = useRenderingStore();
@@ -81,6 +89,18 @@ function saveRefuse() {
 }
 
 onMounted(() => {
+  listener.value = useInputs().registerInputListener({
+    system: {
+      press: () => {
+        useMenu().openMenu('system');
+      },
+    },
+    menu: {
+      press: () => {
+        useMenu().openMenu('menu');
+      },
+    },
+  });
   keyboardListener.value = inputEvents.on('debouncedKeydown', (e) => {
     if (!useMain().debugMode) {
       if (e.key === 'a' || e.key === 'A') {
@@ -94,6 +114,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value);
+  }
   if (keyboardListener.value) {
     inputEvents.off('debouncedKeydown', keyboardListener.value as any);
   }

@@ -13,36 +13,8 @@
         <li><b>Escape</b>: Toggle Menu</li>
       </ul>
     </div>
-    <modal
-      v-if="jumping"
-      @close="finishJumping"
-      containerCssClass="jump-menu-container"
-    >
-      <template v-slot:header>
-        <h3 class="title">Jump to label</h3>
-      </template>
-      <template v-slot:body>
-        <input
-          type="text"
-          class="label-input input"
-          ref="search"
-          v-model="searchString"
-          @input="onSearchInput"
-        />
-        <div class="search-results" v-if="matches.length > 0">
-          <div
-            class="search-result"
-            v-for="(match, index) in matches"
-            :style="getMatchResultStyle(index)"
-            :key="index"
-          >
-            {{ match }}
-          </div>
-        </div>
-        <div v-else><h3>No matches found</h3></div>
-      </template>
-    </modal>
-    <modal
+    <DebugJumping v-if="jumping" @close="closeJumping" />
+    <ModalWindow
       v-if="errors.length > 0"
       @close="closeErrors"
       containerCssClass="debug-menu-container"
@@ -63,8 +35,8 @@
           />
         </ul>
       </template>
-    </modal>
-    <modal
+    </ModalWindow>
+    <ModalWindow
       v-if="showDebug"
       @close="close"
       containerCssClass="debug-menu-container"
@@ -125,20 +97,9 @@
             Use for debugging, editing some of those things can cause issues
           </h3>
           <div ref="stateViewer"></div>
-          <!-- <h2>Skills</h2>
-          <table class="table-auto">
-            <tr>
-              <th>Skill</th>
-              <th>Level</th>
-            </tr>
-            <tr v-for="(skill, key) in skills" :key="key">
-              <td>{{ key }}</td>
-              <td>{{ skill.level }}</td>
-            </tr>
-          </table> -->
         </div>
       </template>
-    </modal>
+    </ModalWindow>
   </div>
 </template>
 
@@ -146,8 +107,7 @@
 import { logger } from '@/utils/logger';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { computed, defineComponent } from 'vue';
-import Modal from '../utils/modal-window.vue';
-import Fuse from 'fuse.js';
+import ModalWindow from '../utils/modal-window.vue';
 import { JSONEditor } from 'vanilla-jsoneditor';
 import { Parser } from '@/types/parser';
 import { useSkills } from '@/stores/skills';
@@ -160,12 +120,13 @@ import { useQuests } from '../../stores/quest-log';
 import { useInventory } from '../../stores/inventory-store';
 import { resetSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
-
-let fuse: Fuse<string>;
+import DebugJumping from './debug-jumping.vue';
+import { InputListener } from '@/stores/inputs-store';
 
 export default defineComponent({
   components: {
-    Modal,
+    ModalWindow,
+    DebugJumping,
   },
   setup() {
     const store = useSkills();
@@ -177,9 +138,7 @@ export default defineComponent({
     return {
       showDebug: false,
       jumping: false,
-      searchString: '',
-      matches: [] as string[],
-      matchCursor: 0,
+      inputListener: null as InputListener | null,
     };
   },
 
@@ -193,41 +152,12 @@ export default defineComponent({
           this.jump();
         }
       }
-      if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        if (this.matches.length > this.matchCursor + 1) {
-          this.matchCursor += 1;
-        } else {
-          this.matchCursor = 0;
-        }
-      }
-      if (event.key === 'ArrowUp') {
-        event.preventDefault();
-        if (this.matchCursor > 0) {
-          this.matchCursor -= 1;
-        } else {
-          this.matchCursor = this.matches.length - 1;
-        }
-      }
-      if (event.key === 'Escape') {
-        this.finishJumping();
-      }
-      if (this.jumping && event.key === 'Enter') {
-        if (this.matchCursor < this.matches.length) {
-          const match = this.matches[this.matchCursor];
-          useVM().jumpToLabel(match);
-          this.finishJumping();
-        }
-      }
     });
   },
 
   methods: {
-    finishJumping() {
+    closeJumping() {
       this.jumping = false;
-      this.matches = [];
-      this.searchString = '';
-      this.close();
     },
     labelSelected(event: any) {
       const labelName = event.target.value;
@@ -292,9 +222,7 @@ export default defineComponent({
       });
     },
     toggle() {
-      if (this.jumping) {
-        this.finishJumping();
-      } else if (this.showDebug) {
+      if (this.showDebug) {
         this.close();
       } else {
         this.open();
@@ -307,37 +235,8 @@ export default defineComponent({
       useMain().debugMode = false;
     },
     jump() {
-      fuse = new Fuse(this.labels, {
-        includeScore: true,
-      });
       this.jumping = true;
       this.startDebug();
-      setTimeout(() => {
-        this.$nextTick(() => {
-          (this.$refs.search as any).focus();
-        });
-      }, 10);
-      this.matchCursor = 0;
-      this.matches = this.labels;
-      // this.onSearchInput();
-    },
-    getMatchResultStyle(index: number) {
-      if (index === this.matchCursor) {
-        return {
-          background: 'var(--light-background)',
-        };
-      }
-    },
-    onSearchInput() {
-      const value = this.searchString;
-      const result = fuse.search(value);
-      this.matches = result.map((element) => element.item);
-      if (
-        this.matches.length > 0 &&
-        this.matchCursor > this.matches.length - 1
-      ) {
-        this.matchCursor = this.matches.length - 1;
-      }
     },
     save() {
       useMain().autoSaveGame({});
