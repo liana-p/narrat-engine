@@ -19,6 +19,7 @@
             :layer="layer.transition.oldScreen"
             :layerIndex="index"
             :transitioning="true"
+            :activeInteractive="activeInteractive"
           />
         </template>
         <template v-slot:newElement>
@@ -27,6 +28,7 @@
             :layer="layer.screen"
             :layerIndex="index"
             :transitioning="true"
+            :activeInteractive="activeInteractive"
           />
         </template>
       </NarratTransition>
@@ -57,6 +59,8 @@ import { useScreens } from '@/stores/screens-store';
 import Layer from './screen-layer.vue';
 import NarratTransition from './transitions/NarratTransition.vue';
 import { InputListener } from '@/stores/inputs-store';
+import { InteractiveScreenElement } from './screens/screen-types';
+import { useScreenObjects } from '@/stores/screen-objects-store';
 import { clamp } from '@/utils/math-utils';
 
 const props = defineProps<{
@@ -65,6 +69,7 @@ const props = defineProps<{
 const rendering = useRenderingStore();
 const main = useMain();
 const screensStore = useScreens();
+const screenObjectStore = useScreenObjects();
 const interactiveIndex = ref(0);
 
 const layers = computed(() => {
@@ -72,7 +77,36 @@ const layers = computed(() => {
 });
 
 const interactivesList = computed(() => {
-  return screensStore.interactivesList;
+  const interactives: InteractiveScreenElement[] = [];
+  return layers.value.reduce((acc, layer, index) => {
+    const screenConfig = getScreenConfig(layer.screen!);
+    const buttons = screenConfig.buttons;
+    if (buttons) {
+      for (const button of buttons) {
+        const buttonState = screensStore.buttons[button as string];
+        if (buttonState.state === true) {
+          acc.push({
+            id: button as string,
+            type: 'button',
+            layer: index,
+          });
+        }
+      }
+    }
+    const screenObjects = screenObjectStore.tree.filter((o) => {
+      return o.layer === index;
+    });
+    for (const screenObject of screenObjects) {
+      if (screenObject.onClick) {
+        acc.push({
+          id: screenObject.id,
+          type: 'screenObject',
+          layer: index,
+        });
+      }
+    }
+    return acc;
+  }, interactives);
 });
 
 const activeInteractive = computed(() => {
