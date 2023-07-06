@@ -665,6 +665,7 @@ bread_start:
   talk inner idle "Time to go to the shop to buy some bread then."
   set_screen map
   set_button shopButton true
+  run test_sprites
 
 shopButton:
   // set_screen default

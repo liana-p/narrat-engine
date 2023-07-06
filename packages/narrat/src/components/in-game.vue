@@ -2,7 +2,7 @@
   <div class="game" :style="gameStyle">
     <Hud />
     <MenuButtons class="menu-toggle" />
-    <Screens />
+    <Screens :inputListener="listener" />
     <GameDialog
       :inGame="true"
       :layoutMode="layoutMode"

@@ -38,6 +38,15 @@ screens:
           x: 0.5
           y: 0.5
         action: shopButton
+      - id: tester
+        enabled: true
+        text: 'Test'
+        position:
+          left: 400
+          top: 300
+          width: 200
+          height: 50
+        action: tester
       - id: parkButton
         enabled: false
         text: Park
