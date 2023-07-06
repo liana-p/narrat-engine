@@ -18,6 +18,7 @@ const config = {
     ],
   ],
   themeConfig: {
+    outline: [1, 6],
     search: {
       provider: 'algolia',
       options: {

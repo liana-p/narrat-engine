@@ -105,3 +105,5 @@ It is now easy to make a game by editing the narrat scripts and config files!
 ## Commands Documentation
 
 [All commands](/commands/all-commands)
+
+<FeedbackForm title="Getting Started" slug="guides/getting-started"/>

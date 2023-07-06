@@ -326,3 +326,5 @@ There are various available commands for arrays, see them [in the commands refer
 ::: tip
 Those array commands are generally based on javascript array functions, and use the same API
 :::
+
+<FeedbackForm title="Narrat Language syntax" slug="scripting/language-syntax"/>
