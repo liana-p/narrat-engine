@@ -1,3 +1,12 @@
+## [3.2.7](https://github.com/liana-p/narrat-engine/compare/v3.2.6...v3.2.7) (2023-07-06)
+
+
+### Bug Fixes
+
+* **sprites:** fix empty_sprite command not deleting all sprites ([#118](https://github.com/liana-p/narrat-engine/issues/118)) ([99bae2d](https://github.com/liana-p/narrat-engine/commit/99bae2dca2a9498bff83cbc39f17272915ff4a6a))
+
+
+
 ## [3.2.6](https://github.com/liana-p/narrat-engine/compare/v3.2.3...v3.2.6) (2023-07-05)
 
 
