@@ -38,7 +38,7 @@ choice_example_conditions:
     talk cat idle "This example shows how to use conditions in choices"
     choice:
         "This is the choice prompt text"
-        "This choice will only appear if a condition is met" $if this.DATA.someFlag:
+        "This choice will only appear if a condition is met" if $data.someFlag:
             talk cat idle "Choice response"
         roll someSkillCheck testSkill 50 "This choice will run a skill check":
             success "Skill check succeeded":
