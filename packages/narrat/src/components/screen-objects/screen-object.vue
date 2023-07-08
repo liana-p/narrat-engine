@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { getImageUrl } from '@/config';
-import { computed, CSSProperties, reactive } from 'vue';
+import { computed, CSSProperties } from 'vue';
 import {
   useScreenObjects,
   ScreenObjectState,
@@ -39,13 +39,14 @@ const props = defineProps<{
   selected: boolean;
 }>();
 
+const screenObjectsStore = useScreenObjects();
 // Sprites
 function clickOnObject(screenObject: ScreenObjectState) {
   if (props.transitioning) {
     return;
   }
   if (props.screenObject.onClick) {
-    useScreenObjects().clickObject(screenObject);
+    screenObjectsStore.clickObject(screenObject);
   }
 }
 
@@ -54,7 +55,7 @@ const objectClass = computed(() => {
   if (props.selected) {
     css.selected = true;
   }
-  if (props.screenObject.onClick) {
+  if (screenObjectsStore.isScreenObjectClickable(props.screenObject)) {
     css.interactable = true;
   } else {
     css.disabled = true;

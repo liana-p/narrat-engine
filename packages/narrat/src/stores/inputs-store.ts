@@ -1,21 +1,13 @@
 import {
   Action,
-  ActionState,
-  AnalogAction,
-  AnalogActionState,
   ActionStatus,
   AnalogEvent,
-  ButtonAction,
-  ButtonActionState,
   ButtonEvent,
-  Inputs,
   inputs,
   ButtonActionStatus,
 } from '@/inputs/Inputs';
-import { Gameloop, gameloop } from '@/utils/gameloop';
-import { InputEvents } from '@/utils/typed-emitter';
+import { gameloop } from '@/utils/gameloop';
 import { defineStore } from 'pinia';
-import { useMenu } from './menu-store';
 import { useGamepad } from './gamepad-store';
 
 export interface InputStoreEvents {

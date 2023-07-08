@@ -1,7 +1,11 @@
 import { buttonsConfig } from '@/config';
 import { ButtonConfig } from '@/config/buttons-config';
+import { useScreens } from '@/stores/screens-store';
 import { useMain } from '@/stores/main-store';
-import { ScreenObjectState } from '@/stores/screen-objects-store';
+import {
+  ScreenObjectState,
+  useScreenObjects,
+} from '@/stores/screen-objects-store';
 
 export function isViewportElementClickable(
   conf: ButtonConfig | ScreenObjectState,
@@ -22,4 +26,12 @@ export function isViewportElementClickable(
     }
     return false;
   }
+}
+
+export function isButtonClickable(button: string) {
+  return useScreens().isButtonClickable(button);
+}
+
+export function isScreenObjectClickable(thing: ScreenObjectState) {
+  return useScreenObjects().isScreenObjectClickable(thing);
 }

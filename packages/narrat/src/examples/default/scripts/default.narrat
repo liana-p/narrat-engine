@@ -224,10 +224,10 @@ test_sprites_click:
   set data.text.width 200
   set data.text.height 200
   set data.text.text "Hello @@bread !!!"
-  wait 500
-  set data.sprite.x 400
-  wait 500
-  set data.sprite.y 100
+  // wait 500
+  // set data.sprite.x 400
+  // wait 500
+  // set data.sprite.y 100
 
 
 some_label arg:
