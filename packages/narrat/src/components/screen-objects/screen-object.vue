@@ -32,11 +32,13 @@ import {
   isSprite,
 } from '@/stores/screen-objects-store';
 import { processText } from '@/utils/string-helpers';
+import { InteractiveScreenElement } from '../screens/screen-types';
 
 const props = defineProps<{
   screenObject: ScreenObjectState;
+  layerSelected: boolean;
   transitioning: boolean;
-  selected: boolean;
+  activeInteractive?: InteractiveScreenElement | null;
 }>();
 
 const screenObjectsStore = useScreenObjects();
@@ -50,9 +52,20 @@ function clickOnObject(screenObject: ScreenObjectState) {
   }
 }
 
+const selected = computed(() => {
+  if (!props.layerSelected) {
+    return false;
+  }
+  const active = props.activeInteractive!;
+  if (active.type === 'screenObject' && active.id === props.screenObject.id) {
+    return true;
+  }
+  return false;
+});
+
 const objectClass = computed(() => {
   const css: any = {};
-  if (props.selected) {
+  if (selected.value) {
     css.selected = true;
   }
   if (screenObjectsStore.isScreenObjectClickable(props.screenObject)) {

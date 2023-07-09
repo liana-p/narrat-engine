@@ -18,6 +18,8 @@ import {
   isScreenObjectClickable,
   isViewportElementClickable,
 } from '@/utils/viewport-utils';
+import { audioEvent } from '@/utils/audio-loader';
+import { useVM } from './vm-store';
 
 export type ButtonStateValue = boolean | 'hidden' | 'greyed';
 export interface ButtonState {
@@ -201,6 +203,7 @@ export const useScreens = defineStore('screens', {
       if (!isViewportElementClickable(config)) {
         return false;
       }
+      return true;
     },
     getButtonState(button: string): ButtonStateValue {
       const config = getButtonConfig(button);
@@ -214,43 +217,27 @@ export const useScreens = defineStore('screens', {
       }
       return state;
     },
+    clickOnButton(button: string) {
+      if (!this.isButtonClickable(button)) {
+        return;
+      }
+      const vmStore = useVM();
+      const config = getButtonConfig(button);
+      audioEvent('onButtonClicked');
+      const scriptToRun = config.action;
+      if (!scriptToRun) {
+        return;
+      }
+      if (config.actionType === 'run') {
+        vmStore.runLabelFunction(scriptToRun);
+      } else {
+        vmStore.jumpToLabel(scriptToRun);
+      }
+    },
   },
   getters: {
     nonEmptyLayers(state: ScreenState): FullLayerState[] {
       return state.layers.filter((layer) => layer) as FullLayerState[];
-    },
-    interactivesList(state: ScreenState): InteractiveScreenElement[] {
-      const layers = this.nonEmptyLayers;
-      const screenObjectStore = useScreenObjects();
-      const interactives: InteractiveScreenElement[] = [];
-      return layers.reduce((acc, layer, index) => {
-        const screenConfig = getScreenConfig(layer.screen!);
-        const buttons = screenConfig.buttons;
-        if (buttons) {
-          for (const button of buttons) {
-            if (isButtonClickable(button as string)) {
-              acc.push({
-                id: button as string,
-                type: 'button',
-                layer: index,
-              });
-            }
-          }
-        }
-        const screenObjects = screenObjectStore.tree.filter((o) => {
-          return o.layer === index;
-        });
-        for (const screenObject of screenObjects) {
-          if (isScreenObjectClickable(screenObject)) {
-            acc.push({
-              id: screenObject.id,
-              type: 'screenObject',
-              layer: index,
-            });
-          }
-        }
-        return acc;
-      }, interactives);
     },
   },
 });

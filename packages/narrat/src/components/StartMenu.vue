@@ -72,6 +72,7 @@ import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
+import { useConfig } from '@/lib';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener({}),
@@ -234,26 +235,33 @@ onMounted(() => {
 });
 
 function setupButtons() {
+  const menuConf = getConfig().menuButtons;
   if (continueSlot.value) {
-    buttons.value.push({
-      id: 'continue',
-      title: 'Continue',
-      cssClass: 'continue-button',
-    });
+    buttons.value.push(
+      extendButtonWithConfig({
+        id: 'continue',
+        title: 'Continue',
+        cssClass: 'continue-button',
+      }),
+    );
   }
   if (hasFreeSlot.value) {
-    buttons.value.push({
-      id: 'new-game',
-      title: 'New Game',
-      cssClass: 'start-button',
-    });
+    buttons.value.push(
+      extendButtonWithConfig({
+        id: 'new-game',
+        title: 'New Game',
+        cssClass: 'start-button',
+      }),
+    );
   }
   if (hasSave.value) {
-    buttons.value.push({
-      id: 'load-game',
-      title: 'Load Game',
-      cssClass: 'continue-button',
-    });
+    buttons.value.push(
+      extendButtonWithConfig({
+        id: 'load-game',
+        title: 'Load Game',
+        cssClass: 'continue-button',
+      }),
+    );
   }
   for (const button of extraButtons.value) {
     buttons.value.push({
@@ -262,11 +270,34 @@ function setupButtons() {
       cssClass: `${button.id}-start-menu-button`,
     });
   }
-  buttons.value.push({
-    id: 'exit',
-    title: 'Exit',
-    cssClass: 'exit-button',
-  });
+  buttons.value.push(
+    extendButtonWithConfig({
+      id: 'exit',
+      title: 'Exit',
+      cssClass: 'exit-button',
+    }),
+  );
+}
+
+function extendButtonWithConfig({
+  id,
+  title,
+  cssClass,
+}: StartMenuButtonProps): StartMenuButtonProps {
+  const conf = getConfig().menuButtons[id];
+  if (conf) {
+    let css = cssClass;
+    if (conf.cssClass) {
+      css = `${conf.cssClass} ${cssClass}`;
+    }
+    const props: StartMenuButtonProps = {
+      id,
+      title: conf.text ?? title,
+      cssClass: css,
+    };
+    return props;
+  }
+  return { id, title, cssClass };
 }
 
 onUnmounted(() => {

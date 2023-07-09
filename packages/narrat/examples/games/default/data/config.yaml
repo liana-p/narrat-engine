@@ -71,6 +71,5 @@ interactionTags:
     onlyInteractOutsideOfScripts: true
 quests: data/quests.yaml
 menuButtons:
-  menu:
-    text: Menu
-    cssId: my-custom-id
+  new-game:
+    text: Start a new game

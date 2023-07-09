@@ -58,13 +58,18 @@ import Layer from './screen-layer.vue';
 import NarratTransition from './transitions/NarratTransition.vue';
 import { InputListener } from '@/stores/inputs-store';
 import { clamp } from '@/utils/math-utils';
+import { useScreenObjects } from '@/stores/screen-objects-store';
+import { InteractiveScreenElement } from './screens/screen-types';
 
 const props = defineProps<{
   inputListener: InputListener | null;
 }>();
+
 const rendering = useRenderingStore();
 const main = useMain();
 const screensStore = useScreens();
+const screenObjectStore = useScreenObjects();
+
 const interactiveIndex = ref(0);
 
 const layers = computed(() => {
@@ -72,7 +77,35 @@ const layers = computed(() => {
 });
 
 const interactivesList = computed(() => {
-  return screensStore.interactivesList;
+  const interactives: InteractiveScreenElement[] = [];
+  return layers.value.reduce((acc, layer, index) => {
+    const screenConfig = getScreenConfig(layer.screen!);
+    const buttons = screenConfig.buttons;
+    if (buttons) {
+      for (const button of buttons) {
+        if (screensStore.isButtonClickable(button as string)) {
+          acc.push({
+            id: button as string,
+            type: 'button',
+            layer: index,
+          });
+        }
+      }
+    }
+    const screenObjects = screenObjectStore.tree.filter((o) => {
+      return o.layer === index;
+    });
+    for (const screenObject of screenObjects) {
+      if (screenObjectStore.isScreenObjectClickable(screenObject)) {
+        acc.push({
+          id: screenObject.id,
+          type: 'screenObject',
+          layer: index,
+        });
+      }
+    }
+    return acc;
+  }, interactives);
 });
 
 const activeInteractive = computed(() => {
@@ -135,7 +168,6 @@ onMounted(() => {
         },
       };
       actions.left = actions.previousTab;
-      actions.up = actions.previousTab;
       actions.nextTab = {
         press: () => {
           if (interactiveIndex.value < interactivesList.value.length - 1) {
@@ -151,16 +183,32 @@ onMounted(() => {
         },
       };
       actions.right = actions.nextTab;
-      actions.down = actions.nextTab;
+      actions.viewportSelect = {
+        press: () => {
+          if (activeInteractive.value) {
+            const active = activeInteractive.value;
+            if (active.type === 'button') {
+              screensStore.clickOnButton(active.id);
+            } else if (active.type === 'screenObject') {
+              screenObjectStore.clickObject(
+                screenObjectStore.getObject(active.id),
+              );
+            }
+          }
+        },
+      };
     }
   });
 });
 onUnmounted(() => {
   if (props.inputListener) {
-    // eslint-disable-next-line vue/no-mutating-props
+    /* eslint-disable vue/no-mutating-props */
     delete props.inputListener.actions.previousTab;
-    // eslint-disable-next-line vue/no-mutating-props
+    delete props.inputListener.actions.left;
+
     delete props.inputListener.actions.nextTab;
+    delete props.inputListener.actions.right;
+    /* eslint-enable vue/no-mutating-props */
   }
 });
 </script>
