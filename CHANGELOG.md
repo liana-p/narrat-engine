@@ -1,42 +1,35 @@
-## [3.2.7](https://github.com/liana-p/narrat-engine/compare/v3.2.6...v3.2.7) (2023-07-06)
+## [3.2.8](https://github.com/liana-p/narrat-engine/compare/v3.2.7...v3.2.8) (2023-07-09)
 
+### Features
+
+- gamepad UI improved to handle the saves picking menu ([#122](https://github.com/liana-p/narrat-engine/issues/122)) ([e1e62e8](https://github.com/liana-p/narrat-engine/commit/e1e62e868b6f65ee88860bf7ffaa31ff8075512e))
+- New gamepad/keyboard input system working in more places and full viewport support ([#120](https://github.com/liana-p/narrat-engine/issues/120)) ([dacd1da](https://github.com/liana-p/narrat-engine/commit/dacd1da7bf4f8c884202cbfb738466cf0b2f8c01))
+
+## [3.2.7](https://github.com/liana-p/narrat-engine/compare/v3.2.6...v3.2.7) (2023-07-06)
 
 ### Bug Fixes
 
-* **sprites:** fix empty_sprite command not deleting all sprites ([#118](https://github.com/liana-p/narrat-engine/issues/118)) ([99bae2d](https://github.com/liana-p/narrat-engine/commit/99bae2dca2a9498bff83cbc39f17272915ff4a6a))
-
-
+- **sprites:** fix empty_sprite command not deleting all sprites ([#118](https://github.com/liana-p/narrat-engine/issues/118)) ([99bae2d](https://github.com/liana-p/narrat-engine/commit/99bae2dca2a9498bff83cbc39f17272915ff4a6a))
 
 ## [3.2.6](https://github.com/liana-p/narrat-engine/compare/v3.2.3...v3.2.6) (2023-07-05)
 
-
 ### Bug Fixes
 
-* Issues with broken build, trying to fix by fixing dependencies and mistakes in new config code ([#116](https://github.com/liana-p/narrat-engine/issues/116)) ([f90bd3f](https://github.com/liana-p/narrat-engine/commit/f90bd3f9e5d63ca20a235e409d8c5b2f7c271c68))
-
-
+- Issues with broken build, trying to fix by fixing dependencies and mistakes in new config code ([#116](https://github.com/liana-p/narrat-engine/issues/116)) ([f90bd3f](https://github.com/liana-p/narrat-engine/commit/f90bd3f9e5d63ca20a235e409d8c5b2f7c271c68))
 
 ## [3.2.6-alpha.2](https://github.com/liana-p/narrat-engine/compare/v3.2.6-alpha.1...v3.2.6-alpha.2) (2023-07-05)
 
-
 ### Bug Fixes
 
-* mistake in save migration code ([6de08af](https://github.com/liana-p/narrat-engine/commit/6de08af8cf83178bbc2447435a11f9daba54b9c2))
-
-
+- mistake in save migration code ([6de08af](https://github.com/liana-p/narrat-engine/commit/6de08af8cf83178bbc2447435a11f9daba54b9c2))
 
 ## [3.2.6-alpha.1](https://github.com/liana-p/narrat-engine/compare/v3.2.3...v3.2.6-alpha.1) (2023-07-05)
 
-
 ### Bug Fixes
 
-* save conversion ([7abe832](https://github.com/liana-p/narrat-engine/commit/7abe832c2e0680f67d9b70c4789fd4f742d2b852))
-
-
+- save conversion ([7abe832](https://github.com/liana-p/narrat-engine/commit/7abe832c2e0680f67d9b70c4789fd4f742d2b852))
 
 ## [3.2.3](https://github.com/liana-p/narrat-engine/compare/v3.2.2...v3.2.3) (2023-07-05)
-
-
 
 ## [3.2.2](https://github.com/liana-p/narrat-engine/compare/v3.2.0...v3.2.2) (2023-07-05)
 
