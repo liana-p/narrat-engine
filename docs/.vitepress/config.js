@@ -131,6 +131,10 @@ const config = {
         items: [
           { text: 'Useful Links', link: '/others/useful-links' },
           { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
+          {
+            text: 'What can Narrat do?',
+            link: '/others/what-can-narrat-do',
+          },
         ],
       },
       {

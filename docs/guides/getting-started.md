@@ -1,20 +1,29 @@
 ---
-description: >-
-  This guide explains how to get started using the narrat game engine in a
-  minute
+title: Get Started with Narrat and create a game in a minute
+description: This guide explains how to get started using the narrat game engine in a minute
 ---
 
-::: tip
+# {{ $frontmatter.title }}
+
 Getting started with narrat is very quick. There is a ready-to-use template that can get you running your game in a minute
-:::
 
-# Video Guide
+## In this page
 
-This one minute video shows the entire setup from start to having the game running
+[[toc]]
+
+## What Narrat is for
+
+**Narrat specialises in helping you create narrative games with no programming.** If you want to make action games, or games with many custom-made features, you may want a more typical general-purpose game engine. You can read more about Narrat's features, philosophy, limitations and how to add new features in [this page](/others/what-can-narrat-do).
+
+## Video Guide
+
+For text instructions, jump to [the next section](#text-instructions).
+
+If you prefer to follow a video, this one minute video shows the entire setup from start to having the game running.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/516YTDxSO9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# Text Instructions
+## Text Instructions
 
 ## Prerequisites
 
