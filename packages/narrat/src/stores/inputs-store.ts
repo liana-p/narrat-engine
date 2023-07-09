@@ -8,7 +8,6 @@ import {
 } from '@/inputs/Inputs';
 import { gameloop } from '@/utils/gameloop';
 import { defineStore } from 'pinia';
-import { useGamepad } from './gamepad-store';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -181,7 +180,6 @@ export const useInputs = defineStore('inputs', {
     }) as InputsStoreState,
   actions: {
     setupInputs() {
-      useGamepad().setupGamepads();
       inputs.startListening();
       for (const action of defaultActions) {
         inputs.addAction(action);

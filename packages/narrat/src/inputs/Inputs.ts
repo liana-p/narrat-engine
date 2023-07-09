@@ -2,7 +2,6 @@ import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
-import { useGamepad } from '@/stores/gamepad-store';
 
 export type NarratGamepadButton = {
   index: number;
@@ -100,6 +99,15 @@ export class Inputs {
 
   public gamepad: NarratGamepad | null = null;
 
+  public getGamepad() {
+    const gamepads = navigator
+      .getGamepads()
+      .filter((gamepad) => gamepad !== null) as Gamepad[];
+    if (gamepads.length > 0) {
+      return gamepads[0];
+    }
+  }
+
   public startListening() {
     this.updateGamepad();
     window.addEventListener('keydown', (event) => {
@@ -124,12 +132,12 @@ export class Inputs {
   }
 
   public updateGamepad() {
-    const gamepadStore = useGamepad();
-    if (gamepadStore.gamepad) {
+    const gamepad = this.getGamepad();
+    if (gamepad) {
       if (!this.gamepad) {
-        this.gamepad = this.setupNarratGamepad(gamepadStore.gamepad);
+        this.gamepad = this.setupNarratGamepad(gamepad);
       } else {
-        this.updateAllNarratButtons(gamepadStore.gamepad, this.gamepad);
+        this.updateAllNarratButtons(gamepad, this.gamepad);
       }
     } else {
       this.gamepad = null;
@@ -151,10 +159,18 @@ export class Inputs {
     gamepad: Gamepad,
     narratGamepad: NarratGamepad,
   ) {
+    // if (pressedButtons) {
+    //   console.log(`pressed buttons: ${pressedButtons}`);
+    // }
     for (const [index, button] of gamepad.buttons.entries()) {
       const narratButton = narratGamepad.buttons[index];
       narratButton.previous = deepCopy(narratButton.state);
       narratButton.state = deepCopy(button);
+      // if (narratButton.previous.pressed !== narratButton.state.pressed) {
+      //   console.log(
+      //     `gamepad button ${index} - previous: ${narratButton.previous.pressed} new: ${narratButton.state.pressed}`,
+      //   );
+      // }
     }
   }
 
@@ -242,9 +258,9 @@ export class Inputs {
     if (this.gamepad) {
       for (const [index, button] of this.gamepad.buttons.entries()) {
         if (button.state.pressed !== button.previous.pressed) {
-          console.log(
-            `Button ${index} ${button.state.pressed ? 'pressed' : 'released'}`,
-          );
+          // console.log(
+          //   `Button ${index} ${button.state.pressed ? 'pressed' : 'released'}`,
+          // );
         }
       }
     }
