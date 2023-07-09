@@ -1,3 +1,12 @@
+## [3.2.9](https://github.com/liana-p/narrat-engine/compare/v3.2.8...v3.2.9) (2023-07-09)
+
+
+### Bug Fixes
+
+* gamepads now working in chrome ([5cd6549](https://github.com/liana-p/narrat-engine/commit/5cd65495a2d0b5c1c10179cb0b0bff7dec36ea67))
+
+
+
 ## [3.2.8](https://github.com/liana-p/narrat-engine/compare/v3.2.7...v3.2.8) (2023-07-09)
 
 ### Features
