@@ -22,6 +22,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :inputListener="inputListener"
+              :selected="selectedSlotId === slot.id"
+              ref="autoSlotsElements"
             />
           </transition-group>
         </div>
@@ -35,6 +38,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :inputListener="inputListener"
+              :selected="selectedSlotId === slot.id"
+              ref="manualSlotsElements"
             />
           </transition-group>
         </div>
@@ -50,6 +56,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :selected="selectedSlotId === slot.id"
+              :inputListener="inputListener"
+              ref="saveSlotsElements"
             />
           </transition-group>
         </div>
@@ -73,7 +82,14 @@
 <script setup lang="ts">
 import { SaveSlot } from '../types/game-save';
 import { ChosenSlot, deleteSave, getSaveFile } from '../utils/save-helpers';
-import { computed, onBeforeMount, onUnmounted, reactive, ref } from 'vue';
+import {
+  computed,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+} from 'vue';
 import Modal from './utils/modal-window.vue';
 import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
@@ -89,12 +105,26 @@ const props = defineProps<{
 const navigation = ref<NavigationState | null>(null);
 const inputListener = ref<InputListener | null>(null);
 
+const navigationSelected = ref(0);
 const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
 const autoSlots = computed(() => saveSlots.slice(0, 1));
 const manualSlots = computed(() => saveSlots.slice(1));
 
-const saveElements = computed(() => {
-  return [] as HTMLElement[];
+// Container divs of all the save slot elements to pass to navigation UI
+const saveSlotsElements = ref<HTMLElement[]>([]);
+const autoSlotsElements = ref<HTMLElement[]>([]);
+const manualSlotsElements = ref<HTMLElement[]>([]);
+
+const saveElements = ref<HTMLElement[]>([]);
+const saveElementsIndexes = ref<{ id: string }[]>([]);
+
+const selectedSlotId = computed(() => {
+  const selected = navigationSelected.value;
+  if (saveElementsIndexes.value.length < selected + 1) {
+    return null;
+  }
+  const id = saveElementsIndexes.value[selected].id;
+  return id;
 });
 
 const actions = reactive(
@@ -140,6 +170,23 @@ onBeforeMount(() => {
       },
     },
   });
+});
+
+function setupSaveElements() {
+  saveElements.value = [
+    ...autoSlotsElements.value,
+    ...manualSlotsElements.value,
+    ...saveSlotsElements.value,
+  ];
+  const saves = [...autoSlots.value, ...manualSlots.value, ...saveSlots];
+  saveElementsIndexes.value = saves.map((save) => {
+    return {
+      id: save.id,
+    };
+  });
+}
+onMounted(() => {
+  setupSaveElements();
   navigation.value = useNavigation({
     mode: 'list',
     elements: saveElements,
@@ -148,9 +195,11 @@ onBeforeMount(() => {
     noChoosing: true,
     onSelected: (index) => {
       // Do Stuff
+      navigationSelected.value = index;
     },
   }) as any;
 });
+
 onUnmounted(() => {
   if (navigation.value) {
     navigation.value.disable();
@@ -194,6 +243,7 @@ function actuallyDeleteSaveSlot(slotId: string) {
   if (slot) {
     slot.saveData = null;
   }
+  setupSaveElements();
 }
 
 function tryToClose() {

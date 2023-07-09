@@ -124,6 +124,7 @@ function mountNavigation() {
     onlyHorizontal: true,
     onChosen: (index) => {
       // do stuff
+      buttonAction(index);
     },
   }) as any;
 }
