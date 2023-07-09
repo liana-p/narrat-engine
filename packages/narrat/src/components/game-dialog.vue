@@ -24,6 +24,7 @@
           :key="val.id"
           :options="getDialogBoxOptions(val, i)"
           :active="isDialogActive(i)"
+          :inputListener="listener"
         />
       </transition-group>
       <Teleport to="#app">
@@ -50,7 +51,15 @@ import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
 import { getCharacterInfo, getCharacterPictureUrl } from '@/utils/characters';
 import { processText } from '@/utils/string-helpers';
-import { computed, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  PropType,
+  ref,
+  watch,
+} from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
 import DialogPicture from './dialog-picture.vue';
 import DialogBox from '@/dialog-box.vue';
@@ -58,12 +67,14 @@ import { useRenderingStore } from '@/stores/rendering-store';
 import { useMain } from '@/stores/main-store';
 import { defaultConfig } from '@/config/config-output';
 import { inputEvents } from '../utils/InputsListener';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useMenu } from '@/stores/menu-store';
 
 const props = defineProps({
   layoutMode: String as PropType<'horizontal' | 'vertical'>,
   inGame: Boolean,
 });
-
+const listener = ref<InputListener | null>(null);
 const inDialogue = ref(useMain().inScript);
 const dialogueEndTimer = ref<null | NodeJS.Timer>(null);
 const rendering = useRenderingStore();
@@ -134,14 +145,41 @@ watch(inScript, (val) => {
   }
 });
 onMounted(() => {
-  const listener = (e: KeyboardEvent) => {
+  nextTick(() => {
+    listener.value = useInputs().registerInputListener({
+      system: {
+        press: () => {
+          useMenu().openMenu('system');
+        },
+      },
+      menu: {
+        press: () => {
+          useMenu().openMenu('menu');
+        },
+      },
+      autoPlay: {
+        press: () => {
+          useDialogStore().toggleAutoPlay();
+        },
+      },
+      skip: {
+        press: () => {
+          useDialogStore().toggleSkip();
+        },
+      },
+    });
+  });
+  const keyboardListener = (e: KeyboardEvent) => {
     if (lastDialogBox.value && lastDialogBox.value.keyboardEvent) {
       lastDialogBox.value.keyboardEvent(e);
     }
   };
-  keyboardListener.value = inputEvents.on('debouncedKeydown', listener);
+  keyboardListener.value = inputEvents.on('debouncedKeydown', keyboardListener);
 });
 onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value);
+  }
   if (keyboardListener.value) {
     inputEvents.off('debouncedKeydown', keyboardListener.value);
   }

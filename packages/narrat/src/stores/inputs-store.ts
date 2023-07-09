@@ -1,21 +1,13 @@
 import {
   Action,
-  ActionState,
-  AnalogAction,
-  AnalogActionState,
   ActionStatus,
   AnalogEvent,
-  ButtonAction,
-  ButtonActionState,
   ButtonEvent,
-  Inputs,
   inputs,
   ButtonActionStatus,
 } from '@/inputs/Inputs';
-import { Gameloop, gameloop } from '@/utils/gameloop';
-import { InputEvents } from '@/utils/typed-emitter';
+import { gameloop } from '@/utils/gameloop';
 import { defineStore } from 'pinia';
-import { useMenu } from './menu-store';
 import { useGamepad } from './gamepad-store';
 
 export interface InputStoreEvents {
@@ -97,7 +89,7 @@ const defaultActions: Action[] = [
     action: 'press',
     keybinds: [
       {
-        keyboardKey: 's',
+        keyboardKey: 'n',
         gamepadButton: 9,
       },
     ],
@@ -132,6 +124,28 @@ const defaultActions: Action[] = [
       {
         keyboardKey: 'n',
         gamepadButton: 5,
+      },
+    ],
+  },
+  {
+    id: 'autoPlay',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'a',
+        gamepadButton: 6,
+      },
+    ],
+  },
+  {
+    id: 'skip',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 's',
+        gamepadButton: 7,
       },
     ],
   },
@@ -178,18 +192,18 @@ export const useInputs = defineStore('inputs', {
       });
     },
     listenToBaseNarratInputs() {
-      this.baseInputListener = this.registerInputListener({
-        system: {
-          press: () => {
-            useMenu().openMenu('system');
-          },
-        },
-        menu: {
-          press: () => {
-            useMenu().openMenu('menu');
-          },
-        },
-      });
+      // this.baseInputListener = this.registerInputListener({
+      //   system: {
+      //     press: () => {
+      //       useMenu().openMenu('system');
+      //     },
+      //   },
+      //   menu: {
+      //     press: () => {
+      //       useMenu().openMenu('menu');
+      //     },
+      //   },
+      // });
     },
     triggerListeners(
       actionKey: string,
@@ -197,22 +211,21 @@ export const useInputs = defineStore('inputs', {
       status: ActionStatus,
     ) {
       console.log(`Triggering action ${actionKey} ${eventType}`);
-      for (const listener of this.inputStack) {
-        if (listener.actions[actionKey]) {
-          if (listener.actions[actionKey][eventType]) {
-            if (status.state.config.type === 'button') {
-              const listenerEvent = listener.actions[actionKey][
-                eventType
-              ] as ButtonEvent;
-              const buttonStatus = status as ButtonActionStatus;
-              listenerEvent(
-                status.state.config,
-                buttonStatus.state,
-                buttonStatus.previous,
-              );
-            } else {
-              console.warn('Analog events not implemented yet');
-            }
+      const listener = this.inputStack[this.inputStack.length - 1];
+      if (listener.actions[actionKey]) {
+        if (listener.actions[actionKey][eventType]) {
+          if (status.state.config.type === 'button') {
+            const listenerEvent = listener.actions[actionKey][
+              eventType
+            ] as ButtonEvent;
+            const buttonStatus = status as ButtonActionStatus;
+            listenerEvent(
+              status.state.config,
+              buttonStatus.state,
+              buttonStatus.previous,
+            );
+          } else {
+            console.warn('Analog events not implemented yet');
           }
         }
       }

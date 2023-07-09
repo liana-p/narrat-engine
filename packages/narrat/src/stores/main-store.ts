@@ -535,6 +535,9 @@ export const useMain = defineStore('main', {
         Object.assign(states[key], stateOverride);
       }
     },
+    exitGame() {
+      window.close();
+    },
   },
   getters: {
     isInGame(state) {

@@ -35,26 +35,55 @@
         v-else-if="layer.screen"
         :layerIndex="index"
         :transitioning="false"
+        :activeInteractive="activeInteractive"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getConfig } from '@/config';
-import { computed, CSSProperties } from 'vue';
+import { getConfig, getScreenConfig } from '@/config';
+import {
+  computed,
+  CSSProperties,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+} from 'vue';
 import { useRenderingStore } from '../stores/rendering-store';
 import { useMain } from '../stores/main-store';
 import { useScreens } from '@/stores/screens-store';
 import Layer from './screen-layer.vue';
 import NarratTransition from './transitions/NarratTransition.vue';
+import { InputListener } from '@/stores/inputs-store';
+import { clamp } from '@/utils/math-utils';
 
+const props = defineProps<{
+  inputListener: InputListener | null;
+}>();
 const rendering = useRenderingStore();
 const main = useMain();
 const screensStore = useScreens();
+const interactiveIndex = ref(0);
 
 const layers = computed(() => {
   return screensStore.nonEmptyLayers;
+});
+
+const interactivesList = computed(() => {
+  return screensStore.interactivesList;
+});
+
+const activeInteractive = computed(() => {
+  if (interactivesList.value.length === 0) {
+    return null;
+  }
+  let index = interactiveIndex.value;
+  if (index > interactivesList.value.length - 1) {
+    index = interactivesList.value.length - 1;
+  }
+  return interactivesList.value[index];
 });
 
 const layoutMode = computed(() => {
@@ -85,6 +114,54 @@ const viewportStyle = computed<CSSProperties>(() => {
     height: `${height}px`,
     width: `${width}px`,
   };
+});
+
+onMounted(() => {
+  nextTick(() => {
+    if (props.inputListener) {
+      const actions = props.inputListener.actions;
+      actions.previousTab = {
+        press: () => {
+          if (interactiveIndex.value > 0) {
+            interactiveIndex.value--;
+          } else {
+            interactiveIndex.value = interactivesList.value.length - 1;
+          }
+          interactiveIndex.value = clamp(
+            interactiveIndex.value,
+            0,
+            interactivesList.value.length - 1,
+          );
+        },
+      };
+      actions.left = actions.previousTab;
+      actions.up = actions.previousTab;
+      actions.nextTab = {
+        press: () => {
+          if (interactiveIndex.value < interactivesList.value.length - 1) {
+            interactiveIndex.value++;
+          } else {
+            interactiveIndex.value = 0;
+          }
+          interactiveIndex.value = clamp(
+            interactiveIndex.value,
+            0,
+            interactivesList.value.length - 1,
+          );
+        },
+      };
+      actions.right = actions.nextTab;
+      actions.down = actions.nextTab;
+    }
+  });
+});
+onUnmounted(() => {
+  if (props.inputListener) {
+    // eslint-disable-next-line vue/no-mutating-props
+    delete props.inputListener.actions.previousTab;
+    // eslint-disable-next-line vue/no-mutating-props
+    delete props.inputListener.actions.nextTab;
+  }
 });
 </script>
 <style>

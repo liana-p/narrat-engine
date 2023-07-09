@@ -193,8 +193,17 @@ export const useScreenObjects = defineStore('screenObjects', {
     getObject(id: string) {
       return this.objectsList[id];
     },
-    clickObject(thing: ScreenObjectState) {
+    isScreenObjectClickable(thing: ScreenObjectState) {
       if (!isViewportElementClickable(thing)) {
+        return false;
+      }
+      if (thing.onClick) {
+        return true;
+      }
+      return false;
+    },
+    clickObject(thing: ScreenObjectState) {
+      if (!this.isScreenObjectClickable(thing)) {
         return;
       }
       if (thing.onClick) {

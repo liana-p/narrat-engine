@@ -1,3 +1,5 @@
+import { InteractiveScreenElement } from '@/components/screens/screen-types';
+import { getButtonConfig, getScreenConfig } from '@/config';
 import { Config } from '@/config/config-output';
 import { ScreensConfig } from '@/config/screens-config';
 import { deepCopy } from '@/utils/data-helpers';
@@ -9,6 +11,13 @@ import {
 } from '@/utils/transition';
 import deepmerge from 'deepmerge';
 import { defineStore } from 'pinia';
+import { useScreenObjects } from './screen-objects-store';
+import { useInventory } from './inventory-store';
+import {
+  isButtonClickable,
+  isScreenObjectClickable,
+  isViewportElementClickable,
+} from '@/utils/viewport-utils';
 
 export type ButtonStateValue = boolean | 'hidden' | 'greyed';
 export interface ButtonState {
@@ -34,14 +43,15 @@ export type ScreenSave = {
   buttons: ButtonsState;
 };
 
-export const defaultScreensState = (): ScreenState => ({
-  layers: [
-    {
-      screen: 'default',
-    },
-  ],
-  buttons: {} as ButtonsState,
-} as ScreenState);
+export const defaultScreensState = (): ScreenState =>
+  ({
+    layers: [
+      {
+        screen: 'default',
+      },
+    ],
+    buttons: {} as ButtonsState,
+  } as ScreenState);
 
 export const useScreens = defineStore('screens', {
   state: defaultScreensState,
@@ -168,10 +178,79 @@ export const useScreens = defineStore('screens', {
       });
       this.buttons = deepmerge(this.buttons, data.buttons);
     },
+    isButtonDisabled(button: string) {
+      const state = this.getButtonState(button);
+      return state === 'hidden' || state === 'greyed' || state === false;
+    },
+    isButtonInteractible(button: string): boolean {
+      const buttonState = this.getButtonState(button);
+      if (!buttonState) {
+        return false;
+      }
+      if (buttonState === true) {
+        return true;
+      }
+      return false;
+    },
+    isButtonClickable(button: string) {
+      const interactible = this.isButtonInteractible(button);
+      if (!interactible) {
+        return false;
+      }
+      const config = getButtonConfig(button);
+      if (!isViewportElementClickable(config)) {
+        return false;
+      }
+    },
+    getButtonState(button: string): ButtonStateValue {
+      const config = getButtonConfig(button);
+      const buttonValue = this.buttons[button];
+      const tag = config.tag || 'default';
+      const state = buttonValue.state;
+      if (state === true) {
+        if (useInventory().isInteractionTagBlocked(tag)) {
+          return 'greyed';
+        }
+      }
+      return state;
+    },
   },
   getters: {
     nonEmptyLayers(state: ScreenState): FullLayerState[] {
       return state.layers.filter((layer) => layer) as FullLayerState[];
+    },
+    interactivesList(state: ScreenState): InteractiveScreenElement[] {
+      const layers = this.nonEmptyLayers;
+      const screenObjectStore = useScreenObjects();
+      const interactives: InteractiveScreenElement[] = [];
+      return layers.reduce((acc, layer, index) => {
+        const screenConfig = getScreenConfig(layer.screen!);
+        const buttons = screenConfig.buttons;
+        if (buttons) {
+          for (const button of buttons) {
+            if (isButtonClickable(button as string)) {
+              acc.push({
+                id: button as string,
+                type: 'button',
+                layer: index,
+              });
+            }
+          }
+        }
+        const screenObjects = screenObjectStore.tree.filter((o) => {
+          return o.layer === index;
+        });
+        for (const screenObject of screenObjects) {
+          if (isScreenObjectClickable(screenObject)) {
+            acc.push({
+              id: screenObject.id,
+              type: 'screenObject',
+              layer: index,
+            });
+          }
+        }
+        return acc;
+      }, interactives);
     },
   },
 });

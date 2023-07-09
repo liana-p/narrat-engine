@@ -16,37 +16,16 @@
       <div id="game-title-container">
         <h1 id="game-title-text">{{ gameTitle }}</h1>
       </div>
-      <div class="flex flex-col start-menu-buttons-container">
-        <button
-          v-if="continueSlot"
-          class="button menu-button main-menu-button large continue-button override"
-          @click="continueGame"
-        >
-          Continue
-        </button>
-        <button
-          class="button menu-button main-menu-button large start-button override"
-          @click="startGame"
-          v-if="hasFreeSlot"
-        >
-          New Game
-        </button>
-        <button
-          class="button menu-button main-menu-button large continue-button override"
-          @click="chooseSaveSlot"
-          v-if="hasSave"
-        >
-          Load Game
-        </button>
-        <button
-          v-for="button in extraButtons"
+      <div
+        class="flex flex-col start-menu-buttons-container"
+        ref="buttonsContainer"
+      >
+        <StartMenuButton
+          v-for="button in buttons"
           :key="button.id"
-          class="button menu-button main-menu-button large override"
-          :class="`${button.id}-start-menu-button`"
-          @click="clickExtraButton(button)"
-        >
-          {{ button.text }}
-        </button>
+          :button="button"
+          @click="buttonClicked(button)"
+        />
       </div>
     </div>
     <Teleport to="#app-container" v-if="popupComponent">
@@ -81,15 +60,25 @@ import {
   getFreeSlot,
   findAutoSave,
 } from '../utils/save-helpers';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
+import StartMenuButton from './start-menu/start-menu-button.vue';
+import { StartMenuButtonProps } from './start-menu/start-menu-types';
 import { useAudio } from '@/stores/audio-store';
 import { inputEvents } from '../utils/InputsListener';
 import { useStartMenu } from '@/stores/start-menu-store';
 import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useNavigation } from '@/inputs/useNavigation';
 
+const inputListener = ref<InputListener | null>(
+  useInputs().registerInputListener({}),
+);
+
+const buttons = ref<StartMenuButtonProps[]>([]);
+const buttonsContainer = ref<HTMLDivElement | null>(null);
 const hasSave = ref(false);
 const hasFreeSlot = ref(false);
 const continueSlot = ref<null | string>(null);
@@ -102,6 +91,34 @@ const popupComponent = ref<CustomStartMenuButton | false>(false);
 
 const extraButtons = computed(() => startMenuStore.buttons);
 
+const navigation = useNavigation({
+  mode: 'list',
+  container: buttonsContainer,
+  listener: inputListener.value,
+  onSelected: (index) => {
+    buttonClicked(buttons.value[index]);
+  },
+})!;
+
+function buttonClicked(button: StartMenuButtonProps) {
+  switch (button.id) {
+    case 'continue':
+      continueGame();
+      break;
+    case 'new-game':
+      startGame();
+      break;
+    case 'load-game':
+      chooseSaveSlot();
+      break;
+    case 'exit':
+      useMain().exitGame();
+      break;
+    default:
+      clickExtraButton(button);
+      break;
+  }
+}
 async function startGame() {
   if (hasSave.value && getConfig().saves.mode === 'manual') {
     startingGame.value = true;
@@ -133,7 +150,11 @@ async function confirmStartGame() {
   await main.startGame(saveSlot.value!);
 }
 
-function clickExtraButton(button: CustomStartMenuButton) {
+function clickExtraButton(startMenuButton: StartMenuButtonProps) {
+  const extraButtonIndex = extraButtons.value.findIndex(
+    (b) => b.id === startMenuButton.id,
+  );
+  const button = extraButtons.value[extraButtonIndex];
   if (button.action) {
     button.action();
   }
@@ -198,6 +219,7 @@ onMounted(() => {
   if (save.lastSaveSlot && getSaveSlot(save.lastSaveSlot)) {
     continueSlot.value = save.lastSaveSlot;
   }
+  setupButtons();
   listener.value = inputEvents.on('debouncedKeydown', (e) => {
     if (e.key === ' ') {
       confirmStartGame();
@@ -206,9 +228,51 @@ onMounted(() => {
       continueGame();
     }
   });
+  nextTick(() => {
+    navigation.select(0);
+  });
 });
 
+function setupButtons() {
+  if (continueSlot.value) {
+    buttons.value.push({
+      id: 'continue',
+      title: 'Continue',
+      cssClass: 'continue-button',
+    });
+  }
+  if (hasFreeSlot.value) {
+    buttons.value.push({
+      id: 'new-game',
+      title: 'New Game',
+      cssClass: 'start-button',
+    });
+  }
+  if (hasSave.value) {
+    buttons.value.push({
+      id: 'load-game',
+      title: 'Load Game',
+      cssClass: 'continue-button',
+    });
+  }
+  for (const button of extraButtons.value) {
+    buttons.value.push({
+      id: button.id,
+      title: button.text,
+      cssClass: `${button.id}-start-menu-button`,
+    });
+  }
+  buttons.value.push({
+    id: 'exit',
+    title: 'Exit',
+    cssClass: 'exit-button',
+  });
+}
+
 onUnmounted(() => {
+  if (inputListener.value) {
+    useInputs().unregisterInputListener(inputListener.value);
+  }
   if (listener.value) {
     inputEvents.off('debouncedKeydown', listener.value as any);
   }

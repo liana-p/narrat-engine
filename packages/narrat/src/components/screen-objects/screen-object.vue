@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { getImageUrl } from '@/config';
-import { computed, CSSProperties, reactive } from 'vue';
+import { computed, CSSProperties } from 'vue';
 import {
   useScreenObjects,
   ScreenObjectState,
@@ -36,21 +36,26 @@ import { processText } from '@/utils/string-helpers';
 const props = defineProps<{
   screenObject: ScreenObjectState;
   transitioning: boolean;
+  selected: boolean;
 }>();
 
+const screenObjectsStore = useScreenObjects();
 // Sprites
 function clickOnObject(screenObject: ScreenObjectState) {
   if (props.transitioning) {
     return;
   }
   if (props.screenObject.onClick) {
-    useScreenObjects().clickObject(screenObject);
+    screenObjectsStore.clickObject(screenObject);
   }
 }
 
 const objectClass = computed(() => {
   const css: any = {};
-  if (props.screenObject.onClick) {
+  if (props.selected) {
+    css.selected = true;
+  }
+  if (screenObjectsStore.isScreenObjectClickable(props.screenObject)) {
     css.interactable = true;
   } else {
     css.disabled = true;
@@ -94,49 +99,6 @@ const objectStyle = computed(() => {
 });
 </script>
 <style>
-.viewport {
-  position: relative;
-}
-
-.viewport-layer {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.viewport-button {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--button-background);
-  color: var(--button-text-color);
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.viewport-button.interactable {
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.viewport-button.disabled {
-  pointer-events: none;
-  user-select: none;
-}
-
-.viewport-button.greyed {
-  opacity: 0.3;
-}
-
-.viewport-button.hidden {
-  opacity: 0;
-  display: none;
-}
-
 .viewport-object {
   position: absolute;
   display: flex;
@@ -147,6 +109,10 @@ const objectStyle = computed(() => {
   font-weight: bold;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.viewport-object.selected {
+  border: 2px solid cyan;
 }
 
 .viewport-object.interactable {

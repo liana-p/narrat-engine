@@ -71,7 +71,7 @@ import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags } from './utils/string-helpers';
 import { useNavigation } from './inputs/useNavigation';
-import { useInputs } from '@/stores/inputs-store';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
 export interface TextAnimation {
   text: string;
@@ -94,23 +94,27 @@ const skipTimer = ref<NodeJS.Timer | null>(null);
 const nextLineTimer = ref<NodeJS.Timer | null>(null);
 const playerInput = ref<HTMLInputElement | null>(null);
 
-const navigation = useNavigation({
-  mode: 'list',
-  container: choicesDiv,
-  listener: useInputs().baseInputListener,
-  onSelected: (index) => {
-    if (canInteract.value && choices.value) {
-      chooseOption(choices.value[index]);
-    } else {
-      keyboardPress(' ');
-    }
-  },
-});
-
 const props = defineProps<{
   options: DialogBoxParameters;
   active: boolean;
+  inputListener: InputListener | null;
 }>();
+
+const navigation = ref<any | null>(null);
+if (props.active) {
+  navigation.value = useNavigation({
+    mode: 'list',
+    container: choicesDiv,
+    listener: props.inputListener,
+    onSelected: (index) => {
+      if (canInteract.value && choices.value) {
+        chooseOption(choices.value[index]);
+      } else {
+        keyboardPress(' ');
+      }
+    },
+  });
+}
 
 onMounted(() => {
   startTextAnimation();
@@ -126,6 +130,14 @@ function clearListeners() {
   if (timeout.value) {
     clearTimeout(timeout);
     timeout.value = null;
+  }
+  removeNavigation();
+}
+
+function removeNavigation() {
+  if (navigation.value) {
+    navigation.value.disable();
+    navigation.value = null;
   }
 }
 
@@ -334,7 +346,9 @@ function endTextAnimation({
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
   setTimeout(() => {
-    navigation.select(0);
+    if (navigation.value) {
+      navigation.value.select(0);
+    }
   }, 10);
   if (textAnimation.value) {
     if (textAnimation.value.timer) {

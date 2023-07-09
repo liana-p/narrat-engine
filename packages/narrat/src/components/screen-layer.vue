@@ -22,6 +22,7 @@
       :key="screenObject.id"
       :screenObject="screenObject"
       :transitioning="transitioning"
+      :selected="isScreenObjectSelected(screenObject)"
     />
   </div>
 </template>
@@ -37,24 +38,55 @@ import { computed, CSSProperties } from 'vue';
 import { useMain } from '../stores/main-store';
 import { ButtonStateValue, useScreens } from '@/stores/screens-store';
 import { useVM } from '@/stores/vm-store';
-import { useInventory } from '@/stores/inventory-store';
-import { SpriteState, useScreenObjects } from '@/stores/screen-objects-store';
+import {
+  ScreenObjectState,
+  useScreenObjects,
+} from '@/stores/screen-objects-store';
 import { processText } from '@/utils/string-helpers';
 import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
 import ScreenObject from './screen-objects/screen-object.vue';
-import { isViewportElementClickable } from '@/utils/viewport-utils';
 import { EMPTY_SCREEN } from '@/constants';
+import { InteractiveScreenElement } from './screens/screen-types';
 
 const props = defineProps<{
   layer: string;
   layerIndex: number;
   transitioning: boolean;
+  activeInteractive?: InteractiveScreenElement | null;
 }>();
 const vmStore = useVM();
 const main = useMain();
 const screensStore = useScreens();
 const screenObjectsStore = useScreenObjects();
+
+const isLayerSelected = computed(() => {
+  return (
+    props.activeInteractive &&
+    props.activeInteractive.layer === props.layerIndex
+  );
+});
+
+function isButtonSelected(button: string) {
+  if (!isLayerSelected.value) {
+    return false;
+  }
+  const active = props.activeInteractive!;
+  if (active.type === 'button' && active.id === button) {
+    return true;
+  }
+  return false;
+}
+function isScreenObjectSelected(screenObject: ScreenObjectState) {
+  if (!isLayerSelected.value) {
+    return false;
+  }
+  const active = props.activeInteractive!;
+  if (active.type === 'screenObject' && active.id === screenObject.id) {
+    return true;
+  }
+  return false;
+}
 
 const screenObjects = computed(() => {
   return screenObjectsStore.tree.filter((o) => o.layer === props.layerIndex);
@@ -99,27 +131,16 @@ function getButtonImageUrl(button: string): string | undefined {
 }
 
 function getButtonState(button: string): ButtonStateValue {
-  const config = getButtonConfig(button);
-  const buttonValue = buttonsState.value[button];
-  const tag = config.tag || 'default';
-  const state = buttonValue.state;
-  if (state === true) {
-    if (useInventory().isInteractionTagBlocked(tag)) {
-      return 'greyed';
-    }
-  }
-  return state;
-}
-
-function isButtonDisabled(button: string) {
-  const state = getButtonState(button);
-  return state === 'hidden' || state === 'greyed' || state === false;
+  return screensStore.getButtonState(button);
 }
 
 function getButtonClass(button: string): { [key: string]: boolean } {
   const state = getButtonState(button);
   const css: any = {};
-  if (state === true) {
+  if (isButtonSelected(button)) {
+    css.selected = true;
+  }
+  if (screensStore.isButtonClickable(button)) {
     css.interactable = true;
   } else {
     css.disabled = true;
@@ -162,16 +183,13 @@ function getButtonStyle(button: string): CSSProperties {
 }
 
 function clickOnButton(button: string) {
-  if (isButtonDisabled(button)) {
+  if (!screensStore.isButtonClickable(button)) {
     return;
   }
   if (props.transitioning) {
     return;
   }
   const config = getButtonConfig(button);
-  if (!isViewportElementClickable(config)) {
-    return false;
-  }
   const state = buttonsState.value[button];
   if (state.state === true) {
     audioEvent('onButtonClicked');
@@ -207,6 +225,7 @@ const layerStyle = computed<CSSProperties>(() => {
   };
 });
 </script>
+
 <style>
 .viewport {
   position: relative;
@@ -251,26 +270,8 @@ const layerStyle = computed<CSSProperties>(() => {
   display: none;
 }
 
-.viewport-sprite {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-  background-size: cover;
-  background-repeat: no-repeat;
-  animation: sprite-appear 0.3s ease-in;
-}
-
-.viewport-sprite.interactable {
-  cursor: pointer;
-  pointer-events: auto;
-}
-.viewport-sprite.disabled {
-  pointer-events: none;
-  user-select: none;
+.viewport-button.selected {
+  border: 2px solid cyan;
 }
 
 @keyframes sprite-appear {

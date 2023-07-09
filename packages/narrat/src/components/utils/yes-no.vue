@@ -5,7 +5,7 @@
     </template>
     <template v-slot:body>
       <h3>{{ prompt }}</h3>
-      <div class="flex justify-center">
+      <div class="flex justify-center" ref="buttonsContainer">
         <button class="button" @click="() => chosen(true)">Yes</button>
         <button class="button" @click="() => chosen(false)">No</button>
       </div>
@@ -14,7 +14,34 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue';
 import ModalWindow from './modal-window.vue';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useNavigation } from '@/inputs/useNavigation';
+
+const listener = ref<InputListener | null>(
+  useInputs().registerInputListener({
+    cancel: {
+      press: () => {
+        chosen(false);
+      },
+    },
+    continue: {
+      press: () => {
+        chosen(true);
+      },
+    },
+  }),
+);
+const buttonsContainer = ref<HTMLDivElement | null>(null);
+useNavigation({
+  mode: 'list',
+  container: buttonsContainer,
+  listener: listener.value,
+  onSelected: (index) => {
+    chosen(index === 0);
+  },
+});
 
 const props = defineProps({
   prompt: {
@@ -40,6 +67,12 @@ function chosen(choice: boolean) {
   }
   emit('choice', choice);
 }
+onMounted(() => {});
+onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value);
+  }
+});
 </script>
 <style>
 .save-modal {
