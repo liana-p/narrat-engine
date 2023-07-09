@@ -24,7 +24,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pixi.js": "^6.5.6"
+    "pixi.js": "^7.2.4"
   },
   "peerDependencies": {
     "narrat": "workspace:*",
