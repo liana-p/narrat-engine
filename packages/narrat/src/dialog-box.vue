@@ -107,7 +107,7 @@ if (props.active) {
     container: choicesDiv,
     listener: props.inputListener,
     onlyVertical: true,
-    onSelected: (index) => {
+    onChosen: (index) => {
       if (canInteract.value && choices.value) {
         chooseOption(choices.value[index]);
       } else {

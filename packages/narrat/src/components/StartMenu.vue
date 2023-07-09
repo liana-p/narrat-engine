@@ -96,7 +96,7 @@ const navigation = useNavigation({
   mode: 'list',
   container: buttonsContainer,
   listener: inputListener.value,
-  onSelected: (index) => {
+  onChosen: (index) => {
     buttonClicked(buttons.value[index]);
   },
 })!;

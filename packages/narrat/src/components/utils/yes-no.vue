@@ -38,7 +38,7 @@ useNavigation({
   mode: 'list',
   container: buttonsContainer,
   listener: listener.value,
-  onSelected: (index) => {
+  onChosen: (index) => {
     chosen(index === 0);
   },
 });

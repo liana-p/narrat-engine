@@ -73,23 +73,29 @@
 <script setup lang="ts">
 import { SaveSlot } from '../types/game-save';
 import { ChosenSlot, deleteSave, getSaveFile } from '../utils/save-helpers';
-import { computed, onMounted, PropType, reactive } from 'vue';
+import { computed, onBeforeMount, onUnmounted, reactive, ref } from 'vue';
 import Modal from './utils/modal-window.vue';
 import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
 import { getConfig } from '../config';
 import { useMain } from '../stores/main-store';
+import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
-const props = defineProps({
-  mode: {
-    type: String as PropType<'load' | 'pick'>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  mode: 'load' | 'pick';
+}>();
+
+const navigation = ref<NavigationState | null>(null);
+const inputListener = ref<InputListener | null>(null);
 
 const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
 const autoSlots = computed(() => saveSlots.slice(0, 1));
 const manualSlots = computed(() => saveSlots.slice(1));
+
+const saveElements = computed(() => {
+  return [] as HTMLElement[];
+});
 
 const actions = reactive(
   props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
@@ -119,14 +125,40 @@ const saveConfirmation = reactive({
 });
 
 const emit = defineEmits(['chosen', 'close']);
-onMounted(() => {
+onBeforeMount(() => {
   const saveFile = getSaveFile();
   const slots: SaveSlot[] = saveFile.slots;
   console.log(slots);
   slots.forEach((slot, index) => {
     saveSlots[index] = slot;
   });
-  // Extra slot push to create a new save slot
+
+  inputListener.value = useInputs().registerInputListener({
+    cancel: {
+      press: () => {
+        tryToClose();
+      },
+    },
+  });
+  navigation.value = useNavigation({
+    mode: 'list',
+    elements: saveElements,
+    listener: inputListener.value,
+    onlyVertical: true,
+    noChoosing: true,
+    onSelected: (index) => {
+      // Do Stuff
+    },
+  }) as any;
+});
+onUnmounted(() => {
+  if (navigation.value) {
+    navigation.value.disable();
+    navigation.value = null;
+  }
+  if (inputListener.value) {
+    useInputs().unregisterInputListener(inputListener.value);
+  }
 });
 
 // function chooseNewSlot() {

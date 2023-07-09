@@ -10,18 +10,21 @@ export type ListNavigationOptions = {
 };
 export type NavigationOptions = {
   mode: 'grid' | 'list';
-  container: Ref<HTMLElement | null>;
+  container?: Ref<HTMLElement | null>;
+  elements?: Ref<HTMLElement[]>;
   listener?: InputListener | null;
   loopForbidden?: boolean;
+  onChosen?: (index: number) => void;
   onSelected?: (index: number) => void;
   onlyVertical?: boolean;
   onlyHorizontal?: boolean;
+  noChoosing?: boolean;
 } & (GridNavigationOptions | ListNavigationOptions);
 
 export function useNavigation(options: NavigationOptions) {
   if (!options.listener) {
     console.warn('No input listener provided for navigation');
-    return;
+    return null;
   }
   const selectedIndex = ref(0);
   const selectedElement = computed(() =>
@@ -32,9 +35,18 @@ export function useNavigation(options: NavigationOptions) {
       ? selectedIndex.value % (options as GridNavigationOptions).columns
       : 0,
   );
+  const selectables = computed(() => {
+    if (options.container?.value) {
+      return options.container.value.children as any as HTMLElement[];
+    } else if (options.elements?.value) {
+      return options.elements.value;
+    }
+    return [] as HTMLElement[];
+  });
+
   function isValid(index: number): boolean {
-    if (options.container.value) {
-      return index >= 0 && index < options.container.value.children.length;
+    if (selectables.value) {
+      return index >= 0 && index < selectables.value.length;
     }
     return false;
   }
@@ -46,34 +58,37 @@ export function useNavigation(options: NavigationOptions) {
       if (selectedElement.value) {
         selectedElement.value.classList.add('selected');
         getElementAtIndex(previousIndex)!.classList.remove('selected');
+        if (options.onSelected) {
+          options.onSelected(index);
+        }
       }
     }
   }
 
   function getElementAtIndex(index: number) {
-    if (options.container.value) {
-      return options.container.value.children[index];
+    if (selectables.value) {
+      return selectables.value[index];
     }
     return null;
   }
 
   function selectPrevious() {
-    if (!options.container.value) {
+    if (!selectables.value) {
       return;
     }
     if (selectedIndex.value === 0) {
       if (!options.loopForbidden) {
-        select(options.container.value!.children.length - 1);
+        select(selectables.value.length - 1);
       }
     } else {
       select(selectedIndex.value - 1);
     }
   }
   function selectNext() {
-    if (!options.container.value) {
+    if (!selectables.value) {
       return;
     }
-    if (selectedIndex.value === options.container.value.children.length - 1) {
+    if (selectedIndex.value === selectables.value.length - 1) {
       if (!options.loopForbidden) {
         select(0);
       }
@@ -82,26 +97,26 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
   function selectUp() {
-    if (!options.container.value) {
+    if (!selectables.value) {
       return;
     }
     const opts = options as GridNavigationOptions;
     const index = selectedIndex.value;
     if (!options.loopForbidden && index < opts.columns) {
-      select(options.container.value!.children.length - 1);
+      select(selectables.value.length - 1);
     } else {
       select(selectedIndex.value - (options as GridNavigationOptions).columns);
     }
   }
   function selectDown() {
-    if (!options.container.value) {
+    if (!selectables.value) {
       return;
     }
     const opts = options as GridNavigationOptions;
     const index = selectedIndex.value;
     if (
       !options.loopForbidden &&
-      index >= options.container.value!.children.length - opts.columns
+      index >= selectables.value.length - opts.columns
     ) {
       select(0);
     } else {
@@ -139,8 +154,8 @@ export function useNavigation(options: NavigationOptions) {
   }
 
   function buttonContinue() {
-    if (options.onSelected) {
-      options.onSelected(selectedIndex.value);
+    if (options.onChosen) {
+      options.onChosen(selectedIndex.value);
     }
   }
 
@@ -164,9 +179,11 @@ export function useNavigation(options: NavigationOptions) {
         press: buttonDown,
       };
     }
-    options.listener.actions.continue = {
-      press: buttonContinue,
-    };
+    if (!options.noChoosing) {
+      options.listener.actions.continue = {
+        press: buttonContinue,
+      };
+    }
     select(0);
   });
   function disable() {
@@ -202,3 +219,5 @@ export function useNavigation(options: NavigationOptions) {
     disable,
   };
 }
+
+export type NavigationState = ReturnType<typeof useNavigation>;
