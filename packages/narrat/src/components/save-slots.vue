@@ -22,6 +22,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :inputListener="inputListener"
+              :selected="selectedSlotId === slot.id"
+              ref="autoSlotsElements"
             />
           </transition-group>
         </div>
@@ -35,6 +38,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :inputListener="inputListener"
+              :selected="selectedSlotId === slot.id"
+              ref="manualSlotsElements"
             />
           </transition-group>
         </div>
@@ -50,6 +56,9 @@
               :id="slot.id"
               :actions="actions"
               @choice="(choice) => slotChosen(slot.id, choice)"
+              :selected="selectedSlotId === slot.id"
+              :inputListener="inputListener"
+              ref="saveSlotsElements"
             />
           </transition-group>
         </div>
@@ -73,23 +82,83 @@
 <script setup lang="ts">
 import { SaveSlot } from '../types/game-save';
 import { ChosenSlot, deleteSave, getSaveFile } from '../utils/save-helpers';
-import { computed, onMounted, PropType, reactive } from 'vue';
+import {
+  computed,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+} from 'vue';
 import Modal from './utils/modal-window.vue';
 import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
 import { getConfig } from '../config';
 import { useMain } from '../stores/main-store';
+import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
-const props = defineProps({
-  mode: {
-    type: String as PropType<'load' | 'pick'>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  mode: 'load' | 'pick';
+}>();
 
+const inputListener = ref<InputListener | null>(
+  useInputs().registerInputListener('save-slots', {
+    cancel: {
+      press: () => {
+        tryToClose();
+      },
+    },
+  }),
+);
+
+const navigationSelected = ref(0);
 const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
 const autoSlots = computed(() => saveSlots.slice(0, 1));
 const manualSlots = computed(() => saveSlots.slice(1));
+
+// Container divs of all the save slot elements to pass to navigation UI
+type SlotInstanceType = InstanceType<typeof SaveSlotUi>;
+type SlotListType = SlotInstanceType[];
+const saveSlotsElements = ref<SlotListType>([]);
+const autoSlotsElements = ref<SlotListType>([]);
+const manualSlotsElements = ref<SlotListType>([]);
+
+type SaveElementContent = HTMLElement | null;
+const saveElements = ref<SaveElementContent[]>([]);
+const saveElementsIndexes = ref<{ id: string }[]>([]);
+
+const navigationProps = ref({
+  mode: 'list',
+  elements: saveElements,
+  listener: inputListener.value,
+  onlyVertical: true,
+  noChoosing: true,
+  onSelected: (index: number) => {
+    // Do Stuff
+    navigationSelected.value = index;
+  },
+});
+const navigation = useNavigation({
+  mode: 'list',
+  elements: saveElements,
+  listener: inputListener.value,
+  onlyVertical: true,
+  noChoosing: true,
+  onSelected: (index: number) => {
+    // Do Stuff
+    navigationSelected.value = index;
+  },
+}) as any;
+
+const selectedSlotId = computed(() => {
+  const selected = navigationSelected.value;
+  if (saveElementsIndexes.value.length < selected + 1) {
+    return null;
+  }
+  const id = saveElementsIndexes.value[selected].id;
+  return id;
+});
 
 const actions = reactive(
   props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
@@ -119,14 +188,46 @@ const saveConfirmation = reactive({
 });
 
 const emit = defineEmits(['chosen', 'close']);
-onMounted(() => {
+onBeforeMount(() => {
   const saveFile = getSaveFile();
   const slots: SaveSlot[] = saveFile.slots;
   console.log(slots);
   slots.forEach((slot, index) => {
     saveSlots[index] = slot;
   });
-  // Extra slot push to create a new save slot
+});
+
+function setupSaveElements() {
+  console.log(autoSlotsElements.value);
+  saveElements.value =
+    saveMode.value === 'manual'
+      ? [
+          ...autoSlotsElements.value.map((slot) => slot.slotContainer),
+          ...manualSlotsElements.value.map((slot) => slot.slotContainer),
+        ]
+      : saveSlotsElements.value.map((slot) => slot.slotContainer);
+  const saves =
+    saveMode.value === 'manual'
+      ? [...autoSlots.value, ...manualSlots.value]
+      : saveSlots;
+  saveElementsIndexes.value = saves.map((save) => {
+    return {
+      id: save.id,
+    };
+  });
+}
+onMounted(() => {
+  setupSaveElements();
+});
+
+onUnmounted(() => {
+  if (navigation.value) {
+    navigation.value.disable();
+    navigation.value = null;
+  }
+  if (inputListener.value) {
+    useInputs().unregisterInputListener(inputListener.value);
+  }
 });
 
 // function chooseNewSlot() {
@@ -162,6 +263,7 @@ function actuallyDeleteSaveSlot(slotId: string) {
   if (slot) {
     slot.saveData = null;
   }
+  setupSaveElements();
 }
 
 function tryToClose() {

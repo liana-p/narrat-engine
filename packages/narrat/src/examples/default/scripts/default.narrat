@@ -10,8 +10,13 @@ main:
   // talk player idle "Global counter is %{$global.counter}"
   // jump test_change_player
   // jump test_hmr
-  jump test_new_inputs
+  // jump test_save
+  // jump test_new_inputs
   jump quest_demo
+
+test_save:
+  set_screen map
+  save_prompt "hello"
 
 test_new_inputs:
   set_screen map
@@ -670,6 +675,7 @@ bread_quest:
       jump quest_demo
 
 bread_start:
+  save_prompt "Buying bread!"
   start_quest breadShopping
   talk inner idle "Time to go to the shop to buy some bread then."
   set_screen map

@@ -1,5 +1,5 @@
 <template>
-  <div class="save-slot flex flex-row">
+  <div class="save-slot flex flex-row" ref="slotContainer">
     <div class="used-save-slot flex flex-row justify-between items-center grow">
       <div class="flex flex-col save-slot-number-container">
         <h1 class="save-slot-number">{{ saveNumberText() }}</h1>
@@ -28,10 +28,11 @@
           </p>
         </div>
       </div>
-      <div class="flex flex-row">
+      <div class="flex flex-row" ref="actionsContainer">
         <button
           class="button"
           @click="() => buttonAction(index)"
+          :class="{ selected: selected && index === selectedButtonIndex }"
           v-for="(action, index) in actions"
           :key="index"
         >
@@ -43,31 +44,30 @@
 </template>
 <script setup lang="ts">
 import { SaveSlot } from '../../types/game-save';
-import { computed, PropType, ref } from 'vue';
+import { computed, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { toHHMMSS } from '../../utils/time-helpers';
 import { renameSave } from '../../utils/save-helpers';
-import {
-  getConfig,
-  getImageUrl,
-  getScreenConfig,
-  screensConfig,
-} from '@/config';
+import { getConfig, getImageUrl, getScreenConfig } from '@/config';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useNavigation, NavigationState } from '@/inputs/useNavigation';
 
-const props = defineProps({
-  saveSlot: {
-    type: Object as PropType<SaveSlot>,
-    required: true,
-  },
-  id: {
-    type: String,
-    required: true,
-  },
-  actions: {
-    type: Array as PropType<string[]>,
-    required: true,
-  },
+const props = defineProps<{
+  saveSlot: SaveSlot;
+  id: string;
+  actions: string[];
+  selected: boolean;
+  inputListener: InputListener | null;
+}>();
+
+const navigation = ref<NavigationState | null | undefined>(null);
+const actionsContainer = ref<HTMLElement | null>(null);
+const slotContainer = ref<HTMLElement | null>(null);
+
+defineExpose({
+  slotContainer,
 });
 const saveName = ref(props.saveSlot.saveData?.metadata.name ?? 'Empty Save');
+const selectedButtonIndex = ref(0);
 const hasSaveData = computed(() => props.saveSlot.saveData !== null);
 const saveData = computed(() => props.saveSlot.saveData);
 const saveMode = computed(() => getConfig().saves.mode);
@@ -86,7 +86,7 @@ const saveScreenshot = computed(() => {
   return false;
 });
 
-const emit = defineEmits(['choice']);
+const emit = defineEmits(['choice', 'cancel']);
 
 function buttonAction(choice: number) {
   emit('choice', choice);
@@ -121,12 +121,59 @@ function saveNumberText() {
   }
   return txt + num;
 }
+
+function mountNavigation() {
+  navigation.value = useNavigation({
+    mode: 'list',
+    container: actionsContainer,
+    listener: props.inputListener,
+    onlyHorizontal: true,
+    onSelected: (index) => {
+      selectedButtonIndex.value = index;
+    },
+    onChosen: (index) => {
+      // do stuff
+      buttonAction(index);
+    },
+  }) as any;
+  navigation.value!.mount();
+}
+
+function unmountNavigation() {
+  navigation.value!.disable();
+  navigation.value = null;
+}
+
+watch(
+  () => props.selected,
+  (selected, previousValue) => {
+    if (selected && !navigation.value) {
+      mountNavigation();
+    }
+    if (!selected && navigation.value) {
+      unmountNavigation();
+    }
+  },
+);
+onUnmounted(() => {
+  if (navigation.value) {
+    unmountNavigation();
+  }
+});
 </script>
 <style>
 .save-slot {
-  background: var(--light-background);
-  border: 1px dashed white;
+  /* background: var(--light-background); */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-width: var(--save-ui-border-width);
+  border-style: var(--save-ui-border-style);
+  border-color: var(--save-ui-border-color);
   width: 100%;
+  transition: background-color 0.3s;
+}
+.save-slot:hover,
+.save-slot.selected {
+  background-color: var(--save-ui-selected-background);
 }
 
 .save-slot:not(:last-child) {
@@ -155,12 +202,16 @@ function saveNumberText() {
   background-size: contain;
   background-position: center;
   height: 100%;
-  border-left: 1px dashed white;
+  border-left-width: var(--save-ui-border-width);
+  border-style: var(--save-ui-border-style);
+  border-color: var(--save-ui-border-color);
   background-repeat: no-repeat;
 }
 .save-info {
-  border-left: 1px dashed white;
-  border-right: 1px dashed white;
+  border-left-width: var(--save-ui-border-width);
+  border-right-width: var(--save-ui-border-width);
+  border-style: var(--save-ui-border-style);
+  border-color: var(--save-ui-border-color);
   padding: 10px;
   height: 100%;
 }

@@ -75,7 +75,7 @@ import { useNavigation } from '@/inputs/useNavigation';
 import { useConfig } from '@/lib';
 
 const inputListener = ref<InputListener | null>(
-  useInputs().registerInputListener({}),
+  useInputs().registerInputListener('start-menu', {}),
 );
 
 const buttons = ref<StartMenuButtonProps[]>([]);
@@ -96,7 +96,7 @@ const navigation = useNavigation({
   mode: 'list',
   container: buttonsContainer,
   listener: inputListener.value,
-  onSelected: (index) => {
+  onChosen: (index) => {
     buttonClicked(buttons.value[index]);
   },
 })!;

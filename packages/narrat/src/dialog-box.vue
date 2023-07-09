@@ -107,7 +107,7 @@ if (props.active) {
     container: choicesDiv,
     listener: props.inputListener,
     onlyVertical: true,
-    onSelected: (index) => {
+    onChosen: (index) => {
       if (canInteract.value && choices.value) {
         chooseOption(choices.value[index]);
       } else {
@@ -282,9 +282,13 @@ function startTextAnimation() {
       updateTextAnimation();
     }, 30);
   } else if (isBasicChoice.value) {
-    autoTimer.value = setTimeout(() => {
-      endTextAnimation();
-    }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * props.options.text.length);
+    autoTimer.value = setTimeout(
+      () => {
+        endTextAnimation();
+      },
+      (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
+        props.options.text.length,
+    );
   }
 }
 

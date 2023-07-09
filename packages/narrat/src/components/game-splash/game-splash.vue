@@ -42,7 +42,7 @@ function goToMainMenu() {
   main.flowState = 'menu';
 }
 onMounted(() => {
-  inputListener.value = useInputs().registerInputListener({
+  inputListener.value = useInputs().registerInputListener('game-splash', {
     continue: {
       press: () => {
         goToMainMenu();

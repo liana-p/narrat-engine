@@ -105,6 +105,11 @@
   --separator-bg-color: rgba(250, 250, 250, 0.8);
   --separator-height: 1px;
   --separator-width: 100%;
+
+  --save-ui-border-style: dashed;
+  --save-ui-border-width: 1px;
+  --save-ui-border-color: rgba(255, 255, 255, 0.3);
+  --save-ui-selected-background: #bf9a21;
 }
 body {
   font-family: var(--font-family);
