@@ -106,6 +106,7 @@ if (props.active) {
     mode: 'list',
     container: choicesDiv,
     listener: props.inputListener,
+    onlyVertical: true,
     onSelected: (index) => {
       if (canInteract.value && choices.value) {
         chooseOption(choices.value[index]);

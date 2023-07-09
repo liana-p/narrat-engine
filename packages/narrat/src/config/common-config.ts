@@ -75,6 +75,7 @@ export type TransitionsConfig = Static<typeof TransitionsConfigSchema>;
 
 export const MenuButtonConfigSchema = Type.Object({
   text: Type.String(),
+  cssClass: Type.Optional(Type.String()),
 });
 export type MenuButtonConfig = Static<typeof MenuButtonConfigSchema>;
 

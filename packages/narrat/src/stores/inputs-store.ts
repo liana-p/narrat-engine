@@ -122,8 +122,19 @@ const defaultActions: Action[] = [
     action: 'press',
     keybinds: [
       {
-        keyboardKey: 'n',
+        keyboardKey: 'o',
         gamepadButton: 5,
+      },
+    ],
+  },
+  {
+    id: 'viewportSelect',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'v',
+        gamepadButton: 2,
       },
     ],
   },

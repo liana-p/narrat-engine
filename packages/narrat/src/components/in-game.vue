@@ -6,6 +6,7 @@
     <GameDialog
       :inGame="true"
       :layoutMode="layoutMode"
+      :inputListener="listener!"
       v-if="renderingStore.showDialog"
     />
     <SaveSlots
@@ -31,7 +32,7 @@ import GameDialog from './game-dialog.vue';
 import MenuButtons from './menu-buttons.vue';
 import Screens from './screens.vue';
 import { useMain } from '../stores/main-store';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import { useRenderingStore } from '../stores/rendering-store';
 import { ChosenSlot } from '../utils/save-helpers';
 import SaveSlots from './save-slots.vue';
@@ -88,7 +89,7 @@ function saveRefuse() {
   agreedToSave.value = null;
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   listener.value = useInputs().registerInputListener({
     system: {
       press: () => {
@@ -101,6 +102,9 @@ onMounted(() => {
       },
     },
   });
+});
+
+onMounted(() => {
   keyboardListener.value = inputEvents.on('debouncedKeydown', (e) => {
     if (!useMain().debugMode) {
       if (e.key === 'a' || e.key === 'A') {

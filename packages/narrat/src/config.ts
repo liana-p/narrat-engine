@@ -98,6 +98,8 @@ const baseConfigKeys = [
   'saves',
 ] as const;
 
+const ajv = new Ajv({ allErrors: true });
+
 export async function setupConfig(configInput: ConfigInput) {
   const newConfig: Config = { ...defaultConfig };
   // Setup the base keys from the config
@@ -125,11 +127,10 @@ export async function setupConfig(configInput: ConfigInput) {
         currentValue = await loadDataFile<any>(
           getSplitConfigUrl(configInput.baseDataPath!, currentValue),
         );
-        const validator = new Ajv({ allErrors: true });
-        const result = validator.validate(schema, currentValue);
+        const result = ajv.validate(schema, currentValue);
         if (!result) {
-          console.error(validator.errors);
-          throw new Error(`${validator.errorsText()}`);
+          console.error(ajv.errors);
+          throw new Error(`${ajv.errorsText()}`);
         }
       } catch (e) {
         console.error(e);
@@ -172,7 +173,6 @@ export async function loadConfig(options: AppOptions) {
   } else {
     userConfig.baseDataPath = userConfig.baseDataPath || '';
   }
-  const ajv = new Ajv({ allErrors: true });
   const result = ajv.validate(ConfigInputSchema, userConfig);
   if (!result) {
     error(`Config file validation failed.`);

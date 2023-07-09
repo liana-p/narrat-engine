@@ -46,7 +46,7 @@ screens:
           top: 300
           width: 200
           height: 50
-        action: tester
+        action: quest_demo
       - id: parkButton
         enabled: false
         text: Park

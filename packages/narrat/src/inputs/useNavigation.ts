@@ -14,6 +14,8 @@ export type NavigationOptions = {
   listener?: InputListener | null;
   loopForbidden?: boolean;
   onSelected?: (index: number) => void;
+  onlyVertical?: boolean;
+  onlyHorizontal?: boolean;
 } & (GridNavigationOptions | ListNavigationOptions);
 
 export function useNavigation(options: NavigationOptions) {
@@ -146,18 +148,22 @@ export function useNavigation(options: NavigationOptions) {
     if (!options.listener) {
       return;
     }
-    options.listener.actions.left = {
-      press: buttonLeft,
-    };
-    options.listener.actions.right = {
-      press: buttonRight,
-    };
-    options.listener.actions.up = {
-      press: buttonUp,
-    };
-    options.listener.actions.down = {
-      press: buttonDown,
-    };
+    if (!options.onlyVertical) {
+      options.listener.actions.left = {
+        press: buttonLeft,
+      };
+      options.listener.actions.right = {
+        press: buttonRight,
+      };
+    }
+    if (!options.onlyHorizontal) {
+      options.listener.actions.up = {
+        press: buttonUp,
+      };
+      options.listener.actions.down = {
+        press: buttonDown,
+      };
+    }
     options.listener.actions.continue = {
       press: buttonContinue,
     };
@@ -167,10 +173,14 @@ export function useNavigation(options: NavigationOptions) {
     if (!options.listener) {
       return;
     }
-    delete options.listener.actions.left;
-    delete options.listener.actions.right;
-    delete options.listener.actions.up;
-    delete options.listener.actions.down;
+    if (!options.onlyVertical) {
+      delete options.listener.actions.left;
+      delete options.listener.actions.right;
+    }
+    if (!options.onlyHorizontal) {
+      delete options.listener.actions.up;
+      delete options.listener.actions.down;
+    }
     delete options.listener.actions.continue;
   }
   onUnmounted(() => {

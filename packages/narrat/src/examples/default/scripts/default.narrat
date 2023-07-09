@@ -10,7 +10,16 @@ main:
   // talk player idle "Global counter is %{$global.counter}"
   // jump test_change_player
   // jump test_hmr
+  jump test_new_inputs
   jump quest_demo
+
+test_new_inputs:
+  set_screen map
+  set_button shopButton true
+  set data.sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
+  set sprite1.anchor.y 1
+  set sprite1.scale 0.5
+  set sprite1.onClick talk_sprite
 
 test_change_player:
   talk helper idle "Let's change who the player character is."
@@ -665,7 +674,6 @@ bread_start:
   talk inner idle "Time to go to the shop to buy some bread then."
   set_screen map
   set_button shopButton true
-  run test_sprites
 
 shopButton:
   // set_screen default
