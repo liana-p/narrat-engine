@@ -82,7 +82,7 @@ onMounted(() => {
       }
     });
   }, 10);
-  inputListener.value = useInputs().registerInputListener({
+  inputListener.value = useInputs().registerInputListener('debug-jumping', {
     up: {
       press: () => {
         if (matchCursor.value > 0) {

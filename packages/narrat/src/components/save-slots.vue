@@ -102,8 +102,15 @@ const props = defineProps<{
   mode: 'load' | 'pick';
 }>();
 
-const navigation = ref<NavigationState | null>(null);
-const inputListener = ref<InputListener | null>(null);
+const inputListener = ref<InputListener | null>(
+  useInputs().registerInputListener('save-slots', {
+    cancel: {
+      press: () => {
+        tryToClose();
+      },
+    },
+  }),
+);
 
 const navigationSelected = ref(0);
 const saveSlots = reactive<SaveSlot[]>([] as SaveSlot[]);
@@ -111,12 +118,38 @@ const autoSlots = computed(() => saveSlots.slice(0, 1));
 const manualSlots = computed(() => saveSlots.slice(1));
 
 // Container divs of all the save slot elements to pass to navigation UI
-const saveSlotsElements = ref<HTMLElement[]>([]);
-const autoSlotsElements = ref<HTMLElement[]>([]);
-const manualSlotsElements = ref<HTMLElement[]>([]);
+type SlotInstanceType = InstanceType<typeof SaveSlotUi>;
+type SlotListType = SlotInstanceType[];
+const saveSlotsElements = ref<SlotListType>([]);
+const autoSlotsElements = ref<SlotListType>([]);
+const manualSlotsElements = ref<SlotListType>([]);
 
-const saveElements = ref<HTMLElement[]>([]);
+type SaveElementContent = HTMLElement | null;
+const saveElements = ref<SaveElementContent[]>([]);
 const saveElementsIndexes = ref<{ id: string }[]>([]);
+
+const navigationProps = ref({
+  mode: 'list',
+  elements: saveElements,
+  listener: inputListener.value,
+  onlyVertical: true,
+  noChoosing: true,
+  onSelected: (index: number) => {
+    // Do Stuff
+    navigationSelected.value = index;
+  },
+});
+const navigation = useNavigation({
+  mode: 'list',
+  elements: saveElements,
+  listener: inputListener.value,
+  onlyVertical: true,
+  noChoosing: true,
+  onSelected: (index: number) => {
+    // Do Stuff
+    navigationSelected.value = index;
+  },
+}) as any;
 
 const selectedSlotId = computed(() => {
   const selected = navigationSelected.value;
@@ -162,23 +195,21 @@ onBeforeMount(() => {
   slots.forEach((slot, index) => {
     saveSlots[index] = slot;
   });
-
-  inputListener.value = useInputs().registerInputListener({
-    cancel: {
-      press: () => {
-        tryToClose();
-      },
-    },
-  });
 });
 
 function setupSaveElements() {
-  saveElements.value = [
-    ...autoSlotsElements.value,
-    ...manualSlotsElements.value,
-    ...saveSlotsElements.value,
-  ];
-  const saves = [...autoSlots.value, ...manualSlots.value, ...saveSlots];
+  console.log(autoSlotsElements.value);
+  saveElements.value =
+    saveMode.value === 'manual'
+      ? [
+          ...autoSlotsElements.value.map((slot) => slot.slotContainer),
+          ...manualSlotsElements.value.map((slot) => slot.slotContainer),
+        ]
+      : saveSlotsElements.value.map((slot) => slot.slotContainer);
+  const saves =
+    saveMode.value === 'manual'
+      ? [...autoSlots.value, ...manualSlots.value]
+      : saveSlots;
   saveElementsIndexes.value = saves.map((save) => {
     return {
       id: save.id,
@@ -187,17 +218,6 @@ function setupSaveElements() {
 }
 onMounted(() => {
   setupSaveElements();
-  navigation.value = useNavigation({
-    mode: 'list',
-    elements: saveElements,
-    listener: inputListener.value,
-    onlyVertical: true,
-    noChoosing: true,
-    onSelected: (index) => {
-      // Do Stuff
-      navigationSelected.value = index;
-    },
-  }) as any;
 });
 
 onUnmounted(() => {

@@ -20,7 +20,7 @@ import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
 
 const listener = ref<InputListener | null>(
-  useInputs().registerInputListener({
+  useInputs().registerInputListener('yes-no', {
     cancel: {
       press: () => {
         chosen(false);

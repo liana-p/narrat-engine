@@ -49,7 +49,7 @@ const activeTab = computed(() => {
 });
 
 onMounted(() => {
-  listener.value = useInputs().registerInputListener({
+  listener.value = useInputs().registerInputListener('tabs-controller', {
     cancel: {
       press: () => {
         emit('close');

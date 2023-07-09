@@ -90,7 +90,7 @@ function saveRefuse() {
 }
 
 onBeforeMount(() => {
-  listener.value = useInputs().registerInputListener({
+  listener.value = useInputs().registerInputListener('in-game', {
     system: {
       press: () => {
         useMenu().openMenu('system');

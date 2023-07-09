@@ -1,5 +1,5 @@
 import { InputListener } from '@/stores/inputs-store';
-import { computed, ref, onMounted, onUnmounted, Ref } from 'vue';
+import { computed, ref, onMounted, onUnmounted, Ref, watch } from 'vue';
 
 export type GridNavigationOptions = {
   mode: 'grid';
@@ -11,7 +11,7 @@ export type ListNavigationOptions = {
 export type NavigationOptions = {
   mode: 'grid' | 'list';
   container?: Ref<HTMLElement | null>;
-  elements?: Ref<HTMLElement[]>;
+  elements?: Ref<(HTMLElement | null)[]>;
   listener?: InputListener | null;
   loopForbidden?: boolean;
   onChosen?: (index: number) => void;
@@ -27,22 +27,31 @@ export function useNavigation(options: NavigationOptions) {
     return null;
   }
   const selectedIndex = ref(0);
-  const selectedElement = computed(() =>
-    getElementAtIndex(selectedIndex.value),
-  );
+
   const currentColumn = computed(() =>
     options.mode === 'grid'
       ? selectedIndex.value % (options as GridNavigationOptions).columns
       : 0,
   );
-  const selectables = computed(() => {
+  const selectables = ref<HTMLElement[]>([]);
+  function findSelectables() {
     if (options.container?.value) {
       return options.container.value.children as any as HTMLElement[];
     } else if (options.elements?.value) {
-      return options.elements.value;
+      return options.elements.value.filter(
+        (el) => el !== null,
+      ) as HTMLElement[];
     }
     return [] as HTMLElement[];
-  });
+  }
+
+  function updateSelectables() {
+    selectables.value = findSelectables();
+  }
+
+  const selectedElement = computed(() =>
+    getElementAtIndex(selectedIndex.value),
+  );
 
   function isValid(index: number): boolean {
     if (selectables.value) {
@@ -160,9 +169,29 @@ export function useNavigation(options: NavigationOptions) {
   }
 
   onMounted(() => {
+    mount();
+  });
+  function disable() {
     if (!options.listener) {
       return;
     }
+    if (!options.onlyVertical) {
+      delete options.listener.actions.left;
+      delete options.listener.actions.right;
+    }
+    if (!options.onlyHorizontal) {
+      delete options.listener.actions.up;
+      delete options.listener.actions.down;
+    }
+    if (!options.noChoosing) {
+      delete options.listener.actions.continue;
+    }
+  }
+  function mount() {
+    if (!options.listener) {
+      return;
+    }
+    updateSelectables();
     if (!options.onlyVertical) {
       options.listener.actions.left = {
         press: buttonLeft,
@@ -185,24 +214,19 @@ export function useNavigation(options: NavigationOptions) {
       };
     }
     select(0);
-  });
-  function disable() {
-    if (!options.listener) {
-      return;
-    }
-    if (!options.onlyVertical) {
-      delete options.listener.actions.left;
-      delete options.listener.actions.right;
-    }
-    if (!options.onlyHorizontal) {
-      delete options.listener.actions.up;
-      delete options.listener.actions.down;
-    }
-    delete options.listener.actions.continue;
   }
   onUnmounted(() => {
     disable();
   });
+
+  watch(
+    () => options.elements?.value,
+    (newValue) => {
+      if (newValue) {
+        updateSelectables();
+      }
+    },
+  );
   return {
     selectedIndex,
     selectedElement,
@@ -217,6 +241,7 @@ export function useNavigation(options: NavigationOptions) {
     selectNext,
     select,
     disable,
+    mount,
   };
 }
 

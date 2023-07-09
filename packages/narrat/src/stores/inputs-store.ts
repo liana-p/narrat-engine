@@ -164,6 +164,7 @@ const defaultActions: Action[] = [
 
 export interface InputListener {
   id: string;
+  name: string;
   actions: Record<string, InputStoreEvents>;
 }
 
@@ -177,7 +178,7 @@ export const useInputs = defineStore('inputs', {
     ({
       inputStack: [],
       baseInputListener: null as any,
-    } as InputsStoreState),
+    }) as InputsStoreState,
   actions: {
     setupInputs() {
       useGamepad().setupGamepads();
@@ -245,11 +246,13 @@ export const useInputs = defineStore('inputs', {
       return inputs;
     },
     registerInputListener(
+      name: string,
       listeners?: Record<string, InputStoreEvents>,
     ): InputListener {
       const id = `${Date.now()}-${Math.floor(Math.random() * 100000000)}`;
       const listener = {
         id,
+        name,
         actions: listeners ?? {},
       };
       this.inputStack.push(listener);

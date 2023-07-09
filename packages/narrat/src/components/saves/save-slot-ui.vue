@@ -1,5 +1,5 @@
 <template>
-  <div class="save-slot flex flex-row">
+  <div class="save-slot flex flex-row" ref="slotContainer">
     <div class="used-save-slot flex flex-row justify-between items-center grow">
       <div class="flex flex-col save-slot-number-container">
         <h1 class="save-slot-number">{{ saveNumberText() }}</h1>
@@ -32,6 +32,7 @@
         <button
           class="button"
           @click="() => buttonAction(index)"
+          :class="{ selected: selected && index === selectedButtonIndex }"
           v-for="(action, index) in actions"
           :key="index"
         >
@@ -60,8 +61,13 @@ const props = defineProps<{
 
 const navigation = ref<NavigationState | null | undefined>(null);
 const actionsContainer = ref<HTMLElement | null>(null);
+const slotContainer = ref<HTMLElement | null>(null);
 
+defineExpose({
+  slotContainer,
+});
 const saveName = ref(props.saveSlot.saveData?.metadata.name ?? 'Empty Save');
+const selectedButtonIndex = ref(0);
 const hasSaveData = computed(() => props.saveSlot.saveData !== null);
 const saveData = computed(() => props.saveSlot.saveData);
 const saveMode = computed(() => getConfig().saves.mode);
@@ -122,11 +128,15 @@ function mountNavigation() {
     container: actionsContainer,
     listener: props.inputListener,
     onlyHorizontal: true,
+    onSelected: (index) => {
+      selectedButtonIndex.value = index;
+    },
     onChosen: (index) => {
       // do stuff
       buttonAction(index);
     },
   }) as any;
+  navigation.value!.mount();
 }
 
 function unmountNavigation() {
@@ -136,7 +146,7 @@ function unmountNavigation() {
 
 watch(
   () => props.selected,
-  (previousValue, selected) => {
+  (selected, previousValue) => {
     if (selected && !navigation.value) {
       mountNavigation();
     }

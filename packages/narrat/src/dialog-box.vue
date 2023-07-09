@@ -282,9 +282,13 @@ function startTextAnimation() {
       updateTextAnimation();
     }, 30);
   } else if (isBasicChoice.value) {
-    autoTimer.value = setTimeout(() => {
-      endTextAnimation();
-    }, (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) * props.options.text.length);
+    autoTimer.value = setTimeout(
+      () => {
+        endTextAnimation();
+      },
+      (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
+        props.options.text.length,
+    );
   }
 }
 
