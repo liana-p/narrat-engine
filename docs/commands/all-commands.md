@@ -170,6 +170,93 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | splice            | `splice $data.myArray 1 2 // Returns [50, 75]`                                | Removes a slice of an array, with the first parameter being the start index and the second being the number of elements to remove. Returns the sliced elements |
 | random_from_array | `random_from_array $data.myArray // Returns a random element from the array`  | Returns a random element from an array                                                                                                                         |
 | shuffle           | `shuffle $data.myArray // Returns a shuffled array`                           | Shuffles an array                                                                                                                                              |
+| entries           | `entries $data.myArray // Returns [[0, 25], [1, 50], [2, 75]]`                | Returns an array of arrays, each containing the index and value of the original array's elements                                                               |
+
+## Array transformation functions
+
+Those functions loop through arrays to perform an operation on each element.
+Most of them take a `predicate` parameter, which should be the name of a narrat label that will be called on each element.
+
+The predicate gets given three parameters:
+
+- `element`: The array element for the current iteration
+- `index`: The index of the current iteration
+- `array`: The array being iterated over
+
+Some of those functions may take different parameters though.
+
+Example:
+
+```narrat
+test_arrays:
+  var simple (new Array "a" "b" "c" "d")
+  var index (array_find_index $simple test_find)
+  "Index: %{$index}"
+  var mapped_array (array_map $simple test_map)
+  var concatenated (array_join $mapped_array ", ")
+  "Concatenated: %{$concatenated}"
+
+test_forEach element index array:
+  "For each: %{$element} %{$index} %{$array}"
+
+test_find element index array:
+  if (== $element "c"):
+    return true
+  else:
+    return false
+
+test_map element index array:
+  return (concat $element " mapped")
+```
+
+Most of those functions have an API based on similar JavaScript equivalents, which you can find [on the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).
+
+| Command          | Example                                           | Description                                                                                                                                                                                                                                                          |
+| ---------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| array_find_index | `var index (array_find_index $array test_find)`   | Will run the `test_find` label with values passed from the array until it returns true, at which point it will return that index. If nothing is found, it will return -1                                                                                             |
+| array_find       | `var element (array_find $array test_find)`       | Will run the `test_find` label with values passed from the array until it returns true, at which point it will return that element. If nothing is found, it will return null                                                                                         |
+| array_filter     | `var filtered (array_filter $array test_filter)`  | Will run the `test_filter` label with values passed from the array. Every element for which `test_filter` returns true will be added to the new result array that gets returned at the end                                                                           |
+| array_map        | `var mapped (array_map $array test_map)`          | Will run the `test_map` label with values passed from the array. A new resulting array is created which gets as values the return values of `test_map` passed for each element                                                                                       |
+| array_reduce     | `var reduced (array_reduce $array test_reduce 0)` | Will run the `test_reduce` label with values passed from the array. Before the element, index and array parameters the test_reduce function will reduce the current accumulated reduced value, starting with the initial value passed in the initial call (`0` here) |
+| array_some       | `var some (array_some $array test_some)`          | Will run the `test_some` label with values passed from the array. If any of the calls to `test_some` return true, the function will return true. If none of them do, it will return false                                                                            |
+| array_every      | `var every (array_every $array test_every)`       | Will run the `test_every` label with values passed from the array. If all of the calls to `test_every` return true, the function will return true. If any of them don't, it will return false                                                                        |
+
+## Object Commands
+
+imagine we have the following object:
+
+```narrat
+main:
+  var test_object (new Object)
+  set test_object.a "hello"
+  set test_object.b "world"
+```
+
+| Command        | Example                               | Description                                                                                                 |
+| -------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| object_keys    | `var keys (object_keys $array)`       | Returns an array with the keys in the object. In this case would return ["a", "b"]                          |
+| object_values  | `var values (object_values $array)`   | Returns an array with the values in the object. In this case would return ["hello", "world"]                |
+| object_entries | `var entries (object_entries $array)` | Returns an array with the entries in the object. In this case would return [["a", "hello"], ["b", "world"]] |
+| object_has     | `var has (object_has $array "a")`     | Returns true if the object has the given key, false otherwise                                               |
+
+## For loop commands
+
+Narrat doesn't have proper support for loops yet, but those two commands can help give similar functionality (they work on both arrays and objects).
+
+Imagine we have the following test array:
+
+```narrat
+main:
+  var test_array (new Array "a" "b" "c" "d")
+
+do_things element:
+  "Element: %{$element}"
+```
+
+| Command | Example                        | Description                                                                                                                                                         |
+| ------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| for_of  | `for_of $test_array do_things` | Will run the `do_things` label once for each element in the array, passing the `element` as the first property. This one iterates over _values_                     |
+| for_in  | `for_in $test_array do_things` | Will run the `do_things` label once for each element in the array, passing the `index` (or `key` if an object) as the first property. This one iterates over _keys_ |
 
 ## Time
 

@@ -1,8 +1,5 @@
-import { JUMP_SIGNAL, RETURN_SIGNAL, STOP_SIGNAL } from '@/constants';
-import { useMain } from '@/stores/main-store';
-import { SetFrameOptions, useVM } from '@/stores/vm-store';
-import { error } from '@/utils/error-handling';
-import { commandLog, commandRuntimeError } from './command-helpers';
+import { useVM } from '@/stores/vm-store';
+import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
 
 export const shuffleCommand = CommandPlugin.FromOptions<{ array: any[] }>({
@@ -39,7 +36,6 @@ export const pushCommand = CommandPlugin.FromOptions<{
   },
 });
 
-// Create array popCommand, joinCommand, concatCommand, includesCommand, reverseCommand, shiftCommand, sliceCommand
 export const popCommand = CommandPlugin.FromOptions<{ array: any[] }>({
   keyword: 'pop',
   argTypes: [{ name: 'array', type: 'any' }],
@@ -63,6 +59,26 @@ export const shiftCommand = CommandPlugin.FromOptions<{ array: any[] }>({
       return;
     }
     return array.shift();
+  },
+});
+
+export const unshiftCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  value: any;
+}>({
+  keyword: 'unshift',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'value', type: 'any' },
+  ],
+  runner: async (cmd) => {
+    const { array, value } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+      return;
+    }
+    array.unshift(value);
+    return array;
   },
 });
 
@@ -225,6 +241,8 @@ export const arrayFindIndexCommand = CommandPlugin.FromOptions<{
       const predicateResult = await useVM().runLabelFunction(
         predicateLabel,
         element,
+        index,
+        array,
         ...cmd.args.slice(2),
       );
       if (predicateResult === true) {
@@ -232,6 +250,207 @@ export const arrayFindIndexCommand = CommandPlugin.FromOptions<{
       }
     }
     return -1;
+  },
+});
+
+export const arrayFindCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  predicateLabel: string;
+}>({
+  keyword: 'array_find',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'predicateLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, predicateLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        predicateLabel,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(2),
+      );
+      if (predicateResult === true) {
+        return element;
+      }
+    }
+    return null;
+  },
+});
+
+export const arrayFilterCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  predicateLabel: string;
+}>({
+  keyword: 'array_filter',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'predicateLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, predicateLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    const result = [];
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        predicateLabel,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(2),
+      );
+      if (predicateResult === true) {
+        result.push(element);
+      }
+    }
+    return result;
+  },
+});
+
+export const arrayMapCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  mapperLabel: string;
+}>({
+  keyword: 'array_map',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'mapperLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, mapperLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    const result = [];
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        mapperLabel,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(2),
+      );
+      result.push(predicateResult);
+    }
+    return result;
+  },
+});
+
+export const arrayReduceCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  reducerLabel: string;
+  initValue: any;
+}>({
+  keyword: 'array_reduce',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'reducerLabel', type: 'string' },
+    { name: 'initValue', type: 'any' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, reducerLabel, initValue } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    let result = initValue;
+    for (const [index, element] of array.entries()) {
+      result = await useVM().runLabelFunction(
+        reducerLabel,
+        result,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(3),
+      );
+    }
+    return result;
+  },
+});
+
+export const arraySomeCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  predicateLabel: string;
+}>({
+  keyword: 'array_some',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'predicateLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, predicateLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        predicateLabel,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(2),
+      );
+      if (predicateResult === true) {
+        return true;
+      }
+    }
+    return false;
+  },
+});
+
+export const arrayEveryCommand = CommandPlugin.FromOptions<{
+  array: any[];
+  predicateLabel: string;
+}>({
+  keyword: 'array_every',
+  argTypes: [
+    { name: 'array', type: 'any' },
+    { name: 'predicateLabel', type: 'string' },
+    { name: 'rest', type: 'rest', optional: true },
+  ],
+  runner: async (cmd) => {
+    const { array, predicateLabel } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    for (const [index, element] of array.entries()) {
+      const predicateResult = await useVM().runLabelFunction(
+        predicateLabel,
+        element,
+        index,
+        array,
+        ...cmd.args.slice(2),
+      );
+      if (predicateResult !== true) {
+        return false;
+      }
+    }
+    return true;
+  },
+});
+
+export const arrayEntriesCommand = CommandPlugin.FromOptions<{
+  array: any[];
+}>({
+  keyword: 'array_entries',
+  argTypes: [{ name: 'array', type: 'any' }],
+  runner: async (cmd) => {
+    const { array } = cmd.options;
+    if (!Array.isArray(array)) {
+      commandRuntimeError(cmd, `requires an array argument`);
+    }
+    return array.entries();
   },
 });
 
