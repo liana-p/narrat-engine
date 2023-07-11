@@ -1,0 +1,16 @@
+test_arrays:
+  var simple (new Array "a" "b" "c" "d")
+  var index (array_find_index $simple test_find)
+  "Index: %{$index}"
+
+test_forEach element index array:
+  "For each: %{$element} %{$index} %{$array}"
+
+test_find element index array:
+  if (== $element "c"):
+    return true
+  else:
+    return false
+
+test_map element index array:
+  return (concat $element " mapped")

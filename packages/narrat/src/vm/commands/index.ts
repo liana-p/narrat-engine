@@ -108,7 +108,14 @@ import {
   emptySpritesCommand,
 } from './sprite-commands';
 import {
+  arrayEntriesCommand,
+  arrayEveryCommand,
+  arrayFilterCommand,
+  arrayFindCommand,
   arrayFindIndexCommand,
+  arrayMapCommand,
+  arrayReduceCommand,
+  arraySomeCommand,
   concatCommand,
   includesCommand,
   joinCommand,
@@ -119,6 +126,7 @@ import {
   shuffleCommand,
   sliceCommand,
   spliceCommand,
+  unshiftCommand,
 } from './array-commands';
 import {
   changeGameCharacterPlugin,
@@ -139,6 +147,14 @@ import {
   unlockAchievement,
 } from './achievements-commands';
 import { getSettingPlugin, setSettingPlugin } from './settings-commands';
+import {
+  forInCommand,
+  forOfCommand,
+  objectEntriesCommand,
+  objectHasCommand,
+  objectKeysCommand,
+  objectValuesCommand,
+} from './object-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -275,6 +291,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(pushCommand);
   vm.addCommand(popCommand);
   vm.addCommand(shiftCommand);
+  vm.addCommand(unshiftCommand);
   vm.addCommand(joinCommand);
   vm.addCommand(concatCommand);
   vm.addCommand(includesCommand);
@@ -282,6 +299,23 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(sliceCommand);
   vm.addCommand(spliceCommand);
   vm.addCommand(arrayFindIndexCommand);
+  vm.addCommand(arrayFindCommand);
+  vm.addCommand(arrayFilterCommand);
+  vm.addCommand(arrayMapCommand);
+  vm.addCommand(arrayReduceCommand);
+  vm.addCommand(arraySomeCommand);
+  vm.addCommand(arrayEveryCommand);
+  vm.addCommand(arrayEntriesCommand);
+
+  // Object commands
+  vm.addCommand(objectKeysCommand);
+  vm.addCommand(objectValuesCommand);
+  vm.addCommand(objectEntriesCommand);
+  vm.addCommand(objectHasCommand);
+
+  // For commands
+  vm.addCommand(forOfCommand);
+  vm.addCommand(forInCommand);
 
   // Util commands
   vm.addCommand(loadDataPlugin);
