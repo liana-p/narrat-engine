@@ -1,7 +1,35 @@
 test_arrays:
   var simple (new Array "a" "b" "c" "d")
   var index (array_find_index $simple test_find)
-  "Index: %{$index}"
+  "Find Index: %{$index}"
+  var element (array_find $simple test_find)
+  "Find: %{$element}"
+  var filtered (array_filter $simple test_filter)
+  run print_array $filtered "Filtered: "
+  var mapped (array_map $simple test_map)
+  run print_array $mapped "Mapped: "
+  var reduced (array_reduce $simple test_reduce "")
+  "Reduced: %{$reduced}"
+  var some (array_some $simple test_find)
+  "Some: %{$some}"
+  var every (array_every $simple test_every)
+  "Every: %{$every}"
+
+test_every element index array:
+  if (== $array[$index] $element):
+    return true
+  else:
+    return false
+
+test_reduce accumulator element index array:
+  return (concat $accumulator $element)
+
+print_array array start_text:
+  var string (array_join $array ", ")
+  "%{$start_text} %{$string}"
+
+print_element element:
+  "Element: %{$element}"
 
 test_forEach element index array:
   "For each: %{$element} %{$index} %{$array}"
@@ -14,3 +42,9 @@ test_find element index array:
 
 test_map element index array:
   return (concat $element " mapped")
+
+test_filter element index array:
+  if (== $element "c"):
+    return true
+  else:
+    return false

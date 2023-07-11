@@ -12,7 +12,7 @@ main:
   // jump test_hmr
   // jump test_save
   // jump test_new_inputs
-  jump test_arrays
+  // jump test_arrays
   jump quest_demo
 
 test_save:
@@ -263,7 +263,7 @@ sprite_from_card card x:
   set sprite.height 100
   return $sprite
 
-test_arrays:
+test_arrays_old:
   set data.c (new Array)
   log $data.c
   set data.array_size 10

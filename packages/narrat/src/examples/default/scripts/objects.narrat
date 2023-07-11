@@ -1,0 +1,11 @@
+test_objects:
+  var obj (new Object)
+  set obj.a "1"
+  set obj.b "2"
+  set obj.c "3"
+  var keys (object_keys $obj)
+  run print_array $keys "Key: "
+  var values (object_values $obj)
+  run print_array $values "Value: "
+  var entries (object_entries $obj)
+  run print_array $entries "Entry: "
