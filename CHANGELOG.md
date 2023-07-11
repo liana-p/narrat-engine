@@ -1,15 +1,16 @@
+## [3.2.11](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.11) (2023-07-11)
+
+### Features
+
+- new array functions ([#125](https://github.com/liana-p/narrat-engine/issues/125)) ([b03afab](https://github.com/liana-p/narrat-engine/commit/b03afab881467d1090eb49a1cb2a9c0681324ddb)) See [docs](https://docs.narrat.dev/commands/all-commands.html#array-transformation-functions)
+
 ## [3.2.10](https://github.com/liana-p/narrat-engine/compare/v3.2.9...v3.2.10) (2023-07-09)
-
-
 
 ## [3.2.9](https://github.com/liana-p/narrat-engine/compare/v3.2.8...v3.2.9) (2023-07-09)
 
-
 ### Bug Fixes
 
-* gamepads now working in chrome ([5cd6549](https://github.com/liana-p/narrat-engine/commit/5cd65495a2d0b5c1c10179cb0b0bff7dec36ea67))
-
-
+- gamepads now working in chrome ([5cd6549](https://github.com/liana-p/narrat-engine/commit/5cd65495a2d0b5c1c10179cb0b0bff7dec36ea67))
 
 ## [3.2.8](https://github.com/liana-p/narrat-engine/compare/v3.2.7...v3.2.8) (2023-07-09)
 

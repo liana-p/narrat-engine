@@ -4,7 +4,7 @@
   "main": "dist/narrat-plugin-counter.es.js",
   "module": "dist/narrat-plugin-counter.es.js",
   "types": "dist/plugin.d.ts",
-  "version": "3.2.10",
+  "version": "3.2.11",
   "repository": {
     "type": "git",
     "url": "git@github.com:liana-p/narrat-engine.git",
