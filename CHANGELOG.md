@@ -1,3 +1,17 @@
+## [3.2.12](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.12) (2023-07-13)
+
+
+### Bug Fixes
+
+* **buttons:** issue with changing button state after changing screens… ([#127](https://github.com/liana-p/narrat-engine/issues/127)) ([3de80f7](https://github.com/liana-p/narrat-engine/commit/3de80f78584ce4cd6a9d4e632e888ab2133a299f))
+
+
+### Features
+
+* new array functions ([#125](https://github.com/liana-p/narrat-engine/issues/125)) ([b03afab](https://github.com/liana-p/narrat-engine/commit/b03afab881467d1090eb49a1cb2a9c0681324ddb))
+
+
+
 ## [3.2.11](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.11) (2023-07-11)
 
 ### Features
