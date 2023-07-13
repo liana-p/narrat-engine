@@ -5,7 +5,11 @@
     :style="viewportStyle"
     v-if="inGame"
   >
-    <div v-for="(layer, index) in layers" :key="index" class="layer-container">
+    <div
+      v-for="(layer, index) in layers"
+      :key="layer.screen ?? ''"
+      class="layer-container"
+    >
       <NarratTransition
         v-if="layer.transition"
         :name="layer.transition.transition"

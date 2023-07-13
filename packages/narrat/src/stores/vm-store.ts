@@ -88,7 +88,7 @@ export const useVM = defineStore('vm', {
       labelStack: ['main'],
       commandsWaitingForPlayerAnswer: [],
       hasJumped: false,
-    } as VMState),
+    }) as VMState,
   actions: {
     generateSaveData(): { vmSave: VMSave; globalData: DataState } {
       return {

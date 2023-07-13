@@ -1,0 +1,31 @@
+test_buttons:
+  set_screen map
+  jump test_buttons_menu
+
+test_buttons_menu:
+  choice:
+    "What do we want to test?"
+    "Let's enable some buttons":
+      jump enable_buttons
+    "Let's disable some buttons":
+      jump disable_buttons
+
+enable_buttons:
+  set_button shopButton true
+  set_button tester true
+  set_button parkButton true
+  jump test_map_2
+  // jump test_buttons_menu
+
+test_map_2:
+  set_screen map_2
+  set_button shopButton hidden
+  set_button tester hidden
+
+disable_buttons:
+  set_button shopButton hidden
+  set_button tester hidden
+  set_button parkButton hidden
+  jump test_map_2
+
+  // jump test_buttons_menu

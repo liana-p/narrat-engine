@@ -6,8 +6,8 @@
     v-if="inGame"
   >
     <ViewportButton
-      v-for="(button, index) in screenButtons"
-      :key="index"
+      v-for="button in screenButtons"
+      :key="button"
       :id="button"
       :layerSelected="isLayerSelected"
       :transitioning="transitioning"
