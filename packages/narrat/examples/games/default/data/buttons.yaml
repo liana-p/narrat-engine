@@ -1,4 +1,26 @@
 buttons:
+  shopButton:
+    enabled: false
+    text: 'Shop'
+    cssClass: test-class
+    position:
+      left: 272
+      top: 142
+      width: 200
+      height: 50
+    anchor:
+      x: 0.5
+      y: 0.5
+    action: shopButton
+  tester:
+    enabled: true
+    text: 'Test'
+    position:
+      left: 400
+      top: 300
+      width: 200
+      height: 50
+    action: quest_demo
   parkButton:
     enabled: false
     text: Park
