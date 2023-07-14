@@ -1,0 +1,3 @@
+test_inventory:
+  add_item bread 1
+  add_item book 1

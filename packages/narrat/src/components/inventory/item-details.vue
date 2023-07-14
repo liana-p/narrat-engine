@@ -9,28 +9,25 @@
         <hr class="hr-solid" />
         <h3>Amount: {{ item.amount }}</h3>
         <p>{{ itemData.description }}</p>
-        <button
-          @click="$emit('use')"
-          class="button"
-          :class="canUse ? '' : 'disabled'"
-        >
+        <button @click="use" class="button" :class="canUse ? '' : 'disabled'">
           Use
         </button>
       </div>
     </div>
-    <button class="button" @click="$emit('close')">{{ '<--' }}</button>
+    <button class="button" @click="close">{{ '<--' }}</button>
   </div>
 </template>
 <script lang="ts" setup>
 import { getAssetUrl, getItemConfig } from '@/config';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 import { ItemState, useInventory } from '@/stores/inventory-store';
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps<{
   item: ItemState;
 }>();
-defineEmits(['close', 'use']);
 
+const listener = ref<InputListener | null>(null);
 const itemData = computed(() => {
   return getItemConfig(props.item.id);
 });
@@ -41,8 +38,42 @@ const itemStyle = computed(() => {
   };
 });
 
+const emit = defineEmits(['use', 'close']);
 const canUse = computed(() => {
   return useInventory().canUseItem(props.item);
+});
+
+function use() {
+  if (canUse.value) {
+    emit('use');
+  }
+}
+
+function close() {
+  emit('close');
+}
+
+onMounted(() => {
+  listener.value = useInputs().registerInputListener('item-details', {
+    continue: {
+      press: () => {
+        if (canUse.value) {
+          use();
+        }
+      },
+    },
+    cancel: {
+      press: () => {
+        close();
+      },
+    },
+  });
+});
+onUnmounted(() => {
+  if (listener.value) {
+    useInputs().unregisterInputListener(listener.value);
+    listener.value = null;
+  }
 });
 </script>
 <style>

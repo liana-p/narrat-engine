@@ -100,7 +100,6 @@ onUnmounted(() => {
 .tab-content {
   position: relative;
   width: 100%;
-  margin-top: 2rem;
 }
 
 .tabs-controller__tabs {

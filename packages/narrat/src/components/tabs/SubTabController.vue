@@ -7,19 +7,20 @@
         :tab="tab"
         :active="index === activeTabIndex"
         @click="() => clickOnTab(index)"
-        :inputListener="listener"
       />
     </div>
-    <div class="tab-content" v-if="activeTab">
+    <div class="sub-tab-content" v-if="activeTab">
       <component
         :is="activeTab.component"
-        :inputListener="listener"
+        :key="activeTab.id"
+        :inputListener="inputListener"
+        v-bind="activeTab.extraProps"
         v-if="activeTab"
         @close="$emit('close')"
       />
     </div>
     <div v-else>
-      <div class="tab-content__empty">
+      <div class="sub-tab-content__empty">
         <p>No tab selected</p>
       </div>
     </div>
@@ -28,49 +29,16 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import TabSelector, { TabOptions } from './tab-selector.vue';
-import { InputListener, useInputs } from '@/stores/inputs-store';
+import { InputListener } from '@/stores/inputs-store';
 
-export interface TabControllerProps {
+export interface SubTabControllerProps {
   tabs: TabOptions[];
   defaultTab: number;
+  inputListener: InputListener;
 }
-const listener = ref<InputListener | null>(
-  useInputs().registerInputListener('tabs-controller', {
-    cancel: {
-      press: () => {
-        emit('close');
-      },
-    },
-    system: {
-      press: () => {
-        emit('close');
-      },
-    },
-    menu: {
-      press: () => {
-        emit('close');
-      },
-    },
-    subPreviousTab: {
-      press: () => {
-        if (activeTabIndex.value > 0) {
-          clickOnTab(activeTabIndex.value - 1);
-        }
-      },
-    },
-    subNextTab: {
-      press: () => {
-        if (activeTabIndex.value < props.tabs.length - 1) {
-          console.log(`Next tab ${activeTabIndex.value + 1}`);
-          clickOnTab(activeTabIndex.value + 1);
-        }
-      },
-    },
-  }),
-);
 
 const emit = defineEmits(['tab-change', 'close']);
-const props = defineProps<TabControllerProps>();
+const props = defineProps<SubTabControllerProps>();
 const activeTabIndex = ref<number>(props.defaultTab);
 
 function clickOnTab(tab: number) {
@@ -82,28 +50,46 @@ const activeTab = computed(() => {
   return props.tabs[activeTabIndex.value];
 });
 
+onMounted(() => {
+  // eslint-disable-next-line vue/no-mutating-props
+  props.inputListener.actions.subPreviousTab = {
+    press: () => {
+      if (activeTabIndex.value > 0) {
+        clickOnTab(activeTabIndex.value - 1);
+      }
+    },
+  };
+  // eslint-disable-next-line vue/no-mutating-props
+  props.inputListener.actions.subNextTab = {
+    press: () => {
+      if (activeTabIndex.value < props.tabs.length - 1) {
+        clickOnTab(activeTabIndex.value + 1);
+      }
+    },
+  };
+});
 onUnmounted(() => {
-  if (listener.value) {
-    useInputs().unregisterInputListener(listener.value!);
-    listener.value = null;
-  }
+  // eslint-disable-next-line vue/no-mutating-props
+  delete props.inputListener.actions.subPreviousTab;
+  // eslint-disable-next-line vue/no-mutating-props
+  delete props.inputListener.actions.subNextTab;
 });
 </script>
 <style>
-.tabs-controller {
+.sub-tabs-controller {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   padding: 0px 2rem;
 }
-.tab-content {
+.sub-tab-content {
   position: relative;
   width: 100%;
   margin-top: 2rem;
 }
 
-.tabs-controller__tabs {
+.sub-tabs-controller__tabs {
   position: relative;
   width: 100%;
   display: flex;
