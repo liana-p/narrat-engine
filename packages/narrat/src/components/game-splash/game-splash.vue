@@ -48,10 +48,15 @@ onMounted(() => {
         goToMainMenu();
       },
     },
+    system: {
+      press: () => {
+        goToMainMenu();
+      },
+    },
   });
-  if (main.options.debug) {
-    goToMainMenu();
-  }
+  // if (main.options.debug) {
+  //   goToMainMenu();
+  // }
 });
 onUnmounted(() => {
   if (inputListener.value) {

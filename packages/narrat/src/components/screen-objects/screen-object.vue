@@ -125,7 +125,7 @@ const objectStyle = computed(() => {
 }
 
 .viewport-object.selected {
-  border: 2px solid cyan;
+  border: var(--selected-border);
 }
 
 .viewport-object.interactable {

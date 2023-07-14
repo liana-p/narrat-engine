@@ -1,6 +1,6 @@
 import { CustomStartMenuButton } from '@/exports/plugins';
 import { vm } from '@/vm/vm';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export interface StartMenuState {
   buttons: CustomStartMenuButton[];
@@ -10,7 +10,7 @@ export const useStartMenu = defineStore('startMenu', {
   state: () =>
     ({
       buttons: [],
-    } as StartMenuState),
+    }) as StartMenuState,
   actions: {
     addButtonsFromPlugins() {
       const plugins = vm.plugins;
@@ -31,3 +31,7 @@ export const useStartMenu = defineStore('startMenu', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useStartMenu, import.meta.hot));
+}

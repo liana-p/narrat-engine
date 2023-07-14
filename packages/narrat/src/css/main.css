@@ -110,7 +110,10 @@
   --save-ui-border-width: 1px;
   --save-ui-border-color: rgba(255, 255, 255, 0.3);
   --save-ui-selected-background: #bf9a21;
+
+  --selected-border: 2px solid cyan;
 }
+
 body {
   font-family: var(--font-family);
 }
@@ -330,28 +333,40 @@ hr.solid {
 }
 
 .card-1 {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card-1:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .card-2 {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .card-3 {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .card-4 {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .card-5 {
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.7), 0 15px 12px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.7),
+    0 15px 12px rgba(0, 0, 0, 0.5);
 }
 
 .dialog-choice {
@@ -504,5 +519,9 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 }
 
 .button.selected {
-  border: 2px solid cyan;
+  border: var(--selected-border);
+}
+
+* {
+  box-sizing: border-box;
 }

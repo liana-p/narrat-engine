@@ -1,7 +1,7 @@
 import { deepCopy } from '@/utils/data-helpers';
 import { randomId } from '@/utils/randomId';
 import { processText } from '@/utils/string-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export type AddDialogParams = Omit<DialogKey, 'id' | 'interactive'> & {
   interactive?: boolean;
@@ -35,7 +35,7 @@ export const useDialogStore = defineStore('dialog', {
     ({
       dialog: [],
       playMode: 'normal',
-    } as DialogState),
+    }) as DialogState,
   actions: {
     generateSaveData(): DialogSave {
       return {
@@ -76,3 +76,7 @@ export const useDialogStore = defineStore('dialog', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useDialogStore, import.meta.hot));
+}

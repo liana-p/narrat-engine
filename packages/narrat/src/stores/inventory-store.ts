@@ -2,7 +2,7 @@
 
 import { ItemConfig } from '@/config/items-config';
 import { deepCopy } from '@/utils/data-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, getItemConfig } from '../config';
 import { useDialogStore } from './dialog-store';
 import { useNotifications } from './notification-store';
@@ -155,3 +155,7 @@ export const useInventory = defineStore('inventory', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useInventory, import.meta.hot));
+}

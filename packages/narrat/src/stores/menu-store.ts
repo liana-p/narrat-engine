@@ -5,7 +5,7 @@ import {
   questsConfig,
   skillsConfig,
 } from '@/config';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export interface MenuTabState {
   id: string;
@@ -39,7 +39,7 @@ export const useMenu = defineStore('menu', {
     ({
       menus: {},
       activeMenu: false,
-    } as MenuStoreState),
+    }) as MenuStoreState,
   getters: {
     showSkills(): boolean {
       if (Object.entries(skillsConfig().skills).length > 0) {
@@ -130,3 +130,7 @@ export const useMenu = defineStore('menu', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useMenu, import.meta.hot));
+}

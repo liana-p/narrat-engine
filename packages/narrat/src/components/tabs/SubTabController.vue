@@ -1,6 +1,6 @@
 <template>
-  <div class="tabs-controller">
-    <div class="tabs-controller__tabs" v-if="tabs.length > 1">
+  <div class="sub-tabs-controller">
+    <div class="sub-tabs-controller__tabs" v-if="tabs.length > 1">
       <TabSelector
         v-for="(tab, index) in tabs"
         :key="tab.id"
@@ -51,14 +51,14 @@ const listener = ref<InputListener | null>(
         emit('close');
       },
     },
-    previousTab: {
+    subPreviousTab: {
       press: () => {
         if (activeTabIndex.value > 0) {
           clickOnTab(activeTabIndex.value - 1);
         }
       },
     },
-    nextTab: {
+    subNextTab: {
       press: () => {
         if (activeTabIndex.value < props.tabs.length - 1) {
           console.log(`Next tab ${activeTabIndex.value + 1}`);

@@ -4,7 +4,7 @@ import { DEFAULT_TEXT_SPEED } from '@/constants';
 import { useConfig } from '@/stores/config-store';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export interface GameUserSettings {
   baseSettings: {
@@ -64,7 +64,7 @@ export const useSettings = defineStore('settings', {
       },
       customSettings: {},
       customSettingsSchema: {},
-    } as GameUserSettings),
+    }) as GameUserSettings,
   actions: {
     reset(config: Config) {
       this.$reset();
@@ -146,3 +146,7 @@ export const useSettings = defineStore('settings', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSettings, import.meta.hot));
+}

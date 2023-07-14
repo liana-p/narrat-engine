@@ -1,7 +1,7 @@
 import { QuestsConfig } from '@/config/quests-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getObjectiveConfig, getQuestConfig } from '../config';
 import { useNotifications } from './notification-store';
 
@@ -34,7 +34,7 @@ export const useQuests = defineStore('quests', {
   state: () =>
     ({
       quests: {},
-    } as QuestLogState),
+    }) as QuestLogState,
   actions: {
     getQuest(questId: string): QuestState {
       const quest = this.quests[questId];
@@ -176,3 +176,7 @@ export const useQuests = defineStore('quests', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useQuests, import.meta.hot));
+}

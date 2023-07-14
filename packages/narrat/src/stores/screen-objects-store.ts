@@ -5,7 +5,7 @@ import { getImage } from '@/utils/images-loader';
 import { mapObject } from '@/utils/object-iterators';
 import { randomId } from '@/utils/randomId';
 import { isViewportElementClickable } from '@/utils/viewport-utils';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useVM } from './vm-store';
 
 export type ScreenObjectType = 'screenObject' | 'sprite';
@@ -111,7 +111,7 @@ export const useScreenObjects = defineStore('screenObjects', {
     ({
       tree: [],
       objectsList: {},
-    } as ScreenObjectsStoreState),
+    }) as ScreenObjectsStoreState,
   actions: {
     addObject(object: ScreenObjectState) {
       if (object.parent) {
@@ -285,3 +285,7 @@ export const useScreenObjects = defineStore('screenObjects', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useScreenObjects, import.meta.hot));
+}

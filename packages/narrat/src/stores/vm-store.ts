@@ -19,7 +19,7 @@ import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { runCommand, vm } from '@/vm/vm';
 import { parseScript } from '@/vm/vm-parser';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useMain } from './main-store';
 import { isScreenObject, useScreenObjects } from './screen-objects-store';
@@ -492,3 +492,7 @@ export const useVM = defineStore('vm', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useVM, import.meta.hot));
+}
