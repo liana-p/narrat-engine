@@ -27,9 +27,12 @@ export interface InventorySectionProps {
   items: ItemState[];
   title: string;
   id: string;
-  inputListener: InputListener;
 }
-const props = defineProps<InventorySectionProps>();
+const props = defineProps<
+  InventorySectionProps & {
+    inputListener: InputListener;
+  }
+>();
 const itemsContainer = ref<HTMLElement | null>(null);
 const navigation = ref<NavigationState | null>(null);
 const emit = defineEmits(['chosen']);
