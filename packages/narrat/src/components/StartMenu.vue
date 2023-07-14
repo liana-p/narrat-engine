@@ -72,7 +72,6 @@ import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
-import { useConfig } from '@/lib';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
