@@ -5,7 +5,7 @@ import { error } from '@/utils/error-handling';
 import { timeout } from '@/utils/promises';
 import { generateObjectFromList } from '@/utils/type-utils';
 import { Howler } from 'howler';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export const audioModesArray = ['music', 'ambiant', 'sound'] as const;
 export const audioModes = generateObjectFromList(audioModesArray);
@@ -270,3 +270,7 @@ export const useAudio = defineStore('audio', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAudio, import.meta.hot));
+}

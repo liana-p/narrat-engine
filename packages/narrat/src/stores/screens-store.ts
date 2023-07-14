@@ -10,7 +10,7 @@ import {
   TransitionState,
 } from '@/utils/transition';
 import deepmerge from 'deepmerge';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useScreenObjects } from './screen-objects-store';
 import { useInventory } from './inventory-store';
 import {
@@ -53,7 +53,7 @@ export const defaultScreensState = (): ScreenState =>
       },
     ],
     buttons: {} as ButtonsState,
-  } as ScreenState);
+  }) as ScreenState;
 
 export const useScreens = defineStore('screens', {
   state: defaultScreensState,
@@ -241,3 +241,7 @@ export const useScreens = defineStore('screens', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useScreens, import.meta.hot));
+}

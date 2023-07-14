@@ -13,6 +13,7 @@
     <div class="tab-content" v-if="activeTab">
       <component
         :is="activeTab.component"
+        :inputListener="listener"
         v-if="activeTab"
         @close="$emit('close')"
       />
@@ -33,24 +34,19 @@ export interface TabControllerProps {
   tabs: TabOptions[];
   defaultTab: number;
 }
-const listener = ref<InputListener | null>(null);
-
-const emit = defineEmits(['tab-change', 'close']);
-const props = defineProps<TabControllerProps>();
-const activeTabIndex = ref<number>(props.defaultTab);
-
-function clickOnTab(tab: number) {
-  activeTabIndex.value = tab;
-  emit('tab-change', tab);
-}
-
-const activeTab = computed(() => {
-  return props.tabs[activeTabIndex.value];
-});
-
-onMounted(() => {
-  listener.value = useInputs().registerInputListener('tabs-controller', {
+const listener = ref<InputListener | null>(
+  useInputs().registerInputListener('tabs-controller', {
     cancel: {
+      press: () => {
+        emit('close');
+      },
+    },
+    system: {
+      press: () => {
+        emit('close');
+      },
+    },
+    menu: {
       press: () => {
         emit('close');
       },
@@ -70,8 +66,22 @@ onMounted(() => {
         }
       },
     },
-  });
+  }),
+);
+
+const emit = defineEmits(['tab-change', 'close']);
+const props = defineProps<TabControllerProps>();
+const activeTabIndex = ref<number>(props.defaultTab);
+
+function clickOnTab(tab: number) {
+  activeTabIndex.value = tab;
+  emit('tab-change', tab);
+}
+
+const activeTab = computed(() => {
+  return props.tabs[activeTabIndex.value];
 });
+
 onUnmounted(() => {
   if (listener.value) {
     useInputs().unregisterInputListener(listener.value!);
@@ -90,7 +100,6 @@ onUnmounted(() => {
 .tab-content {
   position: relative;
   width: 100%;
-  margin-top: 2rem;
 }
 
 .tabs-controller__tabs {

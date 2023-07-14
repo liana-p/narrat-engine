@@ -1,7 +1,7 @@
 import { timeout } from '@/utils/promises';
 import { processText } from '@/utils/string-helpers';
 import { writeText } from '@/vm/vm-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig } from '../config';
 
 export interface NotificationState {
@@ -17,7 +17,7 @@ export interface NotificationsState {
 }
 
 export const useNotifications = defineStore('notifications', {
-  state: () => ({ notifications: [], enabled: true } as NotificationsState),
+  state: () => ({ notifications: [], enabled: true }) as NotificationsState,
   actions: {
     async addNotification(text: string, description?: string, icon?: string) {
       if (!this.enabled) {
@@ -57,3 +57,6 @@ export const useNotifications = defineStore('notifications', {
     },
   },
 });
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useNotifications, import.meta.hot));
+}

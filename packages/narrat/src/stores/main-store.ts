@@ -16,7 +16,7 @@ import {
 } from '@/utils/save-helpers';
 import { getPlayTime } from '@/utils/time-helpers';
 import { playerAnswered, vm } from '@/vm/vm';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import {
   audioConfig,
   getAchievementsConfig,
@@ -135,7 +135,7 @@ export const useMain = defineStore('main', {
       saving: null,
       listener: new MainStoreListener(),
       inScript: false,
-    } as MainState),
+    }) as MainState,
   actions: {
     async setup() {
       const config = getConfig();
@@ -551,3 +551,7 @@ export const useMain = defineStore('main', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useMain, import.meta.hot));
+}

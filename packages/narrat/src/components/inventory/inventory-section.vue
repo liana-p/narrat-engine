@@ -1,9 +1,9 @@
 <template>
   <div class="inventory-section" :class="`section-${props.id}`">
     <h3>{{ title }}</h3>
-    <div class="inventory-section-items">
+    <div class="inventory-section-items" ref="itemsContainer">
       <button
-        @click="() => $emit('chosen', item.id)"
+        @click="() => choose(item.id)"
         class="item-display"
         :class="`item-${item.id}`"
         :style="getItemStyle(item.id)"
@@ -18,15 +18,28 @@
 </template>
 <script lang="ts" setup>
 import { getAssetUrl, getItemConfig } from '@/config';
+import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { InputListener } from '@/stores/inputs-store';
 import { ItemState } from '@/stores/inventory-store';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 export interface InventorySectionProps {
   items: ItemState[];
   title: string;
   id: string;
 }
-const props = defineProps<InventorySectionProps>();
+const props = defineProps<
+  InventorySectionProps & {
+    inputListener: InputListener;
+  }
+>();
+const itemsContainer = ref<HTMLElement | null>(null);
+const navigation = ref<NavigationState | null>(null);
+const emit = defineEmits(['chosen']);
 
+function choose(item: string) {
+  emit('chosen', item);
+}
 function getItemStyle(item: string): any {
   return {
     backgroundImage: `url(${getAssetUrl(getItemConfig(item).icon)})`,
@@ -35,6 +48,26 @@ function getItemStyle(item: string): any {
 function getItemName(item: string): string {
   return getItemConfig(item).name;
 }
+
+onMounted(() => {
+  navigation.value = useNavigation({
+    mode: 'grid',
+    listener: props.inputListener,
+    columns: 3,
+    container: itemsContainer,
+    onChosen: (index: number) => {
+      choose(props.items[index].id);
+    },
+  }) as any;
+  navigation.value!.mount();
+});
+
+onUnmounted(() => {
+  if (navigation.value) {
+    navigation.value.disable();
+    navigation.value = null;
+  }
+});
 </script>
 
 <style>
@@ -57,6 +90,10 @@ function getItemName(item: string): string {
   position: relative;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.item-display.selected {
+  border: var(--selected-border);
 }
 
 .item-title {

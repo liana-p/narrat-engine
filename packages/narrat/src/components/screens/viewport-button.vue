@@ -140,6 +140,6 @@ function clickOnButton() {
 }
 
 .viewport-button.selected {
-  border: 2px solid cyan;
+  border: var(--selected-border);
 }
 </style>

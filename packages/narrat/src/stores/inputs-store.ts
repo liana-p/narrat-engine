@@ -7,7 +7,7 @@ import {
   ButtonActionStatus,
 } from '@/inputs/Inputs';
 import { gameloop } from '@/utils/gameloop';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -127,6 +127,28 @@ const defaultActions: Action[] = [
     ],
   },
   {
+    id: 'subPreviousTab',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'i',
+        gamepadButton: 6,
+      },
+    ],
+  },
+  {
+    id: 'subNextTab',
+    type: 'button',
+    action: 'press',
+    keybinds: [
+      {
+        keyboardKey: 'u',
+        gamepadButton: 7,
+      },
+    ],
+  },
+  {
     id: 'viewportSelect',
     type: 'button',
     action: 'press',
@@ -220,7 +242,7 @@ export const useInputs = defineStore('inputs', {
       eventType: keyof InputStoreEvents,
       status: ActionStatus,
     ) {
-      console.log(`Triggering action ${actionKey} ${eventType}`);
+      // console.log(`Triggering action ${actionKey} ${eventType}`);
       const listener = this.inputStack[this.inputStack.length - 1];
       if (listener.actions[actionKey]) {
         if (listener.actions[actionKey][eventType]) {
@@ -272,3 +294,7 @@ export const useInputs = defineStore('inputs', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useInputs, import.meta.hot));
+}

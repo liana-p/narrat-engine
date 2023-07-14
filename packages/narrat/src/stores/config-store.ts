@@ -1,5 +1,5 @@
 import { Config, defaultConfig } from '@/config/config-output';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import deepmerge from 'deepmerge';
 
 export type ConfigStoreSave = {
@@ -41,3 +41,7 @@ export const useConfig = defineStore('config', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useConfig, import.meta.hot));
+}

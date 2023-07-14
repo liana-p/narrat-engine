@@ -1,5 +1,14 @@
 import { InputListener } from '@/stores/inputs-store';
-import { computed, ref, onMounted, onUnmounted, Ref, watch } from 'vue';
+import {
+  computed,
+  ref,
+  onMounted,
+  onUnmounted,
+  Ref,
+  watch,
+  nextTick,
+  ComputedRef,
+} from 'vue';
 
 export type GridNavigationOptions = {
   mode: 'grid';
@@ -11,7 +20,7 @@ export type ListNavigationOptions = {
 export type NavigationOptions = {
   mode: 'grid' | 'list';
   container?: Ref<HTMLElement | null>;
-  elements?: Ref<(HTMLElement | null)[]>;
+  elements?: Ref<(HTMLElement | null)[]> | ComputedRef<(HTMLElement | null)[]>;
   listener?: InputListener | null;
   loopForbidden?: boolean;
   onChosen?: (index: number) => void;
@@ -26,7 +35,7 @@ export function useNavigation(options: NavigationOptions) {
     console.warn('No input listener provided for navigation');
     return null;
   }
-  const selectedIndex = ref(0);
+  const selectedIndex = ref(-1);
 
   const currentColumn = computed(() =>
     options.mode === 'grid'
@@ -66,7 +75,10 @@ export function useNavigation(options: NavigationOptions) {
       selectedIndex.value = index;
       if (selectedElement.value) {
         selectedElement.value.classList.add('selected');
-        getElementAtIndex(previousIndex)!.classList.remove('selected');
+        const previous = getElementAtIndex(previousIndex);
+        if (previous && previousIndex !== index) {
+          previous.classList.remove('selected');
+        }
         if (options.onSelected) {
           options.onSelected(index);
         }

@@ -14,6 +14,7 @@ export interface TabOptions {
   label: string;
   icon?: string;
   component: Component | string;
+  extraProps?: Record<string, any>;
 }
 const props = defineProps<{
   tab: TabOptions;
@@ -43,7 +44,9 @@ function tabClick() {
 .tab-active {
   background: var(--tab-active-background);
   color: var(--tab-active-color);
-  text-shadow: 0 0 20px #fff, 0 0 30px var(--tab-selected-glow-color),
+  text-shadow:
+    0 0 20px #fff,
+    0 0 30px var(--tab-selected-glow-color),
     0 0 40px var(--tab-selected-glow-color),
     0 0 50px var(--tab-selected-glow-color),
     0 0 60px var(--tab-selected-glow-color),
@@ -67,7 +70,7 @@ function tabClick() {
 }
 
 .tab-title-container.active {
-  text-shadow: ;
+  text-shadow:;
 }
 
 .tab-title {

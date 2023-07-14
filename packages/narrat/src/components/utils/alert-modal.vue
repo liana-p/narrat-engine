@@ -1,5 +1,5 @@
 <template>
-  <ModalWindow @close="$emit('close')" containerCssClass="yes-no-modal">
+  <ModalWindow @close="close" containerCssClass="yes-no-modal">
     <template v-slot:header>
       <h3 class="title">{{ title ?? 'Alert' }}</h3>
     </template>
@@ -10,7 +10,9 @@
 </template>
 
 <script setup lang="ts">
+import { onUnmounted, ref } from 'vue';
 import ModalWindow from './modal-window.vue';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
 defineProps({
   title: {
@@ -21,6 +23,38 @@ defineProps({
     type: String,
     required: false,
   },
+});
+
+const emit = defineEmits(['close']);
+
+function close() {
+  emit('close');
+}
+
+const inputListener = ref<InputListener | null>(
+  useInputs().registerInputListener('yes-no', {
+    cancel: {
+      press: () => {
+        close();
+      },
+    },
+    continue: {
+      press: () => {
+        close();
+      },
+    },
+    system: {
+      press: () => {
+        close();
+      },
+    },
+  }),
+);
+
+onUnmounted(() => {
+  if (inputListener.value) {
+    useInputs().unregisterInputListener(inputListener.value);
+  }
 });
 </script>
 <style>

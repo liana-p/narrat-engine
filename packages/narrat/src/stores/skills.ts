@@ -2,7 +2,7 @@ import { SkillsConfig } from '@/config/skills-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import deepmerge from 'deepmerge';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, skillsConfig } from '../config';
 import { useNotifications } from './notification-store';
 
@@ -36,7 +36,7 @@ export const useSkills = defineStore('skills', {
     ({
       skillChecks: {},
       skills: {},
-    } as Skills),
+    }) as Skills,
   actions: {
     setupSkillCheck(skillCheck: SkillCheckState, id: string) {
       this.skillChecks[id] = skillCheck;
@@ -144,3 +144,7 @@ export const useSkills = defineStore('skills', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSkills, import.meta.hot));
+}

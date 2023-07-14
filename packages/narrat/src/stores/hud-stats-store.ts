@@ -1,7 +1,7 @@
 import { HudStatsConfig } from '@/config/common-config';
 import { deepCopy } from '@/utils/data-helpers';
 import deepmerge from 'deepmerge';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export interface HudStatsState {
   [key: string]: HudStat;
@@ -19,7 +19,7 @@ export const useHud = defineStore('hud', {
   state: () =>
     ({
       hudStats: {},
-    } as HudState),
+    }) as HudState,
   actions: {
     setupHudStats(stats: HudStatsConfig) {
       for (const stat in stats) {
@@ -54,3 +54,7 @@ export const useHud = defineStore('hud', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useHud, import.meta.hot));
+}

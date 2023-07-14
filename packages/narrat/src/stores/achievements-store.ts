@@ -2,7 +2,7 @@
 
 import { AchievementConfig } from '@/config/achievements-config';
 import { deepCopy } from '@/utils/data-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getAchievementConfig, getAchievementsConfig } from '../config';
 import { useNotifications } from './notification-store';
 import { error } from '@/utils/error-handling';
@@ -83,3 +83,7 @@ export const useAchievements = defineStore('achievements', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAchievements, import.meta.hot));
+}

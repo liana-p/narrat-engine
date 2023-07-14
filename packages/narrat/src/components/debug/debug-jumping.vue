@@ -32,7 +32,7 @@ import { InputListener, useInputs } from '@/stores/inputs-store';
 import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { vm } from '@/vm/vm';
 import ModalWindow from '../utils/modal-window.vue';
-import { useMain } from '@/lib';
+import { useMain } from '@/stores/main-store';
 
 const emit = defineEmits(['close', 'jump']);
 

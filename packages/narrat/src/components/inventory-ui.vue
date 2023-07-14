@@ -1,10 +1,9 @@
 <template>
-  <div v-if="!chosenItem && Object.keys(itemsToDisplay).length > 0">
+  <div v-if="!chosenItem && section.items.length > 0">
     <InventorySection
-      v-for="section in sections"
-      :key="section.id"
       :items="section.items"
       :title="section.title"
+      :inputListener="inputListener"
       :id="section.id"
       @chosen="clickItem"
     />
@@ -20,122 +19,72 @@
   </div>
 </template>
 
-<script lang="ts">
-import { getConfig, getItemConfig } from '@/config';
-import { ItemConfig } from '@/config/items-config';
-import { useDialogStore } from '@/stores/dialog-store';
-import { useInventory, ItemState } from '@/stores/inventory-store';
+<script lang="ts" setup>
+import { getConfig } from '@/config';
+import { useInventory } from '@/stores/inventory-store';
 import { useVM } from '@/stores/vm-store';
 import { audioEvent } from '@/utils/audio-loader';
 import { error } from '@/utils/error-handling';
-import { computed, defineComponent } from 'vue';
+import { computed, ref } from 'vue';
 import InventorySection, {
   InventorySectionProps,
 } from './inventory/inventory-section.vue';
 import ItemDetails from './inventory/item-details.vue';
+import { InputListener } from '@/stores/inputs-store';
 
-export default defineComponent({
-  setup() {
-    const store = useInventory();
-    const dialogStore = useDialogStore();
-    const items = computed(() => store.items);
-    const currentlyChoosing = computed(() => dialogStore.currentDialog.choices);
-    return { items, currentlyChoosing };
-  },
-  emits: ['close'],
-  data() {
-    return {
-      chosenId: false as string | false,
-    };
-  },
-  mounted() {},
-  methods: {
-    close() {
-      this.$emit('close');
-    },
-    clickItem(item: string) {
-      this.chosenId = item;
-    },
-    closeItem() {
-      this.chosenId = false;
-    },
-    useItem() {
-      if (this.chosenItem && this.canUseChosenItem && this.chosenItemConf) {
-        const onUse = this.chosenItemConf.onUse!;
-        this.close();
-        audioEvent('onItemUsed');
-        if (onUse.action === 'jump') {
-          useVM().jumpToLabel(onUse.label);
-        } else if (onUse.action === 'run') {
-          useVM().runThenGoBackToPreviousDialog(onUse.label, true);
-        } else {
-          error(`Unknown action ${onUse.action}`);
-        }
-      }
-    },
-  },
-  computed: {
-    itemsToDisplay(): ItemState[] {
-      return Object.values(this.items).filter((itemState) => {
-        if (itemState.amount > 0) {
-          return true;
-        } else {
-          const config = getItemConfig(itemState.id);
-          if (config.showIfEmpty) {
-            return true;
-          }
-        }
-        return false;
-      });
-    },
-    chosenItem(): null | ItemState {
-      if (this.chosenId) {
-        return this.items[this.chosenId];
-      }
-      return null;
-    },
-    canUseChosenItem() {
-      return useInventory().canUseItem(this.chosenItem!);
-    },
-    chosenItemConf(): null | ItemConfig {
-      if (this.chosenId) {
-        return this.itemConf[this.chosenId];
-      }
-      return null;
-    },
-    itemConf(): {
-      [key: string]: ItemConfig;
-    } {
-      return getConfig().items.items;
-    },
-    sections(): InventorySectionProps[] {
-      // Split the inventory into sections based on the item category, with a default category for items not in any.
-      const categories = getConfig().items.categories;
-      const sections: InventorySectionProps[] = [];
-      const possibleSections = this.itemsToDisplay.reduce((acc, item) => {
-        const category = getItemConfig(item.id).category ?? 'default';
-        const categoryConfig = categories.find((c) => c.id === category);
-        if (!categoryConfig) {
-          error(`Unknown category ${category}`);
-          return acc;
-        }
-        let matchingSection = acc.find((s) => s.id === category);
-        if (!matchingSection) {
-          matchingSection = {
-            id: category,
-            title: categoryConfig.title,
-            items: [],
-          };
-          acc.push(matchingSection);
-        }
-        matchingSection.items.push(item);
-        return acc;
-      }, sections);
-      return possibleSections;
-    },
-  },
-  components: { InventorySection, ItemDetails },
+const props = defineProps<{
+  section: InventorySectionProps;
+  inputListener: InputListener;
+}>();
+const store = useInventory();
+const items = computed(() => store.items);
+
+const emit = defineEmits(['close']);
+
+const chosenId = ref<false | string>(false);
+
+const chosenItem = computed(() => {
+  if (chosenId.value) {
+    return items.value[chosenId.value];
+  }
+  return null;
 });
+const canUseChosenItem = computed(() => {
+  return useInventory().canUseItem(chosenItem.value!);
+});
+const itemConf = computed(() => {
+  return getConfig().items.items;
+});
+const chosenItemConf = computed(() => {
+  if (chosenId.value) {
+    return itemConf.value[chosenId.value];
+  }
+  return null;
+});
+
+function close() {
+  emit('close');
+}
+function clickItem(item: string) {
+  chosenId.value = item;
+}
+function closeItem() {
+  chosenId.value = false;
+}
+function useItem() {
+  if (chosenItem.value && canUseChosenItem.value && chosenItemConf.value) {
+    const onUse = chosenItemConf.value.onUse!;
+    close();
+    audioEvent('onItemUsed');
+    if (onUse.action === 'jump') {
+      useVM().jumpToLabel(onUse.label);
+    } else if (onUse.action === 'run') {
+      useVM().runThenGoBackToPreviousDialog(onUse.label, true);
+    } else {
+      error(`Unknown action ${onUse.action}`);
+    }
+  }
+}
 </script>
 
 <style>

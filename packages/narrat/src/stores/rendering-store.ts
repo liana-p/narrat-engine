@@ -1,5 +1,5 @@
 import { aspectRatioFit } from '@/utils/helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, getDialogPanelWidth } from '../config';
 import { useMain } from './main-store';
 
@@ -15,7 +15,7 @@ export const useRenderingStore = defineStore('rendering', {
       screenHeight: window.innerHeight,
       screenWidth: window.innerWidth,
       layoutMode: 'horizontal',
-    } as RenderingState),
+    }) as RenderingState,
   actions: {
     updateScreenSize(width: number, height: number) {
       this.screenHeight = height;
@@ -108,3 +108,7 @@ export const useRenderingStore = defineStore('rendering', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useRenderingStore, import.meta.hot));
+}

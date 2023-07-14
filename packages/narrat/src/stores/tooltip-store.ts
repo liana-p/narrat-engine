@@ -1,5 +1,5 @@
 import { processText } from '@/utils/string-helpers';
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getTooltipConfig, tooltipsConfig } from '../config';
 
 export interface TooltipState {
@@ -15,7 +15,7 @@ export interface TooltipsState {
 }
 
 export const useTooltips = defineStore('tooltips', {
-  state: () => ({ tooltip: null } as TooltipsState),
+  state: () => ({ tooltip: null }) as TooltipsState,
   actions: {
     addCustomTooltip(tooltip: TooltipState) {
       if (tooltip.title) {
@@ -41,3 +41,7 @@ export const useTooltips = defineStore('tooltips', {
     },
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useTooltips, import.meta.hot));
+}
