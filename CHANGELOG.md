@@ -1,3 +1,12 @@
+## [3.2.13](https://github.com/liana-p/narrat-engine/compare/v3.2.12...v3.2.13) (2023-07-14)
+
+
+### Features
+
+* more gamepad menus (inventory and skills) ([#128](https://github.com/liana-p/narrat-engine/issues/128)) ([6c767de](https://github.com/liana-p/narrat-engine/commit/6c767de8cdda9d4cb1082289be1cc1fca10bd74a))
+
+
+
 ## [3.2.12](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.12) (2023-07-13)
 
 
