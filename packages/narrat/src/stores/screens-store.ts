@@ -239,6 +239,9 @@ export const useScreens = defineStore('screens', {
     nonEmptyLayers(state: ScreenState): FullLayerState[] {
       return state.layers.filter((layer) => layer) as FullLayerState[];
     },
+    isTransitioning(state: ScreenState): boolean {
+      return state.layers.some((layer) => layer?.transition);
+    },
   },
 });
 

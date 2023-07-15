@@ -3,6 +3,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, getDialogPanelWidth } from '../config';
 import { useMain } from './main-store';
 import { useSettings } from './settings-store';
+import { useScreens } from './screens-store';
 
 export interface RenderingState {
   screenWidth: number;
@@ -104,6 +105,9 @@ export const useRenderingStore = defineStore('rendering', {
     },
     showDialog(state: RenderingState): boolean {
       const inDialogue = useMain().inScript;
+      if (useScreens().isTransitioning) {
+        return false;
+      }
       if (!this.overlayMode || this.layoutMode === 'vertical') {
         return true;
       }

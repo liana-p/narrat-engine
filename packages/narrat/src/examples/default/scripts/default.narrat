@@ -13,7 +13,13 @@ main:
   // jump test_save
   // jump test_new_inputs
   // jump test_arrays
-  jump quest_demo
+  // set_screen map 0 fade 1000
+  set_screen map
+  "Hello world"
+  // jump quest_demo
+
+test_transition:
+  set_screen map_2 0 slide-top 1000
 
 test_save:
   set_screen map

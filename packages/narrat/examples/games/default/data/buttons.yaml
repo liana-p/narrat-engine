@@ -20,7 +20,7 @@ buttons:
       top: 300
       width: 200
       height: 50
-    action: quest_demo
+    action: test_transition
   parkButton:
     enabled: false
     text: Park
