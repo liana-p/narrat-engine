@@ -1,3 +1,12 @@
+## [3.2.14](https://github.com/liana-p/narrat-engine/compare/v3.2.13...v3.2.14) (2023-07-15)
+
+
+### Bug Fixes
+
+* default font size fix + reenabled debug on game splash screen ([#129](https://github.com/liana-p/narrat-engine/issues/129)) ([3b945a3](https://github.com/liana-p/narrat-engine/commit/3b945a381dd7bcfa5aef7b32af71c4be21bb53b5))
+
+
+
 ## [3.2.13](https://github.com/liana-p/narrat-engine/compare/v3.2.12...v3.2.13) (2023-07-14)
 
 
