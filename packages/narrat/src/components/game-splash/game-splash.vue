@@ -54,9 +54,9 @@ onMounted(() => {
       },
     },
   });
-  // if (main.options.debug) {
-  //   goToMainMenu();
-  // }
+  if (main.options.debug) {
+    goToMainMenu();
+  }
 });
 onUnmounted(() => {
   if (inputListener.value) {
