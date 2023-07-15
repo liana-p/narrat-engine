@@ -23,6 +23,7 @@ settings:
       defaultValue: Someone
       description: The name of the player. (not actually used, this is just to test custom settings)
 layout:
+  defaultFontSize: 16
   backgrounds:
     # Default was 880 x 720
     width: 1280

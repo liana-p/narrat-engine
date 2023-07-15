@@ -2,6 +2,7 @@ import { aspectRatioFit } from '@/utils/helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, getDialogPanelWidth } from '../config';
 import { useMain } from './main-store';
+import { useSettings } from './settings-store';
 
 export interface RenderingState {
   screenWidth: number;
@@ -22,10 +23,12 @@ export const useRenderingStore = defineStore('rendering', {
       this.screenWidth = width;
       if (width < getConfig().layout.verticalLayoutThreshold) {
         this.layoutMode = 'vertical';
-        document.querySelector('html')!.style.fontSize = '40px';
+        document.querySelector('html')!.style.fontSize =
+          `${useSettings().baseSettings.fontSize}px` ?? '40px';
       } else {
         this.layoutMode = 'horizontal';
-        document.querySelector('html')!.style.fontSize = '16px';
+        document.querySelector('html')!.style.fontSize =
+          `${useSettings().baseSettings.fontSize}px` ?? '16px';
       }
     },
   },
