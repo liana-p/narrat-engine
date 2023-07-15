@@ -1,3 +1,12 @@
+## [3.2.15](https://github.com/liana-p/narrat-engine/compare/v3.2.14...v3.2.15) (2023-07-15)
+
+
+### Bug Fixes
+
+* bug where dialog panel would appear during screen transitions ([8edbd20](https://github.com/liana-p/narrat-engine/commit/8edbd201a8e0da02edd1e5e483de6db6e6ef93ee))
+
+
+
 ## [3.2.14](https://github.com/liana-p/narrat-engine/compare/v3.2.13...v3.2.14) (2023-07-15)
 
 
