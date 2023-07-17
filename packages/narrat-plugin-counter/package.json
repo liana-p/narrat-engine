@@ -33,7 +33,7 @@
     "tsc-alias": "^1.6.11",
     "typescript": "^4.6.4",
     "vite": "^4.3.9",
-    "vue-tsc": "^0.38.4",
+    "vue-tsc": "^1.8.5",
     "narrat": "workspace:*",
     "pinia": "^2.0.14",
     "vue": "^3.2.37"
