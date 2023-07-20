@@ -9,8 +9,15 @@ export const InlineButtonConfigSchema = Type.Intersect([
 ]);
 export type InlineButtonConfig = Static<typeof InlineButtonConfigSchema>;
 
+export const VideoConfigSchema = Type.Object({
+  muted: Type.Optional(Type.Boolean()),
+  loop: Type.Optional(Type.Boolean()),
+});
+export type VideoConfig = Static<typeof VideoConfigSchema>;
+
 export const ScreenConfigSchema = Type.Object({
   background: Type.String(),
+  video: Type.Optional(VideoConfigSchema),
   buttons: Type.Optional(
     Type.Array(Type.Union([Type.String(), InlineButtonConfigSchema])),
   ),
