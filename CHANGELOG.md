@@ -1,3 +1,12 @@
+# [3.3.0](https://github.com/liana-p/narrat-engine/compare/v3.2.15...v3.3.0) (2023-07-20)
+
+
+### Features
+
+* new feature for video backgrounds in screens ([#132](https://github.com/liana-p/narrat-engine/issues/132)) ([fa646e4](https://github.com/liana-p/narrat-engine/commit/fa646e4767da4ba600638031c2f21ef636a0bcbe))
+
+
+
 ## [3.2.15](https://github.com/liana-p/narrat-engine/compare/v3.2.14...v3.2.15) (2023-07-15)
 
 
