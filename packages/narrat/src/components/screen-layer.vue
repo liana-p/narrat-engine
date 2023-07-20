@@ -2,9 +2,26 @@
   <div
     class="viewport-layer"
     :id="`viewport-layer-${currentScreen}`"
-    :style="layerStyle"
+    :style="containerStyle"
     v-if="inGame"
   >
+    <video
+      class="viewport-layer-background"
+      :id="`viewport-layer-background-${currentScreen}`"
+      :style="videoStyle"
+      v-if="video"
+      autoplay
+      :loop="video.loop === false ? false : true"
+      :muted="video.muted ? true : false"
+    >
+      <source :src="getAssetUrl(screenConfig.background)" />
+    </video>
+    <div
+      class="viewport-layer-background"
+      :id="`viewport-layer-background-${currentScreen}`"
+      :style="backgroundStyle"
+      v-else
+    ></div>
     <ViewportButton
       v-for="button in screenButtons"
       :key="button"
@@ -25,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { getConfig, getImageUrl, getScreenConfig } from '@/config';
+import { getAssetUrl, getConfig, getImageUrl, getScreenConfig } from '@/config';
 import { computed, CSSProperties } from 'vue';
 import { useMain } from '../stores/main-store';
 import { useScreenObjects } from '@/stores/screen-objects-store';
@@ -85,7 +102,16 @@ const screenButtons = computed(() => {
   return (screenConfig.value.buttons || []) as string[];
 });
 
-const layerStyle = computed<CSSProperties>(() => {
+const video = computed(() => {
+  return screenConfig.value.video;
+});
+const containerStyle = computed<CSSProperties>(() => {
+  return {
+    width: `${layoutWidth.value}px`,
+    height: `${layoutHeight.value}px`,
+  };
+});
+const backgroundStyle = computed<CSSProperties>(() => {
   let backgroundImage: string | undefined = `url(${getImageUrl(
     screenConfig.value.background,
   )})`;
@@ -94,6 +120,19 @@ const layerStyle = computed<CSSProperties>(() => {
   }
   return {
     backgroundImage,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: `${layoutWidth.value}px`,
+    height: `${layoutHeight.value}px`,
+  };
+});
+
+const videoStyle = computed<CSSProperties>(() => {
+  return {
+    position: 'absolute',
+    left: 0,
+    top: 0,
     width: `${layoutWidth.value}px`,
     height: `${layoutHeight.value}px`,
   };

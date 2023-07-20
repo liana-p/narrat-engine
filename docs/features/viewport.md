@@ -61,6 +61,19 @@ screens: data/screens.yaml
 - `background` : This is the id of an image loaded by the engine. Images are defined in the `images` section of the config
 - `buttons`: This is an array of ids of interactive buttons that exist in the screen.
 
+### Video backgrounds
+
+Backgrounds can use video files instead of static images if you want to have animated backgrounds. To do this, you need to add a `video` property to the background config:
+
+```yaml
+screens:
+  my_video_screen:
+    background: img/backgrounds/some_path_video.mp4
+    video:
+      loop: true # Optional, default is true
+      muted: false # Optional, default is false
+```
+
 ## Buttons config
 
 ```yaml
