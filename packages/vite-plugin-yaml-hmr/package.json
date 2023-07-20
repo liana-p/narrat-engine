@@ -1,0 +1,22 @@
+{
+  "name": "vite-plugin-yaml-hmr",
+  "description": "vite plugin for yaml files with hot-reload support",
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://narrat.dev",
+  "keywords": [
+    "vite-plugin",
+    "narrat",
+    "game"
+  ],
+  "author": "Liana Pigeot",
+  "license": "MIT",
+  "version": "3.2.15",
+  "main": "src/plugin.js",
+  "scripts": {},
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "tosource": "2.0.0-alpha.3"
+  }
+}
