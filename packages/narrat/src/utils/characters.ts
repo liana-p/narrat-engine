@@ -2,6 +2,7 @@ import { charactersConfig } from '@/config';
 import {
   CharacterConfig,
   DialogStyleConfig,
+  ImageCharacterPose,
   VideoCharacterPose,
 } from '@/config/characters-config';
 import { error } from './error-handling';
@@ -19,7 +20,7 @@ export function getCharacterInfo(
 export function getCharacterPoseData(
   character: string,
   pose?: string,
-): string | undefined | VideoCharacterPose {
+): ImageCharacterPose | undefined | VideoCharacterPose {
   const info = getCharacterInfo(character);
   if (!info) {
     return undefined;
@@ -29,6 +30,14 @@ export function getCharacterPoseData(
   }
   if (info.sprites) {
     const data = info.sprites[pose];
+    if (data === 'none') {
+      return undefined;
+    }
+    if (typeof data === 'string') {
+      return {
+        image: data,
+      };
+    }
     return data;
   }
 }
@@ -38,12 +47,12 @@ export function getCharacterPicUrl(url: string) {
 }
 
 export function isImagePose(
-  pose: string | VideoCharacterPose | undefined,
-): pose is string {
-  return typeof pose === 'string' && pose !== 'none';
+  pose: ImageCharacterPose | VideoCharacterPose | undefined,
+): pose is ImageCharacterPose {
+  return typeof pose === 'object' && Object.hasOwn(pose, 'image');
 }
 export function isVideoPose(
-  pose: string | VideoCharacterPose | undefined,
+  pose: ImageCharacterPose | VideoCharacterPose | undefined,
 ): pose is VideoCharacterPose {
   return typeof pose === 'object' && Object.hasOwn(pose, 'video');
 }

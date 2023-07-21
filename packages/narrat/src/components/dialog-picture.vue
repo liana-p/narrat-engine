@@ -1,11 +1,19 @@
 <template>
   <div class="dialog-picture override" :style="boxStyle">
     <img
-      :src="getAssetUrl(pictureUrl!)"
+      :src="getAssetUrl(getCharacterPicUrl(picture?.image))"
       class="picture override"
-      v-if="pictureUrl"
+      v-if="picture"
     />
-    <video v-if="video"></video>
+    <video
+      v-if="video"
+      class="picture override"
+      :autoplay="video.autoplay === false ? false : true"
+      :loop="video.loop === false ? false : true"
+      :muted="video.muted ? true : false"
+    >
+      <source :src="getAssetUrl(getCharacterPicUrl(video.video))" />
+    </video>
   </div>
 </template>
 
@@ -13,14 +21,21 @@
 import { getConfig, getAssetUrl, getDialogPanelWidth } from '@/config';
 import { defaultConfig } from '@/config/config-output';
 import { useRenderingStore } from '@/stores/rendering-store';
-import { mapState } from 'pinia';
-import { computed, defineComponent } from 'vue';
-import { VideoCharacterPose } from '@/config/characters-config';
+import { computed } from 'vue';
+import {
+  ImageCharacterPose,
+  VideoCharacterPose,
+} from '@/config/characters-config';
+import { getCharacterPicUrl } from '@/utils/characters';
 
 const props = defineProps<{
-  pictureUrl: string | undefined;
-  video: VideoCharacterPose;
+  picture: ImageCharacterPose | undefined;
+  video: VideoCharacterPose | undefined;
 }>();
+
+const video = computed(() => {
+  return props.video;
+});
 
 const layoutMode = computed(() => {
   return useRenderingStore().layoutMode;
@@ -46,11 +61,21 @@ const boxStyle = computed(() => {
     right = getDialogPanelWidth() - 10 + landscape.right + panelOffset;
     bottom = 200 + landscape.bottom;
   }
+  let width = layout.portraits.width;
+  let height = layout.portraits.height;
+  if (props.video) {
+    width = props.video.width ?? width;
+    height = props.video.height ?? height;
+  }
+  if (props.picture) {
+    width = props.picture.width ?? width;
+    height = props.picture.height ?? height;
+  }
   return {
     right: `${right}px`,
     bottom: `${bottom}px`,
-    width: `${layout.portraits.width}px`,
-    height: `${layout.portraits.height}px`,
+    width: `${width}px`,
+    height: `${height}px`,
   };
 });
 </script>
@@ -64,6 +89,7 @@ const boxStyle = computed(() => {
   border-radius: 10px;
   background-color: grey;
   z-index: 99;
+  transition: all 0.5s ease-in-out;
 }
 
 .dialog-picture img {

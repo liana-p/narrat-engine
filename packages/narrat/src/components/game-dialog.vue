@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <DialogPicture
-      :pictureUrl="picture"
+      :picture="picture"
       :video="video"
       v-if="(picture || video) && rendering.showDialog"
     />
@@ -67,7 +67,10 @@ import { useMain } from '@/stores/main-store';
 import { defaultConfig } from '@/config/config-output';
 import { inputEvents } from '../utils/InputsListener';
 import { InputListener } from '@/stores/inputs-store';
-import { VideoCharacterPose } from '@/config/characters-config';
+import {
+  ImageCharacterPose,
+  VideoCharacterPose,
+} from '@/config/characters-config';
 
 const props = defineProps<{
   layoutMode: 'horizontal' | 'vertical';
@@ -129,10 +132,10 @@ const poseData = computed(() => {
   return data;
 });
 
-const picture = computed((): string | undefined => {
+const picture = computed((): ImageCharacterPose | undefined => {
   const data = poseData.value;
   if (isImagePose(data)) {
-    return getCharacterPicUrl(data);
+    return data;
   }
   return undefined;
 });

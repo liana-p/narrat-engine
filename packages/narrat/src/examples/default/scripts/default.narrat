@@ -16,7 +16,10 @@ main:
   // set_screen map 0 fade 1000
   set_screen map
   // set_screen video
-  "Hello world"
+  talk player idle "Hello"
+  talk helper idle "Hello world"
+  talk helper videoPose "Hello world!"
+  talk shopkeeper idle "hello"
   // jump quest_demo
 
 test_hide_portrait:

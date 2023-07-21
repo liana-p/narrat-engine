@@ -9,17 +9,24 @@ export const DialogStyleConfigSchema = Type.Object({
 export type DialogStyleConfig = Static<typeof DialogStyleConfigSchema>;
 
 export const VideoCharacterPoseSchema = Type.Object({
-  video: Type.Object({
-    src: Type.String(),
-    autoplay: Type.Optional(Type.Boolean()),
-    loop: Type.Optional(Type.Boolean()),
-    muted: Type.Optional(Type.Boolean()),
-  }),
+  video: Type.String(),
+  autoplay: Type.Optional(Type.Boolean()),
+  loop: Type.Optional(Type.Boolean()),
+  muted: Type.Optional(Type.Boolean()),
+  width: Type.Optional(Type.Number()),
+  height: Type.Optional(Type.Number()),
 });
 export type VideoCharacterPose = Static<typeof VideoCharacterPoseSchema>;
+export const ImageCharacterPoseSchema = Type.Object({
+  image: Type.String(),
+  width: Type.Optional(Type.Number()),
+  height: Type.Optional(Type.Number()),
+});
+export type ImageCharacterPose = Static<typeof ImageCharacterPoseSchema>;
 export const CharacterPoseSchema = Type.Union([
   Type.String(),
   VideoCharacterPoseSchema,
+  ImageCharacterPoseSchema,
 ]);
 export type CharacterPose = Static<typeof CharacterPoseSchema>;
 
