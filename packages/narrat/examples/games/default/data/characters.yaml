@@ -33,13 +33,19 @@ characters:
     name: Generic Cat
   shopkeeper:
     sprites:
-      idle: shop_cat.webp
+      # idle: shop_cat.webp
+      idle: none
     style:
       color: white
     name: Shopkeeper
   helper:
     sprites:
-      idle: helper_cat.webp
+      idle:
+        image: helper_cat.webp
+      videoPose:
+        video: helper_video.mp4
+        width: 200
+        height: 355
     style:
       color: green
     name: Helper Cat
