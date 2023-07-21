@@ -1,3 +1,12 @@
+## [3.3.1](https://github.com/liana-p/narrat-engine/compare/v3.3.0...v3.3.1) (2023-07-21)
+
+
+### Features
+
+* video portraits, hidden portraits, custom size portraits ([#133](https://github.com/liana-p/narrat-engine/issues/133)) ([7e62501](https://github.com/liana-p/narrat-engine/commit/7e6250177772b276c85d5457ed263421a130613d))
+
+
+
 # [3.3.0](https://github.com/liana-p/narrat-engine/compare/v3.2.15...v3.3.0) (2023-07-20)
 
 
