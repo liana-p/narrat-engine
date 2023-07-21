@@ -19,6 +19,8 @@ main:
   "Hello world"
   // jump quest_demo
 
+test_hide_portrait:
+  talk helper test "Hello I'm the helper cat"
 test_transition:
   set_screen map_2 0 slide-top 1000
 

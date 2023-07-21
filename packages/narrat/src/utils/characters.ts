@@ -1,5 +1,9 @@
 import { charactersConfig } from '@/config';
-import { CharacterConfig, DialogStyleConfig } from '@/config/characters-config';
+import {
+  CharacterConfig,
+  DialogStyleConfig,
+  VideoCharacterPose,
+} from '@/config/characters-config';
 import { error } from './error-handling';
 
 export function getCharacterInfo(
@@ -12,10 +16,10 @@ export function getCharacterInfo(
   return characterInfo;
 }
 
-export function getCharacterPictureUrl(
+export function getCharacterPoseData(
   character: string,
   pose?: string,
-): string | undefined {
+): string | undefined | VideoCharacterPose {
   const info = getCharacterInfo(character);
   if (!info) {
     return undefined;
@@ -24,14 +28,24 @@ export function getCharacterPictureUrl(
     pose = 'default';
   }
   if (info.sprites) {
-    const result = `${charactersConfig().config.imagesPath}${
-      info.sprites[pose]
-    }`;
-    if (!result) {
-      error(`Character ${character} pose ${pose} not found`);
-    }
-    return result;
+    const data = info.sprites[pose];
+    return data;
   }
+}
+
+export function getCharacterPicUrl(url: string) {
+  return `${charactersConfig().config.imagesPath}${url}`;
+}
+
+export function isImagePose(
+  pose: string | VideoCharacterPose | undefined,
+): pose is string {
+  return typeof pose === 'string' && pose !== 'none';
+}
+export function isVideoPose(
+  pose: string | VideoCharacterPose | undefined,
+): pose is VideoCharacterPose {
+  return typeof pose === 'object' && Object.hasOwn(pose, 'video');
 }
 
 export function getCharacterStyle(character?: string): DialogStyleConfig {

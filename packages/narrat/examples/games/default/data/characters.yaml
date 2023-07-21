@@ -40,6 +40,9 @@ characters:
   helper:
     sprites:
       idle: helper_cat.webp
+      test:
+        video:
+          src: helper_video.mp4
     style:
       color: green
     name: Helper Cat

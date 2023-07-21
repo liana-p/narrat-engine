@@ -7,8 +7,24 @@ export const DialogStyleConfigSchema = Type.Object({
   textCss: Type.Optional(Type.Record(Type.String(), Type.Any())),
 });
 export type DialogStyleConfig = Static<typeof DialogStyleConfigSchema>;
+
+export const VideoCharacterPoseSchema = Type.Object({
+  video: Type.Object({
+    src: Type.String(),
+    autoplay: Type.Optional(Type.Boolean()),
+    loop: Type.Optional(Type.Boolean()),
+    muted: Type.Optional(Type.Boolean()),
+  }),
+});
+export type VideoCharacterPose = Static<typeof VideoCharacterPoseSchema>;
+export const CharacterPoseSchema = Type.Union([
+  Type.String(),
+  VideoCharacterPoseSchema,
+]);
+export type CharacterPose = Static<typeof CharacterPoseSchema>;
+
 export const CharacterConfigSchema = Type.Object({
-  sprites: Type.Optional(Type.Record(Type.String(), Type.String())),
+  sprites: Type.Optional(Type.Record(Type.String(), CharacterPoseSchema)),
   name: Type.String(),
   style: Type.Optional(DialogStyleConfigSchema),
 });
