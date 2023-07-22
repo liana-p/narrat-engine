@@ -87,72 +87,11 @@ The engine follows this process for loading the config:
 
 Additionally to `config.yaml`, there is a separate `characters.yaml` file containing the config for all characters in the game.
 
-A character's config can have the following values:
+See more info at the [characters and portraits guide](../features/characters-and-portraits.md)
 
-- `name`: The name the character will appear as
-- `sprites`: A key-value object of pose names to the url of the picture to use for that pose. Poses are used with the talk command (the command `talk player idle "A sentence"` would use the character "player" with the picture for the pose named "idle")
-- `style`: An object to customise how that character looks with the following options:
-  - color: a CSS color (ie. "red", or #FFF)
-  - boxCss: [CSS style object](https://www.w3schools.com/jsref/dom_obj_style.asp) for custom-styling of the box encapsulating a dialogue from that character.
-  - nameCss: Same as above, but the styling will apply to the name of the character specifically
-  - textCss: Same as above, but will apply to the text "spoken" by the character
+### Other config files
 
-::: danger
-Do not delete the default game and player characters.
+There are individual config files for most narrat features which you can edit. The best way to learn about them is to look at example games and see how they are used.
 
-The `game` character is the placeholder one used for empty text commands.
-The `player` character is the one used for the text when the player makes choices.
-:::
-
-Example character config file:
-
-```yaml
----
-config:
-  imagesPath: './img/characters/'
-characters:
-  game:
-    name: ''
-    color: white
-  player:
-    style:
-      color: orange
-    sprites:
-      idle: player.webp
-    name: You
-  cat:
-    sprites:
-      idle: cat_idle.webp
-    style:
-      color: white
-    name: Generic Cat
-  shopkeeper:
-    sprites:
-      idle: shop_cat.webp
-    style:
-      color: white
-    name: Shopkeeper
-  helper:
-    sprites:
-      idle: helper_cat.webp
-    style:
-      color: green
-    name: Helper Cat
-  music_cat:
-    sprites:
-      idle: music_cat.webp
-    style:
-      color: '#7f06e2'
-      boxCss:
-        background-color: red
-      textCss:
-        color: white
-        font-family: Comic Sans MS
-    name: Music Cat
-  inner:
-    sprites:
-      idle: inner_voice.webp
-    style:
-      color: red
-    name: Inner Voice
-```
+- [Example test games in the narrat repo](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
+- [Example games in the narrat-examples repo](https://github.com/liana-p/narrat-examples)

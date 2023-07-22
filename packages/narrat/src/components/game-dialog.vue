@@ -1,8 +1,9 @@
 <template>
   <transition name="fade">
     <DialogPicture
-      :pictureUrl="picture"
-      v-if="picture && rendering.showDialog"
+      :picture="picture"
+      :video="video"
+      v-if="(picture || video) && rendering.showDialog"
     />
   </transition>
   <transition name="dialog-transition">
@@ -49,7 +50,13 @@
 import { getConfig } from '@/config';
 import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
-import { getCharacterInfo, getCharacterPictureUrl } from '@/utils/characters';
+import {
+  getCharacterInfo,
+  getCharacterPoseData,
+  getCharacterPicUrl,
+  isVideoPose,
+  isImagePose,
+} from '@/utils/characters';
 import { processText } from '@/utils/string-helpers';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { DialogKey, useDialogStore } from '../stores/dialog-store';
@@ -60,6 +67,10 @@ import { useMain } from '@/stores/main-store';
 import { defaultConfig } from '@/config/config-output';
 import { inputEvents } from '../utils/InputsListener';
 import { InputListener } from '@/stores/inputs-store';
+import {
+  ImageCharacterPose,
+  VideoCharacterPose,
+} from '@/config/characters-config';
 
 const props = defineProps<{
   layoutMode: 'horizontal' | 'vertical';
@@ -97,7 +108,7 @@ const lastDialog = computed((): DialogKey | undefined => {
   return undefined;
 });
 
-const picture = computed((): string | undefined => {
+const pose = computed(() => {
   if (lastDialog.value) {
     const speaker = lastDialog.value.speaker;
     let pose = lastDialog.value.pose;
@@ -107,7 +118,32 @@ const picture = computed((): string | undefined => {
     if (!pose) {
       pose = 'idle';
     }
-    return getCharacterPictureUrl(speaker, pose);
+    return pose;
+  }
+  return undefined;
+});
+
+const poseData = computed(() => {
+  if (!pose.value) {
+    return undefined;
+  }
+  const speaker = lastDialog.value!.speaker;
+  const data = getCharacterPoseData(speaker, pose.value!);
+  return data;
+});
+
+const picture = computed((): ImageCharacterPose | undefined => {
+  const data = poseData.value;
+  if (isImagePose(data)) {
+    return data;
+  }
+  return undefined;
+});
+
+const video = computed((): VideoCharacterPose | undefined => {
+  const data = poseData.value;
+  if (isVideoPose(data)) {
+    return data;
   }
   return undefined;
 });
@@ -266,7 +302,9 @@ watch(dialog.value, (newValue) => {
   /* background: url('dark.webp'); */
   background: var(--dialog-box-bg);
   border: var(--dialog-box-border);
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.7), 0 15px 12px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.7),
+    0 15px 12px rgba(0, 0, 0, 0.5);
 }
 .dialog::-webkit-scrollbar {
   display: none; /* webkit */

@@ -107,6 +107,8 @@ The `characters.yaml` file contains the config for all characters that can speak
 
 The color character names appears as can be changed with the `color` value in the `style` property of the character (the value can be any valid CSS color).
 
+See more details at [characters and portraits](../features/characters-and-portraits.md)
+
 ### Other config files
 
 There are individual config files for most narrat features which you can edit. The best way to learn about them is to look at example games and see how they are used.

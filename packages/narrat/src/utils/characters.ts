@@ -1,5 +1,10 @@
 import { charactersConfig } from '@/config';
-import { CharacterConfig, DialogStyleConfig } from '@/config/characters-config';
+import {
+  CharacterConfig,
+  DialogStyleConfig,
+  ImageCharacterPose,
+  VideoCharacterPose,
+} from '@/config/characters-config';
 import { error } from './error-handling';
 
 export function getCharacterInfo(
@@ -12,10 +17,10 @@ export function getCharacterInfo(
   return characterInfo;
 }
 
-export function getCharacterPictureUrl(
+export function getCharacterPoseData(
   character: string,
   pose?: string,
-): string | undefined {
+): ImageCharacterPose | undefined | VideoCharacterPose {
   const info = getCharacterInfo(character);
   if (!info) {
     return undefined;
@@ -24,14 +29,32 @@ export function getCharacterPictureUrl(
     pose = 'default';
   }
   if (info.sprites) {
-    const result = `${charactersConfig().config.imagesPath}${
-      info.sprites[pose]
-    }`;
-    if (!result) {
-      error(`Character ${character} pose ${pose} not found`);
+    const data = info.sprites[pose];
+    if (data === 'none') {
+      return undefined;
     }
-    return result;
+    if (typeof data === 'string') {
+      return {
+        image: data,
+      };
+    }
+    return data;
   }
+}
+
+export function getCharacterPicUrl(url: string) {
+  return `${charactersConfig().config.imagesPath}${url}`;
+}
+
+export function isImagePose(
+  pose: ImageCharacterPose | VideoCharacterPose | undefined,
+): pose is ImageCharacterPose {
+  return typeof pose === 'object' && Object.hasOwn(pose, 'image');
+}
+export function isVideoPose(
+  pose: ImageCharacterPose | VideoCharacterPose | undefined,
+): pose is VideoCharacterPose {
+  return typeof pose === 'object' && Object.hasOwn(pose, 'video');
 }
 
 export function getCharacterStyle(character?: string): DialogStyleConfig {

@@ -88,6 +88,10 @@ const config = {
             text: 'Changing the player character',
             link: '/features/changing-player-character',
           },
+          {
+            text: 'Characters and portraits',
+            link: '/features/characters-and-portraits',
+          },
           { text: 'Game Settings', link: '/features/game-settings' },
           { text: 'Gamepad support', link: '/features/gamepad' },
           {
