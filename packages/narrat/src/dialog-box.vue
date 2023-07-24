@@ -36,6 +36,7 @@
         </div>
         <div v-else-if="options.textField">
           <input
+            autofocus
             type="text"
             class="label-input input"
             ref="playerInput"
@@ -61,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { getConfig } from './config';
 import { defaultConfig } from './config/config-output';
 import { DEFAULT_TEXT_SPEED } from './constants';
@@ -93,6 +94,7 @@ const autoTimer = ref<NodeJS.Timer | null>(null);
 const skipTimer = ref<NodeJS.Timer | null>(null);
 const nextLineTimer = ref<NodeJS.Timer | null>(null);
 const playerInput = ref<HTMLInputElement | null>(null);
+const textFieldInputGrabber = ref<InputListener | null>(null);
 
 const props = defineProps<{
   options: DialogBoxParameters;
@@ -124,6 +126,7 @@ onMounted(() => {
 });
 onUnmounted(() => {
   clearListeners();
+  cleanUpTextFieldListener();
   endTextAnimation({ unmounted: true });
 });
 
@@ -245,9 +248,32 @@ function dialogClass(choice: DialogChoice) {
 
 function submitText() {
   const text = playerText.value;
+  cleanUpTextFieldListener();
   useMain().playerAnswered(text);
 }
 
+function createTextFieldListener() {
+  if (props.options.textField) {
+    timeout.value = setTimeout(() => {
+      if (canInteract.value) {
+        textFieldInputGrabber.value = useInputs().registerInputListener(
+          'text-field-input-grabber',
+          {},
+        );
+        if (playerInput.value) {
+          playerInput.value!.focus();
+        }
+      }
+    }, 100);
+  }
+}
+
+function cleanUpTextFieldListener() {
+  if (textFieldInputGrabber.value) {
+    useInputs().unregisterInputListener(textFieldInputGrabber.value);
+    textFieldInputGrabber.value = null;
+  }
+}
 function addTextSection(start: number, end: number) {
   const text = props.options.text.substring(start, end);
   textAnimation.value!.text += text;
@@ -350,6 +376,7 @@ function endTextAnimation({
   unmounted,
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
+  createTextFieldListener();
   setTimeout(() => {
     if (navigation.value) {
       navigation.value.select(0);
@@ -389,11 +416,7 @@ function endTextAnimation({
 }
 
 function registerKeyboardShortcuts() {
-  timeout.value = setTimeout(() => {
-    if (props.options.textField && canInteract.value) {
-      playerInput.value!.focus();
-    }
-  }, 10);
+  // empty
 }
 
 const preText = computed(() => {
