@@ -1,3 +1,12 @@
+## [3.3.2](https://github.com/liana-p/narrat-engine/compare/v3.3.1...v3.3.2) (2023-07-24)
+
+
+### Bug Fixes
+
+* dialog box text field now captures inputs properly and autofocuses ([#135](https://github.com/liana-p/narrat-engine/issues/135)) ([697cc8d](https://github.com/liana-p/narrat-engine/commit/697cc8d333d7616aa2a6da96c5ae43f588829787))
+
+
+
 ## [3.3.1](https://github.com/liana-p/narrat-engine/compare/v3.3.0...v3.3.1) (2023-07-21)
 
 
