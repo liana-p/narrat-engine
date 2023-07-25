@@ -2,6 +2,9 @@ files:
   calm:
     loop: true
     src: music/music.mp3
+    fadeInTime: 2
+    fadeOutTime: 2
+    volume: 0.3
   battle:
     loop: true
     src: music/battle.mp3

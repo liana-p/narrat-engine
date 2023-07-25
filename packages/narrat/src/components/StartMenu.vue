@@ -72,7 +72,12 @@ import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
-import { getAudio, stopHowlerById } from '@/utils/audio-loader';
+import {
+  getAudio,
+  stopHowlerById,
+  standalonePlayMusic,
+  standaloneStopMusic,
+} from '@/utils/audio-loader';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -204,10 +209,6 @@ function chosenSave({ slotId }: ChosenSlot) {
 }
 
 onMounted(() => {
-  const config = getConfig();
-  if (config.audio.options.defaultMusic) {
-    useAudio().playChannel('music', config.audio.options.defaultMusic, 0);
-  }
   const save = getSaveFile();
   if (save.slots.some((slot) => slot.saveData)) {
     hasSave.value = true;
@@ -233,8 +234,7 @@ onMounted(() => {
     navigation.select(0);
   });
   if (audioConfig().options.defaultMusic) {
-    const music = getAudio(audioConfig().options.defaultMusic!)!;
-    musicId.value = music.play();
+    musicId.value = standalonePlayMusic(audioConfig().options.defaultMusic!);
   }
 });
 
@@ -312,8 +312,8 @@ onUnmounted(() => {
     inputEvents.off('debouncedKeydown', listener.value as any);
   }
   if (typeof musicId.value === 'number') {
-    const defaultMusic = audioConfig().options.defaultMusic!;
-    stopHowlerById(defaultMusic, musicId.value);
+    const music = audioConfig().options.defaultMusic!;
+    standaloneStopMusic(music, musicId.value);
   }
 });
 

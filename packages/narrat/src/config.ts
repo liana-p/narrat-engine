@@ -196,6 +196,21 @@ export function audioFileConfig(key: string) {
   }
   return res;
 }
+export function getAudioFadeTimings(audio: string) {
+  const audioConf = audioFileConfig(audio);
+  const fadeInDelay =
+    (audioConf?.fadeInDelay ?? audioConfig().options.musicFadeInDelay) * 1000;
+  const fadeInTime =
+    (audioConf?.fadeInTime ?? audioConfig().options.musicFadeInTime) * 1000;
+  const fadeOutTime =
+    (audioConf?.fadeOutTime ?? audioConfig().options.musicFadeOutTime) * 1000;
+  return {
+    fadeInDelay,
+    fadeInTime,
+    fadeOutTime,
+  };
+}
+
 export function skillsConfig() {
   return getConfig().skills;
 }

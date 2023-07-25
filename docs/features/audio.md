@@ -80,3 +80,77 @@ wait 100
 talk character idle "Suddenly, something happened!"
 resume music # resume the music
 ```
+
+## Title Screen Music
+
+A music can play on the title screen, by adding the `defaultMusic` option in the audio config:
+
+```yaml
+files:
+  music:
+    loop: true
+    src: music/music.mp3
+
+options:
+  defaultMusic: music
+  volume: 0.5
+  musicFadeInTime: 0.5
+  musicFadeInDelay: 0.5
+  musicFadeOutTime: 0.5
+```
+
+## Audio-specific fade timings
+
+Individual audio files can have fade in/out and fade delays configured, which will override the default ones from the audio option when that specific audio plays:
+
+```yaml
+files:
+  music:
+    loop: true
+    src: music/music.mp3
+    fadeInTime: 2
+    fadeOutTime: 2
+    fadeInDelay: 2
+```
+
+## Audio triggers
+
+Audio triggers allow specifying a sound effect in the config that will be played when a specific event happens. There are a few audio triggers available in narrat.
+
+Simply add the ones you want to use to the config. For example:
+
+```yaml
+files:
+  click:
+    src: audio/click.ogg
+  game_start:
+    volume: 0.9
+    src: audio/game_start.ogg
+  failure:
+    src: audio/failure.ogg
+  success:
+    src: audio/success.wav
+
+audioTriggers:
+  onPlayerAnswered: "click",
+  onPressStart: "game_start",
+  onSkillCheckFailure: "failure",
+  onSkillCheckSuccess: "success"
+  onButtonClicked: click
+  onSpriteClicked: click
+  onItemUsed: click
+```
+
+## Audio Volume mixing
+
+All volumes are between 0 and 1.
+
+The volume a specific audio file is playing at is calculated by multiplying the following volumes together:
+
+- Master Volume (The one in `options.volume` in the audio config file, which players can also edit in the system menu)
+- Channel Volume (Starts at 1, players can edit them in the system menu)
+- Audio file volume: The volume specified in the audio config file for that specific audio file, if it exists. Otherwise it's 1.
+
+So for example:
+
+If I set master volume to 1, and music volume has been set to 0.5, and a specific sound effect has its volume set at 0.5, then the sound effect will play at 0.25 volume.

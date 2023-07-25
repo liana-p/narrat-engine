@@ -1,4 +1,4 @@
-import { audioConfig } from '@/config';
+import { audioConfig, audioFileConfig, getAudioFadeTimings } from '@/config';
 import { getAudio, stopHowlerById } from '@/utils/audio-loader';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
@@ -76,6 +76,7 @@ export const useAudio = defineStore('audio', {
       if (!audioChannel) {
         return;
       }
+      const { fadeOutTime } = getAudioFadeTimings(audioChannel.audio);
       this.setAudioChannel(mode, channelIndex, null);
       if (audioConfig().options.musicFadeOutTime) {
         const audio = getAudio(audioChannel.audio);
@@ -83,11 +84,11 @@ export const useAudio = defineStore('audio', {
           audio.fade(
             audio.volume(audioChannel.howlerId) as number,
             0,
-            audioConfig().options.musicFadeOutTime * 1000,
+            fadeOutTime,
             audioChannel.howlerId,
           );
         }
-        await timeout(audioConfig().options.musicFadeOutTime * 1000);
+        await timeout(fadeOutTime);
       }
       this.actuallyStopChannel(audioChannel);
     },
@@ -170,6 +171,8 @@ export const useAudio = defineStore('audio', {
         error(`Could not find audio ${audio}`);
         return;
       }
+      const { fadeInTime, fadeInDelay } = getAudioFadeTimings(audio);
+      const volume = this.audioVolume(mode, audio);
       if (mode !== 'sound') {
         const newId = newAudio.play();
         newAudio.volume(0, newId);
@@ -178,22 +181,17 @@ export const useAudio = defineStore('audio', {
           audio,
           howlerId: newId,
         });
-        await timeout(audioConfig().options.musicFadeInDelay * 1000);
+        await timeout(fadeInDelay);
         // We're checking the the audio hasn't been changed again in the background before playing the audio
         const currentValue = this.getAudioChannel(mode, channelIndex);
         if (currentValue !== null && currentValue.audio === audio) {
           newAudio.play(newId);
           // newAudio.volume(0.5, newId);
-          newAudio.fade(
-            0,
-            this.modeVolume(mode) * newAudio.volume(),
-            audioConfig().options.musicFadeInTime * 1000,
-            newId,
-          );
+          newAudio.fade(0, volume, fadeInTime, newId);
         }
       } else if (mode === 'sound') {
         const newId = newAudio.play();
-        newAudio.volume(this.modeVolume(mode) * newAudio.volume(), newId);
+        newAudio.volume(volume, newId);
         this.setAudioChannel(mode, channelIndex, {
           audio,
           howlerId: newId,
@@ -267,6 +265,9 @@ export const useAudio = defineStore('audio', {
     },
     modeVolume(mode: AudioModeKey): number {
       return this.masterVolume * this.modes.get(mode)!.options.volume;
+    },
+    audioVolume(mode: AudioModeKey, audio: string): number {
+      return this.modeVolume(mode) * (audioFileConfig(audio)?.volume ?? 1);
     },
   },
 });

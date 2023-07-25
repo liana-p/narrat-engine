@@ -1,9 +1,15 @@
-import { getAssetUrl } from '../config';
+import {
+  audioConfig,
+  audioFileConfig,
+  getAssetUrl,
+  getAudioFadeTimings,
+} from '../config';
 import { Howl, Howler } from 'howler';
 import { warning } from './error-handling';
 import { logger } from './logger';
 import { useAudio } from '@/stores/audio-store';
 import { AudioConfig, AudioFileConfig } from '@/config/audio-config';
+import { timeout } from './promises';
 
 export const howlerMap: {
   [key: string]: Howl;
@@ -75,4 +81,28 @@ export function stopHowlerById(musicKey: string, howlerId: number) {
 
 export function getAudio(key: string): Howl | undefined {
   return howlerMap[key];
+}
+
+export function calculateAudioVolume(
+  channelVolume: number,
+  audioVolume: number,
+) {
+  return channelVolume * audioVolume;
+}
+export function standalonePlayMusic(key: string) {
+  const music = getAudio(key)!;
+  const { fadeInTime } = getAudioFadeTimings(key);
+  const id = music.play();
+  const audioStore = useAudio();
+  const volume = audioStore.audioVolume('music', key);
+  music.fade(0, volume, fadeInTime, id);
+  return id;
+}
+
+export async function standaloneStopMusic(key: string, id: number) {
+  const audio = getAudio(key)!;
+  const { fadeOutTime } = getAudioFadeTimings(key);
+  audio.fade(audio.volume(id) as number, 0, fadeOutTime, id);
+  await timeout(fadeOutTime);
+  audio.stop(id);
 }
