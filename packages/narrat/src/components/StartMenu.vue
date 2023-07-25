@@ -50,7 +50,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getConfig } from '../config';
+import { audioConfig, getConfig } from '../config';
 import { useMain } from '../stores/main-store';
 import { error } from '../utils/error-handling';
 import {
@@ -72,6 +72,12 @@ import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
+import {
+  getAudio,
+  stopHowlerById,
+  standalonePlayMusic,
+  standaloneStopMusic,
+} from '@/utils/audio-loader';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -88,7 +94,7 @@ const startingGame = ref(false);
 const listener = ref<null | Function>(null);
 const startMenuStore = useStartMenu();
 const popupComponent = ref<CustomStartMenuButton | false>(false);
-
+const musicId = ref<number | null | undefined>(null);
 const extraButtons = computed(() => startMenuStore.buttons);
 
 const navigation = useNavigation({
@@ -203,10 +209,6 @@ function chosenSave({ slotId }: ChosenSlot) {
 }
 
 onMounted(() => {
-  const config = getConfig();
-  if (config.audio.options.defaultMusic) {
-    useAudio().playChannel('music', config.audio.options.defaultMusic, 0);
-  }
   const save = getSaveFile();
   if (save.slots.some((slot) => slot.saveData)) {
     hasSave.value = true;
@@ -231,6 +233,9 @@ onMounted(() => {
   nextTick(() => {
     navigation.select(0);
   });
+  if (audioConfig().options.defaultMusic) {
+    musicId.value = standalonePlayMusic(audioConfig().options.defaultMusic!);
+  }
 });
 
 function setupButtons() {
@@ -305,6 +310,10 @@ onUnmounted(() => {
   }
   if (listener.value) {
     inputEvents.off('debouncedKeydown', listener.value as any);
+  }
+  if (typeof musicId.value === 'number') {
+    const music = audioConfig().options.defaultMusic!;
+    standaloneStopMusic(music, musicId.value);
   }
 });
 

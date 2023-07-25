@@ -326,9 +326,9 @@ export const useMain = defineStore('main', {
     menuReturn() {
       this.reset();
       this.setFlowState('menu');
-      if (audioConfig().options.defaultMusic) {
-        useAudio().playChannel('music', audioConfig().options.defaultMusic!, 0);
-      }
+      // if (audioConfig().options.defaultMusic) {
+      //   useAudio().playChannel('music', audioConfig().options.defaultMusic!, 0);
+      // }
     },
     createError(text: string) {
       this.errors.push({

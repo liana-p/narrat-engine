@@ -1,5 +1,5 @@
 import { AppOptions } from './types/app-types';
-import { error } from './utils/error-handling';
+import { error, warning } from './utils/error-handling';
 import { useConfig } from './stores/config-store';
 import { Config, defaultConfig } from './config/config-output';
 import {
@@ -188,6 +188,29 @@ export function getConfig(): Config {
 export function audioConfig() {
   return getConfig().audio;
 }
+export function audioFileConfig(key: string) {
+  const res = audioConfig().files[key];
+  if (!res) {
+    warning(`Audio file ${key} doesn't exist`);
+    return undefined;
+  }
+  return res;
+}
+export function getAudioFadeTimings(audio: string) {
+  const audioConf = audioFileConfig(audio);
+  const fadeInDelay =
+    (audioConf?.fadeInDelay ?? audioConfig().options.musicFadeInDelay) * 1000;
+  const fadeInTime =
+    (audioConf?.fadeInTime ?? audioConfig().options.musicFadeInTime) * 1000;
+  const fadeOutTime =
+    (audioConf?.fadeOutTime ?? audioConfig().options.musicFadeOutTime) * 1000;
+  return {
+    fadeInDelay,
+    fadeInTime,
+    fadeOutTime,
+  };
+}
+
 export function skillsConfig() {
   return getConfig().skills;
 }
