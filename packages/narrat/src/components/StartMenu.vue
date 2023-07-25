@@ -50,7 +50,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getConfig } from '../config';
+import { audioConfig, getConfig } from '../config';
 import { useMain } from '../stores/main-store';
 import { error } from '../utils/error-handling';
 import {
@@ -72,6 +72,7 @@ import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
+import { getAudio, stopHowlerById } from '@/utils/audio-loader';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -88,7 +89,7 @@ const startingGame = ref(false);
 const listener = ref<null | Function>(null);
 const startMenuStore = useStartMenu();
 const popupComponent = ref<CustomStartMenuButton | false>(false);
-
+const musicId = ref<number | null | undefined>(null);
 const extraButtons = computed(() => startMenuStore.buttons);
 
 const navigation = useNavigation({
@@ -231,6 +232,10 @@ onMounted(() => {
   nextTick(() => {
     navigation.select(0);
   });
+  if (audioConfig().options.defaultMusic) {
+    const music = getAudio(audioConfig().options.defaultMusic!)!;
+    musicId.value = music.play();
+  }
 });
 
 function setupButtons() {
@@ -305,6 +310,10 @@ onUnmounted(() => {
   }
   if (listener.value) {
     inputEvents.off('debouncedKeydown', listener.value as any);
+  }
+  if (typeof musicId.value === 'number') {
+    const defaultMusic = audioConfig().options.defaultMusic!;
+    stopHowlerById(defaultMusic, musicId.value);
   }
 });
 

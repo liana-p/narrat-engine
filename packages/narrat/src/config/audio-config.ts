@@ -6,6 +6,10 @@ export const AudioFileConfigSchema = Type.Object({
   volume: Type.Optional(Type.Number()),
   rate: Type.Optional(Type.Number()),
   html5: Type.Optional(Type.Boolean()),
+  fadeInTime: Type.Optional(Type.Number()),
+  fadeInDelay: Type.Optional(Type.Number()),
+  fadeOutTime: Type.Optional(Type.Number()),
+  loop: Type.Optional(Type.Boolean()),
 });
 export type AudioFileConfig = Static<typeof AudioFileConfigSchema>;
 

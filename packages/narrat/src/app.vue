@@ -25,17 +25,14 @@
   <TooltipsUi />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+<script lang="ts" setup>
+import { computed, onMounted } from 'vue';
 import DebugMenu from './components/debug/debug-menu.vue';
 import NotificationToast from './components/notification-toast.vue';
 import { debounce } from './utils/debounce';
 import { vm } from './vm/vm';
-import { useDialogStore } from './stores/dialog-store';
-import { useVM } from './stores/vm-store';
 import { useMain } from './stores/main-store';
 import { useRenderingStore } from './stores/rendering-store';
-import { mapState } from 'pinia';
 import StartMenu from './components/StartMenu.vue';
 import { inputEvents } from './utils/InputsListener';
 import AlertModal from './components/utils/alert-modal.vue';
@@ -45,105 +42,61 @@ import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
 import { useMenu } from './stores/menu-store';
 import TooltipsUi from './components/tooltips/tooltips-ui.vue';
-import { useTooltips } from './stores/tooltip-store';
 
-export default defineComponent({
-  setup() {
-    const dialogStore = useDialogStore();
-    const vmStore = useVM();
-    const mainStore = useMain();
-    return {
-      dialog: computed(() => dialogStore.dialog),
-      stack: computed(() => vmStore.stack),
-      flowState: computed(() => mainStore.flowState),
-      alerts: computed(() => mainStore.alerts),
-    };
-  },
-  $refs: {
-    dialogContainer: HTMLInputElement,
-  },
-  components: {
-    DebugMenu,
-    NotificationToast,
-    StartMenu,
-    AlertModal,
-    InGame,
-    EngineSplash,
-    GameSplash,
-    TooltipsUi,
-  },
+const props = defineProps<{
+  options: AppOptions;
+}>();
 
-  data() {
-    return {
-      lineTitle: 'title',
-      lineText: 'hello',
-    };
-  },
-  props: {
-    options: Object as PropType<AppOptions>,
-  },
-  async mounted() {
-    vm.callHook('onAppMounted');
-    await useMain().engineLoading();
-    window.addEventListener(
-      'resize',
-      debounce(
-        () => {
-          this.updateScreenSize();
-        },
-        100,
-        {
-          maxWait: 200,
-        },
-      ),
-    );
-    inputEvents.setup(this.options!.debug);
-    // this.updateScreenSize();
-    setTimeout(() => {
-      this.updateScreenSize();
-    }, 50);
-  },
+const mainStore = useMain();
+const flowState = computed(() => mainStore.flowState);
+const alerts = computed(() => mainStore.alerts);
+const rendering = useRenderingStore();
 
-  computed: {
-    ...mapState(useRenderingStore, [
-      'screenWidth',
-      'screenHeight',
-      'layoutMode',
-      'gameWidth',
-      'gameHeight',
-      'gameScaleRatio',
-      'actualGameHeight',
-    ]),
-    ...mapState(useVM, ['currentLine']),
-    appStyle(): any {
-      return {
-        transform: `scale(${this.gameScaleRatio}, ${this.gameScaleRatio})`,
-        width: `${this.gameWidth}px`,
-        height: `${this.actualGameHeight}px`,
-      };
-    },
-    appClass(): any {
-      if (useMenu().activeMenu) {
-        return 'app-blurred-by-modal';
-      }
-      return {};
-    },
-  },
+const appStyle = computed(() => {
+  return {
+    transform: `scale(${rendering.gameScaleRatio}, ${rendering.gameScaleRatio})`,
+    width: `${rendering.gameWidth}px`,
+    height: `${rendering.actualGameHeight}px`,
+  };
+});
 
-  methods: {
-    closeAlert(id: string) {
-      useMain().closeAlert(id);
-    },
-    engineSplashDone() {
-      useMain().flowState = 'game-splash';
-    },
-    updateScreenSize() {
-      useRenderingStore().updateScreenSize(
-        window.innerWidth,
-        window.innerHeight,
-      );
-    },
-  },
+const appClass = computed(() => {
+  if (useMenu().activeMenu) {
+    return 'app-blurred-by-modal';
+  }
+  return {};
+});
+
+function closeAlert(id: string) {
+  useMain().closeAlert(id);
+}
+function engineSplashDone() {
+  useMain().flowState = 'game-splash';
+}
+function updateScreenSize() {
+  useRenderingStore().updateScreenSize(window.innerWidth, window.innerHeight);
+}
+
+onMounted(async () => {
+  vm.callHook('onAppMounted');
+  await useMain().engineLoading();
+  window.addEventListener(
+    'resize',
+    debounce(
+      () => {
+        updateScreenSize();
+      },
+      100,
+      {
+        maxWait: 200,
+      },
+    ),
+  );
+  inputEvents.setup(props.options!.debug);
+  // this.updateScreenSize();
+  setTimeout(() => {
+    updateScreenSize();
+  }, 50);
 });
 </script>
 
