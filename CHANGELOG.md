@@ -1,3 +1,17 @@
+## [3.3.3](https://github.com/liana-p/narrat-engine/compare/v3.3.2...v3.3.3) (2023-07-25)
+
+
+### Bug Fixes
+
+* start menu audio wouldn't actually stop ([fe2be9f](https://github.com/liana-p/narrat-engine/commit/fe2be9f7a7b06238e2dc69edb34faa19f2498324))
+
+
+### Features
+
+* new audio-specific fade timings ([e43f1f4](https://github.com/liana-p/narrat-engine/commit/e43f1f43c1d71378c07e1487864001b12cd6352c))
+
+
+
 ## [3.3.2](https://github.com/liana-p/narrat-engine/compare/v3.3.1...v3.3.2) (2023-07-24)
 
 
