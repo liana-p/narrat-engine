@@ -179,6 +179,17 @@ Here is a list of the CSS variables that exist in narrat:
 To see the most up to date list of CSS variables, look at [main.css](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/css/main.css#L1) in the engine
 :::
 
+## Note on images preloading
+
+Any **images referred to in your CSS won't be preloaded by default**, because the engine doesn't know about them.
+
+If you need to preload them, add them to the list of images in the `config.yaml`:
+
+```yaml
+images:
+  myButtonBackground: img/ui/button-background.png
+```
+
 ## Using custom fonts
 
 You can use custom fonts in narrat, see the [Custom fonts guide](./using-custom-fonts.md) to learn how to do it.
