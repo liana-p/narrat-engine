@@ -80,3 +80,21 @@ Available properties to change (all of them are optional, the only mandatory one
 Sprites are screen objects that also render an image. Normal screen objects contain nothing by default and are just an empty div.
 
 Adding a text to a screen object adds a text inside the div.
+
+## Note on images preloading
+
+Any **images used in sprites won't be preloaded by default**, because the engine doesn't know about them.
+
+If you need to preload them, add them to the list of images in the `config.yaml`:
+
+```yaml
+images:
+  mySprite: img/sprites/my-sprite.png
+```
+
+Then you can directly refer to the name of the image instead of using its full path in your code:
+
+```narrat
+main:
+  set data.my_sprite (create_sprite mySprite 150 150) // Creates a sprite using my_sprite.png at position 150, 150
+```
