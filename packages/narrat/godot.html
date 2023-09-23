@@ -15,20 +15,7 @@
     />
   </head>
   <body>
-    <canvas id="canvas"></canvas>
     <script src="examples/games/godot/godot-game/export/index.js"></script>
-    <script>
-      var engine = new Engine({
-        args: [],
-        canvasResizePolicy: 2,
-        executable: 'examples/games/godot/godot-game/export/index',
-        experimentalVK: false,
-        fileSizes: { 'index.pck': 593104, 'index.wasm': 52315256 },
-        focusCanvas: true,
-        gdextensionLibs: [],
-      });
-      engine.startGame();
-    </script>
     <script type="module" src="src/demo/demo.ts"></script>
     <div id="game-holder"></div>
   </body>

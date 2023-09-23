@@ -13,7 +13,6 @@ import { vm } from './vm/vm';
 import { registerBaseCommands } from './vm/commands';
 import { createPinia } from 'pinia';
 import { defaultAppOptions, useMain } from './stores/main-store';
-import { useVM } from './stores/vm-store';
 
 import {
   addMenuButtonsFromPlugins,
@@ -27,7 +26,7 @@ import { useInputs } from './stores/inputs-store';
 import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
 import { ModuleNamespace } from 'vite/types/hot';
-import { handleHMR } from './hmr/hmr';
+import { constructNarratObject } from './exports/construct-narrat';
 
 let app: any;
 
@@ -51,18 +50,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   useInputs().setupInputs();
   vm.pinia = pinia;
   useMain();
-  const narrat = {
-    app,
-    vm,
-    handleHMR,
-    jump: (label: string) => {
-      useVM().jumpToLabel(label);
-    },
-    getSave: () => {
-      return getSaveFile();
-    },
-  };
-  (window as any).narrat = narrat;
+  constructNarratObject(app);
   // Register menu components
   registerDefaultMenuButtons(app);
   addMenuButtonsFromPlugins();

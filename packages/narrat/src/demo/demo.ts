@@ -6,6 +6,8 @@ import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
 import { NarratScript } from '@/types/app-types';
+import { registerPlugin } from '@/lib';
+import { GodotPlugin } from '@/plugins/godot-plugin';
 
 const gameScripts: Record<string, NarratScript[]> = {
   default: defaultGame,
@@ -33,6 +35,9 @@ if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
 
 const scripts = gameScripts[demoChoice];
 const onPageLoad = () => {
+  if (demoChoice === 'godot') {
+    registerPlugin(new GodotPlugin());
+  }
   startApp({
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,

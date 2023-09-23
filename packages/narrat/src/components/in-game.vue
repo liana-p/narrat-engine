@@ -129,7 +129,7 @@ onUnmounted(() => {
 <style>
 .game {
   position: absolute;
-  background-color: var(--bg-color);
+  background-color: var(--game-bg-color);
   display: flex;
   flex-direction: row;
   align-items: center;
