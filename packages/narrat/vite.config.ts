@@ -6,6 +6,7 @@ import WindiCSS from 'vite-plugin-windicss';
 import packageJson from './package.json';
 import Inspect from 'vite-plugin-inspect';
 import Narrat from 'vite-plugin-narrat';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 function viteGodotCorsPlugin() {
   return {
@@ -20,10 +21,17 @@ function viteGodotCorsPlugin() {
   };
 }
 function addGodotToConfig(conf: UserConfig) {
+  console.log('building a godot game, using special config');
   conf.server = {
     open: '/godot.html',
   };
   conf.plugins.push(viteGodotCorsPlugin());
+  conf.plugins.push(
+    createHtmlPlugin({
+      minify: false,
+      template: 'godot.html',
+    }),
+  );
 }
 
 // https://vitejs.dev/config/
