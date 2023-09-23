@@ -1,0 +1,20 @@
+options:
+  diceRange: [1, 6] # Dice rolls will be between those 2 numbers, inclusive
+  diceCount: 2 # How many dice are rolled by default on skill checks
+  extraPointsPerLevel: 1 # How many extra points to your rolls are given per level in the skill
+  extraDicePerLevel: 0 # How many extra dice the player gets per level in the skill (Default 0)
+  successOnRollsBelowThreshold: false # Inverts the skillcheck behaviour so that success is when the roll is *below* the difficulty threshold
+  showDifficultyText: true # Whether to show the difficulty text on the skill check
+  showDifficultyNumber: true # Whether to show the difficulty number on the skill check
+  showDifficultyWithoutModifiers: false # Whether to show the original difficulty without modifiers applied on the skill check
+  totalRollIsHighest: false # Uses only the highest roll to do the final skill check comparison, instead of adding up all rolls
+  totalRollIsLowest: false # Uses only the lowest roll to do the final skill check comparison, instead of adding up all rolls
+  difficultyText: # Text to show for each band of difficulty level
+    - [2, 'Very Easy']
+    - [4, 'Easy']
+    - [6, 'Medium']
+    - [8, 'Hard']
+    - [10, 'Very Hard']
+    - [11, 'Extremely Hard']
+    - [12, 'Near Impossible']
+skillChecks: {}

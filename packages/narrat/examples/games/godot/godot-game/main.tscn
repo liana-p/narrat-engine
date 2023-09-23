@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dpbvvwxvh0668"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.874755, 0.484565, 0, -0.484565, 0.874755, 0, 1.09545, 3.24586)
+current = true

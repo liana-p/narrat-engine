@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Template</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+    />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script src="examples/games/godot/godot-game/export/index.js"></script>
+    <script>
+      var engine = new Engine({
+        args: [],
+        canvasResizePolicy: 2,
+        executable: 'examples/games/godot/godot-game/export/index',
+        experimentalVK: false,
+        fileSizes: { 'index.pck': 593104, 'index.wasm': 52315256 },
+        focusCanvas: true,
+        gdextensionLibs: [],
+      });
+      engine.startGame();
+    </script>
+    <script type="module" src="src/demo/demo.ts"></script>
+    <div id="game-holder"></div>
+  </body>
+</html>

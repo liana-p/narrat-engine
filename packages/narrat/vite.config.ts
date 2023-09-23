@@ -1,4 +1,4 @@
-import { defineConfig, UserConfigExport } from 'vite';
+import { defineConfig, UserConfig, UserConfigExport } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'url';
 import { resolve } from 'path';
@@ -7,13 +7,32 @@ import packageJson from './package.json';
 import Inspect from 'vite-plugin-inspect';
 import Narrat from 'vite-plugin-narrat';
 
+function viteGodotCorsPlugin() {
+  return {
+    name: 'configure-response-headers',
+    configureServer: (server) => {
+      server.middlewares.use((_req, res, next) => {
+        res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+        res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        next();
+      });
+    },
+  };
+}
+function addGodotToConfig(conf: UserConfig) {
+  conf.server = {
+    open: '/godot.html',
+  };
+  conf.plugins.push(viteGodotCorsPlugin());
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   // Uses env variables to decide if we're building a demo, and if so which one
   process.env.VITE_BUILD_DATE = new Date().toISOString();
   process.env.VITE_BUILD_VERSION = packageJson?.version ?? 'Unknown';
   const isDemoBuild = process.env.VITE_DEMO_BUILD !== undefined;
-  let exampleChoice = '';
+  let exampleChoice = 'default';
   console.log(
     process.env.VITE_BASE_DATA_PATH,
     process.env.VITE_BASE_ASSET_PATH,
@@ -22,6 +41,7 @@ export default defineConfig(({ command }) => {
     exampleChoice = process.env.VITE_DEMO_BUILD;
     console.log(`Building narrat in demo mode: ${exampleChoice}`);
   } else {
+    exampleChoice = process.env.VITE_DEMO_GAME ?? 'default';
     if (!process.env.VITE_BASE_DATA_PATH) {
       process.env.VITE_BASE_DATA_PATH = 'examples/games/default/';
       process.env.VITE_BASE_ASSET_PATH = 'examples/assets/';
@@ -55,6 +75,9 @@ export default defineConfig(({ command }) => {
     },
     plugins: [WindiCSS(), vue(), Inspect(), Narrat()],
   };
+  if (exampleChoice === 'godot') {
+    addGodotToConfig(conf);
+  }
   if (command !== 'build') {
     delete conf.build.lib;
   }

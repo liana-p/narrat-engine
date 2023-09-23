@@ -4,6 +4,7 @@ import defaultGame from '@/examples/default/scripts';
 import demoGame from '@/examples/demo/scripts';
 import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
+import godotGame from '@/examples/godot/scripts';
 import { NarratScript } from '@/types/app-types';
 
 const gameScripts: Record<string, NarratScript[]> = {
@@ -11,6 +12,7 @@ const gameScripts: Record<string, NarratScript[]> = {
   demo: demoGame,
   rpg: rpgGame,
   empty: emptyGame,
+  godot: godotGame,
 };
 
 // This config is there to enable playing different demo games based on environment variables.
