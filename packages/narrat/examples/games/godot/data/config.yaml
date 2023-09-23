@@ -19,8 +19,8 @@ layout:
   mobileDialogHeightPercentage: 60
   verticalLayoutThreshold: 600
   portraits:
-    width: 100
-    height: 100
+    width: 180
+    height: 350
 screens: data/screens.yaml
 buttons: data/buttons.yaml
 skills: data/skills.yaml

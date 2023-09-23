@@ -111,7 +111,6 @@ export class Inputs {
   public startListening() {
     this.updateGamepad();
     window.addEventListener('keydown', (event) => {
-      console.log('keydown', event.key);
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,
@@ -119,7 +118,6 @@ export class Inputs {
       };
     });
     window.addEventListener('keyup', (event) => {
-      console.log('keyup', event.key);
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,

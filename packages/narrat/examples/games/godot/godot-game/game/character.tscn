@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://3gn0i2w75ryu"]
+
+[ext_resource type="Script" path="res://Character.gd" id="1_7pj3y"]
+[ext_resource type="PackedScene" uid="uid://bmc1si851opsk" path="res://game/character_model.tscn" id="2_t2bwe"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bqb2p"]
+
+[node name="Character" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14374, 0)
+script = ExtResource("1_7pj3y")
+
+[node name="Character Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_bqb2p")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.964036, 0.265775, 0, -0.265775, 0.964036, 1.24124, 1, -1.78703)
+spring_length = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="Character Model" parent="." instance=ExtResource("2_t2bwe")]
+transform = Transform3D(1, 0.000386093, -0.00019567, -0.000385985, 1, 0.000479279, 0.000195882, -0.000479193, 1, 0, 0, 0)

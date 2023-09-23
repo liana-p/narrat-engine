@@ -1,11 +1,92 @@
-[gd_scene format=3 uid="uid://dpbvvwxvh0668"]
+[gd_scene load_steps=15 format=3 uid="uid://dpbvvwxvh0668"]
+
+[ext_resource type="Script" path="res://Narrat/GodotPlugin.gd" id="1_nsh1s"]
+[ext_resource type="Script" path="res://main.gd" id="1_wdu0d"]
+[ext_resource type="PackedScene" uid="uid://c36fqkl50juhp" path="res://Narrat/narrat_bridge.tscn" id="2_mtb5q"]
+[ext_resource type="PackedScene" uid="uid://3gn0i2w75ryu" path="res://game/character.tscn" id="3_f86yt"]
+[ext_resource type="PackedScene" uid="uid://bmc1si851opsk" path="res://game/character_model.tscn" id="4_ef8do"]
+[ext_resource type="PackedScene" uid="uid://b8sw31usja3e2" path="res://game/Cube.tscn" id="5_v5o6d"]
+[ext_resource type="PackedScene" uid="uid://c0n3ea08rcv5x" path="res://game/BigSphere.tscn" id="6_eti8p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1nmaw"]
+size = Vector3(20, 2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxt86"]
+albedo_color = Color(0.717647, 0.717647, 0.717647, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vcwox"]
+material = SubResource("StandardMaterial3D_nxt86")
+size = Vector2(30, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wh3w"]
+albedo_color = Color(0.207843, 1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_opqe7"]
+material = SubResource("StandardMaterial3D_8wh3w")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bqb2p"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5de3y"]
+radius = 3.961
 
 [node name="Node3D" type="Node3D"]
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+script = ExtResource("1_wdu0d")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.00247666, -0.737045, -0.675839, 0.734242, -0.457478, 0.501599, -0.678883, -0.497472, 0.540037, 8.42564, 6.06563, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.874755, 0.484565, 0, -0.484565, 0.874755, 0, 1.09545, 3.24586)
-current = true
+[node name="GodotPlugin" type="Node" parent="." node_paths=PackedStringArray("bridgeNode")]
+script = ExtResource("1_nsh1s")
+bridgeNode = NodePath("NarratBridge")
+
+[node name="NarratBridge" parent="GodotPlugin" instance=ExtResource("2_mtb5q")]
+
+[node name="Character" parent="." node_paths=PackedStringArray("root", "narrat_plugin") instance=ExtResource("3_f86yt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0157394, 1.14374, 0.0951118)
+root = NodePath("..")
+cubePrefab = ExtResource("5_v5o6d")
+spherePrefab = ExtResource("6_eti8p")
+narrat_plugin = NodePath("../GodotPlugin")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.31693, 0)
+shape = SubResource("BoxShape3D_1nmaw")
+
+[node name="Floor" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_vcwox")
+skeleton = NodePath("../..")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(-0.873416, 0, -0.486976, 0, 1, 0, 0.486976, 0, -0.873416, -5.49514, 1.1386, -11.4285)
+
+[node name="Character Model" parent="CharacterBody3D" instance=ExtResource("4_ef8do")]
+
+[node name="Capsule" parent="CharacterBody3D/Character Model" index="0"]
+mesh = SubResource("CapsuleMesh_opqe7")
+skeleton = NodePath("../../..")
+
+[node name="Nose" parent="CharacterBody3D/Character Model" index="1"]
+skeleton = NodePath("../../..")
+
+[node name="Eye 1" parent="CharacterBody3D/Character Model" index="2"]
+skeleton = NodePath("../../..")
+
+[node name="Eye 2" parent="CharacterBody3D/Character Model" index="3"]
+skeleton = NodePath("../../..")
+
+[node name="Character Collision" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_bqb2p")
+
+[node name="Area3D" type="Area3D" parent="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Area3D"]
+shape = SubResource("SphereShape3D_5de3y")
+
+[connection signal="narrat_message" from="GodotPlugin" to="Character" method="_on_godot_plugin_narrat_message"]
+[connection signal="bridge_ready" from="GodotPlugin/NarratBridge" to="GodotPlugin" method="_on_narrat_bridge_bridge_ready"]
+[connection signal="narrat_message" from="GodotPlugin/NarratBridge" to="GodotPlugin" method="_on_narrat_bridge_narrat_message"]
+[connection signal="body_entered" from="CharacterBody3D/Area3D" to="Character" method="_on_area_3d_body_entered"]
+
+[editable path="CharacterBody3D/Character Model"]
