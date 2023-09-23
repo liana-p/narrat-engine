@@ -1,20 +1,21 @@
 main:
   godot_pause
-  "Hello world"
   set_screen @empty
-  "There is a cube in a godot scene"
-  "Pause"
-  godot_pause
-  "Resume"
+  "This is the narrat godot integration demo"
   godot_resume
 
 talk_character:
-  if (|| $data.pickedA $data.pickedB):
+  if (&& $data.pickedA $data.pickedB):
+    return (run talk_after_both)
+  elseif (|| $data.pickedA $data.pickedB):
     talk blue_thing idle "Hello again! Wanna try more things?"
-  else:
-    talk blue_thing idle "Oh hello there!"
-    talk blue_thing idle "This is the narrat godot integration."
-    talk blue_thing idle "I heard you can make choices and things will happen?"
+    return (run spawn_choice)
+  talk blue_thing idle "Oh hello there!"
+  talk blue_thing idle "This is the narrat godot integration."
+  talk blue_thing idle "I heard you can make choices and things will happen?"
+  return (run spawn_choice)
+
+spawn_choice:
   choice:
     talk blue_thing idle "Ok pick one option"
     "I want the first choice!":
@@ -35,11 +36,20 @@ after_talk:
       "no :(":
         talk blue_thing idle "oh okay :("
         return "d"
-  elseif (|| $data.pickedA $data.pickedB):
+  elseif (&& $data.pickedA $data.pickedB):
     talk blue_thing idle "This one was different!"
   else:
     talk blue_thing idle "wow that was weird!"
 
+talk_after_both:
+  talk blue_thing idle "I see you've done both choices now."
+  choice:
+    talk blue_thing idle "How about a third one?"
+    "Okay :o":
+      return "c"
+    "no :(":
+      talk blue_thing idle "oh okay :("
+      return "d"
 last_thing:
   godot_pause
   choice:

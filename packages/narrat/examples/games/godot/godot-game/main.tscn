@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c0n3ea08rcv5x" path="res://game/BigSphere.tscn" id="6_eti8p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1nmaw"]
-size = Vector3(20, 2, 20)
+size = Vector3(30, 2, 30)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxt86"]
 albedo_color = Color(0.717647, 0.717647, 0.717647, 1)
@@ -51,7 +51,7 @@ narrat_plugin = NodePath("../GodotPlugin")
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.31693, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.990129, 0)
 shape = SubResource("BoxShape3D_1nmaw")
 
 [node name="Floor" type="MeshInstance3D" parent="StaticBody3D"]
