@@ -26,7 +26,7 @@ import { useInputs } from './stores/inputs-store';
 import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
 import { ModuleNamespace } from 'vite/types/hot';
-import { constructNarratObject } from './exports/construct-narrat';
+import { constructNarratObject } from './utils/construct-narrat';
 
 let app: any;
 

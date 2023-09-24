@@ -1,6 +1,6 @@
 import { App } from 'vue';
 import type { NarratScript } from '@/types/app-types';
-import type { Narrat } from '@/exports/construct-narrat';
+import type { Narrat } from '@/utils/construct-narrat';
 
 import 'es6-promise/auto';
 

@@ -10,3 +10,4 @@ export { randomId } from '@/utils/randomId';
 export { Vec2 } from '@/utils/Vector2';
 export type { Vector2 } from '@/utils/Vector2';
 export { gameloop } from '@/utils/gameloop';
+export * from '@/utils/construct-narrat';

@@ -7,3 +7,4 @@ export * from '@/exports/stores';
 export * from '@/exports/others';
 export * from '@/exports/components';
 export * from '@/exports/utils';
+export * from '@/exports/optionals';

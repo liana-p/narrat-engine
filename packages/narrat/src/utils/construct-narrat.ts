@@ -1,8 +1,7 @@
 import { handleHMR } from '@/hmr/hmr';
 import { vm } from '@/vm/vm';
 import { App } from 'vue';
-import { useVM } from './stores';
-
+import { useVM } from '@/stores/vm-store';
 import * as exports from '@/exports/exports';
 import { getSaveFile } from '@/utils/save-helpers';
 

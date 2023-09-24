@@ -1,5 +1,10 @@
-import { useRenderingStore, Narrat, CommandPlugin } from '@/lib';
+import {
+  CommandPlugin,
+  CommandPluginOptions,
+} from '@/vm/commands/command-plugin';
 import { NarratPlugin } from './NarratPlugin';
+import { Narrat } from '@/utils/construct-narrat';
+import { useRenderingStore } from '@/stores/rendering-store';
 
 export interface MessageForGodot {
   type: string;
@@ -73,9 +78,6 @@ export class GodotPlugin extends NarratPlugin {
       const event = new KeyboardEvent(e.type, e);
       (event as any).fakeEvent = true;
       this.canvas.dispatchEvent(event);
-    });
-    canvas.addEventListener('keydown', () => {
-      console.log('canvas keydown');
     });
     const Engine = (window as any).Engine;
     const engine = new Engine({
