@@ -112,6 +112,8 @@
   --save-ui-selected-background: #bf9a21;
 
   --selected-border: 2px solid cyan;
+
+  --game-bg-color: transparent;
 }
 
 body {

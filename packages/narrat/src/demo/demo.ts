@@ -4,13 +4,17 @@ import defaultGame from '@/examples/default/scripts';
 import demoGame from '@/examples/demo/scripts';
 import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
+import godotGame from '@/examples/godot/scripts';
 import { NarratScript } from '@/types/app-types';
+import { registerPlugin } from '@/lib';
+import { GodotPlugin } from '@/plugins/godot-plugin';
 
 const gameScripts: Record<string, NarratScript[]> = {
   default: defaultGame,
   demo: demoGame,
   rpg: rpgGame,
   empty: emptyGame,
+  godot: godotGame,
 };
 
 // This config is there to enable playing different demo games based on environment variables.
@@ -31,6 +35,9 @@ if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
 
 const scripts = gameScripts[demoChoice];
 const onPageLoad = () => {
+  if (demoChoice === 'godot') {
+    registerPlugin(new GodotPlugin());
+  }
   startApp({
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,

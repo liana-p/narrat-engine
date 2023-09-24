@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmc1si851opsk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsm2o"]
+albedo_color = Color(0.854902, 0.27451, 0.403922, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_s5tcr"]
+material = SubResource("StandardMaterial3D_qsm2o")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3y0vl"]
+top_radius = 0.2
+bottom_radius = 0.001
+height = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_c3lhn"]
+radius = 0.1
+height = 0.2
+
+[node name="Character Model" type="Node3D"]
+
+[node name="Capsule" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_s5tcr")
+skeleton = NodePath("../..")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999384, 0.0351089, 1.53466e-09, 0, -4.37114e-08, 1, 0.0351089, 0.999384, 4.36844e-08, 0, 0.305162, -0.479906)
+mesh = SubResource("CylinderMesh_3y0vl")
+skeleton = NodePath("../..")
+
+[node name="Eye 1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.227132, 0.603737, -0.374092)
+mesh = SubResource("SphereMesh_c3lhn")
+skeleton = NodePath("../..")
+
+[node name="Eye 2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.292269, 0.598946, -0.3829)
+mesh = SubResource("SphereMesh_c3lhn")
+skeleton = NodePath("../..")

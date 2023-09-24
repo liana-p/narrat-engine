@@ -1,0 +1,19 @@
+---
+config:
+  imagesPath: img/characters/
+characters:
+  game:
+    name: ''
+    color: white
+  player:
+    style:
+      color: orange
+    sprites:
+      idle: red_player.png
+    name: You
+  blue_thing:
+    name: Blue thing
+    style:
+      color: cyan
+    sprites:
+      idle: blue_thing.png

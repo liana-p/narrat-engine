@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0n3ea08rcv5x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pi67p"]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iv4rk"]
+radius = 10.0
+
+[node name="Big Sphere" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.295, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_pi67p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_iv4rk")

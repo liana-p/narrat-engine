@@ -53,7 +53,6 @@ import { DialogBoxParameters } from '@/types/dialog-box-types';
 import {
   getCharacterInfo,
   getCharacterPoseData,
-  getCharacterPicUrl,
   isVideoPose,
   isImagePose,
 } from '@/utils/characters';

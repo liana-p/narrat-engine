@@ -1,0 +1,67 @@
+main:
+  godot_pause
+  set_screen @empty
+  "This is the narrat godot integration demo"
+  godot_resume
+
+talk_character:
+  if (&& $data.pickedA $data.pickedB):
+    return (run talk_after_both)
+  elseif (|| $data.pickedA $data.pickedB):
+    talk blue_thing idle "Hello again! Wanna try more things?"
+    return (run spawn_choice)
+  talk blue_thing idle "Oh hello there!"
+  talk blue_thing idle "This is the narrat godot integration."
+  talk blue_thing idle "I heard you can make choices and things will happen?"
+  return (run spawn_choice)
+
+spawn_choice:
+  choice:
+    talk blue_thing idle "Ok pick one option"
+    "I want the first choice!":
+      set data.pickedA true
+      return "a"
+    "I think I prefer the second choice.":
+      set data.pickedB true
+      return "b"
+
+after_talk:
+  godot_pause
+  if (&& $data.pickedA $data.pickedB):
+    talk blue_thing idle "I see you've done both choices now."
+    choice:
+      talk blue_thing idle "How about a third one?"
+      "Okay :o":
+        return "c"
+      "no :(":
+        talk blue_thing idle "oh okay :("
+        return "d"
+  elseif (&& $data.pickedA $data.pickedB):
+    talk blue_thing idle "This one was different!"
+    return "na"
+  else:
+    talk blue_thing idle "wow that was weird!"
+    return "na"
+
+talk_after_both:
+  talk blue_thing idle "I see you've done both choices now."
+  choice:
+    talk blue_thing idle "How about a third one?"
+    "Okay :o":
+      return "c"
+    "no :(":
+      talk blue_thing idle "oh okay :("
+      return "d"
+
+last_thing:
+  godot_pause
+  choice:
+    talk blue_thing idle "ok you should stop making those choices, we're going to crash the game at this rate. Please stop."
+    "No I want to continue 😈":
+      talk blue_thing idle "Will I stop existing if you make the game crash? :("
+      talk blue_thing idle "I don't want to stop existing :("
+      talk blue_thing idle "Please stop."
+      return "e"
+    "Okay fine.":
+      talk blue_thing idle "Thank you."
+      return "f"

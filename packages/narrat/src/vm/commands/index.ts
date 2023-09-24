@@ -131,6 +131,8 @@ import {
 import {
   changeGameCharacterPlugin,
   changePlayerCharacterPlugin,
+  jsonDecode,
+  jsonEncode,
   loadDataPlugin,
 } from './util-commands';
 import {
@@ -321,6 +323,8 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(loadDataPlugin);
   vm.addCommand(changePlayerCharacterPlugin);
   vm.addCommand(changeGameCharacterPlugin);
+  vm.addCommand(jsonEncode);
+  vm.addCommand(jsonDecode);
 
   // Time commands
   vm.addCommand(nowPlugin);

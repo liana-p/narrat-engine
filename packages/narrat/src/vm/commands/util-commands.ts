@@ -34,3 +34,25 @@ export const changeGameCharacterPlugin = CommandPlugin.FromOptions<{
     useConfig().config.characters.config.gameCharacter = character;
   },
 });
+
+export const jsonEncode = CommandPlugin.FromOptions<{
+  value: any;
+}>({
+  keyword: 'json_stringify',
+  argTypes: [{ name: 'value', type: 'any' }],
+  runner: async (cmd) => {
+    const { value } = cmd.options;
+    return JSON.stringify(value);
+  },
+});
+
+export const jsonDecode = CommandPlugin.FromOptions<{
+  value: string;
+}>({
+  keyword: 'json_parse',
+  argTypes: [{ name: 'value', type: 'string' }],
+  runner: async (cmd) => {
+    const { value } = cmd.options;
+    return JSON.parse(value);
+  },
+});
