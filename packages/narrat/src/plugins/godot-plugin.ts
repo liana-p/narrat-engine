@@ -62,16 +62,16 @@ export class GodotPlugin extends NarratPlugin {
     canvas.style.position = 'absolute';
     canvas.style.zIndex = '0';
     app.appendChild(canvas);
-    window.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e: any) => {
       if (e.fakeEvent) return;
       const event = new KeyboardEvent(e.type, e);
-      event.fakeEvent = true;
+      (event as any).fakeEvent = true;
       this.canvas.dispatchEvent(event);
     });
-    window.addEventListener('keyup', (e) => {
+    window.addEventListener('keyup', (e: any) => {
       if (e.fakeEvent) return;
       const event = new KeyboardEvent(e.type, e);
-      event.fakeEvent = true;
+      (event as any).fakeEvent = true;
       this.canvas.dispatchEvent(event);
     });
     canvas.addEventListener('keydown', () => {

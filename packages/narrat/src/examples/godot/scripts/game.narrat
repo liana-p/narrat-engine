@@ -38,8 +38,10 @@ after_talk:
         return "d"
   elseif (&& $data.pickedA $data.pickedB):
     talk blue_thing idle "This one was different!"
+    return "na"
   else:
     talk blue_thing idle "wow that was weird!"
+    return "na"
 
 talk_after_both:
   talk blue_thing idle "I see you've done both choices now."
@@ -50,6 +52,7 @@ talk_after_both:
     "no :(":
       talk blue_thing idle "oh okay :("
       return "d"
+
 last_thing:
   godot_pause
   choice:
