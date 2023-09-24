@@ -46,7 +46,7 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
     "@vitejs/plugin-vue": "^4.2.3",
     "cross-env": "^7.0.3",
-    "electron": "25.2.0",
+    "electron": "25.8.1",
     "electron-rebuild": "^3.2.8",
     "prettier": "2.6.2",
     "shx": "^0.3.4",
