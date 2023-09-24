@@ -1,84 +1,64 @@
-## [3.3.3](https://github.com/liana-p/narrat-engine/compare/v3.3.2...v3.3.3) (2023-07-25)
-
-
-### Bug Fixes
-
-* start menu audio wouldn't actually stop ([fe2be9f](https://github.com/liana-p/narrat-engine/commit/fe2be9f7a7b06238e2dc69edb34faa19f2498324))
-
+## [3.3.4](https://github.com/liana-p/narrat-engine/compare/v3.3.3...v3.3.4) (2023-09-24)
 
 ### Features
 
-* new audio-specific fade timings ([e43f1f4](https://github.com/liana-p/narrat-engine/commit/e43f1f43c1d71378c07e1487864001b12cd6352c))
+- export godot plugin for use in projects ([a91bf28](https://github.com/liana-p/narrat-engine/commit/a91bf281b634483db035bba59df2c3f0d63beb38))
 
+## [3.3.3](https://github.com/liana-p/narrat-engine/compare/v3.3.2...v3.3.3) (2023-07-25)
 
+### Bug Fixes
+
+- start menu audio wouldn't actually stop ([fe2be9f](https://github.com/liana-p/narrat-engine/commit/fe2be9f7a7b06238e2dc69edb34faa19f2498324))
+
+### Features
+
+- new audio-specific fade timings ([e43f1f4](https://github.com/liana-p/narrat-engine/commit/e43f1f43c1d71378c07e1487864001b12cd6352c))
 
 ## [3.3.2](https://github.com/liana-p/narrat-engine/compare/v3.3.1...v3.3.2) (2023-07-24)
 
-
 ### Bug Fixes
 
-* dialog box text field now captures inputs properly and autofocuses ([#135](https://github.com/liana-p/narrat-engine/issues/135)) ([697cc8d](https://github.com/liana-p/narrat-engine/commit/697cc8d333d7616aa2a6da96c5ae43f588829787))
-
-
+- dialog box text field now captures inputs properly and autofocuses ([#135](https://github.com/liana-p/narrat-engine/issues/135)) ([697cc8d](https://github.com/liana-p/narrat-engine/commit/697cc8d333d7616aa2a6da96c5ae43f588829787))
 
 ## [3.3.1](https://github.com/liana-p/narrat-engine/compare/v3.3.0...v3.3.1) (2023-07-21)
 
-
 ### Features
 
-* video portraits, hidden portraits, custom size portraits ([#133](https://github.com/liana-p/narrat-engine/issues/133)) ([7e62501](https://github.com/liana-p/narrat-engine/commit/7e6250177772b276c85d5457ed263421a130613d))
-
-
+- video portraits, hidden portraits, custom size portraits ([#133](https://github.com/liana-p/narrat-engine/issues/133)) ([7e62501](https://github.com/liana-p/narrat-engine/commit/7e6250177772b276c85d5457ed263421a130613d))
 
 # [3.3.0](https://github.com/liana-p/narrat-engine/compare/v3.2.15...v3.3.0) (2023-07-20)
 
-
 ### Features
 
-* new feature for video backgrounds in screens ([#132](https://github.com/liana-p/narrat-engine/issues/132)) ([fa646e4](https://github.com/liana-p/narrat-engine/commit/fa646e4767da4ba600638031c2f21ef636a0bcbe))
-
-
+- new feature for video backgrounds in screens ([#132](https://github.com/liana-p/narrat-engine/issues/132)) ([fa646e4](https://github.com/liana-p/narrat-engine/commit/fa646e4767da4ba600638031c2f21ef636a0bcbe))
 
 ## [3.2.15](https://github.com/liana-p/narrat-engine/compare/v3.2.14...v3.2.15) (2023-07-15)
 
-
 ### Bug Fixes
 
-* bug where dialog panel would appear during screen transitions ([8edbd20](https://github.com/liana-p/narrat-engine/commit/8edbd201a8e0da02edd1e5e483de6db6e6ef93ee))
-
-
+- bug where dialog panel would appear during screen transitions ([8edbd20](https://github.com/liana-p/narrat-engine/commit/8edbd201a8e0da02edd1e5e483de6db6e6ef93ee))
 
 ## [3.2.14](https://github.com/liana-p/narrat-engine/compare/v3.2.13...v3.2.14) (2023-07-15)
 
-
 ### Bug Fixes
 
-* default font size fix + reenabled debug on game splash screen ([#129](https://github.com/liana-p/narrat-engine/issues/129)) ([3b945a3](https://github.com/liana-p/narrat-engine/commit/3b945a381dd7bcfa5aef7b32af71c4be21bb53b5))
-
-
+- default font size fix + reenabled debug on game splash screen ([#129](https://github.com/liana-p/narrat-engine/issues/129)) ([3b945a3](https://github.com/liana-p/narrat-engine/commit/3b945a381dd7bcfa5aef7b32af71c4be21bb53b5))
 
 ## [3.2.13](https://github.com/liana-p/narrat-engine/compare/v3.2.12...v3.2.13) (2023-07-14)
 
-
 ### Features
 
-* more gamepad menus (inventory and skills) ([#128](https://github.com/liana-p/narrat-engine/issues/128)) ([6c767de](https://github.com/liana-p/narrat-engine/commit/6c767de8cdda9d4cb1082289be1cc1fca10bd74a))
-
-
+- more gamepad menus (inventory and skills) ([#128](https://github.com/liana-p/narrat-engine/issues/128)) ([6c767de](https://github.com/liana-p/narrat-engine/commit/6c767de8cdda9d4cb1082289be1cc1fca10bd74a))
 
 ## [3.2.12](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.12) (2023-07-13)
 
-
 ### Bug Fixes
 
-* **buttons:** issue with changing button state after changing screens… ([#127](https://github.com/liana-p/narrat-engine/issues/127)) ([3de80f7](https://github.com/liana-p/narrat-engine/commit/3de80f78584ce4cd6a9d4e632e888ab2133a299f))
-
+- **buttons:** issue with changing button state after changing screens… ([#127](https://github.com/liana-p/narrat-engine/issues/127)) ([3de80f7](https://github.com/liana-p/narrat-engine/commit/3de80f78584ce4cd6a9d4e632e888ab2133a299f))
 
 ### Features
 
-* new array functions ([#125](https://github.com/liana-p/narrat-engine/issues/125)) ([b03afab](https://github.com/liana-p/narrat-engine/commit/b03afab881467d1090eb49a1cb2a9c0681324ddb))
-
-
+- new array functions ([#125](https://github.com/liana-p/narrat-engine/issues/125)) ([b03afab](https://github.com/liana-p/narrat-engine/commit/b03afab881467d1090eb49a1cb2a9c0681324ddb))
 
 ## [3.2.11](https://github.com/liana-p/narrat-engine/compare/v3.2.10...v3.2.11) (2023-07-11)
 
