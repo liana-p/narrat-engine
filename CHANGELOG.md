@@ -1,3 +1,12 @@
+## [3.3.5](https://github.com/liana-p/narrat-engine/compare/v3.3.4...v3.3.5) (2023-09-25)
+
+
+### Features
+
+* narrat godot plugin now lets users override the config ([714b9cf](https://github.com/liana-p/narrat-engine/commit/714b9cf0cedc1b8aa77ba549936acf6b31a3f0dc))
+
+
+
 ## [3.3.4](https://github.com/liana-p/narrat-engine/compare/v3.3.3...v3.3.4) (2023-09-24)
 
 ### Features
