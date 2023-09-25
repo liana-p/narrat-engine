@@ -11,6 +11,35 @@ export interface MessageForGodot {
   payload: any;
 }
 
+export interface GodotEngineConfig {
+  args: any[];
+  canvas?: HTMLCanvasElement;
+  canvasResizePolicy: 0 | 1 | 2;
+  executable?: string;
+  experimentalVK: boolean;
+  fileSizes: Record<string, number>;
+  focusCanvas: boolean;
+  gdextensionLibs: string[];
+}
+
+const defaultGodotConfig: GodotEngineConfig = {
+  args: [],
+  canvasResizePolicy: 0,
+  executable: '',
+  experimentalVK: false,
+  fileSizes: { 'index.pck': 54160, 'index.wasm': 52315256 },
+  focusCanvas: false,
+  gdextensionLibs: [],
+};
+export interface GodotPluginOptions {
+  godotGamePath?: string;
+  engineConfigOverrides?: Partial<GodotEngineConfig>;
+}
+
+export type GodotEngine = any;
+export type GodotEngineConstructor = new (
+  config: GodotEngineConfig,
+) => GodotEngine;
 function godotReadyCallback() {
   window.godotReady = true;
   if (window.narratReadyCallback) {
@@ -26,9 +55,19 @@ export class GodotPlugin extends NarratPlugin {
   messageQueue: MessageForGodot[] = [];
   narrat!: Narrat;
   narratReady: boolean = false;
+  engineConfig: GodotEngineConfig;
+  engine: GodotEngine;
 
-  constructor() {
+  constructor(config: GodotPluginOptions) {
     super();
+    const engineConfig: GodotEngineConfig = {
+      ...defaultGodotConfig,
+      ...(config.engineConfigOverrides ?? {}),
+    };
+    if (config.godotGamePath) {
+      engineConfig.executable = config.godotGamePath;
+    }
+    this.engineConfig = engineConfig;
     this.customCommands = [
       CommandPlugin.FromOptions<{}>({
         keyword: 'godot_pause',
@@ -67,6 +106,9 @@ export class GodotPlugin extends NarratPlugin {
     canvas.style.position = 'absolute';
     canvas.style.zIndex = '0';
     app.appendChild(canvas);
+
+    // Note: This is a not great hack because godot is listening for keyboard events in the canvas, and because narrat is in front of it, it never receives them
+    // Basically re-dispatching events but giving them a fake property so that we know to ignore our own events..
     window.addEventListener('keydown', (e: any) => {
       if (e.fakeEvent) return;
       const event = new KeyboardEvent(e.type, e);
@@ -79,17 +121,7 @@ export class GodotPlugin extends NarratPlugin {
       (event as any).fakeEvent = true;
       this.canvas.dispatchEvent(event);
     });
-    const Engine = (window as any).Engine;
-    const engine = new Engine({
-      args: [],
-      canvas,
-      canvasResizePolicy: 0,
-      executable: 'examples/games/godot/godot-game/export/index',
-      experimentalVK: false,
-      fileSizes: { 'index.pck': 54160, 'index.wasm': 52315256 },
-      focusCanvas: false,
-      gdextensionLibs: [],
-    });
+    const engine = new window.Engine(this.engineConfig);
     engine.startGame();
     this.resizeCanvas();
     window.godot = this;
@@ -151,6 +183,7 @@ export class GodotPlugin extends NarratPlugin {
 declare global {
   export interface Window {
     godot: GodotPlugin;
+    Engine: GodotEngineConstructor;
     godotReady: boolean;
     godotReadyCallback: typeof godotReadyCallback;
     narratReadyCallback: () => void;

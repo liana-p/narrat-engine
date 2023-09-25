@@ -36,7 +36,11 @@ if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
 const scripts = gameScripts[demoChoice];
 const onPageLoad = () => {
   if (demoChoice === 'godot') {
-    registerPlugin(new GodotPlugin());
+    registerPlugin(
+      new GodotPlugin({
+        godotGamePath: 'examples/games/godot/godot-game/export/index',
+      }),
+    );
   }
   startApp({
     baseAssetsPath: assetsPath,
