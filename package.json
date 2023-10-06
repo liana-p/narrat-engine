@@ -51,7 +51,7 @@
     "execa": "^4.0.2",
     "minimist": "^1.2.6",
     "rimraf": "^3.0.2",
-    "semver": "^7.4.0",
+    "semver": "^7.5.4",
     "simple-git-hooks": "^2.8.1",
     "vitepress": "1.0.0-beta.5"
   }
