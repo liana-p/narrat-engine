@@ -73,12 +73,13 @@ import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags } from './utils/string-helpers';
 import { useNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
+import { Interval, Timeout } from '@/utils/time-helpers';
 
 export interface TextAnimation {
   text: string;
   index: number;
   startTime: number;
-  timer: NodeJS.Timer | null;
+  timer: Interval | null;
   skippedChars: number;
   tags: RegExpExecArray[];
   finished: boolean;
@@ -90,9 +91,9 @@ const passed = ref(false);
 const timeout = ref<any>(null);
 const textAnimation = ref<TextAnimation | null>(null);
 const mounted = ref(false);
-const autoTimer = ref<NodeJS.Timer | null>(null);
-const skipTimer = ref<NodeJS.Timer | null>(null);
-const nextLineTimer = ref<NodeJS.Timer | null>(null);
+const autoTimer = ref<Timeout | null>(null);
+const skipTimer = ref<Timeout | null>(null);
+const nextLineTimer = ref<Timeout | null>(null);
 const playerInput = ref<HTMLInputElement | null>(null);
 const textFieldInputGrabber = ref<InputListener | null>(null);
 
@@ -298,7 +299,7 @@ function startTextAnimation() {
       text: '',
       index: 0,
       startTime: Date.now(),
-      timer: null as NodeJS.Timer | null,
+      timer: null,
       skippedChars: 0,
       tags: findAllHtmlTags(props.options.text),
       finished: false,

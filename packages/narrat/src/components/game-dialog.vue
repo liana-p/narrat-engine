@@ -70,6 +70,7 @@ import {
   ImageCharacterPose,
   VideoCharacterPose,
 } from '@/config/characters-config';
+import { Timeout } from '@/utils/time-helpers';
 
 const props = defineProps<{
   layoutMode: 'horizontal' | 'vertical';
@@ -77,7 +78,7 @@ const props = defineProps<{
   inputListener: InputListener;
 }>();
 const inDialogue = ref(useMain().inScript);
-const dialogueEndTimer = ref<null | NodeJS.Timer>(null);
+const dialogueEndTimer = ref<null | Timeout>(null);
 const rendering = useRenderingStore();
 const vmStore = useVM();
 const stack = computed(() => vmStore.stack);
