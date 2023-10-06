@@ -299,7 +299,7 @@ function startTextAnimation() {
       text: '',
       index: 0,
       startTime: Date.now(),
-      timer: null as NodeJS.Timer | null,
+      timer: null,
       skippedChars: 0,
       tags: findAllHtmlTags(props.options.text),
       finished: false,
