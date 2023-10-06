@@ -5,7 +5,7 @@ import path from 'node:path';
 import chalk from 'chalk';
 import semver from 'semver';
 import enquirer from 'enquirer';
-import execa from 'execa';
+import { execa } from 'execa';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
@@ -17,6 +17,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = minimist(process.argv.slice(2));
 const preId = args.preid || semver.prerelease(currentVersion)?.[0];
 const isDryRun = args.dry;
+if (isDryRun) {
+  console.log(`Running in dry mode, nothing will be published.`);
+}
 let skipTests = args.skipTests;
 const skipBuild = args.skipBuild;
 const isCanary = args.canary;
