@@ -58,7 +58,7 @@ import {
   defaultSkillChecksConfig,
 } from './config/skillchecks-config';
 import {
-  ChoicesFileConfigSchema,
+  ChoicesInputConfigSchema,
   defaultChoicesConfig,
 } from './config/choices-config';
 
@@ -79,7 +79,7 @@ const splitConfigs = [
   ['quests', QuestsConfigSchema, defaultQuestsConfig],
   ['tooltips', TooltipsConfigSchema, defaultTooltipsConfig],
   ['characters', CharactersFilesConfigSchema, defaultCharactersConfig],
-  ['choices', ChoicesFileConfigSchema, defaultChoicesConfig],
+  ['choices', ChoicesInputConfigSchema, defaultChoicesConfig],
 ] as const;
 
 // List of other keys that are simply copied from input config to new config
@@ -140,7 +140,7 @@ export async function setupConfig(configInput: ConfigInput) {
       } catch (e) {
         console.error(e);
         error(`${key} config error: ${e}`);
-        currentValue = { ...defaultValue };
+        currentValue = { ...defaultValue } as any;
       }
     }
     if (currentValue) {

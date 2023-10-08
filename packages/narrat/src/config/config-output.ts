@@ -31,7 +31,7 @@ import {
   defaultSkillChecksConfig,
 } from './skillchecks-config';
 import { SettingsConfig } from './settings-config';
-import { ChoicesFileConfig, defaultChoicesConfig } from './choices-config';
+import { ChoicesConfig, defaultChoicesConfig } from './choices-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -66,7 +66,7 @@ export interface Config {
   debugging: DebuggingConfig;
   saves: SavesConfig;
   characters: CharactersFilesConfig;
-  choices: ChoicesFileConfig;
+  choices: ChoicesConfig;
 }
 
 export const defaultConfig = {
