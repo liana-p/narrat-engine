@@ -118,7 +118,7 @@ export const useScreens = defineStore('screens', {
           );
           layerState.transition = transitionState;
         }
-        layerState.screen = null;
+        layerState.screen = '@empty';
         if (!transition) {
           resolve();
         }
