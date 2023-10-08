@@ -2,7 +2,7 @@ import { QuestsConfig } from '@/config/quests-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getObjectiveConfig, getQuestConfig } from '../config';
+import { getObjectiveConfig, getQuestConfig, getQuestEndingConfig } from '../config';
 import { useNotifications } from './notification-store';
 
 export interface QuestLogState {
@@ -14,8 +14,10 @@ export interface QuestLogState {
 export interface QuestState {
   id: string;
   state: 'hidden' | 'unlocked' | 'completed';
-  // String describing the ending the player got. Can optionally be passed to `completeQuest` to change the description in the quest log
+  // Ending id
   ending?: string;
+  succeeded?: boolean;
+  extraData: Record<string, any>;
   /** Note: Objectives are an object so that it's easy to access specific objectives in game scripts.
    * One side effect of this is that the order objectives appear in isn't technicaclly guaranteed. */
   objectives: {
@@ -26,6 +28,8 @@ export interface QuestState {
 export interface ObjectiveState {
   id: string;
   state: 'hidden' | 'unlocked' | 'completed';
+  succeeded?: boolean;
+  extraData: Record<string, any>;
 }
 
 export type QuestLogSave = QuestLogState;
@@ -70,11 +74,13 @@ export const useQuests = defineStore('quests', {
           id: key,
           state: 'hidden',
           objectives: {},
+          extraData: {},
         };
         // iterate through data.objectives to populate the objectives array of this.quests[key]
         for (const objectiveKey of Object.keys(data.objectives)) {
           const objective = data.objectives[objectiveKey];
           this.quests[key].objectives[objectiveKey] = {
+            extraData: {},
             id: objectiveKey,
             state: objective.hidden ? 'hidden' : 'unlocked',
           };
@@ -122,11 +128,20 @@ export const useQuests = defineStore('quests', {
         error(`Objective ${objectiveId} doesn't exist in quest ${questId}!`);
       }
     },
-    completeQuest(questId: string, ending?: string) {
+    completeQuest(questId: string, result?: boolean | string) {
       const quest = this.getQuest(questId);
+      const config = getQuestConfig(questId);
       if (quest) {
         quest.state = 'completed';
-        quest.ending = ending;
+        if (typeof result === 'string') {
+          quest.ending = result;
+          const endingConfig = getQuestEndingConfig(questId, result);
+          quest.succeeded = endingConfig.success;
+        } else if (typeof result === 'boolean') {
+          quest.succeeded = result;
+        } else {
+          quest.succeeded = true;
+        }
         useNotifications().addNotification(
           `Completed quest: ${getQuestConfig(questId).title}`,
         );
@@ -144,6 +159,23 @@ export const useQuests = defineStore('quests', {
       //   quest.objectives,
       //   (objective) => objective.state === 'completed',
       // );
+    },
+    isQuestSucceeded(questId: string) {
+      const quest = this.getQuest(questId);
+      if (!quest) {
+        return false;
+      }
+      return quest.succeeded;
+    },
+    getQuestEnding(questId: string) {
+      const quest = this.getQuest(questId);
+      if (!quest) {
+        return false;
+      }
+      return quest.ending;
+    },
+    questHasEnding(questId: string, endingId: string) {
+      return this.getQuestEnding(questId) === endingId;
     },
     isObjectiveCompleted(questId: string, objectiveId: string) {
       const objective = this.getObjective(questId, objectiveId);

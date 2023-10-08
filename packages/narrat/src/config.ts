@@ -341,6 +341,17 @@ export function getAchievementConfig(id: string) {
 export function getQuestConfig(questId: string) {
   return questsConfig().quests[questId];
 }
+export function getQuestEndingConfig(questId: string, ending: string) {
+  const quest = getQuestConfig(questId);
+  const endings = quest.endings!;
+  if (!endings) {
+    error(`Quest ${questId} doesn't have any endings`);
+  }
+  if (!endings[ending]) {
+    error(`Quest ${questId} has no ending called ${ending}`);
+  }
+  return endings[ending];
+}
 export function getObjectiveConfig(quest: string, objectiveId: string) {
   return getQuestConfig(quest).objectives[objectiveId];
 }

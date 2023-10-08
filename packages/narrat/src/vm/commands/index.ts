@@ -47,10 +47,14 @@ import {
 import {
   completeObjectivePlugin,
   completeQuestPlugin,
+  getQuestEnding,
   objectiveCompletedPlugin,
   objectiveStartedPlugin,
   questCompletedPlugin,
+  questFailedPlugin,
+  questHasEnding,
   questStartedPlugin,
+  questSucceededPlugin,
   startObjectivePlugin,
   startQuestPlugin,
 } from './quest-commands';
@@ -245,6 +249,10 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(questStartedPlugin);
   vm.addCommand(objectiveStartedPlugin);
   vm.addCommand(questCompletedPlugin);
+  vm.addCommand(questSucceededPlugin);
+  vm.addCommand(questFailedPlugin);
+  vm.addCommand(getQuestEnding);
+  vm.addCommand(questHasEnding);
   vm.addCommand(objectiveCompletedPlugin);
 
   // // Inventory
