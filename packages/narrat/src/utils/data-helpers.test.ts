@@ -15,7 +15,7 @@ const ctx: ParserContext = {
     error(`Parser error: ${ctx.fileName}:${line + 1}: ${text}`),
   indentSize: 0,
   processCommandsFunction: (ctx: any, lines: any, parentLine: any) =>
-    ({} as any),
+    ({}) as any,
 };
 
 describe('findBracketsEnd', () => {
@@ -24,7 +24,6 @@ describe('findBracketsEnd', () => {
       '$data.something[3][4]].hello[$data.other[$data.thing[3]]].more.values';
     const result = findBracketsEnd(testString);
     const resultString = testString.substring(0, result);
-    console.log(resultString);
     expect(resultString).toBe('$data.something[3][4]]');
   });
 });

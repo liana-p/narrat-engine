@@ -1,0 +1,2 @@
+test_tooltips:
+  talk player idle "Hello @@bread !!!"

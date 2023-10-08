@@ -1,17 +1,29 @@
 import { findDataHelper, getModifiableDataPinia } from './data-helpers';
 import { processTooltipsInText } from './tooltip-utils';
 
-export function processText(text: string): string {
-  const res = text.replace(/%{[^}]*}/g, (match) => {
+export function stringTemplater(
+  sourceData: any,
+  template: string,
+  variablePrefix = '$',
+) {
+  return template.replace(/%{[^}]*}/g, (match) => {
     const key = match.substr(2, match.length - 3);
-    return findVariable(key);
+    return findVariable(sourceData, key, variablePrefix);
   });
+}
+
+export function processText(text: string): string {
+  const searchableState = getModifiableDataPinia();
+  const res = stringTemplater(searchableState, text, '$');
   return processTooltipsInText(res);
 }
 
-export function findVariable(text: string) {
-  const searchableState = getModifiableDataPinia();
-  const [obj, newKey] = findDataHelper<any>(searchableState, text);
+export function findVariable(
+  sourceObject: any,
+  text: string,
+  variablePrefix: string,
+) {
+  const [obj, newKey] = findDataHelper<any>(sourceObject, text, variablePrefix);
 
   return obj[newKey];
 }

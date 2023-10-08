@@ -1,0 +1,31 @@
+test_choice_tracking:
+  choice:
+    talk helper idle "Let's test the choice tracking feature!"
+    "Normal choice":
+      talk helper idle "Choice 1"
+    KEY "Key choice":
+      talk helper idle "Normal key choice"
+    KEY roll testSkillCheck agility 14 "key choice with skill check":
+      success:
+        talk helper idle "Key choice with skill check"
+      failure:
+        "failure"
+    UNIMPORTANT roll testDicePool "unimportant choice with skill check and condition" if (== true true):
+      success: 
+        talk helper idle "Key choice with skill check and condition"
+      failure:
+        talk helper idle "Failure"
+    "normal choice with condition" if (== true true):
+      talk helper idle "Key choice with condition"
+    roll testDicePool "normal choice with skill check and condition" if (== true true):
+      success: 
+        talk helper idle "Key choice with condition and skill check"
+      failure:
+        talk helper idle "Failure"
+  jump test_choice_tracking_2
+
+
+test_choice_tracking_2:
+  "Now the choices already picked should be greyed"
+  jump test_choice_tracking
+

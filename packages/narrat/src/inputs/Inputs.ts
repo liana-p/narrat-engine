@@ -3,6 +3,7 @@ import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 
+export type InputMode = 'km' | 'gamepad';
 export type NarratGamepadButton = {
   index: number;
   state: GamepadButton;
@@ -81,7 +82,7 @@ export type AnalogActionStatus = {
   previous: AnalogActionState;
 };
 export type ActionStatus = ButtonActionStatus | AnalogActionStatus;
-export class Inputs {
+export class Inputs extends EventTarget {
   public gameActions: {
     [key: string]: Action;
   } = {};
@@ -97,7 +98,30 @@ export class Inputs {
     [key: string]: ActionStatus;
   } = {};
 
+  public lastInputMethodUsed: InputMode = 'km';
+
   public gamepad: NarratGamepad | null = null;
+
+  public kbEvent() {
+    this.changeLastInput('km');
+  }
+
+  public gamepadEvent() {
+    this.changeLastInput('gamepad');
+  }
+
+  public mouseEvent() {
+    this.changeLastInput('km');
+  }
+
+  public changeLastInput(inputMode: InputMode) {
+    if (this.lastInputMethodUsed !== inputMode) {
+      this.lastInputMethodUsed = inputMode;
+      this.dispatchEvent(
+        new CustomEvent<InputMode>('change-input', { detail: inputMode }),
+      );
+    }
+  }
 
   public getGamepad() {
     const gamepads = navigator
@@ -110,7 +134,11 @@ export class Inputs {
 
   public startListening() {
     this.updateGamepad();
+    window.addEventListener('mousemove', (event) => {
+      this.mouseEvent();
+    });
     window.addEventListener('keydown', (event) => {
+      this.kbEvent();
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,
@@ -118,6 +146,7 @@ export class Inputs {
       };
     });
     window.addEventListener('keyup', (event) => {
+      this.kbEvent();
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
         previous,
@@ -164,11 +193,9 @@ export class Inputs {
       const narratButton = narratGamepad.buttons[index];
       narratButton.previous = deepCopy(narratButton.state);
       narratButton.state = deepCopy(button);
-      // if (narratButton.previous.pressed !== narratButton.state.pressed) {
-      //   console.log(
-      //     `gamepad button ${index} - previous: ${narratButton.previous.pressed} new: ${narratButton.state.pressed}`,
-      //   );
-      // }
+      if (narratButton.previous.pressed !== narratButton.state.pressed) {
+        this.gamepadEvent();
+      }
     }
   }
 

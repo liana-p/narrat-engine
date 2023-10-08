@@ -23,7 +23,7 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
     toLoadCount++;
     const image = await downloadImage(key, path);
     loadedCount++;
-    console.log(`Loaded ${loadedCount} / ${toLoadCount} images`);
+    // console.log(`Loaded ${loadedCount} / ${toLoadCount} images`);
     return image;
   };
   const addImage = (key: string, path: string) => {
@@ -62,11 +62,11 @@ export async function downloadImage(key: string, path: string) {
     return images[key];
   }
   const promise = new Promise<HTMLImageElement>((resolve, reject) => {
-    logger.log(`Loading image ${key} at ${path}`);
+    // logger.log(`Loading image ${key} at ${path}`);
     const image = new Image();
     image.onload = () => {
       images[key] = image;
-      logger.log(`Loaded image ${key} successfully`);
+      // logger.log(`Loaded image ${key} successfully`);
       resolve(image);
     };
     image.onerror = (e) => {

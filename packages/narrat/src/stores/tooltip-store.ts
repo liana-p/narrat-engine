@@ -3,6 +3,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getTooltipConfig, tooltipsConfig } from '../config';
 
 export interface TooltipState {
+  keyword: string;
   title?: string;
   text: string;
   x: number;
@@ -28,6 +29,7 @@ export const useTooltips = defineStore('tooltips', {
       const config = getTooltipConfig(keyword);
       if (config) {
         this.addCustomTooltip({
+          keyword,
           title: config.title,
           text: config.description,
           x: position?.x ?? window.screenX,

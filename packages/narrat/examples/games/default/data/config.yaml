@@ -74,3 +74,4 @@ quests: data/quests.yaml
 menuButtons:
   new-game:
     text: Start a new game
+choices: data/choices.yaml

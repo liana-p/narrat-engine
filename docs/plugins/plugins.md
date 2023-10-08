@@ -7,6 +7,10 @@ description: The Narrat plugin API allows for extending engine features with cus
 The plugin API documentation is a work in progress, and the plugin API is being improved over time. Don't hesitate to ask on Discord for help with plugin development
 :::
 
+## Available plugins
+
+- [Godot 4 Plugin](./godot/godot-plugin)
+
 # Plugin API
 
 The plugin API allows anyone to extend the engine's functionality using native TypeScript code and/or custom Vue.js components for UI.

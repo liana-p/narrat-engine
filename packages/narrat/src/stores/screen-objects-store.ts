@@ -207,7 +207,6 @@ export const useScreenObjects = defineStore('screenObjects', {
         return;
       }
       if (thing.onClick) {
-        console.log('click', Date.now());
         audioEvent('onSpriteClicked');
         let clickArgs: ObjectOnClick;
         if (typeof thing.onClick === 'string') {

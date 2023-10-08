@@ -5,6 +5,7 @@ import {
   ButtonEvent,
   inputs,
   ButtonActionStatus,
+  InputMode,
 } from '@/inputs/Inputs';
 import { gameloop } from '@/utils/gameloop';
 import { acceptHMRUpdate, defineStore } from 'pinia';
@@ -192,6 +193,7 @@ export interface InputListener {
 export interface InputsStoreState {
   inputStack: InputListener[];
   baseInputListener: InputListener;
+  inputMode: InputMode;
 }
 
 export const useInputs = defineStore('inputs', {
@@ -199,9 +201,13 @@ export const useInputs = defineStore('inputs', {
     ({
       inputStack: [],
       baseInputListener: null as any,
+      inputMode: 'mk' as InputMode,
     }) as InputsStoreState,
   actions: {
     setupInputs() {
+      inputs.addEventListener('change-input', ((e: CustomEvent<InputMode>) => {
+        this.inputMode = e.detail;
+      }) as EventListener);
       inputs.startListening();
       for (const action of defaultActions) {
         inputs.addAction(action);

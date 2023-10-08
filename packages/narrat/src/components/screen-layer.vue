@@ -87,7 +87,6 @@ const currentScreen = computed(() => {
 const screenConfig = computed(() => {
   const conf = getScreenConfig(currentScreen.value);
   if (!conf) {
-    console.log(currentScreen);
     error(`Screen ${currentScreen.value} doesn't have a config`);
   }
   return conf;

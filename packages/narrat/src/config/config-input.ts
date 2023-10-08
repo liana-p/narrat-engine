@@ -65,6 +65,7 @@ export const ConfigInputSchema = Type.Object({
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: Type.Optional(SavesConfigSchema),
   characters: Type.Union([Type.String(), CharactersFilesConfigSchema]),
+  choices: Type.Optional(Type.String()),
 });
 
 export type ConfigInput = Static<typeof ConfigInputSchema>;

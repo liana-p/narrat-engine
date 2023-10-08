@@ -66,6 +66,7 @@ const config = {
             link: '/guides/building-and-exporting',
           },
           { text: 'Getting Help', link: '/guides/getting-help' },
+          { text: 'FAQ', link: '/others/faq' },
           { text: 'Steam publishing', link: '/guides/steam-publishing' },
           { text: 'Updating narrat', link: '/guides/updating-narrat' },
           {
@@ -108,6 +109,7 @@ const config = {
             text: 'Sprites and text',
             link: '/features/dynamic-sprites-text-objects.md',
           },
+          { text: 'Tooltips', link: '/features/tooltips' },
           { text: 'Transitions', link: '/features/transitions' },
           { text: 'Viewport', link: '/features/viewport' },
         ],
@@ -126,7 +128,6 @@ const config = {
             text: 'Known limitations and issues',
             link: '/others/scripting-limitations',
           },
-          { text: 'Plugin API', link: '/scripting/plugins' },
         ],
       },
       {
@@ -139,6 +140,8 @@ const config = {
             text: 'What can Narrat do?',
             link: '/others/what-can-narrat-do',
           },
+          { text: 'FAQ', link: '/others/faq' },
+          { text: 'Mobile support', link: '/others/mobile' },
         ],
       },
       {
@@ -153,10 +156,22 @@ const config = {
           { text: 'Random generation', link: '/commands/random-generation' },
         ],
       },
+      {
+        text: 'Plugins',
+        collapsible: true,
+        items: [
+          {
+            text: 'Godot Narrat integration plugin',
+            link: '/plugins/godot/godot-plugin',
+          },
+          { text: 'Plugin API', link: '/plugins/plugins' },
+        ],
+      },
     ],
     logo: '/logo.svg',
     nav: [
       { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
+      { text: 'FAQ', link: '/others/faq' },
       { text: 'Get Started', link: '/guides/getting-started' },
       {
         text: 'Scripting',

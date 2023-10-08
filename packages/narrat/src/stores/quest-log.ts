@@ -2,7 +2,11 @@ import { QuestsConfig } from '@/config/quests-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getObjectiveConfig, getQuestConfig, getQuestEndingConfig } from '../config';
+import {
+  getObjectiveConfig,
+  getQuestConfig,
+  getQuestEndingConfig,
+} from '../config';
 import { useNotifications } from './notification-store';
 
 export interface QuestLogState {
@@ -130,7 +134,6 @@ export const useQuests = defineStore('quests', {
     },
     completeQuest(questId: string, result?: boolean | string) {
       const quest = this.getQuest(questId);
-      const config = getQuestConfig(questId);
       if (quest) {
         quest.state = 'completed';
         if (typeof result === 'string') {
@@ -165,7 +168,14 @@ export const useQuests = defineStore('quests', {
       if (!quest) {
         return false;
       }
-      return quest.succeeded;
+      return quest.state === 'completed' && quest.succeeded;
+    },
+    isQuestFailed(questId: string) {
+      const quest = this.getQuest(questId);
+      if (!quest) {
+        return false;
+      }
+      return quest.state === 'completed' && !quest.succeeded;
     },
     getQuestEnding(questId: string) {
       const quest = this.getQuest(questId);
