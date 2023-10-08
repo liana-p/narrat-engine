@@ -1,3 +1,12 @@
+## [3.3.6](https://github.com/liana-p/narrat-engine/compare/v3.3.5...v3.3.6) (2023-10-08)
+
+
+### Features
+
+* improve item received notification to not say the amount if onl… ([#157](https://github.com/liana-p/narrat-engine/issues/157)) ([f8e840a](https://github.com/liana-p/narrat-engine/commit/f8e840a4b57545bd45c27ad5dbae8da9a41faed8))
+
+
+
 ## [3.3.5](https://github.com/liana-p/narrat-engine/compare/v3.3.4...v3.3.5) (2023-09-25)
 
 
