@@ -25,6 +25,7 @@ const config = {
         appId: '3F0NL3DOSQ',
         apiKey: '9aaa5c269e5220f82c43a7307508cb2d',
         indexName: 'narrat',
+        insights: true,
       },
     },
     siteTitle: 'Narrat Documentation',
