@@ -105,11 +105,11 @@ export const useRenderingStore = defineStore('rendering', {
     },
     showDialog(state: RenderingState): boolean {
       const inDialogue = useMain().inScript;
-      if (useScreens().isTransitioning) {
-        return false;
-      }
       if (!this.overlayMode || this.layoutMode === 'vertical') {
         return true;
+      }
+      if (useScreens().isTransitioning) {
+        return false;
       }
       return inDialogue;
     },
