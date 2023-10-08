@@ -76,8 +76,10 @@ export const useInventory = defineStore('inventory', {
       } else {
         this.items[item.id] = { ...item };
       }
+      const itemName = getItemConfig(item.id).name;
+      const itemMessage = item.amount > 1 ? `${itemName} x ${item.amount}` : itemName;
       useNotifications().addNotification(
-        `Received item: ${getItemConfig(item.id).name} x ${item.amount}`,
+        `Received item: ${itemMessage}`,
       );
     },
     enableInteraction(tag?: string) {
