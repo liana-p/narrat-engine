@@ -122,7 +122,6 @@ export const newCommandPlugin = CommandPlugin.FromOptions<{ name?: string }>({
   runner: async (cmd) => {
     const toInstantiate = cmd.options.name;
     if (toInstantiate === 'Array') {
-      console.log(cmd.args);
       return [...cmd.args.slice(1)];
     }
     if (toInstantiate === 'Object') {

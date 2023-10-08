@@ -1,11 +1,16 @@
 <template>
   <Transition name="fade">
-    <div class="floating-tooltip" :style="style" ref="element">
-      <div class="floating-tooltip-title" v-if="title">
+    <div
+      class="floating-tooltip"
+      :style="style"
+      ref="element"
+      :class="cssClass"
+    >
+      <div class="floating-tooltip-title" v-if="title" :class="titleCssClass">
         {{ props.title }}
         <hr />
       </div>
-      <div class="floating-tooltip-text">
+      <div class="floating-tooltip-text" :class="textCssClass">
         {{ props.text }}
       </div>
     </div>
@@ -22,6 +27,9 @@ export interface FloatingTooltipProps {
   x: number;
   y: number;
   screenMargin?: number;
+  cssClass?: string;
+  textCssClass?: string;
+  titleCssClass?: string;
 }
 const height = ref(150);
 const element = ref<HTMLElement | null>(null);

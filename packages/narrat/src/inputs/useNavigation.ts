@@ -159,7 +159,6 @@ export function useNavigation(options: NavigationOptions) {
     if (options.mode === 'grid') {
       selectDown();
     } else if (options.mode === 'list') {
-      console.log('button down');
       selectNext();
     }
   }

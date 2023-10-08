@@ -61,7 +61,6 @@ const listener = ref<InputListener | null>(
     nextTab: {
       press: () => {
         if (activeTabIndex.value < props.tabs.length - 1) {
-          console.log(`Next tab ${activeTabIndex.value + 1}`);
           clickOnTab(activeTabIndex.value + 1);
         }
       },

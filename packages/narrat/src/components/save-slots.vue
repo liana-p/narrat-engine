@@ -191,14 +191,12 @@ const emit = defineEmits(['chosen', 'close']);
 onBeforeMount(() => {
   const saveFile = getSaveFile();
   const slots: SaveSlot[] = saveFile.slots;
-  console.log(slots);
   slots.forEach((slot, index) => {
     saveSlots[index] = slot;
   });
 });
 
 function setupSaveElements() {
-  console.log(autoSlotsElements.value);
   saveElements.value =
     saveMode.value === 'manual'
       ? [

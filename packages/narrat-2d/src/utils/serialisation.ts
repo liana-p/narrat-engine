@@ -37,10 +37,13 @@ export function serialiseData(data: any): any {
     return data.map((item) => serialiseData(item));
   }
   if (typeof data === 'object') {
-    return Object.keys(data).reduce((acc, key) => {
-      acc[key] = serialiseData(data[key]);
-      return acc;
-    }, {} as { [key: string]: any });
+    return Object.keys(data).reduce(
+      (acc, key) => {
+        acc[key] = serialiseData(data[key]);
+        return acc;
+      },
+      {} as { [key: string]: any },
+    );
   }
   return data;
 }
@@ -56,10 +59,13 @@ export function deserialiseData(data: any, scene: Scene): any {
     return data.map((item) => deserialiseData(item, scene));
   }
   if (typeof data === 'object') {
-    return Object.keys(data).reduce((acc, key) => {
-      acc[key] = deserialiseData(data[key], scene);
-      return acc;
-    }, {} as { [key: string]: any });
+    return Object.keys(data).reduce(
+      (acc, key) => {
+        acc[key] = deserialiseData(data[key], scene);
+        return acc;
+      },
+      {} as { [key: string]: any },
+    );
   }
   return data;
 }
@@ -92,7 +98,6 @@ export function deserialisePixiNode<
   if (data.load) {
     data.load(node, info);
   }
-  console.log('deserialisePixiNode', node, info, serialised);
   deserialiseObjectWithFields(node, serialised);
   return node;
 }
@@ -119,7 +124,6 @@ export function deserialiseObjectWithFields(obj: any, serialised: any) {
       }
       deserialiseObjectWithFields(obj[key], serialised[key]);
     } else {
-      console.log(`assign ${key} to node ${serialised[key]}`);
       obj[key] = serialised[key];
     }
   }

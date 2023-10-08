@@ -67,7 +67,6 @@ export function parseChoiceOption(
   ctx: CommandParsingContext,
   choice: Parser.Line,
 ): BranchingChoiceInfo {
-  console.log(choice);
   if (!choice.branch) {
     ctx.parserContext.error(
       choice.line,

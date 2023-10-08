@@ -4,6 +4,9 @@ Tooltips are a feature that allows games to show information tooltips when hover
 
 They are fully configurable and automated. All you need is to create a list of tooltips, and the engine will make them appear automatically.
 
+![Example tooltip](./tooltips/tooltip.png)
+_This tooltip appears when the player hovers the word bread_.
+
 ## How to use tooltips in narrat
 
 To use this feature, the new `tooltips.yaml` config file is needed:
@@ -47,3 +50,24 @@ main:
 ```
 
 Having one of the keywords defined in the tooltips with the `keywordsPrefix` before it will make it be detected as a keyword and show the tooltip
+
+### Styling tooltips
+
+You can override css classes used in tooltips to style them, but it's also possible to configure custom css classes for all tooltips or for individual tooltips:
+
+```yaml
+options:
+  styling:
+    textCssClass: test
+    titleCssClass: test
+    cssClass: test
+tooltips:
+  - keywords: [bread, breads]
+    title: Bread 🍞🥖
+    styling:
+      textCssClass: test
+      titleCssClass: test
+      cssClass: test
+```
+
+Any of the above css options can be used to make tooltips get custom css classes

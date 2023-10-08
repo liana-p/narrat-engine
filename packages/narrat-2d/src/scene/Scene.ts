@@ -61,22 +61,25 @@ export class Scene {
 
   serialise(): SerialisedScene {
     return {
-      allObjects: Object.keys(this.allObjects).reduce((acc, key) => {
-        acc[key] = this.allObjects[key].serialise();
-        console.log(acc[key]);
-        return acc;
-      }, {} as { [key: string]: SerialisedGameObject }),
-      allComponents: Object.keys(this.allComponents).reduce((acc, key) => {
-        acc[key] = this.allComponents[key].serialise();
-        console.log(acc[key]);
-        return acc;
-      }, {} as { [key: string]: SerialisedComponent }),
+      allObjects: Object.keys(this.allObjects).reduce(
+        (acc, key) => {
+          acc[key] = this.allObjects[key].serialise();
+          return acc;
+        },
+        {} as { [key: string]: SerialisedGameObject },
+      ),
+      allComponents: Object.keys(this.allComponents).reduce(
+        (acc, key) => {
+          acc[key] = this.allComponents[key].serialise();
+          return acc;
+        },
+        {} as { [key: string]: SerialisedComponent },
+      ),
       root: this.root.id,
     };
   }
 
   load(serialisedScene: SerialisedScene) {
-    console.log('loading scene', serialisedScene);
     this.allObjects = Object.keys(serialisedScene.allObjects).reduce(
       (acc, key) => {
         const serialisedObject = serialisedScene.allObjects[key];
@@ -86,7 +89,6 @@ export class Scene {
       },
       {} as { [key: string]: GameObject },
     );
-    console.log('all objects', this.allObjects);
     this.allComponents = Object.keys(serialisedScene.allComponents).reduce(
       (acc, key) => {
         const serialisedComponent = serialisedScene.allComponents[key];
@@ -98,7 +100,6 @@ export class Scene {
     );
     // this.populateComponents();
     this.populateGameObjects(serialisedScene);
-    console.log('tree', this.root);
   }
 
   populateGameObjects(serialisedScene: SerialisedScene) {
