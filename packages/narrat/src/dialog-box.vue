@@ -31,7 +31,7 @@
             :class="dialogClass(choice)"
             v-on:click="chooseOption(choice)"
             class="dialog-choice override"
-            v-html="`${index + 1}. –&nbsp; ${choice.choice}`"
+            v-html="dialogText(index, choice)"
           ></p>
         </div>
         <div v-else-if="options.textField">
@@ -63,14 +63,14 @@
 
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { getConfig } from './config';
+import { getConfig, getChoicePromptConfig, choicesConfig } from './config';
 import { defaultConfig } from './config/config-output';
 import { DEFAULT_TEXT_SPEED } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
 import { useMain } from './stores/main-store';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
-import { findAllHtmlTags } from './utils/string-helpers';
+import { findAllHtmlTags, stringTemplater } from './utils/string-helpers';
 import { useNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
@@ -241,10 +241,38 @@ function dialogStyle(choice: DialogChoice) {
   return style;
 }
 
-function dialogClass(choice: DialogChoice) {
-  if (!choice.allowed) {
-    return 'strike-anim';
+function dialogText(index: number, choice: DialogChoice) {
+  const context = {
+    index: index + 1,
+    choice: choice.choice,
+  };
+  let template = '%{$index}. –&nbsp; %{$choice}';
+  if (choicesConfig().choiceTextTemplate) {
+    template = choicesConfig().choiceTextTemplate!;
   }
+  if (choice.flag) {
+    const flagConfig = getChoicePromptConfig(choice.flag);
+    if (flagConfig?.textTemplate) {
+      template = flagConfig.textTemplate;
+    }
+  }
+  return stringTemplater(context, template);
+}
+function dialogClass(choice: DialogChoice) {
+  const res: any = {};
+  if (!choice.allowed) {
+    res['strike-anim'] = true;
+  }
+  if (choice.seenBefore) {
+    res['seen-before'] = true;
+  }
+  if (choice.flag) {
+    const flagConfig = getChoicePromptConfig(choice.flag);
+    if (flagConfig?.cssClass) {
+      res[flagConfig.cssClass] = true;
+    }
+  }
+  return res;
 }
 
 function submitText() {
@@ -555,6 +583,17 @@ defineExpose({
   color: var(--dialog-choice-color);
 }
 
+.dialog-choice.seen-before {
+  color: var(--dialog-choice-seen-before-color) !important;
+}
+
+.key-choice {
+  color: var(--dialog-choice-key-color);
+}
+.unimportant-choice {
+  color: white;
+}
+
 .dialog-choice:hover {
   color: var(--dialog-choice-hover-color);
   cursor: pointer;
@@ -585,5 +624,9 @@ defineExpose({
 
 .interact-button:not(:last-child) {
   margin-right: 10px;
+}
+
+.choice-index {
+  color: white;
 }
 </style>

@@ -31,6 +31,7 @@ import {
   defaultSkillChecksConfig,
 } from './skillchecks-config';
 import { SettingsConfig } from './settings-config';
+import { ChoicesFileConfig, defaultChoicesConfig } from './choices-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -65,6 +66,7 @@ export interface Config {
   debugging: DebuggingConfig;
   saves: SavesConfig;
   characters: CharactersFilesConfig;
+  choices: ChoicesFileConfig;
 }
 
 export const defaultConfig = {
@@ -117,6 +119,7 @@ export const defaultConfig = {
     slots: 10,
   },
   characters: defaultCharactersConfig,
+  choices: defaultChoicesConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

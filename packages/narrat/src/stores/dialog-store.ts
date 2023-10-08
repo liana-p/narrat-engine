@@ -19,6 +19,8 @@ export interface DialogKey {
 }
 
 export interface DialogChoice {
+  flag?: string;
+  seenBefore?: boolean;
   choice: string;
   originalIndex: number;
   allowed: boolean;

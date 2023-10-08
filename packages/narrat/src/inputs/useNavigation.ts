@@ -6,9 +6,9 @@ import {
   onUnmounted,
   Ref,
   watch,
-  nextTick,
   ComputedRef,
 } from 'vue';
+import { InputMode, inputs } from './Inputs';
 
 export type GridNavigationOptions = {
   mode: 'grid';
@@ -43,6 +43,8 @@ export function useNavigation(options: NavigationOptions) {
       : 0,
   );
   const selectables = ref<HTMLElement[]>([]);
+  const inputMode = ref<InputMode>(inputs.lastInputMethodUsed);
+  const changeInputListener = ref<EventListener | null>(null);
   function findSelectables() {
     if (options.container?.value) {
       return options.container.value.children as any as HTMLElement[];
@@ -74,7 +76,9 @@ export function useNavigation(options: NavigationOptions) {
     if (isValid(index)) {
       selectedIndex.value = index;
       if (selectedElement.value) {
-        selectedElement.value.classList.add('selected');
+        if (inputMode.value === 'gamepad') {
+          selectedElement.value.classList.add('selected');
+        }
         const previous = getElementAtIndex(previousIndex);
         if (previous && previousIndex !== index) {
           previous.classList.remove('selected');
@@ -198,12 +202,34 @@ export function useNavigation(options: NavigationOptions) {
     if (!options.noChoosing) {
       delete options.listener.actions.continue;
     }
+    if (changeInputListener.value) {
+      inputs.removeEventListener('change-input', changeInputListener.value);
+    }
+  }
+  function addFeedback() {
+    if (selectedElement.value) {
+      selectedElement.value.classList.add('selected');
+    }
+  }
+  function removeFeedback() {
+    if (selectedElement.value) {
+      selectedElement.value.classList.remove('selected');
+    }
   }
   function mount() {
     if (!options.listener) {
       return;
     }
     updateSelectables();
+    changeInputListener.value = ((e: CustomEvent<InputMode>) => {
+      inputMode.value = e.detail;
+      if (e.detail === 'gamepad') {
+        addFeedback();
+      } else {
+        removeFeedback();
+      }
+    }) as EventListener;
+    inputs.addEventListener('change-input', changeInputListener.value);
     if (!options.onlyVertical) {
       options.listener.actions.left = {
         press: buttonLeft,

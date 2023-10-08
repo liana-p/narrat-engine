@@ -11,6 +11,7 @@ import { VMSave } from '@/stores/vm-store';
 import { AchievementsSave } from '@/stores/achievements-store';
 import { GameUserSettingsSave } from '@/stores/settings-store';
 import { ConfigStoreSave } from '@/stores/config-store';
+import { ChoiceTrackingSave } from '@/stores/choices-tracking-store';
 
 export interface SaveSlot {
   slotType: 'manual' | 'auto';
@@ -34,6 +35,7 @@ export type GameSave = {
   screenObjects: ScreenObjectsStoreSave;
   settings: GameUserSettingsSave;
   config: ConfigStoreSave;
+  choices: ChoiceTrackingSave;
 };
 
 export type GlobalGameSave = {

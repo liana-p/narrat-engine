@@ -13,9 +13,10 @@ export function newFindDataHelper<T>(
   baseState: any,
   sourceObj: any,
   path: string,
+  variablePrefix = '$',
 ): [T | null, string | number] {
   // console.log('find data helper ', path);
-  if (!path.startsWith('$')) {
+  if (!path.startsWith(variablePrefix)) {
     if (!isNaN(Number(path))) {
       return [null, Number(path)];
     }
@@ -159,6 +160,7 @@ export function getPathValueWithoutBrackets(
 export function findDataHelper<T>(
   sourceObj: any,
   path: string,
+  variablePrefix: string = '$',
 ): [T | null, string | number] {
   return newFindDataHelper(sourceObj, sourceObj, path);
   // const keys = path.split('.');

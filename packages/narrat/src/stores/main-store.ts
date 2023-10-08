@@ -42,6 +42,7 @@ import { useScreenObjects } from './screen-objects-store';
 import { useAchievements } from './achievements-store';
 import { useSettings } from './settings-store';
 import { useConfig } from './config-store';
+import { useChoicesTrackingStoreStore } from './choices-tracking-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -399,6 +400,7 @@ export const useMain = defineStore('main', {
           store.reset();
         }
       });
+      useChoicesTrackingStoreStore().reset();
     },
     generateSaveData(): MainSaveData {
       return {
@@ -448,6 +450,7 @@ export const useMain = defineStore('main', {
         settings: useSettings().generateSaveData(),
         screenObjects: useScreenObjects().generateSaveData(),
         config: useConfig().generateSaveData(),
+        choices: useChoicesTrackingStoreStore().generateSaveData(),
       };
       vm.plugins.forEach((plugin) => {
         if (plugin.save) {
@@ -498,6 +501,7 @@ export const useMain = defineStore('main', {
       audioStore.loadSaveData(save.audio);
       inventoryStore.loadSaveData(save.inventory);
       useSettings().loadSaveData(save.settings);
+      useChoicesTrackingStoreStore().loadSaveData(save.choices);
       // Load save data from potential custom stores
       useQuests().loadSaveData(save.quests);
       vm.plugins.forEach((plugin) => {
