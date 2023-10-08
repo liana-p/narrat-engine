@@ -33,7 +33,7 @@ Here's a general list of things Narrat can do:
 - The dialogue panel can be configured to be displayed in any shape or place, allowing different styles of presentation for games
 - Similarly, the viewport with visual screens can be configured for any resolution, and the button system within it allows building of simple UI elements in the viewport
 - There is a "sprites" system to handle letting script arbitrary create text and images dynamically on screen, which can allow building custom UIs or features by dynamically displaying your own things in the viewport
-- The [plugin API](https://docs.narrat.dev/scripting/plugins.html) is pretty powerful and can add new UI elements, new features, new commands to the language, etc. But it requires being able to actually code (in TypeScript/JavaScript, creating new UI with vue.js)
+- The [plugin API](../plugins/plugins) is pretty powerful and can add new UI elements, new features, new commands to the language, etc. But it requires being able to actually code (in TypeScript/JavaScript, creating new UI with vue.js)
 
 ## What Narrat _can't_ do
 
@@ -83,7 +83,7 @@ The plugin information in the section below may also contain useful info about N
 
 ## More on plugins
 
-If you are interested in [making your own plugins](https://docs.narrat.dev/scripting/plugins.html), you will likely need a basic understanding of how to edit [TypeScript](https://www.typescriptlang.org/) code and [VueJS](https://vuejs.org/) (our UI framework). TypeScript is just fancier JavaScript with types, and you can also use JavaScript files in your projects if you don't want to use TypeScript. You might also want to know that the data stores in the engine use [pinia](https://pinia.vuejs.org/) for state management.
+If you are interested in [making your own plugins](../plugins/plugins), you will likely need a basic understanding of how to edit [TypeScript](https://www.typescriptlang.org/) code and [VueJS](https://vuejs.org/) (our UI framework). TypeScript is just fancier JavaScript with types, and you can also use JavaScript files in your projects if you don't want to use TypeScript. You might also want to know that the data stores in the engine use [pinia](https://pinia.vuejs.org/) for state management.
 
 Relevant links if you want to look into plugins would be [this recent forum post](https://narrat.discourse.group/t/extra-menu-page/68/2?u=liana) where I described the most common features of plugins and how they can help add new features, and this simple [counter plugin example](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat-plugin-counter).
 

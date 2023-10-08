@@ -126,7 +126,6 @@ const config = {
             text: 'Known limitations and issues',
             link: '/others/scripting-limitations',
           },
-          { text: 'Plugin API', link: '/scripting/plugins' },
         ],
       },
       {
@@ -151,6 +150,17 @@ const config = {
           { text: 'If', link: '/commands/if-function' },
           { text: 'Logical operators', link: '/commands/logical-operators' },
           { text: 'Random generation', link: '/commands/random-generation' },
+        ],
+      },
+      {
+        text: 'Plugins',
+        collapsible: true,
+        items: [
+          {
+            text: 'Godot Narrat integration plugin',
+            link: '/plugins/godot/godot-plugin',
+          },
+          { text: 'Plugin API', link: '/plugins/plugins' },
         ],
       },
     ],

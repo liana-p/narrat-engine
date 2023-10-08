@@ -10,6 +10,8 @@ Narrat games can have quests with dynamic objectives and a quest log UI
 
 ![Quests](./images/quests.png)
 
+## Basic usage
+
 Quests can be defined in the quests.yaml config file:
 
 ```yaml
@@ -115,3 +117,23 @@ map_update:
 ```
 
 :::
+
+## Quest success or failure and dynamic quest text
+
+Quests can also be marked as succeeded or failed. This can be useful if you want some of your quests to have a bad ending, or events that can be missed, etc.
+
+It is possible to create a custom quest description for succeeded or failed quests, so that the quest description text will change when the player has finished it.
+
+```yaml
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    successDescription: You bought bread for the helper cat!
+    failureDescription: You didn't buy bread for the helper cat.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        description: Deliver the bread to the helper cat.
+```

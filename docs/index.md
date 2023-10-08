@@ -100,7 +100,7 @@ features:
   - icon: ⚙️
     title: Powerful plugin API
     details: Narrat has a powerful plugin API that allows you to extend the engine with custom features. Plugins can add complete new features to the engine via custom scripting commands, custom UI, and even have their own save data.
-    link: /scripting/plugins
+    link: /plugins/plugins
     linkText: Plugins Guide
 ---
 

@@ -246,7 +246,8 @@ function dialogText(index: number, choice: DialogChoice) {
     index: index + 1,
     choice: choice.choice,
   };
-  let template = '%{$index}. –&nbsp; %{$choice}';
+  let template =
+    '<span class="choice-index">%{$index}. </span> <span class="choice-text">%{$choice}</span>';
   if (choicesConfig().choiceTextTemplate) {
     template = choicesConfig().choiceTextTemplate!;
   }
@@ -628,5 +629,6 @@ defineExpose({
 
 .choice-index {
   color: white;
+  margin-right: 10px;
 }
 </style>

@@ -1,7 +1,7 @@
-choiceTextTemplate: '<span class="choice-index">%{$index}. –&nbsp;</span> <span class="choice-text">%{$choice}</span>'
+choiceTextTemplate: '<span class="choice-index">%{$index}. </span> <span class="choice-text">%{$choice}</span>'
 choicePrompts:
   KEY:
-    textTemplate: '<span class="key-choice-index">%{$index}. –&nbsp;</span>⚠️%{$choice} <span style="color:grey;">[KEY CHOICE]</span>'
+    textTemplate: '<span class="choice-index key-choice-index">%{$index}. </span>⚠️%{$choice} <span style="color:grey;">[KEY CHOICE]</span>'
     cssClass: 'key-choice'
   UNIMPORTANT:
     cssClass: 'unimportant-choice'
