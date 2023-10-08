@@ -2,6 +2,8 @@ import { Static, Type } from '@sinclair/typebox';
 
 export const ObjectiveDataSchema = Type.Object({
   description: Type.String(),
+  succeededDescription: Type.Optional(Type.String()),
+  failedDescription: Type.Optional(Type.String()),
   hidden: Type.Optional(Type.Boolean()),
 });
 export type ObjectiveData = Static<typeof ObjectiveDataSchema>;
@@ -9,6 +11,12 @@ export type ObjectiveData = Static<typeof ObjectiveDataSchema>;
 export const QuestDataSchema = Type.Object({
   title: Type.String(),
   description: Type.String(),
+  succeededDescription: Type.Optional(Type.String()),
+  failedDescription: Type.Optional(Type.String()),
+  endings: Type.Optional(Type.Record(Type.String(), Type.Object({
+    success: Type.Boolean(),
+    description: Type.String(),
+  }))),
   objectives: Type.Record(Type.String(), ObjectiveDataSchema),
   category: Type.Optional(Type.String()),
 });

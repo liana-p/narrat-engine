@@ -38,7 +38,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { getObjectiveConfig, getQuestConfig } from '@/config';
+import { getObjectiveConfig, getQuestConfig, getQuestEndingConfig } from '@/config';
 import { QuestState } from '@/stores/quest-log';
 import { computed } from 'vue';
 
@@ -64,7 +64,14 @@ const stateText = computed(() => {
 });
 const description = computed(() => {
   if (props.quest.ending) {
-    return props.quest.ending;
+    const endingData = getQuestEndingConfig(props.quest.id, props.quest.ending);
+    return endingData.description;
+  }
+  if (props.quest.succeeded && data.value.succeededDescription) {
+    return data.value.succeededDescription;
+  }
+  if (!props.quest.succeeded && data.value.failedDescription) {
+    return data.value.failedDescription;
   }
   return data.value.description;
 });
