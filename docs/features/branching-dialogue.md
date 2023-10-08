@@ -67,6 +67,10 @@ choicePrompts:
     cssClass: 'unimportant-choice'
 ```
 
+::: tip
+Remember to add `choices: 'data/choices.yaml'` or similar to your game's `config.yaml` to load the `choices.yaml` file.
+:::
+
 In this config file you can add any amount of choice prompt IDs, allowing the creation of all sorts of custom choice prompt styles.
 
 Here is a simple usage example:
