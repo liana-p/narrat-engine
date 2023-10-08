@@ -1,29 +1,41 @@
-## [3.3.7](https://github.com/liana-p/narrat-engine/compare/v3.3.6...v3.3.7) (2023-10-08)
+## [3.3.8](https://github.com/liana-p/narrat-engine/compare/v3.3.7...v3.3.8) (2023-10-08)
 
+### Features
+
+- Quests [can now fail/succeed](https://docs.narrat.dev/features/quests.html#quest-success-or-failure-and-dynamic-quest-text)
+- Quests can [have multiple endings](https://docs.narrat.dev/features/quests.html#quests-with-multiple-endings) with different final texts
+- Choices [are tracked](https://docs.narrat.dev/features/branching-dialogue.html#choice-tracking) so the game can display already visited choices as greyed
+- [Choice flags](https://docs.narrat.dev/features/branching-dialogue.html#choice-flags-and-choices-config-file) to allow customising different types of choice prompts
+- Games can now customise the template text used for displaying choices
+
+### Fixes
+
+- The game now removes the `selected` css class from elements when keyboard or mouse is being used instead of gamepad to avoid confusion.
+- [Tooltips](https://docs.narrat.dev/features/tooltips.html) have been fixed and documented
+
+### Docs
+
+- Documented the [Godot plugin](https://docs.narrat.dev/plugins/godot/godot-plugin.html)
+- Added an [FAQ](https://docs.narrat.dev/plugins/godot/godot-plugin.html)
+- Documented [tooltips](https://docs.narrat.dev/plugins/godot/godot-plugin.html)
+
+## [3.3.7](https://github.com/liana-p/narrat-engine/compare/v3.3.6...v3.3.7) (2023-10-08)
 
 ### Bug Fixes
 
-* empty_layer bug, and transitioning for games not using overlayMode ([#158](https://github.com/liana-p/narrat-engine/issues/158)) ([8b829bc](https://github.com/liana-p/narrat-engine/commit/8b829bc864b8b699f4414f43c3d2d888c81c47bb))
-
-
+- empty_layer bug, and transitioning for games not using overlayMode ([#158](https://github.com/liana-p/narrat-engine/issues/158)) ([8b829bc](https://github.com/liana-p/narrat-engine/commit/8b829bc864b8b699f4414f43c3d2d888c81c47bb))
 
 ## [3.3.6](https://github.com/liana-p/narrat-engine/compare/v3.3.5...v3.3.6) (2023-10-08)
 
-
 ### Features
 
-* improve item received notification to not say the amount if onl… ([#157](https://github.com/liana-p/narrat-engine/issues/157)) ([f8e840a](https://github.com/liana-p/narrat-engine/commit/f8e840a4b57545bd45c27ad5dbae8da9a41faed8))
-
-
+- improve item received notification to not say the amount if onl… ([#157](https://github.com/liana-p/narrat-engine/issues/157)) ([f8e840a](https://github.com/liana-p/narrat-engine/commit/f8e840a4b57545bd45c27ad5dbae8da9a41faed8))
 
 ## [3.3.5](https://github.com/liana-p/narrat-engine/compare/v3.3.4...v3.3.5) (2023-09-25)
 
-
 ### Features
 
-* narrat godot plugin now lets users override the config ([714b9cf](https://github.com/liana-p/narrat-engine/commit/714b9cf0cedc1b8aa77ba549936acf6b31a3f0dc))
-
-
+- narrat godot plugin now lets users override the config ([714b9cf](https://github.com/liana-p/narrat-engine/commit/714b9cf0cedc1b8aa77ba549936acf6b31a3f0dc))
 
 ## [3.3.4](https://github.com/liana-p/narrat-engine/compare/v3.3.3...v3.3.4) (2023-09-24)
 
