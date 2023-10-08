@@ -79,7 +79,7 @@ export const questFailedPlugin = new CommandPlugin<{
 }>('quest_failed?', [{ name: 'questId', type: 'string' }], async (cmd) => {
   const { questId } = cmd.options;
   const quests = useQuests();
-  return !quests.isQuestSucceeded(questId);
+  return quests.isQuestFailed(questId);
 });
 
 export const getQuestEnding = new CommandPlugin<{
@@ -93,11 +93,18 @@ export const getQuestEnding = new CommandPlugin<{
 export const questHasEnding = new CommandPlugin<{
   questId: string;
   ending: string;
-}>('quest_has_ending?', [{ name: 'questId', type: 'string' }, { name: 'ending', type: 'string' }], async (cmd) => {
-  const { questId, ending } = cmd.options;
-  const quests = useQuests();
-  return quests.questHasEnding(questId, ending);
-});
+}>(
+  'quest_has_ending?',
+  [
+    { name: 'questId', type: 'string' },
+    { name: 'ending', type: 'string' },
+  ],
+  async (cmd) => {
+    const { questId, ending } = cmd.options;
+    const quests = useQuests();
+    return quests.questHasEnding(questId, ending);
+  },
+);
 
 export const objectiveCompletedPlugin = new CommandPlugin<{
   questId: string;
