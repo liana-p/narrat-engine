@@ -1,3 +1,12 @@
+## [3.3.7](https://github.com/liana-p/narrat-engine/compare/v3.3.6...v3.3.7) (2023-10-08)
+
+
+### Bug Fixes
+
+* empty_layer bug, and transitioning for games not using overlayMode ([#158](https://github.com/liana-p/narrat-engine/issues/158)) ([8b829bc](https://github.com/liana-p/narrat-engine/commit/8b829bc864b8b699f4414f43c3d2d888c81c47bb))
+
+
+
 ## [3.3.6](https://github.com/liana-p/narrat-engine/compare/v3.3.5...v3.3.6) (2023-10-08)
 
 
