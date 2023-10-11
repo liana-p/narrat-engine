@@ -37,9 +37,10 @@ const secretAchievements = getAchievementsConfig().secretAchievements ?? {
 };
 
 const style = computed(() => {
-  const icon = state.value.unlocked
-    ? conf.value.icon
-    : getAchievementsConfig().defaultAchievementIcon;
+  let icon = state.value.unlocked ? conf.value.icon : conf.value.lockedIcon;
+  if (!icon) {
+    icon = getAchievementsConfig().defaultAchievementIcon;
+  }
   return {
     backgroundImage: `url(${getAssetUrl(icon)})`,
   };
