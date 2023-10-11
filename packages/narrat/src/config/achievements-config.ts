@@ -2,7 +2,8 @@ import { Static, Type } from '@sinclair/typebox';
 export const AchievementConfigSchema = Type.Object({
   name: Type.String(),
   description: Type.String(),
-  icon: Type.String(),
+  icon: Type.Optional(Type.String()),
+  lockedIcon: Type.Optional(Type.String()),
   secret: Type.Optional(Type.Boolean()),
   category: Type.Optional(Type.String()),
 });
