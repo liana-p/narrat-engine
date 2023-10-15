@@ -122,6 +122,7 @@ import { resetSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
 import DebugJumping from './debug-jumping.vue';
 import { InputListener } from '@/stores/inputs-store';
+import { useRenderingStore } from '@/lib';
 
 export default defineComponent({
   components: {
@@ -143,7 +144,8 @@ export default defineComponent({
   },
 
   mounted() {
-    window.addEventListener('keydown', (event) => {
+    const rendering = useRenderingStore();
+    rendering.container!.addEventListener('keydown', (event) => {
       if (!this.jumping) {
         if (event.key === 'd') {
           this.toggle();

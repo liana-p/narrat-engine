@@ -208,7 +208,6 @@ export const useInputs = defineStore('inputs', {
       inputs.addEventListener('change-input', ((e: CustomEvent<InputMode>) => {
         this.inputMode = e.detail;
       }) as EventListener);
-      inputs.startListening();
       for (const action of defaultActions) {
         inputs.addAction(action);
       }
@@ -228,6 +227,9 @@ export const useInputs = defineStore('inputs', {
           }
         }
       });
+    },
+    listenToContainerInputs() {
+      inputs.startListening();
     },
     listenToBaseNarratInputs() {
       // this.baseInputListener = this.registerInputListener({

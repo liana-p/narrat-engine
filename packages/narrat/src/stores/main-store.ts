@@ -52,6 +52,7 @@ export function defaultAppOptions(): AppOptions {
     logging: false,
     debug: false,
     scripts: [],
+    container: '#game-holder',
   };
 }
 

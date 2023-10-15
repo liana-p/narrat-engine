@@ -1,6 +1,6 @@
 <template>
-  <div id="app-container" :style="appStyle">
-    <div id="app" :class="appClass">
+  <div id="narrat-app-container" :style="appStyle">
+    <div id="narrat-app" :class="appClass">
       <EngineSplash
         v-if="flowState === 'engine-splash'"
         @finished="engineSplashDone"
@@ -74,13 +74,13 @@ function engineSplashDone() {
   useMain().flowState = 'game-splash';
 }
 function updateScreenSize() {
-  useRenderingStore().updateScreenSize(window.innerWidth, window.innerHeight);
+  useRenderingStore().refreshScreenSize();
 }
 
 onMounted(async () => {
   vm.callHook('onAppMounted');
   await useMain().engineLoading();
-  window.addEventListener(
+  rendering.container.addEventListener(
     'resize',
     debounce(
       () => {
@@ -101,7 +101,7 @@ onMounted(async () => {
 </script>
 
 <style>
-#app-container {
+#narrat-app-container {
   background-color: var(--bg-color);
   width: 100%;
   height: 100%;
@@ -116,7 +116,7 @@ onMounted(async () => {
   transform-origin: center center;
 }
 
-#app {
+#narrat-app {
   z-index: 2;
   width: 100%;
   height: 100%;

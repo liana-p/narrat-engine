@@ -27,7 +27,8 @@ import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
 import { ModuleNamespace } from 'vite/types/hot';
 import { constructNarratObject } from './utils/construct-narrat';
-
+import { useRenderingStore } from './lib';
+import cloneDeep from 'clone-deep';
 let app: any;
 
 vm.callHook('onPageLoaded');
@@ -42,8 +43,9 @@ export async function startApp(optionsInput: AppOptionsInput) {
   app = createApp(GameApp, {
     options,
   });
-  addDirectives(app);
   app.use(pinia);
+  useMain().setOptions(options);
+  addDirectives(app);
   const config = await loadConfig(options);
   useConfig().setConfig(config);
   getSaveFile();
@@ -55,7 +57,6 @@ export async function startApp(optionsInput: AppOptionsInput) {
   registerDefaultMenuButtons(app);
   addMenuButtonsFromPlugins();
   useStartMenu().addButtonsFromPlugins();
-  useMain().setOptions(options);
   registerBaseCommands(vm);
   logManager.setupDebugger(options.debug!);
   console.log(
@@ -63,7 +64,18 @@ export async function startApp(optionsInput: AppOptionsInput) {
     'background: #222; color: #bada55',
   );
   vm.callHook('onNarratSetup');
-  app.mount('#game-holder');
+  let container: HTMLElement;
+  if (typeof options.container === 'string') {
+    container = document.querySelector(options.container)!;
+  } else {
+    container = options.container!;
+  }
+  if (!container) {
+    alert('The narrat container was not found!');
+  }
+  useRenderingStore().setContainer(container);
+  useInputs().listenToContainerInputs();
+  app.mount(container);
   // // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
   // // Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
   // if ((import.meta as any).hot) {
@@ -73,6 +85,17 @@ export async function startApp(optionsInput: AppOptionsInput) {
   //   });
   // }
   return app;
+}
+
+export async function stopApp() {
+  app.unmount();
+  app = null;
+}
+
+export async function restartApp() {
+  const options = cloneDeep(useMain().options);
+  await stopApp();
+  return await startApp(options);
 }
 
 export function registerComponent(name: string, component: any) {
