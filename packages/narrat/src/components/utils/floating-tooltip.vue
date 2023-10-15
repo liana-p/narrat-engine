@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRenderingStore } from '@/lib';
 import { computed, onMounted, ref } from 'vue';
 
 export interface FloatingTooltipProps {
@@ -27,6 +26,8 @@ export interface FloatingTooltipProps {
   width: number;
   x: number;
   y: number;
+  screenWidth?: number;
+  screenHeight?: number;
   screenMargin?: number;
   cssClass?: string;
   textCssClass?: string;
@@ -35,17 +36,18 @@ export interface FloatingTooltipProps {
 const height = ref(150);
 const element = ref<HTMLElement | null>(null);
 const props = defineProps<FloatingTooltipProps>();
-const rendering = useRenderingStore();
+const screenWidth = computed(() => props.screenWidth ?? window.innerWidth);
+const screenHeight = computed(() => props.screenWidth ?? window.innerHeight);
 const style = computed((): any => {
   const screenMargin = props.screenMargin ?? 5;
   const cssStyle: any = {};
   let x = props.x - props.width / 2;
-  x = Math.min(x, rendering.screenWidth - props.width - screenMargin);
+  x = Math.min(x, screenWidth.value - props.width - screenMargin);
   x = Math.max(screenMargin, x);
   cssStyle.left = `${x}px`;
-  let y = rendering.screenHeight - props.y;
+  let y = screenHeight.value - props.y;
   y = Math.max(y, screenMargin);
-  y = Math.min(y, rendering.screenHeight - height.value - screenMargin);
+  y = Math.min(y, screenHeight.value - height.value - screenMargin);
   cssStyle.bottom = `${y}px`;
   cssStyle.width = `${props.width}px`;
   return cssStyle;

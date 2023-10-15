@@ -76,6 +76,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   useRenderingStore().setContainer(container);
   useInputs().listenToContainerInputs();
   app.mount(container);
+  useRenderingStore().narratAppElement = document.querySelector('#narrat-app');
   // // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
   // // Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
   // if ((import.meta as any).hot) {

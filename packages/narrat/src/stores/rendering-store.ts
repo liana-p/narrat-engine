@@ -11,6 +11,7 @@ export interface RenderingState {
   screenHeight: number;
   layoutMode: 'horizontal' | 'vertical';
   containerElement: HTMLElement | null;
+  narratAppElement: HTMLElement | null;
   resizeObserver: ResizeObserver | null;
 }
 
@@ -146,6 +147,13 @@ export const useRenderingStore = defineStore('rendering', {
     container(): HTMLElement {
       if (this.containerElement) {
         return this.containerElement;
+      } else {
+        return document.body;
+      }
+    },
+    narratApp(): HTMLElement {
+      if (this.narratAppElement) {
+        return this.narratAppElement;
       } else {
         return document.body;
       }

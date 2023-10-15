@@ -1,6 +1,6 @@
 <template>
   <div id="narrat-app-container" :style="appStyle">
-    <div id="narrat-app" :class="appClass">
+    <div id="narrat-app" :class="appClass" tabindex="0">
       <EngineSplash
         v-if="flowState === 'engine-splash'"
         @finished="engineSplashDone"
