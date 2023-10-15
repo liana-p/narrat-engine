@@ -5,7 +5,6 @@ import './style.css';
 import './monaco/setup-monaco';
 import { createPinia } from 'pinia';
 import App from './App.vue';
-import scripts from './narrat/scripts';
 
 const pinia = createPinia();
 const app = createApp(App);
