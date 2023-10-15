@@ -44,7 +44,7 @@ onMounted(() => {
 
 const scripts = computed(() => gameStore.scripts);
 
-function controlButtonPressed(id: string, event: MouseEvent) {
+function controlButtonPressed(id: string, _event: MouseEvent) {
   switch (id) {
     case 'reload':
       restartApp();
