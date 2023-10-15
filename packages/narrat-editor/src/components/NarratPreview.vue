@@ -5,7 +5,7 @@
         class="border border-cyan-400 mr-4"
         v-for="control in controls"
         :key="control"
-        @click="controlButtonPressed(control)"
+        @click="(e) => controlButtonPressed(control, e)"
       >
         {{ control }}
       </button>
@@ -25,9 +25,18 @@ import { FileState, useGameStore } from '@/stores/game-store';
 const narratContainer = ref<HTMLDivElement | null>(null);
 const isNarratRunning = ref<boolean>(false);
 
-const controls = ref(['reload', 'stop', 'start']);
+const controls = ref([
+  'reload',
+  'stop',
+  'start',
+  'fullscreen',
+  'bigger',
+  'smaller',
+]);
 
 const gameStore = useGameStore();
+
+const emit = defineEmits(['bigger', 'smaller']);
 
 onMounted(() => {
   launchNarratGame();
@@ -35,7 +44,7 @@ onMounted(() => {
 
 const scripts = computed(() => gameStore.scripts);
 
-function controlButtonPressed(id: string) {
+function controlButtonPressed(id: string, event: MouseEvent) {
   switch (id) {
     case 'reload':
       restartApp();
@@ -50,6 +59,17 @@ function controlButtonPressed(id: string) {
       if (!isNarratRunning.value) {
         launchNarratGame();
       }
+      break;
+    case 'fullscreen':
+      if (narratContainer.value) {
+        narratContainer.value.requestFullscreen();
+      }
+      break;
+    case 'bigger':
+      emit('bigger');
+      break;
+    case 'smaller':
+      emit('smaller');
       break;
     default:
       console.error(`control button ${id} not found`);

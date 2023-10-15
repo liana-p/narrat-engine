@@ -114,6 +114,7 @@ onMounted(async () => {
   box-sizing: border-box;
   overflow: hidden;
   transform-origin: center center;
+  transition: all 150ms ease;
 }
 
 #narrat-app {
