@@ -1,6 +1,6 @@
 /*  See https://docs.narrat.dev/guides/theming-the-game-and-ui for info on how to customise your game with CSS. */
 
-#app {
+#narrat-app {
   /* Customise CSS variables here. They will override the existing narrat ones. You can also add your own variables */
   --bg-color: #131720;
   --text-color: #d9e1f2;

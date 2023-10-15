@@ -72,7 +72,7 @@ In your `src/css/main.css` file, add the following `@font-face` directive for ea
 If you want to override the default font (used pretty much everywhere), you can change the `--font-family` css variable which narrat uses.
 
 ```css
-#app {
+#narrat-app {
   /* Customise CSS variables here. They will override the existing narrat ones. You can also add your own variables */
   --bg-color: #131720;
   --text-color: #d9e1f2;

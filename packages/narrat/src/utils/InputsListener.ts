@@ -1,3 +1,4 @@
+import { useRenderingStore } from '@/stores/rendering-store';
 import { debounce } from './debounce';
 import { TypedEmitter } from './typed-emitter';
 
@@ -20,10 +21,11 @@ export class InputsListener extends TypedEmitter<InputEvents> {
         maxWait: debounceTime,
       },
     );
-    window.addEventListener('keydown', (e) => {
+    const container = useRenderingStore().container!;
+    container.addEventListener('keydown', (e) => {
       inputEvents.emit('keydown', e);
     });
-    window.addEventListener(eventName, (e) => {
+    container.addEventListener(eventName, (e) => {
       debouncedKeydown(e);
     });
   }

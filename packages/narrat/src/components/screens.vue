@@ -142,11 +142,6 @@ function transitionComplete(index: number) {
 const viewportStyle = computed<CSSProperties>(() => {
   const width = layoutWidth.value;
   const height = layoutHeight.value;
-  if (layoutMode.value === 'vertical') {
-    // width = window.innerWidth;
-    // const ratio = width / layoutWidth.value;
-    // height = layoutHeight.value * ratio;
-  }
   return {
     height: `${height}px`,
     width: `${width}px`,

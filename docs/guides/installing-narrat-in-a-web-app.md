@@ -13,7 +13,7 @@ For narrat to run, it needs two pieces of data:
 - The `config` file which contains the path of your script files and other info
 - The `characters` file which contains the list of characters in the game
 
-Copy the content of one of the [example games](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/) and the content of the assets folder somewhere in your app that can be served statically, and have an `#app` div in your page's html including your javascript \(you can copy `public/index.html`\) .
+Copy the content of one of the [example games](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/) and the content of the assets folder somewhere in your app that can be served statically, and have a div in your page's html including your javascript \(you can copy `public/index.html`\) .
 
 Then in your javascript code to launch narrat, use:
 
@@ -28,5 +28,6 @@ startApp({
   configPath: 'data/config.yaml',
   scripts,
   debug,
+  container: myContainer, // The container is the div where the game will be rendered
 });
 ```

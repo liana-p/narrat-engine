@@ -28,7 +28,7 @@
           :inputListener="inputListener"
         />
       </transition-group>
-      <Teleport to="#app">
+      <Teleport to="#narrat-app">
         <div class="auto-skip-buttons flex">
           <div
             class="button menu-toggle-button auto-button auto"

@@ -9,7 +9,7 @@
     >
       {{ menuButton.label }}
     </button>
-    <Teleport to="#app-container" v-if="menu">
+    <Teleport to="#narrat-app-container" v-if="menu">
       <Modal
         :containerCssClass="{ [menu.cssClass!]: true, 'menu-modal': true }"
         @close="closeMenu"

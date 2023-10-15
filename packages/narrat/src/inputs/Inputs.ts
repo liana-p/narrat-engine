@@ -2,6 +2,7 @@ import { gameloop } from '@/utils/gameloop';
 import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
+import { useRenderingStore } from '@/stores/rendering-store';
 
 export type InputMode = 'km' | 'gamepad';
 export type NarratGamepadButton = {
@@ -134,10 +135,11 @@ export class Inputs extends EventTarget {
 
   public startListening() {
     this.updateGamepad();
-    window.addEventListener('mousemove', (event) => {
+    const container = useRenderingStore().container!;
+    container.addEventListener('mousemove', (event) => {
       this.mouseEvent();
     });
-    window.addEventListener('keydown', (event) => {
+    container.addEventListener('keydown', (event) => {
       this.kbEvent();
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {
@@ -145,7 +147,7 @@ export class Inputs extends EventTarget {
         current: true,
       };
     });
-    window.addEventListener('keyup', (event) => {
+    container.addEventListener('keyup', (event) => {
       this.kbEvent();
       const previous = this.getKeyboardState(event.key).current;
       this.keyboardState[event.key] = {

@@ -1,0 +1,7 @@
+files: {}
+options:
+  volume: 0.5
+  musicFadeInTime: 0.5
+  musicFadeInDelay: 0.5
+  musicFadeOutTime: 0.5
+audioTriggers: {}

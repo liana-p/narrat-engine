@@ -4,11 +4,15 @@ import { getConfig, getDialogPanelWidth } from '../config';
 import { useMain } from './main-store';
 import { useSettings } from './settings-store';
 import { useScreens } from './screens-store';
+import { debounce } from '@/utils/debounce';
 
 export interface RenderingState {
   screenWidth: number;
   screenHeight: number;
   layoutMode: 'horizontal' | 'vertical';
+  containerElement: HTMLElement | null;
+  narratAppElement: HTMLElement | null;
+  resizeObserver: ResizeObserver | null;
 }
 
 export const useRenderingStore = defineStore('rendering', {
@@ -17,6 +21,8 @@ export const useRenderingStore = defineStore('rendering', {
       screenHeight: window.innerHeight,
       screenWidth: window.innerWidth,
       layoutMode: 'horizontal',
+      resizeObserver: null,
+      containerElement: null,
     }) as RenderingState,
   actions: {
     updateScreenSize(width: number, height: number) {
@@ -30,6 +36,31 @@ export const useRenderingStore = defineStore('rendering', {
         this.layoutMode = 'horizontal';
         document.querySelector('html')!.style.fontSize =
           `${useSettings().baseSettings.fontSize}px` ?? '16px';
+      }
+    },
+    setContainer(container: HTMLElement) {
+      this.containerElement = container;
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+      }
+      this.resizeObserver = new ResizeObserver(
+        debounce(
+          () => {
+            this.refreshScreenSize();
+          },
+          100,
+          {
+            maxWait: 200,
+          },
+        ),
+      );
+      this.resizeObserver.observe(container);
+      this.refreshScreenSize();
+    },
+    refreshScreenSize() {
+      const container = this.containerElement;
+      if (container) {
+        this.updateScreenSize(container.clientWidth, container.clientHeight);
       }
     },
   },
@@ -112,6 +143,20 @@ export const useRenderingStore = defineStore('rendering', {
         return false;
       }
       return inDialogue;
+    },
+    container(): HTMLElement {
+      if (this.containerElement) {
+        return this.containerElement;
+      } else {
+        return document.body;
+      }
+    },
+    narratApp(): HTMLElement {
+      if (this.narratAppElement) {
+        return this.narratAppElement;
+      } else {
+        return document.body;
+      }
     },
   },
 });
