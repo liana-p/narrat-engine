@@ -29,10 +29,23 @@ const editorStyle = computed(() => {
   <div class="w-full bg-neutral-900">
     <div class="container mx-auto p-5">
       <h1 class="title text-center">Narrat Demo Editor!</h1>
-      <p class="text">
-        You can play the demo, or edit the narrat scripts and see your changes
-        reflected live!
-      </p>
+      <ul>
+        <li>
+          🎮 Press <b>New Game</b> to play interactive demo that shows you how
+          the engine works.
+        </li>
+        <li>
+          ✏️ <b>Try changing the dialogue</b> script on the left to edit the
+          game yourself as you play!
+        </li>
+        <li>
+          ✅ When you're done, head to the
+          <a href="https://docs.narrat.dev" target="_blank" rel="noopener"
+            >documentation website</a
+          >
+          to learn how to continue with making your own game!
+        </li>
+      </ul>
     </div>
     <div class="gap-4 w-full editor-layout flex justify-between h-screen">
       <MonacoEditor class="h-screen transition-all" :style="editorStyle" />

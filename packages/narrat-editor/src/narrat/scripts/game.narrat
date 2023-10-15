@@ -1,4 +1,8 @@
 main:
+  "[Welcome to the interactive narrat demo]"
+  "[You can press space or click on text to skip animations when playing]"
+  "[Press New Game if you haven't yet]"
+  "[Your changes on the left will be reflected in the game]"
   "You open the narrat demo and wonder what narrat is and how it works"
   choice:
     talk helper idle "Would you like some help?"
@@ -126,6 +130,7 @@ stats_2:
 saveLoad:
   talk helper idle "Narrat can save and load the game too. It is done automatically, so no need to worry about it."
   talk helper idle "The game gets saved whenever the script reaches a new label. Labels are different parts of the game script to organise the game."
+  talk helper idle "By the way, this editable demo reloads labels as you change them, so if you change the script on the left and jump to the label you just changed, it will be updated without having to restart the game!"
   talk helper idle "For example right now we're in the 'saveLoad' label of the script (you can look at it in the demo.narrat file!). So the game just saved recently"
   talk helper idle "If you try using the menu button to go back to the main menu and reload the game, it will resume at the start of this label."
   jump showMap
