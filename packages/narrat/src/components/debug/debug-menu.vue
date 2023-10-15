@@ -122,7 +122,7 @@ import { resetSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
 import DebugJumping from './debug-jumping.vue';
 import { InputListener } from '@/stores/inputs-store';
-import { useRenderingStore } from '@/lib';
+import { useRenderingStore } from '@/stores/rendering-store';
 
 export default defineComponent({
   components: {

@@ -4,7 +4,7 @@ import AlertModal from '../alert-modal.vue';
 import { createPinia, setActivePinia } from 'pinia';
 import cloneDeep from 'clone-deep';
 import { mockConfig } from '@/tests/mock-config';
-import { useConfig } from '@/lib';
+import { useConfig } from '@/stores/config-store';
 
 describe('AlertModal.vue test', () => {
   beforeEach(() => {

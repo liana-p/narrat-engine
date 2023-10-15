@@ -22,7 +22,7 @@ onMounted(() => {
       const scriptToEdit = gameStore.activeScript;
       if (scriptToEdit) {
         editor.value = monaco.editor.create(editorContainer.value!, {
-          language: 'python',
+          language: 'narrat',
           value: scriptToEdit.code,
           automaticLayout: true,
           theme: 'vs-dark',

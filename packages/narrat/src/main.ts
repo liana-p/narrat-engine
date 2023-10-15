@@ -27,7 +27,7 @@ import { gameloop } from '@/utils/gameloop';
 import { getSaveFile } from './utils/save-helpers';
 import { ModuleNamespace } from 'vite/types/hot';
 import { constructNarratObject } from './utils/construct-narrat';
-import { useRenderingStore } from './lib';
+import { useRenderingStore } from './stores/rendering-store';
 import cloneDeep from 'clone-deep';
 let app: any;
 

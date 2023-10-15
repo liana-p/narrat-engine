@@ -6,7 +6,7 @@ import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
 import { NarratScript } from '@/types/app-types';
-import { registerPlugin } from '@/lib';
+import { registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
 
 const gameScripts: Record<string, NarratScript[]> = {
