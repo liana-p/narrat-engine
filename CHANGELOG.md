@@ -1,3 +1,35 @@
+# [3.4.0](https://github.com/liana-p/narrat-engine/compare/v3.3.8...v3.4.0) (2023-10-17)
+
+### Animations
+
+New [animations](https://docs.narrat.dev/features/animations.html) feature added
+
+### Breaking Changes
+
+Not a breaking change, but as part of working on the narrat editor, narrat now can be inside custom containers in the page and doesn't necessarily listen to inputs on the `window` object.
+
+This doesn't seem to break anything in my testing so far
+
+### Features
+
+- New options to [style portraits of individual characters](https://docs.narrat.dev/features/characters-and-portraits.html#character-portrait-styling)
+- New options to [control when the dialog panel appears](https://docs.narrat.dev/features/dialog-panel.html#controlling-when-the-dialog-panel-appears)
+
+### Documentation
+
+- New [Dialog Panel](https://docs.narrat.dev/features/dialog-panel.html) page
+- New [Animations](https://docs.narrat.dev/features/animations.html) page
+- Improved [Inventory](https://docs.narrat.dev/features/inventory.html) docs
+- Added [Narrat Overview](https://docs.narrat.dev/guides/narrat-overview.html) page with explanations of elements in a narrat game
+
+### Merged PRs
+
+- added monarch syntax for demo editor ([327f938](https://github.com/liana-p/narrat-engine/commit/327f938549af4e1aad20074cb2d340cb120d8f4f))
+- animations, better docs, new dialog panel options ([#170](https://github.com/liana-p/narrat-engine/issues/170)) ([ac9e567](https://github.com/liana-p/narrat-engine/commit/ac9e567c22e2311c64897a91106ba94587c85354))
+- interactive demo updated to be in the narrat editor ([1344b9a](https://github.com/liana-p/narrat-engine/commit/1344b9a2e522a5c2801b9bb2a2bc29bbddffe662))
+- optional achievement locked icon ([#166](https://github.com/liana-p/narrat-engine/issues/166)) ([a02aa54](https://github.com/liana-p/narrat-engine/commit/a02aa548d3d3169ae1a3e0166aa08a402a3a54a4))
+- WIP narrat editor ([#167](https://github.com/liana-p/narrat-engine/issues/167)) ([aa6b164](https://github.com/liana-p/narrat-engine/commit/aa6b1648baebf10e61f8537cb2efd2f1fd0d2c92))
+
 ## [3.3.8](https://github.com/liana-p/narrat-engine/compare/v3.3.7...v3.3.8) (2023-10-08)
 
 ### Features
