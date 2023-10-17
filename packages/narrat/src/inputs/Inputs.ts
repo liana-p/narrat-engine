@@ -145,7 +145,7 @@ export class Inputs extends EventTarget {
 
   public startListening() {
     this.updateGamepad();
-    const container = useRenderingStore().container!;
+    const container = useRenderingStore().inputsContainer!;
     container.addEventListener('mousemove', (event) => {
       this.mouseEvent();
     });

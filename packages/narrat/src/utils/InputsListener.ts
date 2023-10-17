@@ -21,7 +21,7 @@ export class InputsListener extends TypedEmitter<InputEvents> {
         maxWait: debounceTime,
       },
     );
-    const container = useRenderingStore().container!;
+    const container = useRenderingStore().inputsContainer!;
     container.addEventListener('keydown', (e) => {
       inputEvents.emit('keydown', e);
     });

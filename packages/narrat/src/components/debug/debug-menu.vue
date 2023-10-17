@@ -145,7 +145,7 @@ export default defineComponent({
 
   mounted() {
     const rendering = useRenderingStore();
-    rendering.container!.addEventListener('keydown', (event) => {
+    rendering.inputsContainer.addEventListener('keydown', (event) => {
       if (!this.jumping) {
         if (event.key === 'd') {
           this.toggle();

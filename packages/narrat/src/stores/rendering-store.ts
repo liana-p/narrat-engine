@@ -179,6 +179,13 @@ export const useRenderingStore = defineStore('rendering', {
         return document.body;
       }
     },
+    inputsContainer(): HTMLElement {
+      if (useMain().hasCustomContainer) {
+        return this.container;
+      } else {
+        return window as any;
+      }
+    },
     narratApp(): HTMLElement {
       if (this.narratAppElement) {
         return this.narratAppElement;

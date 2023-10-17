@@ -8,13 +8,26 @@ coverY: 0
 
 The inventory system allow players to collect and spend items. There is also a UI for viewing the inventory.
 
+<video controls="controls" src="./inventory/inventory.mp4" type="video/mp4" autoplay="true"></video>
+
+## How to use the inventory
+
+This is how you create an inventory and items in narrat:
+
 Possible items can be defined in the `items.yaml` config file.
 
 ```yaml
+categories:
+  - id: food
+    name: Food
+  - id: books
+    name: Books
+
 items:
   bread:
     name: Bread
     description: A bread in the game.
+    category: food
     icon: img/items/bread.webp
     onUse:
       action: jump
@@ -23,6 +36,7 @@ items:
     name: Ominous Book
     description: An ominous book.
     icon: img/items/book.webp
+    category: books
     onUse:
       action: run
       label: read_book
@@ -50,6 +64,14 @@ main:
 ## Using items
 
 Items can also be used, see guide below:
+
+## Categories
+
+Items can be grouped into categories. Inventory categories are defined in the `categories` part of the config. Each category has an `id` and `name` property. All the categories will become tabs in the inventory ui, on top of the generic `All` category which shows all items.
+
+Items that have no category will appear in the `All` category.
+
+If a game has no categories defined, the inventory will have no tabs and all items will be shown directly in one place.
 
 [items.md](../features/items.md)
 

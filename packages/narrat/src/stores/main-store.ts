@@ -557,6 +557,9 @@ export const useMain = defineStore('main', {
     sessionPlayTime(state) {
       return getPlayTime(state.playTime.start, 0);
     },
+    hasCustomContainer(state) {
+      return (state.options.container ?? '') !== '#game-holder';
+    },
   },
 });
 

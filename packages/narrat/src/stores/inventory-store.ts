@@ -6,6 +6,9 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getConfig, getItemConfig } from '../config';
 import { useDialogStore } from './dialog-store';
 import { useNotifications } from './notification-store';
+import { audioEvent } from '@/utils/audio-loader';
+import { useVM } from './vm-store';
+import { error } from '@/utils/error-handling';
 
 export interface ItemState {
   amount: number;
@@ -77,10 +80,9 @@ export const useInventory = defineStore('inventory', {
         this.items[item.id] = { ...item };
       }
       const itemName = getItemConfig(item.id).name;
-      const itemMessage = item.amount > 1 ? `${itemName} x ${item.amount}` : itemName;
-      useNotifications().addNotification(
-        `Received item: ${itemMessage}`,
-      );
+      const itemMessage =
+        item.amount > 1 ? `${itemName} x ${item.amount}` : itemName;
+      useNotifications().addNotification(`Received item: ${itemMessage}`);
     },
     enableInteraction(tag?: string) {
       if (!tag) {
@@ -154,6 +156,21 @@ export const useInventory = defineStore('inventory', {
         return true;
       }
       return false;
+    },
+    useItem(item: ItemState) {
+      const conf = getItemConfig(item.id);
+      if (item && this.canUseItem(item) && conf) {
+        const onUse = conf.onUse!;
+        close();
+        audioEvent('onItemUsed');
+        if (onUse.action === 'jump') {
+          useVM().jumpToLabel(onUse.label);
+        } else if (onUse.action === 'run') {
+          useVM().runThenGoBackToPreviousDialog(onUse.label, true);
+        } else {
+          error(`Unknown action ${onUse.action}`);
+        }
+      }
     },
   },
 });
