@@ -18,4 +18,4 @@ Or try editing the default narrat game easily:
 
 With Codeflow you can test Narrat quickly without setting up an IDE
 
-More info on the [narrat website](https://narrat.dev). There is an [online demo](https://narrat.dev/demo/) available to try in the browser.
+More info on the [narrat website](https://narrat.dev). There is an [online demo](https://demo.narrat.dev/) available to try in the browser.

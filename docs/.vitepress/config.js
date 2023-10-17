@@ -81,6 +81,7 @@ const config = {
         text: 'Feature Guides',
         collapsible: true,
         items: [
+          { text: 'Animations', link: '/features/animations' },
           { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
           {
@@ -176,6 +177,7 @@ const config = {
     ],
     logo: '/logo.svg',
     nav: [
+      { text: 'Playground', link: 'https://demo.narrat.dev' },
       { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
       { text: 'FAQ', link: '/others/faq' },
       { text: 'Get Started', link: '/guides/getting-started' },

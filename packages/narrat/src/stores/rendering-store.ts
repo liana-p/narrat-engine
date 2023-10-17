@@ -39,7 +39,7 @@ export const useRenderingStore = defineStore('rendering', {
       this.dialogPanelMode = saveData.dialogPanelMode;
     },
     reset() {
-      this.$reset();
+      this.dialogPanelMode = 'auto';
     },
     updateScreenSize(width: number, height: number) {
       this.screenHeight = height;
