@@ -80,7 +80,7 @@ function updateScreenSize() {
 onMounted(async () => {
   vm.callHook('onAppMounted');
   await useMain().engineLoading();
-  rendering.container.addEventListener(
+  rendering.inputsContainer.addEventListener(
     'resize',
     debounce(
       () => {

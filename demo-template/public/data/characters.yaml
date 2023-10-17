@@ -3,7 +3,7 @@ config:
   imagesPath: "./img/characters/"
 characters:
   game:
-    name: ''
+    name: ""
     color: white
   player:
     style:
@@ -28,6 +28,7 @@ characters:
       idle: helper_cat.webp
     style:
       color: green
+      portraitCssClass: test
     name: Helper Cat
   music_cat:
     sprites:
@@ -46,4 +47,3 @@ characters:
     style:
       color: red
     name: Inner Voice
-

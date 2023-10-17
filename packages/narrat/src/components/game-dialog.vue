@@ -3,6 +3,8 @@
     <DialogPicture
       :picture="picture"
       :video="video"
+      :character="activeCharacter!"
+      :pose="activePose!"
       v-if="(picture || video) && rendering.showDialog"
     />
   </transition>
@@ -108,10 +110,24 @@ const lastDialog = computed((): DialogKey | undefined => {
   return undefined;
 });
 
+const activeCharacter = computed(() => {
+  if (lastDialog.value) {
+    return lastDialog.value.speaker;
+  }
+  return undefined;
+});
+
+const activePose = computed(() => {
+  if (lastDialog.value) {
+    return lastDialog.value.pose;
+  }
+  return undefined;
+});
+
 const pose = computed(() => {
   if (lastDialog.value) {
-    const speaker = lastDialog.value.speaker;
-    let pose = lastDialog.value.pose;
+    const speaker = activeCharacter.value;
+    let pose = activePose.value;
     if (!speaker) {
       return undefined;
     }
@@ -127,7 +143,7 @@ const poseData = computed(() => {
   if (!pose.value) {
     return undefined;
   }
-  const speaker = lastDialog.value!.speaker;
+  const speaker = activeCharacter.value!;
   const data = getCharacterPoseData(speaker, pose.value!);
   return data;
 });

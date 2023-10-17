@@ -1,0 +1,32 @@
+test_dialog_panel:
+  set_screen map
+  choice:
+    "Test what"
+    "Transition":
+      jump test_dialog_panel_transition
+    "Script end":
+      jump test_dialog_panel_script_end
+    "Set dialog panel mode":
+      jump test_set_dialog_panel_mode
+
+test_dialog_panel_transition:
+  set_screen map_2 0 slide-top 2000
+  "ended transition"
+  jump test_dialog_panel
+
+
+test_dialog_panel_script_end:
+  "Script ends after this"
+
+test_set_dialog_panel_mode:
+  choice:
+    "Which mode":
+    "Auto (normal)":
+      set_dialog_panel_mode auto
+    "Always on":
+      set_dialog_panel_mode on
+    "Always off (will go back on after a timer for testing)":
+      set_dialog_panel_mode off
+      wait 1500
+      set_dialog_panel_mode auto
+  jump test_dialog_panel

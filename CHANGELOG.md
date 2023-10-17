@@ -1169,10 +1169,10 @@ Usage example:
 
 ```narrat
 test_sprites:
-  var sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
+  var sprite1 (create_sprite img/sprites/test_sprite.webp 200 500)
   set sprite1.anchor.y 1
   set sprite1.scale 0.5
-  var sprite2 (create_sprite img/sprites/mannequin.webp 500 700)
+  var sprite2 (create_sprite img/sprites/test_sprite.webp 500 700)
   set sprite2.anchor.y 1
   var pos 200
   wait 20

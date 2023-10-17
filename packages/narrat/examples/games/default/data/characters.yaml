@@ -48,6 +48,7 @@ characters:
         height: 355
     style:
       color: green
+      portraitCssClass: test
     name: Helper Cat
   music_cat:
     sprites:

@@ -396,6 +396,7 @@ export const useMain = defineStore('main', {
       const settingsStore = useSettings();
       settingsStore.reset(getConfig());
       useDialogStore().reset();
+      useRenderingStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
         if (store.reset) {
           store.reset();
@@ -452,6 +453,7 @@ export const useMain = defineStore('main', {
         screenObjects: useScreenObjects().generateSaveData(),
         config: useConfig().generateSaveData(),
         choices: useChoicesTrackingStoreStore().generateSaveData(),
+        rendering: useRenderingStore().generateSaveData(),
       };
       vm.plugins.forEach((plugin) => {
         if (plugin.save) {
@@ -501,6 +503,7 @@ export const useMain = defineStore('main', {
       hudStore.loadSaveData(save.hud);
       audioStore.loadSaveData(save.audio);
       inventoryStore.loadSaveData(save.inventory);
+      useRenderingStore().loadSaveData(save.rendering);
       useSettings().loadSaveData(save.settings);
       useChoicesTrackingStoreStore().loadSaveData(save.choices);
       // Load save data from potential custom stores
@@ -553,6 +556,9 @@ export const useMain = defineStore('main', {
     },
     sessionPlayTime(state) {
       return getPlayTime(state.playTime.start, 0);
+    },
+    hasCustomContainer(state) {
+      return (state.options.container ?? '') !== '#game-holder';
     },
   },
 });

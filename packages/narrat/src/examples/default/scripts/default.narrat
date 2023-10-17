@@ -1,4 +1,6 @@
 main:
+  add_item book 1
+  jump test_menu
   // Note: This script is a dev testing thing and is a mess of random test commands, not meant to make sense
   // jump test_choice_conditions
   // set config.characters.characters.player.name "Someone"
@@ -23,6 +25,14 @@ main:
   talk shopkeeper idle "hello"
   // jump quest_demo
 
+test_menu:
+  choice:
+    "What to test?"
+    "Animations":
+      jump test_animations
+    "Dialog panel options":
+      jump test_dialog_panel
+
 test_hide_portrait:
   talk helper test "Hello I'm the helper cat"
 test_transition:
@@ -35,7 +45,7 @@ test_save:
 test_new_inputs:
   set_screen map
   set_button shopButton true
-  set data.sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
+  set data.sprite1 (create_sprite img/sprites/test_sprite.webp 200 500)
   set sprite1.anchor.y 1
   set sprite1.scale 0.5
   set sprite1.onClick talk_sprite
@@ -403,12 +413,12 @@ test_clickthrough:
   set_screen overlay 1
 
 test_sprites:
-  set data.sprite1 (create_sprite img/sprites/mannequin.webp 200 500)
+  set data.sprite1 (create_sprite img/sprites/test_sprite.webp 200 500)
   set sprite1.anchor.y 1
   set sprite1.scale 0.5
   set sprite1.onClick talk_sprite
   wait 500
-  set data.sprite2 (create_sprite img/sprites/mannequin.webp 500 700)
+  set data.sprite2 (create_sprite img/sprites/test_sprite.webp 500 700)
   set sprite2.anchor.y 1
   "Before move"
   jump move_sprites

@@ -19,6 +19,7 @@ import { getButtonConfig, getImageUrl } from '@/config';
 import { processText } from '@/utils/string-helpers';
 import { useVM } from '@/stores/vm-store';
 import { audioEvent } from '@/utils/audio-loader';
+import { getCSSClassForButton } from '@/utils/interact-utils';
 
 const props = defineProps<{
   id: string;
@@ -28,7 +29,6 @@ const props = defineProps<{
 }>();
 
 const screensStore = useScreens();
-const vmStore = useVM();
 const state = computed(() => {
   return screensStore.getButtonState(props.id);
 });
@@ -59,24 +59,7 @@ const text = computed(() => {
 });
 
 const buttonClass = computed(() => {
-  const css: any = {};
-  if (selected.value) {
-    css.selected = true;
-  }
-  if (clickable.value) {
-    css.interactable = true;
-  } else {
-    css.disabled = true;
-    if (state.value === 'greyed') {
-      css.greyed = true;
-    } else if (state.value === 'hidden' || state.value === false) {
-      css.hidden = true;
-    }
-  }
-  if (config.cssClass) {
-    css[config.cssClass] = true;
-  }
-  return css;
+  return getCSSClassForButton(props.id, selected.value, props.transitioning);
 });
 
 const buttonStyle = computed(() => {

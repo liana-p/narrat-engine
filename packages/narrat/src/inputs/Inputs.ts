@@ -84,6 +84,7 @@ export type AnalogActionStatus = {
 };
 export type ActionStatus = ButtonActionStatus | AnalogActionStatus;
 export class Inputs extends EventTarget {
+  public gamepadAvailable: boolean = true;
   public gameActions: {
     [key: string]: Action;
   } = {};
@@ -107,6 +108,15 @@ export class Inputs extends EventTarget {
     this.changeLastInput('km');
   }
 
+  public getGamepads() {
+    if (navigator.getGamepads) {
+      return navigator.getGamepads();
+    } else {
+      this.gamepadAvailable = false;
+      return [] as Gamepad[];
+    }
+  }
+
   public gamepadEvent() {
     this.changeLastInput('gamepad');
   }
@@ -125,9 +135,9 @@ export class Inputs extends EventTarget {
   }
 
   public getGamepad() {
-    const gamepads = navigator
-      .getGamepads()
-      .filter((gamepad) => gamepad !== null) as Gamepad[];
+    const gamepads = this.getGamepads().filter(
+      (gamepad) => gamepad !== null,
+    ) as Gamepad[];
     if (gamepads.length > 0) {
       return gamepads[0];
     }
@@ -135,7 +145,7 @@ export class Inputs extends EventTarget {
 
   public startListening() {
     this.updateGamepad();
-    const container = useRenderingStore().container!;
+    const container = useRenderingStore().inputsContainer!;
     container.addEventListener('mousemove', (event) => {
       this.mouseEvent();
     });

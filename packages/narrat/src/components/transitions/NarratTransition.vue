@@ -39,39 +39,33 @@ const styles = reactive<{ [key: string]: { [key: string]: any } }>({
   newSlotClasses: {},
   newSlotStyle: {},
 });
-const hasOldSlot = computed(() => {
-  return slots.oldElement && slots.oldElement.length > 0;
-});
-const hasNewSlot = computed(() => {
-  return slots.newElement && slots.newElement.length > 0;
-});
 
 onMounted(async () => {
   // 1. Setup default state of both things
   const prefix = `narrat-transition-${props.name}`;
   styles.newSlotClasses = {
     [`${prefix}-enter-from`]: true,
-    [`${prefix}-enter-active`]: true,
-  };
-  styles.oldSlotStyle = {
-    transitionDuration: `${props.duration / 1000}s`,
-  };
-  styles.newSlotStyle = {
-    transitionDuration: `${props.duration / 1000}s`,
   };
   styles.oldSlotClasses = {
     [`${prefix}-leave-active`]: true,
   };
   // 2. Wait a bit so that the styles are registered, and start making old leave
   await timeout(30);
+  styles.oldSlotStyle = {
+    transitionDuration: `${props.duration / 1000}s`,
+  };
+  styles.newSlotStyle = {
+    transitionDuration: `${props.duration / 1000}s`,
+  };
   styles.oldSlotClasses[`${prefix}-leave-to`] = true;
+  styles.newSlotClasses[`${prefix}-enter-active`] = true;
   // 3. Wait for the delay or duration to finish, then make the new one enter
   await timeout(props.delay ?? 0);
   delete styles.newSlotClasses[`${prefix}-enter-from`];
   // // 4. Wait for the final step of the transition
   await timeout(props.duration);
-  delete styles.newSlotClasses[`${prefix}-enter-active`];
-  delete styles.oldSlotClasses[`${prefix}-leave-active`];
+  // delete styles.newSlotClasses[`${prefix}-enter-active`];
+  // delete styles.oldSlotClasses[`${prefix}-leave-active`];
   state.value = 'end';
   emits('complete');
 });

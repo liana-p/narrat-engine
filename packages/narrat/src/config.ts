@@ -61,6 +61,10 @@ import {
   ChoicesInputConfigSchema,
   defaultChoicesConfig,
 } from './config/choices-config';
+import {
+  AnimationsConfigSchema,
+  defaultAnimationsConfig,
+} from './config/animations-config';
 
 let config: Config;
 
@@ -80,6 +84,7 @@ const splitConfigs = [
   ['tooltips', TooltipsConfigSchema, defaultTooltipsConfig],
   ['characters', CharactersFilesConfigSchema, defaultCharactersConfig],
   ['choices', ChoicesInputConfigSchema, defaultChoicesConfig],
+  ['animations', AnimationsConfigSchema, defaultAnimationsConfig],
 ] as const;
 
 // List of other keys that are simply copied from input config to new config
@@ -243,7 +248,9 @@ export function charactersConfig() {
 export function choicesConfig() {
   return getConfig().choices;
 }
-
+export function animationsConfig() {
+  return getConfig().animations;
+}
 export function getChoicePromptConfig(flag: string) {
   return choicesConfig().choicePrompts[flag];
 }

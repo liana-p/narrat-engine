@@ -55,6 +55,7 @@ const config = {
         collapsible: true,
         items: [
           { text: 'Getting Started', link: '/guides/getting-started' },
+          { text: 'Overview of Narrat', link: '/guides/narrat-overview' },
           {
             text: 'Editing the game',
             link: '/guides/editing-game',
@@ -80,6 +81,7 @@ const config = {
         text: 'Feature Guides',
         collapsible: true,
         items: [
+          { text: 'Animations', link: '/features/animations' },
           { text: 'Achievements', link: '/features/achievements' },
           { text: 'Audio', link: '/features/audio' },
           {
@@ -93,6 +95,10 @@ const config = {
           {
             text: 'Characters and portraits',
             link: '/features/characters-and-portraits',
+          },
+          {
+            text: 'Dialog Panel',
+            link: '/features/dialog-panel',
           },
           { text: 'Game Settings', link: '/features/game-settings' },
           { text: 'Gamepad support', link: '/features/gamepad' },
@@ -171,6 +177,7 @@ const config = {
     ],
     logo: '/logo.svg',
     nav: [
+      { text: 'Playground', link: 'https://demo.narrat.dev' },
       { text: 'Troubleshooting', link: '/troubleshooting/troubleshooting' },
       { text: 'FAQ', link: '/others/faq' },
       { text: 'Get Started', link: '/guides/getting-started' },

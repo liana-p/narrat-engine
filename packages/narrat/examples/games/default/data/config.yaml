@@ -15,6 +15,8 @@ dialogPanel:
   bottomOffset: 50
   width: 475
   height: 680
+  hideDuringTransition: true # Setting this to true will make the dialog panel hide during screen transitions
+  showAfterScriptEnd: false # Setting this to true will make the dialog panel stay on even if the narrat script ends
 settings:
   customSettings:
     playerName:
@@ -75,3 +77,4 @@ menuButtons:
   new-game:
     text: Start a new game
 choices: data/choices.yaml
+animations: data/animations.yaml

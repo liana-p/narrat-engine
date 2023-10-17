@@ -20,19 +20,16 @@
 </template>
 
 <script lang="ts" setup>
-import { getConfig } from '@/config';
 import { useInventory } from '@/stores/inventory-store';
-import { useVM } from '@/stores/vm-store';
-import { audioEvent } from '@/utils/audio-loader';
-import { error } from '@/utils/error-handling';
 import { computed, ref } from 'vue';
 import InventorySection, {
   InventorySectionProps,
 } from './inventory/inventory-section.vue';
 import ItemDetails from './inventory/item-details.vue';
 import { InputListener } from '@/stores/inputs-store';
+import { useMenu } from '@/stores/menu-store';
 
-const props = defineProps<{
+defineProps<{
   section: InventorySectionProps;
   inputListener: InputListener;
 }>();
@@ -49,21 +46,9 @@ const chosenItem = computed(() => {
   }
   return null;
 });
-const canUseChosenItem = computed(() => {
-  return useInventory().canUseItem(chosenItem.value!);
-});
-const itemConf = computed(() => {
-  return getConfig().items.items;
-});
-const chosenItemConf = computed(() => {
-  if (chosenId.value) {
-    return itemConf.value[chosenId.value];
-  }
-  return null;
-});
 
 function close() {
-  emit('close');
+  useMenu().closeMenu();
 }
 function clickItem(item: string) {
   chosenId.value = item;
@@ -72,18 +57,8 @@ function closeItem() {
   chosenId.value = false;
 }
 function useItem() {
-  if (chosenItem.value && canUseChosenItem.value && chosenItemConf.value) {
-    const onUse = chosenItemConf.value.onUse!;
-    close();
-    audioEvent('onItemUsed');
-    if (onUse.action === 'jump') {
-      useVM().jumpToLabel(onUse.label);
-    } else if (onUse.action === 'run') {
-      useVM().runThenGoBackToPreviousDialog(onUse.label, true);
-    } else {
-      error(`Unknown action ${onUse.action}`);
-    }
-  }
+  store.useItem(chosenItem.value!);
+  close();
 }
 </script>
 

@@ -123,9 +123,6 @@ const activeInteractive = computed(() => {
   return interactivesList.value[index];
 });
 
-const layoutMode = computed(() => {
-  return rendering.layoutMode;
-});
 const layoutWidth = computed(() => {
   return getConfig().layout.backgrounds.width;
 });

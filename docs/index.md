@@ -15,6 +15,9 @@ hero:
     - theme: alt
       text: Main website
       link: https://narrat.dev
+    - theme: brand
+      text: Interactive Playground
+      link: https://demo.narrat.dev
 
 features:
   - icon: 🚀
@@ -87,6 +90,11 @@ features:
     details: Built-in achievements system with a UI. You can even save global data across multiple game playthroughs
     link: /features/achievements
     linkText: Achievements Guide
+  - icon: 🎥
+    title: Video Support
+    details: Narrat supports videos for backgrounds and character portraits, allowing for FMV games or pre-rendered animated backgrounds
+    link: /features/viewport#video-backgrounds
+    linkText: Find how to use it
   - icon: ⚙️
     title: Easy game settings
     details: The settings system allows you to easily add custom settings to your game. The engine takes care of displaying them, letting the player edit them, and saving them.
@@ -97,6 +105,16 @@ features:
     details: A sprite system allows dynamic creation of sprites and text with a scene graph to dynamically create custom elements, UI, etc.
     link: /features/dynamic-sprites-text-objects
     linkText: Screen Objects docs
+  - icon: 🎥
+    title: Animations
+    details: Narrat supports animating anything on screen
+    link: /features/animations
+    linkText: Animations Guide
+  - icon: 🎮
+    title: Gamepad Support
+    details: Narrat seamlessly supports gamepad out of the box
+    link: /features/gamepad
+    linkText: Gamepad Guide
   - icon: ⚙️
     title: Powerful plugin API
     details: Narrat has a powerful plugin API that allows you to extend the engine with custom features. Plugins can add complete new features to the engine via custom scripting commands, custom UI, and even have their own save data.
@@ -123,6 +141,6 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 There are many more features to narrat, see more [on the website](https://narrat.dev)
 :::
 
-There is an [online demo](https://narrat.dev/demo/). It contains a built version of the [narrat demo example game](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/demo/data).
+There is an [online demo](https://demo.narrat.dev/). It contains a built version of the [narrat demo example game](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games/demo/data).
 
 Games are written in narrat script files. -->
