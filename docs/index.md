@@ -16,6 +16,9 @@ hero:
       text: Main website
       link: https://narrat.dev
     - theme: brand
+      text: Overview
+      link: /guides/narrat-overview
+    - theme: brand
       text: Interactive Playground
       link: https://demo.narrat.dev
 

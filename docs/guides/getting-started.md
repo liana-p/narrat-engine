@@ -101,6 +101,10 @@ The game is ready to edit!
 Those `npm` commands come from node.js. If the commands aren't recognised, you probably didn't install node.js correctly. [More about npm install](https://www.stackchief.com/tutorials/npm%20install%20|%20how%20it%20works)
 :::
 
+## Overview of Narrat
+
+Now that the game is running, you might want to look at the [Overview of Narrat](/guides/narrat-overview) to understand what the different parts of a Narrat game are and how to use them.
+
 ## Editing the game
 
 It is now easy to make a game by editing the narrat scripts and config files!
