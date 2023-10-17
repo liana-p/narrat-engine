@@ -2,6 +2,8 @@ import { CommandPlugin } from './command-plugin';
 import { loadDataFile } from '@/utils/ajax';
 import { getDataUrl } from '@/config';
 import { useConfig } from '@/stores/config-store';
+import { useRenderingStore } from '@/stores/rendering-store';
+import { animate } from '@/utils/animation';
 
 export const loadDataPlugin = CommandPlugin.FromOptions<{ url: string }>({
   keyword: 'load_data',
@@ -54,5 +56,50 @@ export const jsonDecode = CommandPlugin.FromOptions<{
   runner: async (cmd) => {
     const { value } = cmd.options;
     return JSON.parse(value);
+  },
+});
+
+export const setDialogPanelMode = CommandPlugin.FromOptions<{
+  mode: 'auto' | 'on' | 'off';
+}>({
+  keyword: 'set_dialog_panel_mode',
+  argTypes: [{ name: 'mode', type: 'string' }],
+  runner: async (cmd) => {
+    const { mode } = cmd.options;
+    useRenderingStore().dialogPanelMode = mode;
+  },
+});
+
+export const animatePlugin = CommandPlugin.FromOptions<{
+  element: string;
+  animation: string;
+  duration?: number;
+}>({
+  keyword: 'animate',
+  argTypes: [
+    { name: 'element', type: 'string' },
+    { name: 'animation', type: 'string' },
+    { name: 'duration', optional: true, type: 'number' },
+  ],
+  runner: async (cmd) => {
+    const { element, animation, duration } = cmd.options;
+    animate(element, animation, { duration });
+  },
+});
+
+export const animateWaitPlugin = CommandPlugin.FromOptions<{
+  element: string;
+  animation: string;
+  duration?: number;
+}>({
+  keyword: 'animate_wait',
+  argTypes: [
+    { name: 'element', type: 'string' },
+    { name: 'animation', type: 'string' },
+    { name: 'duration', optional: true, type: 'number' },
+  ],
+  runner: async (cmd) => {
+    const { element, animation, duration } = cmd.options;
+    await animate(element, animation, { duration });
   },
 });

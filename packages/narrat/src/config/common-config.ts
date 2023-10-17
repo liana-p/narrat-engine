@@ -10,6 +10,8 @@ export const DialogPanelConfigSchema = Type.Optional(
     bottomOffset: Type.Optional(Type.Number()),
     width: Type.Optional(Type.Number()),
     height: Type.Optional(Type.Number()),
+    hideDuringTransition: Type.Optional(Type.Boolean()),
+    showAfterScriptEnd: Type.Optional(Type.Boolean()),
   }),
 );
 export type DialogPanelConfig = Static<typeof DialogPanelConfigSchema>;

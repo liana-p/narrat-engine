@@ -1,6 +1,7 @@
 import { Static, Type } from '@sinclair/typebox';
 
 export const DialogStyleConfigSchema = Type.Object({
+  portraitCssClass: Type.Optional(Type.String()),
   color: Type.Optional(Type.String()),
   boxCss: Type.Optional(Type.Record(Type.String(), Type.Any())),
   nameCss: Type.Optional(Type.Record(Type.String(), Type.Any())),

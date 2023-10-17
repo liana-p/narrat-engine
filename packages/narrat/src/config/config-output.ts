@@ -32,6 +32,7 @@ import {
 } from './skillchecks-config';
 import { SettingsConfig } from './settings-config';
 import { ChoicesConfig, defaultChoicesConfig } from './choices-config';
+import { AnimationsConfig, defaultAnimationsConfig } from './animations-config';
 
 export interface Config {
   baseAssetsPath: string;
@@ -67,6 +68,7 @@ export interface Config {
   saves: SavesConfig;
   characters: CharactersFilesConfig;
   choices: ChoicesConfig;
+  animations: AnimationsConfig;
 }
 
 export const defaultConfig = {
@@ -87,6 +89,8 @@ export const defaultConfig = {
     textSpeed: DEFAULT_TEXT_SPEED,
     animateText: true,
     timeBetweenLines: 100,
+    showDuringTransition: false,
+    showAfterScriptEnd: false,
   },
   splashScreens: {},
   screens: defaultScreensConfig,
@@ -120,6 +124,7 @@ export const defaultConfig = {
   },
   characters: defaultCharactersConfig,
   choices: defaultChoicesConfig,
+  animations: defaultAnimationsConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

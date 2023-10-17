@@ -92,7 +92,33 @@ A character's config can have the following values:
 - `name`: The name the character will appear as
 - `sprites`: A key-value object of pose names to the url of the picture to use for that pose. Poses are used with the talk command (the command `talk player idle "A sentence"` would use the character "player" with the picture for the pose named "idle")
 - `style`: An object to customise how that character looks with the following options:
-  - color: a CSS color (ie. "red", or #FFF)
-  - boxCss: [CSS style object](https://www.w3schools.com/jsref/dom_obj_style.asp) for custom-styling of the box encapsulating a dialogue from that character.
-  - nameCss: Same as above, but the styling will apply to the name of the character specifically
-  - textCss: Same as above, but will apply to the text "spoken" by the character
+  - `portraitCssClass`: A CSS class name to give to the portrait window for that character. This allows you to apply custom CSS styling to any character's portrait window
+  - `color`: a CSS color (ie. "red", or #FFF)
+  - `boxCss`: [CSS style object](https://www.w3schools.com/jsref/dom_obj_style.asp) for custom-styling of the box encapsulating a dialogue from that character.
+  - `nameCss`: Same as above, but the styling will apply to the name of the character specifically
+  - `textCss`: Same as above, but will apply to the text "spoken" by the character
+
+## Character portrait styling
+
+::: tip
+Character portraits automatically get given the id of the character as a CSS class, so you can easily use this CSS class to style portraits per character
+:::
+
+Individual character poses can also specify their own width and height, if you want to have different sizes for different poses:
+
+```yaml
+helper:
+  sprites:
+    idle: # Instead of putting the image directly, have an object with an image property, and width/height values
+      image: helper_cat.webp
+      width: 150
+      height: 200
+    videoPose:
+      video: helper_video.mp4
+      width: 200
+      height: 355
+  style:
+    color: green
+    portraitCssClass: test
+  name: Helper Cat
+```

@@ -13,7 +13,10 @@ export interface RenderingState {
   containerElement: HTMLElement | null;
   narratAppElement: HTMLElement | null;
   resizeObserver: ResizeObserver | null;
+  dialogPanelMode: 'auto' | 'off' | 'on';
 }
+
+export type RenderingSaveData = Pick<RenderingState, 'dialogPanelMode'>;
 
 export const useRenderingStore = defineStore('rendering', {
   state: () =>
@@ -23,8 +26,21 @@ export const useRenderingStore = defineStore('rendering', {
       layoutMode: 'horizontal',
       resizeObserver: null,
       containerElement: null,
+      narratAppElement: null,
+      dialogPanelMode: 'auto',
     }) as RenderingState,
   actions: {
+    generateSaveData(): RenderingSaveData {
+      return {
+        dialogPanelMode: this.dialogPanelMode,
+      };
+    },
+    loadSaveData(saveData: RenderingSaveData) {
+      this.dialogPanelMode = saveData.dialogPanelMode;
+    },
+    reset() {
+      this.$reset();
+    },
     updateScreenSize(width: number, height: number) {
       this.screenHeight = height;
       this.screenWidth = width;
@@ -135,14 +151,26 @@ export const useRenderingStore = defineStore('rendering', {
       return getConfig().layout.backgrounds.width * this.viewportRatio;
     },
     showDialog(state: RenderingState): boolean {
-      const inDialogue = useMain().inScript;
+      if (this.dialogPanelMode === 'on') {
+        return true;
+      } else if (this.dialogPanelMode === 'off') {
+        return false;
+      }
       if (!this.overlayMode || this.layoutMode === 'vertical') {
         return true;
       }
-      if (useScreens().isTransitioning) {
-        return false;
+      const inDialogue = useMain().inScript;
+      let result = true;
+      if (
+        useScreens().isTransitioning &&
+        getConfig().dialogPanel.hideDuringTransition
+      ) {
+        result = false;
       }
-      return inDialogue;
+      if (!getConfig().dialogPanel.showAfterScriptEnd && !inDialogue) {
+        result = false;
+      }
+      return result;
     },
     container(): HTMLElement {
       if (this.containerElement) {

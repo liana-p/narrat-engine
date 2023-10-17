@@ -133,11 +133,14 @@ import {
   unshiftCommand,
 } from './array-commands';
 import {
+  animatePlugin,
+  animateWaitPlugin,
   changeGameCharacterPlugin,
   changePlayerCharacterPlugin,
   jsonDecode,
   jsonEncode,
   loadDataPlugin,
+  setDialogPanelMode,
 } from './util-commands';
 import {
   nowPlugin,
@@ -333,6 +336,9 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(changeGameCharacterPlugin);
   vm.addCommand(jsonEncode);
   vm.addCommand(jsonDecode);
+  vm.addCommand(setDialogPanelMode);
+  vm.addCommand(animatePlugin);
+  vm.addCommand(animateWaitPlugin);
 
   // Time commands
   vm.addCommand(nowPlugin);

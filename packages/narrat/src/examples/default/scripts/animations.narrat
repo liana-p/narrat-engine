@@ -1,0 +1,18 @@
+test_animations:
+  choice:
+    "Animation test"
+    "Screenshake":
+      run test_screenshake
+    "Rotate":
+      run test_rotate
+    "Long screenshake":
+      run long_screenshake
+  jump test_animations
+
+test_screenshake:
+  animate #narrat-app narrat-screenshake
+
+long_screenshake:
+  animate .dialog long-screenshake
+test_rotate:
+  animate_wait .dialog rotate

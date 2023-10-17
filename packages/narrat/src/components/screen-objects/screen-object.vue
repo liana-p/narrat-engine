@@ -33,6 +33,7 @@ import {
 } from '@/stores/screen-objects-store';
 import { processText } from '@/utils/string-helpers';
 import { InteractiveScreenElement } from '../screens/screen-types';
+import { getCSSClassForScreenObject } from '@/utils/interact-utils';
 
 const props = defineProps<{
   screenObject: ScreenObjectState;
@@ -64,19 +65,11 @@ const selected = computed(() => {
 });
 
 const objectClass = computed(() => {
-  const css: any = {};
-  if (selected.value) {
-    css.selected = true;
-  }
-  if (screenObjectsStore.isScreenObjectClickable(props.screenObject)) {
-    css.interactable = true;
-  } else {
-    css.disabled = true;
-  }
-  if (props.screenObject.cssClass) {
-    css[props.screenObject.cssClass] = true;
-  }
-  return css;
+  return getCSSClassForScreenObject(
+    props.screenObject,
+    selected.value,
+    props.transitioning,
+  );
 });
 
 const objectStyle = computed(() => {

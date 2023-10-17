@@ -1,8 +1,13 @@
 <template>
-  <div class="dialog-picture override" :style="boxStyle">
+  <div
+    class="dialog-picture override"
+    :style="boxStyle"
+    :class="containerClass"
+  >
     <img
       :src="getAssetUrl(getCharacterPicUrl(picture?.image))"
       class="picture override"
+      :class="containerClass"
       v-if="picture"
     />
     <video
@@ -26,11 +31,13 @@ import {
   ImageCharacterPose,
   VideoCharacterPose,
 } from '@/config/characters-config';
-import { getCharacterPicUrl } from '@/utils/characters';
+import { getCharacterInfo, getCharacterPicUrl } from '@/utils/characters';
 
 const props = defineProps<{
   picture: ImageCharacterPose | undefined;
   video: VideoCharacterPose | undefined;
+  character: string;
+  pose: string;
 }>();
 
 const video = computed(() => {
@@ -39,6 +46,17 @@ const video = computed(() => {
 
 const layoutMode = computed(() => {
   return useRenderingStore().layoutMode;
+});
+
+const containerClass = computed(() => {
+  const result: any = {
+    [props.character]: true,
+  };
+  const characterConfig = getCharacterInfo(props.character);
+  if (characterConfig?.style?.portraitCssClass) {
+    result[characterConfig.style.portraitCssClass] = true;
+  }
+  return result;
 });
 const boxStyle = computed(() => {
   const rendering = useRenderingStore();
