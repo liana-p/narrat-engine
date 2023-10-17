@@ -1,9 +1,10 @@
-import { CommandPlugin } from './command-plugin';
+import { ArgTypes, CommandPlugin } from './command-plugin';
 import { loadDataFile } from '@/utils/ajax';
 import { getDataUrl } from '@/config';
 import { useConfig } from '@/stores/config-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { animate } from '@/utils/animation';
+import { Parser } from '@/types/parser';
 
 export const loadDataPlugin = CommandPlugin.FromOptions<{ url: string }>({
   keyword: 'load_data',
@@ -70,36 +71,46 @@ export const setDialogPanelMode = CommandPlugin.FromOptions<{
   },
 });
 
-export const animatePlugin = CommandPlugin.FromOptions<{
+export interface AnimationOptions {
   element: string;
   animation: string;
   duration?: number;
-}>({
+  iterations?: number;
+}
+export const animationArgs: ArgTypes = [
+  { name: 'element', type: 'string' },
+  { name: 'animation', type: 'string' },
+  { name: 'duration', optional: true, type: 'number' },
+  { name: 'iterations', optional: true, type: 'number' },
+];
+
+function setupAnimationOptions(cmd: Parser.Command<AnimationOptions>) {
+  const { element, animation, duration, iterations } = cmd.options;
+  const extraOptions: any = {};
+  if (iterations) {
+    extraOptions.iterations = iterations;
+  }
+  if (duration) {
+    extraOptions.duration = duration;
+  }
+  return extraOptions;
+}
+
+export const animatePlugin = CommandPlugin.FromOptions<AnimationOptions>({
   keyword: 'animate',
-  argTypes: [
-    { name: 'element', type: 'string' },
-    { name: 'animation', type: 'string' },
-    { name: 'duration', optional: true, type: 'number' },
-  ],
+  argTypes: animationArgs,
   runner: async (cmd) => {
-    const { element, animation, duration } = cmd.options;
-    animate(element, animation, { duration });
+    const { element, animation } = cmd.options;
+    const extraOptions = setupAnimationOptions(cmd);
+    animate(element, animation, extraOptions);
   },
 });
 
-export const animateWaitPlugin = CommandPlugin.FromOptions<{
-  element: string;
-  animation: string;
-  duration?: number;
-}>({
+export const animateWaitPlugin = CommandPlugin.FromOptions<AnimationOptions>({
   keyword: 'animate_wait',
-  argTypes: [
-    { name: 'element', type: 'string' },
-    { name: 'animation', type: 'string' },
-    { name: 'duration', optional: true, type: 'number' },
-  ],
+  argTypes: animationArgs,
   runner: async (cmd) => {
-    const { element, animation, duration } = cmd.options;
-    await animate(element, animation, { duration });
+    const { element, animation } = cmd.options;
+    await animate(element, animation, setupAnimationOptions(cmd));
   },
 });

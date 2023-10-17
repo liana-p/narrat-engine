@@ -13,6 +13,6 @@ test_screenshake:
   animate #narrat-app narrat-screenshake
 
 long_screenshake:
-  animate .dialog long-screenshake
+  animate .dialog long-screenshake 150 20
 test_rotate:
   animate_wait .dialog rotate

@@ -36,8 +36,8 @@ import { getCharacterInfo, getCharacterPicUrl } from '@/utils/characters';
 const props = defineProps<{
   picture: ImageCharacterPose | undefined;
   video: VideoCharacterPose | undefined;
-  character: string;
-  pose: string;
+  character: string | undefined;
+  pose: string | undefined;
 }>();
 
 const video = computed(() => {
@@ -49,9 +49,11 @@ const layoutMode = computed(() => {
 });
 
 const containerClass = computed(() => {
-  const result: any = {
-    [props.character]: true,
-  };
+  const result: any = {};
+  if (!props.character) return {};
+  if (props.character) {
+    result[props.character] = true;
+  }
   const characterConfig = getCharacterInfo(props.character);
   if (characterConfig?.style?.portraitCssClass) {
     result[characterConfig.style.portraitCssClass] = true;
