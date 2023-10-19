@@ -1,3 +1,12 @@
+# [3.5.0](https://github.com/liana-p/narrat-engine/compare/v3.4.0...v3.5.0) (2023-10-19)
+
+
+### Features
+
+* first party themes feature working ([#171](https://github.com/liana-p/narrat-engine/issues/171)) ([4e6767b](https://github.com/liana-p/narrat-engine/commit/4e6767bc9006a248baf0a1a3aa3b77bb2807efd9))
+
+
+
 # [3.4.0](https://github.com/liana-p/narrat-engine/compare/v3.3.8...v3.4.0) (2023-10-17)
 
 ### Animations
