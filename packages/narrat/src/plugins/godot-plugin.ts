@@ -1,7 +1,4 @@
-import {
-  CommandPlugin,
-  CommandPluginOptions,
-} from '@/vm/commands/command-plugin';
+import { CommandPlugin } from '@/vm/commands/command-plugin';
 import { NarratPlugin } from './NarratPlugin';
 import { Narrat } from '@/utils/construct-narrat';
 import { useRenderingStore } from '@/stores/rendering-store';

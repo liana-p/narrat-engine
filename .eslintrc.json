@@ -16,6 +16,17 @@
   },
   "plugins": ["vue", "@typescript-eslint"],
   "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@/lib**"],
+            "message": "Do not import from the lib folder"
+          }
+        ]
+      }
+    ],
     "no-use-before-define": "off",
     // buggy, and typescript does it better. https://github.com/typescript-eslint/typescript-eslint/issues/2528
     "no-undef": "off",

@@ -62,6 +62,7 @@ const config = {
           },
           { text: 'Editing the config', link: '/guides/config-files' },
           { text: 'Customising the UI', link: '/guides/customising-ui' },
+          { text: 'Themes', link: '/guides/themes' },
           { text: 'Using Custom Fonts', link: '/guides/using-custom-fonts' },
           {
             text: 'Building and exporting',

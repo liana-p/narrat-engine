@@ -8,3 +8,4 @@ export * from '@/exports/others';
 export * from '@/exports/components';
 export * from '@/exports/utils';
 export * from '@/exports/optionals';
+export * from '@/exports/plugins-list';
