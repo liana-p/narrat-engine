@@ -1,0 +1,79 @@
+#narrat-app {
+  --font-family: Noto Sans JP, sans-serif;
+  --text-color: white;
+  --blue-a: #0000a4;
+  --blue-b: #000028;
+  --bg-color: linear-gradient(0.5turn, #0000a4, #000028);
+  --dialog-box-bg: var(--bg-color);
+  --dialog-box-border: 0.25rem solid white;
+}
+
+.dialog {
+  overflow-y: hidden;
+}
+.dialog-box {
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+}
+
+.dialog-text {
+  font-size: 1.7rem !important;
+}
+
+.dialog-title {
+  font-size: 3rem;
+  text-decoration: underline;
+}
+
+.dialog-choices {
+  font-size: 1.5rem;
+}
+
+.dialog-box:not(:last-child) {
+  display: none;
+}
+.dialog-separator {
+  display: none;
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-container {
+  padding-bottom: 10px !important;
+}
+
+.interact-button {
+  position: relative;
+  background: transparent;
+  color: transparent;
+  font-size: 1.7rem !important;
+  border: none;
+}
+.interact-button:after {
+  position: absolute;
+  right: 10px;
+  content: '>';
+  color: white;
+  font-size: 5rem;
+  animation: anim 0.5s infinite;
+}
+
+@keyframes anim {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+.dialog-content {
+  /* text-align: center; */
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: none !important;
+}
