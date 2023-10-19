@@ -1,14 +1,27 @@
 <template>
   <div class="narrat-preview relative">
-    <div class="controls absolute z-50">
+    <div class="controls absolute z-50 flex">
       <button
-        class="border border-cyan-400 mr-4"
+        class="border border-cyan-400 mr-4 p-2"
         v-for="control in controls"
         :key="control"
         @click="(e) => controlButtonPressed(control, e)"
       >
         {{ control }}
       </button>
+      <div class="flex flex-col w-30">
+        <span>Change Theme:</span>
+        <select name="themes" id="themes">
+          <option
+            v-for="theme in themeIds"
+            :key="theme.id"
+            @click="changeTheme(theme)"
+            :value="theme.id"
+          >
+            {{ theme.name }}
+          </option>
+        </select>
+      </div>
     </div>
     <div
       class="relative flex justify-center items-center w-full h-full"
@@ -18,13 +31,51 @@
 </template>
 
 <script setup lang="ts">
-import { startApp, handleHMR, NarratScript, stopApp, restartApp } from 'narrat';
-import { computed, onMounted, ref, watch } from 'vue';
+import {
+  startApp,
+  handleHMR,
+  NarratScript,
+  stopApp,
+  restartApp,
+  NarratThemesPlugin,
+  textOnlyTheme,
+  registerPlugin,
+} from 'narrat';
+import { computed, onMounted, ref, watch, shallowRef } from 'vue';
 import { FileState, useGameStore } from '@/stores/game-store';
+import { jrpgTheme } from '../themes/jrpg';
+
+export interface ThemeInfo {
+  name: string;
+  id: string;
+}
+const themeIds = ref<ThemeInfo[]>([
+  {
+    name: 'Default',
+    id: 'default',
+  },
+  {
+    name: 'Text Only',
+    id: 'narrat-text-only',
+  },
+  {
+    name: 'JRPG',
+    id: 'jrpg',
+  },
+]);
 
 const narratContainer = ref<HTMLDivElement | null>(null);
 const isNarratRunning = ref<boolean>(false);
+const chosenTheme = ref<string>('default');
 
+function changeTheme(theme: ThemeInfo) {
+  chosenTheme.value = theme.id;
+  if (themesPlugin.value) {
+    themesPlugin.value.changeTheme(theme.id);
+  }
+}
+
+const themesPlugin = shallowRef<NarratThemesPlugin | null>();
 const controls = ref([
   'reload',
   'stop',
@@ -47,12 +98,11 @@ const scripts = computed(() => gameStore.scripts);
 function controlButtonPressed(id: string, _event: MouseEvent) {
   switch (id) {
     case 'reload':
-      restartApp();
+      restartNarratGame();
       break;
     case 'stop':
       if (isNarratRunning.value) {
-        stopApp();
-        isNarratRunning.value = false;
+        stopNarratGame();
       }
       break;
     case 'start':
@@ -86,6 +136,13 @@ function launchNarratGame() {
   }
 }
 
+function stopNarratGame() {
+  stopApp();
+  isNarratRunning.value = false;
+}
+function restartNarratGame() {
+  restartApp();
+}
 function fileStateToNarratModule(fileState: FileState): {
   default: NarratScript;
 } {
@@ -99,6 +156,10 @@ function fileStateToNarratModule(fileState: FileState): {
 }
 
 function startNarratApp() {
+  themesPlugin.value = new NarratThemesPlugin({
+    themes: [textOnlyTheme, jrpgTheme],
+  });
+  registerPlugin(themesPlugin.value);
   startApp({
     configPath: 'data/config.yaml',
     debug: true,
