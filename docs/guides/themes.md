@@ -14,6 +14,8 @@ Narrat themes are packages that can be used with the `NarratThemesPlugin` to ins
 - A `css` stylesheet (see [ui customisation guide](./customising-ui.md) to learn how to customise the narrat UI with CSS)
 - A theme file, which defines the theme's name, which `css` file to use, and can optionally provide a list of narrat config options to override
 
+![Themes Demo](./themes/narrat-themes.mp4)
+
 ## What can themes do?
 
 Themes can do the following:
