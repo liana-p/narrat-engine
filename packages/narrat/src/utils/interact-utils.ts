@@ -1,7 +1,7 @@
 import { getButtonConfig } from '@/config';
 import { ScreenObjectState } from '@/stores/screen-objects-store';
 import { isViewportElementClickable } from './viewport-utils';
-import { useScreens } from '@/lib';
+import { useScreens } from '@/stores/screens-store';
 
 export interface RenderingState {
   selected: boolean;

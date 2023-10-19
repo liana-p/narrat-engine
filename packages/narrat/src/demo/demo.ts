@@ -8,6 +8,7 @@ import godotGame from '@/examples/godot/scripts';
 import { NarratScript } from '@/types/app-types';
 import { registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
+import { setupThemesDemo } from './themes-demo';
 
 const gameScripts: Record<string, NarratScript[]> = {
   default: defaultGame,
@@ -42,6 +43,7 @@ const onPageLoad = () => {
       }),
     );
   }
+  setupThemesDemo();
   startApp({
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,

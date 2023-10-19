@@ -1,0 +1,36 @@
+/*  See https://docs.narrat.dev/guides/theming-the-game-and-ui for info on how to customise your game with CSS. */
+
+#narrat-app {
+  /* Customise CSS variables here. They will override the existing narrat ones. You can also add your own variables */
+  --bg-color: #131720;
+  --text-color: #d9e1f2;
+  --primary: hsl(255, 30%, 55%);
+  --focus: hsl(210, 90%, 50%);
+  --secondary: #42b983;
+  --dialog-box-bg: transparent;
+  --dialog-box-border: none;
+}
+
+/* Add any other CSS you want here */
+
+.interact-button {
+  background: unset;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+
+  color: white;
+  font-family: monospace;
+  text-shadow: -4px 4px 2px #000;
+}
+
+.dialog {
+  box-shadow: none !important;
+  text-align: center;
+}
+
+.dialog-text {
+  font-size: 1.5rem;
+  font-family: monospace;
+  text-shadow: -4px 4px 2px #000;
+}
