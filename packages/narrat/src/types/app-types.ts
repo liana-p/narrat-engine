@@ -1,10 +1,19 @@
 import type { ConfigInput } from '../config/config-input';
 
-export type NarratScript = {
+export type NarratModule = {
   code: string;
   fileName: string;
   id: string;
+  type: 'script' | 'yaml';
 };
+
+export type NarratScript = NarratModule & {
+  type: 'script';
+};
+export type NarratYaml = NarratModule & {
+  type: 'yaml';
+};
+
 export interface AppOptions {
   baseAssetsPath?: string;
   baseDataPath?: string;

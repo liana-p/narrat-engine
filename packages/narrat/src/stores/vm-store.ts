@@ -18,7 +18,6 @@ import { error, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { runCommand, vm } from '@/vm/vm';
-import { parseScript } from '@/vm/vm-parser';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useMain } from './main-store';
@@ -26,7 +25,6 @@ import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 import { NarratScript } from '@/types/app-types';
-import { useConfig } from './config-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -163,6 +161,7 @@ export const useVM = defineStore('vm', {
         fileName: scriptPaths[index],
         code: file,
         id: scriptPaths[index],
+        type: 'script',
       }));
     },
     addAllScripts(scriptsToParse: NarratScript[]) {
