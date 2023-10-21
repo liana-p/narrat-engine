@@ -7,6 +7,7 @@ import packageJson from './package.json';
 import Inspect from 'vite-plugin-inspect';
 import Narrat from 'vite-plugin-narrat';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 function viteGodotCorsPlugin() {
   return {
@@ -81,7 +82,19 @@ export default defineConfig(({ command }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    plugins: [WindiCSS(), vue(), Inspect(), Narrat()],
+    plugins: [
+      WindiCSS(),
+      vue(),
+      Inspect(),
+      Narrat(),
+      visualizer({
+        template: 'treemap', // or sunburst
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        filename: 'analyse.html', // will be saved in project's root
+      }),
+    ],
   };
   if (exampleChoice === 'godot') {
     addGodotToConfig(conf);
