@@ -47,13 +47,6 @@ saves:
   mode: manual
   slots: 10
   runOnReload: 'test_label_reload'
-screens: data/screens.yaml
-buttons: data/buttons.yaml
-skills: data/skills.yaml
-skillChecks: data/skillchecks.yaml
-audio: data/audio.yaml
-tooltips: data/tooltips.yaml
-characters: data/characters.yaml
 hudStats:
   money:
     icon: img/ui/money.webp
@@ -67,14 +60,9 @@ hudStats:
     startingValue: 10
     minValue: 0
     maxValue: 10
-items: data/items.yaml
-achievements: data/achievements.yaml
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true
-quests: data/quests.yaml
 menuButtons:
   new-game:
     text: Start a new game
-choices: data/choices.yaml
-animations: data/animations.yaml
