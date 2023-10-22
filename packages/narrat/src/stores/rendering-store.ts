@@ -1,6 +1,6 @@
 import { aspectRatioFit } from '@/utils/helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getConfig, getDialogPanelWidth } from '../config';
+import { getCommonConfig, getDialogPanelWidth } from '../config';
 import { useMain } from './main-store';
 import { useSettings } from './settings-store';
 import { useScreens } from './screens-store';
@@ -44,7 +44,7 @@ export const useRenderingStore = defineStore('rendering', {
     updateScreenSize(width: number, height: number) {
       this.screenHeight = height;
       this.screenWidth = width;
-      if (width < getConfig().layout.verticalLayoutThreshold) {
+      if (width < getCommonConfig().layout.verticalLayoutThreshold) {
         this.layoutMode = 'vertical';
         document.querySelector('html')!.style.fontSize =
           `${useSettings().baseSettings.fontSize}px` ?? '40px';
@@ -92,7 +92,7 @@ export const useRenderingStore = defineStore('rendering', {
     },
     overlayMode(state: RenderingState): boolean {
       if (
-        getConfig().dialogPanel.overlayMode &&
+        getCommonConfig().dialogPanel.overlayMode &&
         state.layoutMode === 'horizontal'
       ) {
         return true;
@@ -100,7 +100,7 @@ export const useRenderingStore = defineStore('rendering', {
       return false;
     },
     gameWidth(): number {
-      const config = getConfig();
+      const config = getCommonConfig();
       if (this.layoutMode === 'vertical' || this.overlayMode) {
         return config.layout.backgrounds.width;
       } else {
@@ -108,7 +108,7 @@ export const useRenderingStore = defineStore('rendering', {
       }
     },
     gameHeight(): number {
-      const config = getConfig();
+      const config = getCommonConfig();
       if (this.layoutMode === 'vertical') {
         return config.layout.backgrounds.height;
       } else {
@@ -127,7 +127,7 @@ export const useRenderingStore = defineStore('rendering', {
       if (this.layoutMode === 'vertical') {
         return this.actualGameHeight - this.gameHeight;
       } else {
-        return getConfig().dialogPanel.height ?? this.gameHeight;
+        return getCommonConfig().dialogPanel.height ?? this.gameHeight;
       }
     },
     actualGameHeight(): number {
@@ -139,16 +139,16 @@ export const useRenderingStore = defineStore('rendering', {
     },
     viewportRatio(state: RenderingState): number {
       if (this.layoutMode === 'vertical') {
-        const conf = getConfig().layout.backgrounds;
+        const conf = getCommonConfig().layout.backgrounds;
         return state.screenWidth / conf.width;
       }
       return 1;
     },
     viewportHeight(state: RenderingState): number {
-      return getConfig().layout.backgrounds.height * this.viewportRatio;
+      return getCommonConfig().layout.backgrounds.height * this.viewportRatio;
     },
     viewportWidth(state: RenderingState): number {
-      return getConfig().layout.backgrounds.width * this.viewportRatio;
+      return getCommonConfig().layout.backgrounds.width * this.viewportRatio;
     },
     showDialog(state: RenderingState): boolean {
       if (this.dialogPanelMode === 'on') {
@@ -163,11 +163,11 @@ export const useRenderingStore = defineStore('rendering', {
       let result = true;
       if (
         useScreens().isTransitioning &&
-        getConfig().dialogPanel.hideDuringTransition
+        getCommonConfig().dialogPanel.hideDuringTransition
       ) {
         result = false;
       }
-      if (!getConfig().dialogPanel.showAfterScriptEnd && !inDialogue) {
+      if (!getCommonConfig().dialogPanel.showAfterScriptEnd && !inDialogue) {
         result = false;
       }
       return result;

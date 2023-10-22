@@ -1,0 +1,54 @@
+categories:
+  - id: default
+    title: Quest Category 1
+  - id: other
+    title: Quest Category 2
+
+quests:
+  breadShopping:
+    title: Bread Shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+  breadShopping5:
+    title: More bread shopping
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+  breadShopping2:
+    title: Bread Shopping 2
+    category: other
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+  breadShopping3:
+    title: Bread Shopping 3
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.
+  breadShopping4:
+    title: Bread Shopping 4
+    category: other
+    description: The helper cat asked you to buy bread for him.
+    objectives:
+      bread:
+        description: Buy bread for the helper cat.
+      delivery:
+        hidden: true
+        description: Deliver the bread to the helper cat.

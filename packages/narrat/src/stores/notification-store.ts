@@ -2,7 +2,7 @@ import { timeout } from '@/utils/promises';
 import { processText } from '@/utils/string-helpers';
 import { writeText } from '@/vm/vm-helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getConfig } from '../config';
+import { getCommonConfig } from '../config';
 
 export interface NotificationState {
   id: string;
@@ -31,10 +31,10 @@ export const useNotifications = defineStore('notifications', {
         description,
         icon,
       });
-      if (getConfig().notifications.alsoPrintInDialogue) {
+      if (getCommonConfig().notifications.alsoPrintInDialogue) {
         writeText(`[NOTIFICATION] ${text}`);
       }
-      await timeout(getConfig().notifications.timeOnScreen * 1000);
+      await timeout(getCommonConfig().notifications.timeOnScreen * 1000);
       this.deleteNotification(id);
     },
     deleteNotification(id: string) {

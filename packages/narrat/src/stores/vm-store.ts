@@ -1,4 +1,4 @@
-import { getConfig, getDataUrl } from '@/config';
+import { getCommonConfig, getDataUrl } from '@/config';
 import {
   isReturnSignal,
   JUMP_SIGNAL,
@@ -380,17 +380,17 @@ export const useVM = defineStore('vm', {
 
     reachedEndOfScript() {
       if (
-        getConfig().gameFlow.labelToJumpOnScriptEnd &&
-        this.lastLabel !== getConfig().gameFlow.labelToJumpOnScriptEnd
+        getCommonConfig().gameFlow.labelToJumpOnScriptEnd &&
+        this.lastLabel !== getCommonConfig().gameFlow.labelToJumpOnScriptEnd
       ) {
-        this.jumpToLabel(getConfig().gameFlow.labelToJumpOnScriptEnd!);
+        this.jumpToLabel(getCommonConfig().gameFlow.labelToJumpOnScriptEnd!);
         return;
       }
       useMain().endingScript();
       const mainStore = useMain();
       if (mainStore.options.debug) {
         // const dialogStore = useDialogStore();
-        if (getConfig().debugging.showScriptFinishedMessage) {
+        if (getCommonConfig().debugging.showScriptFinishedMessage) {
           // dialogStore.addDialog({
           //   speaker: useConfig().gameCharacter,
           //   text: '[DEBUG] Game Script is finished. This is the end of the game flow. This message only appears in debug mode.',

@@ -25,7 +25,7 @@ export function handleHMR(newModule: ModuleNamespace | undefined) {
       'You can continue playing with the changes.',
     );
     vm.addNarratScript(scriptModule);
-  } else if (isYamlScript(scriptModule)) {
+  } else if (isNarratYaml(scriptModule)) {
     // Do yaml things!
     console.log(`Yaml update ${scriptModule.fileName}}`);
   }
@@ -44,11 +44,11 @@ export function isNarratScript(
   );
 }
 
-export function isYamlScript(scriptModule: any): scriptModule is NarratYaml {
+export function isNarratYaml(scriptModule: any): scriptModule is NarratYaml {
   return (
     typeof scriptModule === 'object' &&
     scriptModule !== null &&
-    typeof scriptModule.code === 'string' &&
+    typeof scriptModule.code === 'object' &&
     typeof scriptModule.fileName === 'string' &&
     typeof scriptModule.id === 'string' &&
     scriptModule.type === 'yaml'

@@ -29,8 +29,8 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
   const addImage = (key: string, path: string) => {
     allImages.push(loadImage(key, path));
   };
-  for (const key in config.images) {
-    const path = config.images[key];
+  for (const key in config.common.images) {
+    const path = config.common.images[key];
     addImage(key, path);
   }
   // Find other images to load from config
@@ -38,7 +38,7 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
     const screen = config.screens.screens[key];
     if (
       screen.background &&
-      !config.images[screen.background] &&
+      !config.common.images[screen.background] &&
       !screen.video
     ) {
       addImage(screen.background, screen.background);
@@ -47,7 +47,7 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
       for (const buttonKey in screen.buttons) {
         const button = screen.buttons[buttonKey];
         if (typeof button === 'object') {
-          if (button.background && !config.images[button.background]) {
+          if (button.background && !config.common.images[button.background]) {
             addImage(button.background, button.background);
           }
         }

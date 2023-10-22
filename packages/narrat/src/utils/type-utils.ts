@@ -1,9 +1,12 @@
 export const generateObjectFromList = <T extends ReadonlyArray<string>>(
   list: T,
 ) =>
-  list.reduce((map, current) => {
-    return { ...map, [current]: current };
-  }, {} as { [K in typeof list[number]]: K });
+  list.reduce(
+    (map, current) => {
+      return { ...map, [current]: current };
+    },
+    {} as { [K in (typeof list)[number]]: K },
+  );
 
 export const isPromise = <T>(value: any): value is Promise<T> => {
   if (
@@ -17,3 +20,9 @@ export const isPromise = <T>(value: any): value is Promise<T> => {
 
   return false;
 };
+
+export type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;

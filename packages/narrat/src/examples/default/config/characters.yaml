@@ -1,0 +1,64 @@
+---
+config:
+  imagesPath: img/characters/
+  playerCharacter: player
+  gameCharacter: game
+characters:
+  game:
+    name: ''
+    color: white
+  player:
+    style:
+      color: orange
+    sprites:
+      idle: player.webp
+    name: You
+  player2:
+    style:
+      color: green
+    sprites:
+      idle: player.webp
+    name: Player 2
+  game2:
+    name: 'The Narrator'
+    style:
+      color: red
+    sprites:
+      idle: helper_cat.webp
+  cat:
+    sprites:
+      idle: cat_idle.webp
+    style:
+      color: white
+    name: Generic Cat
+  shopkeeper:
+    sprites:
+      # idle: shop_cat.webp
+      idle: none
+    style:
+      color: white
+    name: Shopkeeper
+  helper:
+    sprites:
+      idle:
+        image: helper_cat.webp
+      videoPose:
+        video: helper_video.mp4
+        width: 200
+        height: 355
+    style:
+      color: green
+      portraitCssClass: test
+    name: Helper Cat
+  music_cat:
+    sprites:
+      idle: music_cat.webp
+    style:
+      color: green
+    name: Music Cat
+  inner:
+    sprites:
+      idle: inner_voice.webp
+    style:
+      color: red
+    name: Inner Voice

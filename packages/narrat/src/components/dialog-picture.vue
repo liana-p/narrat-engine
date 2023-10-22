@@ -23,8 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { getConfig, getAssetUrl, getDialogPanelWidth } from '@/config';
-import { defaultConfig } from '@/config/config-output';
+import { getCommonConfig, getAssetUrl, getDialogPanelWidth } from '@/config';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { computed } from 'vue';
 import {
@@ -32,6 +31,7 @@ import {
   VideoCharacterPose,
 } from '@/config/characters-config';
 import { getCharacterInfo, getCharacterPicUrl } from '@/utils/characters';
+import { defaultCommonConfig } from '@/config/common-config';
 
 const props = defineProps<{
   picture: ImageCharacterPose | undefined;
@@ -62,7 +62,7 @@ const containerClass = computed(() => {
 });
 const boxStyle = computed(() => {
   const rendering = useRenderingStore();
-  const layout = getConfig().layout;
+  const layout = getCommonConfig().layout;
   let right: any = 0;
   let bottom: any = 0;
   const portrait = layout.portraits;
@@ -76,8 +76,8 @@ const boxStyle = computed(() => {
   } else {
     const landscape = portrait.offset?.landscape ?? { right: 0, bottom: 0 };
     const panelOffset =
-      getConfig().dialogPanel.rightOffset ??
-      defaultConfig.dialogPanel.rightOffset;
+      getCommonConfig().dialogPanel.rightOffset ??
+      defaultCommonConfig.dialogPanel.rightOffset!;
     right = getDialogPanelWidth() - 10 + landscape.right + panelOffset;
     bottom = 200 + landscape.bottom;
   }

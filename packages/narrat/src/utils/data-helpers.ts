@@ -1,4 +1,4 @@
-import { getConfig } from '@/config';
+import { getCommonConfig } from '@/config';
 import { useHud } from '@/stores/hud-stats-store';
 import { useInventory } from '@/stores/inventory-store';
 import { useQuests } from '@/stores/quest-log';
@@ -229,7 +229,7 @@ export function getModifiableDataPinia() {
     quests: useQuests().quests,
     stats: useHud().hudStats,
     scope,
-    config: getConfig(),
+    config: getCommonConfig(),
     gameOptions: useMain().options,
     baseSettings: useSettings().baseSettings,
     customSettings: useSettings().customSettings,

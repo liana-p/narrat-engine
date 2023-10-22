@@ -1,0 +1,31 @@
+screens:
+  default:
+    background: narrat
+  overlay:
+    background: img/backgrounds/overlay.webp
+    buttons:
+      - id: testButton
+        enabled: true
+        text: Test
+        position:
+          left: 500
+          top: 300
+          width: 200
+          height: 50
+        action: shopButton
+  map:
+    background: img/backgrounds/map.webp
+    buttons:
+      - shopButton
+      - tester
+      - parkButton
+  map_2:
+    background: img/backgrounds/map.webp
+    buttons:
+      - tester
+      - parkButton
+      - shopButton
+  # video:
+  #   background: img/backgrounds/path_video.mp4
+  #   video:
+  #     loop: true

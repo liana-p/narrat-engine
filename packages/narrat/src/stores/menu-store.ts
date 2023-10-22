@@ -1,6 +1,6 @@
 import {
   getAchievementsConfig,
-  getConfig,
+  getCommonConfig,
   itemsConfig,
   questsConfig,
   skillsConfig,
@@ -68,7 +68,7 @@ export const useMenu = defineStore('menu', {
     menuTabsToShow(state): MenuTabState[] {
       return state.menus.menu.tabs
         .map((button) => {
-          const buttonData = getConfig().menuButtons[button.id] || {};
+          const buttonData = getCommonConfig().menuButtons[button.id] || {};
           return {
             ...button,
             ...buttonData,

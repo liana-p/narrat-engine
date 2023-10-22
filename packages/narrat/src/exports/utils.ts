@@ -12,3 +12,4 @@ export type { Vector2 } from '@/utils/Vector2';
 export { gameloop } from '@/utils/gameloop';
 export { debounce } from '@/utils/debounce';
 export * from '@/utils/construct-narrat';
+export * from '@/utils/type-utils';

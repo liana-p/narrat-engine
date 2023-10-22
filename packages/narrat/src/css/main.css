@@ -547,3 +547,7 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
     transform: translateX(0);
   }
 }
+
+.dialog-box-old {
+  opacity: 0.7;
+}

@@ -1,4 +1,4 @@
-import { getConfig } from '@/config';
+import { getCommonConfig } from '@/config';
 import {
   GameSave,
   GlobalGameSave,
@@ -11,7 +11,7 @@ import { randomId } from './randomId';
 export const CURRENT_SAVE_VERSION = '3.3.9';
 
 export function saveFileName(): string {
-  return `NARRAT_SAVE_${getConfig().saveFileName}`;
+  return `NARRAT_SAVE_${getCommonConfig().saveFileName}`;
 }
 const oldSaveFileName = 'gameSave';
 
@@ -142,7 +142,7 @@ function createDefaultSaveFile() {
   return saveFile;
 }
 function setupSaveSlots(saveFile: SaveFile) {
-  const saveSlotsCount = getConfig().saves.slots ?? 10;
+  const saveSlotsCount = getCommonConfig().saves.slots ?? 10;
   if (saveFile.slots.length < 1) {
     saveFile.slots[0] = {
       slotType: 'auto',
@@ -157,7 +157,7 @@ function setupSaveSlots(saveFile: SaveFile) {
     if (saveFile.slots.length <= i) {
       saveFile.slots[i] = {
         slotNumber: i,
-        slotType: getConfig().saves.mode === 'manual' ? 'manual' : 'auto',
+        slotType: getCommonConfig().saves.mode === 'manual' ? 'manual' : 'auto',
         id: randomId(),
         saveData: null,
       };

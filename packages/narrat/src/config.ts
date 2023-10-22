@@ -26,6 +26,10 @@ import {
   SkillsInputConfigSchema,
 } from './config/skills-config';
 import {
+  CommonConfig,
+  CommonConfigInput,
+  CommonConfigInputSchema,
+  defaultCommonConfig,
   defaultScriptsConfig,
   ScriptsConfigSchema,
 } from './config/common-config';
@@ -38,7 +42,13 @@ import {
   QuestsConfigSchema,
 } from './config/quests-config';
 import { loadDataFile } from './utils/ajax';
-import { ConfigInput, ConfigInputSchema } from './config/config-input';
+import {
+  ConfigInput,
+  ConfigInputSchema,
+  ConfigInputWithCommon,
+  ConfigInputWithoutCommon,
+  isConfigInputWithCommon,
+} from './config/config-input';
 import Ajv from 'ajv';
 import { transitionSettings } from './utils/transition';
 import {
@@ -65,6 +75,7 @@ import {
   AnimationsConfigSchema,
   defaultAnimationsConfig,
 } from './config/animations-config';
+import { isNarratYaml } from './hmr/hmr';
 
 let config: Config;
 
@@ -87,7 +98,13 @@ const splitConfigs = [
   ['animations', AnimationsConfigSchema, defaultAnimationsConfig],
 ] as const;
 
-// List of other keys that are simply copied from input config to new config
+const extendedConfigs = [
+  ['common', CommonConfigInputSchema, defaultCommonConfig],
+] as const;
+
+const ajv = new Ajv({ allErrors: true });
+
+// For backwards compatibility
 const baseConfigKeys = [
   'baseAssetsPath',
   'baseDataPath',
@@ -107,24 +124,67 @@ const baseConfigKeys = [
   'debugging',
   'saves',
 ] as const;
+export async function extendBaseConfig(
+  newConfig: Config,
+  configInput: ConfigInputWithCommon,
+) {
+  for (const [key, schema, defaultValue] of extendedConfigs) {
+    const value = configInput[key];
+    let currentValue = copyValue(defaultValue);
+    try {
+      const result = ajv.validate(schema, value);
+      if (!result) {
+        console.error(ajv.errors);
+        throw new Error(`${ajv.errorsText()}`);
+      }
+    } catch (e) {
+      console.error(e);
+      error(`${key} config error: ${e}`);
+    }
+    if (typeof value !== 'undefined') {
+      currentValue = copyValue(value, currentValue) as CommonConfig;
+    }
+    newConfig[key] = currentValue as any;
+  }
+}
 
-const ajv = new Ajv({ allErrors: true });
+export function copyValue<T>(value: T, base?: T): T {
+  if (typeof value === 'object') {
+    if (Array.isArray(value)) {
+      return [...value] as any;
+    } else {
+      return { ...base, ...value };
+    }
+  } else {
+    return typeof value !== 'undefined' ? value : base!;
+  }
+}
 
-export async function setupConfig(configInput: ConfigInput) {
-  const newConfig: Config = { ...defaultConfig };
-  // Setup the base keys from the config
+export async function addOldBaseConfig(
+  newConfig: Config,
+  configInput: ConfigInputWithoutCommon,
+) {
   for (const baseConfigKey of baseConfigKeys) {
     const value = configInput[baseConfigKey];
     if (value) {
       if (typeof value === 'object' && !Array.isArray(value)) {
-        newConfig[baseConfigKey] = {
-          ...(newConfig[baseConfigKey] as any),
+        newConfig.common[baseConfigKey] = {
+          ...(newConfig.common[baseConfigKey] as any),
           ...value,
         };
       } else {
-        newConfig[baseConfigKey] = value as any;
+        newConfig.common[baseConfigKey] = value as any;
       }
     }
+  }
+}
+
+export async function setupConfig(configInput: ConfigInput) {
+  const newConfig: Config = { ...defaultConfig };
+  if (isConfigInputWithCommon(configInput)) {
+    await extendBaseConfig(newConfig, configInput);
+  } else {
+    addOldBaseConfig(newConfig, configInput);
   }
   // Setup all the split config keys
   for (const splitConfig of splitConfigs) {
@@ -135,7 +195,7 @@ export async function setupConfig(configInput: ConfigInput) {
     if (currentValue && typeof currentValue === 'string') {
       try {
         currentValue = await loadDataFile<any>(
-          getSplitConfigUrl(configInput.baseDataPath!, currentValue),
+          getSplitConfigUrl(newConfig.common.baseDataPath!, currentValue),
         );
         const result = ajv.validate(schema, currentValue);
         if (!result) {
@@ -160,29 +220,49 @@ export async function setupConfig(configInput: ConfigInput) {
   }
   config = newConfig;
   if (configInput.skills && configInput)
-    if (config.transitions) {
-      for (const key in config.transitions) {
+    if (config.common.transitions) {
+      for (const key in config.common.transitions) {
         if (!transitionSettings[key]) {
-          transitionSettings[key] = config.transitions[key];
+          transitionSettings[key] = config.common.transitions[key];
         } else {
-          Object.assign(transitionSettings[key], config.transitions[key]);
+          Object.assign(
+            transitionSettings[key],
+            config.common.transitions[key],
+          );
         }
       }
     }
   return newConfig;
 }
+
 export async function loadConfig(options: AppOptions) {
-  const userConfig = await loadDataFile<ConfigInput>(options.configPath);
-  if (options.baseAssetsPath) {
-    userConfig.baseAssetsPath = options.baseAssetsPath;
+  let userConfig: ConfigInput;
+  if (options.config) {
+    const config = options.config!;
+    userConfig = {} as any;
+    for (const key in config) {
+      const value = config[key as keyof typeof config];
+      if (isNarratYaml(value)) {
+        useConfig().addConfigModule(key, {
+          fileId: value.id,
+        });
+        (userConfig as any)[key] = value.code;
+      } else {
+        (userConfig as any)[key] = value;
+      }
+    }
+  } else if (options.configPath) {
+    userConfig = await loadDataFile<ConfigInput>(options.configPath);
   } else {
-    userConfig.baseAssetsPath = userConfig.baseAssetsPath || '';
+    error(`No config file or config object provided`);
+    throw new Error(`No config file or config object provided`);
   }
-  if (options.baseDataPath) {
-    userConfig.baseDataPath = options.baseDataPath;
-  } else {
-    userConfig.baseDataPath = userConfig.baseDataPath || '';
+  let common: CommonConfigInput = userConfig as ConfigInputWithoutCommon as any;
+  if (isConfigInputWithCommon(userConfig)) {
+    common = (userConfig as any).common;
   }
+  common.baseAssetsPath = options.baseAssetsPath ?? common.baseAssetsPath ?? '';
+  common.baseDataPath = options.baseDataPath ?? common.baseDataPath ?? '';
   const result = ajv.validate(ConfigInputSchema, userConfig);
   if (!result) {
     error(`Config file validation failed.`);
@@ -194,6 +274,10 @@ export async function loadConfig(options: AppOptions) {
 
 export function getConfig(): Config {
   return useConfig().config;
+}
+
+export function getCommonConfig(): CommonConfig {
+  return getConfig().common;
 }
 export function audioConfig() {
   return getConfig().audio;
@@ -299,8 +383,8 @@ export function getImageUrl(imageKeyOrUrl: string) {
   if (imageKeyOrUrl.startsWith('http')) {
     return imageKeyOrUrl;
   }
-  if (getConfig().images[imageKeyOrUrl]) {
-    return getAssetUrl(getConfig().images[imageKeyOrUrl]);
+  if (getCommonConfig().images[imageKeyOrUrl]) {
+    return getAssetUrl(getCommonConfig().images[imageKeyOrUrl]);
   } else {
     return getAssetUrl(imageKeyOrUrl);
   }
@@ -310,8 +394,8 @@ export function getAssetUrl(assetPath: string) {
   if (assetPath.startsWith('http')) {
     return assetPath;
   }
-  if (getConfig().baseAssetsPath) {
-    return `${getConfig().baseAssetsPath}${assetPath}`;
+  if (getCommonConfig().baseAssetsPath) {
+    return `${getCommonConfig().baseAssetsPath}${assetPath}`;
   } else {
     return assetPath;
   }
@@ -322,8 +406,8 @@ export function getSplitConfigUrl(basePath: string, url: string) {
 }
 
 export function getDataUrl(dataPath: string) {
-  if (getConfig().baseDataPath) {
-    return `${getConfig().baseDataPath}${dataPath}`;
+  if (getCommonConfig().baseDataPath) {
+    return `${getCommonConfig().baseDataPath}${dataPath}`;
   } else {
     return dataPath;
   }
@@ -376,6 +460,6 @@ export function getObjectiveConfig(quest: string, objectiveId: string) {
 }
 
 export function getDialogPanelWidth(): number {
-  const dialogPanel = getConfig().dialogPanel;
+  const dialogPanel = getCommonConfig().dialogPanel;
   return dialogPanel.width ?? DEFAULT_DIALOG_WIDTH;
 }

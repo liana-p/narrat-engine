@@ -44,11 +44,11 @@
 </template>
 <script setup lang="ts">
 import { SaveSlot } from '../../types/game-save';
-import { computed, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { toHHMMSS } from '../../utils/time-helpers';
 import { renameSave } from '../../utils/save-helpers';
-import { getConfig, getImageUrl, getScreenConfig } from '@/config';
-import { InputListener, useInputs } from '@/stores/inputs-store';
+import { getCommonConfig, getImageUrl, getScreenConfig } from '@/config';
+import { InputListener } from '@/stores/inputs-store';
 import { useNavigation, NavigationState } from '@/inputs/useNavigation';
 
 const props = defineProps<{
@@ -70,7 +70,7 @@ const saveName = ref(props.saveSlot.saveData?.metadata.name ?? 'Empty Save');
 const selectedButtonIndex = ref(0);
 const hasSaveData = computed(() => props.saveSlot.saveData !== null);
 const saveData = computed(() => props.saveSlot.saveData);
-const saveMode = computed(() => getConfig().saves.mode);
+const saveMode = computed(() => getCommonConfig().saves.mode);
 const saveScreenshot = computed(() => {
   const save = props.saveSlot.saveData;
   if (save) {
@@ -107,10 +107,10 @@ function saveNameChange() {
 }
 
 function saveNumberText() {
-  const slots = getConfig().saves.slots;
+  const slots = getCommonConfig().saves.slots;
   let txt = '';
   const num = props.saveSlot.slotNumber;
-  if (num === 0 && getConfig().saves.mode === 'manual') {
+  if (num === 0 && getCommonConfig().saves.mode === 'manual') {
     return 'AUTO';
   }
   if (slots >= 10 && num < 10) {
