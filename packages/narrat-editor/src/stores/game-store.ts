@@ -11,7 +11,7 @@ export interface FileState {
   // Path on disc
   id: string;
   // Type of file
-  type: 'script' | 'yaml';
+  type: 'script';
 }
 export interface GameStoreState {
   scripts: FileState[];
