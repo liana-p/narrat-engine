@@ -50,7 +50,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { audioConfig, getConfig } from '../config';
+import { audioConfig, getCommonConfig } from '../config';
 import { useMain } from '../stores/main-store';
 import { error } from '../utils/error-handling';
 import {
@@ -65,19 +65,13 @@ import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import StartMenuButton from './start-menu/start-menu-button.vue';
 import { StartMenuButtonProps } from './start-menu/start-menu-types';
-import { useAudio } from '@/stores/audio-store';
 import { inputEvents } from '../utils/InputsListener';
 import { useStartMenu } from '@/stores/start-menu-store';
 import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
-import {
-  getAudio,
-  stopHowlerById,
-  standalonePlayMusic,
-  standaloneStopMusic,
-} from '@/utils/audio-loader';
+import { standalonePlayMusic, standaloneStopMusic } from '@/utils/audio-loader';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -126,7 +120,7 @@ function buttonClicked(button: StartMenuButtonProps) {
   }
 }
 async function startGame() {
-  if (hasSave.value && getConfig().saves.mode === 'manual') {
+  if (hasSave.value && getCommonConfig().saves.mode === 'manual') {
     startingGame.value = true;
   } else {
     confirmStartGame();
@@ -136,7 +130,7 @@ async function startGame() {
 async function confirmStartGame() {
   const main = useMain();
   if (saveSlot.value === null) {
-    if (getConfig().saves.mode === 'manual') {
+    if (getCommonConfig().saves.mode === 'manual') {
       const autosave = findAutoSave();
       if (!autosave) {
         error('No autosave found');
@@ -213,7 +207,7 @@ onMounted(() => {
   if (save.slots.some((slot) => slot.saveData)) {
     hasSave.value = true;
   }
-  if (getConfig().saves.mode === 'manual') {
+  if (getCommonConfig().saves.mode === 'manual') {
     hasFreeSlot.value = true;
   } else if (save.slots.some((slot) => !slot.saveData)) {
     hasFreeSlot.value = true;
@@ -239,7 +233,6 @@ onMounted(() => {
 });
 
 function setupButtons() {
-  const menuConf = getConfig().menuButtons;
   if (continueSlot.value) {
     buttons.value.push(
       extendButtonWithConfig({
@@ -288,7 +281,7 @@ function extendButtonWithConfig({
   title,
   cssClass,
 }: StartMenuButtonProps): StartMenuButtonProps {
-  const conf = getConfig().menuButtons[id];
+  const conf = getCommonConfig().menuButtons[id];
   if (conf) {
     let css = cssClass;
     if (conf.cssClass) {
@@ -318,7 +311,7 @@ onUnmounted(() => {
 });
 
 const gameTitle = computed(() => {
-  return getConfig().gameTitle;
+  return getCommonConfig().gameTitle;
 });
 </script>
 <style>

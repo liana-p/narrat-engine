@@ -4,10 +4,11 @@ import { NarratPlugin } from '../NarratPlugin';
 import { CommandPlugin } from '@/vm/commands/command-plugin';
 import { error } from '@/utils/error-handling';
 import { useConfig } from '@/stores/config-store';
+import { DeepPartial } from '@/utils/type-utils';
 
 export type BaseTheme = {
   id: string;
-  extendedConfig?: Partial<Config>;
+  extendedConfig?: DeepPartial<Config>;
 };
 export type InlineTheme = BaseTheme & {
   css: string;

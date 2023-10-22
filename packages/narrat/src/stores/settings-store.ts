@@ -5,6 +5,8 @@ import { useConfig } from '@/stores/config-store';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import { CommonConfig } from '@/config/common-config';
+import { getCommonConfig } from '@/config';
 
 export interface GameUserSettings {
   baseSettings: {
@@ -66,7 +68,7 @@ export const useSettings = defineStore('settings', {
       customSettingsSchema: {},
     }) as GameUserSettings,
   actions: {
-    reset(config: Config) {
+    reset(config: CommonConfig) {
       this.$reset();
       this.setupSettings(config);
     },
@@ -105,13 +107,13 @@ export const useSettings = defineStore('settings', {
         document.documentElement.style.setProperty('font-size', `${value}px`);
       }
       if (key === 'textSpeed') {
-        useConfig().config.dialogPanel.textSpeed = value;
+        getCommonConfig().dialogPanel.textSpeed = value;
       }
       if (key === 'animateText') {
-        useConfig().config.dialogPanel.animateText = value;
+        getCommonConfig().dialogPanel.animateText = value;
       }
     },
-    setupSettings(config: Config) {
+    setupSettings(config: CommonConfig) {
       this.setSetting(
         'textSpeed',
         config.dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED,

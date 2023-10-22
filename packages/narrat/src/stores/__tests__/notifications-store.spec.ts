@@ -26,7 +26,7 @@ describe('Notifications Store', () => {
     const notifications = useNotifications();
     notifications.addNotification('Test notification');
     expect(notifications.notifications).toHaveLength(1);
-    vi.advanceTimersByTime(mockConfig.notifications.timeOnScreen * 1000);
+    vi.advanceTimersByTime(mockConfig.common.notifications.timeOnScreen * 1000);
     await Promise.resolve();
     expect(notifications.notifications).toHaveLength(0);
   });

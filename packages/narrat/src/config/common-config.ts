@@ -1,4 +1,11 @@
 import { Type, Static } from '@sinclair/typebox';
+import {
+  LayoutConfig,
+  LayoutConfigSchema,
+  defaultLayoutConfig,
+} from './layout-config';
+import { SettingsConfig, SettingsConfigSchema } from './settings-config';
+import { DEFAULT_TEXT_SPEED } from '@/constants';
 
 export const DialogPanelConfigSchema = Type.Optional(
   Type.Object({
@@ -103,3 +110,95 @@ export const ScriptsConfigSchema = Type.Array(Type.String());
 export type ScriptsConfig = Static<typeof ScriptsConfigSchema>;
 
 export const defaultScriptsConfig = [];
+
+export const CommonConfigInputSchema = Type.Object({
+  baseAssetsPath: Type.Optional(Type.String()),
+  baseDataPath: Type.Optional(Type.String()),
+  gameTitle: Type.String(),
+  saveFileName: Type.String(),
+  images: Type.Optional(Type.Record(Type.String(), Type.String())),
+  layout: LayoutConfigSchema,
+  settings: Type.Optional(SettingsConfigSchema),
+  gameFlow: Type.Optional(
+    Type.Object({
+      labelToJumpOnScriptEnd: Type.Optional(Type.String()),
+    }),
+  ),
+  dialogPanel: Type.Optional(DialogPanelConfigSchema),
+  splashScreens: Type.Optional(SplashScreenConfigSchema),
+  notifications: Type.Optional(NotificationsConfigSchema),
+  hudStats: HudStatsConfigSchema,
+  interactionTags: Type.Optional(InteractionTagsConfigSchema),
+  transitions: Type.Optional(TransitionsConfigSchema),
+  menuButtons: Type.Optional(MenuButtonsConfigSchema),
+  debugging: Type.Optional(DebuggingConfigSchema),
+  saves: Type.Optional(SavesConfigSchema),
+});
+export type CommonConfigInput = Static<typeof CommonConfigInputSchema>;
+
+export interface CommonConfig {
+  baseAssetsPath: string;
+  baseDataPath: string;
+  gameTitle: string;
+  saveFileName: string;
+  images: {
+    [key: string]: string;
+  };
+  layout: LayoutConfig;
+  settings: SettingsConfig;
+  gameFlow: {
+    labelToJumpOnScriptEnd?: string;
+  };
+  dialogPanel: DialogPanelConfig;
+  splashScreens: SplashScreenConfig;
+  notifications: NotificationsConfig;
+  hudStats: HudStatsConfig;
+  interactionTags: InteractionTagsConfig;
+  transitions: TransitionsConfig;
+  menuButtons: MenuButtonsConfig;
+  debugging: DebuggingConfig;
+  saves: SavesConfig;
+}
+
+export const defaultCommonConfig: CommonConfig = {
+  baseAssetsPath: '',
+  baseDataPath: '',
+  gameTitle: 'Narrat Game',
+  saveFileName: 'narrat save',
+  images: {},
+  layout: defaultLayoutConfig,
+  settings: {},
+  gameFlow: {},
+  dialogPanel: {
+    overlayMode: true,
+    rightOffset: 100,
+    bottomOffset: 50,
+    width: 475,
+    height: 680,
+    textSpeed: DEFAULT_TEXT_SPEED,
+    animateText: true,
+    timeBetweenLines: 100,
+    hideDuringTransition: false,
+    showAfterScriptEnd: false,
+  },
+  splashScreens: {},
+  notifications: {
+    timeOnScreen: 2.5,
+    alsoPrintInDialogue: false,
+  },
+  hudStats: {},
+  interactionTags: {
+    default: {
+      onlyInteractOutsideOfScripts: true,
+    },
+  },
+  transitions: {},
+  menuButtons: {},
+  debugging: {
+    showScriptFinishedMessage: false,
+  },
+  saves: {
+    mode: 'manual',
+    slots: 10,
+  },
+};

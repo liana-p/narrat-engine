@@ -10,6 +10,8 @@ export interface FileState {
   code: string;
   // Path on disc
   id: string;
+  // Type of file
+  type: 'script';
 }
 export interface GameStoreState {
   scripts: FileState[];

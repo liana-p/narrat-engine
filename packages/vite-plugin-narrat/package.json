@@ -14,5 +14,9 @@
   "license": "MIT",
   "version": "3.5.0",
   "main": "src/plugin.js",
-  "scripts": {}
+  "scripts": {},
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "tosource": "2.0.0-alpha.3"
+  }
 }

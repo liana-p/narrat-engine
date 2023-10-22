@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { getConfig, getScreenConfig } from '@/config';
+import { getCommonConfig, getScreenConfig } from '@/config';
 import {
   computed,
   CSSProperties,
@@ -55,7 +55,6 @@ import {
   onUnmounted,
   ref,
 } from 'vue';
-import { useRenderingStore } from '../stores/rendering-store';
 import { useMain } from '../stores/main-store';
 import { useScreens } from '@/stores/screens-store';
 import Layer from './screen-layer.vue';
@@ -69,7 +68,6 @@ const props = defineProps<{
   inputListener: InputListener | null;
 }>();
 
-const rendering = useRenderingStore();
 const main = useMain();
 const screensStore = useScreens();
 const screenObjectStore = useScreenObjects();
@@ -124,10 +122,10 @@ const activeInteractive = computed(() => {
 });
 
 const layoutWidth = computed(() => {
-  return getConfig().layout.backgrounds.width;
+  return getCommonConfig().layout.backgrounds.width;
 });
 const layoutHeight = computed(() => {
-  return getConfig().layout.backgrounds.height;
+  return getCommonConfig().layout.backgrounds.height;
 });
 const inGame = computed(() => {
   return main.isInGame;

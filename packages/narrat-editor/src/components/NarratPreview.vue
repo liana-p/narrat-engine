@@ -151,6 +151,7 @@ function fileStateToNarratModule(fileState: FileState): {
       fileName: fileState.fileName,
       code: fileState.code,
       id: fileState.id,
+      type: 'script',
     },
   };
 }

@@ -62,8 +62,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { getConfig, getChoicePromptConfig, choicesConfig } from './config';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import {
+  getCommonConfig,
+  getChoicePromptConfig,
+  choicesConfig,
+} from './config';
 import { defaultConfig } from './config/config-output';
 import { DEFAULT_TEXT_SPEED } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
@@ -323,7 +327,7 @@ function startTextAnimation() {
   }
   if (useDialogStore().playMode === 'skip') {
     startSkip();
-  } else if (getConfig().dialogPanel.animateText) {
+  } else if (getCommonConfig().dialogPanel.animateText) {
     textAnimation.value = {
       text: '',
       index: 0,
@@ -342,7 +346,7 @@ function startTextAnimation() {
       () => {
         endTextAnimation();
       },
-      (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
+      (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
         props.options.text.length,
     );
   }
@@ -379,7 +383,7 @@ function updateTextAnimation() {
   let ended = false;
   let lettersAmount =
     Math.round(
-      elapsed / (getConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED),
+      elapsed / (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED),
     ) + anim.skippedChars;
   if (lettersAmount > props.options.text.length) {
     ended = true;
@@ -438,8 +442,8 @@ function endTextAnimation({
         next();
       },
       useDialogStore().playMode === 'auto'
-        ? getConfig().dialogPanel.timeBetweenLines ??
-            defaultConfig.dialogPanel.timeBetweenLines
+        ? getCommonConfig().dialogPanel.timeBetweenLines ??
+            defaultConfig.common.dialogPanel.timeBetweenLines
         : 0,
     );
   }
@@ -457,16 +461,9 @@ const preText = computed(() => {
   }
 });
 
-const style = computed(() => {
-  return getCharacterStyle(props.options.styleId);
-});
-
 const dialogBoxStyle = computed(() => {
   const style = getCharacterStyle(props.options.styleId);
-  const css: any = {
-    opacity: props.options.old ? '0.7' : '1',
-  };
-  return { ...style.boxCss, ...css };
+  return { ...style.boxCss };
 });
 
 const isBasicChoice = computed(() => {
@@ -474,10 +471,16 @@ const isBasicChoice = computed(() => {
 });
 
 const dialogBoxClass = computed(() => {
+  const css: any = {};
   if (props.options.title) {
-    return 'dialog-box-followup';
+    css['dialog-box-followup'] = true;
   }
-  return false;
+  if (props.options.old) {
+    css['dialog-box-old'] = true;
+  } else {
+    css['dialog-box-new'] = true;
+  }
+  return css;
 });
 
 const titleStyle = computed(() => {

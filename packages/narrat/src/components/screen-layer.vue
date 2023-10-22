@@ -42,7 +42,12 @@
 </template>
 
 <script setup lang="ts">
-import { getAssetUrl, getConfig, getImageUrl, getScreenConfig } from '@/config';
+import {
+  getAssetUrl,
+  getCommonConfig,
+  getImageUrl,
+  getScreenConfig,
+} from '@/config';
 import { computed, CSSProperties } from 'vue';
 import { useMain } from '../stores/main-store';
 import { useScreenObjects } from '@/stores/screen-objects-store';
@@ -75,10 +80,10 @@ const screenObjects = computed(() => {
   return screenObjectsStore.tree.filter((o) => o.layer === props.layerIndex);
 });
 const layoutWidth = computed(() => {
-  return getConfig().layout.backgrounds.width;
+  return getCommonConfig().layout.backgrounds.width;
 });
 const layoutHeight = computed(() => {
-  return getConfig().layout.backgrounds.height;
+  return getCommonConfig().layout.backgrounds.height;
 });
 const currentScreen = computed(() => {
   return props.layer!;

@@ -93,7 +93,7 @@ import {
 import Modal from './utils/modal-window.vue';
 import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
-import { getConfig } from '../config';
+import { getCommonConfig } from '../config';
 import { useMain } from '../stores/main-store';
 import { NavigationState, useNavigation } from '@/inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
@@ -163,7 +163,7 @@ const selectedSlotId = computed(() => {
 const actions = reactive(
   props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
 );
-const saveMode = computed(() => getConfig().saves.mode);
+const saveMode = computed(() => getCommonConfig().saves.mode);
 const deleteConfirmation = reactive({
   prompt: 'Are you sure you want to delete this save file?',
   saveToDelete: null,
@@ -244,7 +244,7 @@ function chooseSaveSlot(slotId: string) {
 function deleteSaveSlot(slotId: string) {
   const saveToDelete = getSlotById(slotId);
   if (saveToDelete) {
-    const saveMode = getConfig().saves.mode;
+    const saveMode = getCommonConfig().saves.mode;
     if (saveMode === 'manual') {
       if (saveToDelete.slotType === 'auto') {
         useMain().alert('Sorry', `Can't delete the auto save slot!`);

@@ -3,7 +3,7 @@
 import { ItemConfig } from '@/config/items-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getConfig, getItemConfig } from '../config';
+import { getCommonConfig, getItemConfig } from '../config';
 import { useDialogStore } from './dialog-store';
 import { useNotifications } from './notification-store';
 import { audioEvent } from '@/utils/audio-loader';
@@ -101,7 +101,7 @@ export const useInventory = defineStore('inventory', {
       };
     },
     onScriptStart() {
-      const tags = getConfig().interactionTags;
+      const tags = getCommonConfig().interactionTags;
       Object.keys(tags).forEach((tag) => {
         const conf = tags[tag];
         if (conf.onlyInteractOutsideOfScripts) {
@@ -110,7 +110,7 @@ export const useInventory = defineStore('inventory', {
       });
     },
     onScriptEnd() {
-      const tags = getConfig().interactionTags;
+      const tags = getCommonConfig().interactionTags;
       Object.keys(tags).forEach((tag) => {
         const conf = tags[tag];
         if (conf.onlyInteractOutsideOfScripts) {

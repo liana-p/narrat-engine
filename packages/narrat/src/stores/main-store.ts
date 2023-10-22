@@ -20,6 +20,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import {
   audioConfig,
   getAchievementsConfig,
+  getCommonConfig,
   getConfig,
   itemsConfig,
   questsConfig,
@@ -229,7 +230,7 @@ export const useMain = defineStore('main', {
       setSaveSlot(slot);
     },
     async startGame(saveSlot: string) {
-      if (getConfig().saves.mode === 'manual') {
+      if (getCommonConfig().saves.mode === 'manual') {
         const autosave = findAutoSave();
         if (autosave) {
           saveSlot = autosave.id;
@@ -241,7 +242,7 @@ export const useMain = defineStore('main', {
       useVM().runGame();
     },
     async loadGame(save: SaveSlot, saveSlot: string) {
-      if (getConfig().saves.mode === 'manual') {
+      if (getCommonConfig().saves.mode === 'manual') {
         const autosave = findAutoSave();
         if (autosave) {
           saveSlot = autosave.id;
@@ -253,7 +254,7 @@ export const useMain = defineStore('main', {
         this.setLoadedData(save.saveData);
         useAudio().reloadAudio(save.saveData.audio);
         const vm = useVM();
-        const runOnReload = getConfig().saves.runOnReload;
+        const runOnReload = getCommonConfig().saves.runOnReload;
         if (typeof runOnReload === 'string') {
           await useVM().runLabelFunction(runOnReload);
         }
@@ -386,7 +387,7 @@ export const useMain = defineStore('main', {
       const skillsStore = useSkills();
       skillsStore.reset(skillsConfig());
       const hudStore = useHud();
-      hudStore.setupHudStats(config.hudStats);
+      hudStore.setupHudStats(config.common.hudStats);
       const inventoryStore = useInventory();
       inventoryStore.reset(itemsConfig().items);
       const achievementsStore = useAchievements();
@@ -394,7 +395,7 @@ export const useMain = defineStore('main', {
       const questsStore = useQuests();
       questsStore.reset(questsConfig());
       const settingsStore = useSettings();
-      settingsStore.reset(getConfig());
+      settingsStore.reset(getCommonConfig());
       useDialogStore().reset();
       useRenderingStore().reset();
       vm.customStores().forEach(([storeName, store]) => {
@@ -424,7 +425,7 @@ export const useMain = defineStore('main', {
       } else {
         metadata.name = name ?? `Auto Save`;
       }
-      if (getConfig().saves.mode === 'manual') {
+      if (getCommonConfig().saves.mode === 'manual') {
         metadata.name = 'Auto Save';
       }
       const screensStore = useScreens();

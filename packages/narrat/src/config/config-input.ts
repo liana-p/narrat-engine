@@ -3,6 +3,7 @@ import { AudioInputConfigSchema } from './audio-config';
 import { ButtonsConfigSchema } from './buttons-config';
 import { CharactersFilesConfigSchema } from './characters-config';
 import {
+  CommonConfigInputSchema,
   DebuggingConfigSchema,
   DialogPanelConfigSchema,
   HudStatsConfigSchema,
@@ -22,51 +23,82 @@ import { SkillsInputConfigSchema } from './skills-config';
 import { SkillChecksInputConfigSchema } from './skillchecks-config';
 import { TooltipsConfigSchema } from './tooltips-config';
 import { SettingsConfigSchema } from './settings-config';
+import { NarratYaml } from '@/types/app-types';
+import { ChoicesInputConfigSchema } from './choices-config';
+import { AnimationsConfigSchema } from './animations-config';
+import { AchievementsInputConfigSchema } from './achievements-config';
 
-export const ConfigInputSchema = Type.Object({
-  baseAssetsPath: Type.Optional(Type.String()),
-  baseDataPath: Type.Optional(Type.String()),
-  gameTitle: Type.String(),
-  saveFileName: Type.String(),
-  images: Type.Optional(Type.Record(Type.String(), Type.String())),
-  layout: LayoutConfigSchema,
-  settings: Type.Optional(SettingsConfigSchema),
-  gameFlow: Type.Optional(
-    Type.Object({
-      labelToJumpOnScriptEnd: Type.Optional(Type.String()),
-    }),
-  ),
-  dialogPanel: Type.Optional(DialogPanelConfigSchema),
-  splashScreens: Type.Optional(SplashScreenConfigSchema),
-  // split: screens
+export const BaseConfigInputSchema = Type.Object({
   screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
-  // split: buttons
   buttons: Type.Optional(Type.Union([Type.String(), ButtonsConfigSchema])),
-  // split: skills
   skills: Type.Optional(Type.Union([Type.String(), SkillsInputConfigSchema])),
   skillChecks: Type.Optional(
     Type.Union([Type.String(), SkillChecksInputConfigSchema]),
   ),
-  // Split: scripts
   scripts: Type.Optional(Type.Union([Type.String(), ScriptsConfigSchema])),
-  // split: audio
   audio: Type.Union([Type.String(), AudioInputConfigSchema]),
-  notifications: Type.Optional(NotificationsConfigSchema),
   tooltips: Type.Optional(Type.Union([Type.String(), TooltipsConfigSchema])),
-  hudStats: HudStatsConfigSchema,
-  // split: items
   items: Type.Optional(Type.Union([Type.String(), ItemsInputConfigSchema])),
-  achievements: Type.Optional(Type.String()),
-  interactionTags: Type.Optional(InteractionTagsConfigSchema),
-  // split: quests
+  achievements: Type.Optional(
+    Type.Union([Type.String(), AchievementsInputConfigSchema]),
+  ),
   quests: Type.Optional(Type.Union([Type.String(), QuestsConfigSchema])),
-  transitions: Type.Optional(TransitionsConfigSchema),
-  menuButtons: Type.Optional(MenuButtonsConfigSchema),
-  debugging: Type.Optional(DebuggingConfigSchema),
-  saves: Type.Optional(SavesConfigSchema),
   characters: Type.Union([Type.String(), CharactersFilesConfigSchema]),
-  choices: Type.Optional(Type.String()),
-  animations: Type.Optional(Type.String()),
+  choices: Type.Optional(Type.Union([Type.String(), ChoicesInputConfigSchema])),
+  animations: Type.Optional(
+    Type.Union([Type.String(), AnimationsConfigSchema]),
+  ),
 });
 
+export const ConfigInputSchemaWithCommon = Type.Intersect([
+  BaseConfigInputSchema,
+  Type.Object({
+    common: CommonConfigInputSchema,
+  }),
+]);
+export type ConfigInputWithCommon = Static<typeof ConfigInputSchemaWithCommon>;
+
+export const ConfigInputSchemaWithoutCommon = Type.Intersect([
+  BaseConfigInputSchema,
+  Type.Object({
+    baseAssetsPath: Type.Optional(Type.String()),
+    baseDataPath: Type.Optional(Type.String()),
+    gameTitle: Type.String(),
+    saveFileName: Type.String(),
+    images: Type.Optional(Type.Record(Type.String(), Type.String())),
+    layout: LayoutConfigSchema,
+    settings: Type.Optional(SettingsConfigSchema),
+    gameFlow: Type.Optional(
+      Type.Object({
+        labelToJumpOnScriptEnd: Type.Optional(Type.String()),
+      }),
+    ),
+    dialogPanel: Type.Optional(DialogPanelConfigSchema),
+    splashScreens: Type.Optional(SplashScreenConfigSchema),
+    notifications: Type.Optional(NotificationsConfigSchema),
+    hudStats: HudStatsConfigSchema,
+    interactionTags: Type.Optional(InteractionTagsConfigSchema),
+    transitions: Type.Optional(TransitionsConfigSchema),
+    menuButtons: Type.Optional(MenuButtonsConfigSchema),
+    debugging: Type.Optional(DebuggingConfigSchema),
+    saves: Type.Optional(SavesConfigSchema),
+  }),
+]);
+export type ConfigInputWithoutCommon = Static<
+  typeof ConfigInputSchemaWithoutCommon
+>;
+
+export const ConfigInputSchema = Type.Union([
+  ConfigInputSchemaWithCommon,
+  ConfigInputSchemaWithoutCommon,
+]);
+
+export function isConfigInputWithCommon(
+  config: ConfigInput,
+): config is ConfigInputWithCommon {
+  return 'common' in config;
+}
 export type ConfigInput = Static<typeof ConfigInputSchema>;
+export type ModuleConfigInput = {
+  [Key in keyof ConfigInputWithCommon]: NarratYaml | ConfigInputWithCommon[Key];
+};

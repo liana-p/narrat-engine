@@ -1,23 +1,28 @@
 import { startApp } from '@/main';
 
-import defaultGame from '@/examples/default/scripts';
-import demoGame from '@/examples/demo/scripts';
+import { defaultGameScripts } from '@/examples/default/scripts/defaultGameScripts';
 import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
-import { NarratScript } from '@/types/app-types';
+import { AppOptionsInput, NarratScript } from '@/types/app-types';
 import { registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
+import { demoScripts } from '@/examples/demo/scripts';
+import { ModuleConfigInput } from '@/config/config-input';
+import { defaultGameConfigs } from '@/examples/default/config/defaultGameConfig';
 // import { setupThemesDemo } from './themes-demo';
 
 const gameScripts: Record<string, NarratScript[]> = {
-  default: defaultGame,
-  demo: demoGame,
+  default: defaultGameScripts,
+  demo: demoScripts,
   rpg: rpgGame,
   empty: emptyGame,
   godot: godotGame,
 };
 
+const gameConfigs: Record<string, ModuleConfigInput> = {
+  default: defaultGameConfigs,
+};
 // This config is there to enable playing different demo games based on environment variables.
 // It is also used to build the different demos.
 // There is one path for assets and one for other data files. This allows us to reuse assets in the demo (for git LFS storage limits...)
@@ -43,14 +48,19 @@ const onPageLoad = () => {
       }),
     );
   }
-  // setupThemesDemo();
-  startApp({
+  const options: AppOptionsInput = {
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,
     configPath: `${dataPath}data/config.yaml`,
     logging: false,
     debug,
     scripts,
-  });
+  };
+  if (gameConfigs[demoChoice]) {
+    delete options.configPath;
+    options.config = gameConfigs[demoChoice];
+  }
+  // setupThemesDemo();
+  startApp(options);
 };
 window.addEventListener('load', onPageLoad);

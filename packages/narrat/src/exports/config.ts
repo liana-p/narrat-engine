@@ -1,4 +1,4 @@
-export { getConfig } from '../config';
+export { getCommonConfig as getConfig } from '../config';
 export type { Config } from '../config/config-output';
 export * from '../config/config-input';
 export {

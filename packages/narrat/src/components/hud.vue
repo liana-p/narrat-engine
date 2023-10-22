@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { getAssetUrl, getConfig, getDialogPanelWidth } from '@/config';
+import { getAssetUrl, getCommonConfig, getDialogPanelWidth } from '@/config';
 import { HudStatData } from '@/config/common-config';
 import { defaultConfig } from '@/config/config-output';
 import { HudStatsState, useHud } from '@/stores/hud-stats-store';
@@ -32,7 +32,7 @@ export default defineComponent({
     ...mapState(useHud, ['hudStats']),
     ...mapState(useRenderingStore, ['layoutMode']),
     statsConfig(): { [key: string]: HudStatData } {
-      const config = getConfig();
+      const config = getCommonConfig();
       return config.hudStats;
     },
     stats(): HudStatsState {
@@ -43,8 +43,8 @@ export default defineComponent({
       if (this.layoutMode === 'horizontal') {
         right = `${
           getDialogPanelWidth() +
-          (getConfig().dialogPanel.rightOffset ??
-            defaultConfig.dialogPanel.rightOffset)
+          (getCommonConfig().dialogPanel.rightOffset ??
+            defaultConfig.common.dialogPanel.rightOffset!)
         }px`;
       }
       return {

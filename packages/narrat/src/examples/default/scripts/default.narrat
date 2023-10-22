@@ -25,16 +25,16 @@ main:
   talk shopkeeper idle "hello"
   // jump quest_demo
 
-test_themes:
-  choice:
-    "Theme? (will only work if the themes are setup, call setupThemesDemo in index)"
-    "Fun":
-      set_screen default
-      change_theme narrat-fun-theme
-    "Text only"
-      set_screen @empty
-      change_theme narrat-text-only
-  jump test_themes
+// test_themes:
+//   choice:
+//     "Theme? (will only work if the themes are setup, call setupThemesDemo in index)"
+//     "Fun":
+//       set_screen default
+//       change_theme narrat-fun-theme
+//     "Text only"
+//       set_screen @empty
+//       change_theme narrat-text-only
+//   jump test_themes
 
 test_menu:
   choice:

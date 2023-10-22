@@ -16,7 +16,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getConfig } from '@/config';
+import { getCommonConfig } from '@/config';
 import { useMain } from '@/stores/main-store';
 import { timeout } from '@/utils/promises';
 import { computed, onMounted, ref } from 'vue';
@@ -37,7 +37,7 @@ const loadingClass = computed(() => {
 });
 const main = useMain();
 const splashConfig = computed(
-  () => getConfig().splashScreens?.engineSplashScreen ?? {},
+  () => getCommonConfig().splashScreens?.engineSplashScreen ?? {},
 );
 const splashTitle = computed(() =>
   typeof splashConfig.value.overrideText === 'string'

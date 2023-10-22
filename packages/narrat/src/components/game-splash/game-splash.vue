@@ -22,13 +22,13 @@
 <script setup lang="ts">
 import { useMain } from '@/stores/main-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { getConfig } from '../../config';
+import { getCommonConfig } from '../../config';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 const inputListener = ref<InputListener | null>(null);
 
 const main = useMain();
 const splashConfig = computed(
-  () => getConfig().splashScreens?.gameSplashScreen ?? {},
+  () => getCommonConfig().splashScreens?.gameSplashScreen ?? {},
 );
 const startButtonText = computed(() =>
   typeof splashConfig.value.startButtonText === 'string'
@@ -36,7 +36,7 @@ const startButtonText = computed(() =>
     : 'Press to start',
 );
 const gameLoaded = computed(() => main.loading.loaded);
-const gameTitle = computed(() => getConfig().gameTitle || 'Narrat Game');
+const gameTitle = computed(() => getCommonConfig().gameTitle || 'Narrat Game');
 
 function goToMainMenu() {
   main.flowState = 'menu';

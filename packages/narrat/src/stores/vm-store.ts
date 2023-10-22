@@ -1,4 +1,4 @@
-import { getConfig, getDataUrl } from '@/config';
+import { getCommonConfig, getDataUrl } from '@/config';
 import {
   isReturnSignal,
   JUMP_SIGNAL,
@@ -18,7 +18,6 @@ import { error, warning } from '@/utils/error-handling';
 import { logger } from '@/utils/logger';
 import { deepEvery } from '@/utils/object-iterators';
 import { runCommand, vm } from '@/vm/vm';
-import { parseScript } from '@/vm/vm-parser';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useDialogStore } from './dialog-store';
 import { useMain } from './main-store';
@@ -26,7 +25,6 @@ import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 import { NarratScript } from '@/types/app-types';
-import { useConfig } from './config-store';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -163,6 +161,7 @@ export const useVM = defineStore('vm', {
         fileName: scriptPaths[index],
         code: file,
         id: scriptPaths[index],
+        type: 'script',
       }));
     },
     addAllScripts(scriptsToParse: NarratScript[]) {
@@ -381,17 +380,17 @@ export const useVM = defineStore('vm', {
 
     reachedEndOfScript() {
       if (
-        getConfig().gameFlow.labelToJumpOnScriptEnd &&
-        this.lastLabel !== getConfig().gameFlow.labelToJumpOnScriptEnd
+        getCommonConfig().gameFlow.labelToJumpOnScriptEnd &&
+        this.lastLabel !== getCommonConfig().gameFlow.labelToJumpOnScriptEnd
       ) {
-        this.jumpToLabel(getConfig().gameFlow.labelToJumpOnScriptEnd!);
+        this.jumpToLabel(getCommonConfig().gameFlow.labelToJumpOnScriptEnd!);
         return;
       }
       useMain().endingScript();
       const mainStore = useMain();
       if (mainStore.options.debug) {
         // const dialogStore = useDialogStore();
-        if (getConfig().debugging.showScriptFinishedMessage) {
+        if (getCommonConfig().debugging.showScriptFinishedMessage) {
           // dialogStore.addDialog({
           //   speaker: useConfig().gameCharacter,
           //   text: '[DEBUG] Game Script is finished. This is the end of the game flow. This message only appears in debug mode.',

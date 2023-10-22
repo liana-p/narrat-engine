@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { getConfig } from '@/config';
+import { getCommonConfig } from '@/config';
 import { useVM } from '@/stores/vm-store';
 import { DialogBoxParameters } from '@/types/dialog-box-types';
 import {
@@ -92,7 +92,7 @@ const keyboardListener = ref<any>(null);
 
 const dialogContainerStyle = computed((): any => {
   let padding = '0px';
-  const layoutPadding = getConfig().layout.dialogBottomPadding;
+  const layoutPadding = getCommonConfig().layout.dialogBottomPadding;
   if (typeof layoutPadding === 'number') {
     padding = `${layoutPadding}px`;
   } else if (typeof layoutPadding === 'string') {
@@ -229,12 +229,12 @@ const dialogStyle = computed((): any => {
   if (useRenderingStore().overlayMode) {
     css.position = 'absolute';
     const rightOffset =
-      getConfig().dialogPanel.rightOffset ??
-      defaultConfig.dialogPanel.rightOffset;
+      getCommonConfig().dialogPanel.rightOffset ??
+      defaultConfig.common.dialogPanel.rightOffset;
     css.right = `${rightOffset}px`;
     const bottomOffset =
-      getConfig().dialogPanel.bottomOffset ??
-      defaultConfig.dialogPanel.bottomOffset;
+      getCommonConfig().dialogPanel.bottomOffset ??
+      defaultConfig.common.dialogPanel.bottomOffset;
     css.bottom = `${bottomOffset}px`;
   }
   return {

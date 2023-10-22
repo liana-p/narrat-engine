@@ -3,7 +3,7 @@ import { deepCopy } from '@/utils/data-helpers';
 import { error } from '@/utils/error-handling';
 import deepmerge from 'deepmerge';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { getConfig, skillsConfig } from '../config';
+import { getCommonConfig, skillsConfig } from '../config';
 import { useNotifications } from './notification-store';
 
 export interface SkillState {
