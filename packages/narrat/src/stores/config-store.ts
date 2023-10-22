@@ -9,7 +9,8 @@ export type ConfigStoreSave = {
 };
 
 export interface ConfigModule {
-  fileId: string;
+  id: string;
+  code: string;
 }
 export interface ConfigStore {
   config: Config;
@@ -40,6 +41,19 @@ export const useConfig = defineStore('config', {
     },
     addConfigModule(key: string, module: ConfigModule) {
       this.configModules[key] = module;
+    },
+    reloadConfigModule(module: ConfigModule) {
+      const key = Object.keys(this.configModules).find((key) => {
+        return this.configModules[key].id === module.id;
+      });
+      if (!key) {
+        return;
+      }
+      this.configModules[key] = module;
+      const configValue = (this.config as any)[key];
+      if (configValue) {
+        (this.config as any)[key] = deepmerge(configValue, module.code) as any;
+      }
     },
     loadSaveData(saveData: ConfigStoreSave) {
       this.config.characters.config.playerCharacter = saveData.playerCharacter;

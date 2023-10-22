@@ -1,3 +1,4 @@
+import { useConfig } from '@/stores/config-store';
 import { useMain } from '@/stores/main-store';
 import { useNotifications } from '@/stores/notification-store';
 import { NarratScript, NarratYaml } from '@/types/app-types';
@@ -27,6 +28,7 @@ export function handleHMR(newModule: ModuleNamespace | undefined) {
     vm.addNarratScript(scriptModule);
   } else if (isNarratYaml(scriptModule)) {
     // Do yaml things!
+    useConfig().reloadConfigModule(scriptModule);
     console.log(`Yaml update ${scriptModule.fileName}}`);
   }
 }

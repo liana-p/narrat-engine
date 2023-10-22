@@ -244,7 +244,8 @@ export async function loadConfig(options: AppOptions) {
       const value = config[key as keyof typeof config];
       if (isNarratYaml(value)) {
         useConfig().addConfigModule(key, {
-          fileId: value.id,
+          id: value.id,
+          code: value.code,
         });
         (userConfig as any)[key] = value.code;
       } else {

@@ -17,8 +17,6 @@ import { useScreens } from '@/stores/screens-store';
 import { InteractiveScreenElement } from './screen-types';
 import { getButtonConfig, getImageUrl } from '@/config';
 import { processText } from '@/utils/string-helpers';
-import { useVM } from '@/stores/vm-store';
-import { audioEvent } from '@/utils/audio-loader';
 import { getCSSClassForButton } from '@/utils/interact-utils';
 
 const props = defineProps<{

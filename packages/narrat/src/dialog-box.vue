@@ -480,7 +480,7 @@ const dialogBoxClass = computed(() => {
   } else {
     css['dialog-box-new'] = true;
   }
-  return false;
+  return css;
 });
 
 const titleStyle = computed(() => {
