@@ -87,13 +87,13 @@ export default defineConfig(({ command }) => {
       vue(),
       Inspect(),
       Narrat(),
-      visualizer({
-        template: 'treemap', // or sunburst
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-        filename: 'analyse.html', // will be saved in project's root
-      }),
+      // visualizer({
+      //   template: 'treemap', // or sunburst
+      //   open: true,
+      //   gzipSize: true,
+      //   brotliSize: true,
+      //   filename: 'analyse.html', // will be saved in project's root
+      // }),
     ],
   };
   if (exampleChoice === 'godot') {

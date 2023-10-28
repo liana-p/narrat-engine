@@ -20,17 +20,9 @@ layout:
   portraits:
     width: 150
     height: 225
-screens: data/screens.yaml
-buttons: data/buttons.yaml
-skills: data/skills.yaml
-skillChecks: data/skillchecks.yaml
-audio: data/audio.yaml
-characters: data/characters.yaml
 notifications:
   timeOnScreen: 1.5
   alsoPrintInDialogue: true
-items: data/items.yaml
-quests: data/quests.yaml
 hudStats:
   money:
     icon: img/ui/money.webp
