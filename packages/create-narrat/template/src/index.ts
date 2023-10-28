@@ -2,6 +2,8 @@ import "narrat/dist/style.css";
 import "./css/main.css";
 import { NarratPlugin, registerPlugin, startApp } from "narrat";
 import scripts from "./scripts";
+import config from "./config";
+
 // Enable this when releasing for steam
 const useSteam = false;
 
@@ -17,7 +19,7 @@ if (import.meta.env.VITE_BUILD && !import.meta.env.VITE_DEBUG) {
 class SteamPlugin extends NarratPlugin {
   onNarratSetup() {
     console.log(
-      "Loading steam plugin - Creating a game loop to force screen refresh"
+      "Loading steam plugin - Creating a game loop to force screen refresh",
     );
     const canvas = document.createElement("canvas");
     canvas.id = "fake-refresh-steam";
@@ -36,7 +38,7 @@ class SteamPlugin extends NarratPlugin {
 
 function fakeGameloopForSteam() {
   const canvas = document.getElementById(
-    "fake-refresh-steam"
+    "fake-refresh-steam",
   ) as HTMLCanvasElement;
   const styler = canvas as any as HTMLDivElement;
   styler.style.width = `100vw`;
@@ -53,9 +55,9 @@ window.addEventListener("load", () => {
     registerPlugin(new SteamPlugin());
   }
   startApp({
-    configPath: "data/config.yaml",
     debug,
     logging: false,
     scripts,
+    config,
   });
 });

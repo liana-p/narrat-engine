@@ -8,7 +8,7 @@ import tooltips from './tooltips.narrat';
 import dialogPanel from './dialog_panel.narrat';
 import animations from './animations.narrat';
 
-export const defaultGameScripts = [
+export default [
   game,
   arrays,
   objects,

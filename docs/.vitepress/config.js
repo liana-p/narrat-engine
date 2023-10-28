@@ -107,6 +107,10 @@ const config = {
             text: 'Hot Module Reloading',
             link: '/features/hot-module-reloading',
           },
+          {
+            text: 'Config files hot reloading',
+            link: '/features/config-hot-reloading',
+          },
           { text: 'HUD Stats', link: '/features/hud-stats' },
           { text: 'Inventory', link: '/features/inventory' },
           { text: 'Items', link: '/features/items' },

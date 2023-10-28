@@ -1,15 +1,20 @@
 import { startApp } from '@/main';
 
-import { defaultGameScripts } from '@/examples/default/scripts/defaultGameScripts';
+import defaultGameScripts from '@/examples/default/scripts/scripts';
 import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
 import { AppOptionsInput, NarratScript } from '@/types/app-types';
 import { registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
-import { demoScripts } from '@/examples/demo/scripts';
+import demoScripts from '@/examples/demo/scripts';
 import { ModuleConfigInput } from '@/config/config-input';
-import { defaultGameConfigs } from '@/examples/default/config/defaultGameConfig';
+
+import defaultGameConfigs from '@/examples/default/config';
+import demoGameConfigs from '@/examples/demo/config';
+import emptyGameConfigs from '@/examples/empty/config';
+import godotGameConfigs from '@/examples/godot/config';
+import rpgGameConfigs from '@/examples/rpg/config';
 // import { setupThemesDemo } from './themes-demo';
 
 const gameScripts: Record<string, NarratScript[]> = {
@@ -22,7 +27,12 @@ const gameScripts: Record<string, NarratScript[]> = {
 
 const gameConfigs: Record<string, ModuleConfigInput> = {
   default: defaultGameConfigs,
+  demo: demoGameConfigs,
+  rpg: rpgGameConfigs,
+  empty: emptyGameConfigs,
+  godot: godotGameConfigs,
 };
+
 // This config is there to enable playing different demo games based on environment variables.
 // It is also used to build the different demos.
 // There is one path for assets and one for other data files. This allows us to reuse assets in the demo (for git LFS storage limits...)
