@@ -37,7 +37,7 @@ const height = ref(150);
 const element = ref<HTMLElement | null>(null);
 const props = defineProps<FloatingTooltipProps>();
 const screenWidth = computed(() => props.screenWidth ?? window.innerWidth);
-const screenHeight = computed(() => props.screenWidth ?? window.innerHeight);
+const screenHeight = computed(() => props.screenHeight ?? window.innerHeight);
 const style = computed((): any => {
   const screenMargin = props.screenMargin ?? 5;
   const cssStyle: any = {};
