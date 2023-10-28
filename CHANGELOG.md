@@ -1,3 +1,18 @@
+## [3.5.1](https://github.com/liana-p/narrat-engine/compare/v3.5.0...v3.5.1) (2023-10-28)
+
+
+### Bug Fixes
+
+* tooltips fixed ([#178](https://github.com/liana-p/narrat-engine/issues/178)) ([e39d2c7](https://github.com/liana-p/narrat-engine/commit/e39d2c7d49609e0fa06d789e3ac46aacbd47301f))
+
+
+### Features
+
+* narrat editor updated to have a demo of themes ([#172](https://github.com/liana-p/narrat-engine/issues/172)) ([6b2968b](https://github.com/liana-p/narrat-engine/commit/6b2968bb4b503e4c0adcb5475517c46f457e09d2))
+* YAML files imported as code with hot reload ([#175](https://github.com/liana-p/narrat-engine/issues/175)) ([ac0ba9a](https://github.com/liana-p/narrat-engine/commit/ac0ba9a42e452457237eac5eba02ec0e4075a42a))
+
+
+
 # [3.5.0](https://github.com/liana-p/narrat-engine/compare/v3.4.0...v3.5.0) (2023-10-19)
 
 
