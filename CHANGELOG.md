@@ -1,42 +1,33 @@
-## [3.6.2-beta.3](https://github.com/liana-p/narrat-engine/compare/v3.6.2-beta.2...v3.6.2-beta.3) (2023-10-28)
+# [3.6.0](https://github.com/liana-p/narrat-engine/compare/v3.5.1...v3.6.0) (2023-10-28)
 
+## Config files hot reloading
 
+New [config files hot reloading](https://docs.narrat.dev/features/config-hot-reloading.html) feature, allowing to edit config files live during development.
 
-## [3.6.2-beta.2](https://github.com/liana-p/narrat-engine/compare/v3.6.2-beta.1...v3.6.2-beta.2) (2023-10-28)
+This feature requires moving config files to a different folder, so to use it read the [config files hot reloading guide](https://docs.narrat.dev/features/config-hot-reloading.html) for instructions.
 
+All the template games and example games in the repo have been modified to use the new system, so they can also be used as an example.
 
+New games created after 3.6.0 will have the new system by default.
 
-## [3.6.2-beta.1](https://github.com/liana-p/narrat-engine/compare/v3.6.2-beta.0...v3.6.2-beta.1) (2023-10-28)
-
-
-
-## [3.6.2-beta.0](https://github.com/liana-p/narrat-engine/compare/v3.5.1...v3.6.2-beta.0) (2023-10-28)
-
-
+Documentation hasn't been updated everywhere, as there is a lot of docs relating to configs, so a warning has been added at the start of the main config files documentation file.
 
 ## [3.5.1](https://github.com/liana-p/narrat-engine/compare/v3.5.0...v3.5.1) (2023-10-28)
 
-
 ### Bug Fixes
 
-* tooltips fixed ([#178](https://github.com/liana-p/narrat-engine/issues/178)) ([e39d2c7](https://github.com/liana-p/narrat-engine/commit/e39d2c7d49609e0fa06d789e3ac46aacbd47301f))
-
+- tooltips fixed ([#178](https://github.com/liana-p/narrat-engine/issues/178)) ([e39d2c7](https://github.com/liana-p/narrat-engine/commit/e39d2c7d49609e0fa06d789e3ac46aacbd47301f))
 
 ### Features
 
-* narrat editor updated to have a demo of themes ([#172](https://github.com/liana-p/narrat-engine/issues/172)) ([6b2968b](https://github.com/liana-p/narrat-engine/commit/6b2968bb4b503e4c0adcb5475517c46f457e09d2))
-* YAML files imported as code with hot reload ([#175](https://github.com/liana-p/narrat-engine/issues/175)) ([ac0ba9a](https://github.com/liana-p/narrat-engine/commit/ac0ba9a42e452457237eac5eba02ec0e4075a42a))
-
-
+- narrat editor updated to have a demo of themes ([#172](https://github.com/liana-p/narrat-engine/issues/172)) ([6b2968b](https://github.com/liana-p/narrat-engine/commit/6b2968bb4b503e4c0adcb5475517c46f457e09d2))
+- YAML files imported as code with hot reload ([#175](https://github.com/liana-p/narrat-engine/issues/175)) ([ac0ba9a](https://github.com/liana-p/narrat-engine/commit/ac0ba9a42e452457237eac5eba02ec0e4075a42a))
 
 # [3.5.0](https://github.com/liana-p/narrat-engine/compare/v3.4.0...v3.5.0) (2023-10-19)
 
-
 ### Features
 
-* first party themes feature working ([#171](https://github.com/liana-p/narrat-engine/issues/171)) ([4e6767b](https://github.com/liana-p/narrat-engine/commit/4e6767bc9006a248baf0a1a3aa3b77bb2807efd9))
-
-
+- first party themes feature working ([#171](https://github.com/liana-p/narrat-engine/issues/171)) ([4e6767b](https://github.com/liana-p/narrat-engine/commit/4e6767bc9006a248baf0a1a3aa3b77bb2807efd9))
 
 # [3.4.0](https://github.com/liana-p/narrat-engine/compare/v3.3.8...v3.4.0) (2023-10-17)
 
