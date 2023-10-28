@@ -2,27 +2,31 @@
 description: A narrat game needs various config files to function
 ---
 
+::: warning
+There have been recent changes to the config files to add the [live reloading](../features/config-hot-reloading.md) feature to them. The documentation may not be fully updated for this.
+
+The main important change is that config files are now in the `src/config` folder instead of the `public/data` folder. The main `config.yaml` also becomes `common.yaml`, and the parts of `config.yaml` which specify the paths of other config files can be deleted.
+
+Everything else is the same as before
+:::
+
 # Config files
 
 Config files are all written in [yaml](https://fileinfo.com/extension/yaml) by default, though you can also use json (this is not encouraged).
 
 ## Introduction
 
-A narrat game needs a few config files to function: The main `config.yaml` is where a lot of settings are configured, and `characters.yaml` is where the various characters that can speak in the game are setup. On top of that, there are config files for specific features (like `items.yaml` or `skills.yaml`).
+A narrat game needs a few config files to function. For example the main `common.yaml` is where a lot of settings are configured, and `characters.yaml` is where the various characters that can speak in the game are setup. On top of that, there are config files for specific features (like `items.yaml` or `skills.yaml`).
 
-::: details Split config or embedded config in config.yaml
-
-It is possible to put the config of those other files like `items.yaml` directly in the main `config.yaml`, but this is not encouraged and will probably be deprecated in the future. The narrat template already comes with feature-specific separate config files, which is much easier to use and understand than a single giant config file.
-
-:::
-
-There are example files available:
+There are example files available, and games already come with config files setup.
 
 [example-config.md](../examples/example-config.md)
 
 ## Editing the config
 
-By default `config.yaml` should be in `public/data`. If you want to change its position, edit `src/index.ts` to have the correct path to your new localisation.
+By default the config files should be in `src/config`. If you want to change its position, edit `src/index.ts` to have the correct path to your new localisation.
+
+The `index.ts` file in `src/config` is the one importing and combining all the config file, so if you need to add, remove or move config files, you will need to update `index.ts` accordingly.
 
 The `config.yaml` file is a [yaml](https://fileinfo.com/extension/yaml) file which should already contain everything necessary if using the template, but some optional values can be omitted. For an example config file, look at the [example configs page](../examples/example-config.md). It may also be relevant to look at other yaml files in the example games.
 
