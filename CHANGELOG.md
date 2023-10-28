@@ -1,3 +1,7 @@
+## [3.6.2-beta.1](https://github.com/liana-p/narrat-engine/compare/v3.6.2-beta.0...v3.6.2-beta.1) (2023-10-28)
+
+
+
 ## [3.6.2-beta.0](https://github.com/liana-p/narrat-engine/compare/v3.5.1...v3.6.2-beta.0) (2023-10-28)
 
 
