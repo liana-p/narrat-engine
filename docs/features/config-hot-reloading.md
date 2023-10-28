@@ -73,7 +73,7 @@ window.addEventListener('load', () => {
   startApp({
     // Replace the old configPath option with the new config option, which takes the config object.
     configPath: 'data/config.yaml', // [!code --]
-    config, // [!code --]
+    config, // [!code ++]
     debug,
     logging: false,
     scripts,
