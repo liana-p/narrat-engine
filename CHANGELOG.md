@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/liana-p/narrat-engine/compare/v3.6.1...v3.7.0) (2023-11-07)
+
+### Features
+
+- HUD stats improvements with new formatting options, see [docs](https://docs.narrat.dev/features/hud-stats.html)
+- Lots of internal improvements and changes to config files to make config hot reloading work better with various config options
+
 ## [3.6.1](https://github.com/liana-p/narrat-engine/compare/v3.6.0...v3.6.1) (2023-11-07)
 
 ### Bug Fixes
