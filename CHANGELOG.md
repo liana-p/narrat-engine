@@ -1,3 +1,13 @@
+## [3.6.1](https://github.com/liana-p/narrat-engine/compare/v3.6.0...v3.6.1) (2023-11-07)
+
+### Bug Fixes
+
+- The narrat template was missing info on yaml files for the IDE, this is now fixed
+
+### Docs
+
+- The migration process for using the new hot reloading config files in 3.6.x has been improved with some missing steps
+
 # [3.6.0](https://github.com/liana-p/narrat-engine/compare/v3.5.1...v3.6.0) (2023-10-28)
 
 ## Config files hot reloading
