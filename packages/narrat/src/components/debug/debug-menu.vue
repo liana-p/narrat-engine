@@ -123,6 +123,8 @@ import { vm } from '@/vm/vm';
 import DebugJumping from './debug-jumping.vue';
 import { InputListener } from '@/stores/inputs-store';
 import { useRenderingStore } from '@/stores/rendering-store';
+import { autoSaveGame, resetGlobalSave } from '@/application/saving';
+import { getAllStates, overrideStates } from '@/data/all-stores';
 
 export default defineComponent({
   components: {
@@ -177,7 +179,6 @@ export default defineComponent({
       this.showDebug = true;
       this.startDebug();
       const vmStore = useVM();
-      const mainStore = useMain();
       const questsStore = useQuests();
       const inventoryStore = useInventory();
       const skillsStore = useSkills();
@@ -211,10 +212,10 @@ export default defineComponent({
           props: {
             content: {
               text: undefined,
-              json: mainStore.getAllStates(),
+              json: getAllStates(),
             },
             onChange: (updatedContent: any) => {
-              mainStore.overrideStates(updatedContent.json);
+              overrideStates(updatedContent.json);
             },
           },
         });
@@ -241,13 +242,13 @@ export default defineComponent({
       this.startDebug();
     },
     save() {
-      useMain().autoSaveGame({});
+      autoSaveGame({});
     },
     resetSave() {
       resetSave();
     },
     resetGlobalSave() {
-      useMain().resetGlobalSave();
+      resetGlobalSave();
     },
     wordCount() {
       const scripts = Object.values(this.script);

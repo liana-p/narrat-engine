@@ -1,5 +1,6 @@
 import { getCommonConfig } from '@/config';
 import {
+  ExtractedGameSave,
   GameSave,
   GlobalGameSave,
   SaveFile,
@@ -8,7 +9,7 @@ import {
 } from '@/types/game-save';
 import { error, warning } from './error-handling';
 import { randomId } from './randomId';
-export const CURRENT_SAVE_VERSION = '3.3.9';
+export const CURRENT_SAVE_VERSION = '3.4.0';
 
 export function saveFileName(): string {
   return `NARRAT_SAVE_${getCommonConfig().saveFileName}`;
@@ -130,6 +131,15 @@ function migrateSaveFile(saveFile: SaveFile) {
     });
     saveFile.version = '3.3.9';
   }
+  if (saveFile.version === '3.3.9') {
+    saveFile.slots.forEach((slot) => {
+      if (slot && slot.saveData) {
+        slot.saveData.plugins = {};
+        slot.saveData.customStores = {};
+      }
+    });
+    saveFile.version = '3.4.0';
+  }
 }
 
 function createDefaultSaveFile() {
@@ -232,3 +242,73 @@ export function generateMetadata(): SaveSlotMetadata {
 export type ChosenSlot = {
   slotId: string;
 };
+
+export type ExtractedSave = {
+  gameSave: ExtractedGameSave;
+  globalSave: GlobalGameSave;
+};
+
+export type CurrentSaveData = {
+  saveSlot: GameSave;
+  global: GlobalGameSave;
+};
+
+export function processAutoSave({
+  slot,
+  name,
+  extractedSave,
+}: {
+  slot: string;
+  name?: string;
+  extractedSave: ExtractedSave;
+}) {
+  const existingSave = getSaveSlot(slot);
+  const metadata = generateMetadata();
+  if (existingSave && existingSave.saveData) {
+    metadata.name = existingSave.saveData.metadata.name;
+  } else {
+    metadata.name = name ?? `Auto Save`;
+  }
+  if (getCommonConfig().saves.mode === 'manual') {
+    metadata.name = 'Auto Save';
+  }
+  const save: GameSave = {
+    ...extractedSave.gameSave,
+    version: CURRENT_SAVE_VERSION,
+    metadata,
+  };
+  const globalSaveFile = getSaveFile().globalSave;
+  Object.assign(globalSaveFile, extractedSave.globalSave);
+  const finalSaveData = {
+    saveSlot: save,
+    global: globalSaveFile,
+  };
+  saveSlot(save, globalSaveFile, slot);
+  return finalSaveData;
+}
+
+export function manualSave(
+  saveData: CurrentSaveData,
+  playTime: number,
+  slotId: string,
+  name?: string,
+) {
+  const slot = saveData.saveSlot;
+  const global = saveData.global;
+  saveSlot(
+    {
+      ...slot,
+      main: {
+        ...slot.main,
+        playTime,
+      },
+      metadata: {
+        ...slot.metadata,
+        name: name ?? `Manual Save`,
+        saveDate: new Date().toISOString(),
+      },
+    },
+    global,
+    slotId,
+  );
+}

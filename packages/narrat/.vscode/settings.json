@@ -26,15 +26,20 @@
   },
   "typescript.preferences.autoImportFileExcludePatterns": [
     "@/lib/**",
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/lib/**",
-    "@/lib/**",
     "@/lib**",
     "@/lib",
+    "@/lib.ts",
+    "**/lib.ts",
+    "**/lib",
     "src/lib",
     "**/node_modules/**",
     "**/dist/**",
-    "**/lib/**"
+    "**/lib/**",
+    "src/lib.ts",
+    "lib.ts",
+    "packages/narrat/src/lib.ts",
+    "src/lib/*",
+    "lib",
+    "**/lib.ts"
   ]
 }

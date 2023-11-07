@@ -76,7 +76,7 @@ beforeEach(() => {
   const config = cloneDeep(mockConfig);
   config.skillChecks = cloneDeep(skillChecksConfigMock);
   config.skills = cloneDeep(skillsMock);
-  useSkills().setupSkills(config.skills);
+  useSkills().updateConfig(config.skills);
   useConfig().setConfig(config);
 });
 afterEach(() => {

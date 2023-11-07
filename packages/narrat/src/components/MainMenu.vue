@@ -20,6 +20,7 @@ import { useMain } from '@/stores/main-store';
 import { InputListener } from '@/stores/inputs-store';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { menuReturn } from '@/application/application-utils';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -34,7 +35,7 @@ function quit() {
 }
 
 function mainMenu() {
-  useMain().menuReturn();
+  menuReturn();
   closeMenu();
 }
 

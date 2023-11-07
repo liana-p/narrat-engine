@@ -69,31 +69,35 @@ export const useQuests = defineStore('quests', {
       error(err);
       throw new Error(err);
     },
-    setupQuests(questsConfig: QuestsConfig) {
+    updateConfig(questsConfig: QuestsConfig) {
       const quests = questsConfig.quests;
       // iterate through quests to generate quest states to add to this.quests object
       for (const key of Object.keys(quests)) {
         const data = quests[key];
-        this.quests[key] = {
-          id: key,
-          state: 'hidden',
-          objectives: {},
-          extraData: {},
-        };
+        if (!this.quests[key]) {
+          this.quests[key] = {
+            id: key,
+            state: 'hidden',
+            objectives: {},
+            extraData: {},
+          };
+        }
         // iterate through data.objectives to populate the objectives array of this.quests[key]
         for (const objectiveKey of Object.keys(data.objectives)) {
           const objective = data.objectives[objectiveKey];
-          this.quests[key].objectives[objectiveKey] = {
-            extraData: {},
-            id: objectiveKey,
-            state: objective.hidden ? 'hidden' : 'unlocked',
-          };
+          if (!this.quests[key].objectives[objectiveKey]) {
+            this.quests[key].objectives[objectiveKey] = {
+              extraData: {},
+              id: objectiveKey,
+              state: objective.hidden ? 'hidden' : 'unlocked',
+            };
+          }
         }
       }
     },
     reset(questsConfig: QuestsConfig) {
       this.$reset();
-      this.setupQuests(questsConfig);
+      this.updateConfig(questsConfig);
     },
     startQuest(questId: string) {
       const quest = this.getQuest(questId);

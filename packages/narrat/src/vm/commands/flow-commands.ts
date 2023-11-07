@@ -1,10 +1,11 @@
 import { JUMP_SIGNAL, RETURN_SIGNAL, STOP_SIGNAL } from '@/constants';
-import { useMain } from '@/stores/main-store';
 import { SetFrameOptions, useVM } from '@/stores/vm-store';
 import { error } from '@/utils/error-handling';
 import { commandLog, commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
 import { vm } from '../vm';
+import { menuReturn } from '@/application/application-utils';
+import { resetGlobalSave, startManualSave } from '@/application/saving';
 
 export const jumpCommand = CommandPlugin.FromOptions<{ label: string }>({
   keyword: 'jump',
@@ -81,7 +82,7 @@ export const returnMainMenuPlugin = CommandPlugin.FromOptions<{}>({
   keyword: 'menu_return',
   argTypes: [],
   runner: async (cmd) => {
-    useMain().menuReturn();
+    menuReturn();
     return STOP_SIGNAL;
   },
 });
@@ -90,7 +91,7 @@ export const savePlugin = CommandPlugin.FromOptions<{ name?: string }>({
   keyword: 'save',
   argTypes: [{ name: 'name', type: 'string', optional: true }],
   runner: async (cmd) => {
-    await useMain().manualSave({ saveName: cmd.options.name });
+    await startManualSave({ saveName: cmd.options.name });
   },
 });
 
@@ -98,7 +99,7 @@ export const savePromptPlugin = CommandPlugin.FromOptions<{ name?: string }>({
   keyword: 'save_prompt',
   argTypes: [{ name: 'name', type: 'string', optional: true }],
   runner: async (cmd) => {
-    await useMain().manualSave({
+    await startManualSave({
       saveName: cmd.options.name,
       withPrompt: true,
     });
@@ -109,7 +110,7 @@ export const resetGlobalPlugin = CommandPlugin.FromOptions<{}>({
   keyword: 'reset_global_save',
   argTypes: [],
   runner: async (cmd) => {
-    await useMain().resetGlobalSave();
+    await resetGlobalSave();
   },
 });
 

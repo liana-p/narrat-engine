@@ -1,4 +1,5 @@
-import { HudStatsConfig } from '@/config/common-config';
+import { getHudStatConfig } from '@/config';
+import { CommonConfig, HudStatsConfig } from '@/config/common-config';
 import { deepCopy } from '@/utils/data-helpers';
 import deepmerge from 'deepmerge';
 import { acceptHMRUpdate, defineStore } from 'pinia';
@@ -21,22 +22,32 @@ export const useHud = defineStore('hud', {
       hudStats: {},
     }) as HudState,
   actions: {
-    setupHudStats(stats: HudStatsConfig) {
-      for (const stat in stats) {
-        this.hudStats[stat] = {
-          value: stats[stat].startingValue,
-        };
+    updateConfig(common: CommonConfig) {
+      for (const stat in common.hudStats) {
+        if (!this.hudStats[stat]) {
+          this.hudStats[stat] = {
+            value: common.hudStats[stat].startingValue,
+          };
+        }
       }
     },
-    reset(stats: HudStatsConfig) {
+    reset(common: CommonConfig) {
       this.$reset();
-      this.setupHudStats(stats);
+      this.updateConfig(common);
     },
     setStat(stat: string, value: number) {
       this.hudStats[stat].value = value;
+      if (this.getStat(stat).value < (getHudStatConfig(stat).minValue ?? 0)) {
+        this.hudStats[stat].value = getHudStatConfig(stat).minValue ?? 0;
+      }
+      if (
+        this.getStat(stat).value > (getHudStatConfig(stat).maxValue ?? Infinity)
+      ) {
+        this.hudStats[stat].value = getHudStatConfig(stat).maxValue ?? Infinity;
+      }
     },
     addStat(stat: string, value: number) {
-      this.hudStats[stat].value += value;
+      this.setStat(stat, this.getStatValue(stat) + value);
     },
     getStat(stat: string) {
       return this.hudStats[stat];

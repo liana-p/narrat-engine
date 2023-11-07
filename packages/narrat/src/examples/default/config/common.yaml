@@ -7,7 +7,7 @@ images:
   shopButton: img/ui/shop-button.webp
   parkButton: img/ui/park-button.webp
 dialogPanel:
-  textSpeed: 30
+  textSpeed: 15
   animateText: true
   timeBetweenLines: 100
   overlayMode: true
@@ -54,12 +54,38 @@ hudStats:
     startingValue: 10
     minValue: 0
     maxValue: 99999
+    decimals: 2
+    hideName: true
+    formatting:
+      style: currency
+      currency: USD
   energy:
     icon: img/ui/energy.webp
     name: Energy
     startingValue: 10
     minValue: 0
     maxValue: 10
+    suffix: ' / 10'
+    decimals: 0
+  percent:
+    icon: img/ui/energy.webp
+    name: percent
+    hideName: true
+    startingValue: 0.5
+    minValue: 0
+    maxValue: 1
+    formatting:
+      style: percent
+  days:
+    icon: img/ui/energy.webp
+    name: days
+    startingValue: 2
+    minValue: 0
+    maxValue: 7
+    hideName: true
+    formatting:
+      style: unit
+      unit: day
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true

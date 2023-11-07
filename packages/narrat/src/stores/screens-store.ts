@@ -1,7 +1,5 @@
-import { InteractiveScreenElement } from '@/components/screens/screen-types';
-import { getButtonConfig, getScreenConfig } from '@/config';
+import { getButtonConfig, getConfig } from '@/config';
 import { Config } from '@/config/config-output';
-import { ScreensConfig } from '@/config/screens-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { error, warning } from '@/utils/error-handling';
 import {
@@ -11,15 +9,11 @@ import {
 } from '@/utils/transition';
 import deepmerge from 'deepmerge';
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { useScreenObjects } from './screen-objects-store';
 import { useInventory } from './inventory-store';
-import {
-  isButtonClickable,
-  isScreenObjectClickable,
-  isViewportElementClickable,
-} from '@/utils/viewport-utils';
+import { isViewportElementClickable } from '@/utils/viewport-utils';
 import { audioEvent } from '@/utils/audio-loader';
 import { useVM } from './vm-store';
+import { useConfig } from './config-store';
 
 export type ButtonStateValue = boolean | 'hidden' | 'greyed';
 export interface ButtonState {
@@ -124,37 +118,20 @@ export const useScreens = defineStore('screens', {
         }
       });
     },
-    setButtons(config: Config) {
-      const screens = config.screens.screens;
-      const buttons = config.buttons.buttons;
-
+    updateConfig(config: Config['screens']) {
+      console.log('update config!');
+      const buttons = getConfig().buttons.buttons;
       for (const key in buttons) {
-        this.buttons[key] = {
-          state: buttons[key].enabled,
-        };
-      }
-      // Support for inline button conf in screens as it's easier for end users
-      // We basically copy the button's config to the buttons config object if we find any buttons defined inline in a screen
-      for (const key in screens) {
-        const screen = screens[key];
-        if (screen.buttons) {
-          for (const [index, button] of screen.buttons.entries()) {
-            // If the button is a config object, add it to the buttons config, and also create its state
-            if (typeof button === 'object') {
-              buttons[button.id] = button;
-              // Change the inline config to be a string again
-              screen.buttons[index] = button.id;
-              this.buttons[button.id] = {
-                state: button.enabled,
-              };
-            }
-          }
+        if (!this.buttons[key]) {
+          this.buttons[key] = {
+            state: buttons[key].enabled,
+          };
         }
       }
     },
-    reset(config: Config) {
+    reset(config: Config['screens']) {
       this.$reset();
-      this.setButtons(config);
+      this.updateConfig(config);
     },
     changeButton(button: string, newValue: ButtonStateValue) {
       if (!this.buttons[button]) {

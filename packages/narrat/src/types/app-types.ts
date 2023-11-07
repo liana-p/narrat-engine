@@ -14,7 +14,7 @@ import { ChoicesInputConfig } from '@/config/choices-config';
 import { AnimationsConfig } from '@/config/animations-config';
 
 export type NarratModule = {
-  code: string;
+  code: any;
   fileName: string;
   id: string;
   type: 'script' | 'yaml';
@@ -22,9 +22,11 @@ export type NarratModule = {
 
 export type NarratScript = NarratModule & {
   type: 'script';
+  code: string;
 };
 export type NarratYaml = NarratModule & {
   type: 'yaml';
+  code: any;
 };
 
 export interface ConfigFiles {

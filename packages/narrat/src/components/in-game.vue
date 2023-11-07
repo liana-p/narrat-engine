@@ -1,6 +1,6 @@
 <template>
   <div class="game" :style="gameStyle">
-    <Hud />
+    <Hud v-if="hasHud" />
     <MenuButtons class="menu-toggle" />
     <Screens :inputListener="listener" />
     <GameDialog
@@ -43,6 +43,8 @@ import { useDialogStore } from '@/stores/dialog-store';
 import { inputEvents } from '@/utils/InputsListener';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useMenu } from '@/stores/menu-store';
+import { finishManualSave } from '@/application/saving';
+import { useHud } from '@/stores/hud-stats-store';
 
 const listener = ref<InputListener | null>(null);
 
@@ -74,10 +76,10 @@ const gameStyle = computed<any>(() => {
 function chosenSave(data: ChosenSlot | null) {
   agreedToSave.value = null;
   if (data === null) {
-    useMain().finishManualSave(data, false);
+    finishManualSave(data, false);
     return;
   }
-  useMain().finishManualSave(data, true);
+  finishManualSave(data, true);
 }
 
 function saveConfirm() {
@@ -85,7 +87,7 @@ function saveConfirm() {
 }
 function saveRefuse() {
   agreedToSave.value = false;
-  mainStore.finishManualSave(null, false);
+  finishManualSave(null, false);
   agreedToSave.value = null;
 }
 
@@ -124,6 +126,13 @@ onUnmounted(() => {
   if (keyboardListener.value) {
     inputEvents.off('debouncedKeydown', keyboardListener.value as any);
   }
+});
+
+const hasHud = computed(() => {
+  if (Object.keys(useHud().hudStats).length > 0) {
+    return true;
+  }
+  return false;
 });
 </script>
 <style>

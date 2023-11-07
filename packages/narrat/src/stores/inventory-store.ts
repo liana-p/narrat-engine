@@ -1,6 +1,6 @@
 // create a pinia store named inventory with a state containing items and actions to add and delete items
 
-import { ItemConfig } from '@/config/items-config';
+import { ItemConfig, ItemsConfig } from '@/config/items-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getCommonConfig, getItemConfig } from '../config';
@@ -29,9 +29,6 @@ export interface InventoryState {
 
 export type InventorySave = InventoryState;
 
-export interface ItemsSetupConfig {
-  [key: string]: ItemConfig;
-}
 export const useInventory = defineStore('inventory', {
   state: (): InventoryState => ({
     items: {},
@@ -48,17 +45,19 @@ export const useInventory = defineStore('inventory', {
       this.items = { ...this.items, ...save.items };
       this.interactionTags = { ...save.interactionTags };
     },
-    setupItems(items: ItemsSetupConfig) {
-      Object.keys(items).forEach((key) => {
-        this.items[key] = {
-          amount: 0,
-          id: key,
-        };
+    updateConfig(config: ItemsConfig) {
+      Object.keys(config.items).forEach((key) => {
+        if (!this.items[key]) {
+          this.items[key] = {
+            amount: 0,
+            id: key,
+          };
+        }
       });
     },
-    reset(items: ItemsSetupConfig) {
+    reset(items: ItemsConfig) {
       this.$reset();
-      this.setupItems(items);
+      this.updateConfig(items);
     },
     hasItem(itemId: string, amount?: number): boolean {
       if (!amount) {

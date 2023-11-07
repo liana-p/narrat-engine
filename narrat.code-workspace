@@ -17,6 +17,7 @@
     "vitest.enable": true,
     "editor.tabSize": 2,
     "files.exclude": {
+      "src/lib.ts": true,
       "**/dist/*": true,
       "**/lib/*": true,
       "node_modules/": true,
@@ -30,8 +31,10 @@
       "**/lib.ts": true
     },
     "search.exclude": {
+      "src/lib.ts": true,
       "dist/": true,
       "lib/": true,
+      "**/lib": true,
       "node_modules/": true,
       "**/lib.ts": true
     },
@@ -47,10 +50,22 @@
       "@/lib/**",
       "@/lib**",
       "@/lib",
+      "@/lib.ts",
+      "**/lib.ts",
+      "**/lib",
       "src/lib",
       "**/node_modules/**",
       "**/dist/**",
-      "**/lib/**"
-    ]
+      "**/lib/**",
+      "src/lib.ts",
+      "lib.ts",
+      "packages/narrat/src/lib.ts",
+      "src/lib/*",
+      "lib",
+      "**/lib.ts"
+    ],
+    "javascript.preferences.autoImportFileExcludePatterns": ["@lib"],
+    "javascript.preferences.importModuleSpecifier": "shortest",
+    "typescript.preferences.importModuleSpecifier": "shortest"
   }
 }

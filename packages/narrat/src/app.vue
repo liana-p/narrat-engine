@@ -42,6 +42,7 @@ import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
 import { useMenu } from './stores/menu-store';
 import TooltipsUi from './components/tooltips/tooltips-ui.vue';
+import { preloadAndSetupGame } from '@/application/application-start';
 
 const props = defineProps<{
   options: AppOptions;
@@ -79,7 +80,7 @@ function updateScreenSize() {
 
 onMounted(async () => {
   vm.callHook('onAppMounted');
-  await useMain().engineLoading();
+  await preloadAndSetupGame();
   rendering.inputsContainer.addEventListener(
     'resize',
     debounce(

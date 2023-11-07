@@ -70,7 +70,7 @@ export const useSettings = defineStore('settings', {
   actions: {
     reset(config: CommonConfig) {
       this.$reset();
-      this.setupSettings(config);
+      this.updateConfig(config);
     },
     getSetting(key: string) {
       if (typeof this.baseSettings[key] !== 'undefined') {
@@ -113,7 +113,7 @@ export const useSettings = defineStore('settings', {
         getCommonConfig().dialogPanel.animateText = value;
       }
     },
-    setupSettings(config: CommonConfig) {
+    updateConfig(config: CommonConfig) {
       this.setSetting(
         'textSpeed',
         config.dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED,
