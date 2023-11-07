@@ -85,20 +85,22 @@ export const useSkills = defineStore('skills', {
       this.skillChecks = deepmerge(this.skillChecks, data.skillChecks);
       this.skills = deepmerge(this.skills, data.skills);
     },
-    setupSkills(skillsConfig: SkillsConfig) {
+    updateConfig(skillsConfig: SkillsConfig) {
       const skills = skillsConfig.skills;
       // Adds each skill in the skills object to the skills state. Add default values for startingLevel and xp of 0 if those keys are missing.
       for (const skill in skills) {
-        this.skills[skill] = {
-          id: skill,
-          level: skills[skill].startingLevel || 0,
-          xp: 0,
-        };
+        if (!this.skills[skill]) {
+          this.skills[skill] = {
+            id: skill,
+            level: skills[skill].startingLevel || 0,
+            xp: 0,
+          };
+        }
       }
     },
     reset(skillsConfig: SkillsConfig) {
       this.$reset();
-      this.setupSkills(skillsConfig);
+      this.updateConfig(skillsConfig);
     },
     getSkill(skill: string): SkillState {
       return this.skills[skill];

@@ -7,7 +7,7 @@ import quests from './quests.yaml';
 import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
-import { ModuleConfigInput } from '@/config/config-input';
+import { ModuleConfigInput } from 'narrat';
 
 const gameConfigs: ModuleConfigInput = {
   audio,

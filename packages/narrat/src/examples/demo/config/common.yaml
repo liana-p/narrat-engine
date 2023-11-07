@@ -34,12 +34,16 @@ hudStats:
     name: Money
     startingValue: 10
     minValue: 0
+    decimals: 2
+    prefix: '$ '
   energy:
     icon: img/ui/energy.webp
     name: Energy
     startingValue: 10
     minValue: 0
     maxValue: 10
+    decimals: 0
+    suffix: ' / 10'
 saves:
   mode: manual
   slots: 10

@@ -1,21 +1,23 @@
-import { Config, defaultConfig } from '@/config/config-output';
+import {
+  Config,
+  ConfigKey,
+  ConfigModule,
+  defaultConfig,
+} from '@/config/config-output';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import deepmerge from 'deepmerge';
 import { DeepPartial } from '@/utils/type-utils';
+import { NarratYaml } from '@/types/app-types';
 
 export type ConfigStoreSave = {
   playerCharacter: string;
   gameCharacter: string;
 };
 
-export interface ConfigModule {
-  id: string;
-  code: string;
-}
 export interface ConfigStore {
   config: Config;
   // Record of modules being used for live reload, keyed by file id
-  configModules: Record<string, ConfigModule>;
+  configModules: Record<ConfigKey, ConfigModule>;
 }
 
 export const useConfig = defineStore('config', {
@@ -39,21 +41,21 @@ export const useConfig = defineStore('config', {
         gameCharacter: this.gameCharacter,
       };
     },
-    addConfigModule(key: string, module: ConfigModule) {
+    addConfigModule(key: ConfigKey, module: ConfigModule) {
       this.configModules[key] = module;
     },
-    reloadConfigModule(module: ConfigModule) {
+    findConfigModuleKey(module: NarratYaml) {
       const key = Object.keys(this.configModules).find((key) => {
-        return this.configModules[key].id === module.id;
-      });
+        return this.configModules[key as ConfigKey].id === module.id;
+      }) as ConfigKey | undefined;
       if (!key) {
         return;
       }
-      this.configModules[key] = module;
-      const configValue = (this.config as any)[key];
-      if (configValue) {
-        (this.config as any)[key] = deepmerge(configValue, module.code) as any;
-      }
+      return key;
+    },
+    reloadConfigModule(key: ConfigKey, value: any) {
+      this.configModules[key].code = value;
+      this.config[key] = value;
     },
     loadSaveData(saveData: ConfigStoreSave) {
       this.config.characters.config.playerCharacter = saveData.playerCharacter;

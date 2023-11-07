@@ -3,17 +3,23 @@
     <!-- <VolumeControls /> -->
     <div v-for="(stat, key) in stats" :key="key" class="hud-stat">
       <img class="hud-icon" :src="getStatImage(key as string)" />
-      <span class="bold hud-text">{{ statsConfig[key].name }}</span
-      >:
-      <span> {{ Math.floor(stat.value * 100) / 100 }}</span>
+      <span class="bold hud-text" v-html="statPrefix(key as string)"></span>
+      <span> {{ formatStat(key as string, stat.value) }}</span>
+      <span v-if="statSuffix" v-html="statSuffix(key as string)"></span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { getAssetUrl, getCommonConfig, getDialogPanelWidth } from '@/config';
+import {
+  getAssetUrl,
+  getCommonConfig,
+  getDialogPanelWidth,
+  getHudStatConfig,
+} from '@/config';
 import { HudStatData } from '@/config/common-config';
 import { defaultConfig } from '@/config/config-output';
+import { error } from '@/utils/error-handling';
 import { HudStatsState, useHud } from '@/stores/hud-stats-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { mapState } from 'pinia';
@@ -26,6 +32,41 @@ export default defineComponent({
   methods: {
     getStatImage(key: string) {
       return getAssetUrl(this.statsConfig[key].icon);
+    },
+    formatStat(key: string, value: number) {
+      const conf = getHudStatConfig(key);
+      const decimals = conf.decimals ?? 2;
+      const stat = Math.floor(value * 10 ** decimals) / 10 ** decimals;
+      const options: any = {};
+      if (conf.formatting?.style) {
+        options.style = conf.formatting.style;
+        if (conf.formatting.style === 'currency') {
+          options.currency = conf.formatting.currency ?? 'USD';
+          options.currencyDisplay = 'narrowSymbol';
+        }
+        if (conf.formatting.style === 'unit') {
+          options.unit = conf.formatting.unit ?? 'day';
+        }
+      }
+      let result: string;
+      try {
+        result = stat.toLocaleString(undefined, options);
+      } catch (e) {
+        error(
+          `Error formatting HUD stat, probably using an invalid config: ${e}`,
+        );
+        console.error(e);
+        result = stat.toLocaleString();
+      }
+      return result;
+    },
+    statPrefix(key: string) {
+      const conf = getHudStatConfig(key);
+      return conf.prefix ?? (conf.suffix ? '' : conf.hideName ? '' : conf.name);
+    },
+    statSuffix(key: string) {
+      const conf = getHudStatConfig(key);
+      return conf.suffix ?? '';
     },
   },
   computed: {

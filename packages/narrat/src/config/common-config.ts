@@ -53,6 +53,23 @@ export const HudStatDataSchema = Type.Object({
   startingValue: Type.Number(),
   maxValue: Type.Optional(Type.Number()),
   minValue: Type.Optional(Type.Number()),
+  decimals: Type.Optional(Type.Number()),
+  prefix: Type.Optional(Type.String()),
+  suffix: Type.Optional(Type.String()),
+  hideName: Type.Optional(Type.Boolean()),
+  // Formatting options, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
+  formatting: Type.Optional(
+    Type.Object({
+      style: Type.Union([
+        Type.Literal('decimal'),
+        Type.Literal('currency'),
+        Type.Literal('percent'),
+        Type.Literal('unit'),
+      ]),
+      currency: Type.Optional(Type.String()),
+      unit: Type.Optional(Type.String()),
+    }),
+  ),
 });
 export type HudStatData = Static<typeof HudStatDataSchema>;
 

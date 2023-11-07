@@ -72,6 +72,10 @@ import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useNavigation } from '@/inputs/useNavigation';
 import { standalonePlayMusic, standaloneStopMusic } from '@/utils/audio-loader';
+import {
+  startNewGame,
+  loadAndStartGame,
+} from '@/application/application-utils';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -103,10 +107,10 @@ const navigation = useNavigation({
 function buttonClicked(button: StartMenuButtonProps) {
   switch (button.id) {
     case 'continue':
-      continueGame();
+      continueGameButton();
       break;
     case 'new-game':
-      startGame();
+      newGameButton();
       break;
     case 'load-game':
       chooseSaveSlot();
@@ -119,7 +123,7 @@ function buttonClicked(button: StartMenuButtonProps) {
       break;
   }
 }
-async function startGame() {
+async function newGameButton() {
   if (hasSave.value && getCommonConfig().saves.mode === 'manual') {
     startingGame.value = true;
   } else {
@@ -128,7 +132,6 @@ async function startGame() {
 }
 
 async function confirmStartGame() {
-  const main = useMain();
   if (saveSlot.value === null) {
     if (getCommonConfig().saves.mode === 'manual') {
       const autosave = findAutoSave();
@@ -147,7 +150,7 @@ async function confirmStartGame() {
     }
   }
   startingGame.value = false;
-  await main.startGame(saveSlot.value!);
+  await startNewGame(saveSlot.value!);
 }
 
 function clickExtraButton(startMenuButton: StartMenuButtonProps) {
@@ -169,7 +172,7 @@ function closePopupComponent() {
 function cancelStartGame() {
   startingGame.value = false;
 }
-async function loadGame() {
+async function loadChosenGame() {
   if (!saveSlot.value!) {
     return;
   }
@@ -178,13 +181,13 @@ async function loadGame() {
     error('No save file found');
     return;
   }
-  useMain().loadGame(save, saveSlot.value);
+  loadAndStartGame(save, saveSlot.value);
 }
 
-function continueGame() {
+function continueGameButton() {
   if (typeof continueSlot.value === 'string') {
     saveSlot.value = continueSlot.value;
-    loadGame();
+    loadChosenGame();
   }
 }
 
@@ -196,9 +199,9 @@ function chosenSave({ slotId }: ChosenSlot) {
   const slot = getSaveSlot(slotId);
   if (slot && slot.saveData) {
     saveSlot.value = slotId;
-    loadGame();
+    loadChosenGame();
   } else {
-    startGame();
+    newGameButton();
   }
 }
 
@@ -221,7 +224,7 @@ onMounted(() => {
       confirmStartGame();
     }
     if (e.key === 'c') {
-      continueGame();
+      continueGameButton();
     }
   });
   nextTick(() => {

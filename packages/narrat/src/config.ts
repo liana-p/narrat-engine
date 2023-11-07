@@ -1,7 +1,7 @@
 import { AppOptions } from './types/app-types';
 import { error, warning } from './utils/error-handling';
 import { useConfig } from './stores/config-store';
-import { Config, defaultConfig } from './config/config-output';
+import { Config, ConfigKey, defaultConfig } from './config/config-output';
 import {
   DEFAULT_DIALOG_WIDTH,
   EMPTY_SCREEN,
@@ -31,6 +31,7 @@ import {
   CommonConfigInputSchema,
   defaultCommonConfig,
   defaultScriptsConfig,
+  HudStatData,
   ScriptsConfigSchema,
 } from './config/common-config';
 import {
@@ -76,6 +77,7 @@ import {
   defaultAnimationsConfig,
 } from './config/animations-config';
 import { isNarratYaml } from './hmr/hmr';
+import { processConfigUpdate } from './config/config-helpers';
 
 let config: Config;
 
@@ -219,19 +221,13 @@ export async function setupConfig(configInput: ConfigInput) {
     }
   }
   config = newConfig;
-  if (configInput.skills && configInput)
-    if (config.common.transitions) {
-      for (const key in config.common.transitions) {
-        if (!transitionSettings[key]) {
-          transitionSettings[key] = config.common.transitions[key];
-        } else {
-          Object.assign(
-            transitionSettings[key],
-            config.common.transitions[key],
-          );
-        }
-      }
-    }
+  for (const key in newConfig) {
+    processConfigUpdate(
+      newConfig,
+      key as ConfigKey,
+      newConfig[key as ConfigKey],
+    );
+  }
   return newConfig;
 }
 
@@ -243,8 +239,9 @@ export async function loadConfig(options: AppOptions) {
     for (const key in config) {
       const value = config[key as keyof typeof config];
       if (isNarratYaml(value)) {
-        useConfig().addConfigModule(key, {
+        useConfig().addConfigModule(key as keyof typeof config, {
           id: value.id,
+          configKey: key as keyof typeof config,
           code: value.code,
         });
         (userConfig as any)[key] = value.code;
@@ -279,6 +276,13 @@ export function getConfig(): Config {
 
 export function getCommonConfig(): CommonConfig {
   return getConfig().common;
+}
+export function getHudStatConfig(stat: string): HudStatData {
+  const value = getCommonConfig().hudStats[stat];
+  if (!value) {
+    error(`Hud stat ${stat} doesn't exist`);
+  }
+  return value;
 }
 export function audioConfig() {
   return getConfig().audio;

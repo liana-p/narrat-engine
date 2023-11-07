@@ -4,7 +4,7 @@ buttons:
     text: 'Shop'
     cssClass: test-class
     position:
-      left: 272
+      left: 400
       top: 142
       width: 200
       height: 50
@@ -16,7 +16,7 @@ buttons:
     enabled: true
     text: 'Test'
     position:
-      left: 400
+      left: 300
       top: 300
       width: 200
       height: 50

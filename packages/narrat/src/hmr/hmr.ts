@@ -1,7 +1,9 @@
+import { processConfigUpdate } from '@/config/config-helpers';
 import { useConfig } from '@/stores/config-store';
 import { useMain } from '@/stores/main-store';
 import { useNotifications } from '@/stores/notification-store';
-import { NarratScript, NarratYaml } from '@/types/app-types';
+import { getAllStores } from '@/stores/stores-management';
+import { NarratModule, NarratScript, NarratYaml } from '@/types/app-types';
 import { vm } from '@/vm/vm';
 import { ModuleNamespace } from 'vite/types/hot';
 
@@ -18,8 +20,8 @@ export function handleHMR(newModule: ModuleNamespace | undefined) {
   if (!isModuleValid(newModule)) {
     return;
   }
-  console.log('Received HMR update for ' + `${newModule.id}`);
-  const scriptModule = newModule.default;
+  console.log('Received HMR update for ', newModule.default.id);
+  const scriptModule = newModule.default as NarratModule;
   if (isNarratScript(scriptModule)) {
     useNotifications().addNotification(
       `Reloaded ${scriptModule.fileName}`,
@@ -28,8 +30,26 @@ export function handleHMR(newModule: ModuleNamespace | undefined) {
     vm.addNarratScript(scriptModule);
   } else if (isNarratYaml(scriptModule)) {
     // Do yaml things!
-    useConfig().reloadConfigModule(scriptModule);
+    const configKey = useConfig().findConfigModuleKey(scriptModule);
+    if (configKey) {
+      const processedValue = processConfigUpdate(
+        useConfig().config,
+        configKey,
+        scriptModule.code,
+      );
+      useConfig().reloadConfigModule(configKey, processedValue);
+      const relevantStore = Object.values(getAllStores()).find((store) => {
+        return store.config === configKey;
+      });
+      if (relevantStore) {
+        if (relevantStore.store().updateConfig) {
+          relevantStore.store().updateConfig(processedValue);
+        }
+      }
+    }
     console.log(`Yaml update ${scriptModule.fileName}}`);
+  } else {
+    console.error('Unknown module type', scriptModule);
   }
 }
 

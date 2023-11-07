@@ -20,9 +20,19 @@ export interface SaveSlot {
   saveData: GameSave | null;
   slotNumber: number;
 }
-export type GameSave = {
-  [key: string]: any;
+
+export type EmptyGameSave = {
+  metadata: SaveSlotMetadata;
   version: string;
+};
+
+export type ExtractedGameSave = {
+  plugins: {
+    [key: string]: any;
+  };
+  customStores: {
+    [key: string]: any;
+  };
   skills: SkillsSave;
   screen: ScreenSave;
   main: MainSaveData;
@@ -32,13 +42,14 @@ export type GameSave = {
   hud: HudSave;
   inventory: InventorySave;
   quests: QuestLogSave;
-  metadata: SaveSlotMetadata;
   screenObjects: ScreenObjectsStoreSave;
   settings: GameUserSettingsSave;
   config: ConfigStoreSave;
   choices: ChoiceTrackingSave;
   rendering: RenderingSaveData;
 };
+
+export type GameSave = EmptyGameSave & ExtractedGameSave;
 
 export type GlobalGameSave = {
   achievements: AchievementsSave;

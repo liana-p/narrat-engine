@@ -1,11 +1,15 @@
 // create a pinia store named achievements with a state containing achievements and actions to add and delete achievements
 
-import { AchievementConfig } from '@/config/achievements-config';
 import { deepCopy } from '@/utils/data-helpers';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { getAchievementConfig, getAchievementsConfig } from '../config';
 import { useNotifications } from './notification-store';
 import { error } from '@/utils/error-handling';
+import {
+  AchievementConfig,
+  AchievementsConfig,
+} from '@/config/achievements-config';
+import { useConfig } from './config-store';
 
 export interface AchievementState {
   id: string;
@@ -22,36 +26,35 @@ export interface AchievementsState {
 
 export type AchievementsSave = AchievementsState;
 
-export interface AchievementsSetupConfig {
-  [key: string]: AchievementConfig;
-}
 export const useAchievements = defineStore('achievements', {
   state: (): AchievementsState => ({
     achievements: {},
   }),
   actions: {
-    generateSaveData(): AchievementsSave {
+    generateGlobalSaveData(): AchievementsSave {
       return {
         achievements: deepCopy(this.achievements),
       };
     },
-    loadSaveData(save: AchievementsSave) {
+    loadGlobalSaveData(save: AchievementsSave) {
       this.achievements = {
         ...this.achievements,
         ...deepCopy(save.achievements),
       };
     },
-    setupAchievements(achievements: AchievementsSetupConfig) {
-      Object.keys(achievements).forEach((key) => {
-        this.achievements[key] = {
-          id: key,
-          unlocked: false,
-        };
+    updateConfig(config: AchievementsConfig) {
+      Object.keys(config.achievements).forEach((key) => {
+        if (!this.achievements[key]) {
+          this.achievements[key] = {
+            id: key,
+            unlocked: false,
+          };
+        }
       });
     },
-    reset(achievements: AchievementsSetupConfig) {
+    reset(config: AchievementsConfig) {
       this.$reset();
-      this.setupAchievements(achievements);
+      this.updateConfig(config);
     },
     hasAchievement(achievementId: string): boolean {
       return this.achievements[achievementId]?.unlocked ?? false;

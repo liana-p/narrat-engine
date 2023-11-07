@@ -56,3 +56,10 @@ export const defaultConfig: Config = {
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;
+export type ConfigKey = keyof Config;
+
+export interface ConfigModule {
+  id: string;
+  configKey: keyof Config;
+  code: Config[keyof Config];
+}

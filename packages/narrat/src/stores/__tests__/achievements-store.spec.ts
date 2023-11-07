@@ -1,17 +1,18 @@
 import { setActivePinia, createPinia } from 'pinia';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import {
-  AchievementsSetupConfig,
-  useAchievements,
-} from '../achievements-store';
+import { useAchievements } from '../achievements-store';
 import { mockConfig } from '@/tests/mock-config';
 import cloneDeep from 'clone-deep';
 import { useConfig } from '@/stores/config-store';
 import { useNotifications } from '../notification-store';
+import {
+  AchievementsConfig,
+  defaultAchievementsConfig,
+} from '@/config/achievements-config';
 
 const unlockTime = new Date(2023, 4, 1);
 
-const mockData: AchievementsSetupConfig = {
+const mockAchievements: AchievementsConfig['achievements'] = {
   normalAchievement: {
     name: 'Normal Achievement',
     description: 'This is a normal achievement',
@@ -23,6 +24,10 @@ const mockData: AchievementsSetupConfig = {
     icon: 'secret',
   },
 };
+const mockData = {
+  ...defaultAchievementsConfig,
+  achievements: mockAchievements,
+};
 
 describe('Achievements Store', () => {
   beforeEach(() => {
@@ -30,7 +35,7 @@ describe('Achievements Store', () => {
     vi.setSystemTime(unlockTime);
     setActivePinia(createPinia());
     const config = cloneDeep(mockConfig);
-    config.achievements.achievements = mockData;
+    config.achievements.achievements = mockAchievements;
     useConfig().setConfig(config);
   });
 
@@ -40,10 +45,10 @@ describe('Achievements Store', () => {
 
   it('generateSaveData: generates the save data', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     const unlockTime = new Date().toISOString();
     achievements.unlock('normalAchievement');
-    expect(achievements.generateSaveData()).toEqual({
+    expect(achievements.generateGlobalSaveData()).toEqual({
       achievements: {
         normalAchievement: {
           id: 'normalAchievement',
@@ -60,11 +65,11 @@ describe('Achievements Store', () => {
 
   it('loadSaveData: loads the save data', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     achievements.unlock('normalAchievement');
-    const saveData = achievements.generateSaveData();
+    const saveData = achievements.generateGlobalSaveData();
     achievements.reset(mockData);
-    achievements.loadSaveData(saveData);
+    achievements.loadGlobalSaveData(saveData);
     expect(achievements.achievements).toEqual({
       normalAchievement: {
         id: 'normalAchievement',
@@ -78,9 +83,9 @@ describe('Achievements Store', () => {
     });
   });
 
-  it('setupAchievements: sets up the achievements when passed for configuration', () => {
+  it('updateConfig: sets up the achievements when passed for configuration', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     expect(achievements.achievements).toEqual({
       normalAchievement: {
         id: 'normalAchievement',
@@ -95,7 +100,7 @@ describe('Achievements Store', () => {
 
   it('reset: resets the achievements when passed for configuration', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     achievements.unlock('normalAchievement');
     achievements.reset(mockData);
     expect(achievements.achievements).toEqual({
@@ -112,20 +117,20 @@ describe('Achievements Store', () => {
 
   it('hasAchievement: returns true if the achievement is unlocked', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     achievements.unlock('normalAchievement');
     expect(achievements.hasAchievement('normalAchievement')).toBe(true);
   });
 
   it('hasAchievement: returns false if the achievement is not unlocked', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     expect(achievements.hasAchievement('normalAchievement')).toBe(false);
   });
 
   it('getExistingAchievement: returns the achievement if it exists', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     expect(achievements.getExistingAchievement('normalAchievement')).toEqual({
       id: 'normalAchievement',
       unlocked: false,
@@ -134,13 +139,13 @@ describe('Achievements Store', () => {
 
   it('unlock: unlocks the achievement', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     achievements.unlock('normalAchievement');
     expect(achievements.hasAchievement('normalAchievement')).toBe(true);
   });
   it('unlock: sends a notification if the option is enabled', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     const config = useConfig().config;
     config.achievements.notifyNewAchievements = true;
     useConfig().setConfig(config);
@@ -151,7 +156,7 @@ describe('Achievements Store', () => {
   });
   it('unlock: does not send a notification if the option is disabled', () => {
     const achievements = useAchievements();
-    achievements.setupAchievements(mockData);
+    achievements.updateConfig(mockData);
     const config = useConfig().config;
     config.achievements.notifyNewAchievements = false;
     useConfig().setConfig(config);

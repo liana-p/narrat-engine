@@ -25,6 +25,7 @@ import { isScreenObject, useScreenObjects } from './screen-objects-store';
 import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 import { NarratScript } from '@/types/app-types';
+import { autoSaveGame } from '@/application/saving';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -88,28 +89,33 @@ export const useVM = defineStore('vm', {
       hasJumped: false,
     }) as VMState,
   actions: {
-    generateSaveData(): { vmSave: VMSave; globalData: DataState } {
+    generateSaveData(): VMSave {
       return {
-        vmSave: {
-          lastLabel: this.lastLabel,
-          data: deepCopyMap(this.data, (value) => {
-            if (isScreenObject(value)) {
-              return {
-                _entityType: value._entityType,
-                id: value.id,
-              };
-            } else {
-              return value;
-            }
-          }),
-        },
-        globalData: deepCopy(this.globalData),
+        lastLabel: this.lastLabel,
+        data: deepCopyMap(this.data, (value) => {
+          if (isScreenObject(value)) {
+            return {
+              _entityType: value._entityType,
+              id: value.id,
+            };
+          } else {
+            return value;
+          }
+        }),
       };
     },
-    loadSaveData(data: VMSave, globalSave: GlobalGameSave) {
+    generateGlobalSaveData(): Pick<GlobalGameSave, 'data'> {
+      return {
+        data: deepCopy(this.globalData),
+      };
+    },
+    loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
       this.data = data.data;
       this.findEntitiesInData(this.data);
+    },
+    loadGlobalSaveData(globalSave: Pick<GlobalGameSave, 'data'>) {
+      this.globalData = globalSave.data;
     },
     findEntitiesInData(data: any) {
       deepEvery(this.data, (value, key, parent) => {
@@ -346,7 +352,7 @@ export const useVM = defineStore('vm', {
         }
         this.hasJumped = true;
         this.setStack(target);
-        await useMain().autoSaveGame({});
+        await autoSaveGame({});
         result = await this.runFrame();
       }
       if (result === STOP_SIGNAL) {

@@ -19,6 +19,15 @@ screens:
       - shopButton
       - tester
       - parkButton
+      - id: testButton
+        enabled: true
+        text: Test
+        position:
+          left: 500
+          top: 300
+          width: 200
+          height: 50
+        action: shopButton
   map_2:
     background: img/backgrounds/map.webp
     buttons:

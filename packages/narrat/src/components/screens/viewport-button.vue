@@ -31,9 +31,10 @@ const state = computed(() => {
   return screensStore.getButtonState(props.id);
 });
 
-const config = getButtonConfig(props.id);
-const buttonImageUrl = config.background
-  ? getImageUrl(config.background)
+const config = computed(() => getButtonConfig(props.id));
+
+const buttonImageUrl = config.value.background
+  ? getImageUrl(config.value.background)
   : null;
 
 const selected = computed(() => {
@@ -52,7 +53,7 @@ const clickable = computed(() => {
 });
 
 const text = computed(() => {
-  const baseText = config.text ?? '';
+  const baseText = config.value.text ?? '';
   return processText(baseText);
 });
 
@@ -62,20 +63,24 @@ const buttonClass = computed(() => {
 
 const buttonStyle = computed(() => {
   const style: CSSProperties = {};
-  if (config.position.width) {
-    style.width = `${config.position.width}px`;
+  if (config.value.position.width) {
+    style.width = `${config.value.position.width}px`;
   }
-  if (config.position.height) {
-    style.height = `${config.position.height}px`;
+  if (config.value.position.height) {
+    style.height = `${config.value.position.height}px`;
   }
-  if (config.background) {
+  if (config.value.background) {
     style.backgroundImage = `url(${buttonImageUrl})`;
   }
-  let left = config.position.left;
-  let top = config.position.top;
-  if (config.anchor) {
-    left = config.position.left - config.position.width! * config.anchor.x;
-    top = config.position.top - config.position.height! * config.anchor.y;
+  let left = config.value.position.left;
+  let top = config.value.position.top;
+  if (config.value.anchor) {
+    left =
+      config.value.position.left -
+      config.value.position.width! * config.value.anchor.x;
+    top =
+      config.value.position.top -
+      config.value.position.height! * config.value.anchor.y;
   }
   return {
     ...style,
