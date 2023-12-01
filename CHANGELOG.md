@@ -1,3 +1,12 @@
+## [3.7.1](https://github.com/liana-p/narrat-engine/compare/v3.7.0...v3.7.1) (2023-12-01)
+
+
+### Bug Fixes
+
+* issue in one of the narrat template games ([843d98d](https://github.com/liana-p/narrat-engine/commit/843d98d519ce53c7483fddbbd55f21994265062e))
+
+
+
 # [3.7.0](https://github.com/liana-p/narrat-engine/compare/v3.6.1...v3.7.0) (2023-11-07)
 
 ### Features
