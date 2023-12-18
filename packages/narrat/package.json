@@ -107,7 +107,7 @@
     "tsc-alias": "^1.6.11",
     "tslib": "^2.4.0",
     "typescript": "^5.1.6",
-    "vite": "^4.4.2",
+    "vite": "^5.0.10",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-inspect": "^0.7.28",
     "vite-plugin-narrat": "workspace:*",
