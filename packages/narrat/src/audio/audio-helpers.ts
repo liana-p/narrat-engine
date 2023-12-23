@@ -1,5 +1,5 @@
 import { audioConfig } from '@/config';
-import { useAudio } from '@/lib';
+import { useAudio } from '@/stores/audio-store';
 import { getAudio } from '@/utils/audio-loader';
 
 export function dialogAudioConfig() {

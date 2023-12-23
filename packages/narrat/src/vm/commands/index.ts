@@ -170,6 +170,7 @@ import {
   objectKeysCommand,
   objectValuesCommand,
 } from './object-commands';
+import { createMacro, createMacroCommand } from '../macros';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -364,4 +365,7 @@ export function registerBaseCommands(vm: VM) {
   // Settings
   vm.addCommand(setSettingPlugin);
   vm.addCommand(getSettingPlugin);
+
+  // Macros
+  vm.addCommand(createMacroCommand);
 }

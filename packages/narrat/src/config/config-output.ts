@@ -20,6 +20,7 @@ import {
 } from './skillchecks-config';
 import { ChoicesConfig, defaultChoicesConfig } from './choices-config';
 import { AnimationsConfig, defaultAnimationsConfig } from './animations-config';
+import { MacrosConfig, defaultMacrosConfig } from './macros-config';
 
 export interface Config {
   common: CommonConfig;
@@ -36,6 +37,7 @@ export interface Config {
   animations: AnimationsConfig;
   tooltips: TooltipsConfig;
   choices: ChoicesConfig;
+  macros: MacrosConfig;
 }
 
 export const defaultConfig: Config = {
@@ -53,6 +55,7 @@ export const defaultConfig: Config = {
   characters: defaultCharactersConfig,
   choices: defaultChoicesConfig,
   animations: defaultAnimationsConfig,
+  macros: defaultMacrosConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

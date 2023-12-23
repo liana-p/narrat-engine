@@ -11,6 +11,7 @@ import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
 import tooltips from './tooltips.yaml';
+import macros from './macros.yaml';
 import { ModuleConfigInput } from '@/config/config-input';
 
 const defaultGameConfigs: ModuleConfigInput = {
@@ -27,5 +28,6 @@ const defaultGameConfigs: ModuleConfigInput = {
   skills,
   skillChecks,
   tooltips,
+  macros,
 };
 export default defaultGameConfigs;

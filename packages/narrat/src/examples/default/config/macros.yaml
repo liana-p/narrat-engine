@@ -1,0 +1,13 @@
+macros:
+  - keyword: t
+    label: lazy_talk
+    options:
+      - name: character
+        type: string
+      - name: text
+        type: string
+  - keyword: p
+    label: lazy_player_talk
+    options:
+      - name: text
+        type: string

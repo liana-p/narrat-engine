@@ -140,6 +140,10 @@ const config = {
             text: 'Known limitations and issues',
             link: '/others/scripting-limitations',
           },
+          {
+            text: 'Macros',
+            link: '/scripting/macros',
+          },
         ],
       },
       {
