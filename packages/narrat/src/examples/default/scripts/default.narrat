@@ -1,5 +1,6 @@
 main:
   add_item book 1
+  jump quest_demo
   hide_hud
   // jump test_menu
   // Note: This script is a dev testing thing and is a mess of random test commands, not meant to make sense

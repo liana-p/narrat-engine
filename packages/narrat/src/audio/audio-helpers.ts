@@ -22,12 +22,19 @@ export function getLetterAudio(speakingCharacter: string, letter: string) {
     return;
   }
   const conf = getDialogAudioConfigForCharacter(speakingCharacter);
-  if (!conf) {
+  if (!conf || !conf.soundPerLetter) {
     return;
   }
-  if (conf.soundPerLetter && conf.soundPerLetter[letter]) {
-    return conf.soundPerLetter[letter];
+  const soundForLetter = conf.soundPerLetter!;
+  let soundToPlay = '';
+  if (soundForLetter.prefix) {
+    soundToPlay += soundForLetter.prefix;
   }
+  soundToPlay += letter;
+  if (soundForLetter.suffix) {
+    soundToPlay += soundForLetter.suffix;
+  }
+  return soundToPlay;
 }
 
 export function playLetterAudio(speakingCharacter: string, baseLetter: string) {
@@ -35,17 +42,9 @@ export function playLetterAudio(speakingCharacter: string, baseLetter: string) {
     return;
   }
   const letter = baseLetter.toLowerCase();
-  const soundForLetter = getLetterAudio(speakingCharacter, letter);
-  if (!soundForLetter) {
+  const soundToPlay = getLetterAudio(speakingCharacter, letter);
+  if (typeof soundToPlay !== 'string') {
     return;
-  }
-  let soundToPlay = '';
-  if (soundForLetter.prefix) {
-    soundToPlay += soundForLetter.prefix;
-  }
-  soundToPlay += baseLetter;
-  if (soundForLetter.suffix) {
-    soundToPlay += soundForLetter.suffix;
   }
   const audio = getAudio(soundToPlay);
   if (audio) {

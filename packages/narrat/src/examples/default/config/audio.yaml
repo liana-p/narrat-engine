@@ -81,8 +81,8 @@ audioTriggers: {}
 
 dialogAudio:
   defaultAudio:
-    soundOnNewLine: click
+    soundPerLetter:
+      prefix: letter-
   characterAudio:
     helper:
-      soundPerLetter:
-        prefix: letter-
+      soundOnNewLine: click
