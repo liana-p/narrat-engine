@@ -138,7 +138,7 @@ onUnmounted(() => {
 
 function clearListeners() {
   if (timeout.value) {
-    clearTimeout(timeout);
+    clearTimeout(timeout.value);
     timeout.value = null;
   }
   removeNavigation();
