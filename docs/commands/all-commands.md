@@ -94,16 +94,16 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Quests
 
-| Command                                          | Example                                                            | Description                                                               |
-| ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| [start_quest](../features/quests.md)             | `start_quest myQuest`                                              | Starts a quest                                                            |
-| [complete_quest](../features/quests.md)          | `complete_quest myQuest`                                           | Completes a quest                                                         |
-| `` [`start_objective`](../features/quests.md) `` | `start_objective myQuest myObjective`                              | Starts an objective in a quest (useful for quests with hidden objectives) |
-| [complete_objective](../features/quests.md)      | `complete_objective myQuest myObjective`                           | Completes an objective                                                    |
-| [quest_completed?](../features/quests.md)        | `quest_completed? myQuest // returns true or false`                | Check if a quest is completed                                             |
-| [objective_completed?](../features/quests.md)    | `objective_completed? myQuest myObjective //returns true or false` | Check if a quest objective is completed                                   |
-| [quest_started?](../features/quests.md)          | `quest_started? myQuest // Returns true or false`                  | Check if a quest is started                                               |
-| [objective_started?](../features/quests.md)      | `objective_started? myQuest myObjective // Returns true or false`  | Check if a quest objective is started                                     |
+| Command                                        | Example                                                            | Description                                                               |
+| ---------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| [start_quest](../features/quests.md)           | `start_quest myQuest`                                              | Starts a quest                                                            |
+| [complete_quest](../features/quests.md)        | `complete_quest myQuest`                                           | Completes a quest                                                         |
+| ``[`start_objective`](../features/quests.md)`` | `start_objective myQuest myObjective`                              | Starts an objective in a quest (useful for quests with hidden objectives) |
+| [complete_objective](../features/quests.md)    | `complete_objective myQuest myObjective`                           | Completes an objective                                                    |
+| [quest_completed?](../features/quests.md)      | `quest_completed? myQuest // returns true or false`                | Check if a quest is completed                                             |
+| [objective_completed?](../features/quests.md)  | `objective_completed? myQuest myObjective //returns true or false` | Check if a quest objective is completed                                   |
+| [quest_started?](../features/quests.md)        | `quest_started? myQuest // Returns true or false`                  | Check if a quest is started                                               |
+| [objective_started?](../features/quests.md)    | `objective_started? myQuest myObjective // Returns true or false`  | Check if a quest objective is started                                     |
 
 ## Random
 
@@ -151,6 +151,8 @@ This page lists all available narrat commands as well as usage examples.
 | [add_stat](/commands/stats/add-stat.md)             | `add_stat myStat 10`    | Adds a value to a stat   |
 | [set_stat](/commands/stats/set-stat.md)             | `set_stat myStat 10`    | Sets a stat to a value   |
 | [get_stat_value](/commands/stats/get-stat-value.md) | `get_stat_value myStat` | Gets the value of a stat |
+| show_hud                                            | `show_hud`              | Shows the HUD            |
+| hide_hud                                            | `hide_hud`              | Hides the HUD            |
 
 ## Arrays
 

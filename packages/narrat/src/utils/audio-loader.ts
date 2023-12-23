@@ -55,7 +55,7 @@ export async function loadAudio(
   config: AudioFileConfig,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    logger.log(`Loading audio ${config.src}`);
+    // logger.log(`Loading audio ${config.src}`);
     const sound = new Howl({
       ...config,
       src: getAssetUrl(config.src!),

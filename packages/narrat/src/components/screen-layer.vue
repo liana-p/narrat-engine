@@ -116,11 +116,9 @@ const containerStyle = computed<CSSProperties>(() => {
   };
 });
 const backgroundStyle = computed<CSSProperties>(() => {
-  let backgroundImage: string | undefined = `url(${getImageUrl(
-    screenConfig.value.background,
-  )})`;
-  if (screenConfig.value.background === EMPTY_SCREEN) {
-    backgroundImage = undefined;
+  let backgroundImage: string | undefined;
+  if (screenConfig.value.background !== EMPTY_SCREEN) {
+    backgroundImage = `url(${getImageUrl(screenConfig.value.background)})`;
   }
   return {
     backgroundImage,

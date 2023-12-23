@@ -78,6 +78,7 @@ import { findAllHtmlTags, stringTemplater } from './utils/string-helpers';
 import { useNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
+import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
 
 export interface TextAnimation {
   text: string;
@@ -137,7 +138,7 @@ onUnmounted(() => {
 
 function clearListeners() {
   if (timeout.value) {
-    clearTimeout(timeout);
+    clearTimeout(timeout.value);
     timeout.value = null;
   }
   removeNavigation();
@@ -311,6 +312,8 @@ function cleanUpTextFieldListener() {
 function addTextSection(start: number, end: number) {
   const text = props.options.text.substring(start, end);
   textAnimation.value!.text += text;
+  const newLetter = text.substring(0, 1);
+  playLetterAudio(props.options.styleId, newLetter);
   return end;
 }
 
@@ -327,28 +330,31 @@ function startTextAnimation() {
   }
   if (useDialogStore().playMode === 'skip') {
     startSkip();
-  } else if (getCommonConfig().dialogPanel.animateText) {
-    textAnimation.value = {
-      text: '',
-      index: 0,
-      startTime: Date.now(),
-      timer: null,
-      skippedChars: 0,
-      tags: findAllHtmlTags(props.options.text),
-      finished: false,
-    };
-    const anim = textAnimation.value;
-    anim.timer = setInterval(() => {
-      updateTextAnimation();
-    }, 30);
-  } else if (isBasicChoice.value) {
-    autoTimer.value = setTimeout(
-      () => {
-        endTextAnimation();
-      },
-      (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
-        props.options.text.length,
-    );
+  } else {
+    playDialogLineAudio(props.options.styleId);
+    if (getCommonConfig().dialogPanel.animateText) {
+      textAnimation.value = {
+        text: '',
+        index: 0,
+        startTime: Date.now(),
+        timer: null,
+        skippedChars: 0,
+        tags: findAllHtmlTags(props.options.text),
+        finished: false,
+      };
+      const anim = textAnimation.value;
+      anim.timer = setInterval(() => {
+        updateTextAnimation();
+      }, 30);
+    } else if (isBasicChoice.value) {
+      autoTimer.value = setTimeout(
+        () => {
+          endTextAnimation();
+        },
+        (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
+          props.options.text.length,
+      );
+    }
   }
 }
 

@@ -154,3 +154,118 @@ The volume a specific audio file is playing at is calculated by multiplying the 
 So for example:
 
 If I set master volume to 1, and music volume has been set to 0.5, and a specific sound effect has its volume set at 0.5, then the sound effect will play at 0.25 volume.
+
+## Characters speak audio
+
+Narrat can play sounds when characters speak. There are two possible ways:
+
+- Playing a specific sound when a new line of dialogue starts
+- Playing a sound fo each letter when text is animating
+
+Those sounds can be setup for all characters, and/or customised per character.
+
+In `audio.yaml`, the `dialogAudio` contains the options for this. For example:
+
+```yaml
+dialogAudio:
+  defaultAudio:
+    soundOnNewLine: click
+  characterAudio:
+    helper:
+      soundPerLetter:
+        prefix: letter-
+```
+
+`defaultAudio` [optional]: Contains the default dialogAudio options to apply for all characters.
+
+- `characterAudio` [optional]: Same options as `defaultAudio`, but for a specific character. If a character has a `characterAudio` defined, it will override the `defaultAudio` options when that character speaks.
+
+The options inside a dialog audio config are as follows:
+
+- `soundOnNewLine` [optional]: The name of a sound to play when a new line of dialogue starts. If not specified, no sound will play.
+- `soundPerLetter` [optional]: Configuration to play different sounds for each letter as the dialog animates, animal crossing style.
+
+the `soundPerLetter` option serves to create a sound name based on the letter appearing on screen. It takes an optional prefix and/or suffix and adds them to the letter about to be printed. For example, if the config is as follows:
+
+```yaml
+dialogAudio:
+  defaultAudio:
+    soundPerLetter:
+      prefix: letter-
+      suffix: -sound
+```
+
+If a character is speaking and the letter "c" is about to appear on screen, then the game will try to play the audio named `"letter-c-sound"`.
+
+The letter sounds need to be defined as normal sounds in the audio config file. For example:
+
+```yaml
+files:
+  letter-a:
+    src: audio/letter-1.wav
+  letter-b:
+    src: audio/letter-2.wav
+  letter-c:
+    src: audio/letter-3.wav
+  letter-d:
+    src: audio/letter-4.wav
+  letter-e:
+    src: audio/letter-5.wav
+  letter-f:
+    src: audio/letter-6.wav
+  letter-g:
+    src: audio/letter-7.wav
+  letter-h:
+    src: audio/letter-1.wav
+  letter-i:
+    src: audio/letter-2.wav
+  letter-j:
+    src: audio/letter-3.wav
+  letter-k:
+    src: audio/letter-4.wav
+  letter-l:
+    src: audio/letter-5.wav
+  letter-m:
+    src: audio/letter-6.wav
+  letter-n:
+    src: audio/letter-7.wav
+  letter-o:
+    src: audio/letter-1.wav
+  letter-p:
+    src: audio/letter-2.wav
+  letter-q:
+    src: audio/letter-3.wav
+  letter-r:
+    src: audio/letter-4.wav
+  letter-s:
+    src: audio/letter-5.wav
+  letter-t:
+    src: audio/letter-6.wav
+  letter-u:
+    src: audio/letter-7.wav
+  letter-v:
+    src: audio/letter-1.wav
+  letter-w:
+    src: audio/letter-2.wav
+  letter-x:
+    src: audio/letter-3.wav
+  letter-y:
+    src: audio/letter-4.wav
+  letter-z:
+    src: audio/letter-5.wav
+
+options:
+  volume: 0.5
+  musicFadeInTime: 0.5
+  musicFadeInDelay: 0.5
+  musicFadeOutTime: 0.5
+
+audioTriggers: {}
+
+dialogAudio:
+  defaultAudio:
+    soundPerLetter:
+      prefix: letter-
+```
+
+The letter sounds used in narrat for testing this feature can be found in the [examples asset folder](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/assets/audio) and have been generated with [jsfxr](https://sfxr.me/). Feel free to use them in your own games or as placeholders.

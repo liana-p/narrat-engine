@@ -59,3 +59,13 @@ export const getStatPlugin = new CommandPlugin<{
   const hud = useHud();
   return hud.getStatValue(statKey);
 });
+
+export const showHud = new CommandPlugin<{}>('show_hud', [], async (cmd) => {
+  const hud = useHud();
+  hud.setVisibility(true);
+});
+
+export const hideHud = new CommandPlugin<{}>('hide_hud', [], async (cmd) => {
+  const hud = useHud();
+  hud.setVisibility(false);
+});

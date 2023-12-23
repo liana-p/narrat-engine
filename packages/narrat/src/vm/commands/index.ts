@@ -9,7 +9,13 @@ import {
   rollPlugin,
   setLevelPlugin,
 } from './skill-commands';
-import { addStatPlugin, getStatPlugin, setStatPlugin } from './stats-commands';
+import {
+  addStatPlugin,
+  getStatPlugin,
+  hideHud,
+  setStatPlugin,
+  showHud,
+} from './stats-commands';
 import {
   defineVariablePlugin,
   jumpCommand,
@@ -176,6 +182,8 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(addStatPlugin);
   vm.addCommand(setStatPlugin);
   vm.addCommand(getStatPlugin);
+  vm.addCommand(showHud);
+  vm.addCommand(hideHud);
 
   vm.addCommand(clearDialogPlugin);
 

@@ -13,6 +13,7 @@ export interface HudStat {
 }
 export interface HudState {
   hudStats: HudStatsState;
+  visible: boolean;
 }
 export type HudSave = HudState;
 
@@ -20,6 +21,7 @@ export const useHud = defineStore('hud', {
   state: () =>
     ({
       hudStats: {},
+      visible: true,
     }) as HudState,
   actions: {
     updateConfig(common: CommonConfig) {
@@ -58,10 +60,15 @@ export const useHud = defineStore('hud', {
     generateSaveData(): HudSave {
       return {
         hudStats: deepCopy(this.hudStats),
+        visible: this.visible,
       };
     },
     loadSaveData(data: HudSave) {
       this.hudStats = deepmerge(this.hudStats, data.hudStats);
+      this.visible = data.visible;
+    },
+    setVisibility(visible: boolean) {
+      this.visible = visible;
     },
   },
 });
