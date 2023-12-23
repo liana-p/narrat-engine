@@ -1,3 +1,12 @@
+## [3.8.3](https://github.com/liana-p/narrat-engine/compare/v3.8.2...v3.8.3) (2023-12-23)
+
+
+### Features
+
+* feature to disable saves ([#199](https://github.com/liana-p/narrat-engine/issues/199)) ([12ce422](https://github.com/liana-p/narrat-engine/commit/12ce4223bbf600d9feb2a3eafedcf48a269d2f12))
+
+
+
 ## [3.8.2](https://github.com/liana-p/narrat-engine/compare/v3.8.1...v3.8.2) (2023-12-23)
 
 ### Features
