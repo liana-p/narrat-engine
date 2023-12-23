@@ -123,3 +123,14 @@ The only viable solution for saving without risk of game updates breaking past s
 This means some dialogue will be replayed when a user reloads if they were halfway through a label, but it's only because the save was made at a point in time.
 
 :::
+
+## Disabling saves
+
+```yaml
+saves:
+  disabled: true
+```
+
+Setting the `disabled` option to true in the saves config will remove the continue/load button, and remove the warning about erasing save slots when clicking on new game.
+
+The game will still be saving in the background, but the player won't be able to load the save.

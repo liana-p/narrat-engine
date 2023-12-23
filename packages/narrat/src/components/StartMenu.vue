@@ -124,7 +124,11 @@ function buttonClicked(button: StartMenuButtonProps) {
   }
 }
 async function newGameButton() {
-  if (hasSave.value && getCommonConfig().saves.mode === 'manual') {
+  if (
+    hasSave.value &&
+    getCommonConfig().saves.mode === 'manual' &&
+    !getCommonConfig().saves.disabled
+  ) {
     startingGame.value = true;
   } else {
     confirmStartGame();
@@ -236,7 +240,8 @@ onMounted(() => {
 });
 
 function setupButtons() {
-  if (continueSlot.value) {
+  const savesDisabled = getCommonConfig().saves.disabled;
+  if (continueSlot.value && !savesDisabled) {
     buttons.value.push(
       extendButtonWithConfig({
         id: 'continue',
@@ -254,7 +259,7 @@ function setupButtons() {
       }),
     );
   }
-  if (hasSave.value) {
+  if (hasSave.value && !savesDisabled) {
     buttons.value.push(
       extendButtonWithConfig({
         id: 'load-game',

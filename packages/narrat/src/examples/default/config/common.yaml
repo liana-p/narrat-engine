@@ -47,6 +47,8 @@ saves:
   mode: manual
   slots: 10
   runOnReload: 'test_label_reload'
+  # disabled: true
+
 hudStats:
   money:
     icon: img/ui/money.webp
