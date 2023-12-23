@@ -27,6 +27,7 @@ import { NarratYaml } from '@/types/app-types';
 import { ChoicesInputConfigSchema } from './choices-config';
 import { AnimationsConfigSchema } from './animations-config';
 import { AchievementsInputConfigSchema } from './achievements-config';
+import { MacrosConfigSchema } from './macros-config';
 
 export const BaseConfigInputSchema = Type.Object({
   screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
@@ -48,6 +49,7 @@ export const BaseConfigInputSchema = Type.Object({
   animations: Type.Optional(
     Type.Union([Type.String(), AnimationsConfigSchema]),
   ),
+  macros: Type.Optional(MacrosConfigSchema),
 });
 
 export const ConfigInputSchemaWithCommon = Type.Intersect([

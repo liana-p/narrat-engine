@@ -7,6 +7,7 @@ import choiceTracking from './choice-tracking.narrat';
 import tooltips from './tooltips.narrat';
 import dialogPanel from './dialog_panel.narrat';
 import animations from './animations.narrat';
+import macros from './test_macros.narrat';
 
 export default [
   game,
@@ -18,4 +19,5 @@ export default [
   tooltips,
   dialogPanel,
   animations,
+  macros,
 ];

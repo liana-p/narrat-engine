@@ -78,6 +78,12 @@ import {
 } from './config/animations-config';
 import { isNarratYaml } from './hmr/hmr';
 import { processConfigUpdate } from './config/config-helpers';
+import {
+  MacrosConfigSchema,
+  defaultMacrosConfig,
+} from './config/macros-config';
+import { createMacro } from './vm/macros';
+import { ArgTypes } from './vm/commands/command-plugin';
 
 let config: Config;
 
@@ -98,6 +104,7 @@ const splitConfigs = [
   ['characters', CharactersFilesConfigSchema, defaultCharactersConfig],
   ['choices', ChoicesInputConfigSchema, defaultChoicesConfig],
   ['animations', AnimationsConfigSchema, defaultAnimationsConfig],
+  ['macros', MacrosConfigSchema, defaultMacrosConfig],
 ] as const;
 
 const extendedConfigs = [
@@ -227,6 +234,10 @@ export async function setupConfig(configInput: ConfigInput) {
       key as ConfigKey,
       newConfig[key as ConfigKey],
     );
+  }
+  for (const macro of newConfig.macros.macros) {
+    const macroOptions = (macro.options ?? []) as ArgTypes;
+    createMacro(macro.keyword, macroOptions, macro.label);
   }
   return newConfig;
 }

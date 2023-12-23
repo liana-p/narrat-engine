@@ -1,0 +1,9 @@
+lazy_talk character text:
+  talk $character idle $text
+
+lazy_player_talk text:
+  talk player idle $text
+
+test_macros:
+  t helper "Hi!"
+  p "hello"
