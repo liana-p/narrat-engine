@@ -1,5 +1,24 @@
 import { Type, Static } from '@sinclair/typebox';
 
+export const SoundPerLetterConfigSchema = Type.Object({
+  prefix: Type.Optional(Type.String()),
+  suffix: Type.Optional(Type.String()),
+});
+
+export const DialogAudioOptionsSchema = Type.Object({
+  soundOnNewLine: Type.Optional(Type.String()),
+  soundPerLetter: Type.Optional(SoundPerLetterConfigSchema),
+});
+export type DialogAudioOptions = Static<typeof DialogAudioOptionsSchema>;
+
+export const DialogAudioConfigSchema = Type.Object({
+  defaultAudio: Type.Optional(DialogAudioOptionsSchema),
+  characterAudio: Type.Optional(
+    Type.Record(Type.String(), DialogAudioOptionsSchema),
+  ),
+});
+export type DialogAudioConfig = Static<typeof DialogAudioConfigSchema>;
+
 export const AudioFileConfigSchema = Type.Object({
   src: Type.String(),
   path: Type.Optional(Type.String()),
@@ -35,7 +54,9 @@ export const AudioInputConfigSchema = Type.Object({
   files: AudioRecordConfigSchema,
   audioTriggers: AudioTriggersSchema,
   options: AudioOptionsSchema,
+  dialogAudio: Type.Optional(DialogAudioConfigSchema),
 });
+
 export type AudioInputConfig = Static<typeof AudioInputConfigSchema>;
 
 export interface AudioConfig {
@@ -48,6 +69,7 @@ export interface AudioConfig {
     musicFadeOutTime: number;
     musicFadeInDelay: number;
   };
+  dialogAudio?: DialogAudioConfig;
 }
 
 export const defaultAudioConfig: AudioConfig = {

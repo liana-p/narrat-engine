@@ -17,6 +17,59 @@ files:
     src: audio/failure.ogg
   success:
     src: audio/success.wav
+  letter-a:
+    src: audio/letter-1.wav
+  letter-b:
+    src: audio/letter-2.wav
+  letter-c:
+    src: audio/letter-3.wav
+  letter-d:
+    src: audio/letter-4.wav
+  letter-e:
+    src: audio/letter-5.wav
+  letter-f:
+    src: audio/letter-6.wav
+  letter-g:
+    src: audio/letter-7.wav
+  letter-h:
+    src: audio/letter-1.wav
+  letter-i:
+    src: audio/letter-2.wav
+  letter-j:
+    src: audio/letter-3.wav
+  letter-k:
+    src: audio/letter-4.wav
+  letter-l:
+    src: audio/letter-5.wav
+  letter-m:
+    src: audio/letter-6.wav
+  letter-n:
+    src: audio/letter-7.wav
+  letter-o:
+    src: audio/letter-1.wav
+  letter-p:
+    src: audio/letter-2.wav
+  letter-q:
+    src: audio/letter-3.wav
+  letter-r:
+    src: audio/letter-4.wav
+  letter-s:
+    src: audio/letter-5.wav
+  letter-t:
+    src: audio/letter-6.wav
+  letter-u:
+    src: audio/letter-7.wav
+  letter-v:
+    src: audio/letter-1.wav
+  letter-w:
+    src: audio/letter-2.wav
+  letter-x:
+    src: audio/letter-3.wav
+  letter-y:
+    src: audio/letter-4.wav
+  letter-z:
+    src: audio/letter-5.wav
+
 options:
   defaultMusic: calm
   volume: 0.5
@@ -25,3 +78,11 @@ options:
   musicFadeOutTime: 0.5
 
 audioTriggers: {}
+
+dialogAudio:
+  defaultAudio:
+    soundOnNewLine: click
+  characterAudio:
+    helper:
+      soundPerLetter:
+        prefix: letter-

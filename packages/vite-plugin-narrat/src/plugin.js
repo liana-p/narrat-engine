@@ -14,7 +14,6 @@ function transformNarratYaml(src, id) {
     code: `const data = ${toSource(yamlData)};
 
     if (import.meta.hot) {
-      console.log('Accepting HMR update to ' + '${id}');
       import.meta.hot.accept(window.narratHMRHandler);
     }
     export default {
@@ -35,7 +34,6 @@ function transformNarratScript(src, id) {
 const narratCode = ${JSON.stringify(src)};
 
 if (import.meta.hot) {
-  console.log('Accepting HMR update to ' + '${id}');
   import.meta.hot.accept(window.narratHMRHandler);
 }
 export default {
