@@ -1,3 +1,9 @@
+## [3.8.2](https://github.com/liana-p/narrat-engine/compare/v3.8.1...v3.8.2) (2023-12-23)
+
+### Features
+
+- macros ([#198](https://github.com/liana-p/narrat-engine/issues/198)) ([8f026ae](https://github.com/liana-p/narrat-engine/commit/8f026aec87edebf166ce48ea5277f73e803ee0bb)) (See [docs](https://docs.narrat.dev/scripting/macros.html))
+
 ## [3.8.1](https://github.com/liana-p/narrat-engine/compare/v3.8.0...v3.8.1) (2023-12-23)
 
 - Small tweak to be able to control the volume of letter sounds in one place
