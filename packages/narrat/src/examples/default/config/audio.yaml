@@ -71,7 +71,7 @@ files:
     src: audio/letter-5.wav
 
 options:
-  defaultMusic: calm
+  # defaultMusic: calm
   volume: 0.5
   musicFadeInTime: 0.5
   musicFadeInDelay: 0.5
@@ -83,6 +83,7 @@ dialogAudio:
   defaultAudio:
     soundPerLetter:
       prefix: letter-
+      volume: 0.2
   characterAudio:
     helper:
       soundOnNewLine: click

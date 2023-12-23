@@ -3,6 +3,7 @@ import { Type, Static } from '@sinclair/typebox';
 export const SoundPerLetterConfigSchema = Type.Object({
   prefix: Type.Optional(Type.String()),
   suffix: Type.Optional(Type.String()),
+  volume: Type.Optional(Type.Number()),
 });
 
 export const DialogAudioOptionsSchema = Type.Object({

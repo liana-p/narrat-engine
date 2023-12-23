@@ -193,9 +193,10 @@ dialogAudio:
     soundPerLetter:
       prefix: letter-
       suffix: -sound
+      volume: 0.5
 ```
 
-If a character is speaking and the letter "c" is about to appear on screen, then the game will try to play the audio named `"letter-c-sound"`.
+If a character is speaking and the letter "c" is about to appear on screen, then the game will try to play the audio named `"letter-c-sound"`, with the volume multiplied by 0.5.
 
 The letter sounds need to be defined as normal sounds in the audio config file. For example:
 
