@@ -1,21 +1,19 @@
-# [3.8.0](https://github.com/liana-p/narrat-engine/compare/v3.7.1...v3.8.0) (2023-12-23)
+## [3.8.1](https://github.com/liana-p/narrat-engine/compare/v3.8.0...v3.8.1) (2023-12-23)
 
+- Small tweak to be able to control the volume of letter sounds in one place
+
+# [3.8.0](https://github.com/liana-p/narrat-engine/compare/v3.7.1...v3.8.0) (2023-12-23)
 
 ### Features
 
-* character dialogue audio ([#197](https://github.com/liana-p/narrat-engine/issues/197)) ([d755e4b](https://github.com/liana-p/narrat-engine/commit/d755e4be0f5e767b7d9ad4332e71ca48a64c1611)). See [docs](https://docs.narrat.dev/features/audio.html#characters-speak-audio)
-* [show/hide hud](https://docs.narrat.dev/commands/all-commands.html#stats)
-
-
+- character dialogue audio ([#197](https://github.com/liana-p/narrat-engine/issues/197)) ([d755e4b](https://github.com/liana-p/narrat-engine/commit/d755e4be0f5e767b7d9ad4332e71ca48a64c1611)). See [docs](https://docs.narrat.dev/features/audio.html#characters-speak-audio)
+- [show/hide hud](https://docs.narrat.dev/commands/all-commands.html#stats)
 
 ## [3.7.1](https://github.com/liana-p/narrat-engine/compare/v3.7.0...v3.7.1) (2023-12-01)
 
-
 ### Bug Fixes
 
-* issue in one of the narrat template games ([843d98d](https://github.com/liana-p/narrat-engine/commit/843d98d519ce53c7483fddbbd55f21994265062e))
-
-
+- issue in one of the narrat template games ([843d98d](https://github.com/liana-p/narrat-engine/commit/843d98d519ce53c7483fddbbd55f21994265062e))
 
 # [3.7.0](https://github.com/liana-p/narrat-engine/compare/v3.6.1...v3.7.0) (2023-11-07)
 
