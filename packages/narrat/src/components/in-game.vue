@@ -129,6 +129,9 @@ onUnmounted(() => {
 });
 
 const hasHud = computed(() => {
+  if (useHud().visible === false) {
+    return false;
+  }
   if (Object.keys(useHud().hudStats).length > 0) {
     return true;
   }
