@@ -1,4 +1,5 @@
 <template>
+  <AutoPlayFeedback />
   <transition name="fade">
     <DialogPicture
       :picture="picture"
@@ -13,7 +14,7 @@
       class="dialog override"
       ref="dialogRef"
       :style="dialogStyle"
-      v-if="inGame && rendering.showDialog"
+      v-if="rendering.showDialog"
     >
       <transition-group
         name="list"
@@ -67,18 +68,16 @@ import { useRenderingStore } from '@/stores/rendering-store';
 import { useMain } from '@/stores/main-store';
 import { defaultConfig } from '@/config/config-output';
 import { inputEvents } from '../utils/InputsListener';
-import { InputListener } from '@/stores/inputs-store';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 import {
   ImageCharacterPose,
   VideoCharacterPose,
 } from '@/config/characters-config';
 import { Timeout } from '@/utils/time-helpers';
+import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 
-const props = defineProps<{
-  layoutMode: 'horizontal' | 'vertical';
-  inGame: boolean;
-  inputListener: InputListener;
-}>();
+const layoutMode = computed(() => useRenderingStore().layoutMode);
+const inputListener = computed(() => useInputs().inGameInputListener);
 const inDialogue = ref(useMain().inScript);
 const dialogueEndTimer = ref<null | Timeout>(null);
 const rendering = useRenderingStore();
@@ -188,18 +187,21 @@ watch(inScript, (val) => {
   }
 });
 onMounted(() => {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.inputListener.actions.autoPlay = {
-    press: () => {
-      useDialogStore().toggleAutoPlay();
-    },
-  };
-  // eslint-disable-next-line vue/no-mutating-props
-  props.inputListener.actions.skip = {
-    press: () => {
-      useDialogStore().toggleSkip();
-    },
-  };
+  if (inputListener.value) {
+    const listener = inputListener.value;
+    // eslint-disable-next-line vue/no-mutating-props
+    listener.actions.autoPlay = {
+      press: () => {
+        useDialogStore().toggleAutoPlay();
+      },
+    };
+    // eslint-disable-next-line vue/no-mutating-props
+    listener.actions.skip = {
+      press: () => {
+        useDialogStore().toggleSkip();
+      },
+    };
+  }
   const keyboardListener = (e: KeyboardEvent) => {
     if (lastDialogBox.value && lastDialogBox.value.keyboardEvent) {
       lastDialogBox.value.keyboardEvent(e);
@@ -208,10 +210,10 @@ onMounted(() => {
   keyboardListener.value = inputEvents.on('debouncedKeydown', keyboardListener);
 });
 onUnmounted(() => {
-  if (props.inputListener) {
+  if (inputListener.value) {
     /* eslint-disable vue/no-mutating-props */
-    delete props.inputListener.actions.autoPlay;
-    delete props.inputListener.actions.skip;
+    delete inputListener.value.actions.autoPlay;
+    delete inputListener.value.actions.skip;
     /* eslint-enable vue/no-mutating-props */
   }
   if (keyboardListener.value) {
@@ -240,7 +242,7 @@ const dialogStyle = computed((): any => {
   return {
     ...css,
     width:
-      props.layoutMode === 'horizontal' ? `${dialogWidth.value}px` : '100%',
+      layoutMode.value === 'horizontal' ? `${dialogWidth.value}px` : '100%',
     height,
     transform,
     transformOrigin: 'right',

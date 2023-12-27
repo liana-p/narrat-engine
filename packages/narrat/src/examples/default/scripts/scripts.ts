@@ -8,6 +8,7 @@ import tooltips from './tooltips.narrat';
 import dialogPanel from './dialog_panel.narrat';
 import animations from './animations.narrat';
 import macros from './test_macros.narrat';
+import scenes from './test_scenes.narrat';
 
 export default [
   game,
@@ -20,4 +21,5 @@ export default [
   dialogPanel,
   animations,
   macros,
+  scenes,
 ];

@@ -29,6 +29,7 @@ import { ModuleNamespace } from 'vite/types/hot';
 import { constructNarratObject } from './utils/construct-narrat';
 import { useRenderingStore } from './stores/rendering-store';
 import cloneDeep from 'clone-deep';
+import { setupScenes } from './stores/stores-management';
 let app: any;
 
 vm.callHook('onPageLoaded');
@@ -44,6 +45,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
     options,
   });
   app.use(pinia);
+  setupScenes();
   useMain().setOptions(options);
   addDirectives(app);
   const config = await loadConfig(options);

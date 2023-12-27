@@ -126,12 +126,13 @@ export function generateParser<Options, StaticOptions = {}>(
   let expectedArgCount: number[] = [];
   if (argTypes !== 'any') {
     expectedArgCount = [];
+    let hasRest = false;
     const optionalArgs = argTypes.reduce((total, argType) => {
+      if (argType.type === 'rest') {
+        hasRest = true;
+      }
       if (argType.optional) {
         total++;
-      }
-      if (argType.type === 'rest') {
-        total = Infinity;
       }
       return total;
     }, 0);
@@ -141,6 +142,9 @@ export function generateParser<Options, StaticOptions = {}>(
       expectedArgCount.push(argTypes.length);
     }
     expectedArgCount.push(argTypes.length);
+    if (hasRest) {
+      expectedArgCount[1] = Infinity;
+    }
   }
   return (
     ctx: CommandParsingContext,
@@ -172,14 +176,19 @@ export function generateParser<Options, StaticOptions = {}>(
     parsed.command.commandType = keyword;
     // todo: check types of args
     if (argTypes !== 'any') {
+      let reachedRest = false;
       parsed.command.args.forEach((arg, index) => {
+        if (reachedRest) return;
         const argType = argTypes[index];
+        if (argType.type === 'rest') {
+          reachedRest = true;
+          return;
+        }
         if (!isExpression(arg) && !isVariable(arg)) {
           // Only run this if the arg isn't an expression, as expressions aren't currently typed
           // eslint-disable-next-line valid-typeof
           const isValid =
             argType.type === 'any' ||
-            argType.type === 'rest' ||
             // eslint-disable-next-line valid-typeof
             typeof arg === argType.type;
           if (!isValid) {

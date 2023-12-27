@@ -9,11 +9,20 @@ import { error } from '@/utils/error-handling';
 import { ExtractedGameSave, GlobalGameSave } from '@/types/game-save';
 import { ExtractedSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
+import { defaultScenes } from '@/scenes/default-scenes';
+import { useScenes } from './scenes-store';
 
 let allStores: { [key: string]: StoreInfo } = {};
 
 export function setupAllStores(stores: any) {
   allStores = stores;
+}
+
+export function setupScenes() {
+  defaultScenes['engine-splash'].onFinished = () => {
+    useScenes().onEngineSplashFinished();
+  };
+  useScenes().scenes = defaultScenes;
 }
 
 export function getAllStores() {

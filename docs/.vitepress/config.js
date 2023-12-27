@@ -116,6 +116,7 @@ const config = {
           { text: 'Items', link: '/features/items' },
           { text: 'Quests', link: '/features/quests' },
           { text: 'Save and Load', link: '/features/save-and-load' },
+          { text: 'Scenes', link: '/features/scenes' },
           { text: 'Skills', link: '/features/skills' },
           {
             text: 'Sprites and text',

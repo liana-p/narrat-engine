@@ -59,14 +59,12 @@ import { useMain } from '../stores/main-store';
 import { useScreens } from '@/stores/screens-store';
 import Layer from './screen-layer.vue';
 import NarratTransition from './transitions/NarratTransition.vue';
-import { InputListener } from '@/stores/inputs-store';
+import { useInputs } from '@/stores/inputs-store';
 import { clamp } from '@/utils/math-utils';
 import { useScreenObjects } from '@/stores/screen-objects-store';
 import { InteractiveScreenElement } from './screens/screen-types';
 
-const props = defineProps<{
-  inputListener: InputListener | null;
-}>();
+const inputsListener = computed(() => useInputs().inGameInputListener);
 
 const main = useMain();
 const screensStore = useScreens();
@@ -145,8 +143,8 @@ const viewportStyle = computed<CSSProperties>(() => {
 
 onMounted(() => {
   nextTick(() => {
-    if (props.inputListener) {
-      const actions = props.inputListener.actions;
+    if (inputsListener.value) {
+      const actions = inputsListener.value.actions;
       actions.previousTab = {
         press: () => {
           if (interactiveIndex.value > 0) {
@@ -195,13 +193,14 @@ onMounted(() => {
   });
 });
 onUnmounted(() => {
-  if (props.inputListener) {
+  if (inputsListener.value) {
+    const listener = inputsListener.value;
     /* eslint-disable vue/no-mutating-props */
-    delete props.inputListener.actions.previousTab;
-    delete props.inputListener.actions.left;
+    delete listener.actions.previousTab;
+    delete listener.actions.left;
 
-    delete props.inputListener.actions.nextTab;
-    delete props.inputListener.actions.right;
+    delete listener.actions.nextTab;
+    delete listener.actions.right;
     /* eslint-enable vue/no-mutating-props */
   }
 });

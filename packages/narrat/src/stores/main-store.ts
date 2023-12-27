@@ -7,6 +7,7 @@ import { playerAnswered } from '@/vm/vm';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useInventory } from './inventory-store';
 import { TypedEmitter } from '@/utils/typed-emitter';
+import { useScenes } from './scenes-store';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -39,7 +40,6 @@ export interface MainState {
   };
   saveSlot: string;
   options: AppOptions;
-  flowState: 'engine-splash' | 'game-splash' | 'menu' | 'playing';
   paused: boolean;
   loading: {
     step: string;
@@ -81,7 +81,6 @@ export const useMain = defineStore('main', {
         previousPlaytime: 0,
       },
       saveSlot: '',
-      flowState: 'engine-splash',
       paused: false,
       debugMode: true,
       options: {
@@ -140,7 +139,7 @@ export const useMain = defineStore('main', {
     prepareToPlay() {
       this.ready = true;
       this.startPlaying();
-      this.setFlowState('playing');
+      useScenes().changeScene('playing');
     },
     setSaveSlot(slot: string) {
       this.saveSlot = slot;
@@ -168,7 +167,7 @@ export const useMain = defineStore('main', {
     },
     menuReturn() {
       // this.reset();
-      this.setFlowState('menu');
+      useScenes().changeScene('menu');
     },
     createError(text: string) {
       this.errors.push({
@@ -184,9 +183,6 @@ export const useMain = defineStore('main', {
     },
     clearErrors() {
       this.errors = [];
-    },
-    setFlowState(flowState: 'menu' | 'playing') {
-      this.flowState = flowState;
     },
     pause() {
       this.paused = true;
@@ -225,7 +221,7 @@ export const useMain = defineStore('main', {
   },
   getters: {
     isInGame(state) {
-      return state.flowState === 'playing';
+      return useScenes().isPlaying;
     },
     totalPlayTime(state) {
       return getPlayTime(state.playTime.start, state.playTime.previousPlaytime);

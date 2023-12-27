@@ -12,7 +12,7 @@
       <button
         v-if="gameLoaded"
         class="button menu-button main-menu-button large splash-start-button override"
-        @click="goToMainMenu"
+        @click="goToStartMenu"
       >
         {{ startButtonText }}
       </button>
@@ -24,6 +24,7 @@ import { useMain } from '@/stores/main-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { getCommonConfig } from '../../config';
 import { InputListener, useInputs } from '@/stores/inputs-store';
+import { useScenes } from '@/stores/scenes-store';
 const inputListener = ref<InputListener | null>(null);
 
 const main = useMain();
@@ -38,24 +39,24 @@ const startButtonText = computed(() =>
 const gameLoaded = computed(() => main.loading.loaded);
 const gameTitle = computed(() => getCommonConfig().gameTitle || 'Narrat Game');
 
-function goToMainMenu() {
-  main.flowState = 'menu';
+function goToStartMenu() {
+  useScenes().changeScene('start-menu');
 }
 onMounted(() => {
   inputListener.value = useInputs().registerInputListener('game-splash', {
     continue: {
       press: () => {
-        goToMainMenu();
+        goToStartMenu();
       },
     },
     system: {
       press: () => {
-        goToMainMenu();
+        goToStartMenu();
       },
     },
   });
   if (main.options.debug) {
-    goToMainMenu();
+    goToStartMenu();
   }
 });
 onUnmounted(() => {

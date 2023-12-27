@@ -9,6 +9,7 @@ import {
 } from '@/inputs/Inputs';
 import { gameloop } from '@/utils/gameloop';
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import { useMenu } from './menu-store';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -193,6 +194,7 @@ export interface InputListener {
 export interface InputsStoreState {
   inputStack: InputListener[];
   baseInputListener: InputListener;
+  inGameInputListener: InputListener | null;
   inputMode: InputMode;
 }
 
@@ -202,6 +204,7 @@ export const useInputs = defineStore('inputs', {
       inputStack: [],
       baseInputListener: null as any,
       inputMode: 'mk' as InputMode,
+      inGameInputListener: null,
     }) as InputsStoreState,
   actions: {
     setupInputs() {
@@ -228,6 +231,29 @@ export const useInputs = defineStore('inputs', {
         }
       });
     },
+    createInGameInputListener() {
+      if (this.inGameInputListener) {
+        return;
+      }
+      this.inGameInputListener = this.registerInputListener('in-game', {
+        system: {
+          press: () => {
+            useMenu().openMenu('system');
+          },
+        },
+        menu: {
+          press: () => {
+            useMenu().openMenu('menu');
+          },
+        },
+      });
+    },
+    removeInGameInputListener() {
+      if (this.inGameInputListener) {
+        this.unregisterInputListener(this.inGameInputListener);
+        this.inGameInputListener = null;
+      }
+    },
     listenToContainerInputs() {
       inputs.startListening();
     },
@@ -252,6 +278,7 @@ export const useInputs = defineStore('inputs', {
     ) {
       // console.log(`Triggering action ${actionKey} ${eventType}`);
       const listener = this.inputStack[this.inputStack.length - 1];
+      if (!listener) return;
       if (listener.actions[actionKey]) {
         if (listener.actions[actionKey][eventType]) {
           if (status.state.config.type === 'button') {

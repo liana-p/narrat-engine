@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-container">
+  <div class="menu-container menu-toggle">
     <button
       v-for="(menuButton, key) in menuButtons"
       :key="menuButton.id"
