@@ -3,7 +3,7 @@ import { Component } from 'vue';
 export interface SceneConfig {
   id: string;
   component: Component;
-  props: Record<string, any>;
+  props?: Record<string, any>;
   labelOnStart?: string;
   labelOnEnd?: string;
   // When the scene is about to be displayed

@@ -63,6 +63,9 @@ export const useScenes = defineStore('scenes-store', {
         this.scenes[sceneId].onFinished!();
       }
     },
+    addNewScene(sceneConfig: SceneConfig) {
+      this.scenes[sceneConfig.id] = sceneConfig;
+    },
   },
 });
 

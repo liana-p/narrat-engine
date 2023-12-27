@@ -30,7 +30,7 @@ function finishedTimeout() {
   useVM().jumpToLabel(props.options.next_label);
 }
 onMounted(() => {
-  timeout.value = setTimeout(finishedTimeout, props.options.duration ?? 3000);
+  timeout.value = setTimeout(finishedTimeout, props.options.duration ?? 2000);
 });
 onUnmounted(() => {
   if (timeout.value) {
