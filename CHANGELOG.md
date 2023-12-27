@@ -1,3 +1,12 @@
+# [3.9.0](https://github.com/liana-p/narrat-engine/compare/v3.8.3...v3.9.0) (2023-12-27)
+
+
+### Features
+
+* scenes feature ([#201](https://github.com/liana-p/narrat-engine/issues/201)) ([62ba5a6](https://github.com/liana-p/narrat-engine/commit/62ba5a68b5e569a3f14f8e30da6f9a0570dfb874))
+
+
+
 ## [3.8.3](https://github.com/liana-p/narrat-engine/compare/v3.8.2...v3.8.3) (2023-12-23)
 
 
