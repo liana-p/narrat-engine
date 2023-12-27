@@ -171,6 +171,7 @@ import {
   objectValuesCommand,
 } from './object-commands';
 import { createMacro, createMacroCommand } from '../macros';
+import { changeSceneCommand } from './scene-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -368,4 +369,7 @@ export function registerBaseCommands(vm: VM) {
 
   // Macros
   vm.addCommand(createMacroCommand);
+
+  // Scenes
+  vm.addCommand(changeSceneCommand);
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="debug-menu">
     <button @click="open" class="button debug-button">Debug Menu</button>
-    <div class="debug-info" v-if="!playing && flowState === 'menu'">
+    <div class="debug-info" v-if="!playing && activeScene === 'menu'">
       <h3>Debug mode is ON</h3>
       <ul>
         <li><b>j</b>: Quick Label Jump</li>
@@ -125,6 +125,7 @@ import { InputListener } from '@/stores/inputs-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { autoSaveGame, resetGlobalSave } from '@/application/saving';
 import { getAllStates, overrideStates } from '@/data/all-stores';
+import { useScenes } from '@/stores/scenes-store';
 
 export default defineComponent({
   components: {
@@ -317,7 +318,8 @@ export default defineComponent({
 
   computed: {
     ...mapState(useVM, ['data']),
-    ...mapState(useMain, ['playTime', 'errors', 'playing', 'flowState']),
+    ...mapState(useMain, ['playTime', 'errors', 'playing']),
+    ...mapState(useScenes, ['activeScene']),
     labels(): string[] {
       const scripts = this.script;
       return Object.keys(scripts).sort();

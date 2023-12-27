@@ -19,6 +19,7 @@ import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
 import { setupAllStores } from '@/stores/stores-management';
 import { useConfig } from '@/stores/config-store';
+import { useScenes } from '@/stores/scenes-store';
 
 export const sourceAllStores = {
   main: {
@@ -107,6 +108,10 @@ export const sourceAllStores = {
     store: useVM,
     save: 'vm',
     globalSave: 'data',
+  },
+  scenes: {
+    store: useScenes,
+    save: 'scenes',
   },
 } as const;
 export type AllStores = typeof sourceAllStores;

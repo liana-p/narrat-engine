@@ -1,21 +1,15 @@
 <template>
   <div class="game" :style="gameStyle">
-    <Hud v-if="hasHud" />
-    <MenuButtons class="menu-toggle" />
-    <Screens :inputListener="listener" />
-    <GameDialog
-      :inGame="true"
-      :layoutMode="layoutMode"
-      :inputListener="listener!"
-      v-if="renderingStore.showDialog"
-    />
+    <Hud />
+    <MenuButtons />
+    <Screens />
+    <GameDialog />
     <SaveSlots
       v-if="actuallySaving"
       :mode="'pick'"
       @chosen="chosenSave"
       @close="() => chosenSave(null)"
     />
-    <AutoPlayFeedback />
     <YesNo
       v-if="
         savingRequested && savingRequested.withPrompt && agreedToSave === null
@@ -41,12 +35,12 @@ import Hud from './hud.vue';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 import { useDialogStore } from '@/stores/dialog-store';
 import { inputEvents } from '@/utils/InputsListener';
-import { InputListener, useInputs } from '@/stores/inputs-store';
-import { useMenu } from '@/stores/menu-store';
+import { useInputs } from '@/stores/inputs-store';
 import { finishManualSave } from '@/application/saving';
 import { useHud } from '@/stores/hud-stats-store';
 
-const listener = ref<InputListener | null>(null);
+const inputs = useInputs();
+const listener = computed(() => inputs.inGameInputListener);
 
 const mainStore = useMain();
 const renderingStore = useRenderingStore();
@@ -92,18 +86,7 @@ function saveRefuse() {
 }
 
 onBeforeMount(() => {
-  listener.value = useInputs().registerInputListener('in-game', {
-    system: {
-      press: () => {
-        useMenu().openMenu('system');
-      },
-    },
-    menu: {
-      press: () => {
-        useMenu().openMenu('menu');
-      },
-    },
-  });
+  inputs.createInGameInputListener();
 });
 
 onMounted(() => {
@@ -121,7 +104,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (listener.value) {
-    useInputs().unregisterInputListener(listener.value);
+    inputs.removeInGameInputListener();
   }
   if (keyboardListener.value) {
     inputEvents.off('debouncedKeydown', keyboardListener.value as any);

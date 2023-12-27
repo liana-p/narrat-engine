@@ -1,0 +1,5 @@
+test_change_scenes:
+  change_scene chapter-title next_label after_change_scene title "Chapter 1: The Beginning" subtitle "A new adventure begins!"
+
+after_change_scene:
+  talk helper idle "Hello!"

@@ -1,14 +1,12 @@
 <template>
   <div id="narrat-app-container" :style="appStyle">
     <div id="narrat-app" :class="appClass" tabindex="0">
-      <EngineSplash
-        v-if="flowState === 'engine-splash'"
-        @finished="engineSplashDone"
-      />
-      <Transition name="screens-fade" v-else>
-        <GameSplash key="1" v-if="flowState === 'game-splash'" />
-        <StartMenu key="2" v-else-if="flowState === 'menu'" />
-        <InGame key="3" v-else-if="flowState === 'playing'" />
+      <Transition name="screens-fade">
+        <GameScene
+          :key="activeScene"
+          :sceneId="activeScene"
+          :options="scenesStore.currentOptions"
+        />
       </Transition>
 
       <DebugMenu v-if="options!.debug" />
@@ -33,23 +31,22 @@ import { debounce } from './utils/debounce';
 import { vm } from './vm/vm';
 import { useMain } from './stores/main-store';
 import { useRenderingStore } from './stores/rendering-store';
-import StartMenu from './components/StartMenu.vue';
 import { inputEvents } from './utils/InputsListener';
 import AlertModal from './components/utils/alert-modal.vue';
-import InGame from './components/in-game.vue';
-import EngineSplash from './components/engine-splash/engine-splash.vue';
-import GameSplash from './components/game-splash/game-splash.vue';
 import { AppOptions } from './types/app-types';
 import { useMenu } from './stores/menu-store';
 import TooltipsUi from './components/tooltips/tooltips-ui.vue';
 import { preloadAndSetupGame } from '@/application/application-start';
+import { useScenes } from './stores/scenes-store';
+import GameScene from './components/GameScene.vue';
 
 const props = defineProps<{
   options: AppOptions;
 }>();
 
 const mainStore = useMain();
-const flowState = computed(() => mainStore.flowState);
+const scenesStore = useScenes();
+const activeScene = computed(() => scenesStore.activeScene);
 const alerts = computed(() => mainStore.alerts);
 const rendering = useRenderingStore();
 
@@ -70,9 +67,6 @@ const appClass = computed(() => {
 
 function closeAlert(id: string) {
   useMain().closeAlert(id);
-}
-function engineSplashDone() {
-  useMain().flowState = 'game-splash';
 }
 function updateScreenSize() {
   useRenderingStore().refreshScreenSize();

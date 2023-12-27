@@ -1,5 +1,5 @@
 <template>
-  <div class="hud" :style="hudStyle">
+  <div class="hud" :style="hudStyle" v-if="hasHud">
     <!-- <VolumeControls /> -->
     <div v-for="(stat, key) in stats" :key="key" class="hud-stat">
       <img class="hud-icon" :src="getStatImage(key as string)" />
@@ -91,6 +91,15 @@ export default defineComponent({
       return {
         right,
       };
+    },
+    hasHud(): boolean {
+      if (useHud().visible === false) {
+        return false;
+      }
+      if (Object.keys(useHud().hudStats).length > 0) {
+        return true;
+      }
+      return false;
     },
   },
 });
