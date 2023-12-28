@@ -1,3 +1,12 @@
+## [3.9.1](https://github.com/liana-p/narrat-engine/compare/v3.9.0...v3.9.1) (2023-12-28)
+
+
+### Features
+
+* config options for changing hotkeys ([17718f8](https://github.com/liana-p/narrat-engine/commit/17718f830c571cd4aacc0c719a5469d149efc014))
+
+
+
 # [3.9.0](https://github.com/liana-p/narrat-engine/compare/v3.8.3...v3.9.0) (2023-12-27)
 
 
