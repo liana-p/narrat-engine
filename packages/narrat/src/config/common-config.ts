@@ -7,6 +7,14 @@ import {
 import { SettingsConfig, SettingsConfigSchema } from './settings-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
 
+export const HotkeysConfigSchema = Type.Optional(
+  Type.Object({
+    debugMenu: Type.Optional(Type.String()),
+    jumpMenu: Type.Optional(Type.String()),
+  }),
+);
+export type HotkeysConfig = Static<typeof HotkeysConfigSchema>;
+
 export const DialogPanelConfigSchema = Type.Optional(
   Type.Object({
     animateText: Type.Optional(Type.Boolean()),
@@ -151,6 +159,7 @@ export const CommonConfigInputSchema = Type.Object({
   menuButtons: Type.Optional(MenuButtonsConfigSchema),
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: Type.Optional(SavesConfigSchema),
+  hotkeys: HotkeysConfigSchema,
 });
 export type CommonConfigInput = Static<typeof CommonConfigInputSchema>;
 
@@ -176,6 +185,7 @@ export interface CommonConfig {
   menuButtons: MenuButtonsConfig;
   debugging: DebuggingConfig;
   saves: SavesConfig;
+  hotkeys: HotkeysConfig;
 }
 
 export const defaultCommonConfig: CommonConfig = {
@@ -219,4 +229,5 @@ export const defaultCommonConfig: CommonConfig = {
     mode: 'manual',
     slots: 10,
   },
+  hotkeys: {},
 };

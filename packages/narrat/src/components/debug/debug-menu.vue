@@ -126,7 +126,7 @@ import { useRenderingStore } from '@/stores/rendering-store';
 import { autoSaveGame, resetGlobalSave } from '@/application/saving';
 import { getAllStates, overrideStates } from '@/data/all-stores';
 import { useScenes } from '@/stores/scenes-store';
-
+import { getCommonConfig } from '@/config';
 export default defineComponent({
   components: {
     ModalWindow,
@@ -148,12 +148,14 @@ export default defineComponent({
 
   mounted() {
     const rendering = useRenderingStore();
+    const debugHotkey = getCommonConfig().hotkeys.debugMenu ?? 'd';
+    const jumpHotkey = getCommonConfig().hotkeys.jumpMenu ?? 'j';
     rendering.inputsContainer.addEventListener('keydown', (event) => {
       if (!this.jumping) {
-        if (event.key === 'd') {
+        if (event.key === debugHotkey) {
           this.toggle();
         }
-        if (event.key === 'j') {
+        if (event.key === jumpHotkey) {
           this.jump();
         }
       }
