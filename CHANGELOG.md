@@ -1,3 +1,13 @@
+## [3.9.2](https://github.com/liana-p/narrat-engine/compare/v3.9.1...v3.9.2) (2024-01-22)
+
+
+### Bug Fixes
+
+* dependency version issue with vue/pinia caused type errors ([#207](https://github.com/liana-p/narrat-engine/issues/207)) ([a524b6f](https://github.com/liana-p/narrat-engine/commit/a524b6f6bb288a19f21498f3d39b956f654851bc))
+
+If you have an issue after updating to this version, try changing the version of vue and pinia in your package.json to be the latest (vue 3.4.15 and pinia 2.1.7 as of right now), deleting the node_modules folder and re-running `npm install`
+
+
 ## [3.9.1](https://github.com/liana-p/narrat-engine/compare/v3.9.0...v3.9.1) (2023-12-28)
 
 
