@@ -1,39 +1,32 @@
-## [3.9.2](https://github.com/liana-p/narrat-engine/compare/v3.9.1...v3.9.2) (2024-01-22)
+## [3.9.3](https://github.com/liana-p/narrat-engine/compare/v3.9.2...v3.9.3) (2024-01-22)
 
+Placeholder release to let the narrate template app use the latest changes by default
+
+## [3.9.2](https://github.com/liana-p/narrat-engine/compare/v3.9.1...v3.9.2) (2024-01-22)
 
 ### Bug Fixes
 
-* dependency version issue with vue/pinia caused type errors ([#207](https://github.com/liana-p/narrat-engine/issues/207)) ([a524b6f](https://github.com/liana-p/narrat-engine/commit/a524b6f6bb288a19f21498f3d39b956f654851bc))
+- dependency version issue with vue/pinia caused type errors ([#207](https://github.com/liana-p/narrat-engine/issues/207)) ([a524b6f](https://github.com/liana-p/narrat-engine/commit/a524b6f6bb288a19f21498f3d39b956f654851bc))
 
 If you have an issue after updating to this version, try changing the version of vue and pinia in your package.json to be the latest (vue 3.4.15 and pinia 2.1.7 as of right now), deleting the node_modules folder and re-running `npm install`
 
-
 ## [3.9.1](https://github.com/liana-p/narrat-engine/compare/v3.9.0...v3.9.1) (2023-12-28)
-
 
 ### Features
 
-* config options for changing hotkeys ([17718f8](https://github.com/liana-p/narrat-engine/commit/17718f830c571cd4aacc0c719a5469d149efc014))
-
-
+- config options for changing hotkeys ([17718f8](https://github.com/liana-p/narrat-engine/commit/17718f830c571cd4aacc0c719a5469d149efc014))
 
 # [3.9.0](https://github.com/liana-p/narrat-engine/compare/v3.8.3...v3.9.0) (2023-12-27)
 
-
 ### Features
 
-* scenes feature ([#201](https://github.com/liana-p/narrat-engine/issues/201)) ([62ba5a6](https://github.com/liana-p/narrat-engine/commit/62ba5a68b5e569a3f14f8e30da6f9a0570dfb874))
-
-
+- scenes feature ([#201](https://github.com/liana-p/narrat-engine/issues/201)) ([62ba5a6](https://github.com/liana-p/narrat-engine/commit/62ba5a68b5e569a3f14f8e30da6f9a0570dfb874))
 
 ## [3.8.3](https://github.com/liana-p/narrat-engine/compare/v3.8.2...v3.8.3) (2023-12-23)
 
-
 ### Features
 
-* feature to disable saves ([#199](https://github.com/liana-p/narrat-engine/issues/199)) ([12ce422](https://github.com/liana-p/narrat-engine/commit/12ce4223bbf600d9feb2a3eafedcf48a269d2f12))
-
-
+- feature to disable saves ([#199](https://github.com/liana-p/narrat-engine/issues/199)) ([12ce422](https://github.com/liana-p/narrat-engine/commit/12ce4223bbf600d9feb2a3eafedcf48a269d2f12))
 
 ## [3.8.2](https://github.com/liana-p/narrat-engine/compare/v3.8.1...v3.8.2) (2023-12-23)
 
