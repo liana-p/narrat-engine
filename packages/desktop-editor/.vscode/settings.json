@@ -1,0 +1,21 @@
+{
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "dist/": true,
+    "lib/": true,
+    "node_modules/": true
+  },
+  "search.exclude": {
+    "dist/": true,
+    "lib/": true,
+    "node_modules/": true
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
