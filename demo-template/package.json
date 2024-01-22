@@ -34,9 +34,9 @@
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
     "narrat": "^3.2.0",
-    "pinia": "^2.0.14",
+    "pinia": "^2.1.7",
     "steamworks.js": "^0.0.18",
-    "vue": "^3.2.37"
+    "vue": "^3.4.15"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
