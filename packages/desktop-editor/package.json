@@ -2,7 +2,7 @@
   "name": "@narrat/desktop-editor",
   "version": "3.9.2",
   "private": true,
-  "description": "Template for Narrat game engine",
+  "description": "Desktop editor for narrat",
   "main": "electron-main.js",
   "engines": {
     "node": ">=18.x"
@@ -15,19 +15,14 @@
   "author": "Liana Pigeot <liana.pigeot@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "ide:devtools": "./node_modules/.bin/vue-devtools",
     "dev": "pnpm tauri dev",
     "start": "pnpm tauri dev",
-    "narrat:start": "npm run narrat:dev",
-    "narrat:dev": "vite",
-    "narrat:build": "cross-env VITE_BUILD=true vite build",
-    "narrat:build-debug": "cross-env VITE_BUILD=true VITE_DEBUG=true vite build",
-    "narrat:type-check": "tsc --noEmit",
-    "narrat:desktop": "npm run narrat:build && npm run narrat:electron",
-    "narrat:electron": "electron .",
-    "narrat:package": "npm run narrat:build && electron-forge package",
-    "narrat:package-mac": "npm run narrat:build && electron-forge package",
-    "narrat:make": "electron-forge make"
+    "ide:devtools": "./node_modules/.bin/vue-devtools",
+    "ide:start": "npm run ide:dev",
+    "ide:dev": "vite",
+    "ide:build": "cross-env VITE_BUILD=true vite build",
+    "ide:build-debug": "cross-env VITE_BUILD=true VITE_DEBUG=true vite build",
+    "ide:type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.5.3",

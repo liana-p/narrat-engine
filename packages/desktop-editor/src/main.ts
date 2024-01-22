@@ -6,7 +6,6 @@ import "./monaco/setup-monaco";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
-import GameEditorPage from "@/pages/GameEditorPage.vue";
 import HomePage from "@/pages/HomePage.vue";
 import IDEPage from "@/pages/IDEPage.vue";
 import { setupEvents } from "./events/tauri-events";
@@ -15,7 +14,6 @@ import { MdKeyboardarrowright, MdKeyboardarrowdown } from "oh-vue-icons/icons";
 
 const routes = [
   { path: "/", component: HomePage },
-  { path: "/edit", component: GameEditorPage },
   { path: "/ide", component: IDEPage },
 ];
 
