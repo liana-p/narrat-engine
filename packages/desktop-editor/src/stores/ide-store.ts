@@ -78,19 +78,21 @@ export const useIDE = defineStore("ide-store", () => {
       throw new Error(`File ${file.path} does not exist`);
     }
     currentFilePath.value = file.path;
+    file.content = await readFile(file);
     currentFile.value = file;
-    currentFile.value.content = await readFile(file);
   }
 
   function updateCurrentFileCode(code: string) {
     if (currentFile.value) {
       currentFile.value.content = code;
+      currentFile.value.unsavedChanges = true;
     }
   }
 
   async function saveCurrentFile() {
     if (currentFile.value) {
       await saveFile(currentFile.value);
+      currentFile.value.unsavedChanges = false;
     }
   }
 

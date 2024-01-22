@@ -10,7 +10,11 @@ import HomePage from "@/pages/HomePage.vue";
 import IDEPage from "@/pages/IDEPage.vue";
 import { setupEvents } from "./events/tauri-events";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { MdKeyboardarrowright, MdKeyboardarrowdown } from "oh-vue-icons/icons";
+import {
+  MdKeyboardarrowright,
+  MdKeyboardarrowdown,
+  OiDotFill,
+} from "oh-vue-icons/icons";
 
 const routes = [
   { path: "/", component: HomePage },
@@ -29,7 +33,7 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.component("v-icon", OhVueIcon);
-addIcons(MdKeyboardarrowright, MdKeyboardarrowdown);
+addIcons(MdKeyboardarrowright, MdKeyboardarrowdown, OiDotFill);
 pinia.use(({ store }) => {
   store.router = markRaw(router);
 });

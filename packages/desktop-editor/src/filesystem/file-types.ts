@@ -13,6 +13,7 @@ export type OpenedDirectory = OpenedEntry & {
 
 export type OpenedFile = OpenedEntry & {
   directory: false;
+  unsavedChanges?: boolean;
 };
 
 export function isDirectory(entry: OpenedEntry): entry is OpenedDirectory {

@@ -50,7 +50,7 @@ const editorStyle = computed(() => {
       </ul>
     </div> -->
     <div class="gap-4 w-full editor-layout flex justify-between h-screen">
-      <ExplorerPanel class="flex-shrink-[3]" />
+      <ExplorerPanel class="flex-shrink-[5]" />
       <EditorPanel :style="editorStyle" />
       <!-- <MonacoEditor class="h-screen transition-all" :style="editorStyle" /> -->
       <PreviewGame :style="narratStyle" />

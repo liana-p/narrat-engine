@@ -7,6 +7,9 @@ import Narrat from "vite-plugin-narrat";
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const conf: UserConfigExport = {
+    server: {
+      port: 5817,
+    },
     base: "",
     resolve: {
       alias: {
