@@ -48,7 +48,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "MIT License",
       "deb": {
         "depends": []
       },
@@ -60,8 +60,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "longDescription": "",
+      "identifier": "dev.narrat.ide",
+      "longDescription": "The narrat game editor",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -70,7 +70,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "Narrat Game Editor",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
@@ -87,10 +87,11 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
         "resizable": true,
+        "label": "narrateditor",
         "title": "Narrat Desktop Editor",
-        "width": 800
+        "maximized": true,
+        "focus": true
       }
     ]
   }

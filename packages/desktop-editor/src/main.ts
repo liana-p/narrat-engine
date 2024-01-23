@@ -1,4 +1,3 @@
-import "narrat/dist/style.css";
 import { createApp, markRaw } from "vue";
 import "virtual:windi.css";
 import "./style.css";
