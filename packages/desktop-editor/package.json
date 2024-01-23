@@ -50,7 +50,7 @@
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/devtools": "^7.0.11",
     "cross-env": "^7.0.3",
-    "electron": "^25.1.0",
+    "electron": "^25.8.4",
     "electron-winstaller": "^5.1.0",
     "prettier": "^3.0.0",
     "shx": "^0.3.4",
