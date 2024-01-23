@@ -1,4 +1,4 @@
-name: 'publish'
+name: 'ide-release'
 
 # This will trigger the action on each push to the `release` branch.
 on:
@@ -35,6 +35,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
   
       - name: install frontend dependencies
         run: pnpm install # change this to npm or pnpm depending on which one you use
