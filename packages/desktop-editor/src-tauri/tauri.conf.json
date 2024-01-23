@@ -30,11 +30,19 @@
             "args": ["run", { "validator": "\\S+" }]
           },
           {
+            "name": "run-npm-scripts-windows",
+            "cmd": "npm.cmd",
+            "args": ["run", { "validator": "\\S+" }]
+          },
+          {
             "name": "npm-install",
             "cmd": "npm",
             "args": ["install"]
           }
         ]
+      },
+      "os": {
+        "all": true
       }
     },
     "bundle": {

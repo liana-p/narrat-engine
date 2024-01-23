@@ -4,7 +4,7 @@
       v-if="ide.isGameOpen"
       ref="gameFrame"
       class="w-full h-full"
-      src="http://localhost:5174"
+      src="http://localhost:5282"
     />
     <button @click="reload">Reload</button>
   </div>

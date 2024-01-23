@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "pnpm tauri dev",
     "start": "pnpm tauri dev",
-    "ide:devtools": "./node_modules/.bin/vue-devtools",
+    "ide:devtools": "npx vue-devtools",
     "ide:start": "npm run ide:dev",
     "ide:dev": "vite",
     "ide:build": "cross-env VITE_BUILD=true vite build",

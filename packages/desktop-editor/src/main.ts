@@ -8,6 +8,7 @@ import App from "./App.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "@/pages/HomePage.vue";
 import IDEPage from "@/pages/IDEPage.vue";
+import LoadingPage from "@/pages/LoadingPage.vue";
 import { setupEvents } from "./events/tauri-events";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import {
@@ -19,6 +20,7 @@ import {
 const routes = [
   { path: "/", component: HomePage },
   { path: "/ide", component: IDEPage },
+  { path: "/loading", component: LoadingPage },
 ];
 
 const pinia = createPinia();
