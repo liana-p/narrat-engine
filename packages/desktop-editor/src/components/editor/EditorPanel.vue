@@ -40,12 +40,11 @@ const hasUnsavedChanges = computed(() => {
 });
 
 onMounted(() => {
-  console.log("mounted");
   if (editorContainer.value) {
     if (!editor.value) {
       editor.value = monaco.editor.create(editorContainer.value!, {
         language: "narrat",
-        value: "main:\n  talk player idle hello",
+        value: "",
         automaticLayout: true,
         theme: "vs-dark",
       });
@@ -86,15 +85,12 @@ watch(
 function editorContentChanged() {
   if (editor.value) {
     ide.updateCurrentFileCode(editor.value.getValue());
-    hasUnsavedChanged.value = true;
   } else {
     console.error("editor is null");
   }
 }
 
 function getModel(path: string) {
-  console.log("getting model for ", path);
-  console.log(models.value);
   if (models.value[path]?.value) {
     return models.value[path].value;
   } else {
@@ -105,7 +101,7 @@ function getModel(path: string) {
 function createModel(path: string, content: string) {
   // const uri = monaco.Uri.parse(path);
   const syntax = detectSyntax(ide.currentFile!);
-  console.log(`Creating model for language ${syntax}`);
+  console.log(`Creating model for ${path} - language ${syntax}`);
   const model = monaco.editor.createModel(content, syntax);
   models.value[path] = shallowRef(model);
   return model;

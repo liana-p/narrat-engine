@@ -15,18 +15,21 @@ import {
 import { launchNarratGame } from "@/game-runner/narrat-runner";
 import { Child } from "@tauri-apps/api/shell";
 import { wait } from "@/utils/utils";
+import { usePreferences } from "./preferences-store";
+import { useApplication } from "./application-store";
 
 export const useIDE = defineStore("ide-store", () => {
   const workspaceFolder = ref<string | null>(null);
   const openedRoot = ref<OpenedEntry | null>(null);
-  const allFiles = ref<Record<string, ShallowRef<OpenedEntry>>>({});
+  const allFiles = ref<Record<string, OpenedEntry>>({});
   const currentFilePath = ref<string | null>(null);
   const currentFile = ref<OpenedFile | null>(null);
   const gameIsRunning = ref(false);
   const runningGame = shallowRef<Child | null>(null);
 
   const router = useRouter();
-
+  const application = useApplication();
+  const preferences = usePreferences();
   async function selectWorkspace() {
     const selected = await selectFolder();
     if (selected !== null) {
@@ -38,15 +41,19 @@ export const useIDE = defineStore("ide-store", () => {
   }
 
   async function openWorkspace(workspacePath: string) {
+    const finishLoading = application.startLoading("/ide");
     await closeWorkspace();
     openedRoot.value = await processWorkspace(workspacePath);
     await loadAllFilesInFolder(openedRoot.value as OpenedDirectory);
     workspaceFolder.value = workspacePath;
     runningGame.value = await launchNarratGame(workspacePath);
-    setTimeout(() => {
-      gameIsRunning.value = true;
-    }, 1000);
-    router.push("/ide");
+    finishLoading();
+    findDefaultScriptToOpen();
+    usePreferences().onWorkspaceOpened(workspacePath);
+  }
+
+  function notifyGameHasStarted() {
+    gameIsRunning.value = true;
   }
 
   async function closeWorkspace() {
@@ -56,8 +63,10 @@ export const useIDE = defineStore("ide-store", () => {
     currentFile.value = null;
     gameIsRunning.value = false;
     if (runningGame.value) {
+      console.log("Stopping existing narrat game server");
       await runningGame.value.kill();
       await wait(0.5);
+      console.log("Narrat game server stopped");
     }
   }
 
@@ -82,6 +91,17 @@ export const useIDE = defineStore("ide-store", () => {
     currentFile.value = file;
   }
 
+  function findDefaultScriptToOpen() {
+    const files = Object.values(allFiles.value);
+    const scriptFiles = files.filter((file) => {
+      return file.name.search(".narrat") !== -1;
+    });
+    if (scriptFiles.length > 0) {
+      console.log(scriptFiles[0]);
+      openFile(scriptFiles[0] as OpenedFile);
+    }
+  }
+
   function updateCurrentFileCode(code: string) {
     if (currentFile.value) {
       currentFile.value.content = code;
@@ -92,6 +112,7 @@ export const useIDE = defineStore("ide-store", () => {
   async function saveCurrentFile() {
     if (currentFile.value) {
       await saveFile(currentFile.value);
+      preferences.updateOpenProject(currentFile.value.path);
       currentFile.value.unsavedChanges = false;
     }
   }
@@ -100,7 +121,7 @@ export const useIDE = defineStore("ide-store", () => {
     if (allFiles.value[file.path]) {
       throw new Error(`File ${file.path} already exists`);
     }
-    allFiles.value[file.path] = shallowRef(file);
+    allFiles.value[file.path] = file;
   }
   async function unloadFile(file: OpenedEntry) {
     if (!allFiles.value[file.path]) {
@@ -109,6 +130,13 @@ export const useIDE = defineStore("ide-store", () => {
     delete allFiles.value[file.path];
   }
 
+  async function reloadIDE() {
+    const workspace = workspaceFolder.value;
+    if (workspace) {
+      await closeWorkspace();
+      await openWorkspace(workspace);
+    }
+  }
   const isGameOpen = computed(() => {
     return workspaceFolder.value !== null && gameIsRunning.value === true;
   });
@@ -126,6 +154,8 @@ export const useIDE = defineStore("ide-store", () => {
     isGameOpen,
     allFiles,
     gameIsRunning,
+    notifyGameHasStarted,
+    reloadIDE,
   };
 });
 

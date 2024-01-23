@@ -28,7 +28,6 @@ const ignoredFolders: RegExp[] = [
 ];
 
 export async function selectFolder() {
-  console.log("hello?");
   const selected = await open({
     directory: true,
     recursive: true,
@@ -101,6 +100,7 @@ export async function processEntry(
 export async function processDirectory(
   folder: FileEntry,
 ): Promise<OpenedEntry> {
+  console.log(folder.name);
   const result: OpenedEntry = {
     path: folder.path,
     name: folder.name ?? "",
@@ -125,7 +125,6 @@ export async function processFile(entry: FileEntry): Promise<OpenedEntry> {
 export async function readFile(file: OpenedFile): Promise<string> {
   console.log("reading file ", file.path);
   const contents = await readTextFile(file.path);
-  console.log("content", contents);
   return contents;
 }
 
