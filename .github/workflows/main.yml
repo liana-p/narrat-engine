@@ -10,8 +10,6 @@ on:
       - main
       - v2.0.0
       - release/*
-      - feat/*
-      - fix/*
 
   pull_request:
 
@@ -32,10 +30,12 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
+          node-version: '20.x'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
 
       - name: Install deps
         run: pnpm install

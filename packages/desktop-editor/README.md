@@ -1,23 +1,31 @@
 # Narrat Desktop Editor
 
-WIP
+A game editor IDE for narrat games, built with [tauri](https://tauri.app/).
 
-Structure:
+**This editor is in early development. It works for very basic use but is not yet the recommended way to edit narrat games.**
 
-- vite project running the editor UI
-- tauri app to run the editor in a desktop app
-- monacco editor for text editing
+## Installing
 
-## Installation
+Once the CI build is working, there will be GitHub releases with binaries to download for Windows/MacOS/Linux. For now, the only way to run this is from the source.
 
-- Have [node.js](https://nodejs.org) installed
-- Have rust installed: `curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh`
-- Run `npm install`
+## Running from source
 
-## Running
+### Installation
 
-Run `npm run dev` to start the IDE. Then use the menu to open a folder containing a narrat project.
+- Clone or download this repo
+- Install [node.js](https://nodejs.org) 20+ (LTS recommended)
+- Install [pnpm](https://pnpm.io/installation). Narrat is a monorepo which uses pnpm instead of npm.
+- Install Rust: `curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh`
+- Run `pnpm install`
 
-## Building
+### Running
 
-Not implemented yet
+Run `pnpm dev` to start the IDE. Then use the menu to open a folder containing a narrat project.
+
+### Building
+
+Run `pnpm build`
+
+### Releasing
+
+Releases are automatically triggered by the github workflow `ide.yml` when a push is made to a `ide-v*` branch. The workflow will build the app and upload the binaries to the release.

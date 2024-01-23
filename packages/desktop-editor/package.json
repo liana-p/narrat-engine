@@ -5,14 +5,16 @@
   "description": "Desktop editor for narrat",
   "main": "electron-main.js",
   "engines": {
-    "node": ">=18.x"
+    "node": ">=20.x"
   },
   "keywords": [
     "game",
     "vue.js",
-    "snowpack"
+    "rust",
+    "tauri",
+    "narrat"
   ],
-  "author": "Liana Pigeot <liana.pigeot@protonmail.com>",
+  "author": "Liana Pigeot <32243840+liana-p@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
     "dev": "pnpm tauri dev",
@@ -27,11 +29,9 @@
   "dependencies": {
     "@tauri-apps/api": "^1.5.3",
     "clone-deep": "^4.0.1",
-    "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
     "monaco-editor": "0.44.0",
     "monaco-yaml": "^5.1.0",
-    "narrat": "workspace:*",
     "oh-vue-icons": "1.0.0-rc3",
     "pinia": "^2.1.7",
     "steamworks.js": "^0.2.0",
@@ -39,55 +39,17 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.1.1",
-    "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
-    "@electron-forge/maker-squirrel": "^6.1.1",
-    "@electron-forge/maker-zip": "^6.1.1",
-    "@electron/rebuild": "^3.2.13",
     "@tauri-apps/cli": "^1.5.9",
     "@types/clone-deep": "^4.0.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/devtools": "^7.0.11",
     "cross-env": "^7.0.3",
-    "electron": "^25.8.4",
-    "electron-winstaller": "^5.1.0",
     "prettier": "^3.0.0",
     "shx": "^0.3.4",
     "typescript": "^5.1.6",
     "vite": "^5.0.12",
     "vite-plugin-monaco-editor": "^1.1.0",
-    "vite-plugin-narrat": "3.6.0",
     "vite-plugin-windicss": "^1.9.0",
     "windicss": "^3.5.6"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "Your game name",
-            "authors": "Your name",
-            "description": "Your game description"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }

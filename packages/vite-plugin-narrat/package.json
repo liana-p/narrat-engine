@@ -2,7 +2,7 @@
   "name": "vite-plugin-narrat",
   "description": "vite plugin for narrat hot reload",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "homepage": "https://narrat.dev",
   "keywords": [

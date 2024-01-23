@@ -4,7 +4,7 @@
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
   "engines": {
-    "node": ">=18.x"
+    "node": ">=20.x"
   },
   "build": {
     "files": [
@@ -16,7 +16,7 @@
     "vue.js",
     "snowpack"
   ],
-  "author": "Liana Pigeot <liana.pigeot@protonmail.com>",
+  "author": "Liana Pigeot <32243840+liana-p@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",

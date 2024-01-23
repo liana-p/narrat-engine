@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { ref, shallowRef, ShallowRef, computed } from "vue";
+import { ref, shallowRef, computed } from "vue";
 import {
   OpenedDirectory,
   OpenedEntry,
