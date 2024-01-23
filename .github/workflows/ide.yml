@@ -37,8 +37,9 @@ jobs:
         uses: pnpm/action-setup@v2.4.0
         with:
           version: latest
-  
+
       - name: install frontend dependencies
+        working-directory: packages/desktop-editor
         run: pnpm install # change this to npm or pnpm depending on which one you use
 
       - uses: tauri-apps/tauri-action@v0
@@ -52,3 +53,4 @@ jobs:
           prerelease: false
           projectPath: 'packages/desktop-editor'
           tauriScript: 'pnpm'
+          args: --config packages/desktop-editor/src-tauri/tauri.conf.json
