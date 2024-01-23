@@ -11,7 +11,7 @@
     "directory": "packages/narrat"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "homepage": "https://narrat.dev",
   "files": [

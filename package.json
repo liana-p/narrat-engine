@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "description": "Narrat monorepo",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "url": "https://github.com/liana-p/narrat-engine/issues"
   },
   "homepage": "https://narrat.dev",
-  "packageManager": "pnpm@7.5.2",
+  "packageManager": "pnpm@8.14.3",
   "pnpm": {
     "overrides": {
       "narrat": "workspace:*",

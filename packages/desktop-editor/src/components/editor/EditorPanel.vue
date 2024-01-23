@@ -26,7 +26,7 @@ import {
   computed,
 } from "vue";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import { debounce } from "narrat";
+import { debounce } from "@/utils/debounce";
 import { useIDE } from "@/stores/ide-store";
 import { OpenedFile } from "@/filesystem/file-types";
 

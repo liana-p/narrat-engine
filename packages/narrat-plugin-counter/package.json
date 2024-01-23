@@ -11,7 +11,7 @@
     "directory": "packages/narrat-plugin-counter"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "type": "module",
   "homepage": "https://narrat.dev",
