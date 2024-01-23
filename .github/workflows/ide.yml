@@ -53,4 +53,4 @@ jobs:
           prerelease: false
           projectPath: 'packages/desktop-editor'
           tauriScript: 'pnpm'
-          args: --config packages/desktop-editor/src-tauri/tauri.conf.json
+          args: --config src-tauri/tauri.conf.json
