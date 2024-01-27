@@ -33,6 +33,12 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
     const path = config.common.images[key];
     addImage(key, path);
   }
+  if (config.preload.images) {
+    for (const key in config.preload.images.assets) {
+      const path = config.preload.images.assets[key];
+      addImage(key, path);
+    }
+  }
   // Find other images to load from config
   for (const key in config.screens.screens) {
     const screen = config.screens.screens[key];

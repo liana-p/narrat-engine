@@ -84,6 +84,10 @@ import {
 } from './config/macros-config';
 import { createMacro } from './vm/macros';
 import { ArgTypes } from './vm/commands/command-plugin';
+import {
+  PreloadConfigSchema,
+  defaultPreloadConfig,
+} from './config/preload-config';
 
 let config: Config;
 
@@ -105,6 +109,7 @@ const splitConfigs = [
   ['choices', ChoicesInputConfigSchema, defaultChoicesConfig],
   ['animations', AnimationsConfigSchema, defaultAnimationsConfig],
   ['macros', MacrosConfigSchema, defaultMacrosConfig],
+  ['preload', PreloadConfigSchema, defaultPreloadConfig],
 ] as const;
 
 const extendedConfigs = [
@@ -399,21 +404,26 @@ export function getImageUrl(imageKeyOrUrl: string) {
   if (imageKeyOrUrl.startsWith('http')) {
     return imageKeyOrUrl;
   }
-  if (getCommonConfig().images[imageKeyOrUrl]) {
-    return getAssetUrl(getCommonConfig().images[imageKeyOrUrl]);
-  } else {
-    return getAssetUrl(imageKeyOrUrl);
-  }
+  return getAssetUrl(imageKeyOrUrl);
 }
 
 export function getAssetUrl(assetPath: string) {
   if (assetPath.startsWith('http')) {
     return assetPath;
   }
+  let assetURL = assetPath;
+  if (getCommonConfig().images[assetPath]) {
+    assetURL = getCommonConfig().images[assetPath];
+    // Todo: Make this less messy
+  } else if (getConfig().preload.images?.assets[assetPath]) {
+    assetURL = getConfig().preload.images?.assets[assetPath]!;
+  } else if (getConfig().preload.video?.assets[assetPath]) {
+    assetURL = getConfig().preload.video?.assets[assetPath]!;
+  }
   if (getCommonConfig().baseAssetsPath) {
-    return `${getCommonConfig().baseAssetsPath}${assetPath}`;
+    return `${getCommonConfig().baseAssetsPath}${assetURL}`;
   } else {
-    return assetPath;
+    return assetURL;
   }
 }
 
