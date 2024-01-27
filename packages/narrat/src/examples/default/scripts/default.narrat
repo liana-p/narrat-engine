@@ -1,4 +1,5 @@
 main:
+  set_screen video
   add_item book 1
   jump quest_demo
   hide_hud

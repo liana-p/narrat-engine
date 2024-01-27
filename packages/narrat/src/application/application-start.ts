@@ -8,6 +8,7 @@ import { vm } from '@/vm/vm';
 import { useMenu } from '@/stores/menu-store';
 import { isPromise } from '@/utils/type-utils';
 import { resetAllStores } from '@/stores/stores-management';
+import { loadVideos } from '@/utils/video-loader';
 
 export async function setupEngine() {
   const config = getConfig();
@@ -31,6 +32,7 @@ export async function setupEngine() {
 export async function preloadAndSetupGame() {
   const main = useMain();
   const imagesLoadWait = loadImages(getConfig());
+  const videoLoadWait = loadVideos(getConfig());
   const audioWait = loadAudioAssets(audioConfig());
   if (vm.plugins) {
     const pluginPromises: Promise<any>[] = [];
@@ -44,10 +46,8 @@ export async function preloadAndSetupGame() {
       await Promise.all(pluginPromises);
     }
   }
-  main.setLoadingStep('Images', 0.3);
-  await imagesLoadWait;
-  main.setLoadingStep('Audio', 0.7);
-  await audioWait;
+  main.setLoadingStep('Assets', 0.3);
+  await Promise.all([imagesLoadWait, videoLoadWait, audioWait]);
   vm.callHook('onAssetsLoaded');
   main.setLoadingStep('Starting', 0.9);
   await setupEngine();

@@ -162,6 +162,11 @@ const config = {
         ],
       },
       {
+        text: 'Config files',
+        collapsible: true,
+        items: [{ text: 'All config files', link: '/config/all-config-files' }],
+      },
+      {
         text: 'Common commands docs',
         collapsible: true,
         items: [

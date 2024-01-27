@@ -34,7 +34,7 @@ screens:
       - tester
       - parkButton
       - shopButton
-  # video:
-  #   background: img/backgrounds/path_video.mp4
-  #   video:
-  #     loop: true
+  video:
+    background: myVideo
+    video:
+      loop: true

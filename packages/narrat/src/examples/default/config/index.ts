@@ -12,6 +12,8 @@ import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
 import tooltips from './tooltips.yaml';
 import macros from './macros.yaml';
+import preload from './preload.yaml';
+
 import { ModuleConfigInput } from '@/config/config-input';
 
 const defaultGameConfigs: ModuleConfigInput = {
@@ -29,5 +31,6 @@ const defaultGameConfigs: ModuleConfigInput = {
   skillChecks,
   tooltips,
   macros,
+  preload,
 };
 export default defaultGameConfigs;

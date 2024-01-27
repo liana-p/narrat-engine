@@ -28,6 +28,7 @@ import { ChoicesInputConfigSchema } from './choices-config';
 import { AnimationsConfigSchema } from './animations-config';
 import { AchievementsInputConfigSchema } from './achievements-config';
 import { MacrosConfigSchema } from './macros-config';
+import { PreloadConfigSchema } from './preload-config';
 
 export const BaseConfigInputSchema = Type.Object({
   screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
@@ -50,6 +51,7 @@ export const BaseConfigInputSchema = Type.Object({
     Type.Union([Type.String(), AnimationsConfigSchema]),
   ),
   macros: Type.Optional(MacrosConfigSchema),
+  preload: Type.Optional(PreloadConfigSchema),
 });
 
 export const ConfigInputSchemaWithCommon = Type.Intersect([
