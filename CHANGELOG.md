@@ -1,3 +1,16 @@
+## [3.9.4](https://github.com/liana-p/narrat-engine/compare/v3.9.3...v3.9.4) (2024-01-27)
+
+
+### Features
+
+* desktop editor prototype ([#210](https://github.com/liana-p/narrat-engine/issues/210)) ([0389bb8](https://github.com/liana-p/narrat-engine/commit/0389bb84869fa321a50b3c01e315d462809e03f0))
+* IDE icon and build working ([c49fc6d](https://github.com/liana-p/narrat-engine/commit/c49fc6de66409b0b216d48beab28aad36655829f))
+* **IDE:** Ide v0.0.1 release, upgrade to node.js 20 ([#214](https://github.com/liana-p/narrat-engine/issues/214)) ([09841f3](https://github.com/liana-p/narrat-engine/commit/09841f3fb74ea6ed2e32c8af7ecac38e2a111915)), closes [#213](https://github.com/liana-p/narrat-engine/issues/213)
+* **videos:** preload videos + more docs ([#215](https://github.com/liana-p/narrat-engine/issues/215)) ([469b9aa](https://github.com/liana-p/narrat-engine/commit/469b9aa5f608da09788275102c77920773cd7340))
+* windows compatibility, more IDE features, user preferences working ([#212](https://github.com/liana-p/narrat-engine/issues/212)) ([243dd63](https://github.com/liana-p/narrat-engine/commit/243dd6368f86710f1aa906a7d5269646bb0c99c6))
+
+
+
 ## [3.9.3](https://github.com/liana-p/narrat-engine/compare/v3.9.2...v3.9.3) (2024-01-22)
 
 Placeholder release to let the narrate template app use the latest changes by default
