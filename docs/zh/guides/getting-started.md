@@ -47,7 +47,7 @@ description: 本指南介绍如何在一分钟内使用Narrat游戏引擎入门
 
 ::: details 帮助打开终端
 
-![打开终端](./terminal/terminal.png)
+![打开终端](/guides/terminal/terminal.png)
 
 关于如何在 Windows 和其他操作系统中在文件夹中打开终端的更多信息，请参阅[此链接](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 

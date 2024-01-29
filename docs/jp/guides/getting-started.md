@@ -56,7 +56,7 @@ Narratを使って始めるのは非常に簡単です。すぐにゲームを�
 
 ::: details ターミナルを開くのを助ける
 
-![ターミナルを開く](./terminal/terminal.png)
+![ターミナルを開く](/guides/terminal/terminal.png)
 
 Windowsおよび他のOSでフォルダー内でターミナルを開く方法の詳細については、[このリンク](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)をご覧ください。
 

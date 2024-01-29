@@ -41,7 +41,7 @@ Open a terminal in a folder of your choice (on Windows, you can shift-right-clic
 
 ::: details Help with opening the terminal
 
-![Opening Terminal](./terminal/terminal.png)
+![Opening Terminal](/guides/terminal/terminal.png)
 
 For more info on how to open a terminal in a folder on Windows and other OS, see [this link](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 

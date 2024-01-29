@@ -47,7 +47,7 @@ Ouvrez un terminal dans un dossier de votre choix (sous Windows, vous pouvez fai
 
 ::: details Aide pour l'ouverture du terminal
 
-![Ouverture du terminal](./terminal/terminal.png)
+![Ouverture du terminal](/guides/terminal/terminal.png)
 
 Pour plus d'informations sur la façon d'ouvrir un terminal dans un dossier sur Windows et d'autres systèmes d'exploitation, consultez [ce lien](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 
