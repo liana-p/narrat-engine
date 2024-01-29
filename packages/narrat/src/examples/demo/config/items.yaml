@@ -1,7 +1,15 @@
+---
+categories:
+  - id: food
+    title: Food
+  - id: books
+    title: Books
+
 items:
   bread:
     name: Bread
     description: A bread in the game.
+    category: food
     icon: img/items/bread.webp
     onUse:
       action: jump
@@ -9,6 +17,7 @@ items:
   book:
     name: Ominous Book
     description: An ominous book.
+    category: books
     icon: img/items/book.webp
     onUse:
       action: run

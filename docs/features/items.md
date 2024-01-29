@@ -17,11 +17,18 @@ There are also interaction groups which allow scripts to toggle on/off whether u
 Config:
 
 ```yaml
+categories:
+  - id: food
+    title: Food
+  - id: books
+    title: Books
+
 items:
   bread:
     name: Bread
     description: A bread in the game.
     icon: img/items/bread.png
+    category: food
     onUse:
       action: jump
       label: eat_bread
@@ -30,6 +37,7 @@ items:
     name: Ominous Book
     description: An ominous book
     icon: img/items/book.png
+    category: books
     onUse:
       action: run_label
       label: read_book

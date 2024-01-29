@@ -156,20 +156,23 @@ export const useInventory = defineStore('inventory', {
       }
       return false;
     },
-    useItem(item: ItemState) {
+    useItem(item: ItemState): boolean {
+      let result = false;
       const conf = getItemConfig(item.id);
       if (item && this.canUseItem(item) && conf) {
         const onUse = conf.onUse!;
-        close();
+        result = true;
         audioEvent('onItemUsed');
         if (onUse.action === 'jump') {
           useVM().jumpToLabel(onUse.label);
         } else if (onUse.action === 'run') {
           useVM().runThenGoBackToPreviousDialog(onUse.label, true);
         } else {
+          result = false;
           error(`Unknown action ${onUse.action}`);
         }
       }
+      return result;
     },
   },
 });

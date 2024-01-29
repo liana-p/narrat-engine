@@ -1,1 +1,5 @@
+categories:
+  - id: my_category
+    title: Some Category
+
 items: {}

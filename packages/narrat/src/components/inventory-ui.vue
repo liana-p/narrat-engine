@@ -57,8 +57,10 @@ function closeItem() {
   chosenId.value = false;
 }
 function useItem() {
-  store.useItem(chosenItem.value!);
-  close();
+  const result = store.useItem(chosenItem.value!);
+  if (result) {
+    close();
+  }
 }
 </script>
 
