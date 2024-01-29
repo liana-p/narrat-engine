@@ -2,6 +2,31 @@
  * @type {import('vitepress').UserConfig}
  */
 const config = {
+  locales: {
+    root: {
+      label: 'English',
+      lang: 'en',
+    },
+    fr: {
+      label: 'Français',
+      lang: 'fr',
+      link: '/fr/',
+      description: 'Créez des jeux de fiction interactive pour web et desktop',
+    },
+    jp: {
+      label: '日本語',
+      lang: 'jp',
+      link: '/jp/',
+      description:
+        '「ナラット　(narrat)」はゲームエンジンで、ビジュアルノベルやインタラクティブな物語を作成するためのものです。',
+    },
+    zh: {
+      label: '简体中文',
+      lang: 'zh-Hans',
+      link: '/zh/',
+      description: '使用 Narrat 制作适用于 Web 和桌面的叙事 RPG 游戏',
+    },
+  },
   ignoreDeadLinks: true,
   head: [
     [
