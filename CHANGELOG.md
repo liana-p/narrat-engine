@@ -1,3 +1,12 @@
+## [3.9.5](https://github.com/liana-p/narrat-engine/compare/v3.9.4...v3.9.5) (2024-01-29)
+
+
+### Bug Fixes
+
+* **items:** fixed a bug where items would crash the tab ([49a3089](https://github.com/liana-p/narrat-engine/commit/49a3089b6795131920c7ce682d910cdf34a010e2))
+
+
+
 ## [3.9.4](https://github.com/liana-p/narrat-engine/compare/v3.9.3...v3.9.4) (2024-01-27)
 
 
