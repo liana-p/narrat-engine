@@ -15,6 +15,10 @@ Getting started with narrat is very quick. There is a ready-to-use template that
 
 **Narrat specialises in helping you create narrative games with no programming.** If you want to make action games, or games with many custom-made features, you may want a more typical general-purpose game engine. You can read more about Narrat's features, philosophy, limitations and how to add new features in [this page](/others/what-can-narrat-do).
 
+## Interactive Demo
+
+If you want to quickly get an idea of how narrat works without creating a project, the [interactive playground demo](https://demo.narrat.dev/) lets you edit the narrat demo game instantly in your browser.
+
 ## Video Guide
 
 For text instructions, jump to [the next section](#text-instructions).
@@ -50,8 +54,6 @@ npm create narrat@latest
 ```
 
 This will download narrat and ask you some questions to configure your project. You can choose between a few game templates to get started. You can now follow the instructions from the tool to run the game, or follow the "Running the game" guide below
-
-# Setting up the project
 
 ::: details How it works
 
