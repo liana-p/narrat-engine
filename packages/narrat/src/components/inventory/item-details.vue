@@ -9,12 +9,16 @@
         <hr class="hr-solid" />
         <h3>Amount: {{ item.amount }}</h3>
         <p>{{ itemData.description }}</p>
-        <button @click="use" class="button" :class="canUse ? '' : 'disabled'">
+        <button
+          @click="use"
+          class="nrt-button"
+          :class="canUse ? '' : 'nrt-disabled'"
+        >
           Use
         </button>
       </div>
     </div>
-    <button class="button" @click="close">{{ '<--' }}</button>
+    <button class="nrt-button" @click="close">{{ '<--' }}</button>
   </div>
 </template>
 <script lang="ts" setup>

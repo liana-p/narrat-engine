@@ -38,12 +38,16 @@
           <input
             autofocus
             type="text"
-            class="label-input input"
+            class="label-input nrt-input"
             ref="playerInput"
             id="player-input-field"
             v-model="playerText"
           />
-          <button @click="submitText" class="button" id="player-input-submit">
+          <button
+            @click="submitText"
+            class="nrt-button"
+            id="player-input-submit"
+          >
             Submit
           </button>
         </div>
@@ -51,7 +55,7 @@
           <div
             v-on:click="chooseOption(0)"
             ref="continue"
-            class="interact-button button override"
+            class="interact-button nrt-button override"
           >
             Continue
           </div>
@@ -590,6 +594,10 @@ defineExpose({
 }
 
 .dialog-choice {
+  transition: 0.2s;
+}
+
+.dialog-choice {
   color: var(--dialog-choice-color);
 }
 
@@ -607,6 +615,43 @@ defineExpose({
 .dialog-choice:hover {
   color: var(--dialog-choice-hover-color);
   cursor: pointer;
+}
+
+/* Somewhat arcane CSS to force the hover color to override the child style.
+Otherwise hovering choices doesn't change the color of skill check prompts. */
+.dialog-choice:not(:hover) > .skill-check-name,
+.passive-skill-check > .skill-check-name {
+  color: var(--skill-check-name-color);
+}
+
+.dialog-choice:not(:hover) > .skill-check-difficulty,
+.passive-skill-check > .skill-check-difficulty {
+  color: var(--skill-check-difficulty);
+}
+
+.skill-check-difficulty {
+  font-weight: 700;
+}
+
+.dialog-choice:not(:hover) > .skill-check-success,
+.passive-skill-check > .skill-check-success {
+  color: var(--skill-check-success);
+}
+
+.dialog-choice:not(:hover) > .skill-check-failed,
+.passive-skill-check > .skill-check-failed {
+  color: var(--skill-check-failed);
+}
+
+.dialog-choice:not(:hover) > .skill-check,
+.passive-skill-check.skill-check {
+  color: var(--skill-check-color);
+}
+.dialog-choice:hover,
+.dialog-choice.selected {
+  transform: scale(1.05, 1.05);
+  background-color: rgba(250, 173, 57, 0.3);
+  transform-origin: center;
 }
 
 .buttons-container {
@@ -639,5 +684,9 @@ defineExpose({
 .choice-index {
   color: white;
   margin-right: 10px;
+}
+
+.dialog-box-old {
+  opacity: 0.7;
 }
 </style>

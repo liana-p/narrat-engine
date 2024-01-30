@@ -1,7 +1,7 @@
 <template>
   <modal @close="tryToClose" containerCssClass="save-modal" :cantClose="false">
     <template v-slot:header>
-      <h3 class="title">
+      <h3 class="nrt-title">
         {{
           mode === 'load'
             ? 'Choose a save to load'

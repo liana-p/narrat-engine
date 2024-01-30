@@ -1,6 +1,6 @@
 screens:
   default:
-    background: narrat
+    background: '@empty'
   overlay:
     background: img/backgrounds/overlay.webp
     buttons:

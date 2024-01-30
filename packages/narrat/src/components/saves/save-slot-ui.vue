@@ -30,7 +30,7 @@
       </div>
       <div class="flex flex-row" ref="actionsContainer">
         <button
-          class="button"
+          class="nrt-button"
           @click="() => buttonAction(index)"
           :class="{ selected: selected && index === selectedButtonIndex }"
           v-for="(action, index) in actions"

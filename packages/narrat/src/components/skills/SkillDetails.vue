@@ -12,7 +12,7 @@
       </div>
     </div>
     <div ref="buttonsContainer">
-      <button class="button" @click="close">{{ '<--' }}</button>
+      <button class="nrt-button" @click="close">{{ '<--' }}</button>
     </div>
   </div>
 </template>

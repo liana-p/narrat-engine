@@ -1,5 +1,5 @@
 <template>
-  <div id="narrat-app-container" :style="appStyle">
+  <div id="narrat" :style="appStyle">
     <div id="narrat-app" :class="appClass" tabindex="0">
       <Transition name="screens-fade">
         <GameScene
@@ -39,6 +39,7 @@ import TooltipsUi from './components/tooltips/tooltips-ui.vue';
 import { preloadAndSetupGame } from '@/application/application-start';
 import { useScenes } from './stores/scenes-store';
 import GameScene from './components/GameScene.vue';
+import '@/data/all-stores';
 
 const props = defineProps<{
   options: AppOptions;
@@ -96,7 +97,7 @@ onMounted(async () => {
 </script>
 
 <style>
-#narrat-app-container {
+#narrat {
   background-color: var(--bg-color);
   width: 100%;
   height: 100%;

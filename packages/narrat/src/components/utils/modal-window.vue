@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="modal-mask" @click="close">
       <div
-        class="modal-container bg-gray-800 card-4"
+        class="modal-container bg-gray-800 nrt-card-4"
         :class="containerCssClass"
         @click="(e) => e.stopPropagation()"
       >

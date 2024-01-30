@@ -1,6 +1,6 @@
 <template>
   <div class="debug-menu">
-    <button @click="open" class="button debug-button">Debug Menu</button>
+    <button @click="open" class="nrt-button debug-button">Debug Menu</button>
     <div class="debug-info" v-if="!playing && activeScene === 'menu'">
       <h3>Debug mode is ON</h3>
       <ul>
@@ -48,13 +48,15 @@
         <div class="container">
           Hello this is the debug menu.
           <select
-            class="select"
+            class="nrt-select"
             name="label-selector"
             @change="labelSelected($event)"
           >
-            <option class="option" selected disabled>Jump to a label</option>
+            <option class="nrt-option" selected disabled>
+              Jump to a label
+            </option>
             <option
-              class="option"
+              class="nrt-option"
               v-for="label in labels"
               :value="label"
               :key="label"
@@ -63,15 +65,20 @@
             </option>
           </select>
           <div class="grid grid-cols-3 gap-4">
-            <button @click="wordCount" class="button">Word Count</button>
-            <button @click="save" class="button">Save Game</button>
-            <button @click="resetSave" class="button">Reset Save</button>
-            <button @click="resetGlobalSave" class="button">
+            <button @click="wordCount" class="nrt-button">Word Count</button>
+            <button @click="save" class="nrt-button">Save Game</button>
+            <button @click="resetSave" class="nrt-button">Reset Save</button>
+            <button @click="resetGlobalSave" class="nrt-button">
               Reset GLOBAL Save
             </button>
           </div>
           <h3>Play time: {{ getPlayTimeString() }}</h3>
           <h2>Variables Editor</h2>
+          <p>
+            This has been removed. Use the
+            <a href="https://devtools.vuejs.org/">Vue Devtools</a> instead and
+            inspect the contents of the pinia store
+          </p>
           <div ref="variablesViewer"></div>
           <h2>Skill Checks</h2>
           <table class="table-auto">
@@ -108,7 +115,6 @@ import { logger } from '@/utils/logger';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { computed, defineComponent } from 'vue';
 import ModalWindow from '../utils/modal-window.vue';
-import { JSONEditor } from 'vanilla-jsoneditor';
 import { Parser } from '@/types/parser';
 import { useSkills } from '@/stores/skills';
 import { useMain } from '@/stores/main-store';
@@ -124,7 +130,7 @@ import DebugJumping from './debug-jumping.vue';
 import { InputListener } from '@/stores/inputs-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { autoSaveGame, resetGlobalSave } from '@/application/saving';
-import { getAllStates, overrideStates } from '@/data/all-stores';
+// import { getAllStates, overrideStates } from '@/data/all-stores';
 import { useScenes } from '@/stores/scenes-store';
 import { getCommonConfig } from '@/config';
 export default defineComponent({
@@ -185,47 +191,47 @@ export default defineComponent({
       const questsStore = useQuests();
       const inventoryStore = useInventory();
       const skillsStore = useSkills();
-      this.$nextTick(() => {
-        // eslint-disable-next-line no-unused-vars
-        const _variablesEditor = new (JSONEditor as any)({
-          target: this.$refs.variablesViewer as any,
-          props: {
-            content: {
-              text: undefined,
-              json: {
-                data: this.variables,
-                quests: questsStore.quests,
-                items: inventoryStore.items,
-                skills: skillsStore.skills,
-                skillChecks: skillsStore.skillChecks,
-              },
-            },
-            onChange: (updatedContent: any) => {
-              vmStore.overrideData(updatedContent.json.data);
-              questsStore.quests = updatedContent.json.quests;
-              inventoryStore.items = updatedContent.json.items;
-              skillsStore.skills = updatedContent.json.skills;
-              skillsStore.skillChecks = updatedContent.json.skillChecks;
-            },
-          },
-        });
-        // eslint-disable-next-line no-unused-vars
-        const _stateEditor = new (JSONEditor as any)({
-          target: this.$refs.stateViewer as any,
-          props: {
-            content: {
-              text: undefined,
-              json: getAllStates(),
-            },
-            onChange: (updatedContent: any) => {
-              overrideStates(updatedContent.json);
-            },
-          },
-        });
-        // const tree = jsonview.create(JSON.stringify(this.variables));
-        // jsonview.render(tree, this.$refs.variablesViewer);
-        // jsonview.expand(tree);
-      });
+      // this.$nextTick(() => {
+      //   // eslint-disable-next-line no-unused-vars
+      //   const _variablesEditor = new (JSONEditor as any)({
+      //     target: this.$refs.variablesViewer as any,
+      //     props: {
+      //       content: {
+      //         text: undefined,
+      //         json: {
+      //           data: this.variables,
+      //           quests: questsStore.quests,
+      //           items: inventoryStore.items,
+      //           skills: skillsStore.skills,
+      //           skillChecks: skillsStore.skillChecks,
+      //         },
+      //       },
+      //       onChange: (updatedContent: any) => {
+      //         vmStore.overrideData(updatedContent.json.data);
+      //         questsStore.quests = updatedContent.json.quests;
+      //         inventoryStore.items = updatedContent.json.items;
+      //         skillsStore.skills = updatedContent.json.skills;
+      //         skillsStore.skillChecks = updatedContent.json.skillChecks;
+      //       },
+      //     },
+      //   });
+      //   // eslint-disable-next-line no-unused-vars
+      //   const _stateEditor = new (JSONEditor as any)({
+      //     target: this.$refs.stateViewer as any,
+      //     props: {
+      //       content: {
+      //         text: undefined,
+      //         json: getAllStates(),
+      //       },
+      //       onChange: (updatedContent: any) => {
+      //         overrideStates(updatedContent.json);
+      //       },
+      //     },
+      //   });
+      //   // const tree = jsonview.create(JSON.stringify(this.variables));
+      //   // jsonview.render(tree, this.$refs.variablesViewer);
+      //   // jsonview.expand(tree);
+      // });
     },
     toggle() {
       if (this.showDebug) {

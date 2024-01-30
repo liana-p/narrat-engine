@@ -1,5 +1,5 @@
 <template>
-  <div class="achievement-display tile" :id="`achievement-${achievement}`">
+  <div class="achievement-display nrt-tile" :id="`achievement-${achievement}`">
     <div class="achievement-icon" :style="style"></div>
     <p class="obtained-status">
       {{ obtainedStatus }}

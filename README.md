@@ -127,6 +127,21 @@ There is now a plugin system developers can use to add new functionality to narr
 
 (Note: The narrat-bitsy plugin hasn't been updated for 2.0.0 and might be a bit out of date).
 
+## Docs
+
+The documentation website uses Vitepress. Files are in markdown and can be edited. Making a pull request or pushing to master will deploy the change.
+
+To run the docs, open a terminal at the root of the monorepo (not in the docs folder) and run:
+
+```
+pnpm run docs:dev
+```
+
+The docs also use:
+
+- `highlight.js` for custom syntax highlighting
+- `code-input` to turn syntax highlight editable for the live narrat preview in the docs
+
 ## Assets used in demo games
 
 - [Pointing arrows from OpenGameArt](https://opengameart.org/content/pointing-arrows)

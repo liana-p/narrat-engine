@@ -1,7 +1,7 @@
 <template>
   <transition-group name="notification" tag="div" class="notifications-holder">
     <div
-      class="notification tile"
+      class="notification nrt-tile"
       v-for="(notification, id) in notifications"
       :key="id"
     >
