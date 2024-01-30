@@ -1,3 +1,4 @@
+import 'narrat/dist/style.css';
 import DefaultTheme from 'vitepress/theme';
 import FeedbackForm from '../../components/FeedbackForm.vue';
 

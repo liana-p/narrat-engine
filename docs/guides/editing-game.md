@@ -3,7 +3,7 @@ description: This documentation page explains how to edit a narrat game
 ---
 
 <script setup>
-// import NarratPreview from '../components/NarratPreview.vue';
+import NarratPreview from '../components/NarratPreview.vue';
 const demoScript = `main:
   think player idle "Where am I..."
   choice:
@@ -43,7 +43,7 @@ main:
 You can play this example screen just below
 :::
 
-<!-- <NarratPreview :scriptContent="demoScript" /> -->
+<NarratPreview :scriptContent="demoScript" />
 
 ## Opening the narrat project and getting ready to edit files
 

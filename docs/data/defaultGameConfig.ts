@@ -4,6 +4,20 @@ export const gameConfig: ConfigInputWithCommon = {
     screens: {
       default: {
         background: '@empty',
+        buttons: ['replay'],
+      },
+    },
+  },
+  buttons: {
+    buttons: {
+      replay: {
+        enabled: true,
+        text: 'Replay',
+        position: {
+          left: 400,
+          top: 500,
+        },
+        action: 'main',
       },
     },
   },

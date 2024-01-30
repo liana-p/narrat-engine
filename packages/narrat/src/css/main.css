@@ -121,6 +121,8 @@
   --game-bg-color: transparent;
   font-family: var(--font-family);
 
+  user-select: none;
+
   /* Global element overrides scoped inside the #narrat div to avoid affecting other page elements */
   * {
     box-sizing: border-box;

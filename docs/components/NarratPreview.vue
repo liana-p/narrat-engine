@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import 'narrat/dist/style.css';
 import { startApp, stopApp, restartApp } from 'narrat';
 import { onMounted, ref, defineProps } from 'vue';
 import { gameConfig } from '../data/defaultGameConfig';
