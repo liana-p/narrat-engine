@@ -4,22 +4,18 @@
     placeholder="Type code here"
     template="syntax-highlighted"
     :oninput="codeInputChanged"
+    :style="{
+      width: '100%',
+      height: props.codeHeight + 'px',
+    }"
     >{{ props.scriptContent }}</code-input
   >
   <div class="narrat-preview" ref="narratContainer"></div>
 </template>
 
 <script setup lang="ts">
-import {
-  startApp,
-  stopApp,
-  restartApp,
-  NarratScript,
-  handleHMR,
-  useMain,
-  useVM,
-} from 'narrat';
-import { onMounted, ref, defineProps, reactive } from 'vue';
+import { startApp, stopApp, NarratScript, handleHMR, useVM } from 'narrat';
+import { onMounted, ref, defineProps } from 'vue';
 import { gameConfig } from '../data/defaultGameConfig';
 import { getCodeInput } from '../utils/code-input';
 
@@ -29,6 +25,7 @@ const isNarratRunning = ref<boolean>(false);
 const props = defineProps<{
   scriptContent: string;
   autoJumpOnChange: boolean;
+  codeHeight: number;
 }>();
 
 const script = ref({

@@ -6,6 +6,27 @@ description: This documentation page explains how to edit a narrat game
 import NarratPreview from '../components/NarratPreview.vue';
 import EditableCode from '../components/EditableCode.vue';
 
+const testDemoScript = `main:
+  think player idle "Where am I..."
+  set test (+ 1 2)
+  set data.test (concat (add 1 2) "Hello, " (concat "nice" "World"))
+  set data.test2 true
+  // This is a comment
+
+  choice:
+    talk narrat idle "You just %{$data.test} woke up in some sort of game engine demo."
+    "I'm in a game engine?":
+      talk narrat idle "Yes, you're inside an example narrat game with the documentation website."
+    "What?":
+      talk narrat idle "Eh, you'll get it later."
+  think player idle "I see..."
+  jump testLabel2
+testLabel2:
+  "This is another label"
+  
+label3:
+  "Hello"`;
+
 const demoScript = `main:
   think player idle "Where am I..."
   choice:
@@ -15,7 +36,6 @@ const demoScript = `main:
     "What?":
       talk narrat idle "Eh, you'll get it later."
   think player idle "I see..."`;
-
 </script>
 
 # Editing a narrat game
@@ -29,7 +49,7 @@ There are two types of content to edit to make a narrat game:
 
 Here's an example narrat game with the following `.narrat` script:
 
-<EditableCode :codeInput="demoScript" language="javascript"/>
+<!-- <EditableCode :codeInput="demoScript" language="javascript"/>
 
 ```narrat
 main:
@@ -45,9 +65,9 @@ main:
 
 ::: tip
 You can play this example game script just below
-:::
+::: -->
 
-<NarratPreview :scriptContent="demoScript" :autoJumpOnChange="true" />
+<NarratPreview :scriptContent="demoScript" :autoJumpOnChange="true" :codeHeight="300" />
 
 ## Opening the narrat project and getting ready to edit files
 
