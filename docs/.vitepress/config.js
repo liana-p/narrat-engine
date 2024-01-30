@@ -53,11 +53,11 @@ const config = {
       {},
       "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-1LLT0JWVV5');",
     ],
-    ['link', { rel: 'stylesheet', href: '/lib/code-input.min.css' }],
+    ['link', { rel: 'stylesheet', href: '/vendors/code-input.min.css' }],
     [
       'script',
       {
-        src: '/lib/code-input.min.js',
+        src: '/vendors/code-input.min.js',
       },
     ],
   ],
