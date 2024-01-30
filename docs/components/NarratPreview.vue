@@ -15,14 +15,20 @@
 </template>
 
 <script setup lang="ts">
-import { startApp, stopApp, NarratScript, handleHMR, useVM } from 'narrat';
-import { onMounted, ref, defineProps } from 'vue';
+import { onMounted, ref, defineProps, shallowRef } from 'vue';
 import { gameConfig } from '../data/defaultGameConfig';
 import { getCodeInput } from '../utils/code-input';
 
 const narratContainer = ref<HTMLDivElement | null>(null);
 const isNarratRunning = ref<boolean>(false);
 
+async function importNarrat() {
+  const narrat = await import('narrat');
+  return narrat;
+}
+
+type NarratModule = Awaited<ReturnType<typeof importNarrat>>;
+const narrat = shallowRef<NarratModule | null>(null);
 const loaded = ref(false);
 const props = defineProps<{
   scriptContent: string;
@@ -38,7 +44,7 @@ const script = ref({
 });
 
 function scriptToNarratModule(): {
-  default: NarratScript;
+  default: any;
 } {
   return {
     default: {
@@ -53,7 +59,7 @@ function scriptToNarratModule(): {
 function codeInputChanged(el) {
   const newCode = el.target.value;
   script.value.code = newCode;
-  handleHMR(scriptToNarratModule() as any);
+  narrat.value.handleHMR(scriptToNarratModule() as any);
   if (props.autoJumpOnChange) {
     jumpBackToLabel();
   }
@@ -62,6 +68,7 @@ function codeInputChanged(el) {
 onMounted(async () => {
   await readyCodeInput();
   loaded.value = true;
+  narrat.value = await importNarrat();
   launchNarratGame();
 });
 
@@ -81,16 +88,16 @@ function launchNarratGame() {
 }
 
 function stopNarratGame() {
-  stopApp();
+  narrat.value.stopApp();
   isNarratRunning.value = false;
 }
 
 function jumpBackToLabel() {
-  const vm = useVM();
+  const vm = narrat.value.useVM();
   vm.jumpToLabel('main');
 }
 function startNarratApp() {
-  startApp({
+  narrat.value.startApp({
     debug: true,
     logging: false,
     scripts: [script.value],

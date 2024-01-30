@@ -1,4 +1,4 @@
-import { ConfigInputWithCommon } from 'narrat';
+import type { ConfigInputWithCommon } from 'narrat';
 export const gameConfig: ConfigInputWithCommon = {
   screens: {
     screens: {

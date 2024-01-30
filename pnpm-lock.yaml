@@ -187,9 +187,6 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      vanilla-jsoneditor:
-        specifier: ^0.17.8
-        version: 0.17.10
     devDependencies:
       '@pinia/testing':
         specifier: ^0.0.16
@@ -7480,10 +7477,6 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
     dev: true
-
-  /vanilla-jsoneditor@0.17.10:
-    resolution: {integrity: sha512-2ScoLNqq3kRSJ1+sG8rzbh4YtetrgEXbRX0OYxOk1Lqlg6tSkELGPsTA4KADFwk1s84oPj2ozMmFY6SwbZRJhg==}
-    dev: false
 
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}

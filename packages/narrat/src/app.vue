@@ -39,6 +39,7 @@ import TooltipsUi from './components/tooltips/tooltips-ui.vue';
 import { preloadAndSetupGame } from '@/application/application-start';
 import { useScenes } from './stores/scenes-store';
 import GameScene from './components/GameScene.vue';
+import '@/data/all-stores';
 
 const props = defineProps<{
   options: AppOptions;
