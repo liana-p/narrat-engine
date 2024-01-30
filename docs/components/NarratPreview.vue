@@ -1,5 +1,6 @@
 <template>
   <code-input
+    v-if="loaded"
     lang="narrat"
     placeholder="Type code here"
     template="syntax-highlighted"
@@ -22,6 +23,7 @@ import { getCodeInput } from '../utils/code-input';
 const narratContainer = ref<HTMLDivElement | null>(null);
 const isNarratRunning = ref<boolean>(false);
 
+const loaded = ref(false);
 const props = defineProps<{
   scriptContent: string;
   autoJumpOnChange: boolean;
@@ -59,6 +61,7 @@ function codeInputChanged(el) {
 
 onMounted(async () => {
   await readyCodeInput();
+  loaded.value = true;
   launchNarratGame();
 });
 
