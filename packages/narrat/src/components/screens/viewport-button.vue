@@ -111,7 +111,7 @@ function clickOnButton() {
   pointer-events: auto;
 }
 
-.viewport-button.disabled {
+.viewport-button.nrt-disabled {
   pointer-events: none;
   user-select: none;
 }

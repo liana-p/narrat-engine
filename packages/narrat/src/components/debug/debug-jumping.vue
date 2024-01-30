@@ -6,7 +6,7 @@
     <template v-slot:body>
       <input
         type="text"
-        class="label-input input"
+        class="label-input nrt-input"
         ref="search"
         v-model="searchString"
         @input="onSearchInput"

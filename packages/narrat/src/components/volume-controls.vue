@@ -1,6 +1,6 @@
 <template>
   <div class="volume-controls">
-    <h3 class="subtitle">Volume</h3>
+    <h3 class="nrt-subtitle">Volume</h3>
     <div
       class="volume-control"
       v-for="(volume, index) in volumes"

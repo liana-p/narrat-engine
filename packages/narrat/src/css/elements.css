@@ -1,0 +1,142 @@
+/* This style file contains base element styling classes
+They are all prefixed with `nrt-` to avoid clashes with the rest of whatever webpage narrat gets integrated in.
+
+Only classes with generic names that are likely to clash with other applications have the `nrt` prefix. Other more specific class names don't.
+*/
+
+.nrt-red {
+  color: red;
+}
+
+.nrt-tile {
+  background: var(--tile-background);
+  border-color: var(--tile-border-color);
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 2px;
+  padding: 20px;
+}
+
+.nrt-select {
+  background: var(--light-background);
+  padding: 10px;
+}
+
+.nrt-option {
+  background-color: var(--light-2);
+  padding: 5px;
+  color: var(--text-color);
+}
+.nrt-button {
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border-color: var(--tile-border-color);
+  border-radius: 10px;
+  border-width: 2px;
+  padding: 10px;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: 10px;
+  transition: 0.2s;
+}
+
+.nrt-button.large {
+  border-radius: 20px;
+}
+
+.nrt-button.main-menu-button {
+  border-radius: 20px;
+}
+.nrt-button:focus,
+.nrt-button:hover {
+  transform: translateY(-0.2rem);
+}
+
+.nrt-disabled {
+  user-select: none;
+  pointer-events: none;
+}
+
+.nrt-button.nrt-disabled {
+  box-shadow: unset;
+  color: grey;
+  background: var(--border-color);
+}
+
+.nrt-input {
+  background: var(--light-background);
+  color: var(--text-color);
+  box-shadow: 0.4rem 0.4rem 2.4rem 0.2rem var(--shadow-1);
+  border-radius: 100px;
+  padding: 10px;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: 10px;
+  transition: 0.2s;
+}
+
+.nrt-input:focus,
+.nrt-input:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0 2.4rem 0.2rem var(--shadow-2);
+}
+
+.nrt-button.selected {
+  border: var(--selected-border);
+}
+
+.nrt-card-1 {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nrt-card-1:hover {
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.nrt-card-2 {
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.nrt-card-3 {
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.nrt-card-4 {
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.nrt-card-5 {
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.7),
+    0 15px 12px rgba(0, 0, 0, 0.5);
+}
+
+.nrt-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.nrt-subtitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+.nrt-container {
+  padding: 20px;
+}
+
+.nrt-button.selected {
+  border: var(--selected-border);
+}

@@ -1,5 +1,5 @@
 <template>
-  <div id="narrat-app-container" :style="appStyle">
+  <div id="narrat" :style="appStyle">
     <div id="narrat-app" :class="appClass" tabindex="0">
       <Transition name="screens-fade">
         <GameScene
@@ -96,7 +96,7 @@ onMounted(async () => {
 </script>
 
 <style>
-#narrat-app-container {
+#narrat {
   background-color: var(--bg-color);
   width: 100%;
   height: 100%;

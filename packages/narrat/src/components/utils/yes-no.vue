@@ -6,8 +6,8 @@
     <template v-slot:body>
       <h3>{{ prompt }}</h3>
       <div class="flex justify-center" ref="buttonsContainer">
-        <button class="button" @click="() => chosen(true)">Yes</button>
-        <button class="button" @click="() => chosen(false)">No</button>
+        <button class="nrt-button" @click="() => chosen(true)">Yes</button>
+        <button class="nrt-button" @click="() => chosen(false)">No</button>
       </div>
     </template>
   </ModalWindow>

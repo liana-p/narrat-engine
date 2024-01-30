@@ -1,6 +1,6 @@
 <template>
   <div class="debug-menu">
-    <button @click="open" class="button debug-button">Debug Menu</button>
+    <button @click="open" class="nrt-button debug-button">Debug Menu</button>
     <div class="debug-info" v-if="!playing && activeScene === 'menu'">
       <h3>Debug mode is ON</h3>
       <ul>
@@ -48,13 +48,15 @@
         <div class="container">
           Hello this is the debug menu.
           <select
-            class="select"
+            class="nrt-select"
             name="label-selector"
             @change="labelSelected($event)"
           >
-            <option class="option" selected disabled>Jump to a label</option>
+            <option class="nrt-option" selected disabled>
+              Jump to a label
+            </option>
             <option
-              class="option"
+              class="nrt-option"
               v-for="label in labels"
               :value="label"
               :key="label"
@@ -63,10 +65,10 @@
             </option>
           </select>
           <div class="grid grid-cols-3 gap-4">
-            <button @click="wordCount" class="button">Word Count</button>
-            <button @click="save" class="button">Save Game</button>
-            <button @click="resetSave" class="button">Reset Save</button>
-            <button @click="resetGlobalSave" class="button">
+            <button @click="wordCount" class="nrt-button">Word Count</button>
+            <button @click="save" class="nrt-button">Save Game</button>
+            <button @click="resetSave" class="nrt-button">Reset Save</button>
+            <button @click="resetGlobalSave" class="nrt-button">
               Reset GLOBAL Save
             </button>
           </div>

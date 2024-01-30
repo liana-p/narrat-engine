@@ -2,6 +2,7 @@ import { Config } from '@/config/config-output';
 import { getAssetUrl } from '../config';
 import { error } from './error-handling';
 import { logger } from './logger';
+import { EMPTY_SCREEN } from '@/constants';
 
 export const images: {
   [key: string]: HTMLImageElement | Promise<HTMLImageElement>;
@@ -66,6 +67,11 @@ export async function loadImages(config: Config): Promise<HTMLImageElement[]> {
 export async function downloadImage(key: string, path: string) {
   if (images[key]) {
     return images[key];
+  }
+  if (path === EMPTY_SCREEN) {
+    const image = new Image();
+    images[key] = image;
+    return image;
   }
   const promise = new Promise<HTMLImageElement>((resolve, reject) => {
     // logger.log(`Loading image ${key} at ${path}`);

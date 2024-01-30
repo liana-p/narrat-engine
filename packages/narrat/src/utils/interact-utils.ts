@@ -21,7 +21,7 @@ export function getCSSClassForObject(state: RenderingState) {
     css.interactable = true;
   }
   if (!state.clickable || !state.viewportClickable) {
-    css.disabled = true;
+    css['nrt-disabled'] = true;
   }
   if (state.transitioning) {
     css.transitioning = true;

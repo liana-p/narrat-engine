@@ -125,7 +125,7 @@ const objectStyle = computed(() => {
   cursor: pointer;
   pointer-events: auto;
 }
-.viewport-object.disabled {
+.viewport-object.nrt-disabled {
   pointer-events: none;
   user-select: none;
 }

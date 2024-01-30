@@ -1,9 +1,36 @@
 :root {
+  /* Original vitepress values: */
+  --vp-c-red-1: #b8272c;
+  --vp-c-red-2: #d5393e;
+  --vp-c-red-3: #e0575b;
+  --vp-c-red-soft: rgba(244, 63, 94, 0.14);
+
+  /* Overriden values@ */
+  --vp-c-red-1: #f66f81;
+  --vp-c-red-2: #e75c5c;
+  --vp-c-red-3: #dd3e3e;
+
+  /* Deprecated values */
   --vp-c-brand-darker: #772222;
   --vp-c-brand-dark: #aa3232;
   --vp-c-brand: #e64545;
   --vp-c-brand-light: #e64545;
   --vp-c-brand-lighter: #ff4b4b;
+
+  /* Final brand values */
+  --vp-c-brand-1: var(--vp-c-red-1);
+  --vp-c-brand-2: var(--vp-c-red-2);
+  --vp-c-brand-3: var(--vp-c-red-3);
+  --vp-c-brand-soft: var(--vp-c-red-soft);
+
+  --vp-home-hero-name-background: linear-gradient(120deg, #b82727 30%, #b827b1);
+  --vp-home-hero-name-color: transparent;
+
+  /* tips */
+  --vp-c-tip-1: var(--vp-c-indigo-1);
+  --vp-c-tip-2: var(--vp-c-indigo-2);
+  --vp-c-tip-3: var(--vp-c-indigo-3);
+  --vp-c-tip-soft: var(--vp-c-indigo-soft);
 }
 
 .dark {

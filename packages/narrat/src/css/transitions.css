@@ -1,0 +1,162 @@
+/* Style file for all the default built-in vue transitions and animations */
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.12s ease;
+}
+
+.think-command {
+  color: cyan;
+}
+/* .list-move {
+  transition: transform 0.3s ease;
+} */
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(300px);
+}
+
+.notification-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.notification-enter-active,
+.notification-leave-active {
+  transition: all 0.3s ease;
+}
+
+/* .notification-move {
+  transition: transform 0.3s ease;
+} */
+.notification-enter-from,
+.notification-leave-to {
+  opacity: 0;
+  transform: translateY(-300px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-in-enter-active {
+  transition: opacity 0.1s ease;
+}
+
+.fade-in-enter-from {
+  opacity: 0;
+}
+
+.narrat-transition-fade-enter-active,
+.narrat-transition-fade-leave-active {
+  transition-property: opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.narrat-transition-fade-enter-from,
+.narrat-transition-fade-leave-to {
+  opacity: 0;
+}
+
+.narrat-transition-slide-right-enter-active,
+.narrat-transition-slide-right-leave-active {
+  transition-property: transform;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.narrat-transition-slide-right-enter-from {
+  transform: translateX(-100%);
+}
+.narrat-transition-slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+.narrat-transition-slide-left-enter-active,
+.narrat-transition-slide-left-leave-active {
+  transition-property: transform;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.narrat-transition-slide-left-enter-from {
+  transform: translateX(100%);
+}
+.narrat-transition-slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.narrat-transition-slide-top-enter-active,
+.narrat-transition-slide-top-leave-active {
+  transition-property: transform;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.narrat-transition-slide-top-enter-from {
+  transform: translateY(100%);
+}
+.narrat-transition-slide-top-leave-to {
+  transform: translateY(-100%);
+}
+
+.narrat-transition-slide-bottom-enter-active,
+.narrat-transition-slide-bottom-leave-active {
+  transition-property: transform;
+  transition-timing-function: ease;
+  transition-duration: 0.3s;
+}
+
+.narrat-transition-slide-bottom-enter-from {
+  transform: translateY(-100%);
+}
+.narrat-transition-slide-bottom-leave-to {
+  transform: translateY(100%);
+}
+.screens-fade-enter-active,
+.screens-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.screens-fade-enter-from,
+.screens-fade-leave-to {
+  opacity: 0;
+}
+
+.dialog-transition-enter-active,
+.dialog-transition-leave-active {
+  transition: transform 0.25s ease-out;
+}
+
+.dialog-transition-enter-from,
+.dialog-transition-leave-to {
+  transform: translateY(-100%);
+}
+
+@keyframes narrat-screenshake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

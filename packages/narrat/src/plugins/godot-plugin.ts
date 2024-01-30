@@ -90,7 +90,7 @@ export class GodotPlugin extends NarratPlugin {
   }
 
   onAppMounted() {
-    const app = document.querySelector('#narrat-app-container') as HTMLElement;
+    const app = document.querySelector('#narrat') as HTMLElement;
     if (!app) {
       console.error('no app');
       return;

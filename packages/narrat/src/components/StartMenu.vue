@@ -28,13 +28,13 @@
         />
       </div>
     </div>
-    <Teleport to="#narrat-app-container" v-if="popupComponent">
+    <Teleport to="#narrat" v-if="popupComponent">
       <ModalWindow
         @close="closePopupComponent"
         :class="`start-menu-popup-${popupComponent.id}`"
       >
         <template v-slot:header>
-          <h3 class="title">
+          <h3 class="nrt-title">
             {{ popupComponent.text }}
           </h3>
         </template>
@@ -322,7 +322,7 @@ const gameTitle = computed(() => {
   return getCommonConfig().gameTitle;
 });
 </script>
-<style>
+<style scoped>
 #game-menu {
   width: 100%;
   height: 100%;

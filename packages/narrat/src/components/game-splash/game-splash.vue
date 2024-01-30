@@ -11,7 +11,7 @@
       <h1 class="title" id="game-splash-title">{{ gameTitle }}</h1>
       <button
         v-if="gameLoaded"
-        class="button menu-button main-menu-button large splash-start-button override"
+        class="nrt-button menu-button main-menu-button large splash-start-button override"
         @click="goToStartMenu"
       >
         {{ startButtonText }}

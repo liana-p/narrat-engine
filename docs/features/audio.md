@@ -155,7 +155,7 @@ So for example:
 
 If I set master volume to 1, and music volume has been set to 0.5, and a specific sound effect has its volume set at 0.5, then the sound effect will play at 0.25 volume.
 
-## Characters speak audio
+## Characters speak audio <Badge type="tip" text="^3.8.0" />
 
 Narrat can play sounds when characters speak. There are two possible ways:
 

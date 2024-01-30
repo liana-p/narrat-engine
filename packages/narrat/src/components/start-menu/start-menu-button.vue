@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button menu-button main-menu-button large override"
+    class="nrt-button menu-button main-menu-button large override"
     :class="button.cssClass"
     @click="$emit('click')"
   >

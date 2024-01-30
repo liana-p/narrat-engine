@@ -2,12 +2,48 @@
 description: This documentation page explains how to edit a narrat game
 ---
 
+<script setup>
+// import NarratPreview from '../components/NarratPreview.vue';
+const demoScript = `main:
+  think player idle "Where am I..."
+  choice:
+    "You just woke up in some sort of game engine demo."
+    "I'm in a game engine?":
+      "Yes, you're inside an example narrat game with the documentation website."
+    "What?":
+      "Eh, never mind."
+  think player idle "I see..."`;
+
+</script>
+
 # Editing a narrat game
 
 There are two types of content to edit to make a narrat game:
 
 - Dialogue scripts: `.narrat` files that contain the branching narrative of the game
 - Config files: `.yaml` files that contain config data about the game
+
+## Example narrat game
+
+Here's an example narrat game with the following `.narrat` script:
+
+```narrat
+main:
+  think player idle "Where am I..."
+  choice:
+    "You just woke up in some sort of game engine demo."
+    "I'm in a game engine?":
+      "Yes, you're inside an example narrat game with the documentation website."
+    "What?":
+      "Eh, never mind."
+  think player idle "I see..."
+```
+
+::: tip
+You can play this example screen just below
+:::
+
+<!-- <NarratPreview :scriptContent="demoScript" /> -->
 
 ## Opening the narrat project and getting ready to edit files
 

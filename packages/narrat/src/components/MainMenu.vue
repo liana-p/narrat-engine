@@ -4,10 +4,12 @@
 
     <VolumeControls />
     <div ref="mainActions">
-      <button class="button title quit-button" @click="mainMenu">
+      <button class="nrt-button nrt-title quit-button" @click="mainMenu">
         Main Menu
       </button>
-      <button class="button title quit-button" @click="quit">Exit</button>
+      <button class="nrt-button nrt-title quit-button" @click="quit">
+        Exit
+      </button>
     </div>
     <SettingsMenu />
   </div>

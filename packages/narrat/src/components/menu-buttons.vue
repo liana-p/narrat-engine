@@ -5,17 +5,17 @@
       :key="menuButton.id"
       @click="buttonClick(menuButton.id)"
       :id="menuButton.cssId ?? `${key}-menu-button`"
-      class="button menu-toggle-button"
+      class="nrt-button menu-toggle-button"
     >
       {{ menuButton.label }}
     </button>
-    <Teleport to="#narrat-app-container" v-if="menu">
+    <Teleport to="#narrat" v-if="menu">
       <Modal
         :containerCssClass="{ [menu.cssClass!]: true, 'menu-modal': true }"
         @close="closeMenu"
       >
         <template v-slot:header>
-          <h3 class="title">{{ menuStore.tab?.text ?? menu.label }}</h3>
+          <h3 class="nrt-title">{{ menuStore.tab?.text ?? menu.label }}</h3>
         </template>
         <template v-slot:body>
           <TabsController

@@ -34,12 +34,15 @@
       <Teleport to="#narrat-app">
         <div class="auto-skip-buttons flex">
           <div
-            class="button menu-toggle-button auto-button auto"
+            class="nrt-button menu-toggle-button auto-button auto"
             @click="autoPlay"
           >
             Auto
           </div>
-          <div class="button menu-toggle-button auto-button skip" @click="skip">
+          <div
+            class="nrt-button menu-toggle-button auto-button skip"
+            @click="skip"
+          >
             Skip
           </div>
         </div>
