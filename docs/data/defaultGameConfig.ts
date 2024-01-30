@@ -3,7 +3,7 @@ export const gameConfig: ConfigInputWithCommon = {
   screens: {
     screens: {
       default: {
-        background: '@empty',
+        background: '/placeholder-narrat-bg-darker.webp',
         buttons: ['replay'],
       },
     },
@@ -14,10 +14,11 @@ export const gameConfig: ConfigInputWithCommon = {
         enabled: true,
         text: 'Replay',
         position: {
-          left: 400,
-          top: 500,
+          left: 100,
+          top: 100,
         },
         action: 'main',
+        cssClass: 'replay-button',
       },
     },
   },
@@ -34,13 +35,22 @@ export const gameConfig: ConfigInputWithCommon = {
   },
   characters: {
     config: {
-      imagesPath: './img/characters',
+      imagesPath: '/',
     },
     characters: {
+      narrat: {
+        name: 'Narrat',
+        sprites: {
+          idle: 'narrat-portrait.webp',
+        },
+      },
       game: {
         name: '',
         style: {
           color: 'white',
+        },
+        sprites: {
+          idle: 'narrat-portrait.webp',
         },
       },
       player: {
@@ -62,9 +72,16 @@ export const gameConfig: ConfigInputWithCommon = {
       dialogBottomPadding: 70,
       verticalLayoutThreshold: 600,
       portraits: {
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 175,
       },
+    },
+    dialogPanel: {
+      overlayMode: true,
+      rightOffset: 100,
+      bottomOffset: 50,
+      width: 600,
+      height: 700,
     },
     hudStats: {},
   },

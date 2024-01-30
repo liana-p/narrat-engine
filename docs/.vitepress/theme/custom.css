@@ -36,3 +36,24 @@
 .dark {
   /* --vp-c-bg: #1f0808; */
 }
+
+#narrat .replay-button {
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 3rem;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+#narrat {
+  --selected-border: 0px;
+  .dialog-box {
+    margin-top: 10px;
+  }
+  .dialog-title {
+    font-size: 1.7rem;
+  }
+  .dialog-text {
+    font-size: 1.5rem;
+  }
+}

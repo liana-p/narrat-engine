@@ -1,17 +1,34 @@
 <template>
+  <code-input
+    lang="narrat"
+    placeholder="Type code here"
+    template="syntax-highlighted"
+    :oninput="codeInputChanged"
+    >{{ props.scriptContent }}</code-input
+  >
   <div class="narrat-preview" ref="narratContainer"></div>
 </template>
 
 <script setup lang="ts">
-import { startApp, stopApp, restartApp } from 'narrat';
-import { onMounted, ref, defineProps } from 'vue';
+import {
+  startApp,
+  stopApp,
+  restartApp,
+  NarratScript,
+  handleHMR,
+  useMain,
+  useVM,
+} from 'narrat';
+import { onMounted, ref, defineProps, reactive } from 'vue';
 import { gameConfig } from '../data/defaultGameConfig';
+import { getCodeInput } from '../utils/code-input';
 
 const narratContainer = ref<HTMLDivElement | null>(null);
 const isNarratRunning = ref<boolean>(false);
 
 const props = defineProps<{
   scriptContent: string;
+  autoJumpOnChange: boolean;
 }>();
 
 const script = ref({
@@ -21,9 +38,37 @@ const script = ref({
   type: 'script',
 });
 
-onMounted(() => {
+function scriptToNarratModule(): {
+  default: NarratScript;
+} {
+  return {
+    default: {
+      fileName: script.value.fileName,
+      code: script.value.code,
+      id: script.value.id,
+      type: 'script',
+    },
+  };
+}
+
+function codeInputChanged(el) {
+  const newCode = el.target.value;
+  script.value.code = newCode;
+  handleHMR(scriptToNarratModule() as any);
+  if (props.autoJumpOnChange) {
+    jumpBackToLabel();
+  }
+}
+
+onMounted(async () => {
+  await readyCodeInput();
   launchNarratGame();
 });
+
+async function readyCodeInput() {
+  const codeInput = await getCodeInput();
+  console.log('uwu ', codeInput);
+}
 
 function launchNarratGame() {
   if (narratContainer.value) {
@@ -39,10 +84,11 @@ function stopNarratGame() {
   stopApp();
   isNarratRunning.value = false;
 }
-function restartNarratGame() {
-  restartApp();
-}
 
+function jumpBackToLabel() {
+  const vm = useVM();
+  vm.jumpToLabel('main');
+}
 function startNarratApp() {
   startApp({
     debug: true,

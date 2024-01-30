@@ -55,7 +55,7 @@
           <div
             v-on:click="chooseOption(0)"
             ref="continue"
-            class="interact-button button override"
+            class="interact-button nrt-button override"
           >
             Continue
           </div>
