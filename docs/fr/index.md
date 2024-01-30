@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Narrat
-  text: Créez des jeux de fiction interactive pour web et desktop
-  tagline: Le moteur de jeu pour créer des RPG narratifs interactifs riches en fonctionnalités.
+  text: Créez des jeux narratifs pour web et desktop
+  tagline: Le moteur de jeu pour créer des RPGs narratifs interactifs riches en fonctionnalités.
   image:
     src: /logo.svg
     alt: Narrat logo
@@ -19,110 +19,110 @@ hero:
       text: Aperçu
       link: /guides/narrat-overview
     - theme: brand
-      text: Playground Interactif
+      text: Démo interactive
       link: https://demo.narrat.dev
 
 features:
   - icon: 🚀
-    title: Très facile à commencer
-    details: Vous pouvez essayer Narrat dans votre navigateur sans rien installer. Il y a aussi un outil pour démarrer automatiquement un projet pour vous.
+    title: Facile à prendre en main
+    details: Vous pouvez essayer Narrat dans votre navigateur sans rien installer. Il y a également un outil pour démarrer automatiquement un projet pour vous.
     link: /guides/getting-started
-    linkText: Get Started
-  # - icon: 📘
-  #   title: RPG features out of the box
-  #   details: Narrat has a built-in skill system, items, inventory, quests and more.
-  #   link: https://narrat.dev
-  #   linkText: Learn more on the website
+    linkText: Commencer
+  - icon: 📘
+    title: Mécaniques RPG clés en main
+    details: Narrat dispose de systèmes de gestion de compétences, d'objets, d'inventaire, de quêtes, et plus encore
+    link: https://narrat.dev
+    linkText: En apprendre plus
   - icon: 🎲
-    title: Système de skills
-    details: Narrat est équipé d'un système de compétences puissant qui permet de gagner de l'XP, de monter de niveau et de réussir ou échouer des tests de compétences avec des mécaniques de lancer de dés typiques des JDR.
+    title: Système de compétences
+    details: Narrat est équipé d'un puissant système de compétences qui permet de gagner de l'XP, de monter de niveau et de réussir ou échouer des tests de compétences avec des mécaniques de lancer de dés typiques des jeux de rôle.
     link: /features/skills
-    linkText: Skills Guide
+    linkText: Guide des compétences
   - icon: 👩‍💻
     title: Système de script facile pour débutants
     details: Narrat dispose d'un système de script simple, facile à apprendre et à utiliser. Il possède également des fonctionnalités avancées pour des jeux plus complexes.
     link: /scripting/language-syntax
-    linkText: Scripting Guide
+    linkText: Guide de scripting
   - icon: 💻
-    title: Publiez sur le web, le desktop et Steam
-    details: Les jeux Narrat sont des applications web et fonctionnent sur le web dès le départ. Ils sont également livrés avec des systèmes de build préconfigurés pour la publication sur Windows, Mac, Linux et Steam.
+    title: Publiez sur le web, sur desktop et sur Steam
+    details: Les jeux Narrat sont des applications web et fonctionnent d'emblée lorsqu'ils sont hébergés en ligne. Ils sont également livrés avec des systèmes de build préconfigurés pour la publication sur Windows, Mac, Linux et Steam.
     link: /guides/building-and-exporting
-    linkText: Build and export guide
+    linkText: Guide d'assemblage et d'export
   - icon: 🔥
-    title: Hot module Reloading - Pour itérer super vite
-    details: Le jeu recharge le script en direct lorsque vous apportez des modifications, vous pouvez donc modifier votre écriture en cours de jeu et continuer avec les changements sans avoir besoin de redémarrer.
+    title: Rechargement en temps réel - pour faire ses tests immmédiatement
+    details: Le jeu recharge automatiquement les scripts lorsque vous leur apportez des modifications, vous pouvez donc modifier votre code en cours de jeu et continuer avec vos changements sans devoir redémarrer.
     link: /features/hot-module-reloading
-    linkTest: Hot module reloading guide
+    linkTest: Détails sur le rechargement
   - icon: 🎨
-    title: Thématisation UI facile et puissante avec CSS
-    details: Narrat utilise CSS pour le style, vous pouvez donc facilement personnaliser l'apparence de votre jeu. CSS est très facile à apprendre, puissant et largement utilisé, vous pouvez donc trouver des ressources facilement.
+    title: Personnalisation de l'interface souple et puissante à base de CSS
+    details: Narrat utilise du CSS pour le style, vous pouvez donc facilement personnaliser l'apparence de votre jeu. Le CSS est puissant, très facile à apprendre, et largement utilisé; vous pouvez donc facilement trouver des ressources pour vous aider.
     link: /guides/customising-ui
-    linkText: Theming Guide
+    linkText: Guide de modification de l'interface
   - icon: 📜
     title: Quêtes
-    details: Système de quêtes facile à utiliser avec une UI de journal de quêtes, des descriptions de quêtes et des sous-objectifs.
+    details: Système de quêtes facile à utiliser avec journal, descriptions et sous-objectifs.
     link: /features/quests
-    linkText: Quests Guide
+    linkText: Guide des quêtes
   - icon: ⚙️
-    title: Extrêmement personnalisable
-    details: Narrat est conçu pour être personnalisable. Les fichiers de configuration yaml sont très faciles à modifier et peuvent vous permettre de contrôler précisément comment chaque fonctionnalité du moteur est utilisée.
+    title: Facilement configurable
+    details: Narrat est conçu pour être modifiable selon vos besoins. Les fichiers de configuration yaml sont très faciles à modifier et peuvent vous permettre de contrôler précisément comment chaque fonctionnalité du moteur est utilisée.
     link: /guides/config-files
-    linkText: Config Guide
+    linkText: Guide de configuration
   - icon: 🎨
-    title: Ajouter du visuel facilement
-    details: Le système de viewport permet aux jeux d'afficher des écrans pouvant contenir des sprites interactifs, du texte et des boutons. Vous pouvez utiliser cela pour créer des visual novel, point and clicks, etc.
+    title: Ajouter des éléments visuels facilement
+    details: Le système de viewport permet aux jeux d'afficher des écrans pouvant contenir des sprites interactifs, du texte et des boutons. Vous pouvez mettre cette fonctionnalité à profit pour créer des visual novel, point and clicks, etc.
     link: /features/viewport
-    linkText: Viewport Guide
+    linkText: Guide des éléments du viewport
   - icon: ✍️
     title: Personnages
     details: Système de personnages avec portraits et poses, similaire à Disco Elysium.
     link: guides/config-files#characters-config
-    linkText: Characters config guide
+    linkText: Guide de la configuration des personnages
   - icon: 🛒
     title: Inventaire
-    details: Système d'inventaire prêt à l'emploi avec une UI et des items customisables qui peuvent etre utilisés par les joueurs.
+    details: Système d'inventaire prêt à l'emploi avec une UI et des objets personnalisables qui peuvent être librement utilisés par les joueurs.
     link: /features/inventory
-    linkText: Items Guide
+    linkText: Guide du système d'inventaire
   - icon: 🎧
     title: Audio sans complications
     details: Le système audio est simple mais puissant, vous permettant d'avoir plusieurs canaux de musique, d'effets sonores et de sons d'ambiance.
     link: /features/audio
-    linkText: Audio Guide
+    linkText: Guide audio
   - icon: 🏆
     title: Achievements
     details: Système d'achievements intégré avec une interface utilisateur. Vous pouvez même sauvegarder des données globales sur plusieurs parties de jeu.
     link: /features/achievements
-    linkText: Achievements Guide
+    linkText: Guide des achievements
   - icon: 🎥
-    title: Support Video
-    details: Narrat prend en charge les vidéos pour les arrière-plans et les portraits de personnages, permettant des jeux FMV ou des arrière-plans animés pré-rendus.
+    title: Support Vidéo
+    details: Narrat prend en charge les vidéos pour les arrière-plans et les portraits de personnages, permettant l'écriture de jeux FMV ou l'utilisation d'arrière-plans animés pré-rendus.
     link: /features/viewport#video-backgrounds
-    linkText: Find how to use it
+    linkText: Guide vidéo
   - icon: ⚙️
-    title: Systeme de config custom facile
+    title: Systeme de paramètres utilisateurs
     details: Le système de paramètres vous permet d'ajouter facilement des paramètres personnalisés à votre jeu. Le moteur s'occupe de les afficher, de permettre au joueur de les modifier et de les sauvegarder.
     link: /features/game-settings
-    linkText: Game Settings Guide
+    linkText: Guide des paramètres utilisateurs
   - icon: 👾
     title: Système de sprites pour utilisation avancée
-    details: Un système de sprites permet la création dynamique de sprites et de texte avec un graphe de scène pour créer dynamiquement des éléments personnalisés, interface utilisateur, etc.
+    details: Un système de sprites permet la création dynamique de sprites et de texte avec un scene graph pour créer dynamiquement des éléments personnalisés, interfaces, etc.
     link: /features/dynamic-sprites-text-objects
-    linkText: Screen Objects docs
+    linkText: Guide des sprites et des boutons
   - icon: 🎥
     title: Animations
-    details: Narrat peut animer n'importe quoi sur l'écran facilement
+    details: Narrat peut appliquer à la volée des animations à n'importe quel élément
     link: /features/animations
-    linkText: Animations Guide
+    linkText: Guide des animations
   - icon: 🎮
-    title: Gamepad
-    details: Narrat supporte les gamepad sans effort
+    title: Gamepads
+    details: Narrat gère d'office les contrôleurs de jeu
     link: /features/gamepad
-    linkText: Gamepad Guide
+    linkText: Documentation relative aux gamepads
   - icon: ⚙️
-    title: API de plugins puissante
-    details: Narrat dispose d'une API de plugins puissante qui vous permet d'étendre le moteur avec des fonctionnalités personnalisées. Les plugins peuvent ajouter de nouvelles fonctionnalités complètes au moteur via des commandes de script personnalisées, une interface utilisateur personnalisée et même avoir leurs propres données de sauvegarde.
+    title: Puissante API de plugins
+    details: Narrat dispose d'une puissante API de plugins qui vous permet d'étendre le moteur avec des fonctionnalités personnalisées. Les plugins peuvent ajouter de nouvelles fonctionnalités complètes au moteur via des commandes de script personnalisées, une interface utilisateur personnalisée et même avoir leurs propres données de sauvegarde.
     link: /plugins/plugins
-    linkText: Plugins Guide
+    linkText: Guide des plugins
 ---
 
 ::: warning
