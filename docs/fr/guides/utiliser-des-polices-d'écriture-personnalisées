@@ -11,7 +11,7 @@ Pour utiliser ces polices, vous aurez besoin de charger une police de caractère
 
 # Comment utiliser une police d'écriture dans son CSS
 
-En général, utiliser une police dans son CSS requiert de la spécifier dans une classe CSS (dans `src/css/m  in.css`):
+En général, utiliser une police dans son CSS requiert de la spécifier dans une classe CSS (dans `src/css/main.css`):
 
 ```
 body {
