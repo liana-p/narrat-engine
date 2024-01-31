@@ -3,7 +3,7 @@ import type { LocaleSpecificConfig, DefaultTheme } from 'vitepress';
 
 export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
   lang: 'fr-FR',
-  title: 'Narrat',
+  title: 'Documentation de Narrat',
   description: 'Créez des jeux narratifs et visual novels pour web et desktop',
   link: '/fr/',
   label: 'Français',
@@ -17,9 +17,9 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
       {
         text: 'Autres langues',
         items: [
-          { text: 'English', link: '/en/' },
-          { text: '日本語', link: '/jp/' },
-          { text: '简体中文', link: '/zh/' },
+          { text: 'English', link: '/guides/getting-started' },
+          { text: '日本語', link: '/jp/guides/getting-started' },
+          { text: '简体中文', link: '/zh/guides/getting-started' },
         ],
       },
       {
@@ -30,7 +30,10 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
             text: `Utiliser des polices d'écriture personnalisées`,
             link: `/fr/guides/utiliser-des-polices-d'écriture-personnalisées`,
           },
-          { text: 'Reste des docs (en anglais)', link: '/' },
+          {
+            text: 'Reste des docs (en anglais)',
+            link: '/guides/getting-started',
+          },
         ],
       },
     ],

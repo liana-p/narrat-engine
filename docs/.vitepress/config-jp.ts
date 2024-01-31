@@ -3,13 +3,13 @@ import type { LocaleSpecificConfig, DefaultTheme } from 'vitepress';
 
 export const configJp: LocaleSpecificConfig<DefaultTheme.Config> = {
   lang: 'jp',
-  title: '「ナラット(narrat)」はゲームエンジン',
+  title: '「ナラット(narrat)」ゲームエンジンのドキュメンテーション',
   description:
     '「ナラット(narrat)」はゲームエンジンで、ビジュアルノベルやインタラクティブな物語を作成するためのものです。',
   link: '/jp/',
   label: '日本語',
   themeConfig: {
-    siteTitle: '「ナラット(narrat)」はゲームエンジン',
+    siteTitle: '「ナラット(narrat)」',
     footer: {
       message: 'MIT License',
       copyright: 'Liana P 制作',

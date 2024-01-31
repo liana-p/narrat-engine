@@ -17,9 +17,9 @@ export const configZh: LocaleSpecificConfig<DefaultTheme.Config> = {
       {
         text: 'Autres langues',
         items: [
-          { text: 'English', link: '/en/' },
-          { text: '日本語', link: '/jp/' },
-          { text: 'Français', link: '/fr/' },
+          { text: 'English', link: '/guides/getting-started' },
+          { text: '日本語', link: '/jp/guides/getting-started' },
+          { text: 'Français', link: '/fr/guides/getting-started' },
         ],
       },
       {

@@ -9,6 +9,14 @@ export const configEn = defineConfig({
   themeConfig: {
     nav: nav(),
     sidebar: [
+      {
+        text: 'Other Languages',
+        items: [
+          { text: 'Français', link: '/fr/guides/getting-started' },
+          { text: '日本語', link: '/jp/guides/getting-started' },
+          { text: '简体中文', link: '/zh/guides/getting-started' },
+        ],
+      },
       sidebarGuides(),
       sidebarFeatures(),
       sidebarConfigFiles(),
