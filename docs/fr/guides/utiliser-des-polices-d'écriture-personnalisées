@@ -85,7 +85,7 @@ Si vous désirez forcer l'usage de votre police au lieu de celle par défaut, vo
 }
 ```
 
-Si vous désirez utiliser la police à un endroit spécifique, vous pouvez le faire de la même façon qu'avec n'importe quelle autre police dans votre CSS. Par exemple, l'appliquer à la classe CSS `.title` changera la police de la plupart des titres et des en-têtes modaux.
+Si vous désirez utiliser la police à un endroit spécifique, vous pouvez le faire de la même façon qu'avec n'importe quelle autre police dans votre CSS. Par exemple, l'appliquer à la classe CSS `.nrt-title` changera la police de la plupart des titres et des en-têtes modaux.
 
 ```css
 .nrt-title {
