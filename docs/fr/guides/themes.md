@@ -82,7 +82,7 @@ main:
 Ce thème est basé sur le [Jeu démo Narrat texte seul](https://github.com/liana-p/narrat-examples/tree/main/text-only)
 
 
-![Thème texte seul](./themes/text-only.png)
+![Thème texte seul](../../guides/themes/text-only.png)
 
 Il s'agit d'un thème qui rend la boîte de dialogue transparente et la centre sur l'écran. 
 
