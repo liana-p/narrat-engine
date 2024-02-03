@@ -12,7 +12,10 @@ export const changeSceneCommand = CommandPlugin.FromOptions<{
   ],
   runner: async (cmd) => {
     const { scene } = cmd.options;
-    await useScenes().changeScene(scene, restToOptions(cmd.args.slice(1)));
+    await useScenes().changeScene(
+      scene as any,
+      restToOptions(cmd.args.slice(1)),
+    );
   },
 });
 
