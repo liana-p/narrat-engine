@@ -1,6 +1,5 @@
 ---
-description: >-
-  Si vous avez développé un jeu Narrat, vous voudrez peut-être le publier sur Steam. Cette page explique comment procéder.
+description: Si vous avez développé un jeu Narrat, vous voudrez peut-être le publier sur Steam. Cette page explique comment procéder.
 ---
 
 # Publier sur Steam (Intégration Steamworks)
