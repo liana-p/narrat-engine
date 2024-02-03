@@ -112,6 +112,7 @@ export const sourceAllStores = {
   scenes: {
     store: useScenes,
     save: 'scenes',
+    avoidReset: true,
   },
 } as const;
 export type AllStores = typeof sourceAllStores;

@@ -6,6 +6,7 @@ export type StoreInfo = {
   config?: keyof Config;
   save?: keyof ExtractedGameSave;
   globalSave?: keyof GlobalGameSave;
+  avoidReset?: boolean;
 };
 
 export type SaveableStore = StoreInfo & {

@@ -1,4 +1,9 @@
+dev_test:
+  "Hello"
+  menu_return
+
 main:
+  jump dev_test
   set_screen video
   add_item book 1
   jump quest_demo
