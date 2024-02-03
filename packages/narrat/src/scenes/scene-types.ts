@@ -13,3 +13,10 @@ export interface SceneConfig {
   // When the scene informs it has finished via the @finished emitter
   onFinished?: () => void;
 }
+
+export type SceneKey =
+  | 'engine-splash'
+  | 'game-splash'
+  | 'start-menu'
+  | 'playing'
+  | 'chapter-title';

@@ -37,7 +37,7 @@ export function resetAllStores() {
     if (isStoreWithConfig(data)) {
       config = getConfig()[data.config];
     }
-    if (store.reset) {
+    if (store.reset && data.avoidReset === true) {
       store.reset(config);
     }
   }
