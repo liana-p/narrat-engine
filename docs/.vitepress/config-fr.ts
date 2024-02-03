@@ -27,9 +27,22 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
         items: [
           { text: 'Commencer', link: '/fr/guides/getting-started' },
           {
-            text: `Utiliser des polices d'écriture personnalisées`,
-            link: `/fr/guides/utiliser-des-polices-d'écriture-personnalisées`,
+            text: `Vue d'ensemble d'un jeu Narrat`,
+            link: '/fr/guides/narrat-overview',
           },
+          {
+            text: 'Thèmes',
+            link: '/fr/guides/themes',
+          },
+          {
+            text: `Utiliser des polices d'écriture personnalisées`,
+            link: `/fr/guides/using-custom-fonts`,
+          },
+          {
+            text: 'Mettre Narrat à jour',
+            link: '/fr/guides/updating-narrat',
+          },
+          { text: 'Publier sur Steam', link: '/fr/guides/steam-publishing' },
           {
             text: 'Reste des docs (en anglais)',
             link: '/guides/getting-started',

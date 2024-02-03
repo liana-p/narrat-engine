@@ -11,10 +11,10 @@ description: Les jeux Narrat peuvent user de thèmes pour personnaliser l'appare
 
 Les thèmes Narrat sont des packages qui peuvent être utilisés avec le `NarratThemesPlugin` pour changer au vol l'apparence du jeu. Un thème est composé des éléments suivants :
 
-- Une feuille de style `css` (voir [Guide de personnalisation de l'interface](./customising-ui.md) pour apprendre à personnaliser l'interface avec du CSS)
+- Une feuille de style `css` (voir [Guide de personnalisation de l'interface](/guides/customising-ui.md) pour apprendre à personnaliser l'interface avec du CSS)
 - Un fichier de thème, qui définit le nom du thème, quel fichier `css` utiliser, et peut facultativement fournir une liste d'options de configuration à modifier
 
-<video controls="controls" src="./themes/narrat-themes.mp4" type="video/mp4" autoplay="true"></video>
+<video controls="controls" src="/guides/themes/narrat-themes.mp4" type="video/mp4" autoplay="true"></video>
 
 ## De quoi sont capables les thèmes ?
 
@@ -81,10 +81,9 @@ main:
 
 Ce thème est basé sur le [Jeu démo Narrat texte seul](https://github.com/liana-p/narrat-examples/tree/main/text-only)
 
+![Thème texte seul](/guides/themes/text-only.png)
 
-![Thème texte seul](../../guides/themes/text-only.png)
-
-Il s'agit d'un thème qui rend la boîte de dialogue transparente et la centre sur l'écran. 
+Il s'agit d'un thème qui rend la boîte de dialogue transparente et la centre sur l'écran.
 
 Ce thème est exporté en tant que `textOnlyTheme` dans narrat. Son identifiant est `narrat-text-only`.
 
@@ -178,9 +177,3 @@ export function setupMyThemes() {
   registerPlugin(narratThemesPlugin);
 }
 ```
-
-
-
-
-
-

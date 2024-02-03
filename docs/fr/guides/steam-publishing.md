@@ -8,9 +8,7 @@ description: Si vous avez développé un jeu Narrat, vous voudrez peut-être le 
 
 Narrat dispose maintenant d'une intégration [Steamworks](https://partner.steamgames.com/) par défaut dans son template. Elle devrait permettre à n'importe quel jeu Narrat de tourner sur Steam avec une intégration basique (autrement dit, l'overlay Steam est fonctionnel).
 
-Voir la page suivante pour acquérir les notions élémentaires liées à l'assemblage et à l'export des jeux Narrat :
-
-[building-and-exporting-your-game.md](Build et export)
+Voir la page [Build et Export](/guides/building-and-exporting) pour acquérir les notions élémentaires liées à l'assemblage/build et à l'export des jeux Narrat.
 
 ## Comment réaliser un build pour Steam
 
@@ -37,7 +35,7 @@ Avec le jeu assemblé dans le dossier `out`, vous pouvez vous rendre dans Steam,
 
 Pour publier en propre le jeu sur Steam, consulter la documentation relative au statut de partenaire et à la publication d'une application. Si les conditions de publication sont remplies, l'application exportée dans le dossier `out` est compatible Steam.
 
-## Limitations 
+## Limitations
 
 - Actuellement, le système n'assemble les jeux que pour Windows 64 bit. Pour changer cela, il faut modifier la portion du script `package` dans `package.json` qui copie `steam_appid.txt` afin qu'elle vise le bon dossier (qui dépend de l'architecture pour laquelle vous désirez assembler un build).
 - Il n'existe actuellement pas d'implémentation dans Narrat des fonctionnalités spécifiques à Steam (achievements et autres). Vous pouvez écrire un plugin pour les fonctionnalités avancées dont vous pourriez avoir besoin, la [librairie Steamworks.js](https://github.com/ceifa/steamworks.js) devant répondre à la plupart des besoins. Pour plus d'informations sur la façon dont Steam a été integré à Narrat, voir [ce blog post](https://www.liana.one/integrate-electron-steam-api-steamworks)
