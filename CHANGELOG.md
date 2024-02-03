@@ -1,3 +1,12 @@
+## [3.9.7](https://github.com/liana-p/narrat-engine/compare/v3.9.6...v3.9.7) (2024-02-03)
+
+
+### Bug Fixes
+
+* bug in avoid store reset ([aaa7cd1](https://github.com/liana-p/narrat-engine/commit/aaa7cd1f8a6104c19be3be0a9430ce62c180a043))
+
+
+
 ## [3.9.6](https://github.com/liana-p/narrat-engine/compare/v3.9.5...v3.9.6) (2024-02-03)
 
 
