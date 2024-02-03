@@ -27,11 +27,11 @@ Il arrive fréquemment que de nombreuses fonctionnalités soient ajoutées à Na
 
 La version de Narrat utilisée par un jeu est celle spécifiée dans la partie `dependencies` du fichier `package.json` situé à la racine du jeu. Par exemple :
 
-![package.json](../../guides/updating/image.png)
+![package.json](/guides/updating/image.png)
 
 Pour mettre à jour, entrez la commande `npm install narrat@latest` dans le terminal, ce qui sélectionnera la dernière version en date.
 
-Sinon, il est également possible de renseigner un numéro de version spécifique dans `package.json` puis d'entrer `npm install` dans le terminal pour installer cette version. 
+Sinon, il est également possible de renseigner un numéro de version spécifique dans `package.json` puis d'entrer `npm install` dans le terminal pour installer cette version.
 
 Pour suivre les différentes versions et savoir laquelle est la plus récente, visitez la [page npm pour Narrat](https://www.npmjs.com/package/narrat)
 
@@ -41,4 +41,3 @@ Il arrive que npm ne sélectionne pas les nouvelles versions. Si vous n'êtes pa
 
 Vous pouvez également vérifier [quelle version de Narrat est en cours d'exécution](https://docs.narrat.dev/troubleshooting/troubleshooting.html#check-which-version-of-narrat-is-running)
 :::
-

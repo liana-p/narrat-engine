@@ -17,7 +17,7 @@ hero:
       link: https://narrat.dev
     - theme: brand
       text: Aperçu
-      link: /guides/narrat-overview
+      link: /fr/guides/narrat-overview
     - theme: brand
       text: Démo interactive
       link: https://demo.narrat.dev
@@ -26,7 +26,7 @@ features:
   - icon: 🚀
     title: Facile à prendre en main
     details: Vous pouvez essayer Narrat dans votre navigateur sans rien installer. Il y a également un outil pour démarrer automatiquement un projet pour vous.
-    link: /guides/getting-started
+    link: /fr/guides/getting-started
     linkText: Commencer
   - icon: 📘
     title: Mécaniques RPG clés en main

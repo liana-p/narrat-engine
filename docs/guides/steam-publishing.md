@@ -10,9 +10,7 @@ description: >-
 
 narrat now has a [Steamworks](https://partner.steamgames.com/) integration by default in the template. It should allow any narrat game to run on Steam with basic integration (the Steam overlay works).
 
-For a primer on how to generally build and export narrat games, see this page:
-
-[building-and-exporting-your-game.md](building-and-exporting)
+For a primer on how to generally build and export narrat games, see the [building and exporting](/guides/building-and-exporting) guide
 
 ## How to build for Steam
 
