@@ -167,7 +167,7 @@ export const useMain = defineStore('main', {
     },
     menuReturn() {
       // this.reset();
-      useScenes().changeScene('menu');
+      useScenes().changeScene('start-menu');
     },
     createError(text: string) {
       this.errors.push({

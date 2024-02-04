@@ -1,6 +1,6 @@
 {
   "name": "@narrat/desktop-editor",
-  "version": "3.9.5",
+  "version": "3.9.7",
   "private": true,
   "description": "Desktop editor for narrat",
   "main": "electron-main.js",

@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
-import { SceneConfig } from '@/scenes/scene-types';
+import { SceneConfig, SceneKey } from '@/scenes/scene-types';
 
 export interface ScenesStoreState {
   scenes: Record<string, SceneConfig>;
@@ -37,7 +37,7 @@ export const useScenes = defineStore('scenes-store', {
     loadSaveData(saveData: ScenesStoreSave) {
       // this.activeScene = saveData.activeScene;
     },
-    changeScene(newScene: string, options?: Record<string, any>) {
+    changeScene(newScene: SceneKey, options?: Record<string, any>) {
       const currentScene = this.activeScene;
       if (currentScene && currentScene !== newScene) {
         const currentSceneConfig = this.scenes[currentScene];

@@ -4,7 +4,7 @@ import StartMenu from '@/components/StartMenu.vue';
 import InGame from '@/components/in-game.vue';
 import ChapterTitle from '@/components/scenes/chapter-title.vue';
 import { shallowRef } from 'vue';
-import { SceneConfig } from './scene-types';
+import { SceneConfig, SceneKey } from './scene-types';
 
 export const defaultScenes = {
   'engine-splash': {
@@ -32,4 +32,4 @@ export const defaultScenes = {
     component: shallowRef(ChapterTitle),
     props: {},
   },
-} as Record<string, SceneConfig>;
+} as Record<SceneKey, SceneConfig>;

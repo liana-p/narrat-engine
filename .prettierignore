@@ -9,3 +9,4 @@ build
 coverage
 out
 public/index.html
+CHANGELOG.md

@@ -1,3 +1,28 @@
+## [3.9.7](https://github.com/liana-p/narrat-engine/compare/v3.9.6...v3.9.7) (2024-02-03)
+
+
+### Bug Fixes
+
+* bug in avoid store reset ([aaa7cd1](https://github.com/liana-p/narrat-engine/commit/aaa7cd1f8a6104c19be3be0a9430ce62c180a043))
+
+
+
+## [3.9.6](https://github.com/liana-p/narrat-engine/compare/v3.9.5...v3.9.6) (2024-02-03)
+
+
+### Breaking Changes
+
+* **CSS**: A few basic CSS classes have been renamed to have a narrat prefix to avoid name clashes with pages narrat is integrated in. For example `.button` is now `.nrt-button`. If your game was overriding [these CSS classes](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/css/elements.css), update their name.
+* **CSS**: All Narrat CSS variables have been moved to the `#narrat` CSS selector instead of `:root` to avoid overriding variables on host pages. If your CSS variables were in `:root`, update to use `#narrat`. For example see how the [default CSS file](https://github.com/liana-p/narrat-engine/blob/main/packages/create-narrat/template/src/css/main.css) now looks like in the game template
+* **CSS**: The main narrat container has been renamed from `#narrat-app-container` to just `#narrat` for clarity on this being the main root element of narrat
+* **Note:** Narrat requires node.js version 20+ in recent versions, install the latest [node.js](https://nodejs.org/en) LTS version if needed
+
+### Bug Fixes
+
+* menu_return command crashed the game ([#226](https://github.com/liana-p/narrat-engine/issues/226)) ([71c9d97](https://github.com/liana-p/narrat-engine/commit/71c9d97f809e594903e9a6e09c6af02b5e5b9823))
+
+
+
 ## [3.9.5](https://github.com/liana-p/narrat-engine/compare/v3.9.4...v3.9.5) (2024-01-29)
 
 
