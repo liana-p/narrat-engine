@@ -70,3 +70,7 @@ Vs Code devrait vous recommander de l'installer lorsque vous ouvrez un jeu Narra
 
 ![Processus d'installation de l'extension Narrat pour VS Code](./get-started/narrat-extension.png)
 :::
+
+## Quels sont les éléments constitutifs d'un jeu Narrat ?
+
+Les sections suivantes vont vous expliquer quels dossiers et fichiers sont important à 
