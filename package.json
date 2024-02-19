@@ -47,7 +47,7 @@
   "dependencies": {
     "highlight.js": "^11.9.0",
     "narrat": "workspace:*",
-    "vue": "^3.4.15"
+    "vue": "^3.4.19"
   },
   "devDependencies": {
     "chalk": "^5.2.0",

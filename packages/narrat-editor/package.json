@@ -32,7 +32,7 @@
     "monaco-yaml": "^5.1.0",
     "narrat": "workspace:*",
     "pinia": "^2.1.7",
-    "vue": "^3.4.15"
+    "vue": "^3.4.19"
   },
   "devDependencies": {
     "@types/clone-deep": "^4.0.1",
