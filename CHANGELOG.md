@@ -1,3 +1,21 @@
+## [3.9.8](https://github.com/liana-p/narrat-engine/compare/v3.9.7...v3.9.8) (2024-02-19)
+
+
+### Bug Fixes
+
+* error when doing manual saves [#235](https://github.com/liana-p/narrat-engine/issues/235) ([#236](https://github.com/liana-p/narrat-engine/issues/236)) ([7208dc0](https://github.com/liana-p/narrat-engine/commit/7208dc0c3e22fba7148d8090e77173c851c50007))
+
+
+
+## [3.9.8](https://github.com/liana-p/narrat-engine/compare/v3.9.7...v3.9.8) (2024-02-19)
+
+
+### Bug Fixes
+
+* error when doing manual saves [#235](https://github.com/liana-p/narrat-engine/issues/235) ([#236](https://github.com/liana-p/narrat-engine/issues/236)) ([7208dc0](https://github.com/liana-p/narrat-engine/commit/7208dc0c3e22fba7148d8090e77173c851c50007))
+
+
+
 ## [3.9.7](https://github.com/liana-p/narrat-engine/compare/v3.9.6...v3.9.7) (2024-02-03)
 
 
