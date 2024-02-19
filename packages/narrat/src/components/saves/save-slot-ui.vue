@@ -74,8 +74,8 @@ const saveMode = computed(() => getCommonConfig().saves.mode);
 const saveScreenshot = computed(() => {
   const save = props.saveSlot.saveData;
   if (save) {
-    if (save.screen.layers[0]) {
-      const conf = getScreenConfig(save.screen.layers[0]);
+    if (save.screens.layers[0]) {
+      const conf = getScreenConfig(save.screens.layers[0]);
       if (conf) {
         return {
           backgroundImage: `url(${getImageUrl(conf.background)})`,

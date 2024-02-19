@@ -34,7 +34,7 @@ export type ExtractedGameSave = {
     [key: string]: any;
   };
   skills: SkillsSave;
-  screen: ScreenSave;
+  screens: ScreenSave;
   main: MainSaveData;
   dialog: DialogSave;
   vm: VMSave;
