@@ -35,7 +35,7 @@
     "oh-vue-icons": "1.0.0-rc3",
     "pinia": "^2.1.7",
     "steamworks.js": "^0.2.0",
-    "vue": "^3.4.15",
+    "vue": "^3.4.20",
     "vue-router": "4"
   },
   "devDependencies": {
