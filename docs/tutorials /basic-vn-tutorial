@@ -25,7 +25,11 @@ The dialog panel displays the game’s prose, the dialog of the various characte
 
 Let’s start with a quick overview of a Narrat project's structure. There are two main folders that contain the significant parts of your game: src and public.
 
-You can ignore pretty much all the other folders and files. Public contains all your assets: audio, images, music, etc. Poke around there now, and you’ll see all the assets associated with the demo project. 
+You can ignore pretty much all the other folders and files for this tutorial.
+
+![Folder Structure](./visuals/src_public.png)
+
+Public contains all your assets: audio, images, music, etc. Poke around there now, and you’ll see all the assets associated with the demo project. 
 
 Src contains all the code and text of your visual novel, the CSS you will use to customize the game’s look, and the config, which is like a directory that tells Narrat where to find your game’s assets and what to do with them.
 
@@ -166,6 +170,8 @@ Each line of text in the label will be separated by the Continue button.
 
 If we playtest the game, we see a black screen and the two lines of text we wrote show up. After that, there’s nothing else for the game to run. And hey, there’s our two hundred dollars!
 
+![Overview](./visuals/blank_example.png)
+
 Besides text, a Narrat label handles `Commands`, another key component of Narrat games. Commands help you handle choices, text, sprites, sound, and all the other things you need to make a video game.
 
 Let’s change our `main:` label to have some actual content, and make use of a command.
@@ -178,8 +184,10 @@ main:
 
 Our set up has paid off! With just one quick command, we’re able to set the scene for our player.
 
+![First Look](./visuals/first_look.png)
+
 The `set_screen` command is looking at `screens.yaml`, finding the one called `harbor`, and pulling that image from our `public>img>backgrounds` folder. We can now flip between the screens we’ve set up with ease.
-[PIC]
+
 You may have realized this already, but that black screen that appeared earlier was not random: it was the `default` screen we set up. Narrat automatically displays the default screen if no screen is set.
 
 ## Talk and Think
@@ -202,16 +210,19 @@ While `set_screen` takes only one argument (the name of the screen), `talk` take
 ```
 
 If you recall our characters.yaml file, you’ll remember that we put our image under `idle`. If we had more images to use, we could put another under `angry` and use that when our character is mad. All characters must have an idle sprite, and we only have one image for our characters, so that’s what we’ll be using.
-[PIC]
+
+![Francis Speaks](./visuals/francis_line.png)
+
 And there he is! What a charming young man. Notice how Narrat automatically adds quotation marks.
 
 What if we want the portrait to appear without quotation marks? Well, to do that, we’ll use the `think` command.
+
 ```narrat
   think francis idle "He basks in the warm glow of commerce."
 ```
 `Think` works just like `talk` except it does not add quotation marks.
 
-[PIC]
+![Wrong Color](./visuals/think_color.png)
 
 Hmm, but why is it a different color? Well, by default, Narrat uses a different text color for the think command, but we can change that with a tiny bit of CSS.
 
@@ -222,6 +233,7 @@ In main.css, add this bit of code.
   color: var(--text-color) !important;
 }
 ```
+
 This sets the color associated with `think` to match whatever your default text color is. If you change your text color in the pre-filled field in `main.css`, it will also change the think command’s color.
 
 Now, if you want to use a dialog tag, like “Francis said, wringing his hands,” we do that with `think` as well.
@@ -283,6 +295,7 @@ These simple commands (`talk`, `think`, `choice`, and `jump`) will form the foun
 ## Setting Variables
 
 First, what if we want the game to remember a player’s choice? We can do that easily with variables.
+
 ```narrat
  think francis idle "Your business partner bounds ahead of you to meet the man of the hour."
   think isaac idle "The supplier applies a disinterested gaze to the excitable Francis but nods when you approach."
