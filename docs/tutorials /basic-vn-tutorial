@@ -4,7 +4,7 @@ description: How to set up your project, write dialog, change screens, create ch
 ---
 
 # {{ $frontmatter.title }}
-We’re going to make a tiny visual novel that uses a variety of design patterns you will find useful in your own work. I recommend playing the finished product [here] before following this tutorial so you have a frame of reference.
+We’re going to make a tiny visual novel that uses a variety of design patterns you will find useful in your own work. I recommend playing the finished product [here](https://spavento.itch.io/narrat-basics-tutorial) before following this tutorial so you have a frame of reference.
 
 This tutorial was written for Windows 10 users. The information on how to use Narrat does not change, but some small details about how to run Narrat may be different.
 
