@@ -72,7 +72,7 @@ hudStats:
 
 Changing the name is optional, but setting the `startingValue` to 200 will be important later.
 
-The demo project comes with some images we don’t need. We’ll use the images found [here], so that you can practice setting up a project with your own assets. 
+The demo project comes with some images we don’t need. We’ll use the images found in the Narrat [GitHub repo](https://github.com/liana-p/narrat-engine). Navigate to docs>tutorials>assets>basics and download the files found there so that you can practice setting up a project with new assets. 
 
 Delete all the files found in public>img>backgrounds, public>music, and public>img>characters. We won’t worry about the skills, items, or UI in this tutorial. Bring the files from the above link into the corresponding folders in your project. 
 
