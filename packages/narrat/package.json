@@ -58,7 +58,7 @@
   "peerDependencies": {
     "es6-promise": "^4.2.8",
     "pinia": "^2.1.7",
-    "vue": "^3.4.15"
+    "vue": "^3.4.21"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.31.18",
@@ -112,7 +112,7 @@
     "vite-plugin-narrat": "workspace:*",
     "vite-plugin-windicss": "^1.9.0",
     "vitest": "^1.2.2",
-    "vue": "^3.4.15",
+    "vue": "^3.4.21",
     "vue-tsc": "^1.8.22",
     "windicss": "^3.5.6"
   }
