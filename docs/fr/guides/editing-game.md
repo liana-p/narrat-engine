@@ -73,4 +73,70 @@ Vs Code devrait vous recommander de l'installer lorsque vous ouvrez un jeu Narra
 
 ## Quels sont les éléments constitutifs d'un jeu Narrat ?
 
-Les sections suivantes vont vous expliquer quels dossiers et fichiers sont important à 
+Les sections suivantes vont vous expliquer quels dossiers et fichiers interviennent dans l'édition de votre jeu Narrat.
+
+### Dossier `public`
+
+Les assets (images, musiques, etc.) et fichiers de configuration se trouvent dans le dossier `public` à la racine du jeu. Ce dossier est destiné à contenir les assets statiques qui seront utilisés dans le build final.
+
+Toute image, tout fichier de configuration, tout asset que le jeu devra charger en dehors du code se trouvera dans ce dossier.
+
+::: tip
+On peut se référer aux assets dans le dossier `public` via leur chemin relatif à ce dossier. Par exemple, en CSS, afin d'utiliser l'image se situant à l'adresse `public/img/button-background.png`, vous utiliseriez l'expression `/img/button-background.png`.
+:::
+
+### Dossier `src`
+
+Le dossier `src` est destiné aux fichiers de scripts. Il existe des fichiers TypeScript qui servent à configurer le moteur (que vous n'avez généralement pas à modifier), et plus principalement des fichiers `.narrat` dans le sous-dossier `script` qui constituent votre jeu.
+
+::: info
+Dans le cadre d'un usage avancé, il est également possible de changer le code du moteur ou d'utiliser des plugins, qui se trouveraient alors également dans le dossier `src`.
+:::
+
+## Scripts Narrat
+
+[example-narrat-script.md](../examples/example-narrat-script.md)
+
+Les scripts Narrat sont la base de la création d'un jeu. Ils contiennent le flow du jeu et ses lignes de dialogue. Le [langage de scripting narrat](../scripting/language-syntax.md) est spécifiquement conçu pour Narrat.
+
+Dans le dossier `src/scripts`, il y a un fichier `game.narrat` (peut-être nommé différemment selon le template que vous avez utilisé). C'est ici que les dialogues du jeu sont écrits. Le dialogue d'exemple ici présent montre l'utilisation de quelques fonctionnalités basiques, afin que vous puissiez commencer à écrire vos propres dialogues. Ci-dessus se trouve un lien vers la page d'exemple des scripts Narrat.
+
+### Importer des scripts
+
+Tous les scripts Narratutilisés dans un jeu sont importés et listés dans `src.scripts.ts`. Si vous désirez ajouter ou retirer des scripts Narrat dans votre jeu, il faut importer les fichiers correspondants en haut de celui-ci et ne pas oublier de les exporter à la fin. 
+
+::: tip
+Vous pouvez écrire votre jeu entier dans un seul fichier si vous le désirez, mais il est utile à des fins d'organisation de le séparer entre plusieurs fichiers. N'oubliez simplement pas de les importer de la façon suivante :
+:::
+
+```ts
+import demo from './scripts/demo.narrat';
+import quest from './scripts/quest.narrat';
+
+export default [demo, quest];
+```
+
+Les fichiers Narrat sont écrits dans un langage fait sur mesure ; voir le [guide de syntaxe](../scripting/language-syntax.md) pour plus d'informations.
+
+::: tip
+Nous recommandons d'utiliser [Visual Studio Code](https://code.visualstudio.com) pour modifier des scripts Narrat. Il existe une [extension de langage Narrat](https://marketplace.visualstudio.com/items?itemName=NarratEngine.language-narrat) qui appliquera un code couleur aux termes de syntaxe utilisés.
+:::
+
+### Scripts d'exemple
+
+Un certain nombre de [scripts Narrat d'exemple](../examples/example-narrat-script.md) sont disponibles et constituent de bons exemples pour différents usages.
+
+## Fichiers de configuration
+
+Il existe divers fichiers de configuration dans les jeux Narrat qui permettent de personnaliser le comportement du moteur.
+
+Par défaut, les jeux sont livrés avec une configuration basique qui ne nécessite aucune modification. Vous aurez cependant besoin de modifier cette dernière si vous souhaitez utiliser des fonctionnalités plus avancées.
+
+### common.yaml
+
+Le fichier de configuration contient des informations de base concernant le jeu. C'est ici que sont définis les images, écrans, boutons, skill checks, items, quêtes et plus encore.
+
+Plus d'info dans le [guide des fichiers de configuration](config-files.md).
+
+### characters.yaml
+
