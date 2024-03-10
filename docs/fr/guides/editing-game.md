@@ -140,3 +140,55 @@ Plus d'info dans le [guide des fichiers de configuration](config-files.md).
 
 ### characters.yaml
 
+Le fichier `characters.yaml` contient la configuration pour tous les personnages qui parlent dans le jeu. Ils doivent avoir au minimum un nom et un sprite `idle`. Le sprite est utilisé pour afficher le portrait du personnage pendant son dialogue, et la valeur de celui-ci doit être le chemin vers le fichier image utilisé. 
+
+La couleur du nom du personnage peut être modifée via la valeur `color` dans la propriété `style` du personnage (toute couleur CSS fonctionne).
+
+Plus de détails dans [Personnages et portraits](../features/characters-and-portraits.md)
+
+### Autres fichiers de configuration
+
+Il existe des fichiers de configuration modifiables pour la plupart des fonctionnalités du moteur. La meilleure façon d'apprendre à d'utiliser ceux-ci est d'étudier les jeux d'exemple.
+
+- [Jeux tests d'exemple dans le repo Narrat](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat/examples/games)
+- [Example games in the narrat-examples repo](https://github.com/liana-p/narrat-examples)
+
+## Et après ?
+
+Pour réaliser votre jeu, ouvrez vos fichiers de scripts `.narrat` et commencez à écrire votre jeu !
+
+::: tip
+**Vous pouvez naviguer dans la sidebar à gauche sur ce site pour trouver des guides et des pages traitant de fonctionnalités et de leur usage.**
+:::
+
+Vous voudrez peut-être vous renseigner au sujet d'autres éléments, tels que :
+
+ ### Cheatsheet complète des commandes
+
+ [Cette page](../commands/all-commands.md) contient l'intégralité des commandes disponibles pour vos scripts.
+
+ ### Viewport
+
+[Utilisez le viewport](../features/viewport.md) pour ajouter des arrières-plans visuels et boutons interactifs à votre jeu.
+
+### Personnalisation de l'interface
+
+[Personnalisez l'apparence de votre jeu avec du CSS](../guides/customising-ui.md)
+
+### Build et export de votre jeu
+
+[Faites un build de votre jeu pour le distribuer](../guides/building-and-exporting.md)
+
+### Système de skills
+
+[utilisez le système de skills](../features/skills.md)
+
+### Inventaire
+
+[Intégrez un inventaire à votre jeu](../features/inventory.md)
+
+### Mise à jour
+
+Il est important de [mettre Narrat à jour](./updating-narrat.md) pour bénéficier des dernières fonctionnalités et corrections de bugs.
+
+<FeedbackForm title="Editing the game" slug="guides/editing-game"/>
