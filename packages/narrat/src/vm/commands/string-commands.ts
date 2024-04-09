@@ -43,3 +43,20 @@ export const stringJoinPlugin = new CommandPlugin<{ a: number; b: number }>(
     }, '');
   },
 );
+
+export const stringSplitPlugin = new CommandPlugin<{ a: number; b: number }>(
+  'split',
+  'any',
+  async (cmd) => {
+    if (cmd.args.length < 2) {
+      commandRuntimeError(cmd, `requires at least 2 arguments`);
+    }
+    const splitter = cmd.args[0];
+    const stringToSplit = cmd.args[1];
+    if (typeof splitter === 'string' && stringToSplit === 'string') {
+      return stringToSplit.split(splitter);
+    } else {
+      commandRuntimeError(cmd, `requires all arguments to be strings`);
+    }
+  },
+);

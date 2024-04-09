@@ -278,6 +278,7 @@ do_things element:
 | -------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
 | [concat](string-commands/concat) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
 | [join](string-commands/join)     | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
+| [split](string-commands/split)   | `split " " "Hello World"`   | Splits a string into an array by the splitting character                     |
 
 ## Screen Objects
 

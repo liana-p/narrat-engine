@@ -100,7 +100,11 @@ import {
   randomFromArrayPlugin,
   randomIntPlugin,
 } from './random-commands';
-import { stringConcatPlugin, stringJoinPlugin } from './string-commands';
+import {
+  stringConcatPlugin,
+  stringJoinPlugin,
+  stringSplitPlugin,
+} from './string-commands';
 import {
   ceilPlugin,
   clampPlugin,
