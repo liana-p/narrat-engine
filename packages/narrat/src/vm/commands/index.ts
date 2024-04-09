@@ -302,6 +302,7 @@ export function registerBaseCommands(vm: VM) {
   // Strings
   vm.addCommand(stringConcatPlugin);
   vm.addCommand(stringJoinPlugin);
+  vm.addCommand(stringSplitPlugin);
 
   // Maths
   vm.addCommand(minPlugin);
