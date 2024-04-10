@@ -279,6 +279,7 @@ do_things element:
 | -------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | [concat](string-commands/concat) | `concat "Hello" "World"`                          | Concatenates two or more strings                                                                                 |
 | [join](string-commands/join)     | `join ", " "Hello" "World"`                       | Joins x strings, with the first character being the join string between them                                     |
+| [split](string-commands/split)   | `split " " "Hello World"`   | Splits a string into an array by the splitting character                     |
 | str_search                       | `var result (str_search "Hello world" "world")`   | Searches for a substring in a string and returns the index of the first occurrence. Returns -1 if not found.     |
 | regex_search                     | `var result (regex_search "Hello world" "world")` | Searches for a regex pattern in a string and returns the index of the first occurrence. Returns -1 if not found. |
 

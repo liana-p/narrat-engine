@@ -106,6 +106,7 @@ import {
   randomIntPlugin,
 } from './random-commands';
 import {
+  stringSplitPlugin,
   regexSearchPlugin,
   stringConcatPlugin,
   stringJoinPlugin,
@@ -309,6 +310,7 @@ export function registerBaseCommands(vm: VM) {
   // Strings
   vm.addCommand(stringConcatPlugin);
   vm.addCommand(stringJoinPlugin);
+  vm.addCommand(stringSplitPlugin);
   vm.addCommand(stringSearchPlugin);
   vm.addCommand(regexSearchPlugin);
   // Maths
