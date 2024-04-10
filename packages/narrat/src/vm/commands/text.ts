@@ -20,16 +20,11 @@ export class BaseTextCommand<
   Options extends BaseTextCommandArgs,
 > extends CommandPlugin<Options> {
   static async ManageAutoAdvance(cmd: Parser.Command<TalkArgs>) {
-    console.log('not interactive');
     await useVM().waitForEndTextAnimation();
-    console.log('text animation ended');
     await timeout(cmd.options.delay || 0);
-    console.log('delay ended');
     if (cmd.options.autoAdvance) {
-      console.log('player answered');
       playerAnswered(0);
     } else {
-      console.log('make dialog interactive');
       useDialogStore().makeLastDialogInteractive();
     }
   }
@@ -131,7 +126,6 @@ export const narrateCommand = BaseTextCommand.FromOptions<TalkArgs>({
 export const textParser = (): CommandParserFunction<{}, { text: string }> => {
   const parser = generateParser<{}, { text: string }>('text', []);
   return (ctx, parsed) => {
-    console.log(parsed);
     const result = parser(ctx, parsed);
     parsed.command.staticOptions = {
       text: parsed.code.substring(1, parsed.code.length - 1),
