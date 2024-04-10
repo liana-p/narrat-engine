@@ -1,6 +1,15 @@
 dev_test:
-  "Hello"
+  run test_multiline
   menu_return
+
+test_multiline:
+  talk player idle "This is a very long string that \
+  I want to split into multiple lines for readability"
+  var text (concat \
+    "I am concatenating multiple lines of text " \
+    "together to make a longer string" \
+  )
+  talk player idle $text
 
 main:
   jump dev_test
