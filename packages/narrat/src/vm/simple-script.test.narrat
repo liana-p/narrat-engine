@@ -1,0 +1,2 @@
+main:
+  talk player idle "Hello world"
