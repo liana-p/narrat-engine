@@ -40,7 +40,12 @@ import {
   setButtonCommand,
   setScreenCommand,
 } from './screen-commands';
-import { talkCommand, textCommandPlugin, thinkCommand } from './text';
+import {
+  narrateCommand,
+  talkCommand,
+  textCommandPlugin,
+  thinkCommand,
+} from './text';
 import { VM } from '../vm';
 import {
   addItemPlugin,
@@ -241,6 +246,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(textCommandPlugin);
   vm.addCommand(talkCommand);
   vm.addCommand(thinkCommand);
+  vm.addCommand(narrateCommand);
 
   // // functions and labels
   vm.addCommand(jumpCommand);

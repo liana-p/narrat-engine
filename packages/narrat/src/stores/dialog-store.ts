@@ -67,6 +67,9 @@ export const useDialogStore = defineStore('dialog', {
     clearDialog() {
       this.dialog.splice(0, this.dialog.length);
     },
+    makeLastDialogInteractive() {
+      this.dialog[this.dialog.length - 1].interactive = true;
+    },
     reset() {
       this.dialog = [];
       this.playMode = 'normal';

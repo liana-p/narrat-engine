@@ -8,12 +8,13 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Dialog
 
-| Command                                   | Example                                        | Description                                                                                              |
-| ----------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| [talk](text-commands/talk-function.md)    | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
-| [think](text-commands/talk-function-1.md) | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
-| text command (Empty command)              | `"Hello world"`                                | Writing text without a command will print that text as if it was said "by the game", without a character |
-|                                           |
+| Command                                                          | Example                                        | Description                                                                                              |
+| ---------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [talk](text-commands/talk-function.md)                           | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
+| [think](text-commands/think-function.md)                         | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
+| [narrate](text-commands/narrate-command.md)                      | `narrate "Hello world"`                        | Writing text without a command will print that text as if it was said "by the game", without a character |
+| [text command](text-commands/narrate-command.md) (Empty command) | `"Hello world"`                                | Same thing as the narrate command, but shorter                                                           |
+|                                                                  |
 
 ## Basic program flow
 
