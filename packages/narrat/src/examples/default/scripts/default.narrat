@@ -5,8 +5,9 @@ dev_test:
 test_text_autoadvance:
   narrate "Hi!"
   narrate "with delay " 2000
-  narrate "With delay and auto advance waiting for text to print" 200 true
-  narrate "With delay and auto advance not waiting for text to print" 0 true
+  narrate "With delay and auto advance" 2000 true
+  narrate "auto advance not waiting for text to print" 0 true
+  narrate "auto advance waiting for text to print" 1 true
   narrate "This is a normal line"
 
   talk player idle "Hello!"

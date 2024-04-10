@@ -20,4 +20,24 @@ talk_example:
     "This is a shortcut for the narrator talking"
     talk player idle "The player can also talk"
 
+test_text_autoadvance:
+  narrate "Hi!"
+  narrate "with delay " 2000
+  narrate "With delay and auto advance waiting for text to print" 200 true
+  narrate "With delay and auto advance not waiting for text to print" 0 true
+  narrate "This is a normal line"
+
+  talk player idle "Hello!"
+  talk player idle "This will auto advance" 1 true
+  talk player idle "This will not auto advance but has a delay" 2000 false
+  talk player idle "this is a normal line"
+
+test_multiline:
+  talk player idle "This is a very long string that \
+  I want to split into multiple lines for readability"
+  var text (concat \
+    "I am concatenating multiple lines of text " \
+    "together to make a longer string" \
+  )
+  talk player idle $text
 ```
