@@ -70,9 +70,7 @@ export const regexSearchPlugin = CommandPlugin.FromOptions<{
   ],
   runner: async (cmd) => {
     const { str, regex } = cmd.options;
-    console.log(regex);
     const matcher = new RegExp(regex);
-    console.log(matcher);
     return str.search(matcher);
   },
 });
