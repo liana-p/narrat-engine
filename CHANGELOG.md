@@ -1,3 +1,13 @@
+## [3.10.1](https://github.com/liana-p/narrat-engine/compare/v3.10.0...v3.10.1) (2024-04-10)
+
+
+### Features
+
+* **command:** Add new split command for strings ([#258](https://github.com/liana-p/narrat-engine/issues/258)) ([fa1a823](https://github.com/liana-p/narrat-engine/commit/fa1a8238c0af3bff17a213d89a04d4d07ec55696))
+* **command:** string/regex search commands ([#260](https://github.com/liana-p/narrat-engine/issues/260)) ([511eae3](https://github.com/liana-p/narrat-engine/commit/511eae3a15fb9561787abc161e242c7b25046261))
+
+
+
 # [3.10.0](https://github.com/liana-p/narrat-engine/compare/v3.9.8...v3.10.0) (2024-04-10)
 
 
