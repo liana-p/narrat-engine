@@ -2,6 +2,12 @@ dev_test:
   run test_text_autoadvance
   menu_return
 
+talk_shortcut text:
+  talk player idle $text
+
+main:
+  - "Hello I'm the player"
+
 test_text_autoadvance:
   narrate "Hi!"
   narrate "with delay " 2000
