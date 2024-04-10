@@ -1,12 +1,27 @@
 dev_test:
+  run test_regex
   run test_text_autoadvance
   menu_return
 
+test_regex:
+  var text "uwu i want to open a door mommy"
+  var res (str_search $text "open a door")
+  log $res
+  if (!= $res -1):
+    "Found the text"
+  else:
+    "Didn't find the text"
+
+  var text "0 1 2 a b c d e f g"
+  var regex_res (regex_search $text \w)
+  log $regex_res
+  if (!= $regex_res -1):
+    "Found the text with regex"
+  else:
+    "Didn't find the text with regex"
+
 talk_shortcut text:
   talk player idle $text
-
-main:
-  - "Hello I'm the player"
 
 test_text_autoadvance:
   narrate "Hi!"
@@ -15,6 +30,7 @@ test_text_autoadvance:
   narrate "auto advance not waiting for text to print" 0 true
   narrate "auto advance waiting for text to print" 1 true
   narrate "This is a normal line"
+
 
   talk player idle "Hello!"
   talk player idle "This will auto advance" 1 true

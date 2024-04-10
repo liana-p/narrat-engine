@@ -105,7 +105,12 @@ import {
   randomFromArrayPlugin,
   randomIntPlugin,
 } from './random-commands';
-import { stringConcatPlugin, stringJoinPlugin } from './string-commands';
+import {
+  regexSearchPlugin,
+  stringConcatPlugin,
+  stringJoinPlugin,
+  stringSearchPlugin,
+} from './string-commands';
 import {
   ceilPlugin,
   clampPlugin,
@@ -304,7 +309,8 @@ export function registerBaseCommands(vm: VM) {
   // Strings
   vm.addCommand(stringConcatPlugin);
   vm.addCommand(stringJoinPlugin);
-
+  vm.addCommand(stringSearchPlugin);
+  vm.addCommand(regexSearchPlugin);
   // Maths
   vm.addCommand(minPlugin);
   vm.addCommand(maxPlugin);
