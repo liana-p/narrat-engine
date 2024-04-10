@@ -8,12 +8,13 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Dialog
 
-| Command                                   | Example                                        | Description                                                                                              |
-| ----------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| [talk](text-commands/talk-function.md)    | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
-| [think](text-commands/talk-function-1.md) | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
-| text command (Empty command)              | `"Hello world"`                                | Writing text without a command will print that text as if it was said "by the game", without a character |
-|                                           |
+| Command                                                          | Example                                        | Description                                                                                              |
+| ---------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [talk](text-commands/talk-function.md)                           | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
+| [think](text-commands/think-function.md)                         | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
+| [narrate](text-commands/narrate-command.md)                      | `narrate "Hello world"`                        | Writing text without a command will print that text as if it was said "by the game", without a character |
+| [text command](text-commands/narrate-command.md) (Empty command) | `"Hello world"`                                | Same thing as the narrate command, but shorter                                                           |
+|                                                                  |
 
 ## Basic program flow
 
@@ -274,11 +275,13 @@ do_things element:
 
 ## Strings
 
-| Command                          | Example                     | Description                                                                  |
-| -------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
-| [concat](string-commands/concat) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
-| [join](string-commands/join)     | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
+| Command                          | Example                                           | Description                                                                                                      |
+| -------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| [concat](string-commands/concat) | `concat "Hello" "World"`                          | Concatenates two or more strings                                                                                 |
+| [join](string-commands/join)     | `join ", " "Hello" "World"`                       | Joins x strings, with the first character being the join string between them                                     |
 | [split](string-commands/split)   | `split " " "Hello World"`   | Splits a string into an array by the splitting character                     |
+| str_search                       | `var result (str_search "Hello world" "world")`   | Searches for a substring in a string and returns the index of the first occurrence. Returns -1 if not found.     |
+| regex_search                     | `var result (regex_search "Hello world" "world")` | Searches for a regex pattern in a string and returns the index of the first occurrence. Returns -1 if not found. |
 
 ## Screen Objects
 

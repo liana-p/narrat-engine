@@ -11,3 +11,8 @@ macros:
     options:
       - name: text
         type: string
+  - keyword: '-'
+    label: talk_shortcut
+    options:
+      - name: text
+        type: string

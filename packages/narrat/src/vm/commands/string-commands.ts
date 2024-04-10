@@ -60,3 +60,34 @@ export const stringSplitPlugin = new CommandPlugin<{ a: number; b: number }>(
     }
   },
 );
+
+export const stringSearchPlugin = CommandPlugin.FromOptions<{
+  str: string;
+  matcher: string;
+}>({
+  keyword: 'str_search',
+  argTypes: [
+    { name: 'str', type: 'string' },
+    { name: 'matcher', type: 'string' },
+  ],
+  runner: async (cmd) => {
+    const { str, matcher } = cmd.options;
+    return str.search(matcher);
+  },
+});
+
+export const regexSearchPlugin = CommandPlugin.FromOptions<{
+  str: string;
+  regex: string;
+}>({
+  keyword: 'regex_search',
+  argTypes: [
+    { name: 'str', type: 'string' },
+    { name: 'regex', type: 'string' },
+  ],
+  runner: async (cmd) => {
+    const { str, regex } = cmd.options;
+    const matcher = new RegExp(regex);
+    return str.search(matcher);
+  },
+});

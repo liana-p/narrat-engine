@@ -1,6 +1,50 @@
 dev_test:
-  "Hello"
+  run test_regex
+  run test_text_autoadvance
   menu_return
+
+test_regex:
+  var text "uwu i want to open a door mommy"
+  var res (str_search $text "open a door")
+  log $res
+  if (!= $res -1):
+    "Found the text"
+  else:
+    "Didn't find the text"
+
+  var text "0 1 2 a b c d e f g"
+  var regex_res (regex_search $text \w)
+  log $regex_res
+  if (!= $regex_res -1):
+    "Found the text with regex"
+  else:
+    "Didn't find the text with regex"
+
+talk_shortcut text:
+  talk player idle $text
+
+test_text_autoadvance:
+  narrate "Hi!"
+  narrate "with delay " 2000
+  narrate "With delay and auto advance" 2000 true
+  narrate "auto advance not waiting for text to print" 0 true
+  narrate "auto advance waiting for text to print" 1 true
+  narrate "This is a normal line"
+
+
+  talk player idle "Hello!"
+  talk player idle "This will auto advance" 1 true
+  talk player idle "This will not auto advance but has a delay" 2000 false
+  talk player idle "this is a normal line"
+
+test_multiline:
+  talk player idle "This is a very long string that \
+  I want to split into multiple lines for readability"
+  var text (concat \
+    "I am concatenating multiple lines of text " \
+    "together to make a longer string" \
+  )
+  talk player idle $text
 
 main:
   jump dev_test

@@ -1,3 +1,13 @@
+# [3.10.0](https://github.com/liana-p/narrat-engine/compare/v3.9.8...v3.10.0) (2024-04-10)
+
+
+### Features
+
+* **scripting:** multiline scripting feature ([#259](https://github.com/liana-p/narrat-engine/issues/259)) ([5da65fd](https://github.com/liana-p/narrat-engine/commit/5da65fd7b5cbdc39c78cef830bfe7d4cf6a457a6)) [See multiline code docs](https://docs.narrat.dev/scripting/language-syntax.html#multiline-code)
+* **text:** New features for text auto advance and delays before continue ([5445799](https://github.com/liana-p/narrat-engine/commit/5445799ece5e55d67febe4747885484da320c43a)) See [new narrate command](https://docs.narrat.dev/commands/text-commands/narrate-command.html), [updated talk command docs](https://docs.narrat.dev/commands/text-commands/talk-function.html)
+
+
+
 ## [3.9.8](https://github.com/liana-p/narrat-engine/compare/v3.9.7...v3.9.8) (2024-02-19)
 
 
