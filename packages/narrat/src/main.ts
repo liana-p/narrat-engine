@@ -62,13 +62,14 @@ export async function startApp(optionsInput: AppOptionsInput) {
   registerBaseCommands(vm);
   logManager.setupDebugger(options.debug!);
   console.log(
-    `%c Narrat v${VERSION} %c ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} %c
+    `%c 🐀 Narrat v${VERSION} %c ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} BUILD %c https://narrat.dev %c
     Built at ${BUILD_DATE.toLocaleString()}
     Branch: ${GIT_INFO.branch}
     Commit: ${GIT_INFO.commit}`,
-    'font-size: 1.5rem; background: #222; color: #bada55',
-    `font-size: 1.5rem; background: #222; color: ${PRODUCTION ? '#f00' : '#0f0'}`,
-    'font-size: 1.2rem; background: #222; color: #bada55',
+    'font-size: 2rem; background: #222; color: orange',
+    `font-size: 2rem; background: #222; color: ${PRODUCTION ? '#f00' : '#0f0'}`,
+    'font-size: 1rem;',
+    'font-size: 1.3rem; background: #222; color: #bada55',
   );
   vm.callHook('onNarratSetup');
   let container: HTMLElement;

@@ -2,6 +2,10 @@ import { useVM } from '@/stores/vm-store';
 import { commandRuntimeError } from './command-helpers';
 import { CommandPlugin } from './command-plugin';
 import { findDataHelper, newFindDataHelper } from '@/utils/data-helpers';
+import { createLogger } from '@/utils/logging';
+import { LOG_LEVEL } from '@/constants';
+
+const logger = createLogger('js-commands', LOG_LEVEL);
 
 export const callMethod = CommandPlugin.FromOptions<{
   target: any;
@@ -52,6 +56,7 @@ export const runJS = CommandPlugin.FromOptions<{ code: string }>({
     const { code } = cmd.options;
     // eslint-disable-next-line no-new-func
     const generatedFunction = Function(`return (${code})`);
+    logger.debug(`Running JS code: ${code}`);
     return generatedFunction();
   },
 });

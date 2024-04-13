@@ -308,8 +308,8 @@ It is possible to change which character is used by the player (which is used wh
 Narrat can interface with JavaScript more directly thanks for a few functions:
 
 | Command | Example | Description |
-| `call_js_method` | `call_js_method [target] [method] [...options]` or `call_js_method document createElement canvas` | Calls the JS function [method] on the object [target] with any other arguments passed. `target` can either be an object, or a string. If it's a string, the engine will try to find the object inside `window`. For example `call_js_method document.body appendChild $canvas` will be equivalent to `window.document.body.appendChild($canvas)` (with $canvas being the value of the $canvas variable in narrat here) |
-| `run_js` | `run_js "1 + 2"` | Runs a piece of JavaScript and returns the result. This is equivalent to using JavaScript `eval`, but is implemented [with the `Function` constructor](https://www.educative.io/answers/eval-vs-function-in-javascript). _Note:_ This is considered inefficient and unsafe. You should never do this if your game contains user-entered scripts. |
+| [call_js_method](../scripting/javascript-interface.md) | `call_js_method [target] [method] [...options]` or `call_js_method document createElement canvas` | Calls the JS function [method] on the object [target] with any other arguments passed. `target` can either be an object, or a string. If it's a string, the engine will try to find the object inside `window`. For example `call_js_method document.body appendChild $canvas` will be equivalent to `window.document.body.appendChild($canvas)` (with $canvas being the value of the $canvas variable in narrat here) |
+| [run_js](../scripting/javascript-interface.md) | `run_js "1 + 2"` | Runs a piece of JavaScript and returns the result. This is equivalent to using JavaScript `eval`, but is implemented [with the `Function` constructor](https://www.educative.io/answers/eval-vs-function-in-javascript). _Note:_ This is considered inefficient and unsafe. You should never do this if your game contains user-entered scripts. |
 
 ## Others
 

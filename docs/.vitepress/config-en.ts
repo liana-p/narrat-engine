@@ -124,6 +124,7 @@ function sidebarScripting(): DefaultTheme.SidebarItem[] {
     items: [
       { text: 'Language Syntax', link: 'language-syntax' },
       { text: 'Functions', link: 'functions' },
+      { text: 'JavaScript interface', link: 'javascript-interface' },
       {
         text: 'Known limitations and issues',
         link: '/others/scripting-limitations',
