@@ -1,0 +1,8 @@
+test_conditions:
+  var hello "test"
+  if (== $hello false):
+    "false"
+  elseif $hello:
+    "true"
+  else:
+    "neither"

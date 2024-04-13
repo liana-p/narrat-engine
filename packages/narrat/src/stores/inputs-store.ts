@@ -196,6 +196,7 @@ export interface InputsStoreState {
   baseInputListener: InputListener;
   inGameInputListener: InputListener | null;
   inputMode: InputMode;
+  isTyping: boolean;
 }
 
 export const useInputs = defineStore('inputs', {
@@ -204,6 +205,7 @@ export const useInputs = defineStore('inputs', {
       inputStack: [],
       baseInputListener: null as any,
       inputMode: 'mk' as InputMode,
+      isTyping: false,
       inGameInputListener: null,
     }) as InputsStoreState,
   actions: {
@@ -247,6 +249,12 @@ export const useInputs = defineStore('inputs', {
           },
         },
       });
+    },
+    startTyping() {
+      this.isTyping = true;
+    },
+    stopTyping() {
+      this.isTyping = false;
     },
     removeInGameInputListener() {
       if (this.inGameInputListener) {

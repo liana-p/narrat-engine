@@ -1,16 +1,21 @@
-import { getLine, runConditionCommand } from '@/vm/vm-helpers';
+import {
+  getLine,
+  isExpression,
+  isVariable,
+  runConditionCommand,
+} from '@/vm/vm-helpers';
 import { CommandPlugin, generateParser } from './command-plugin';
 import { Parser } from '@/types/parser';
 import { MachineBlock, useVM } from '@/stores/vm-store';
-import { parseExpression } from '../vm-parser';
-import { runExpression } from '../vm';
+import { parseArgument, parseExpression } from '../vm-parser';
+import { readVariable, runExpression } from '../vm';
 
 export interface IfOptions {
   condition: boolean;
 }
 export interface ElseIfOptions {
   branch: Parser.Branch;
-  condition: Parser.ParsedExpression;
+  condition: Parser.Arg;
 }
 export interface IfStaticOptions {
   success: Parser.Branch;
@@ -25,7 +30,14 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
     const elseIfResults: boolean[] = [];
     for (const elseif of cmd.staticOptions.elseifs) {
       const condition = elseif.condition;
-      const finalCondition = await runExpression(condition);
+      let finalCondition: any;
+      if (isExpression(condition)) {
+        finalCondition = await runExpression(condition);
+      } else if (isVariable(condition)) {
+        finalCondition = readVariable(condition as string);
+      } else {
+        finalCondition = condition;
+      }
       elseIfResults.push(finalCondition);
     }
     const newBranch = runConditionCommand(cmd, elseIfResults);
@@ -79,7 +91,7 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
             nextLine.branch!,
             line,
           ),
-          condition: parseExpression(
+          condition: parseArgument(
             ctx.parserContext,
             nextLine,
             expression[1] as Parser.Expression,

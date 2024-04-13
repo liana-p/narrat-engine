@@ -125,9 +125,18 @@ export function parseExpression(
   line: Parser.Line,
   expression: Parser.Expression,
 ): Parser.ParsedExpression {
+  if (!Array.isArray(expression)) {
+    ctx.error(
+      line.line,
+      `Expression should be an array. Something is wrong. ${ctx.fileName}:${ctx.currentLine} - ${line.code}`,
+    );
+  }
   logger.log(expression);
   if (typeof expression[0] !== 'string') {
-    ctx.error(line.line, `Expression operator should be a string`);
+    ctx.error(
+      line.line,
+      `Expression operator should be a string ${ctx.fileName}:${ctx.currentLine} - ${line.code}`,
+    );
   }
   const parsed: Parser.ParsedExpression = {
     code: line.code,
@@ -156,7 +165,7 @@ export function parseExpression(
   return parsed;
 }
 
-function parseArgument(
+export function parseArgument(
   ctx: ParserContext,
   line: Parser.Line,
   argument: Parser.Expression | Parser.Primitive,

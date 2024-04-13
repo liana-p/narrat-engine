@@ -294,6 +294,7 @@ function submitText() {
 
 function createTextFieldListener() {
   if (props.options.textField) {
+    useInputs().startTyping();
     timeout.value = setTimeout(() => {
       if (canInteract.value) {
         textFieldInputGrabber.value = useInputs().registerInputListener(
@@ -309,6 +310,7 @@ function createTextFieldListener() {
 }
 
 function cleanUpTextFieldListener() {
+  useInputs().stopTyping();
   if (textFieldInputGrabber.value) {
     useInputs().unregisterInputListener(textFieldInputGrabber.value);
     textFieldInputGrabber.value = null;
@@ -422,7 +424,9 @@ function endTextAnimation({
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
   useVM().endTextAnimation();
-  createTextFieldListener();
+  if (!unmounted) {
+    createTextFieldListener();
+  }
   setTimeout(() => {
     if (navigation.value) {
       navigation.value.select(0);
