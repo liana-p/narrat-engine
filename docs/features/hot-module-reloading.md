@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
 
 ```json
   "dependencies": {
-    "narrat": "^3.0.0" // [!code ++]
+    "narrat": "^3.10.2" // [!code ++]
   },
 ```
 

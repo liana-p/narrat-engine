@@ -183,6 +183,7 @@ import {
 } from './object-commands';
 import { createMacro, createMacroCommand } from '../macros';
 import { changeSceneCommand } from './scene-commands';
+import { callMethod, runJS } from './js-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -386,4 +387,8 @@ export function registerBaseCommands(vm: VM) {
 
   // Scenes
   vm.addCommand(changeSceneCommand);
+
+  // JS Commands
+  vm.addCommand(callMethod);
+  vm.addCommand(runJS);
 }
