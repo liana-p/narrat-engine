@@ -1,3 +1,12 @@
+## [3.10.3](https://github.com/liana-p/narrat-engine/compare/v3.10.2...v3.10.3) (2024-04-13)
+
+
+### Bug Fixes
+
+* elseifs now work with single variables in conditions ([#265](https://github.com/liana-p/narrat-engine/issues/265)) ([2bd479c](https://github.com/liana-p/narrat-engine/commit/2bd479c6fa6db7285007a6b6b163907862383e7b))
+* Pressing "J" in a text field won't bring up the jump menu anymore while in dev mode
+
+
 ## [3.10.2](https://github.com/liana-p/narrat-engine/compare/v3.10.1...v3.10.2) (2024-04-13)
 
 
