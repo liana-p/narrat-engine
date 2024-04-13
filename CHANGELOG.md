@@ -1,3 +1,37 @@
+## [3.10.2](https://github.com/liana-p/narrat-engine/compare/v3.10.1...v3.10.2) (2024-04-13)
+
+
+### Bug Fixes
+
+* **arrays:** array_join command now returns the right value ([#262](https://github.com/liana-p/narrat-engine/issues/262)) ([47ad700](https://github.com/liana-p/narrat-engine/commit/47ad7000608ea55c90bf8dcb50d1674744d98e5e))
+
+
+### Features
+
+* functions to call javascript from narrat, better logging ([#263](https://github.com/liana-p/narrat-engine/issues/263)) ([a6ff74c](https://github.com/liana-p/narrat-engine/commit/a6ff74c450f1e6c7399a15311e4a508329e4f0d8))
+
+
+
+## [3.10.1](https://github.com/liana-p/narrat-engine/compare/v3.10.0...v3.10.1) (2024-04-10)
+
+
+### Features
+
+* **command:** Add new split command for strings ([#258](https://github.com/liana-p/narrat-engine/issues/258)) ([fa1a823](https://github.com/liana-p/narrat-engine/commit/fa1a8238c0af3bff17a213d89a04d4d07ec55696))
+* **command:** string/regex search commands ([#260](https://github.com/liana-p/narrat-engine/issues/260)) ([511eae3](https://github.com/liana-p/narrat-engine/commit/511eae3a15fb9561787abc161e242c7b25046261))
+
+
+
+# [3.10.0](https://github.com/liana-p/narrat-engine/compare/v3.9.8...v3.10.0) (2024-04-10)
+
+
+### Features
+
+* **scripting:** multiline scripting feature ([#259](https://github.com/liana-p/narrat-engine/issues/259)) ([5da65fd](https://github.com/liana-p/narrat-engine/commit/5da65fd7b5cbdc39c78cef830bfe7d4cf6a457a6)) [See multiline code docs](https://docs.narrat.dev/scripting/language-syntax.html#multiline-code)
+* **text:** New features for text auto advance and delays before continue ([5445799](https://github.com/liana-p/narrat-engine/commit/5445799ece5e55d67febe4747885484da320c43a)) See [new narrate command](https://docs.narrat.dev/commands/text-commands/narrate-command.html), [updated talk command docs](https://docs.narrat.dev/commands/text-commands/talk-function.html)
+
+
+
 ## [3.9.8](https://github.com/liana-p/narrat-engine/compare/v3.9.7...v3.9.8) (2024-02-19)
 
 

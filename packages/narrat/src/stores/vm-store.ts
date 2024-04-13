@@ -62,6 +62,7 @@ export interface DataState {
 
 export interface VMState {
   commandsWaitingForPlayerAnswer: Parser.Command<any, any>[];
+  promisesWaitingForTextAnimation: (() => void)[];
   stack: MachineFrame[];
   data: DataState;
   globalData: DataState;
@@ -86,6 +87,7 @@ export const useVM = defineStore('vm', {
       script: {},
       labelStack: ['main'],
       commandsWaitingForPlayerAnswer: [],
+      promisesWaitingForTextAnimation: [],
       hasJumped: false,
     }) as VMState,
   actions: {
@@ -139,6 +141,17 @@ export const useVM = defineStore('vm', {
     },
     waitForPlayerAnswer(cmd: Parser.Command<any, any>) {
       this.commandsWaitingForPlayerAnswer.push(cmd);
+    },
+    waitForEndTextAnimation() {
+      return new Promise<void>((resolve) => {
+        this.promisesWaitingForTextAnimation.push(resolve);
+      });
+    },
+    endTextAnimation() {
+      for (const resolve of this.promisesWaitingForTextAnimation) {
+        resolve();
+      }
+      this.promisesWaitingForTextAnimation = [];
     },
     popAnswerQueue() {
       const cmd = this.commandsWaitingForPlayerAnswer.pop();

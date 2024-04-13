@@ -22,7 +22,7 @@ export function newFindDataHelper<T>(
     }
     return [null, path];
   }
-  path = path.substring(1);
+  path = path.substring(variablePrefix.length);
   const opening = /\[/;
   const closing = /\]/;
   let startIndex = path.search(opening);

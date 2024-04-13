@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 // @ts-check
-const minimist = require('minimist');
-const shell = require('shelljs');
-const { red, cyan } = require('kolorist');
+import minimist from 'minimist';
+import shell from 'shelljs';
+import { red, cyan } from 'kolorist';
 
 const args = minimist(process.argv.slice(2));
 

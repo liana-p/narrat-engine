@@ -8,12 +8,13 @@ This page lists all available narrat commands as well as usage examples.
 
 ## Dialog
 
-| Command                                   | Example                                        | Description                                                                                              |
-| ----------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| [talk](text-commands/talk-function.md)    | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
-| [think](text-commands/talk-function-1.md) | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
-| text command (Empty command)              | `"Hello world"`                                | Writing text without a command will print that text as if it was said "by the game", without a character |
-|                                           |
+| Command                                                          | Example                                        | Description                                                                                              |
+| ---------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [talk](text-commands/talk-function.md)                           | `talk player idle "Hello everyone"`            | Makes a character talk in a specific pose                                                                |
+| [think](text-commands/think-function.md)                         | `think player idle "I wonder if they like me"` | Makes a character think in a specific pose (think is the same as talk but without quotes around)         |
+| [narrate](text-commands/narrate-command.md)                      | `narrate "Hello world"`                        | Writing text without a command will print that text as if it was said "by the game", without a character |
+| [text command](text-commands/narrate-command.md) (Empty command) | `"Hello world"`                                | Same thing as the narrate command, but shorter                                                           |
+|                                                                  |
 
 ## Basic program flow
 
@@ -164,7 +165,7 @@ Imagine $data.myArray contains an array with [25, 50, 75]
 | push              | `push $data.myArray 100`                                                      | Adds a value at the end of an array                                                                                                                            |
 | pop               | `pop $data.myArray // Returns 100`                                            | Removes the last value of an array, returning it                                                                                                               |
 | shift             | `shift $data.myArray // Returns 25`                                           | Removes the first value of an array, returning it                                                                                                              |
-| array_join        | `array_join $data.myArray ", " // Returns "25, 50, 75"`                       | Joins an array into a string, with the first parameter being the separator to use                                                                              |
+| array_join        | `array_join $data.myArray ", " // Returns "25, 50, 75"`                       | Joins an array into a string, with the second parameter being the separator to use                                                                             |
 | array_concat      | `array_concat $data.myArray $data.myArray2 // Returns [25, 50, 75, 100, 125]` | Concatenates two arrays                                                                                                                                        |
 | includes          | `includes $data.myArray 25 // Returns true`                                   | Checks if an array includes a value                                                                                                                            |
 | reverse           | `reverse $data.myArray // Returns [75, 50, 25]`                               | Reverses an array                                                                                                                                              |
@@ -274,10 +275,13 @@ do_things element:
 
 ## Strings
 
-| Command                          | Example                     | Description                                                                  |
-| -------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
-| [concat](string-commands/concat) | `concat "Hello" "World"`    | Concatenates two or more strings                                             |
-| [join](string-commands/join)     | `join ", " "Hello" "World"` | Joins x strings, with the first character being the join string between them |
+| Command                          | Example                                           | Description                                                                                                      |
+| -------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| [concat](string-commands/concat) | `concat "Hello" "World"`                          | Concatenates two or more strings                                                                                 |
+| [join](string-commands/join)     | `join ", " "Hello" "World"`                       | Joins x strings, with the first character being the join string between them                                     |
+| [split](string-commands/split)   | `split " " "Hello World"`                         | Splits a string into an array by the splitting character                                                         |
+| str_search                       | `var result (str_search "Hello world" "world")`   | Searches for a substring in a string and returns the index of the first occurrence. Returns -1 if not found.     |
+| regex_search                     | `var result (regex_search "Hello world" "world")` | Searches for a regex pattern in a string and returns the index of the first occurrence. Returns -1 if not found. |
 
 ## Screen Objects
 
@@ -299,15 +303,27 @@ It is possible to change which character is used by the player (which is used wh
 | change_player_character | `change_player_character player_2` | Will use `player_2` as the character for the player's words in choices etc.                       |
 | change_game_character   | `change_game_character game_2`     | Changes the default character used to represent the game (by default is a character with no name) |
 
+## Interfacing with JavaScript
+
+Narrat can interface with JavaScript more directly thanks for a few functions:
+
+| Command | Example | Description |
+| [call_js_method](../scripting/javascript-interface.md) | `call_js_method [target] [method] [...options]` or `call_js_method document createElement canvas` | Calls the JS function [method] on the object [target] with any other arguments passed. `target` can either be an object, or a string. If it's a string, the engine will try to find the object inside `window`. For example `call_js_method document.body appendChild $canvas` will be equivalent to `window.document.body.appendChild($canvas)` (with $canvas being the value of the $canvas variable in narrat here) |
+| [run_js](../scripting/javascript-interface.md) | `run_js "1 + 2"` | Runs a piece of JavaScript and returns the result. This is equivalent to using JavaScript `eval`, but is implemented [with the `Function` constructor](https://www.educative.io/answers/eval-vs-function-in-javascript). _Note:_ This is considered inefficient and unsafe. You should never do this if your game contains user-entered scripts. |
+
 ## Others
 
-| command                                     | example                                                                         | description                                                                                                                                                               |
-| ------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [clear_dialog](clear-dialog.md)             | `clear_dialog`                                                                  | Clears the dialog panel                                                                                                                                                   |
-| log                                         | `log "what's the value of test? %{test}" // Will print this log in the console` | Prints a log in the browser developer tools. Useful for debugging or checking variable values                                                                             |
-| menu_return                                 | `menu_return`                                                                   | Exits the game and returns to the main menu                                                                                                                               |
-| [save](save-commands.md#save)               | `save [save file name]`                                                         | Opens the manual save screen for the player to save the game (optional parameter for the name of the save file, useful to pass the name of the level/chapter for example) |
-| `reset_global_save`                         | `reset_global_save`                                                             | Resets the global part of the save                                                                                                                                        |
-| [save_prompt](save-commands.md#save_prompt) | `save_prompt [save file name]`                                                  | Same as save, but asks the user if they want to save first                                                                                                                |
-| [wait](wait.md)                             | `wait 500`                                                                      | Makes the script pause for x milliseconds                                                                                                                                 |
-| load_data                                   | `set data.myData (load_data data/myDataFile.yaml)`                              | Loads data from the data file path passed and returns it                                                                                                                  |
+| command                                                          | example                                                                         | description                                                                                                                                                               |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [clear_dialog](clear-dialog.md)                                  | `clear_dialog`                                                                  | Clears the dialog panel                                                                                                                                                   |
+| log                                                              | `log "what's the value of test? %{test}" // Will print this log in the console` | Prints a log in the browser developer tools. Useful for debugging or checking variable values                                                                             |
+| menu_return                                                      | `menu_return`                                                                   | Exits the game and returns to the main menu                                                                                                                               |
+| [save](save-commands.md#save)                                    | `save [save file name]`                                                         | Opens the manual save screen for the player to save the game (optional parameter for the name of the save file, useful to pass the name of the level/chapter for example) |
+| `reset_global_save`                                              | `reset_global_save`                                                             | Resets the global part of the save                                                                                                                                        |
+| [save_prompt](save-commands.md#save_prompt)                      | `save_prompt [save file name]`                                                  | Same as save, but asks the user if they want to save first                                                                                                                |
+| [wait](wait.md)                                                  | `wait 500`                                                                      | Makes the script pause for x milliseconds                                                                                                                                 |
+| load_data                                                        | `set data.myData (load_data data/myDataFile.yaml)`                              | Loads data from the data file path passed and returns it                                                                                                                  |
+| `json_stringify`                                                 | `var jsonString (json_stringify $data.myData)`                                  | Converts an object to a JSON string                                                                                                                                       |
+| `json_parse`                                                     | `var myObject (json_parse jsonString)`                                          | Converts a JSON string to an object                                                                                                                                       |
+| [animate](https://docs.narrat.dev/features/animations.html)      | `animate .dialog long-screenshake 150 20`                                       | Animates an element with a preconfigured animations. See linked docs for details                                                                                          |
+| [animate_wait](https://docs.narrat.dev/features/animations.html) | `animate_wait .dialog long-screenshake 150 20`                                  | Same as animate, but waits for the animation to finish before continuing                                                                                                  |

@@ -1,24 +1,83 @@
-import { test, expect } from 'vitest';
+import { test, expect, assert, vi } from 'vitest';
 
 import { Parser } from '@/types/parser';
-import { error } from '@/utils/error-handling';
 import {
+  getBranchesFromRawScript,
   parseCodeLine,
   parseCodeLineIntoTokens,
   ParserContext,
+  parseScript,
   splitIntoTokens,
+  splitScriptIntoLines,
   tokensToExpression,
 } from './vm-parser';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+import { createPinia, setActivePinia } from 'pinia';
+import { NarratScript } from '@/types/app-types';
+import { registerBaseCommands } from './commands';
+import { vm } from './vm';
+
+const onError = (line: number, text: string) => {
+  console.trace();
+  console.error(`Parser error: ${line + 1}: ${text}`);
+};
 
 const ctx: ParserContext = {
   fileName: 'test.js',
   currentLine: 1,
-  error: (line: number, text: string) =>
-    error(`Parser error: ${ctx.fileName}:${line + 1}: ${text}`),
-  indentSize: 0,
+  error: onError,
+  indentSize: 2,
   processCommandsFunction: (ctx: any, lines: any, parentLine: any) =>
-    ({} as any),
+    ({}) as any,
 };
+
+let simpleNarratFile: string = '';
+let complexNarratFile: string = '';
+const errorSpy = vi.spyOn(ctx, 'error');
+beforeEach(() => {
+  setActivePinia(createPinia());
+  errorSpy.mockClear();
+});
+beforeAll(async () => {
+  complexNarratFile = await readFile(
+    join(__dirname, 'parser.test.narrat'),
+    'utf-8',
+  );
+  simpleNarratFile = await readFile(
+    join(__dirname, 'simple-script.test.narrat'),
+    'utf-8',
+  );
+});
+afterEach(() => {
+  for (const call of errorSpy.mock.calls) {
+    assert.fail(call[1]);
+  }
+});
+
+test('splitScriptIntoLines', () => {
+  const lines1 = splitScriptIntoLines(ctx, simpleNarratFile);
+  const lines2 = splitScriptIntoLines(ctx, complexNarratFile);
+  expect(lines1.length).toBe(2);
+  expect(lines2[2].code).toBe(
+    `  talk player idle "Multiline statement?   Yes, they work!"`,
+  );
+  expect(lines2[3].line).toBe(6);
+});
+
+test('getBranchesFromRawScript', async () => {
+  const lines1 = getBranchesFromRawScript(ctx, simpleNarratFile);
+  const lines2 = getBranchesFromRawScript(ctx, complexNarratFile);
+  expect(lines1.length).toBe(1);
+  expect(lines2.find((line) => line.code === 'main:')).toBeTruthy();
+  expect(lines2.find((line) => line.code === 'test4:')).toBeTruthy();
+  expect(lines2[0].branch![1].code).toBe(
+    'talk player idle "Multiline statement?   Yes, they work!"',
+  );
+  expect(lines2[3].branch![0].code).toBe(
+    'set data.test (add "multiline "   "statement")',
+  );
+});
 
 test('parseCodeLine', () => {
   const line = 'set data.example.hello "Hello world"';
@@ -108,4 +167,19 @@ test('complicated if line', () => {
   expect(r3[0]).toBe('+');
   expect(r3[1]).toBe(1);
   expect(r2[2]).toBe(10);
+});
+
+test('parseScript', () => {
+  registerBaseCommands(vm);
+  const script: NarratScript = {
+    code: complexNarratFile,
+    fileName: 'main.narrat',
+    id: 'main',
+    type: 'script',
+  };
+  const parsed = parseScript(script);
+  expect(parsed.test4).toBeTruthy();
+  expect(parsed.test4.branch[0].code).toBe(
+    `set data.test (add "multiline "   "statement")`,
+  );
 });
