@@ -1,12 +1,13 @@
 ---
 title: Make your first game in Narrat - A Narrat Visual Novel tutorial
-description: This tutorial teaches you how to make a simple visual novel style game in Narrat from scratch. It includes information on how to set up your project, write dialog, change screens, create choices, store variables, and use if statements. 
+description: This tutorial teaches you how to make a simple visual novel style game in Narrat from scratch. It includes information on how to set up your project, write dialog, change screens, create choices, store variables, and use if statements.
 ---
 
 # {{ $frontmatter.title }}
+
 {{ $frontmatter.description }}
 
-![Overview](./visuals/overview.png)
+![Overview](./visuals/overview.webp)
 
 ## Introduction
 
@@ -30,7 +31,7 @@ Open your text editor ([Visual Studio Code](https://code.visualstudio.com/) reco
 
 Right out of the box, you'll see the three main visual components of a Narrat game: the background, the dialog panel, and the character portrait.
 
-![Overview](./visuals/overview.png)
+![Overview](./visuals/overview.webp)
 
 ::: tip
 You can learn more about the components of a narrat game in the [Narrat Overview](../guides/narrat-overview.md)
@@ -42,9 +43,9 @@ Let's start with a quick overview of a Narrat project's structure. There are two
 
 You can ignore pretty much all the other folders and files for this tutorial.
 
-![Folder Structure](./visuals/src_public.png)
+![Folder Structure](./visuals/src_public.webp)
 
-Public contains all your assets: audio, images, music, etc. Poke around there now, and you'll see all the assets associated with the demo project. 
+Public contains all your assets: audio, images, music, etc. Poke around there now, and you'll see all the assets associated with the demo project.
 
 Src contains all the code and text of your visual novel, the CSS you will use to customize the game's look, and the config, which is like a directory that tells Narrat where to find your game's assets and what to do with them.
 
@@ -87,27 +88,26 @@ hudStats:
 
 Changing the name is optional, but setting the `startingValue` to 200 will be important later.
 
-The demo project comes with some images we don't need. We'll use the images found in the Narrat [GitHub repo](https://github.com/liana-p/narrat-engine). Navigate to `docs/tutorials/assets/basics` and download the files found there so that you can practice setting up a project with new assets. 
+The demo project comes with some images we don't need. We'll use the images found in the Narrat [GitHub repo](https://github.com/liana-p/narrat-engine). Navigate to `docs/tutorials/assets/basics` and download the files found there so that you can practice setting up a project with new assets.
 
-Delete all the files found in `public/img/backgrounds`, `public/music`, and `public/img/characters`. We won't worry about the skills, items, or UI in this tutorial. Bring the files from the above link into the corresponding folders in your project. 
+Delete all the files found in `public/img/backgrounds`, `public/music`, and `public/img/characters`. We won't worry about the skills, items, or UI in this tutorial. Bring the files from the above link into the corresponding folders in your project.
 
 Now, we have to tell Narrat where these files are so that we can actually use and reference them. Go to `src/config`. We will edit a few config files. Currently, the code here is still trying to refer to those demo images we deleted. We'll copy the formatting for that as we put in the new file paths.
 
 Edit the following three files to match the given (screens.yaml, audio.yaml and characters.yaml):
-
 
 ::: code-group
 
 ```yaml [screens.yaml]
 screens:
   default:
-    background: img/backgrounds/default.jpg
+    background: img/backgrounds/default.webp
   harbor:
-    background: img/backgrounds/harbor.jpg
+    background: img/backgrounds/harbor.webp
   hunt:
-    background: img/backgrounds/hunt_departure.jpg
+    background: img/backgrounds/hunt_departure.webp
   road:
-    background: img/backgrounds/windswept_road.jpg
+    background: img/backgrounds/windswept_road.webp
 ```
 
 ```yaml [audio.yaml]
@@ -129,7 +129,7 @@ files:
 
 ```yaml [characters.yaml]
 config:
-  imagesPath: "./img/characters/"
+  imagesPath: './img/characters/'
 characters:
   game:
     name: ''
@@ -142,26 +142,25 @@ characters:
     name: You
   francis:
     sprites:
-      idle: francis.jpg
+      idle: francis.webp
     style:
       color: white
     name: Francis
   isaac:
     sprites:
-      idle: isaac.jpg
+      idle: isaac.webp
     style:
       color: white
     name: Isaac
   philip:
     sprites:
-      idle: philip.jpg
+      idle: philip.webp
     style:
       color: white
     name: Philip
 ```
 
 :::
-
 
 ## Labels, Text and Screen
 
@@ -187,7 +186,7 @@ Each line of text in the label will be separated by the Continue button.
 
 If we playtest the game, we see a black screen and the two lines of text we wrote show up. After that, there's nothing else for the game to run. And hey, there's our two hundred dollars!
 
-![Overview](./visuals/blank_example.png)
+![Overview](./visuals/blank_example.webp)
 
 Besides text, a Narrat label handles `Commands`, another key component of Narrat games. Commands help you handle choices, text, sprites, sound, and all the other things you need to make a video game.
 
@@ -201,7 +200,7 @@ main:
 
 Our set up has paid off! With just one quick command, we're able to set the scene for our player.
 
-![First Look](./visuals/first_content.png)
+![First Look](./visuals/first_look.webp)
 
 The `set_screen` command is looking at `screens.yaml`, finding the one called `harbor`, and pulling that image from our `public/img/backgrounds` folder. We can now flip between the screens we've set up with ease.
 
@@ -218,17 +217,17 @@ We've got a setting, now we need dialogue. Let's make use of the `talk` command.
 While `set_screen` takes only one argument (the name of the screen), `talk` takes two: the name of the character and the name of the sprite.
 
 ```yaml
-  francis:
-    sprites:
-      idle: francis.jpg
-    style:
-      color: white
-    name: Francis
+francis:
+  sprites:
+    idle: francis.webp
+  style:
+    color: white
+  name: Francis
 ```
 
 If you recall our characters.yaml file, you'll remember that we put our image under `idle`. If we had more images to use, we could put another under `angry` and use that when our character is mad. All characters must have an idle sprite, and we only have one image for our characters, so that's what we'll be using.
 
-![Francis Speaks](./visuals/francis_line.png)
+![Francis Speaks](./visuals/francis_line.webp)
 
 And there he is! What a charming young man. Notice how Narrat automatically adds quotation marks.
 
@@ -237,9 +236,10 @@ What if we want the portrait to appear without quotation marks? Well, to do that
 ```narrat
   think francis idle "He basks in the warm glow of commerce."
 ```
+
 `Think` works just like `talk` except it does not add quotation marks.
 
-![Wrong Color](./visuals/think_color.png)
+![Wrong Color](./visuals/think_color.webp)
 
 Hmm, but why is it a different color? Well, by default, Narrat uses a different text color for the think command, but we can change that with a tiny bit of CSS.
 
