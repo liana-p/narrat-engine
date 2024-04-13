@@ -21,6 +21,11 @@ export function isReturnSignal(s: string): s is ReturnSignal {
 }
 export const VERSION = import.meta.env.VITE_BUILD_VERSION;
 export const BUILD_DATE = new Date(import.meta.env.VITE_BUILD_DATE);
+export const PRODUCTION = import.meta.env.VITE_BUILD_MODE === 'production';
+export const GIT_INFO = {
+  branch: import.meta.env.VITE_GIT_BRANCH,
+  commit: import.meta.env.VITE_GIT_COMMIT,
+};
 
 // Default values
 export const DEFAULT_DIALOG_WIDTH = 400;

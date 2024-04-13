@@ -18,7 +18,7 @@ import {
   addMenuButtonsFromPlugins,
   registerDefaultMenuButtons,
 } from './menu-buttons/menu-buttons';
-import { BUILD_DATE, VERSION } from './constants';
+import { BUILD_DATE, GIT_INFO, PRODUCTION, VERSION } from './constants';
 import { addDirectives } from './utils/vue-directives';
 import { useConfig } from './stores/config-store';
 import { useStartMenu } from './stores/start-menu-store';
@@ -62,8 +62,13 @@ export async function startApp(optionsInput: AppOptionsInput) {
   registerBaseCommands(vm);
   logManager.setupDebugger(options.debug!);
   console.log(
-    `%c Narrat game engine v${VERSION} - Built at ${BUILD_DATE.toLocaleString()}`,
-    'background: #222; color: #bada55',
+    `%c Narrat v${VERSION} %c ${PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} %c
+    Built at ${BUILD_DATE.toLocaleString()}
+    Branch: ${GIT_INFO.branch}
+    Commit: ${GIT_INFO.commit}`,
+    'font-size: 1.5rem; background: #222; color: #bada55',
+    `font-size: 1.5rem; background: #222; color: ${PRODUCTION ? '#f00' : '#0f0'}`,
+    'font-size: 1.2rem; background: #222; color: #bada55',
   );
   vm.callHook('onNarratSetup');
   let container: HTMLElement;

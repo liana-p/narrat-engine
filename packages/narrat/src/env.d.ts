@@ -17,6 +17,9 @@ interface ImportMetaEnv {
   readonly VITE_DEBUG: string;
   readonly VITE_BUILD_DATE: string;
   readonly VITE_BUILD_VERSION: string;
+  readonly VITE_BUILD_MODE: string;
+  readonly VITE_GIT_BRANCH: string;
+  readonly VITE_GIT_COMMIT: string;
   // more env variables...
 }
 

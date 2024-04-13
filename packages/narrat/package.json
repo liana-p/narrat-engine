@@ -17,6 +17,7 @@
   "files": [
     "dist/"
   ],
+  "type": "module",
   "pnpm": {
     "patchedDependencies": {
       "@types/testing-library__jest-dom@5.14.5": "patches-@types__testing-library__jest-dom@5.14.5.patch"
@@ -95,6 +96,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.15.1",
+    "execa": "^8.0.1",
     "jsdom": "^20.0.0",
     "kolorist": "^1.5.1",
     "pinia": "^2.1.7",

@@ -260,6 +260,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^9.15.1
         version: 9.20.1(eslint@8.56.0)
+      execa:
+        specifier: ^8.0.1
+        version: 8.0.1
       jsdom:
         specifier: ^20.0.0
         version: 20.0.3

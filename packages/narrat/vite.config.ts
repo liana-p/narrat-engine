@@ -8,6 +8,7 @@ import Inspect from 'vite-plugin-inspect';
 import Narrat from 'vite-plugin-narrat';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { $ } from 'execa';
 
 function viteGodotCorsPlugin() {
   return {
@@ -35,11 +36,27 @@ function addGodotToConfig(conf: UserConfig) {
   );
 }
 
+export async function getGitInfo() {
+  const branch = await $`git branch --show-current`;
+  const commit = await $`git rev-parse HEAD`;
+  return {
+    branch: branch.stdout,
+    commit: commit.stdout,
+  };
+}
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default defineConfig(async ({ command }) => {
   // Uses env variables to decide if we're building a demo, and if so which one
+  if (command === 'build') {
+    process.env.VITE_BUILD_MODE = 'production';
+  } else {
+    process.env.VITE_BUILD_MODE = 'development';
+  }
   process.env.VITE_BUILD_DATE = new Date().toISOString();
   process.env.VITE_BUILD_VERSION = packageJson?.version ?? 'Unknown';
+  const { branch, commit } = await getGitInfo();
+  process.env.VITE_GIT_BRANCH = branch;
+  process.env.VITE_GIT_COMMIT = commit;
   const isDemoBuild = process.env.VITE_DEMO_BUILD !== undefined;
   let exampleChoice = 'default';
   console.log(
