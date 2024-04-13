@@ -137,14 +137,7 @@ export async function generateCommand(
           finalArg = processText(arg.substring(3));
         } else if (isVariable(arg)) {
           // This is potentially a variable token
-          const modifiable = getModifiableDataPinia();
-          const result = findDataHelperWithoutAutoCreate<any>(modifiable, arg);
-          if (result) {
-            const [target, key] = result;
-            finalArg = target[key];
-          } else {
-            finalArg = arg;
-          }
+          finalArg = readVariable(arg);
         } else {
           finalArg = arg;
         }
@@ -162,6 +155,18 @@ export async function generateCommand(
     return generatedCommand;
   } else {
     throw new Error(`${command.commandType} is not a valid command`);
+  }
+}
+
+export function readVariable(arg: string) {
+  // This is potentially a variable token
+  const modifiable = getModifiableDataPinia();
+  const result = findDataHelperWithoutAutoCreate<any>(modifiable, arg);
+  if (result) {
+    const [target, key] = result;
+    return target[key];
+  } else {
+    return arg;
   }
 }
 
