@@ -200,7 +200,7 @@ main:
 
 Our set up has paid off! With just one quick command, we're able to set the scene for our player.
 
-![First Look](./visuals/first_look.webp)
+![First Look](./visuals/first_content.webp)
 
 The `set_screen` command is looking at `screens.yaml`, finding the one called `harbor`, and pulling that image from our `public/img/backgrounds` folder. We can now flip between the screens we've set up with ease.
 
