@@ -1,0 +1,23 @@
+import { ssrRenderAttrs, ssrRenderStyle } from "vue/server-renderer";
+import { useSSRContext } from "vue";
+import { _ as _export_sfc } from "./plugin-vue_export-helper.yVxbj29m.js";
+const __pageData = JSON.parse('{"title":"Roll","description":"","frontmatter":{},"headers":[],"relativePath":"commands/skills-commands/roll.md","filePath":"commands/skills-commands/roll.md","lastUpdated":1687862260000}');
+const _sfc_main = { name: "commands/skills-commands/roll.md" };
+function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  _push(`<div${ssrRenderAttrs(_attrs)}><h1 id="roll" tabindex="-1">Roll <a class="header-anchor" href="#roll" aria-label="Permalink to &quot;Roll&quot;">​</a></h1><p>The <code>roll</code> command in narrat performs a passive skill check which can be used inside a condition so that the condition will only happen if the skill check succeeds.</p><p>Syntax: <code>roll [skillCheckId] [SkillId] [difficultyValue] [mode (optional]</code></p><h3 id="example" tabindex="-1">Example <a class="header-anchor" href="#example" aria-label="Permalink to &quot;Example&quot;">​</a></h3><div class="language-narrat vp-adaptive-theme line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang">narrat</span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span style="${ssrRenderStyle({ "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" })}">main</span><span style="${ssrRenderStyle({ "--shiki-light": "#24292E", "--shiki-dark": "#E1E4E8" })}">:</span></span>
+<span class="line"><span style="${ssrRenderStyle({ "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" })}">  if</span><span style="${ssrRenderStyle({ "--shiki-light": "#24292E", "--shiki-dark": "#E1E4E8" })}"> (</span><span style="${ssrRenderStyle({ "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" })}">roll</span><span style="${ssrRenderStyle({ "--shiki-light": "#24292E", "--shiki-dark": "#E1E4E8" })}"> mySkillCheckId agility </span><span style="${ssrRenderStyle({ "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" })}">50</span><span style="${ssrRenderStyle({ "--shiki-light": "#24292E", "--shiki-dark": "#E1E4E8" })}">):</span></span>
+<span class="line"><span style="${ssrRenderStyle({ "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" })}">    &quot;You managed to climb over the fence&quot;</span></span>
+<span class="line"><span style="${ssrRenderStyle({ "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" })}">  else</span><span style="${ssrRenderStyle({ "--shiki-light": "#24292E", "--shiki-dark": "#E1E4E8" })}">:</span></span>
+<span class="line"><span style="${ssrRenderStyle({ "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" })}">    &quot;You fell down&quot;</span></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="options-details" tabindex="-1">Options details <a class="header-anchor" href="#options-details" aria-label="Permalink to &quot;Options details&quot;">​</a></h3><ul><li><code>skillCheckId</code>: Any text can be used as a skill check id. This id will be used to save that this specific skill check happened, and its value. If that dialogue gets replayed, the game will know what the result was.</li><li><code>skillId</code>: The id of the skill to test on</li><li><code>difficultyValue</code>: The difficulty of the skill check. By default skill checks are a roll between 0 and 100, with the player&#39;s skill level increasing the roll. <code>difficultyValue</code> is the score to beat.</li><li><code>mode</code>: Optional. There are two possible modes: <code>hideAfterRoll</code> and <code>repeatable</code>: <ul><li><code>hideAfterRoll</code>: Once the skill check has happened it will be hidden from choice options in the future (even if succeeded)</li><li><code>repeatable:</code> If the skill check fails, the player can still attempt it again when coming back to the dialogue instead of the option being disabled</li></ul></li></ul></div>`);
+}
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("commands/skills-commands/roll.md");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+const roll = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender]]);
+export {
+  __pageData,
+  roll as default
+};

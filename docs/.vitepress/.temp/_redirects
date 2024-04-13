@@ -1,0 +1,4 @@
+# http and https need separate rules if you don’t force_ssl!
+
+http://docs.get-narrat.com/* https://docs.narrat.dev/:splat 301!
+https://docs.get-narrat.com/* https://docs.narrat.dev/:splat 301!
