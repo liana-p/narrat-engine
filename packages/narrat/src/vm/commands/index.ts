@@ -40,7 +40,12 @@ import {
   setButtonCommand,
   setScreenCommand,
 } from './screen-commands';
-import { talkCommand, textCommandPlugin, thinkCommand } from './text';
+import {
+  narrateCommand,
+  talkCommand,
+  textCommandPlugin,
+  thinkCommand,
+} from './text';
 import { VM } from '../vm';
 import {
   addItemPlugin,
@@ -100,7 +105,13 @@ import {
   randomFromArrayPlugin,
   randomIntPlugin,
 } from './random-commands';
-import { stringConcatPlugin, stringJoinPlugin } from './string-commands';
+import {
+  stringSplitPlugin,
+  regexSearchPlugin,
+  stringConcatPlugin,
+  stringJoinPlugin,
+  stringSearchPlugin,
+} from './string-commands';
 import {
   ceilPlugin,
   clampPlugin,
@@ -172,6 +183,7 @@ import {
 } from './object-commands';
 import { createMacro, createMacroCommand } from '../macros';
 import { changeSceneCommand } from './scene-commands';
+import { callMethod, runJS } from './js-commands';
 
 export function registerBaseCommands(vm: VM) {
   // Choices
@@ -241,6 +253,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(textCommandPlugin);
   vm.addCommand(talkCommand);
   vm.addCommand(thinkCommand);
+  vm.addCommand(narrateCommand);
 
   // // functions and labels
   vm.addCommand(jumpCommand);
@@ -298,7 +311,9 @@ export function registerBaseCommands(vm: VM) {
   // Strings
   vm.addCommand(stringConcatPlugin);
   vm.addCommand(stringJoinPlugin);
-
+  vm.addCommand(stringSplitPlugin);
+  vm.addCommand(stringSearchPlugin);
+  vm.addCommand(regexSearchPlugin);
   // Maths
   vm.addCommand(minPlugin);
   vm.addCommand(maxPlugin);
@@ -372,4 +387,8 @@ export function registerBaseCommands(vm: VM) {
 
   // Scenes
   vm.addCommand(changeSceneCommand);
+
+  // JS Commands
+  vm.addCommand(callMethod);
+  vm.addCommand(runJS);
 }

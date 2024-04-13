@@ -4,6 +4,7 @@ packages/narrat/analyze.html
 # Vitepress
 
 docs/.vitepress/cache/
+docs/.vitepress/.temp/
 
 # Narrat template local testing files so they're not included in releases
 dist/

@@ -80,6 +80,20 @@ Indentation needs to be respected and be consistent, because it's how the script
 For example if you've started indenting code with 2 spaces, you need to keep doing that for the rest of the script. If you start indenting with 4 spaces, you need to keep doing that for the rest of the script.
 :::
 
+## Multiline code
+
+If you want to split a line of code into multiple lines for readability, you can do so by adding a backslash `\` at the end of the line. This tells the engine that the code continues on the next line. It also works with strings. Example:
+
+```narrat
+main:
+  talk player idle "This is a very long string that \
+  I want to split into multiple lines for readability"
+  var text (concat \
+    "I am concatenating multiple lines of text " \
+    "together to make a longer string" \
+  )
+```
+
 ## Commands
 
 All lines of script in narrat are commands. A command is created by typing the name of the command, followed with arguments separated by spaces. Commands are also effectively expressions, they simply don't have parenthesis around them to be easier to write.

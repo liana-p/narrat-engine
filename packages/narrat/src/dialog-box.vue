@@ -83,6 +83,7 @@ import { useNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
 import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
+import { useVM } from '@/stores/vm-store';
 
 export interface TextAnimation {
   text: string;
@@ -420,6 +421,7 @@ function endTextAnimation({
   unmounted,
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
+  useVM().endTextAnimation();
   createTextFieldListener();
   setTimeout(() => {
     if (navigation.value) {

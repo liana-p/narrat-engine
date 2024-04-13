@@ -101,8 +101,7 @@ export const joinCommand = CommandPlugin.FromOptions<{
       commandRuntimeError(cmd, `array join string separator must be a string`);
       return;
     }
-    array.join(separator);
-    return array;
+    return array.join(separator);
   },
 });
 
