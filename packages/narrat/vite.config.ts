@@ -59,6 +59,9 @@ export default defineConfig(({ command }) => {
   }
   const conf: UserConfigExport = {
     base: '',
+    server: {
+      port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
+    },
     build: {
       sourcemap: true,
       // cssCodeSplit: true,
