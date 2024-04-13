@@ -51,7 +51,7 @@
     "prettier": "2.6.2",
     "shx": "^0.3.4",
     "typescript": "^4.7.4",
-    "vite": "^4.5.2"
+    "vite": "^4.5.3"
   },
   "config": {
     "forge": {
