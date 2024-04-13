@@ -1,3 +1,17 @@
+## [3.10.2](https://github.com/liana-p/narrat-engine/compare/v3.10.1...v3.10.2) (2024-04-13)
+
+
+### Bug Fixes
+
+* **arrays:** array_join command now returns the right value ([#262](https://github.com/liana-p/narrat-engine/issues/262)) ([47ad700](https://github.com/liana-p/narrat-engine/commit/47ad7000608ea55c90bf8dcb50d1674744d98e5e))
+
+
+### Features
+
+* functions to call javascript from narrat, better logging ([#263](https://github.com/liana-p/narrat-engine/issues/263)) ([a6ff74c](https://github.com/liana-p/narrat-engine/commit/a6ff74c450f1e6c7399a15311e4a508329e4f0d8))
+
+
+
 ## [3.10.1](https://github.com/liana-p/narrat-engine/compare/v3.10.0...v3.10.1) (2024-04-10)
 
 
