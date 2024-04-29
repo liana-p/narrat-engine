@@ -8,10 +8,8 @@ import { SettingsConfig, SettingsConfigSchema } from './settings-config';
 import { DEFAULT_TEXT_SPEED } from '@/constants';
 
 export const HotkeysConfigSchema = Type.Optional(
-  Type.Object({
-    debugMenu: Type.Optional(Type.String()),
-    jumpMenu: Type.Optional(Type.String()),
-  }),
+  // See inputs-store.ts for possibilities
+  Type.Record(Type.String(), Type.Union([Type.String(), Type.Boolean()])),
 );
 export type HotkeysConfig = Static<typeof HotkeysConfigSchema>;
 

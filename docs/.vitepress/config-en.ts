@@ -111,6 +111,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
         text: 'Config files hot reloading',
         link: 'config-hot-reloading',
       },
+      { text: 'Hotkeys', link: 'hotkeys' },
       { text: 'HUD Stats', link: 'hud-stats' },
       { text: 'Inventory', link: 'inventory' },
       { text: 'Items', link: 'items' },
