@@ -3,6 +3,7 @@ import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 import { useRenderingStore } from '@/stores/rendering-store';
+import { getCommonConfig } from '@/config';
 
 export type InputMode = 'km' | 'gamepad';
 export type NarratGamepadButton = {
@@ -303,6 +304,21 @@ export class Inputs extends EventTarget {
     }
   }
 
+  public getKeybindKey(
+    config: ButtonAction,
+    keybind: ButtonKeybind,
+  ): ButtonKeybind {
+    const key = config.id;
+    const override = getCommonConfig().hotkeys[key];
+    if (typeof override !== 'undefined') {
+      return {
+        ...keybind,
+        keyboardKey: override as any,
+      };
+    }
+    return keybind;
+  }
+
   public update() {
     // console.log('inputs update');
     this.updateGamepad();
@@ -317,6 +333,7 @@ export class Inputs extends EventTarget {
         if (config.action === 'press') {
           const isPressed = config.keybinds.some((keybind) => {
             let keyState = false;
+            keybind = this.getKeybindKey(config, keybind);
             if (typeof keybind.keyboardKey === 'string') {
               const keyboardState = this.getKeyboardState(keybind.keyboardKey);
               if (keyboardState.current === true) {
