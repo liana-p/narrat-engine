@@ -318,6 +318,7 @@ export class Inputs extends EventTarget {
     }
     return keybind;
   }
+
   public update() {
     // console.log('inputs update');
     this.updateGamepad();
