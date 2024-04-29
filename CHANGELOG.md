@@ -1,3 +1,12 @@
+## [3.10.4](https://github.com/liana-p/narrat-engine/compare/v3.10.3...v3.10.4) (2024-04-29)
+
+
+### Features
+
+* **input:** Added configurable hotkeys ([#271](https://github.com/liana-p/narrat-engine/issues/271)) ([41ab5eb](https://github.com/liana-p/narrat-engine/commit/41ab5eb4a692da0d6313f2adeff5456080144773))
+
+
+
 ## [3.10.3](https://github.com/liana-p/narrat-engine/compare/v3.10.2...v3.10.3) (2024-04-13)
 
 
