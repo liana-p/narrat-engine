@@ -4,7 +4,7 @@
   "main": "dist/narrat-plugin-counter.es.js",
   "module": "dist/narrat-plugin-counter.es.js",
   "types": "dist/plugin.d.ts",
-  "version": "3.9.8",
+  "version": "3.10.4",
   "repository": {
     "type": "git",
     "url": "git@github.com:liana-p/narrat-engine.git",
@@ -36,6 +36,6 @@
     "vue-tsc": "^1.8.22",
     "narrat": "workspace:*",
     "pinia": "^2.1.7",
-    "vue": "^3.4.15"
+    "vue": "^3.4.21"
   }
 }

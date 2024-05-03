@@ -1,0 +1,17 @@
+test_js:
+  var stuff (new Object)
+  set stuff.hello "world"
+  call_js_method localStorage setItem "test_js" (json_stringify $stuff)
+  var stuff2 (json_parse (call_js_method localStorage getItem "test_js"))
+  log $stuff2
+  // run test_js_2
+
+test_js_2:
+  var canvas (call_js_method document createElement "canvas")
+  call_js_method document.body appendChild $canvas
+  set canvas.class "test"
+  call_js_method $canvas requestPointerLock
+  var test (run_js "1 + 2")
+  log $test
+  var hello (run_js "localStorage.getItem('test_js')")
+  log $hello

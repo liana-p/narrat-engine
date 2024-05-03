@@ -12,12 +12,15 @@ hero:
     - theme: brand
       text: Get Started
       link: /guides/getting-started
+    - theme: brand
+      text: First Game Tutorial
+      link: /tutorials/basic-vn-tutorial
+    - theme: alt
+      text: Overview
+      link: /guides/narrat-overview
     - theme: alt
       text: Main website
       link: https://narrat.dev
-    - theme: brand
-      text: Overview
-      link: /guides/narrat-overview
     - theme: brand
       text: Interactive Playground
       link: https://demo.narrat.dev

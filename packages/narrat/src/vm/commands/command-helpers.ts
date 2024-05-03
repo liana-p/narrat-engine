@@ -9,12 +9,12 @@ export function commandRuntimeError(
   console.error(`Command: ${cmd.commandType}`);
   console.error('Args: ', cmd.args);
   console.error('Options: ', cmd.options);
-  error(`Runtime error at ${cmd.fileName}:${cmd.line} (${cmd.commandType}) ${cmd.code}. - 
+  error(`Runtime error at ${cmd.fileName}:${cmd.line + 1} (${cmd.commandType}) ${cmd.code}. - 
   <br />
   Error: ${errorText}`);
   console.error('============================');
 }
 
 export function commandLog(cmd: Parser.Command<any, any>, ...log: any[]) {
-  console.log(`[${cmd.fileName}:${cmd.line}] log: `, ...log);
+  console.log(`[${cmd.fileName}:${cmd.line + 1}] log: `, ...log);
 }

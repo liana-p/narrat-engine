@@ -17,6 +17,7 @@ export const configEn = defineConfig({
           { text: '简体中文', link: '/zh/guides/getting-started' },
         ],
       },
+      sidebarTutorials(),
       sidebarGuides(),
       sidebarFeatures(),
       sidebarConfigFiles(),
@@ -32,6 +33,18 @@ export const configEn = defineConfig({
     },
   },
 });
+
+function sidebarTutorials(): DefaultTheme.SidebarItem[] {
+  return {
+    text: 'Tutorials',
+    base: '/tutorials/',
+    collapsible: true,
+    items: [
+      { text: 'Make your first game in Narrat', link: 'basic-vn-tutorial' },
+    ],
+  };
+}
+
 function sidebarGuides(): DefaultTheme.SidebarItem[] {
   return {
     text: 'General Guides',
@@ -98,6 +111,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
         text: 'Config files hot reloading',
         link: 'config-hot-reloading',
       },
+      { text: 'Hotkeys', link: 'hotkeys' },
       { text: 'HUD Stats', link: 'hud-stats' },
       { text: 'Inventory', link: 'inventory' },
       { text: 'Items', link: 'items' },
@@ -124,6 +138,7 @@ function sidebarScripting(): DefaultTheme.SidebarItem[] {
     items: [
       { text: 'Language Syntax', link: 'language-syntax' },
       { text: 'Functions', link: 'functions' },
+      { text: 'JavaScript interface', link: 'javascript-interface' },
       {
         text: 'Known limitations and issues',
         link: '/others/scripting-limitations',

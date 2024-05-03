@@ -1,6 +1,6 @@
 {
   "name": "narrat",
-  "version": "3.9.8",
+  "version": "3.10.4",
   "description": "narrat narrative engine",
   "main": "dist/narrat.umd.js",
   "module": "dist/narrat.es.js",
@@ -17,6 +17,7 @@
   "files": [
     "dist/"
   ],
+  "type": "module",
   "pnpm": {
     "patchedDependencies": {
       "@types/testing-library__jest-dom@5.14.5": "patches-@types__testing-library__jest-dom@5.14.5.patch"
@@ -58,7 +59,7 @@
   "peerDependencies": {
     "es6-promise": "^4.2.8",
     "pinia": "^2.1.7",
-    "vue": "^3.4.15"
+    "vue": "^3.4.21"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.31.18",
@@ -95,6 +96,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.15.1",
+    "execa": "^8.0.1",
     "jsdom": "^20.0.0",
     "kolorist": "^1.5.1",
     "pinia": "^2.1.7",
@@ -112,7 +114,7 @@
     "vite-plugin-narrat": "workspace:*",
     "vite-plugin-windicss": "^1.9.0",
     "vitest": "^1.2.2",
-    "vue": "^3.4.15",
+    "vue": "^3.4.21",
     "vue-tsc": "^1.8.22",
     "windicss": "^3.5.6"
   }

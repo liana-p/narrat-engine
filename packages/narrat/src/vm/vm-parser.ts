@@ -50,7 +50,7 @@ export function parseScriptFunction(
     indentSize: 0, // Will be overriden soon
   };
   ctx.indentSize = detectIndentation(ctx, code);
-  const lines = findLines(ctx, code);
+  const lines = getBranchesFromRawScript(ctx, code);
   ctx.currentLine = 0;
   logger.log(lines);
   const script: Parser.ParsedScript = {};
@@ -125,9 +125,18 @@ export function parseExpression(
   line: Parser.Line,
   expression: Parser.Expression,
 ): Parser.ParsedExpression {
+  if (!Array.isArray(expression)) {
+    ctx.error(
+      line.line,
+      `Expression should be an array. Something is wrong. ${ctx.fileName}:${ctx.currentLine} - ${line.code}`,
+    );
+  }
   logger.log(expression);
   if (typeof expression[0] !== 'string') {
-    ctx.error(line.line, `Expression operator should be a string`);
+    ctx.error(
+      line.line,
+      `Expression operator should be a string ${ctx.fileName}:${ctx.currentLine} - ${line.code}`,
+    );
   }
   const parsed: Parser.ParsedExpression = {
     code: line.code,
@@ -156,7 +165,7 @@ export function parseExpression(
   return parsed;
 }
 
-function parseArgument(
+export function parseArgument(
   ctx: ParserContext,
   line: Parser.Line,
   argument: Parser.Expression | Parser.Primitive,
@@ -319,21 +328,64 @@ export function findExpressionStart(tokens: Parser.Primitive[]): number {
 export function findExpressionEnd(tokens: Parser.Primitive[]): number {
   return tokens.findIndex((token) => token === ')');
 }
-function findLines(ctx: ParserContext, data: string): Parser.Line[] {
-  const code = data.split(/\r?\n|$/).map((line) => {
-    const commentIndex = line.search(/ *\/\//g);
-    if (commentIndex !== -1) {
-      return line.substr(0, commentIndex);
-    }
-    return line;
-  });
-  const lines = findBranches(ctx, code, 0, 0);
-  return lines.lines;
+
+export interface LineData {
+  code: string;
+  line: number;
+  multiline: boolean;
+}
+
+/** Finds all the lines, handling merging multilines, removing comment and removing empty lines */
+export function splitScriptIntoLines(
+  ctx: ParserContext,
+  data: string,
+): LineData[] {
+  const result = data
+    .split(/\r?\n|$/)
+    .reduce<LineData[]>((lines, line, index) => {
+      const final = {
+        code: line,
+        line: index,
+        multiline: false,
+      };
+      const multilineIndex = line.search(/\\$/);
+      if (multilineIndex !== -1) {
+        final.multiline = true;
+        line = line.substring(0, multilineIndex);
+      }
+      const commentIndex = line.search(/ *\/\//g);
+      if (commentIndex !== -1) {
+        line = line.substring(0, commentIndex);
+      }
+      final.code = line;
+      if (final.code.search(/^\s*$/) === -1) {
+        // Skip empty lines
+        if (lines.length > 0 && lines[lines.length - 1].multiline) {
+          lines[lines.length - 1].code += line;
+          lines[lines.length - 1].multiline = final.multiline;
+        } else {
+          lines.push(final);
+        }
+      }
+      return lines;
+    }, [] as LineData[]);
+  return result;
+}
+
+export function getBranchesFromRawScript(
+  ctx: ParserContext,
+  data: string,
+): Parser.Line[] {
+  // First find all lines, combine multilines, remove comments
+  const lines = splitScriptIntoLines(ctx, data);
+  // Then parse them into branches
+  const parsedBranches = findBranches(ctx, lines, 0, 0);
+  return parsedBranches.lines;
 }
 
 function findBranches(
   ctx: ParserContext,
-  code: string[],
+  code: LineData[],
   startLine: number,
   indentLevel: number,
 ) {
@@ -344,35 +396,32 @@ function findBranches(
     if (currentLine >= code.length) {
       break;
     }
-    let lineText = code[currentLine];
-    if (lineText.search(/^\s*$/) !== -1) {
-      // Ignore empty lines
-      currentLine++;
-    } else {
-      const lineIndent = getIndentLevel(ctx, lineText);
-      lineText = lineText.substring(lineIndent * ctx.indentSize);
-      validateIndent(ctx, lineIndent, currentLine);
-      if (lineIndent < indentLevel) {
-        stillInBranch = false;
-      } else if (lineIndent > indentLevel) {
-        if (lines.length === 0 || lineIndent - indentLevel !== 1) {
-          ctx.error(currentLine, `Wrong double indentation`);
-        }
-        const branchLines = findBranches(ctx, code, currentLine, lineIndent);
-        lines[lines.length - 1].branch = branchLines.lines;
-        currentLine = branchLines.endLine;
-      } else {
-        const expression = parseCodeLine(ctx, lineText);
-        const line: Parser.Line = {
-          code: lineText,
-          indentation: lineIndent,
-          line: currentLine,
-          expression,
-        };
-        lines.push(line);
-        currentLine++;
-        ctx.currentLine = currentLine;
+    const codeLine = code[currentLine];
+    let lineText = codeLine.code;
+
+    const lineIndent = getIndentLevel(ctx, lineText);
+    lineText = lineText.substring(lineIndent * ctx.indentSize);
+    validateIndent(ctx, lineIndent, currentLine);
+    if (lineIndent < indentLevel) {
+      stillInBranch = false;
+    } else if (lineIndent > indentLevel) {
+      if (lines.length === 0 || lineIndent - indentLevel !== 1) {
+        ctx.error(codeLine.line, `Wrong double indentation`);
       }
+      const branchLines = findBranches(ctx, code, currentLine, lineIndent);
+      lines[lines.length - 1].branch = branchLines.lines;
+      currentLine = branchLines.endLine;
+    } else {
+      const expression = parseCodeLine(ctx, lineText);
+      const line: Parser.Line = {
+        code: lineText,
+        indentation: lineIndent,
+        line: codeLine.line,
+        expression,
+      };
+      lines.push(line);
+      currentLine++;
+      ctx.currentLine = currentLine;
     }
   }
   return {
@@ -399,8 +448,8 @@ function getIndentLevel(ctx: ParserContext, line: string) {
 }
 
 function detectIndentation(ctx: ParserContext, script: string): number {
-  const regex = /\n( *)/;
-  const result = script.match(regex);
+  const result = script.match(/: *[\n\r]+( *)/);
+
   if (!result || result.length < 2) {
     ctx.error(
       0,

@@ -1,4 +1,5 @@
 import { ScreenConfig } from './config/screens-config';
+import { LogLevel } from './types/logging-types';
 
 export const PRE_SIGNAL = '###_--_~=:;';
 export const JUMP_SIGNAL = `###_--_~=:;_JUMP`;
@@ -21,6 +22,12 @@ export function isReturnSignal(s: string): s is ReturnSignal {
 }
 export const VERSION = import.meta.env.VITE_BUILD_VERSION;
 export const BUILD_DATE = new Date(import.meta.env.VITE_BUILD_DATE);
+export const PRODUCTION = import.meta.env.VITE_BUILD_MODE === 'production';
+export const GIT_INFO = {
+  branch: import.meta.env.VITE_GIT_BRANCH,
+  commit: import.meta.env.VITE_GIT_COMMIT,
+};
+export const LOG_LEVEL = PRODUCTION ? LogLevel.WARN : LogLevel.DEBUG;
 
 // Default values
 export const DEFAULT_DIALOG_WIDTH = 400;

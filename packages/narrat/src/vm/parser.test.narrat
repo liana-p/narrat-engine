@@ -1,0 +1,25 @@
+// Syntax test script for unit tests
+
+main:
+  "Hello world"
+  talk player idle "Multiline statement? \
+  Yes, they work!"
+  talk player idle "This is a single line statement."
+  choice:
+    "hello world 2":
+      jump test2
+    "hello world 3":
+      jump test3
+
+test2:
+  set data.counter (add (add "hello world (parenthesis in strings)" (set (add 1 2) (add 3 2) )) 2)
+
+test3:
+  if (&& (== (+ 1 2 3 4) 10) (== (+ 1 2 3) 6) (== (+ 1 2) 3 3 3 3)):
+    "hi"
+  else:
+    "bye"
+
+test4:
+  set data.test (add "multiline " \
+  "statement")

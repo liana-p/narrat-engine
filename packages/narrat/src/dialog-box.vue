@@ -83,6 +83,7 @@ import { useNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
 import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
+import { useVM } from '@/stores/vm-store';
 
 export interface TextAnimation {
   text: string;
@@ -293,6 +294,7 @@ function submitText() {
 
 function createTextFieldListener() {
   if (props.options.textField) {
+    useInputs().startTyping();
     timeout.value = setTimeout(() => {
       if (canInteract.value) {
         textFieldInputGrabber.value = useInputs().registerInputListener(
@@ -308,6 +310,7 @@ function createTextFieldListener() {
 }
 
 function cleanUpTextFieldListener() {
+  useInputs().stopTyping();
   if (textFieldInputGrabber.value) {
     useInputs().unregisterInputListener(textFieldInputGrabber.value);
     textFieldInputGrabber.value = null;
@@ -420,7 +423,10 @@ function endTextAnimation({
   unmounted,
   pressedSpace,
 }: { unmounted?: boolean; pressedSpace?: boolean } = {}) {
-  createTextFieldListener();
+  useVM().endTextAnimation();
+  if (!unmounted) {
+    createTextFieldListener();
+  }
   setTimeout(() => {
     if (navigation.value) {
       navigation.value.select(0);

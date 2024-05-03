@@ -9,6 +9,8 @@ import dialogPanel from './dialog_panel.narrat';
 import animations from './animations.narrat';
 import macros from './test_macros.narrat';
 import scenes from './test_scenes.narrat';
+import js from './test_js.narrat';
+import conditions from './conditions.narrat';
 
 export default [
   game,
@@ -22,4 +24,6 @@ export default [
   animations,
   macros,
   scenes,
+  js,
+  conditions,
 ];

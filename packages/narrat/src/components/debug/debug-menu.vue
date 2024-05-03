@@ -127,7 +127,7 @@ import { useInventory } from '../../stores/inventory-store';
 import { resetSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
 import DebugJumping from './debug-jumping.vue';
-import { InputListener } from '@/stores/inputs-store';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { autoSaveGame, resetGlobalSave } from '@/application/saving';
 // import { getAllStates, overrideStates } from '@/data/all-stores';
@@ -157,12 +157,18 @@ export default defineComponent({
     const debugHotkey = getCommonConfig().hotkeys.debugMenu ?? 'd';
     const jumpHotkey = getCommonConfig().hotkeys.jumpMenu ?? 'j';
     rendering.inputsContainer.addEventListener('keydown', (event) => {
-      if (!this.jumping) {
-        if (event.key === debugHotkey) {
-          this.toggle();
+      if (!useInputs().isTyping) {
+        if (!this.jumping) {
+          if (event.key === debugHotkey) {
+            this.toggle();
+          }
+          if (event.key === jumpHotkey) {
+            this.jump();
+          }
         }
-        if (event.key === jumpHotkey) {
-          this.jump();
+        if (event.key === 'Escape') {
+          this.closeJumping();
+          this.close();
         }
       }
     });

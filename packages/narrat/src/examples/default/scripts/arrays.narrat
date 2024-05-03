@@ -14,6 +14,10 @@ test_arrays:
   "Some: %{$some}"
   var every (array_every $simple test_every)
   "Every: %{$every}"
+  var testarray (new Array "Test" "ing")
+  log $testarray
+  var result (array_join $testarray ", ")
+  log $result
 
 test_every element index array:
   if (== $array[$index] $element):
