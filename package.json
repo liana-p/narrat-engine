@@ -1,10 +1,11 @@
 {
   "name": "narrat-monorepo",
-  "version": "3.10.2",
+  "version": "3.10.4",
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=20",
+    "pnpm": ">=8"
   },
   "description": "Narrat monorepo",
   "main": "index.js",
@@ -34,7 +35,8 @@
     "url": "https://github.com/liana-p/narrat-engine/issues"
   },
   "homepage": "https://narrat.dev",
-  "packageManager": "pnpm@8.14.3",
+  "packageManager": "pnpm@9.0.6",
+  "package-manager-strict": false,
   "pnpm": {
     "overrides": {
       "narrat": "workspace:*",

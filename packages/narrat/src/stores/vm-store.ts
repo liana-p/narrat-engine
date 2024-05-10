@@ -113,7 +113,7 @@ export const useVM = defineStore('vm', {
     },
     loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
-      this.data = data.data;
+      this.data = deepCopy(data.data);
       this.findEntitiesInData(this.data);
     },
     loadGlobalSaveData(globalSave: Pick<GlobalGameSave, 'data'>) {
