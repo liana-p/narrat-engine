@@ -82,9 +82,12 @@ export function extractSaveData(): ExtractedSave {
   // Add save data from potential custom stores
   vm.customStores().forEach(([storeName, store]) => {
     if (store.save) {
-      const saveData = store.save();
-      if (saveData) {
-        saveData.customStores[storeName] = saveData;
+      const customStoreSaveData = store.save();
+      if (customStoreSaveData) {
+        if(saveData.customStores == undefined) {
+          saveData.customStores = {};
+        }
+        saveData.customStores[storeName] = customStoreSaveData;
       }
     }
   });
