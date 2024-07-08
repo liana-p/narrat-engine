@@ -47,7 +47,7 @@
     "prettier": "^3.2.5",
     "shx": "^0.3.4",
     "typescript": "^5.1.6",
-    "vite": "^5.0.12",
+    "vite": "^5.3.3",
     "vite-plugin-monaco-editor": "^1.1.0",
     "vite-plugin-windicss": "^1.9.0",
     "windicss": "^3.5.6"
