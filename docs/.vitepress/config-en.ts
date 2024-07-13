@@ -186,6 +186,7 @@ function sidebarPlugins(): DefaultTheme.SidebarItem[] {
       link: '/plugins/godot/godot-plugin',
     },
     { text: 'Plugin API', link: '/plugins/plugins' },
+    { text: 'Plugin hooks', link: '/plugins/plugin-hooks' },
   ];
 }
 

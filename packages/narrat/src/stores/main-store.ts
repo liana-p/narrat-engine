@@ -139,7 +139,7 @@ export const useMain = defineStore('main', {
     prepareToPlay() {
       this.ready = true;
       this.startPlaying();
-      useScenes().changeScene('playing');
+      useScenes().goToGameScene();
     },
     setSaveSlot(slot: string) {
       this.saveSlot = slot;
@@ -167,7 +167,7 @@ export const useMain = defineStore('main', {
     },
     menuReturn() {
       // this.reset();
-      useScenes().changeScene('start-menu');
+      useScenes().goToStartMenuScene();
     },
     createError(text: string) {
       this.errors.push({

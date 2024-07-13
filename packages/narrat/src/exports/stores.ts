@@ -16,4 +16,3 @@ export { useTooltips } from '@/stores/tooltip-store';
 export { useVM } from '@/stores/vm-store';
 export { useAchievements } from '@/stores/achievements-store';
 export { useScenes } from '@/stores/scenes-store';
-export type { SceneConfig } from '@/scenes/scene-types';
