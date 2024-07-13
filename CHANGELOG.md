@@ -1,3 +1,18 @@
+# [3.11.0](https://github.com/liana-p/narrat-engine/compare/v3.10.4...v3.11.0) (2024-07-13)
+
+
+### Bug Fixes
+
+* custom stores saving issue [#274](https://github.com/liana-p/narrat-engine/issues/274) ([#275](https://github.com/liana-p/narrat-engine/issues/275)) ([dcb1924](https://github.com/liana-p/narrat-engine/commit/dcb1924789ffd2a8dad9564ca394ec91177347ce)), closes [#235](https://github.com/liana-p/narrat-engine/issues/235) [#255](https://github.com/liana-p/narrat-engine/issues/255)
+* loading save data reference fix [#255](https://github.com/liana-p/narrat-engine/issues/255) ([#272](https://github.com/liana-p/narrat-engine/issues/272)) ([d2cf05f](https://github.com/liana-p/narrat-engine/commit/d2cf05fd775705742021138b10b2306e3ee4ce52)), closes [#235](https://github.com/liana-p/narrat-engine/issues/235)
+
+
+### Features
+
+* custom scenes working + new plugin hook ([#290](https://github.com/liana-p/narrat-engine/issues/290)) ([75a0905](https://github.com/liana-p/narrat-engine/commit/75a0905b30b498fb9d54546bd666ba7d8242920f))
+
+
+
 ## [3.10.4](https://github.com/liana-p/narrat-engine/compare/v3.10.3...v3.10.4) (2024-04-29)
 
 
