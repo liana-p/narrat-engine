@@ -180,14 +180,18 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
 }
 
 function sidebarPlugins(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: 'Godot Narrat integration plugin',
-      link: '/plugins/godot/godot-plugin',
-    },
-    { text: 'Plugin API', link: '/plugins/plugins' },
-    { text: 'Plugin hooks', link: '/plugins/plugin-hooks' },
-  ];
+  return {
+    text: 'Plugins',
+    collapsible: true,
+    items: [
+      {
+        text: 'Godot Narrat integration plugin',
+        link: '/plugins/godot/godot-plugin',
+      },
+      { text: 'Plugin API', link: '/plugins/plugins' },
+      { text: 'Plugin hooks', link: '/plugins/plugin-hooks' },
+    ],
+  };
 }
 
 function sidebarOthers(): DefaultTheme.SidebarItem[] {
