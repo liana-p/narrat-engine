@@ -76,6 +76,7 @@ import {
   startNewGame,
   loadAndStartGame,
 } from '@/application/application-utils';
+import { vm } from '@/vm/vm';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -237,6 +238,7 @@ onMounted(() => {
   if (audioConfig().options.defaultMusic) {
     musicId.value = standalonePlayMusic(audioConfig().options.defaultMusic!);
   }
+  vm.callHook('onStartScreenMounted');
 });
 
 function setupButtons() {

@@ -40,7 +40,7 @@ const gameLoaded = computed(() => main.loading.loaded);
 const gameTitle = computed(() => getCommonConfig().gameTitle || 'Narrat Game');
 
 function goToStartMenu() {
-  useScenes().changeScene('start-menu');
+  useScenes().goToStartMenuScene();
 }
 onMounted(() => {
   inputListener.value = useInputs().registerInputListener('game-splash', {

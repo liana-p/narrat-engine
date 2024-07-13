@@ -13,6 +13,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useScenes } from '@/stores/scenes-store';
 import { useVM } from '@/stores/vm-store';
+import { BuiltInScene } from '@/scenes/default-scenes';
 
 const props = defineProps<{
   options: {
@@ -26,7 +27,7 @@ const props = defineProps<{
 const timeout = ref<any>(null);
 function finishedTimeout() {
   timeout.value = null;
-  useScenes().changeScene('playing');
+  useScenes().changeScene(BuiltInScene.Playing);
   useVM().jumpToLabel(props.options.next_label);
 }
 onMounted(() => {

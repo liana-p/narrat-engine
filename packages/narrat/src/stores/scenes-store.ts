@@ -1,5 +1,7 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { SceneConfig, SceneKey } from '@/scenes/scene-types';
+import { getCommonConfig } from '@/config';
+import { BuiltInScene } from '@/scenes/default-scenes';
 
 export interface ScenesStoreState {
   scenes: Record<string, SceneConfig>;
@@ -16,15 +18,15 @@ export const useScenes = defineStore('scenes-store', {
   state: () =>
     ({
       scenes: {},
-      activeScene: 'engine-splash',
+      activeScene: BuiltInScene.EngineSplash,
       currentOptions: {},
     }) as ScenesStoreState,
   getters: {
     isPlaying(state) {
       return (
-        state.activeScene !== 'engine-splash' &&
-        state.activeScene !== 'game-splash' &&
-        state.activeScene !== 'start-menu'
+        state.activeScene !== BuiltInScene.EngineSplash &&
+        state.activeScene !== BuiltInScene.GameSplash &&
+        state.activeScene !== BuiltInScene.StartMenu
       );
     },
   },
@@ -37,7 +39,10 @@ export const useScenes = defineStore('scenes-store', {
     loadSaveData(saveData: ScenesStoreSave) {
       // this.activeScene = saveData.activeScene;
     },
-    changeScene(newScene: SceneKey, options?: Record<string, any>) {
+    changeScene(
+      newScene: string | BuiltInScene,
+      options?: Record<string, any>,
+    ) {
       const currentScene = this.activeScene;
       if (currentScene && currentScene !== newScene) {
         const currentSceneConfig = this.scenes[currentScene];
@@ -62,6 +67,20 @@ export const useScenes = defineStore('scenes-store', {
       if (this.scenes[sceneId].onFinished) {
         this.scenes[sceneId].onFinished!();
       }
+    },
+    goToStartMenuScene() {
+      let destination = BuiltInScene.StartMenu as string;
+      if (getCommonConfig().scenes.startMenuScene) {
+        destination = getCommonConfig().scenes.startMenuScene!;
+      }
+      this.changeScene(destination);
+    },
+    goToGameScene() {
+      let destination = BuiltInScene.Playing as string;
+      if (getCommonConfig().scenes.gameScene) {
+        destination = getCommonConfig().scenes.gameScene!;
+      }
+      this.changeScene(destination);
     },
     addNewScene(sceneConfig: SceneConfig) {
       this.scenes[sceneConfig.id] = sceneConfig;

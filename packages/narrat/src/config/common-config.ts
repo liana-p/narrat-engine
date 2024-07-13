@@ -135,6 +135,13 @@ export type ScriptsConfig = Static<typeof ScriptsConfigSchema>;
 
 export const defaultScriptsConfig = [];
 
+export const ScenesConfigSchema = Type.Object({
+  startMenuScene: Type.Optional(Type.String()),
+  gameScene: Type.Optional(Type.String()),
+});
+
+export type ScenesConfig = Static<typeof ScenesConfigSchema>;
+
 export const CommonConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
   baseDataPath: Type.Optional(Type.String()),
@@ -158,7 +165,9 @@ export const CommonConfigInputSchema = Type.Object({
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: Type.Optional(SavesConfigSchema),
   hotkeys: HotkeysConfigSchema,
+  scenes: Type.Optional(ScenesConfigSchema),
 });
+
 export type CommonConfigInput = Static<typeof CommonConfigInputSchema>;
 
 export interface CommonConfig {
@@ -184,6 +193,7 @@ export interface CommonConfig {
   debugging: DebuggingConfig;
   saves: SavesConfig;
   hotkeys: HotkeysConfig;
+  scenes: ScenesConfig;
 }
 
 export const defaultCommonConfig: CommonConfig = {
@@ -228,4 +238,5 @@ export const defaultCommonConfig: CommonConfig = {
     slots: 10,
   },
   hotkeys: {},
+  scenes: {},
 };
