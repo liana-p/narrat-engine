@@ -1,3 +1,13 @@
+## [3.11.1](https://github.com/liana-p/narrat-engine/compare/v3.11.0...v3.11.1) (2024-07-28)
+
+
+### Features
+
+* handle gamepad switch on map button + add configurable custom game splash screen ([80d1d90](https://github.com/liana-p/narrat-engine/commit/80d1d901533bea0114eb9810f95b9615ec764b43))
+* scenes docs ([ae99f8e](https://github.com/liana-p/narrat-engine/commit/ae99f8e54e434179afc4149f5ca4beff9c18cd51))
+
+
+
 # [3.11.0](https://github.com/liana-p/narrat-engine/compare/v3.10.4...v3.11.0) (2024-07-13)
 
 
