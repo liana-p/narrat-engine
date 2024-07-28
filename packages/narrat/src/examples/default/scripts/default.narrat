@@ -50,7 +50,7 @@ test_multiline:
   talk player idle $text
 
 main:
-  jump dev_test
+  // jump dev_test
   set_screen video
   add_item book 1
   jump quest_demo

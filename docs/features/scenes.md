@@ -169,7 +169,8 @@ window.addEventListener('load', () => {
     scripts,
     config,
   });
-  useScenes().addNewScene({ // [!code focus]
+  useScenes().addNewScene({
+    // [!code focus]
     id: 'my-scene', // [!code focus]
     component: shallowRef(GameplayScene), // [!code focus]
     props: {}, // [!code focus]
@@ -194,14 +195,18 @@ To do so, the new `scenes` option is available in `common.yaml`:
 
 ```yaml
 scenes:
-  startMenuScene: my-custom-start-scene
-  gameScene: my-custom-game-scene
+  startMenuScene: my-custom-start-scene # The scene to load instead of the start menu with the "Press start to continue"
+  gameScene: my-custom-game-scene # The scene to load instead of the normal gameplay scene when starting a game
+  gameSplashScene: my-custom-splash-scene # The scene to load instead of the splash screen that shows before the start menu
 ```
 
 When those options are present, instead of going to the normal game scene, the game will go to the custom scenes defined in the config.
 
-::: tip
-A custom start menu scene or game scene will probably want to eventually go back to the normal start menu or game scene. To do so, use the `goToGameScene` and `goToStartMenuScene` methods from `useScenes()` (the sample scene above does this).
+::: warn
+It is important to go back to the relevant splash screen scenes or start menu after running your custom scene, as they contain important engine initialization logic. If you override any of those scenes, you should make your new scene go to the expected "default" scene afterwards
+:::
+
+To do so, use the `goToGameScene` and `goToStartMenuScene` methods from `useScenes()` (the sample scene above does this).
 
 For example, in your scene component, the following code examples are good ways to go to various narrat scenes:
 

@@ -138,6 +138,7 @@ export const defaultScriptsConfig = [];
 export const ScenesConfigSchema = Type.Object({
   startMenuScene: Type.Optional(Type.String()),
   gameScene: Type.Optional(Type.String()),
+  gameSplashScene: Type.Optional(Type.String()),
 });
 
 export type ScenesConfig = Static<typeof ScenesConfigSchema>;

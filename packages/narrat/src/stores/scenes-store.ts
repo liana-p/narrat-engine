@@ -61,12 +61,19 @@ export const useScenes = defineStore('scenes-store', {
       return this.scenes[sceneId];
     },
     onEngineSplashFinished() {
-      this.changeScene('game-splash');
+      this.goToGameSplashScene();
     },
     finishedScene(sceneId: string) {
       if (this.scenes[sceneId].onFinished) {
         this.scenes[sceneId].onFinished!();
       }
+    },
+    goToGameSplashScene() {
+      let destination = BuiltInScene.GameSplash as string;
+      if (getCommonConfig().scenes.gameSplashScene) {
+        destination = getCommonConfig().scenes.gameSplashScene!;
+      }
+      this.changeScene(destination);
     },
     goToStartMenuScene() {
       let destination = BuiltInScene.StartMenu as string;
