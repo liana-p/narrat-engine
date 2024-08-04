@@ -1,4 +1,5 @@
 dev_test:
+  run test_saves
   run test_conditions
   run test_js
   run test_arrays
@@ -50,7 +51,7 @@ test_multiline:
   talk player idle $text
 
 main:
-  // jump dev_test
+  jump dev_test
   set_screen video
   add_item book 1
   jump quest_demo

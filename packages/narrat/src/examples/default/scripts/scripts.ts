@@ -11,6 +11,7 @@ import macros from './test_macros.narrat';
 import scenes from './test_scenes.narrat';
 import js from './test_js.narrat';
 import conditions from './conditions.narrat';
+import saves from './test_saves.narrat';
 
 export default [
   game,
@@ -26,4 +27,5 @@ export default [
   scenes,
   js,
   conditions,
+  saves,
 ];

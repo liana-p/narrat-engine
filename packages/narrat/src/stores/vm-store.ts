@@ -214,7 +214,7 @@ export const useVM = defineStore('vm', {
       this.$reset();
       this.stack = [];
       this.data = {};
-      this.hasJumped = true;
+      this.hasJumped = false;
       this.setStack({
         currentIndex: 0,
         branchData: {
