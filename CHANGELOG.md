@@ -1,3 +1,12 @@
+## [3.11.2](https://github.com/liana-p/narrat-engine/compare/v3.11.1...v3.11.2) (2024-08-04)
+
+
+### Bug Fixes
+
+* stop replaying save prompts when reloading ([a7ba385](https://github.com/liana-p/narrat-engine/commit/a7ba385872b805cd309f53b457611026c1c27828))
+
+
+
 ## [3.11.1](https://github.com/liana-p/narrat-engine/compare/v3.11.0...v3.11.1) (2024-07-28)
 
 
