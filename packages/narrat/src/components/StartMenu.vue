@@ -28,7 +28,7 @@
         />
       </div>
     </div>
-    <Teleport to="#narrat" v-if="popupComponent">
+    <Teleport to="#narrat-app-container" v-if="popupComponent">
       <ModalWindow
         @close="closePopupComponent"
         :class="`start-menu-popup-${popupComponent.id}`"
