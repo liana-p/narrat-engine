@@ -101,7 +101,7 @@ export const useVM = defineStore('vm', {
               id: value.id,
             };
           } else {
-            return value;
+            return null;
           }
         }),
       };
