@@ -1,4 +1,5 @@
 test_saves:
+  jump test_save_bug
   "Let's try a save prompt"
   set data.save_test 1
   jump test_save_prompt
@@ -11,3 +12,18 @@ test_save_prompt:
 test_saves_3:
   "now we're done a jump"
   jump main
+
+
+test_save_bug:
+  set data.hello false
+  "hi"
+  jump test_save_bug_2
+
+test_save_bug_2:
+  save_prompt
+  "Before jump: %{$data.hello}"
+  jump test_save_bug_3
+
+test_save_bug_3:
+  set data.hello true
+  "After jump: %{$data.hello}"

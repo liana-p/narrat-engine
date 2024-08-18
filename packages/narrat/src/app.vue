@@ -1,30 +1,33 @@
 <template>
-  <div id="narrat" :style="appStyle">
-    <div id="narrat-app" :class="appClass" tabindex="0">
-      <Transition name="screens-fade">
-        <GameScene
-          :key="activeScene"
-          :sceneId="activeScene"
-          :options="scenesStore.currentOptions"
-        />
-      </Transition>
+  <div id="narrat">
+    <div id="narrat-app-container" :style="appStyle">
+      <div id="narrat-app" :class="appClass" tabindex="0">
+        <Transition name="screens-fade">
+          <GameScene
+            :key="activeScene"
+            :sceneId="activeScene"
+            :options="scenesStore.currentOptions"
+          />
+        </Transition>
 
-      <DebugMenu v-if="options!.debug" />
-      <NotificationToast />
-      <AlertModal
-        v-for="alert in alerts"
-        :key="alert.id"
-        :title="alert.title"
-        :text="alert.text"
-        @close="() => closeAlert(alert.id)"
-      />
+        <DebugMenu v-if="options!.debug && ready" />
+        <NotificationToast />
+        <AlertModal
+          v-for="alert in alerts"
+          :key="alert.id"
+          :title="alert.title"
+          :text="alert.text"
+          @close="() => closeAlert(alert.id)"
+        />
+      </div>
     </div>
+    <TooltipsUi />
+    <div id="modals"></div>
   </div>
-  <TooltipsUi />
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import DebugMenu from './components/debug/debug-menu.vue';
 import NotificationToast from './components/notification-toast.vue';
 import { debounce } from './utils/debounce';
@@ -50,6 +53,7 @@ const scenesStore = useScenes();
 const activeScene = computed(() => scenesStore.activeScene);
 const alerts = computed(() => mainStore.alerts);
 const rendering = useRenderingStore();
+const ready = ref(false);
 
 const appStyle = computed(() => {
   return {
@@ -90,6 +94,7 @@ onMounted(async () => {
   );
   inputEvents.setup(props.options!.debug);
   // this.updateScreenSize();
+  ready.value = true;
   setTimeout(() => {
     updateScreenSize();
   }, 50);
@@ -98,6 +103,18 @@ onMounted(async () => {
 
 <style>
 #narrat {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+}
+#narrat-app-container {
   background-color: var(--bg-color);
   width: 100%;
   height: 100%;

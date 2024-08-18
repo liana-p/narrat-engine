@@ -1,6 +1,8 @@
 <template>
   <div class="debug-menu">
-    <button @click="open" class="nrt-button debug-button">Debug Menu</button>
+    <button @click="open" class="nrt-button debug-menu-toggle">
+      Debug Menu
+    </button>
     <div class="debug-info" v-if="!playing && activeScene === 'menu'">
       <h3>Debug mode is ON</h3>
       <ul>
@@ -36,77 +38,119 @@
         </ul>
       </template>
     </ModalWindow>
-    <ModalWindow
-      v-if="showDebug"
-      @close="close"
-      containerCssClass="debug-menu-container"
-    >
-      <template v-slot:header>
-        <h3 class="title">Debug Menu!</h3>
-      </template>
-      <template v-slot:body>
-        <div class="container">
-          Hello this is the debug menu.
-          <select
-            class="nrt-select"
-            name="label-selector"
-            @change="labelSelected($event)"
-          >
-            <option class="nrt-option" selected disabled>
-              Jump to a label
-            </option>
-            <option
-              class="nrt-option"
-              v-for="label in labels"
-              :value="label"
-              :key="label"
-            >
-              {{ label }}
-            </option>
-          </select>
-          <div class="grid grid-cols-3 gap-4">
-            <button @click="wordCount" class="nrt-button">Word Count</button>
-            <button @click="save" class="nrt-button">Save Game</button>
-            <button @click="resetSave" class="nrt-button">Reset Save</button>
-            <button @click="resetGlobalSave" class="nrt-button">
-              Reset GLOBAL Save
-            </button>
+    <Teleport to="#modals">
+      <ModalWindow
+        v-if="showDebug"
+        @close="close"
+        containerCssClass="debug-menu-container"
+      >
+        <template v-slot:header>
+          <h1 class="text-center title">Debug Menu</h1>
+        </template>
+        <template v-slot:body>
+          <div class="debug-body">
+            <div class="container items-center">
+              <h2 class="debug-section text-center" id="table-of-contents">
+                Table of contents
+              </h2>
+              Jump to debug menu elements by clicking links
+              <ul>
+                <li><a href="#utilities">Utilities</a></li>
+                <li><a href="#variables-editor">Variables Editor</a></li>
+                <li><a href="#skillchecks">Skillchecks state</a></li>
+                <li><a href="#state-editor">App State editor</a></li>
+                <li><a href="#save-editor">Save data editor</a></li>
+              </ul>
+              <DebugMenuSection title="Utilities" link="utilities">
+                <select
+                  class="nrt-select"
+                  name="label-selector"
+                  @change="labelSelected($event)"
+                >
+                  <option class="nrt-option" selected disabled>
+                    Jump to a label
+                  </option>
+                  <option
+                    class="nrt-option"
+                    v-for="label in labels"
+                    :value="label"
+                    :key="label"
+                  >
+                    {{ label }}
+                  </option>
+                </select>
+                <div class="grid grid-cols-5 gap-4">
+                  <button @click="wordCount" class="nrt-button debug-button">
+                    Word Count
+                  </button>
+                  <button @click="save" class="nrt-button debug-button">
+                    Save Game
+                  </button>
+                  <button @click="resetSave" class="nrt-button debug-button">
+                    Reset Save
+                  </button>
+                  <button
+                    @click="resetGlobalSave"
+                    class="nrt-button debug-button"
+                  >
+                    Reset GLOBAL Save
+                  </button>
+                </div>
+                <h4 class="text-center">
+                  Play time: {{ getPlayTimeString() }}
+                </h4>
+              </DebugMenuSection>
+              <DebugMenuSection
+                title="Variables Editor"
+                link="variables-editor"
+              >
+                <div ref="variablesViewer"></div>
+              </DebugMenuSection>
+              <DebugMenuSection title="Skill Checks" link="skillchecks">
+                <h3 v-if="Object.keys(skillChecks).length < 1">
+                  No skill checks have been made yet
+                </h3>
+                <table class="table-auto" v-else>
+                  <thead>
+                    <tr>
+                      <th>Skill Check</th>
+                      <th>Happened</th>
+                      <th>Succeeded</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(check, key) in skillChecks" :key="key">
+                      <td>{{ key }}</td>
+                      <td>{{ check.happened ? '✅' : '❌' }}</td>
+                      <td>
+                        {{
+                          !check.happened ? 'NA' : check.succeeded ? '✅' : '❌'
+                        }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </DebugMenuSection>
+              <DebugMenuSection title="App State editor" link="state-editor">
+                <h3 style="color: pink">
+                  Use for debugging, editing some of those things can cause
+                  issues
+                </h3>
+                <div ref="stateViewer"></div>
+              </DebugMenuSection>
+              <DebugMenuSection title="Save data editor" link="save-editor">
+                <h3 style="color: pink">Use to debug and view save data</h3>
+                <h3 style="color: pink">
+                  NOTE: Editing save data here will override it locally
+                  temporarily but <i>not</i> save changes.
+                </h3>
+                <div ref="saveViewer"></div>
+              </DebugMenuSection>
+            </div>
           </div>
-          <h3>Play time: {{ getPlayTimeString() }}</h3>
-          <h2>Variables Editor</h2>
-          <p>
-            This has been removed. Use the
-            <a href="https://devtools.vuejs.org/">Vue Devtools</a> instead and
-            inspect the contents of the pinia store
-          </p>
-          <div ref="variablesViewer"></div>
-          <h2>Skill Checks</h2>
-          <table class="table-auto">
-            <thead>
-              <tr>
-                <th>Skill Check</th>
-                <th>Happened</th>
-                <th>Succeeded</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(check, key) in skillChecks" :key="key">
-                <td>{{ key }}</td>
-                <td>{{ check.happened ? '✅' : '❌' }}</td>
-                <td>
-                  {{ !check.happened ? 'NA' : check.succeeded ? '✅' : '❌' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <h2>App State editor (entire app and engine</h2>
-          <h3 style="color: pink">
-            Use for debugging, editing some of those things can cause issues
-          </h3>
-          <div ref="stateViewer"></div>
-        </div>
-      </template>
-    </ModalWindow>
+        </template>
+      </ModalWindow>
+    </Teleport>
   </div>
 </template>
 
@@ -124,7 +168,7 @@ import { StaticChoiceOptions } from '@/vm/commands/choice';
 import { IfStaticOptions } from '@/vm/commands/if';
 import { useQuests } from '../../stores/quest-log';
 import { useInventory } from '../../stores/inventory-store';
-import { resetSave } from '@/utils/save-helpers';
+import { getSaveFile, resetSave } from '@/utils/save-helpers';
 import { vm } from '@/vm/vm';
 import DebugJumping from './debug-jumping.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
@@ -133,10 +177,22 @@ import { autoSaveGame, resetGlobalSave } from '@/application/saving';
 // import { getAllStates, overrideStates } from '@/data/all-stores';
 import { useScenes } from '@/stores/scenes-store';
 import { getCommonConfig } from '@/config';
+import { getAllStates, overrideStates } from '@/data/all-stores';
+import { PRODUCTION } from '@/constants';
+import DebugMenuSection from './DebugMenuSection.vue';
+
+let JSONEditor: any;
+async function addJsonEditor() {
+  if (!JSONEditor) {
+    JSONEditor = (await import('vanilla-jsoneditor')).JSONEditor;
+    console.log(JSONEditor);
+  }
+}
 export default defineComponent({
   components: {
     ModalWindow,
     DebugJumping,
+    DebugMenuSection,
   },
   setup() {
     const store = useSkills();
@@ -190,54 +246,70 @@ export default defineComponent({
     closeErrors() {
       useMain().clearErrors();
     },
+    async setupJsonEditor() {
+      if (!PRODUCTION) {
+        await addJsonEditor();
+        const vmStore = useVM();
+        const questsStore = useQuests();
+        const inventoryStore = useInventory();
+        const skillsStore = useSkills();
+        this.$nextTick(() => {
+          // eslint-disable-next-line no-unused-vars
+          const _variablesEditor = new (JSONEditor as any)({
+            target: this.$refs.variablesViewer as any,
+            props: {
+              content: {
+                text: undefined,
+                json: {
+                  data: this.variables,
+                  quests: questsStore.quests,
+                  items: inventoryStore.items,
+                  skills: skillsStore.skills,
+                  skillChecks: skillsStore.skillChecks,
+                },
+              },
+              onChange: (updatedContent: any) => {
+                vmStore.overrideData(updatedContent.json.data);
+                questsStore.quests = updatedContent.json.quests;
+                inventoryStore.items = updatedContent.json.items;
+                skillsStore.skills = updatedContent.json.skills;
+                skillsStore.skillChecks = updatedContent.json.skillChecks;
+              },
+            },
+          });
+          // eslint-disable-next-line no-unused-vars
+          const _stateEditor = new (JSONEditor as any)({
+            target: this.$refs.stateViewer as any,
+            props: {
+              content: {
+                text: undefined,
+                json: getAllStates(),
+              },
+              onChange: (updatedContent: any) => {
+                overrideStates(updatedContent.json);
+              },
+            },
+          });
+          const _saveEditor = new (JSONEditor as any)({
+            target: this.$refs.saveViewer as any,
+            props: {
+              content: {
+                text: undefined,
+                json: getSaveFile(),
+              },
+            },
+          });
+          // const tree = jsonview.create(JSON.stringify(this.variables));
+          // jsonview.render(tree, this.$refs.variablesViewer);
+          // jsonview.expand(tree);
+        });
+      }
+    },
+
     open() {
       this.showDebug = true;
       this.startDebug();
-      const vmStore = useVM();
-      const questsStore = useQuests();
-      const inventoryStore = useInventory();
-      const skillsStore = useSkills();
-      // this.$nextTick(() => {
-      //   // eslint-disable-next-line no-unused-vars
-      //   const _variablesEditor = new (JSONEditor as any)({
-      //     target: this.$refs.variablesViewer as any,
-      //     props: {
-      //       content: {
-      //         text: undefined,
-      //         json: {
-      //           data: this.variables,
-      //           quests: questsStore.quests,
-      //           items: inventoryStore.items,
-      //           skills: skillsStore.skills,
-      //           skillChecks: skillsStore.skillChecks,
-      //         },
-      //       },
-      //       onChange: (updatedContent: any) => {
-      //         vmStore.overrideData(updatedContent.json.data);
-      //         questsStore.quests = updatedContent.json.quests;
-      //         inventoryStore.items = updatedContent.json.items;
-      //         skillsStore.skills = updatedContent.json.skills;
-      //         skillsStore.skillChecks = updatedContent.json.skillChecks;
-      //       },
-      //     },
-      //   });
-      //   // eslint-disable-next-line no-unused-vars
-      //   const _stateEditor = new (JSONEditor as any)({
-      //     target: this.$refs.stateViewer as any,
-      //     props: {
-      //       content: {
-      //         text: undefined,
-      //         json: getAllStates(),
-      //       },
-      //       onChange: (updatedContent: any) => {
-      //         overrideStates(updatedContent.json);
-      //       },
-      //     },
-      //   });
-      //   // const tree = jsonview.create(JSON.stringify(this.variables));
-      //   // jsonview.render(tree, this.$refs.variablesViewer);
-      //   // jsonview.expand(tree);
-      // });
+      this.setupJsonEditor();
     },
     toggle() {
       if (this.showDebug) {
@@ -353,11 +425,22 @@ export default defineComponent({
   z-index: 9999;
 }
 
-.debug-button {
+#table-of-contents {
+  margin-top: 20px;
+}
+
+.debug-menu-toggle {
   position: fixed;
   bottom: 10px;
   right: 10px;
   padding: 5px;
+}
+
+.debug-button {
+  background-color: cyan;
+  font-size: 12px;
+  padding: 5px;
+  margin: 5px;
 }
 
 .error-message {
@@ -378,7 +461,13 @@ export default defineComponent({
 }
 
 .debug-menu-container {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
 }
 
 .search-result {
@@ -395,7 +484,7 @@ export default defineComponent({
 
 .debug-info {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   border: 1px dotted var(--text-color);
   top: 0;
   left: 0;
@@ -404,5 +493,14 @@ export default defineComponent({
 
 .variables-viewer {
   height: 100%;
+}
+
+.debug-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 </style>

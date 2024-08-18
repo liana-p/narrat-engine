@@ -62,6 +62,10 @@ export function getSaveFile(): SaveFile {
   return saveFile;
 }
 
+export function overrideSaveFile(newSaveFile: SaveFile) {
+  saveFile = newSaveFile;
+}
+
 export function resetSave() {
   saveFile = createDefaultSaveFile();
   save();
