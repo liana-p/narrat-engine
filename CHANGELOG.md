@@ -1,3 +1,12 @@
+## [3.12.4](https://github.com/liana-p/narrat-engine/compare/v3.12.3...v3.12.4) (2024-08-18)
+
+
+### Bug Fixes
+
+* accidental change to modals css ([b12f654](https://github.com/liana-p/narrat-engine/commit/b12f65468b18cded93bb0232b057297847b02c01))
+
+
+
 ## [3.12.3](https://github.com/liana-p/narrat-engine/compare/v3.12.2...v3.12.3) (2024-08-18)
 
 
