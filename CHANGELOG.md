@@ -1,3 +1,12 @@
+## [3.12.3](https://github.com/liana-p/narrat-engine/compare/v3.12.2...v3.12.3) (2024-08-18)
+
+
+### Bug Fixes
+
+* make sure save/load fix is applied to all features ([4f1da78](https://github.com/liana-p/narrat-engine/commit/4f1da78d1be17d5107252ed002c2f683ba62daf4))
+
+
+
 ## [3.12.2](https://github.com/liana-p/narrat-engine/compare/v3.12.1...v3.12.2) (2024-08-18)
 
 
