@@ -247,7 +247,8 @@ export default defineComponent({
       useMain().clearErrors();
     },
     async setupJsonEditor() {
-      if (!PRODUCTION) {
+      const shouldUseEditor = useMain().options.debug;
+      if (shouldUseEditor) {
         await addJsonEditor();
         const vmStore = useVM();
         const questsStore = useQuests();
