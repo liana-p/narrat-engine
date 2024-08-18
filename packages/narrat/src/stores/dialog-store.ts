@@ -45,7 +45,7 @@ export const useDialogStore = defineStore('dialog', {
       };
     },
     loadSaveData(data: DialogSave) {
-      this.dialog = data.dialog;
+      this.dialog = deepCopy(data.dialog);
     },
     addDialog(dialog: AddDialogParams) {
       this.dialog.push({

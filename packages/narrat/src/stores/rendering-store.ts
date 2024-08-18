@@ -47,11 +47,11 @@ export const useRenderingStore = defineStore('rendering', {
       if (width < getCommonConfig().layout.verticalLayoutThreshold) {
         this.layoutMode = 'vertical';
         document.querySelector('html')!.style.fontSize =
-          `${useSettings().baseSettings.fontSize}px` ?? '40px';
+          `${useSettings().baseSettings.fontSize ?? 40}px`;
       } else {
         this.layoutMode = 'horizontal';
         document.querySelector('html')!.style.fontSize =
-          `${useSettings().baseSettings.fontSize}px` ?? '16px';
+          `${useSettings().baseSettings.fontSize ?? 16}px`;
       }
     },
     setContainer(container: HTMLElement) {

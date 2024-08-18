@@ -138,11 +138,11 @@ export const useSettings = defineStore('settings', {
     },
     loadSaveData(data: GameUserSettingsSave) {
       for (const key in data.baseSettings) {
-        this.setSetting(key, data.baseSettings[key]);
+        this.setSetting(key, deepCopy(data.baseSettings[key]));
       }
       for (const key in data.customSettings) {
         if (typeof this.customSettings[key] !== 'undefined') {
-          this.setSetting(key, data.customSettings[key]);
+          this.setSetting(key, deepCopy(data.customSettings[key]));
         }
       }
     },
