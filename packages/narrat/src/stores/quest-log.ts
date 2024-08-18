@@ -218,7 +218,7 @@ export const useQuests = defineStore('quests', {
       };
     },
     loadSaveData(data: QuestLogSave) {
-      this.quests = data.quests;
+      this.quests = deepCopy(data.quests);
     },
   },
 });

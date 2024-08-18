@@ -16,28 +16,30 @@
       </ul>
     </div>
     <DebugJumping v-if="jumping" @close="closeJumping" />
-    <ModalWindow
-      v-if="errors.length > 0"
-      @close="closeErrors"
-      containerCssClass="debug-menu-container"
-    >
-      <template v-slot:header>
-        <h3 class="title">Error(s)</h3>
-      </template>
-      <template v-slot:body>
-        There are errors in your dialogue scripts. Open the developer console
-        for more details.
-        <ul>
-          <li
-            v-for="(error, index) in errors"
-            :key="index"
-            class="error-message list-disc"
-            :class="error.type === 'error' ? 'error' : 'warning'"
-            v-html="error.text"
-          />
-        </ul>
-      </template>
-    </ModalWindow>
+    <Teleport to="#modals">
+      <ModalWindow
+        v-if="errors.length > 0"
+        @close="closeErrors"
+        containerCssClass="debug-menu-container"
+      >
+        <template v-slot:header>
+          <h3 class="title">Error(s)</h3>
+        </template>
+        <template v-slot:body>
+          There are errors in your dialogue scripts. Open the developer console
+          for more details.
+          <ul>
+            <li
+              v-for="(error, index) in errors"
+              :key="index"
+              class="error-message list-disc"
+              :class="error.type === 'error' ? 'error' : 'warning'"
+              v-html="error.text"
+            />
+          </ul>
+        </template>
+      </ModalWindow>
+    </Teleport>
     <Teleport to="#modals">
       <ModalWindow
         v-if="showDebug"

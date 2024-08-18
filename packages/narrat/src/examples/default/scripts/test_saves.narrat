@@ -21,9 +21,19 @@ test_save_bug:
 
 test_save_bug_2:
   save_prompt
+  start_quest saveBugQuest
   "Before jump: %{$data.hello}"
+  var is_complete (quest_completed? saveBugQuest)
+  "Quest completed: %{$is_complete}"
   jump test_save_bug_3
 
 test_save_bug_3:
   set data.hello true
+  complete_quest saveBugQuest
   "After jump: %{$data.hello}"
+  var is_complete (quest_completed? saveBugQuest)
+  "Quest completed: %{$is_complete}"
+  jump test_save_bug_4
+
+test_save_bug_4:
+  "after jump"
