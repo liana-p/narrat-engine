@@ -1,3 +1,12 @@
+## [3.12.2](https://github.com/liana-p/narrat-engine/compare/v3.12.1...v3.12.2) (2024-08-18)
+
+
+### Bug Fixes
+
+* quests save bug ([d4009d2](https://github.com/liana-p/narrat-engine/commit/d4009d2db3577847bea3c2f55b0b05cb5fd0f7c0))
+
+
+
 ## [3.12.1](https://github.com/liana-p/narrat-engine/compare/v3.12.0...v3.12.1) (2024-08-18)
 
 
