@@ -1,6 +1,6 @@
 {
   "name": "narrat",
-  "version": "3.12.0",
+  "version": "3.12.1",
   "description": "narrat narrative engine",
   "main": "dist/narrat.umd.js",
   "module": "dist/narrat.es.js",
