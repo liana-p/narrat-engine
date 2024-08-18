@@ -69,7 +69,8 @@
     "deepmerge": "^4.3.1",
     "fuse.js": "^6.6.2",
     "howler": "^2.2.3",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "vanilla-jsoneditor": "^0.23.8"
   },
   "devDependencies": {
     "@pinia/testing": "^0.1.3",

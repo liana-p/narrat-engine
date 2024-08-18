@@ -1,3 +1,17 @@
+# [3.12.0](https://github.com/liana-p/narrat-engine/compare/v3.11.2...v3.12.0) (2024-08-18)
+
+
+### Bug Fixes
+
+* mysterious narrat save bug ([6e06481](https://github.com/liana-p/narrat-engine/commit/6e064813b858d6037710366c393bb8c6e86dd87f))
+
+
+### Features
+
+* Improve debug menu ([2dc6727](https://github.com/liana-p/narrat-engine/commit/2dc6727f7e342b6378d55c70e425d3e962eb8436))
+
+
+
 ## [3.11.2](https://github.com/liana-p/narrat-engine/compare/v3.11.1...v3.11.2) (2024-08-04)
 
 
