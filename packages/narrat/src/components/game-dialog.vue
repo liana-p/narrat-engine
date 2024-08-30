@@ -1,5 +1,6 @@
 <template>
   <AutoPlayFeedback />
+  <AutoSaveFeedback />
   <transition name="fade">
     <DialogPicture
       :picture="picture"
@@ -86,6 +87,7 @@ import {
 } from '@/config/characters-config';
 import { Timeout } from '@/utils/time-helpers';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
+import AutoSaveFeedback from './auto-save/auto-save-feedback.vue';
 
 const layoutMode = computed(() => useRenderingStore().layoutMode);
 const inputListener = computed(() => useInputs().inGameInputListener);

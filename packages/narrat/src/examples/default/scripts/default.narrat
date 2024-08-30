@@ -1,3 +1,6 @@
+main:
+  jump quest_demo
+
 dev_test:
   run test_saves
   run test_dialog
@@ -50,49 +53,6 @@ test_multiline:
     "together to make a longer string" \
   )
   talk player idle $text
-
-main:
-  jump dev_test
-  set_screen video
-  add_item book 1
-  jump quest_demo
-  hide_hud
-  // jump test_menu
-  // Note: This script is a dev testing thing and is a mess of random test commands, not meant to make sense
-  // jump test_choice_conditions
-  // set config.characters.characters.player.name "Someone"
-  // talk player idle "I like @@bread"
-  // talk player idle "hello world"
-  // add global.counter 1
-  // if (== $global.counter 2):
-  //   unlock_achievement win_game
-  // talk player idle "Global counter is %{$global.counter}"
-  // jump test_change_player
-  // jump test_hmr
-  // jump test_save
-  // jump test_new_inputs
-  // jump test_arrays
-  // set_screen map 0 fade 1000
-  // jump test_audio
-  set_screen map
-  // set_screen video
-  talk player idle "Hello"
-  talk helper idle "Hello world"
-  show_hud
-  // talk helper videoPose "Hello world!"
-  talk shopkeeper idle "hello"
-  // jump quest_demo
-
-// test_themes:
-//   choice:
-//     "Theme? (will only work if the themes are setup, call setupThemesDemo in index)"
-//     "Fun":
-//       set_screen default
-//       change_theme narrat-fun-theme
-//     "Text only"
-//       set_screen @empty
-//       change_theme narrat-text-only
-//   jump test_themes
 
 test_menu:
   choice:

@@ -27,9 +27,7 @@ export function autoSaveGame({
     name,
     extractedSave: extractSaveData(),
   });
-  if (getCommonConfig().saves.notifyOnSave !== false) {
-    useNotifications().addNotification('Game Saved');
-  }
+  useMain().triggerAutosaveFeedback();
 }
 
 export function setupLoadedData(save: ExtractedSave) {

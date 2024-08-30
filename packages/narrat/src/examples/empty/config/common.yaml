@@ -37,3 +37,9 @@ menuButtons: {}
 saves:
   mode: manual
   slots: 10
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'

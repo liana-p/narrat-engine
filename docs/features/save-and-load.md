@@ -163,3 +163,36 @@ saves:
     - this_really_shouldnt_be_saved
     - no_dont_save_this_label_senpai_yamete_kudasai
 ```
+
+## Saving spinner feedback UI
+
+The game automatically shows a little spinner when saving. The spinner can be configured in the config and with CSS. The spinner is made of:
+
+<video controls="controls" src="./saving/spinner.mp4" type="video/mp4" autoplay="true"></video>
+
+- A background image
+- A text
+- A foreground image
+
+Either of those 3 things can be individually disabled or customised. Here is an example config:
+
+```yaml
+saves:
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'
+```
+
+Omitting any of `text`, `backgroundImage` or `foregroundImage` will make them simply not appear. The `duration` key is the time in seconds the spinner will be shown for. If setting `enabled` to false, the spinner will never appear.
+
+To customise the display and animation of the spinner, override the CSS classes:
+
+- `auto-save-feedback-container`: The position and size of the spinner
+- `auto-save-feedback-text`: The text of the spinner
+- `auto-save-feedback-background`: The background image of the spinner
+- `auto-save-feedback-foreground`: The foreground image of the spinner
+
+By default, the background and foreground both have a CSS animation to spin in opposite ways.

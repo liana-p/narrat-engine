@@ -130,7 +130,15 @@ export const SavesConfigSchema = Type.Object({
   runOnReload: Type.Optional(Type.String()),
   disabled: Type.Optional(Type.Boolean()),
   autosaveDisabledOnLabels: Type.Optional(Type.Array(Type.String())),
-  notifyOnSave: Type.Optional(Type.Boolean()),
+  autosaveFeedback: Type.Optional(
+    Type.Object({
+      enabled: Type.Boolean(),
+      text: Type.Optional(Type.String()),
+      backgroundImage: Type.Optional(Type.String()),
+      foregroundImage: Type.Optional(Type.String()),
+      duration: Type.Number(),
+    }),
+  ),
 });
 export type SavesConfig = Static<typeof SavesConfigSchema>;
 

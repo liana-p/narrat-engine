@@ -8,6 +8,8 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useInventory } from './inventory-store';
 import { TypedEmitter } from '@/utils/typed-emitter';
 import { useScenes } from './scenes-store';
+import { timeout } from '@/utils/promises';
+import { getCommonConfig } from '@/config';
 
 export function defaultAppOptions(): AppOptions {
   return {
@@ -64,6 +66,7 @@ export interface MainState {
   };
   listener: MainStoreListener;
   inScript: boolean;
+  autosaveFeedback: boolean;
 }
 
 export interface MainSaveData {
@@ -100,6 +103,7 @@ export const useMain = defineStore('main', {
       saving: null,
       listener: new MainStoreListener(),
       inScript: false,
+      autosaveFeedback: false,
     }) as MainState,
   actions: {
     setLoadingStep(step: string, percentage: number) {
@@ -214,6 +218,14 @@ export const useMain = defineStore('main', {
     },
     loadSaveData(data: MainSaveData) {
       this.playTime.previousPlaytime = data.playTime;
+    },
+    async triggerAutosaveFeedback() {
+      const autosaveFeedback = getCommonConfig().saves.autosaveFeedback;
+      if (autosaveFeedback && autosaveFeedback.enabled) {
+        this.autosaveFeedback = true;
+        await timeout(autosaveFeedback.duration * 1000);
+        this.autosaveFeedback = false;
+      }
     },
     exitGame() {
       window.close();

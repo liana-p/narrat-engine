@@ -52,7 +52,12 @@ saves:
   autosaveDisabledOnLabels:
     - test_no_autosave
   # disabled: true
-  notifyOnSave: true
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'
 
 notifications:
   timeOnScreen: 2.5
