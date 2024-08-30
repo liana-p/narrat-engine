@@ -1,3 +1,13 @@
+## [3.13.1](https://github.com/liana-p/narrat-engine/compare/v3.13.0...v3.13.1) (2024-08-30)
+
+
+### Features
+
+* new option to not autosave on specific labels ([8dea6b1](https://github.com/liana-p/narrat-engine/commit/8dea6b116909dd2e6fa78baa928ce45b877bfc6a))
+* only show achievement unlock notification if not already unlocked ([bdb9f5b](https://github.com/liana-p/narrat-engine/commit/bdb9f5b31626a6c57095c8ed8a8b02494f3a939d))
+
+
+
 # [3.13.0](https://github.com/liana-p/narrat-engine/compare/v3.12.4...v3.13.0) (2024-08-30)
 
 
