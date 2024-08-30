@@ -1,3 +1,12 @@
+# [3.13.0](https://github.com/liana-p/narrat-engine/compare/v3.12.4...v3.13.0) (2024-08-30)
+
+
+### Features
+
+* new button to show history of dialogue ([a8d5052](https://github.com/liana-p/narrat-engine/commit/a8d505292dbe783ef55ff887aa645b2e25137176))
+
+
+
 ## [3.12.4](https://github.com/liana-p/narrat-engine/compare/v3.12.3...v3.12.4) (2024-08-18)
 
 
