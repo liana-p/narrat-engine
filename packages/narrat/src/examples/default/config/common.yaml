@@ -26,6 +26,8 @@ settings:
       type: string
       defaultValue: Someone
       description: The name of the player. (not actually used, this is just to test custom settings)
+graphics:
+  allowFullscreen: true
 layout:
   defaultFontSize: 16
   backgrounds:
@@ -51,7 +53,8 @@ saves:
   runOnReload: 'test_label_reload'
   autosaveDisabledOnLabels:
     - test_no_autosave
-  # disabled: true
+  disabled: false
+  allowManualSave: true
   autosaveFeedback:
     enabled: true
     duration: 0.5

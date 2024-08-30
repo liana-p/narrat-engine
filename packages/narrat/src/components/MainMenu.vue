@@ -4,6 +4,20 @@
 
     <VolumeControls />
     <div ref="mainActions">
+      <button
+        class="nrt-button nrt-title quit-button"
+        @click="saveGame"
+        v-if="getCommonConfig().saves.allowManualSave !== false"
+      >
+        Save Game
+      </button>
+      <button
+        class="nrt-button nrt-title quit-button"
+        @click="toggleFullscreen"
+        v-if="getCommonConfig().graphics.allowFullscreen !== false"
+      >
+        Toggle Fullscreen
+      </button>
       <button class="nrt-button nrt-title quit-button" @click="mainMenu">
         Main Menu
       </button>
@@ -23,6 +37,8 @@ import { InputListener } from '@/stores/inputs-store';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { NavigationState, useNavigation } from '@/inputs/useNavigation';
 import { menuReturn } from '@/application/application-utils';
+import { startManualSave } from '@/application/saving';
+import { getCommonConfig } from '@/config';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -43,6 +59,19 @@ function mainMenu() {
 
 function closeMenu() {
   emit('close');
+}
+
+function saveGame() {
+  startManualSave({});
+  closeMenu();
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.body.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
 }
 
 function getPlayTimeString(): string {

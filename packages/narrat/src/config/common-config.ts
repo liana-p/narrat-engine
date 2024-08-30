@@ -139,8 +139,14 @@ export const SavesConfigSchema = Type.Object({
       duration: Type.Number(),
     }),
   ),
+  allowManualSave: Type.Optional(Type.Boolean()),
 });
 export type SavesConfig = Static<typeof SavesConfigSchema>;
+
+export const GraphicsSettingsSchema = Type.Object({
+  allowFullscreen: Type.Optional(Type.Boolean()),
+});
+export type GraphicsSettings = Static<typeof GraphicsSettingsSchema>;
 
 export const ScriptsConfigSchema = Type.Array(Type.String());
 export type ScriptsConfig = Static<typeof ScriptsConfigSchema>;
@@ -163,6 +169,7 @@ export const CommonConfigInputSchema = Type.Object({
   images: Type.Optional(Type.Record(Type.String(), Type.String())),
   layout: LayoutConfigSchema,
   settings: Type.Optional(SettingsConfigSchema),
+  graphics: Type.Optional(GraphicsSettingsSchema),
   gameFlow: Type.Optional(
     Type.Object({
       labelToJumpOnScriptEnd: Type.Optional(Type.String()),
@@ -193,6 +200,7 @@ export interface CommonConfig {
   };
   layout: LayoutConfig;
   settings: SettingsConfig;
+  graphics: GraphicsSettings;
   gameFlow: {
     labelToJumpOnScriptEnd?: string;
   };
@@ -217,6 +225,7 @@ export const defaultCommonConfig: CommonConfig = {
   images: {},
   layout: defaultLayoutConfig,
   settings: {},
+  graphics: {},
   gameFlow: {},
   dialogPanel: {
     overlayMode: true,

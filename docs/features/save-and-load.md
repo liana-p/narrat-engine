@@ -196,3 +196,12 @@ To customise the display and animation of the spinner, override the CSS classes:
 - `auto-save-feedback-foreground`: The foreground image of the spinner
 
 By default, the background and foreground both have a CSS animation to spin in opposite ways.
+
+## Manual saves from menu
+
+The system menu allows the player to create a manual save whenever they want. If you want to disable this option, add the `allowManualSave` option to the save config:
+
+```yaml
+saves
+  allowManualSave: false
+```
