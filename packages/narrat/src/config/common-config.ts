@@ -271,6 +271,7 @@ export const defaultCommonConfig: CommonConfig = {
   input: {
     showPromptsOnKeyboard: true,
     showPromptsOnGamepad: true,
+    showBottomLegend: true,
   },
   hotkeys: {},
   scenes: {},

@@ -13,30 +13,30 @@ window.addEventListener('load', () => {
     'img/ui/talk.png',
     'https://pixijs.io/examples/examples/assets/bunny.png',
   ]);
-  pixi.addInputActions([
-    {
-      id: 'movement',
-      type: 'analog',
-      keybinds: [
-        {
-          left: 'ArrowLeft',
-          right: 'ArrowRight',
-          up: 'ArrowUp',
-          down: 'ArrowDown',
-        },
-      ],
-    },
-    {
-      id: 'interact',
-      type: 'button',
-      action: 'press',
-      keybinds: [
-        {
-          keyboardKey: 'e',
-        },
-      ],
-    },
-  ]);
+  // pixi.addInputActions([
+  //   {
+  //     id: 'movement',
+  //     type: 'analog',
+  //     keybinds: [
+  //       {
+  //         left: 'ArrowLeft',
+  //         right: 'ArrowRight',
+  //         up: 'ArrowUp',
+  //         down: 'ArrowDown',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 'interact',
+  //     type: 'button',
+  //     action: 'press',
+  //     keybinds: [
+  //       {
+  //         keyboardKey: 'e',
+  //       },
+  //     ],
+  //   },
+  // ]);
   const collisionMatrix = createCollisionMatrix(
     ['default', 'environment', 'entity'],
     {
