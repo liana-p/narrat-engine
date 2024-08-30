@@ -11,10 +11,18 @@ export type NarratGamepadButton = {
   state: GamepadButton;
   previous: GamepadButton;
 };
+
+export interface NarratGamepadAxes {
+  index: number;
+  value: number;
+  previous: number;
+}
+
 export type NarratGamepad = {
   id: string;
   gamepad: Gamepad;
   buttons: NarratGamepadButton[];
+  axes: NarratGamepadAxes[];
 };
 
 export type ButtonEvent = (
@@ -40,14 +48,21 @@ export interface AnalogKeybind {
   down: string;
 }
 
-export interface ButtonAction {
+export interface BaseAction {
   id: string;
+  type: 'button' | 'analog';
+  label: string;
+  keyboardIcon: string;
+  gamepadIcon: string;
+  showInLegend: boolean;
+}
+export interface ButtonAction extends BaseAction {
   type: 'button';
   action: 'press' | 'release';
   keybinds: ButtonKeybind[];
 }
 
-export interface AnalogAction {
+export interface AnalogAction extends BaseAction {
   id: string;
   type: 'analog';
   keybinds: AnalogKeybind[];
@@ -191,6 +206,13 @@ export class Inputs extends EventTarget {
       buttons: gamepad.buttons.map((button, index) => {
         return this.getNarratButtonFromGamepad(button, button, index);
       }),
+      axes: gamepad.axes.map((axis, index) => {
+        return {
+          index,
+          value: axis,
+          previous: axis,
+        };
+      }),
     };
     return narratGamepad;
   }
@@ -207,6 +229,14 @@ export class Inputs extends EventTarget {
       narratButton.previous = deepCopy(narratButton.state);
       narratButton.state = deepCopy(button);
       if (narratButton.previous.pressed !== narratButton.state.pressed) {
+        this.gamepadEvent();
+      }
+    }
+    for (const [index, axis] of gamepad.axes.entries()) {
+      const narratAxis = narratGamepad.axes[index];
+      narratAxis.previous = narratAxis.value;
+      narratAxis.value = axis;
+      if (narratAxis.previous !== narratAxis.value) {
         this.gamepadEvent();
       }
     }

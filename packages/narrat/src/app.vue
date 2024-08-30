@@ -22,6 +22,7 @@
       </div>
     </div>
     <TooltipsUi />
+    <InputsLegend :extraInputs="[`movement`]" />
     <div id="modals"></div>
   </div>
 </template>
@@ -43,6 +44,7 @@ import { preloadAndSetupGame } from '@/application/application-start';
 import { useScenes } from './stores/scenes-store';
 import GameScene from './components/GameScene.vue';
 import '@/data/all-stores';
+import InputsLegend from './components/input-prompt/inputs-legend.vue';
 
 const props = defineProps<{
   options: AppOptions;

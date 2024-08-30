@@ -40,12 +40,14 @@
             @click="autoPlay"
           >
             Auto
+            <InputPrompt input="autoPlay" />
           </div>
           <div
             class="nrt-button menu-toggle-button auto-button skip"
             @click="skip"
           >
             Skip
+            <InputPrompt input="skip" />
           </div>
           <div
             v-if="getCommonConfig().dialogPanel.allowHistoryToggling !== false"
@@ -88,6 +90,7 @@ import {
 import { Timeout } from '@/utils/time-helpers';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 import AutoSaveFeedback from './auto-save/auto-save-feedback.vue';
+import InputPrompt from './input-prompt/input-prompt.vue';
 
 const layoutMode = computed(() => useRenderingStore().layoutMode);
 const inputListener = computed(() => useInputs().inGameInputListener);

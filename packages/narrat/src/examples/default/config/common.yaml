@@ -61,7 +61,10 @@ saves:
     text: saving...
     backgroundImage: 'img/ui/autosave_spinner_background.png'
     foregroundImage: 'img/ui/autosave_spinner.png'
-
+input:
+  showPromptsOnGamepad: true
+  showPromptsOnKeyboard: true
+  showBottomLegend: true
 notifications:
   timeOnScreen: 2.5
   alsoPrintInDialogue: false

@@ -10,6 +10,7 @@ import {
 import { gameloop } from '@/utils/gameloop';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useMenu } from './menu-store';
+import { getCommonConfig } from '@/config';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -19,9 +20,28 @@ export interface InputStoreEvents {
 
 const defaultActions: Action[] = [
   {
+    id: 'movement',
+    type: 'button',
+    label: 'Choose',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-arrows.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/dpad.png',
+    action: 'press',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: 'ArrowLeft',
+        gamepadButton: 14,
+      },
+    ],
+  },
+  {
     id: 'left',
     type: 'button',
+    label: 'Left',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-left.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-left.png',
     action: 'press',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'ArrowLeft',
@@ -33,6 +53,10 @@ const defaultActions: Action[] = [
     id: 'right',
     type: 'button',
     action: 'press',
+    label: 'Right',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-right.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-right.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'ArrowRight',
@@ -44,6 +68,10 @@ const defaultActions: Action[] = [
     id: 'up',
     type: 'button',
     action: 'press',
+    label: 'Up',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-up.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-up.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'ArrowUp',
@@ -55,6 +83,10 @@ const defaultActions: Action[] = [
     id: 'down',
     type: 'button',
     action: 'press',
+    label: 'Down',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-down.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-down.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'ArrowDown',
@@ -66,9 +98,13 @@ const defaultActions: Action[] = [
     id: 'continue',
     type: 'button',
     action: 'press',
+    label: 'Continue',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-space.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-down.png',
+    showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'Enter',
+        keyboardKey: 'Space',
         gamepadButton: 0,
       },
     ],
@@ -77,6 +113,10 @@ const defaultActions: Action[] = [
     id: 'cancel',
     type: 'button',
     action: 'press',
+    label: 'Cancel',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-escape.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-right.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'Escape',
@@ -88,6 +128,10 @@ const defaultActions: Action[] = [
     id: 'system',
     type: 'button',
     action: 'press',
+    label: 'System Menu',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-n.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/special-right.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'n',
@@ -99,6 +143,10 @@ const defaultActions: Action[] = [
     id: 'menu',
     type: 'button',
     action: 'press',
+    label: 'Game Menu',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-m.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/special-left.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'm',
@@ -110,6 +158,10 @@ const defaultActions: Action[] = [
     id: 'previousTab',
     type: 'button',
     action: 'press',
+    label: 'Previous',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-p.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-left.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'p',
@@ -121,6 +173,10 @@ const defaultActions: Action[] = [
     id: 'nextTab',
     type: 'button',
     action: 'press',
+    label: 'Next',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-o.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-right.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'o',
@@ -132,6 +188,10 @@ const defaultActions: Action[] = [
     id: 'subPreviousTab',
     type: 'button',
     action: 'press',
+    label: 'Previous Tab',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-i.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'i',
@@ -143,6 +203,10 @@ const defaultActions: Action[] = [
     id: 'subNextTab',
     type: 'button',
     action: 'press',
+    label: 'Next Tab',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-u.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'u',
@@ -154,6 +218,10 @@ const defaultActions: Action[] = [
     id: 'viewportSelect',
     type: 'button',
     action: 'press',
+    label: 'Interact',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-v.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-left.png',
+    showInLegend: true,
     keybinds: [
       {
         keyboardKey: 'v',
@@ -165,6 +233,10 @@ const defaultActions: Action[] = [
     id: 'autoPlay',
     type: 'button',
     action: 'press',
+    label: 'Toggle Autoplay',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-a.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'a',
@@ -176,6 +248,10 @@ const defaultActions: Action[] = [
     id: 'skip',
     type: 'button',
     action: 'press',
+    label: 'Skip',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-s.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 's',
@@ -204,7 +280,7 @@ export const useInputs = defineStore('inputs', {
     ({
       inputStack: [],
       baseInputListener: null as any,
-      inputMode: 'mk' as InputMode,
+      inputMode: 'km',
       isTyping: false,
       inGameInputListener: null,
     }) as InputsStoreState,
@@ -279,6 +355,9 @@ export const useInputs = defineStore('inputs', {
       //   },
       // });
     },
+    getAction(actionId: string) {
+      return inputs.gameActions[actionId];
+    },
     triggerListeners(
       actionKey: string,
       eventType: keyof InputStoreEvents,
@@ -334,6 +413,29 @@ export const useInputs = defineStore('inputs', {
       eventsListener: InputStoreEvents,
     ) {
       listener.actions[actionId] = eventsListener;
+    },
+  },
+  getters: {
+    showPrompts(state) {
+      return (
+        (state.inputMode === 'gamepad' &&
+          getCommonConfig().input?.showPromptsOnGamepad !== false) ||
+        (state.inputMode === 'km' &&
+          getCommonConfig().input?.showPromptsOnKeyboard !== false)
+      );
+    },
+    allListeners(state) {
+      return state.inputStack
+        .map((listener) => {
+          return Object.keys(listener.actions);
+        })
+        .flat()
+        .filter((v, i, a) => a.indexOf(v) === i);
+    },
+    inputLegend(): string[] {
+      return this.allListeners.filter((listener) => {
+        return inputs.gameActions[listener].showInLegend;
+      });
     },
   },
 });

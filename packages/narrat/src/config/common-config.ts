@@ -161,6 +161,13 @@ export const ScenesConfigSchema = Type.Object({
 
 export type ScenesConfig = Static<typeof ScenesConfigSchema>;
 
+export const InputConfigSchema = Type.Object({
+  showPromptsOnKeyboard: Type.Optional(Type.Boolean()),
+  showPromptsOnGamepad: Type.Optional(Type.Boolean()),
+  showBottomLegend: Type.Optional(Type.Boolean()),
+});
+export type InputConfig = Static<typeof InputConfigSchema>;
+
 export const CommonConfigInputSchema = Type.Object({
   baseAssetsPath: Type.Optional(Type.String()),
   baseDataPath: Type.Optional(Type.String()),
@@ -184,6 +191,7 @@ export const CommonConfigInputSchema = Type.Object({
   menuButtons: Type.Optional(MenuButtonsConfigSchema),
   debugging: Type.Optional(DebuggingConfigSchema),
   saves: Type.Optional(SavesConfigSchema),
+  input: Type.Optional(InputConfigSchema),
   hotkeys: HotkeysConfigSchema,
   scenes: Type.Optional(ScenesConfigSchema),
 });
@@ -213,6 +221,7 @@ export interface CommonConfig {
   menuButtons: MenuButtonsConfig;
   debugging: DebuggingConfig;
   saves: SavesConfig;
+  input: InputConfig;
   hotkeys: HotkeysConfig;
   scenes: ScenesConfig;
 }
@@ -258,6 +267,10 @@ export const defaultCommonConfig: CommonConfig = {
   saves: {
     mode: 'manual',
     slots: 10,
+  },
+  input: {
+    showPromptsOnKeyboard: true,
+    showPromptsOnGamepad: true,
   },
   hotkeys: {},
   scenes: {},

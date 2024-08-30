@@ -15,6 +15,10 @@ dialogPanel:
   historyLength: 200 # The number of dialogue lines to keep in the history
   hideDuringTransition: true # Setting this to true will make the dialog panel hide during screen transitions
   showAfterScriptEnd: false # Setting this to true will make the dialog panel stay on even if the narrat script ends
+input:
+  showPromptsOnGamepad: true
+  showPromptsOnKeyboard: true
+  showBottomLegend: true
 graphics:
   allowFullscreen: true
 layout:

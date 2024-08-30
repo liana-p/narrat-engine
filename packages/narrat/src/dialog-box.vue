@@ -58,6 +58,7 @@
             class="interact-button nrt-button override"
           >
             Continue
+            <InputPrompt input="continue" />
           </div>
         </div>
       </div>
@@ -84,6 +85,7 @@ import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
 import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
 import { useVM } from '@/stores/vm-store';
+import InputPrompt from './components/input-prompt/input-prompt.vue';
 
 export interface TextAnimation {
   text: string;

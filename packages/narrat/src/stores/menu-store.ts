@@ -14,12 +14,14 @@ export interface MenuTabState {
   cssId?: string;
   cssClass?: string;
   text: string;
+  inputPrompt?: string;
   component: string;
 }
 
 export interface MenuState {
   id: string;
   label: string;
+  inputPrompt?: string;
   cssId?: string;
   cssClass?: string;
   tabs: MenuTabState[];

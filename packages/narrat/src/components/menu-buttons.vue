@@ -8,6 +8,10 @@
       class="nrt-button menu-toggle-button"
     >
       {{ menuButton.label }}
+      <InputPrompt
+        :input="menuButton.inputPrompt"
+        v-if="menuButton.inputPrompt"
+      />
     </button>
     <Teleport to="#narrat-app-container" v-if="menu">
       <Modal
@@ -38,6 +42,7 @@ import { inputEvents } from '@/utils/InputsListener';
 import Modal from './utils/modal-window.vue';
 import TabsController from './tabs/TabsController.vue';
 import { TabOptions } from './tabs/tab-selector.vue';
+import InputPrompt from './input-prompt/input-prompt.vue';
 
 const menuStore = useMenu();
 const keyboardListener = ref<any>(null);
