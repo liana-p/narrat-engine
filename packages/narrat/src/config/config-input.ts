@@ -6,7 +6,9 @@ import {
   CommonConfigInputSchema,
   DebuggingConfigSchema,
   DialogPanelConfigSchema,
+  GraphicsSettingsSchema,
   HudStatsConfigSchema,
+  InputConfigSchema,
   InteractionTagsConfigSchema,
   MenuButtonsConfigSchema,
   NotificationsConfigSchema,
@@ -86,6 +88,8 @@ export const ConfigInputSchemaWithoutCommon = Type.Intersect([
     menuButtons: Type.Optional(MenuButtonsConfigSchema),
     debugging: Type.Optional(DebuggingConfigSchema),
     saves: Type.Optional(SavesConfigSchema),
+    input: Type.Optional(InputConfigSchema),
+    graphics: Type.Optional(GraphicsSettingsSchema),
   }),
 ]);
 export type ConfigInputWithoutCommon = Static<

@@ -137,6 +137,8 @@ const baseConfigKeys = [
   'menuButtons',
   'debugging',
   'saves',
+  'input',
+  'graphics',
 ] as const;
 export async function extendBaseConfig(
   newConfig: Config,
