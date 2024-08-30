@@ -1,3 +1,7 @@
+## [3.14.2](https://github.com/liana-p/narrat-engine/compare/v3.14.1...v3.14.2) (2024-08-30)
+
+
+
 ## [3.14.1](https://github.com/liana-p/narrat-engine/compare/v3.14.0...v3.14.1) (2024-08-30)
 
 
