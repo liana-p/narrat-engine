@@ -1,6 +1,6 @@
 {
   "name": "narrat-template",
-  "version": "3.9.2",
+  "version": "3.14.2",
   "private": true,
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
@@ -12,8 +12,8 @@
     "vue.js",
     "snowpack"
   ],
-  "author": "Liana Pigeot <32243840+liana-p@users.noreply.github.com>",
-  "license": "MIT",
+  "author": "",
+  "license": "",
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
@@ -29,10 +29,10 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^3.10.2",
+    "narrat": "^3.14.1",
     "pinia": "^2.1.7",
     "steamworks.js": "^0.2.0",
-    "vue": "^3.4.15"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.1.1",
@@ -49,7 +49,7 @@
     "shx": "^0.3.4",
     "typescript": "^5.1.6",
     "vite": "^4.4.2",
-    "vite-plugin-narrat": "3.6.0"
+    "vite-plugin-narrat": "3.14.1"
   },
   "config": {
     "forge": {

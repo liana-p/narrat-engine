@@ -11,6 +11,12 @@ dialogPanel:
   bottomOffset: 50
   width: 475
   height: 680
+  allowHistoryToggling: true # This will add a button with the auto/skip button that allows the player to toggle viewing dialog history.
+  historyLength: 200 # The number of dialogue lines to keep in the history
+  hideDuringTransition: true # Setting this to true will make the dialog panel hide during screen transitions
+  showAfterScriptEnd: false # Setting this to true will make the dialog panel stay on even if the narrat script ends
+graphics:
+  allowFullscreen: true
 layout:
   backgrounds:
     width: 1280
@@ -28,7 +34,19 @@ hudStats: {}
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true
-menuButtons: {}
 saves:
   mode: manual
   slots: 10
+  runOnReload: 'test_label_reload'
+  autosaveDisabledOnLabels:
+    - test_no_autosave
+  allowManualSave: true
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'
+menuButtons:
+  new-game:
+    text: Start a new game
