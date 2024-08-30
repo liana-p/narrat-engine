@@ -1,3 +1,12 @@
+# [3.14.0](https://github.com/liana-p/narrat-engine/compare/v3.13.1...v3.14.0) (2024-08-30)
+
+
+### Features
+
+* autosave spinner ([78fa7e5](https://github.com/liana-p/narrat-engine/commit/78fa7e5878b5ac885e65a8b65e9e2774bdbe07cc))
+
+
+
 ## [3.13.1](https://github.com/liana-p/narrat-engine/compare/v3.13.0...v3.13.1) (2024-08-30)
 
 
