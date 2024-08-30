@@ -74,14 +74,14 @@ export const useAchievements = defineStore('achievements', {
         const unlockTime = new Date().toISOString();
         existingAchievement.unlocked = true;
         existingAchievement.unlockTime = unlockTime;
-      }
-      if (getAchievementsConfig().notifyNewAchievements) {
-        const conf = getAchievementConfig(achievement);
-        useNotifications().addNotification(
-          `New Achievement: ${conf.name}`,
-          conf.description,
-          conf.icon,
-        );
+        if (getAchievementsConfig().notifyNewAchievements) {
+          const conf = getAchievementConfig(achievement);
+          useNotifications().addNotification(
+            `New Achievement: ${conf.name}`,
+            conf.description,
+            conf.icon,
+          );
+        }
       }
     },
   },
