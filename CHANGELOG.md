@@ -1,3 +1,12 @@
+## [3.14.1](https://github.com/liana-p/narrat-engine/compare/v3.14.0...v3.14.1) (2024-08-30)
+
+
+### Features
+
+* new buttons for manual save and fullscreen ([c1f5bdd](https://github.com/liana-p/narrat-engine/commit/c1f5bdd4a10f9b0975448a8461ab61eb3b125f16))
+
+
+
 # [3.14.0](https://github.com/liana-p/narrat-engine/compare/v3.13.1...v3.14.0) (2024-08-30)
 
 
