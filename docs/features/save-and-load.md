@@ -83,6 +83,10 @@ saves:
   mode: manual
   slots: 10
   runOnReload: 'game_reload'
+  autosaveDisabledOnLabels:
+    - test_no_autosave
+  # disabled: true
+  notifyOnSave: true
 ```
 
 Then for example in the game code:
@@ -134,3 +138,28 @@ saves:
 Setting the `disabled` option to true in the saves config will remove the continue/load button, and remove the warning about erasing save slots when clicking on new game.
 
 The game will still be saving in the background, but the player won't be able to load the save.
+
+## Save notification
+
+The game automatically adds a notification on screen when autosaving. This can be disabled in the save config:
+
+```yaml
+saves:
+  notifyOnSave: false
+```
+
+## Disabling autosave on specific labels
+
+There are cases where you might want your game to _not_ autosave on specific labels. For example if there is a choice in your game that might softlock the player, you might want to prevent the player from autosaving after that choice.
+
+To do that, add the `autosaveDisabledOnLabels` option to the saves config and list all the labels that should _not_ trigger an autosave.
+
+```yaml
+saves:
+  autosaveDisabledOnLabels:
+    - no_autosave
+    - dont_save_this_label
+    - please_dont_save_me
+    - this_really_shouldnt_be_saved
+    - no_dont_save_this_label_senpai_yamete_kudasai
+```

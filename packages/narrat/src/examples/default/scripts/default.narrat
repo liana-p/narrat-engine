@@ -1,6 +1,6 @@
 dev_test:
-  run test_dialog
   run test_saves
+  run test_dialog
   run test_conditions
   run test_js
   run test_arrays

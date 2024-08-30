@@ -1,4 +1,6 @@
 test_saves:
+  "hello saves"
+  jump test_no_autosave
   jump test_save_bug
   "Let's try a save prompt"
   set data.save_test 1
@@ -37,3 +39,6 @@ test_save_bug_3:
 
 test_save_bug_4:
   "after jump"
+
+test_no_autosave:
+  "this label shouldn't autosave"

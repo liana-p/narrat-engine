@@ -49,7 +49,14 @@ saves:
   mode: manual
   slots: 10
   runOnReload: 'test_label_reload'
+  autosaveDisabledOnLabels:
+    - test_no_autosave
   # disabled: true
+  notifyOnSave: true
+
+notifications:
+  timeOnScreen: 2.5
+  alsoPrintInDialogue: false
 
 hudStats:
   money:

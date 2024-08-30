@@ -129,6 +129,8 @@ export const SavesConfigSchema = Type.Object({
   slots: Type.Number(),
   runOnReload: Type.Optional(Type.String()),
   disabled: Type.Optional(Type.Boolean()),
+  autosaveDisabledOnLabels: Type.Optional(Type.Array(Type.String())),
+  notifyOnSave: Type.Optional(Type.Boolean()),
 });
 export type SavesConfig = Static<typeof SavesConfigSchema>;
 

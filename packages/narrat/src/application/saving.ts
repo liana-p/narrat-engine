@@ -10,6 +10,8 @@ import {
 } from '@/utils/save-helpers';
 import { getPlayTime } from '@/utils/time-helpers';
 import { error } from '@/utils/error-handling';
+import { useNotifications } from '@/stores/notification-store';
+import { getCommonConfig } from '@/config';
 
 export function autoSaveGame({
   slotId,
@@ -25,6 +27,9 @@ export function autoSaveGame({
     name,
     extractedSave: extractSaveData(),
   });
+  if (getCommonConfig().saves.notifyOnSave !== false) {
+    useNotifications().addNotification('Game Saved');
+  }
 }
 
 export function setupLoadedData(save: ExtractedSave) {

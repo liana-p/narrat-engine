@@ -365,7 +365,15 @@ export const useVM = defineStore('vm', {
         }
         this.hasJumped = true;
         this.setStack(target);
-        await autoSaveGame({});
+        const autoSaveDisabledOnLabels =
+          getCommonConfig().saves.autosaveDisabledOnLabels;
+        if (
+          !autoSaveDisabledOnLabels ||
+          !autoSaveDisabledOnLabels.includes(target.label)
+        ) {
+          // Don't autosave if we're on a label that's not supposed to
+          await autoSaveGame({});
+        }
         result = await this.runFrame();
       }
       if (result === STOP_SIGNAL) {
