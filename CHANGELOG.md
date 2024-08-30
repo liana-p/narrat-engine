@@ -1,3 +1,12 @@
+# [3.15.0](https://github.com/liana-p/narrat-engine/compare/v3.14.2...v3.15.0) (2024-08-30)
+
+
+### Features
+
+* new button prompts system ([46b0717](https://github.com/liana-p/narrat-engine/commit/46b0717d137da61ef6108c30b3c623b8ff3bb86c))
+
+
+
 ## [3.14.2](https://github.com/liana-p/narrat-engine/compare/v3.14.1...v3.14.2) (2024-08-30)
 
 
