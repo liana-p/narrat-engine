@@ -111,6 +111,7 @@ const props = defineProps<{
   options: DialogBoxParameters;
   active: boolean;
   inputListener: InputListener | null;
+  index: number;
 }>();
 
 const navigation = ref<any | null>(null);
@@ -491,6 +492,13 @@ const dialogBoxClass = computed(() => {
   if (props.options.title) {
     css['dialog-box-followup'] = true;
   }
+  if (useDialogStore().isDialogCleared(props.index)) {
+    if (useDialogStore().clearedDialogVisible) {
+      css['dialog-box-cleared-visible'] = true;
+    } else {
+      css['dialog-box-cleared-disabled'] = true;
+    }
+  }
   if (props.options.old) {
     css['dialog-box-old'] = true;
   } else {
@@ -694,5 +702,11 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 
 .dialog-box-old {
   opacity: 0.7;
+}
+.dialog-box-cleared-visible {
+  opacity: 0.6;
+}
+.dialog-box-cleared-disabled {
+  display: none;
 }
 </style>

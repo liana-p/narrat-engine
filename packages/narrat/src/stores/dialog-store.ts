@@ -1,3 +1,4 @@
+import { getCommonConfig } from '@/config';
 import { deepCopy } from '@/utils/data-helpers';
 import { randomId } from '@/utils/randomId';
 import { processText } from '@/utils/string-helpers';
@@ -29,6 +30,8 @@ export interface DialogChoice {
 type DialogState = {
   dialog: DialogKey[];
   playMode: 'auto' | 'skip' | 'normal';
+  clearedAt: number;
+  clearedDialogVisible: boolean;
 };
 export type DialogSave = Pick<DialogState, 'dialog'>;
 
@@ -37,6 +40,8 @@ export const useDialogStore = defineStore('dialog', {
     ({
       dialog: [],
       playMode: 'normal',
+      clearedAt: 0,
+      clearedDialogVisible: false,
     }) as DialogState,
   actions: {
     generateSaveData(): DialogSave {
@@ -54,8 +59,10 @@ export const useDialogStore = defineStore('dialog', {
         id: randomId(),
         text: processText(dialog.text),
       });
-      if (this.dialog.length > 200) {
+      const historyLength = getCommonConfig().dialogPanel.historyLength ?? 200;
+      if (this.dialog.length > historyLength) {
         this.dialog.shift();
+        this.clearedAt--;
       }
     },
     toggleAutoPlay() {
@@ -64,11 +71,17 @@ export const useDialogStore = defineStore('dialog', {
     toggleSkip() {
       this.playMode = this.playMode === 'skip' ? 'normal' : 'skip';
     },
+    toggleHistory() {
+      this.clearedDialogVisible = !this.clearedDialogVisible;
+    },
     clearDialog() {
-      this.dialog.splice(0, this.dialog.length);
+      this.clearedAt = this.dialog.length;
     },
     makeLastDialogInteractive() {
       this.dialog[this.dialog.length - 1].interactive = true;
+    },
+    isDialogCleared(index: number) {
+      return index < this.clearedAt;
     },
     reset() {
       this.dialog = [];

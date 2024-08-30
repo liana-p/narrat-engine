@@ -12,7 +12,7 @@ import scenes from './test_scenes.narrat';
 import js from './test_js.narrat';
 import conditions from './conditions.narrat';
 import saves from './test_saves.narrat';
-
+import dialog from './test_dialog.narrat';
 export default [
   game,
   arrays,
@@ -28,4 +28,5 @@ export default [
   js,
   conditions,
   saves,
+  dialog,
 ];

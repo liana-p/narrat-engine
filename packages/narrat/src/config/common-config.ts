@@ -24,6 +24,8 @@ export const DialogPanelConfigSchema = Type.Optional(
     width: Type.Optional(Type.Number()),
     height: Type.Optional(Type.Number()),
     hideDuringTransition: Type.Optional(Type.Boolean()),
+    historyLength: Type.Optional(Type.Number()),
+    allowHistoryToggling: Type.Optional(Type.Boolean()),
     showAfterScriptEnd: Type.Optional(Type.Boolean()),
   }),
 );

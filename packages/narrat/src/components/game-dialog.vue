@@ -28,6 +28,7 @@
           :key="val.id"
           :options="getDialogBoxOptions(val, i)"
           :active="isDialogActive(i)"
+          :index="i"
           :inputListener="inputListener"
         />
       </transition-group>
@@ -44,6 +45,13 @@
             @click="skip"
           >
             Skip
+          </div>
+          <div
+            v-if="getCommonConfig().dialogPanel.allowHistoryToggling !== false"
+            class="nrt-button menu-toggle-button auto-button toggle-history"
+            @click="toggleHistory"
+          >
+            Toggle History
           </div>
         </div>
       </Teleport>
@@ -257,6 +265,9 @@ function autoPlay() {
 }
 function skip() {
   useDialogStore().toggleSkip();
+}
+function toggleHistory() {
+  useDialogStore().toggleHistory();
 }
 function getDialogBoxOptions(
   dialogKey: DialogKey,
