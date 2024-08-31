@@ -141,6 +141,10 @@ const viewportStyle = computed<CSSProperties>(() => {
   };
 });
 
+const viewportActionsActive = computed(() => {
+  return interactivesList.value.length > 0;
+});
+
 onMounted(() => {
   nextTick(() => {
     if (inputsListener.value) {
@@ -158,6 +162,7 @@ onMounted(() => {
             interactivesList.value.length - 1,
           );
         },
+        active: viewportActionsActive,
       };
       actions.left = actions.previousTab;
       actions.nextTab = {
@@ -173,6 +178,7 @@ onMounted(() => {
             interactivesList.value.length - 1,
           );
         },
+        active: viewportActionsActive,
       };
       actions.right = actions.nextTab;
       actions.viewportSelect = {
@@ -188,6 +194,7 @@ onMounted(() => {
             }
           }
         },
+        active: viewportActionsActive,
       };
     }
   });

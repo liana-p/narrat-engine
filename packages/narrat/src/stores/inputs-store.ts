@@ -11,11 +11,13 @@ import { gameloop } from '@/utils/gameloop';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useMenu } from './menu-store';
 import { getCommonConfig } from '@/config';
+import { ComputedRef } from 'vue';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
   release?: ButtonEvent;
   analogChange?: AnalogEvent;
+  active?: ComputedRef<boolean>;
 }
 
 const defaultActions: Action[] = [
@@ -414,6 +416,19 @@ export const useInputs = defineStore('inputs', {
     ) {
       listener.actions[actionId] = eventsListener;
     },
+    getInputEvents(input: string): InputStoreEvents | null {
+      const listener = this.inputStack[this.inputStack.length - 1];
+      if (!listener) return null;
+      return listener.actions[input] ?? null;
+    },
+    isInputActive(input: string) {
+      const evt = this.getInputEvents(input);
+      if (!evt) return false;
+      if (typeof evt.active === 'boolean') {
+        return evt.active;
+      }
+      return true;
+    },
   },
   getters: {
     showPrompts(state) {
@@ -432,9 +447,19 @@ export const useInputs = defineStore('inputs', {
         .flat()
         .filter((v, i, a) => a.indexOf(v) === i);
     },
-    inputLegend(): string[] {
-      return this.allListeners.filter((listener) => {
-        return inputs.gameActions[listener].showInLegend;
+    inputLegend(state): string[] {
+      return this.allListeners.filter((inputName) => {
+        // Check if the listener is active
+        const listener = this.inputStack[this.inputStack.length - 1];
+        if (!listener) return null;
+        const evt = listener.actions[inputName] ?? null;
+        if (!evt) return false;
+        // For some reason the computed value is processed already here
+        if ((evt.active as any) === false) {
+          return false;
+        }
+        // Check if the input should be shown in the legend
+        return inputs.gameActions[inputName].showInLegend;
       });
     },
   },
