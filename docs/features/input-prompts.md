@@ -46,7 +46,7 @@ Some of the images are unused at the moment but are there for future use. For ex
 
 Default input prompts are included with the game template and come from the great [Kenney input prompts](https://www.kenney.nl/assets/input-prompts) asset pack. Assets are 64x64 png, though you are free to make them bigger.
 
-::: warn
+::: danger
 Make sure to keep the exact same file names and format (png) when replacing input prompts.
 :::
 
@@ -59,3 +59,9 @@ All input prompts are rendered by the same component in the UI with the followin
   - `<img>` tag with the css class `input-prompt-icon`
 
 The prompts are displayed inline with a size of `1.4em`. `em` units are relative to the parent's font size, so this allows button prompts to automatically match the size of the text they are next to.
+
+## Adding input prompts to an existing game before the update
+
+If your game project started before the input prompts feature was added (3.15.0), you will need to manually add input prompt icons to your game.
+
+The simplest way to do this would be to create a new narrat game in a folder (`npm create narrat@latest`), find the button-prompts folder in the new game, and copy it to your existing game in the same place. Then you can customise the images if desired.
