@@ -33,7 +33,7 @@ type DialogState = {
   clearedAt: number;
   clearedDialogVisible: boolean;
 };
-export type DialogSave = Pick<DialogState, 'dialog'>;
+export type DialogSave = Pick<DialogState, 'dialog' | 'clearedAt'>;
 
 export const useDialogStore = defineStore('dialog', {
   state: () =>
@@ -47,10 +47,12 @@ export const useDialogStore = defineStore('dialog', {
     generateSaveData(): DialogSave {
       return {
         dialog: deepCopy(this.dialog),
+        clearedAt: this.clearedAt,
       };
     },
     loadSaveData(data: DialogSave) {
       this.dialog = deepCopy(data.dialog);
+      this.clearedAt = data.clearedAt;
     },
     addDialog(dialog: AddDialogParams) {
       this.dialog.push({
@@ -86,6 +88,8 @@ export const useDialogStore = defineStore('dialog', {
     reset() {
       this.dialog = [];
       this.playMode = 'normal';
+      this.clearedAt = 0;
+      this.clearedDialogVisible = false;
     },
   },
   getters: {
