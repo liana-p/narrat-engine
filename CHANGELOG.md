@@ -1,3 +1,13 @@
+## [3.15.1](https://github.com/liana-p/narrat-engine/compare/v3.15.0...v3.15.1) (2024-08-31)
+
+
+### Bug Fixes
+
+* input legend now won't show inputs that aren't being used yet ([1354bf2](https://github.com/liana-p/narrat-engine/commit/1354bf276c8950a9c25eced4c767562d96a5bd63))
+* properly save cleared dialog to avoid a save bug ([a5b1dda](https://github.com/liana-p/narrat-engine/commit/a5b1ddac980fb6d31995ccdcb069ba3a9c2eae4b))
+
+
+
 # [3.15.0](https://github.com/liana-p/narrat-engine/compare/v3.14.2...v3.15.0) (2024-08-30)
 
 
