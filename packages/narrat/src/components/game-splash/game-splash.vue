@@ -44,7 +44,7 @@ function goToStartMenu() {
 }
 onMounted(() => {
   inputListener.value = useInputs().registerInputListener('game-splash', {
-    continue: {
+    confirm: {
       press: () => {
         goToStartMenu();
       },

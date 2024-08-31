@@ -177,7 +177,7 @@ export function useNavigation(options: NavigationOptions) {
     }
   }
 
-  function buttonContinue() {
+  function buttonConfirm() {
     if (options.onChosen) {
       options.onChosen(selectedIndex.value);
     }
@@ -199,7 +199,7 @@ export function useNavigation(options: NavigationOptions) {
       delete options.listener.actions.down;
     }
     if (!options.noChoosing) {
-      delete options.listener.actions.continue;
+      delete options.listener.actions.confirm;
     }
     if (changeInputListener.value) {
       inputs.removeEventListener('change-input', changeInputListener.value);
@@ -246,8 +246,8 @@ export function useNavigation(options: NavigationOptions) {
       };
     }
     if (!options.noChoosing) {
-      options.listener.actions.continue = {
-        press: buttonContinue,
+      options.listener.actions.confirm = {
+        press: buttonConfirm,
       };
     }
     select(0);

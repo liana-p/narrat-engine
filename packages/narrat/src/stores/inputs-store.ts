@@ -103,10 +103,25 @@ const defaultActions: Action[] = [
     label: 'Continue',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-space.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-down.png',
-    showInLegend: true,
+    showInLegend: false,
     keybinds: [
       {
         keyboardKey: 'Space',
+        gamepadButton: 0,
+      },
+    ],
+  },
+  {
+    id: 'confirm',
+    type: 'button',
+    action: 'press',
+    label: 'Confirm',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-enter.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-down.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: 'Enter',
         gamepadButton: 0,
       },
     ],

@@ -101,7 +101,7 @@ onMounted(() => {
         }
       },
     },
-    continue: {
+    confirm: {
       press: () => {
         if (
           matches.value.length > 0 &&
