@@ -113,6 +113,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
       },
       { text: 'Hotkeys', link: 'hotkeys' },
       { text: 'HUD Stats', link: 'hud-stats' },
+      { text: 'Input Prompts', link: 'input-prompts' },
       { text: 'Inventory', link: 'inventory' },
       { text: 'Items', link: 'items' },
       { text: 'Quests', link: 'quests' },
