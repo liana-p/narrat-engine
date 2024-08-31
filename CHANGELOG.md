@@ -1,3 +1,12 @@
+## [3.15.2](https://github.com/liana-p/narrat-engine/compare/v3.15.1...v3.15.2) (2024-08-31)
+
+
+### Bug Fixes
+
+* debug jump now working again ([060e10b](https://github.com/liana-p/narrat-engine/commit/060e10b24a20acd2ba4157d3a49e570d2e38a00d))
+
+
+
 ## [3.15.1](https://github.com/liana-p/narrat-engine/compare/v3.15.0...v3.15.1) (2024-08-31)
 
 
