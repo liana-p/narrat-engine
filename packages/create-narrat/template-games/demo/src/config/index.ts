@@ -7,6 +7,7 @@ import quests from './quests.yaml';
 import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
+import fonts from './fonts.yaml';
 import { ModuleConfigInput } from 'narrat';
 
 const gameConfigs: ModuleConfigInput = {
@@ -19,5 +20,6 @@ const gameConfigs: ModuleConfigInput = {
   screens,
   skills,
   skillChecks,
+  fonts,
 };
 export default gameConfigs;

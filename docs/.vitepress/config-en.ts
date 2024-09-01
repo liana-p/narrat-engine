@@ -101,6 +101,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
         text: 'Dialog Panel',
         link: 'dialog-panel',
       },
+      { text: 'Fonts', link: 'fonts' },
       { text: 'Game Settings', link: 'game-settings' },
       { text: 'Gamepad support', link: 'gamepad' },
       {

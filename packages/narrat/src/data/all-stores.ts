@@ -20,6 +20,7 @@ import { useMain } from '@/stores/main-store';
 import { setupAllStores } from '@/stores/stores-management';
 import { useConfig } from '@/stores/config-store';
 import { useScenes } from '@/stores/scenes-store';
+import { useFontsStore } from '@/stores/fonts-store';
 
 export const sourceAllStores = {
   main: {
@@ -113,6 +114,12 @@ export const sourceAllStores = {
     store: useScenes,
     save: 'scenes',
     avoidReset: true,
+  },
+  fonts: {
+    store: useFontsStore,
+    save: 'fonts',
+    config: 'fonts',
+    avoidReset: false,
   },
 } as const;
 export type AllStores = typeof sourceAllStores;

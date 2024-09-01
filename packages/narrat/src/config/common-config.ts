@@ -158,7 +158,6 @@ export const ScenesConfigSchema = Type.Object({
   gameScene: Type.Optional(Type.String()),
   gameSplashScene: Type.Optional(Type.String()),
 });
-
 export type ScenesConfig = Static<typeof ScenesConfigSchema>;
 
 export const InputConfigSchema = Type.Object({

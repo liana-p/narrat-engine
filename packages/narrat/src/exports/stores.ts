@@ -16,3 +16,4 @@ export { useTooltips } from '@/stores/tooltip-store';
 export { useVM } from '@/stores/vm-store';
 export { useAchievements } from '@/stores/achievements-store';
 export { useScenes } from '@/stores/scenes-store';
+export { useFontsStore } from '@/stores/fonts-store';

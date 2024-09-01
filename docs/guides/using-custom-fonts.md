@@ -9,6 +9,12 @@ You probably want to use custom fonts in your games. This is easy to do in Narra
 
 For custom fonts, you will need to load a web font ([see below](#about-web-fonts)). For basic built-in fonts, you can use the default fonts available in CSS.
 
+::: tip
+Narrat now has a [font sets feature](../features/fonts.md) which lets players choose their preferred font in the system menu. If you just want to use custom fonts in a simple way that lets players pick between multiple fonts, it's probably better to start here.
+
+For more advanced usage and adding more granular custom fonts, read on.
+:::
+
 ## How to use a font in CSS
 
 Generally, in CSS, to use a font you simply need to specify its name in a CSS class (in `src/css/main.css`):
