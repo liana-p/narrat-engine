@@ -1,3 +1,12 @@
+# [3.16.0](https://github.com/liana-p/narrat-engine/compare/v3.15.4...v3.16.0) (2024-09-01)
+
+
+### Features
+
+* new custom fonts feature ([77e8564](https://github.com/liana-p/narrat-engine/commit/77e85645f093f761c48541122a618747e8194112))
+
+
+
 ## [3.15.4](https://github.com/liana-p/narrat-engine/compare/v3.15.3...v3.15.4) (2024-09-01)
 
 
