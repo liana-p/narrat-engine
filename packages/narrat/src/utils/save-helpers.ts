@@ -292,8 +292,10 @@ export function processAutoSave({
 }
 
 export function writeGlobalSave(globalSave: GlobalGameSave) {
-  saveFile.globalSave = globalSave;
-  save();
+  if (saveFile) {
+    saveFile.globalSave = globalSave;
+    save();
+  }
 }
 
 export function manualSave(
