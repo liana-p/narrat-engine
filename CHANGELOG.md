@@ -1,3 +1,12 @@
+## [3.15.3](https://github.com/liana-p/narrat-engine/compare/v3.15.2...v3.15.3) (2024-09-01)
+
+
+### Bug Fixes
+
+* make cleared dialog behave the same as it did before the history update ([d0ce1fc](https://github.com/liana-p/narrat-engine/commit/d0ce1fc0e40ad26b8df2ba974fcf96b978eff1f1))
+
+
+
 ## [3.15.2](https://github.com/liana-p/narrat-engine/compare/v3.15.1...v3.15.2) (2024-08-31)
 
 
