@@ -130,6 +130,9 @@ export const useMenu = defineStore('menu', {
         this.activeMenu = 'menu';
       }
     },
+    reset() {
+      this.activeMenu = false;
+    },
   },
 });
 
