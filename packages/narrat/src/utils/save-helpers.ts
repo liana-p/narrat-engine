@@ -291,6 +291,11 @@ export function processAutoSave({
   return finalSaveData;
 }
 
+export function writeGlobalSave(globalSave: GlobalGameSave) {
+  saveFile.globalSave = globalSave;
+  save();
+}
+
 export function manualSave(
   saveData: CurrentSaveData,
   playTime: number,

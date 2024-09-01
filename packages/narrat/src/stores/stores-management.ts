@@ -48,9 +48,8 @@ export function resetAllStores() {
   });
 }
 
-export function extractSaveData(): ExtractedSave {
+export function extractGameSaveData(): ExtractedGameSave {
   const saveData: ExtractedGameSave = {} as any;
-  const globalSave: GlobalGameSave = {} as any;
   for (const key in allStores) {
     const data = allStores[key];
     if (isSaveableStore(data)) {
@@ -60,16 +59,6 @@ export function extractSaveData(): ExtractedSave {
       } else {
         error(
           `Store ${key} has no generateSaveData method. Trying to generate save data for ${data.save}`,
-        );
-      }
-    }
-    if (isGlobalSaveableStore(data)) {
-      const store = data.store();
-      if (store.generateGlobalSaveData) {
-        globalSave[data.globalSave] = store.generateGlobalSaveData();
-      } else {
-        error(
-          `Store ${key} has no generateGlobalSaveData method. Trying to generate save data for ${data.globalSave}`,
         );
       }
     }
@@ -84,13 +73,37 @@ export function extractSaveData(): ExtractedSave {
     if (store.save) {
       const customStoreSaveData = store.save();
       if (customStoreSaveData) {
-        if(saveData.customStores == undefined) {
+        if (saveData.customStores == undefined) {
           saveData.customStores = {};
         }
         saveData.customStores[storeName] = customStoreSaveData;
       }
     }
   });
+  return saveData;
+}
+
+export function extractGlobalSaveData(): GlobalGameSave {
+  const globalSave: GlobalGameSave = {} as any;
+  for (const key in allStores) {
+    const data = allStores[key];
+    if (isGlobalSaveableStore(data)) {
+      const store = data.store();
+      if (store.generateGlobalSaveData) {
+        globalSave[data.globalSave] = store.generateGlobalSaveData();
+      } else {
+        error(
+          `Store ${key} has no generateGlobalSaveData method. Trying to generate save data for ${data.globalSave}`,
+        );
+      }
+    }
+  }
+  return globalSave;
+}
+
+export function extractSaveData(): ExtractedSave {
+  const saveData = extractGameSaveData();
+  const globalSave = extractGlobalSaveData();
   return {
     gameSave: saveData,
     globalSave,

@@ -10,6 +10,7 @@ import {
   AchievementsConfig,
 } from '@/config/achievements-config';
 import { useConfig } from './config-store';
+import { updateGlobalSave } from '@/application/saving';
 
 export interface AchievementState {
   id: string;
@@ -82,6 +83,7 @@ export const useAchievements = defineStore('achievements', {
             conf.icon,
           );
         }
+        updateGlobalSave();
       }
     },
   },

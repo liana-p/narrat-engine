@@ -86,7 +86,6 @@ saves:
   autosaveDisabledOnLabels:
     - test_no_autosave
   # disabled: true
-  notifyOnSave: true
 ```
 
 Then for example in the game code:
@@ -138,15 +137,6 @@ saves:
 Setting the `disabled` option to true in the saves config will remove the continue/load button, and remove the warning about erasing save slots when clicking on new game.
 
 The game will still be saving in the background, but the player won't be able to load the save.
-
-## Save notification
-
-The game automatically adds a notification on screen when autosaving. This can be disabled in the save config:
-
-```yaml
-saves:
-  notifyOnSave: false
-```
 
 ## Disabling autosave on specific labels
 
