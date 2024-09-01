@@ -1,3 +1,13 @@
+## [3.15.4](https://github.com/liana-p/narrat-engine/compare/v3.15.3...v3.15.4) (2024-09-01)
+
+
+### Bug Fixes
+
+* menus now close when returning to the menu ([0e996ef](https://github.com/liana-p/narrat-engine/commit/0e996ef9dbb5fb108af8953f4c6d4521571e2907))
+* save achievements as soon as they're unlocked ([92cb0b6](https://github.com/liana-p/narrat-engine/commit/92cb0b6ba54b2b0f235d45ca49ec63554aaeda7b))
+
+
+
 ## [3.15.3](https://github.com/liana-p/narrat-engine/compare/v3.15.2...v3.15.3) (2024-09-01)
 
 
