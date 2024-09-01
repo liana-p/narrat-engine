@@ -120,7 +120,11 @@ const dialogContainerStyle = computed((): any => {
 
 const lastDialog = computed((): DialogKey | undefined => {
   if (dialog.value.length > 0) {
-    return dialog.value[dialog.value.length - 1];
+    const result = dialog.value[dialog.value.length - 1];
+    if (dialogStore.isDialogCleared(dialog.value.length - 1)) {
+      return undefined;
+    }
+    return result;
   }
   return undefined;
 });

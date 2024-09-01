@@ -19,7 +19,7 @@ The input legend is an always-on list of input prompts at the bottom of the scre
 
 Individual input prompts appear in various relevant bits of the UI:
 
-![Input prompts](./input-prompts/input-prompts.webp)
+![Input prompt](./input-prompts/input-prompt.webp)
 
 ## Configuration
 
