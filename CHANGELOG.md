@@ -1,3 +1,12 @@
+## [3.16.1](https://github.com/liana-p/narrat-engine/compare/v3.16.0...v3.16.1) (2024-09-06)
+
+
+### Bug Fixes
+
+* issue with character names not appearing after a clear_dialog if same character is speaking ([847cbb5](https://github.com/liana-p/narrat-engine/commit/847cbb5108b86d3ec9198ee9e075e13e9f8a73f0))
+
+
+
 # [3.16.0](https://github.com/liana-p/narrat-engine/compare/v3.15.4...v3.16.0) (2024-09-01)
 
 
