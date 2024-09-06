@@ -283,10 +283,14 @@ function getDialogBoxOptions(
   index: number,
 ): DialogBoxParameters {
   const info = getCharacterInfo(dialogKey.speaker);
+  const dialogStore = useDialogStore();
   let title: string | undefined = info?.name ?? 'Missing Character';
   if (index >= 1) {
     const previousDialog = dialog.value[index - 1];
-    if (previousDialog.speaker === dialogKey.speaker) {
+    if (
+      !dialogStore.isDialogCleared(index - 1) &&
+      previousDialog.speaker === dialogKey.speaker
+    ) {
       title = undefined;
     }
   }

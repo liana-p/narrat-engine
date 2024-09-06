@@ -474,7 +474,7 @@ export const useInputs = defineStore('inputs', {
           return false;
         }
         // Check if the input should be shown in the legend
-        return inputs.gameActions[inputName].showInLegend;
+        return inputs.gameActions[inputName]?.showInLegend;
       });
     },
   },
