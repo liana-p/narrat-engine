@@ -46,6 +46,14 @@ This will create an application for your OS in the `out/` folder, which you can 
 
 Please look at the [electron documentation](https://www.electronjs.org/docs/latest/) if you want to customise how your app is built, window sizes and other things (hint: Most of it takes place in the `electron-something.js` files at the root of the repo)
 
+## Important notes on releasing
+
+There are a few things worth noting if you're releasing anything serious and don't want to run into issues:
+
+- Make sure you release the right folder in `out` if you're releasing an executable, or a zip of `dist` for web. Don't accidentally include your source code files.
+- By default the narrat template `package.json` file has a `license` field saying `MIT`. This is the license for the template itself, but you should delete or change that to not accidentally imply that your game is under MIT license (unless you want it to be). Similarly you should change or delete the `LICENSE` file at the root.
+- If you want to release on Steam, remember to edit the `steam_appid.txt` file and include it in your final build alongside the executable
+
 ## Releasing on itch.io
 
 A common platform to release narrat games on is [itch.io](https://itch.io), as it's a friendly platform for small indie games.

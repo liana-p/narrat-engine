@@ -1,6 +1,6 @@
 {
   "name": "narrat-template",
-  "version": "3.16.0",
+  "version": "3.16.2",
   "private": true,
   "description": "Template for Narrat game engine",
   "main": "electron-main.js",
@@ -22,14 +22,17 @@
     "type-check": "tsc --noEmit",
     "desktop": "npm run build && npm run electron",
     "electron": "electron .",
-    "package": "npm run build && electron-forge package && shx cp steam_appid.txt out/narrat-template-win32-x64/steam_appid.txt",
-    "package-mac": "npm run build && electron-forge package",
+    "package": "npm run build && electron-forge package",
+    "package-mac-intel": "npm run build && electron-forge package --arch=x64 --platform=darwin",
+    "package-mac-apple": "npm run build && electron-forge package --arch=arm64 --platform=darwin",
+    "package-mac-universal": "npm run build && electron-forge package --arch=universal --platform=darwin",
+    "package-linux": "npm run build && electron-forge package",
     "make": "electron-forge make"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^3.16.0",
+    "narrat": "^3.16.2",
     "pinia": "^2.1.7",
     "steamworks.js": "^0.2.0",
     "vue": "^3.4.21"
@@ -53,7 +56,24 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "icon.png",
+        "ignore": [
+          "public",
+          "src",
+          "types",
+          ".nvmrc",
+          ".gitignore",
+          ".prettierignore",
+          ".prettierrc.json",
+          "package-lock.json",
+          "LICENSE",
+          "README.md",
+          "steam_appid.txt",
+          "tsconfig.json",
+          "vite.config.ts"
+        ]
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
