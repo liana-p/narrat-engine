@@ -2,6 +2,7 @@ import { getButtonConfig } from '@/config';
 import { ScreenObjectState } from '@/stores/screen-objects-store';
 import { isViewportElementClickable } from './viewport-utils';
 import { useScreens } from '@/stores/screens-store';
+import { useInputs } from '@/stores/inputs-store';
 
 export interface RenderingState {
   selected: boolean;
@@ -61,8 +62,9 @@ export function getRenderingStateForButton(
 ): RenderingState {
   const buttonConfig = getButtonConfig(button);
   const state = useScreens().getButtonState(button);
+  const input = useInputs().inputMode;
   return {
-    selected,
+    selected: selected && input === 'gamepad',
     clickable: useScreens().isButtonInteractible(button),
     viewportClickable: isViewportElementClickable(buttonConfig)!,
     transitioning,

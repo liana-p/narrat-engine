@@ -1,0 +1,44 @@
+test_saves:
+  "hello saves"
+  jump test_no_autosave
+  jump test_save_bug
+  "Let's try a save prompt"
+  set data.save_test 1
+  jump test_save_prompt
+
+test_save_prompt:
+  save_prompt
+  "Hello world"
+  jump test_saves_3
+
+test_saves_3:
+  "now we're done a jump"
+  jump main
+
+
+test_save_bug:
+  set data.hello false
+  "hi"
+  jump test_save_bug_2
+
+test_save_bug_2:
+  save_prompt
+  start_quest saveBugQuest
+  "Before jump: %{$data.hello}"
+  var is_complete (quest_completed? saveBugQuest)
+  "Quest completed: %{$is_complete}"
+  jump test_save_bug_3
+
+test_save_bug_3:
+  set data.hello true
+  complete_quest saveBugQuest
+  "After jump: %{$data.hello}"
+  var is_complete (quest_completed? saveBugQuest)
+  "Quest completed: %{$is_complete}"
+  jump test_save_bug_4
+
+test_save_bug_4:
+  "after jump"
+
+test_no_autosave:
+  "this label shouldn't autosave"

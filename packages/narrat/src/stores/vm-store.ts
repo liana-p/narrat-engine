@@ -101,7 +101,7 @@ export const useVM = defineStore('vm', {
               id: value.id,
             };
           } else {
-            return value;
+            return null;
           }
         }),
       };
@@ -214,7 +214,7 @@ export const useVM = defineStore('vm', {
       this.$reset();
       this.stack = [];
       this.data = {};
-      this.hasJumped = true;
+      this.hasJumped = false;
       this.setStack({
         currentIndex: 0,
         branchData: {
@@ -365,7 +365,15 @@ export const useVM = defineStore('vm', {
         }
         this.hasJumped = true;
         this.setStack(target);
-        await autoSaveGame({});
+        const autoSaveDisabledOnLabels =
+          getCommonConfig().saves.autosaveDisabledOnLabels;
+        if (
+          !autoSaveDisabledOnLabels ||
+          !autoSaveDisabledOnLabels.includes(target.label)
+        ) {
+          // Don't autosave if we're on a label that's not supposed to
+          await autoSaveGame({});
+        }
         result = await this.runFrame();
       }
       if (result === STOP_SIGNAL) {

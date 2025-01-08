@@ -22,6 +22,7 @@ import { ChoicesConfig, defaultChoicesConfig } from './choices-config';
 import { AnimationsConfig, defaultAnimationsConfig } from './animations-config';
 import { MacrosConfig, defaultMacrosConfig } from './macros-config';
 import { PreloadConfig, defaultPreloadConfig } from './preload-config';
+import { defaultFontsConfig, FontsConfig } from './fonts-config';
 
 export interface Config {
   common: CommonConfig;
@@ -40,6 +41,7 @@ export interface Config {
   choices: ChoicesConfig;
   macros: MacrosConfig;
   preload: PreloadConfig;
+  fonts: FontsConfig;
 }
 
 export const defaultConfig: Config = {
@@ -59,6 +61,7 @@ export const defaultConfig: Config = {
   animations: defaultAnimationsConfig,
   macros: defaultMacrosConfig,
   preload: defaultPreloadConfig,
+  fonts: defaultFontsConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

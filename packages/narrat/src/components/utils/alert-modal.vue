@@ -38,7 +38,7 @@ const inputListener = ref<InputListener | null>(
         close();
       },
     },
-    continue: {
+    confirm: {
       press: () => {
         close();
       },

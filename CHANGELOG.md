@@ -1,3 +1,206 @@
+## [3.16.3](https://github.com/liana-p/narrat-engine/compare/v3.16.1...v3.16.3) (2024-11-24)
+
+
+
+## [3.16.3](https://github.com/liana-p/narrat-engine/compare/v3.16.1...v3.16.3) (2024-11-24)
+
+
+
+## [3.16.3](https://github.com/liana-p/narrat-engine/compare/v3.16.1...v3.16.3) (2024-11-24)
+
+
+
+
+## [3.16.1](https://github.com/liana-p/narrat-engine/compare/v3.16.0...v3.16.1) (2024-09-06)
+
+
+### Bug Fixes
+
+* issue with character names not appearing after a clear_dialog if same character is speaking ([847cbb5](https://github.com/liana-p/narrat-engine/commit/847cbb5108b86d3ec9198ee9e075e13e9f8a73f0))
+
+
+
+# [3.16.0](https://github.com/liana-p/narrat-engine/compare/v3.15.4...v3.16.0) (2024-09-01)
+
+
+### Features
+
+* new custom fonts feature ([77e8564](https://github.com/liana-p/narrat-engine/commit/77e85645f093f761c48541122a618747e8194112))
+
+
+
+## [3.15.4](https://github.com/liana-p/narrat-engine/compare/v3.15.3...v3.15.4) (2024-09-01)
+
+
+### Bug Fixes
+
+* menus now close when returning to the menu ([0e996ef](https://github.com/liana-p/narrat-engine/commit/0e996ef9dbb5fb108af8953f4c6d4521571e2907))
+* save achievements as soon as they're unlocked ([92cb0b6](https://github.com/liana-p/narrat-engine/commit/92cb0b6ba54b2b0f235d45ca49ec63554aaeda7b))
+
+
+
+## [3.15.3](https://github.com/liana-p/narrat-engine/compare/v3.15.2...v3.15.3) (2024-09-01)
+
+
+### Bug Fixes
+
+* make cleared dialog behave the same as it did before the history update ([d0ce1fc](https://github.com/liana-p/narrat-engine/commit/d0ce1fc0e40ad26b8df2ba974fcf96b978eff1f1))
+
+
+
+## [3.15.2](https://github.com/liana-p/narrat-engine/compare/v3.15.1...v3.15.2) (2024-08-31)
+
+
+### Bug Fixes
+
+* debug jump now working again ([060e10b](https://github.com/liana-p/narrat-engine/commit/060e10b24a20acd2ba4157d3a49e570d2e38a00d))
+
+
+
+## [3.15.1](https://github.com/liana-p/narrat-engine/compare/v3.15.0...v3.15.1) (2024-08-31)
+
+
+### Bug Fixes
+
+* input legend now won't show inputs that aren't being used yet ([1354bf2](https://github.com/liana-p/narrat-engine/commit/1354bf276c8950a9c25eced4c767562d96a5bd63))
+* properly save cleared dialog to avoid a save bug ([a5b1dda](https://github.com/liana-p/narrat-engine/commit/a5b1ddac980fb6d31995ccdcb069ba3a9c2eae4b))
+
+
+
+# [3.15.0](https://github.com/liana-p/narrat-engine/compare/v3.14.2...v3.15.0) (2024-08-30)
+
+
+### Features
+
+* new button prompts system ([46b0717](https://github.com/liana-p/narrat-engine/commit/46b0717d137da61ef6108c30b3c623b8ff3bb86c))
+
+
+
+## [3.14.2](https://github.com/liana-p/narrat-engine/compare/v3.14.1...v3.14.2) (2024-08-30)
+
+
+
+## [3.14.1](https://github.com/liana-p/narrat-engine/compare/v3.14.0...v3.14.1) (2024-08-30)
+
+
+### Features
+
+* new buttons for manual save and fullscreen ([c1f5bdd](https://github.com/liana-p/narrat-engine/commit/c1f5bdd4a10f9b0975448a8461ab61eb3b125f16))
+
+
+
+# [3.14.0](https://github.com/liana-p/narrat-engine/compare/v3.13.1...v3.14.0) (2024-08-30)
+
+
+### Features
+
+* autosave spinner ([78fa7e5](https://github.com/liana-p/narrat-engine/commit/78fa7e5878b5ac885e65a8b65e9e2774bdbe07cc))
+
+
+
+## [3.13.1](https://github.com/liana-p/narrat-engine/compare/v3.13.0...v3.13.1) (2024-08-30)
+
+
+### Features
+
+* new option to not autosave on specific labels ([8dea6b1](https://github.com/liana-p/narrat-engine/commit/8dea6b116909dd2e6fa78baa928ce45b877bfc6a))
+* only show achievement unlock notification if not already unlocked ([bdb9f5b](https://github.com/liana-p/narrat-engine/commit/bdb9f5b31626a6c57095c8ed8a8b02494f3a939d))
+
+
+
+# [3.13.0](https://github.com/liana-p/narrat-engine/compare/v3.12.4...v3.13.0) (2024-08-30)
+
+
+### Features
+
+* new button to show history of dialogue ([a8d5052](https://github.com/liana-p/narrat-engine/commit/a8d505292dbe783ef55ff887aa645b2e25137176))
+
+
+
+## [3.12.4](https://github.com/liana-p/narrat-engine/compare/v3.12.3...v3.12.4) (2024-08-18)
+
+
+### Bug Fixes
+
+* accidental change to modals css ([b12f654](https://github.com/liana-p/narrat-engine/commit/b12f65468b18cded93bb0232b057297847b02c01))
+
+
+
+## [3.12.3](https://github.com/liana-p/narrat-engine/compare/v3.12.2...v3.12.3) (2024-08-18)
+
+
+### Bug Fixes
+
+* make sure save/load fix is applied to all features ([4f1da78](https://github.com/liana-p/narrat-engine/commit/4f1da78d1be17d5107252ed002c2f683ba62daf4))
+
+
+
+## [3.12.2](https://github.com/liana-p/narrat-engine/compare/v3.12.1...v3.12.2) (2024-08-18)
+
+
+### Bug Fixes
+
+* quests save bug ([d4009d2](https://github.com/liana-p/narrat-engine/commit/d4009d2db3577847bea3c2f55b0b05cb5fd0f7c0))
+
+
+
+## [3.12.1](https://github.com/liana-p/narrat-engine/compare/v3.12.0...v3.12.1) (2024-08-18)
+
+
+### Bug Fixes
+
+* json editor mistake ([87c0d02](https://github.com/liana-p/narrat-engine/commit/87c0d02937dacf0c8793c9ae24da1db269e98e81))
+
+
+
+# [3.12.0](https://github.com/liana-p/narrat-engine/compare/v3.11.2...v3.12.0) (2024-08-18)
+
+
+### Bug Fixes
+
+* mysterious narrat save bug ([6e06481](https://github.com/liana-p/narrat-engine/commit/6e064813b858d6037710366c393bb8c6e86dd87f))
+
+
+### Features
+
+* Improve debug menu ([2dc6727](https://github.com/liana-p/narrat-engine/commit/2dc6727f7e342b6378d55c70e425d3e962eb8436))
+
+
+
+## [3.11.2](https://github.com/liana-p/narrat-engine/compare/v3.11.1...v3.11.2) (2024-08-04)
+
+
+### Bug Fixes
+
+* stop replaying save prompts when reloading ([a7ba385](https://github.com/liana-p/narrat-engine/commit/a7ba385872b805cd309f53b457611026c1c27828))
+
+
+
+## [3.11.1](https://github.com/liana-p/narrat-engine/compare/v3.11.0...v3.11.1) (2024-07-28)
+
+
+### Features
+
+* handle gamepad switch on map button + add configurable custom game splash screen ([80d1d90](https://github.com/liana-p/narrat-engine/commit/80d1d901533bea0114eb9810f95b9615ec764b43))
+* scenes docs ([ae99f8e](https://github.com/liana-p/narrat-engine/commit/ae99f8e54e434179afc4149f5ca4beff9c18cd51))
+
+
+
+# [3.11.0](https://github.com/liana-p/narrat-engine/compare/v3.10.4...v3.11.0) (2024-07-13)
+
+
+### Bug Fixes
+
+* custom stores saving issue [#274](https://github.com/liana-p/narrat-engine/issues/274) ([#275](https://github.com/liana-p/narrat-engine/issues/275)) ([dcb1924](https://github.com/liana-p/narrat-engine/commit/dcb1924789ffd2a8dad9564ca394ec91177347ce)), closes [#235](https://github.com/liana-p/narrat-engine/issues/235) [#255](https://github.com/liana-p/narrat-engine/issues/255)
+* loading save data reference fix [#255](https://github.com/liana-p/narrat-engine/issues/255) ([#272](https://github.com/liana-p/narrat-engine/issues/272)) ([d2cf05f](https://github.com/liana-p/narrat-engine/commit/d2cf05fd775705742021138b10b2306e3ee4ce52)), closes [#235](https://github.com/liana-p/narrat-engine/issues/235)
+
+
+### Features
+
+* custom scenes working + new plugin hook ([#290](https://github.com/liana-p/narrat-engine/issues/290)) ([75a0905](https://github.com/liana-p/narrat-engine/commit/75a0905b30b498fb9d54546bd666ba7d8242920f))
+
+
+
 ## [3.10.4](https://github.com/liana-p/narrat-engine/compare/v3.10.3...v3.10.4) (2024-04-29)
 
 

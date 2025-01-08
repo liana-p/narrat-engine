@@ -7,7 +7,8 @@ export class NarratPlugin<T = any> implements NarratPluginObject<T> {
   onAppMounted() {}
   onAssetsLoaded() {}
   onGameSetup() {}
+  onStartScreenMounted() {}
   onGameStart() {}
   onGameMounted() {}
-  onGameDismounted() {}
+  onGameUnmounted() {}
 }

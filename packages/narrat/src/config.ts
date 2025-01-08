@@ -88,6 +88,7 @@ import {
   PreloadConfigSchema,
   defaultPreloadConfig,
 } from './config/preload-config';
+import { defaultFontsConfig, FontsConfigSchema } from './config/fonts-config';
 
 let config: Config;
 
@@ -110,6 +111,7 @@ const splitConfigs = [
   ['animations', AnimationsConfigSchema, defaultAnimationsConfig],
   ['macros', MacrosConfigSchema, defaultMacrosConfig],
   ['preload', PreloadConfigSchema, defaultPreloadConfig],
+  ['fonts', FontsConfigSchema, defaultFontsConfig],
 ] as const;
 
 const extendedConfigs = [
@@ -137,6 +139,8 @@ const baseConfigKeys = [
   'menuButtons',
   'debugging',
   'saves',
+  'input',
+  'graphics',
 ] as const;
 export async function extendBaseConfig(
   newConfig: Config,
@@ -358,6 +362,9 @@ export function animationsConfig() {
 }
 export function getChoicePromptConfig(flag: string) {
   return choicesConfig().choicePrompts[flag];
+}
+export function fontsConfig() {
+  return getConfig().fonts;
 }
 
 export function getScreenConfig(screen: string): ScreenConfig {

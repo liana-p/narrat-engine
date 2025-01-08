@@ -1,12 +1,17 @@
 import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
-import { extractSaveData, loadAllSaveData } from '@/stores/stores-management';
+import {
+  extractGlobalSaveData,
+  extractSaveData,
+  loadAllSaveData,
+} from '@/stores/stores-management';
 import {
   ChosenSlot,
   ExtractedSave,
   getSaveFile,
   manualSave,
   processAutoSave,
+  writeGlobalSave,
 } from '@/utils/save-helpers';
 import { getPlayTime } from '@/utils/time-helpers';
 import { error } from '@/utils/error-handling';
@@ -25,6 +30,12 @@ export function autoSaveGame({
     name,
     extractedSave: extractSaveData(),
   });
+  useMain().triggerAutosaveFeedback();
+}
+
+export function updateGlobalSave() {
+  const globalSave = extractGlobalSaveData();
+  writeGlobalSave(globalSave);
 }
 
 export function setupLoadedData(save: ExtractedSave) {

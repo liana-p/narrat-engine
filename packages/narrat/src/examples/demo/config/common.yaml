@@ -15,6 +15,8 @@ dialogPanel:
   textSpeed: 20
   animateText: true
   timeBetweenLines: 100
+graphics:
+  allowFullscreen: true
 layout:
   backgrounds:
     width: 1280
@@ -47,3 +49,10 @@ hudStats:
 saves:
   mode: manual
   slots: 10
+  allowManualSave: true
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'

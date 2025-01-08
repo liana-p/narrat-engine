@@ -42,8 +42,8 @@ export const useInventory = defineStore('inventory', {
       };
     },
     loadSaveData(save: InventorySave) {
-      this.items = { ...this.items, ...save.items };
-      this.interactionTags = { ...save.interactionTags };
+      this.items = { ...this.items, ...deepCopy(save.items) };
+      this.interactionTags = { ...deepCopy(save.interactionTags) };
     },
     updateConfig(config: ItemsConfig) {
       Object.keys(config.items).forEach((key) => {

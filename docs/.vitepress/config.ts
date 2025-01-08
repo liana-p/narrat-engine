@@ -65,7 +65,7 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2021-present Liana Pigeot',
+      copyright: '',
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/liana-p/narrat-engine' },

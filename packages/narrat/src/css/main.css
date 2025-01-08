@@ -2,7 +2,9 @@
 @import url('./elements.css');
 
 #narrat {
-  --font-family: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
+  --font-body: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
+  --font-family: var(--font-body);
+  --font-header: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
   --bg-color: rgba(19, 23, 32, 0.9);
   --text-color: #d9e1f2;
   --grey-text-color: #a6a6a6;
@@ -145,6 +147,7 @@
   h3,
   h4 {
     font-weight: 700;
+    font-family: var(--font-header);
   }
 
   h1 {

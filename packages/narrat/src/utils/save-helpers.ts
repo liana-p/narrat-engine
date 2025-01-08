@@ -62,6 +62,10 @@ export function getSaveFile(): SaveFile {
   return saveFile;
 }
 
+export function overrideSaveFile(newSaveFile: SaveFile) {
+  saveFile = newSaveFile;
+}
+
 export function resetSave() {
   saveFile = createDefaultSaveFile();
   save();
@@ -285,6 +289,13 @@ export function processAutoSave({
   };
   saveSlot(save, globalSaveFile, slot);
   return finalSaveData;
+}
+
+export function writeGlobalSave(globalSave: GlobalGameSave) {
+  if (saveFile) {
+    saveFile.globalSave = globalSave;
+    save();
+  }
 }
 
 export function manualSave(
