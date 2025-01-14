@@ -171,7 +171,6 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
         text: 'All commands cheatsheet',
         link: '/commands/all-commands',
       },
-      { text: 'All commands cheatsheet', link: '/commands/all-commands' },
       { text: 'Jump', link: '/commands/api-jump' },
       { text: 'Choices', link: '/commands/choice-function' },
       { text: 'If', link: '/commands/if-function' },

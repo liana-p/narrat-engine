@@ -233,7 +233,7 @@ For example:
 
 The easiest way to find a CSS class name or id to override for theming a game is to use the browser inspector (right-click -> inspect on Chrome or Firefox).
 
-![Devtools screnshot 1](./css/devtools-1.png)
+![Devtools screenshot 1](./css/devtools-1.png)
 
 The devtools have a list of all the elements on the page in the elements tab (bottom left in the screenshot). This tool shows a tree view of all the DOM elements that constitute a web page (the narrat UI is made of DOM elements)Available CSS classes to override
 
@@ -360,7 +360,7 @@ One thing worth knowing is the `.skills-container` class in the skills screen us
   grid-template-columns: repeat(
     4,
     1fr
-  ); /* The first number in repeat is the number of desired columbns */
+  ); /* The first number in repeat is the number of desired columns */
   grid-gap: 30px 30px; /* Space between elements */
 }
 ```

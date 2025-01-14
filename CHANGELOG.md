@@ -1149,7 +1149,7 @@ New array syntax! It is now possible to create arrays, and to dynamically access
 
 See the [tweet explaining the feature](https://twitter.com/NarratEngine/status/1575809637277761542) or the [other tweet showing another example](https://twitter.com/NarratEngine/status/1575809637277761542).
 
-There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.narrat.dev/commandsall-commands) docs page.
+There are lots of new commands for manipulating arrays which can be found in the [all commands list](https://docs.narrat.dev/commands/all-commands) docs page.
 
 ### Quest categories
 
