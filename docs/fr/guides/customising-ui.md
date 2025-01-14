@@ -221,7 +221,7 @@ Pour pouvoir ajouter du CSS personnalisé, vous aurez besoin d'un fichier CSS. L
 Ainsi :
 
 1. Créez un dossier `css` dans le dossier `src`, puis un fichier intitulé `main.css` en son sein
-2. Dans `src/index.ts`, ajoutez la ligne suivante : `import "./css/main.css";`
+2. Dans `src/index.ts`, ajoutez la ligne suivante : `import "/guides/css/main.css";`
 3. Tout CSS ajouté dans `main.css` sera désormais chargé dans votre jeu.
 
 ### Comment savoir quelles classes CSS cibler
@@ -232,21 +232,21 @@ Ainsi :
 
 La manière la plus simple de trouver le nom d'une classe ou identifiant CSS afin de la/le modifier est d'utiliser le browser inspector (clic droit -> inspecter sur Chrome et Firefox).
 
-![Devtools screenshot 1](./css/devtools-1.png)
+![Devtools screenshot 1](/guides/css/devtools-1.png)    
 
 Les devtools présentent une liste de tous les éléments d'une page dans l'onglet "éléments" (en bas à gauche sur la capture d'écran). Cet outil montre une arborescence de tous les éléments DOM qui constituent une page web (l'interface de Narrat est faite d'éléments DOM).
 
 Classes CSS disponibles à la modification :
 
-![Devtools picker](./css/devtools-picker.png)
+![Devtools picker](/guides/css/devtools-picker.png)
 
 Cliquer sur l'icône de flèche en haut à gauche des devtools ouvre un outil de sélection qui vous permet de cliquer n'importe où sur la page pour sélectionner un élément dans la vue éléments des devtools. Ainsi, il est très facile de naviguer et de trouver des éléments sur une page.
 
 Trouver la classe ou l'identifiant d'un élément est donc une simple question de trouver ce qui lui correspond dans le code HTML des devtools après l'avoir sélectionné avec l'outil dédié.
 
-![Element picker](./css/picker.png)
+![Element picker](/guides/css/picker.png)
 
-![Onglet éléments des devtools avec éléments sélectionnés surlignés](./css/inspector.png) 
+![Onglet éléments des devtools avec éléments sélectionnés surlignés](/guides/css/inspector.png) 
 
 Survoler les éléments dans l'onglet élément les surligne également sur la page.
 
@@ -286,25 +286,25 @@ Cette liste est régulièrement mise à jour. Si vous ne trouvez pas une informa
 
 `.button`: classe générique de base appliquée à tous les boutons
 
-![Bouton](./css/elements/button.png)
+![Bouton](/guides/css/elements/button.png)
 
 `.interact-button`: le bouton "Continuer" dans la boîte de dialogue
 
-![Interact Button](./css/elements/interact-button.png)
+![Interact Button](/guides/css/elements/interact-button.png)
 
 `.dialog-choice`: les choix sélectionnables dans la boîte de dialogue
 
-![Dialog Choice](./css/elements/dialog-choice.png)
+![Dialog Choice](/guides/css/elements/dialog-choice.png)
 
 `.menu-button`: les deux boutons "start game" et "continue game"
 
 `.start-button`
 
-![Start Button](./css/elements/start-button.png)
+![Start Button](/guides/css/elements/start-button.png)
 
 `.continue-button`
 
-![Continue Button](./css/elements/continue-button.png)
+![Continue Button](/guides/css/elements/continue-button.png)
 
 :::
 
@@ -314,15 +314,15 @@ Cette liste est régulièrement mise à jour. Si vous ne trouvez pas une informa
 
 .dialog-container: contient les répliques et les lignes de dialogue 
 
-![Dialog container](./css/elements/dialog-container.png)
+![Dialog container](/guides/css/elements/dialog-container.png)
 
 .dialog: l'entièreté de la boîte à droite de l'écran qui est navigable et qui contient tous les dialogues
 
-![Dialog container](./css/elements/dialog.png)
+![Dialog container](/guides/css/elements/dialog.png)
 
 .menu-container
 
-![Menu container](./css/elements/menu-container.png)
+![Menu container](/guides/css/elements/menu-container.png)
 
 :::
 
@@ -330,19 +330,19 @@ Cette liste est régulièrement mise à jour. Si vous ne trouvez pas une informa
 
 .modal-mask: la masque semi-transparent qui couvre la page lorsqu'un menu modal est ouvert
 
-![modal mask](./css/elements/modal-mask.png)
+![modal mask](/guides/css/elements/modal-mask.png)
 
 .modal-container: la classe contenant tous les menus modaux
 
-![Dialog container](./css/elements/modal-container.png)
+![Dialog container](/guides/css/elements/modal-container.png)
 
 .modal-header
 
-![Dialog container](./css/elements/modal-header.png)
+![Dialog container](/guides/css/elements/modal-header.png)
 
 .modal-body
 
-![Dialog container](./css/elements/modal-body.png)
+![Dialog container](/guides/css/elements/modal-body.png)
 
 :::
 
@@ -352,7 +352,7 @@ Cette liste est régulièrement mise à jour. Si vous ne trouvez pas une informa
 
 .skills-container
 
-![Dialog container](./css/elements/skills-container.png)
+![Dialog container](/guides/css/elements/skills-container.png)
 
 Une bonne chose à savoir est que la classe `.skills-container` dans l'écran des skills fait usage d'une [grille CSS](https://learncssgrid.com/). Pour changer le nombre de colonnes par rangée, vous pouvez utiliser `grid-template-columns`. Ainsi :
 
@@ -368,20 +368,20 @@ Une bonne chose à savoir est que la classe `.skills-container` dans l'écran de
 
 .skill-display: The individual tile for a skill
 
-![Dialog container](./css/elements/skill-display.png)
+![Dialog container](/guides/css/elements/skill-display.png)
 
 .skill-title
 
-![Dialog container](./css/elements/skill-title.png)
+![Dialog container](/guides/css/elements/skill-title.png)
 
 .skill-xp-container et .skill-xp-bar: skill-xp-container est l'arrière-plan de la barre de progression de l'XP, tandis que skill-xp-bar est la barre intérieure qui se remplit selon la quantité d'XP
 
 .skill-xp-text est également le texte de l'XP
 
-![Dialog container](./css/elements/skill-xp.png)
+![Dialog container](/guides/css/elements/skill-xp.png)
 
 .skill-level
 
-![Dialog container](./css/elements/skill-level.png)
+![Dialog container](/guides/css/elements/skill-level.png)
 
 :::

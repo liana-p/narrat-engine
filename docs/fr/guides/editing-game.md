@@ -3,7 +3,7 @@ description: Cette page de documentation explique comment éditer un jeu Narrat
 ---
 
 <script setup>
-import NarratSnippetClient from '../components/NarratSnippetClient.vue';
+import NarratSnippetClient from '/components/NarratSnippetClient.vue';
 
 const testDemoScript = `main:
   think player idle "Where am I..."
@@ -61,14 +61,14 @@ Voici un jeu Narrat de démonstration avec le script `.narrat` suivant :
 5. Un grand nombre de ces fichiers ne seront sans doute pas adaptés à votre besoin, vous n'avez pas à vous en soucier en dehors d'un usage avancé.
 6. La plupart des fichiers dont vous aurez besoin se trouveront dans les dossiers `public/data` (là où se trouvent les assets et les fichiers de config) et `src/scripts` (là où se situent le code et les scripts Narrat)
 
-![Ouvrir un dossier dans VS Code](./get-started/open-folder.png)
+![Ouvrir un dossier dans VS Code](/guides/get-started/open-folder.png)   
 
 ::: tip
 Installez l'extension Visual Studio Code [Narrat language](https://marketplace.visualstudio.com/items?itemName=NarratEngine.language-narrat) afin de bénéficier d'un code couleur pour la syntaxe des scripts Narrat.
 
 Vs Code devrait vous recommander de l'installer lorsque vous ouvrez un jeu Narrat. Si ce n'est pas le cas, cliquez sur le bouton Extensions dans le ruban de gauche, puis tapez "Narrat" dans la barre de recherche et installez l'extension.
 
-![Processus d'installation de l'extension Narrat pour VS Code](./get-started/narrat-extension.png)
+![Processus d'installation de l'extension Narrat pour VS Code](/guides/get-started/narrat-extension.png)
 :::
 
 ## Quels sont les éléments constitutifs d'un jeu Narrat ?
@@ -95,7 +95,7 @@ Dans le cadre d'un usage avancé, il est également possible de changer le code 
 
 ## Scripts Narrat
 
-[example-narrat-script.md](../examples/example-narrat-script.md)
+[example-narrat-script.md](/docs/examples/example-narrat-script.md)  
 
 Les scripts Narrat sont la base de la création d'un jeu. Ils contiennent le flow du jeu et ses lignes de dialogue. Le [langage de scripting narrat](../scripting/language-syntax.md) est spécifiquement conçu pour Narrat.
 
