@@ -167,10 +167,6 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
     text: 'Common commands docs',
     collapsible: true,
     items: [
-      {
-        text: 'All commands cheatsheet',
-        link: '/commands/all-commands',
-      },
       { text: 'All commands cheatsheet', link: '/commands/all-commands' },
       { text: 'Jump', link: '/commands/api-jump' },
       { text: 'Choices', link: '/commands/choice-function' },
