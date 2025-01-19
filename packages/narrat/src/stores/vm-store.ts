@@ -474,7 +474,6 @@ export const useVM = defineStore('vm', {
     },
     async runThenGoBackToPreviousDialog(label: string, ...args: any[]) {
       // Kinda hacky way to run a function and return to where we were
-      console.log("runScript");
       const dialogStore = useDialogStore();
       const lastDialog = dialogStore.dialog[dialogStore.dialog.length - 1];
       const isInDialog = useMain().inScript;
