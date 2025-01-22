@@ -179,3 +179,210 @@ Pour consulter la liste à jour des variables CSS, voir [main.css](https://githu
 :::
 
 ## Notes sur le préchargement d'images
+
+**Par défaut, toute image mentionnée dans votre CSS ne sera pas préchargée** car le moteur ignore leur existence.
+
+Si vous avez vesoin de les précharger, ajoutez-les à la liste des images dans `config.yaml` :
+
+```yaml
+images:
+  myButtonBackground: img/ui/button-background.png
+```
+
+## Utiliser des polices d'écriture personnalisées
+
+Vous pouvez utiliser des polices d'écriture personnalisées, se référer au [Guide des polices personnalisées](./using-custom-fonts.md)
+
+## Créer des classes CSS personnalisées
+
+### Mise en place
+
+Les variables CSS ci-dessus permettent de facilement personnaliser des propriétés communes, mais la meilleure manière d'appliquer des changements plus profonds consiste à écrire vos propres classes CSS. La plupart des éléments d'interface dans Narrat ont une classe ou un identifiant CSS spécifique que l'ont peut cibler. 
+
+Ainsi, `.interact-button` est la classe automatiquement appliquée au bouton "Continuer" dans le panneau de dialogue, donc tout code CSS ajouté à cette classe affectera le style de ce bouton :
+
+```css
+.interact-button {
+  background-image: url('img/ui/continue.png');
+  color: rgba(0, 0, 0, 0) !important;
+}
+
+.interact-button:hover {
+  background-image: url('img/ui/continue_hover.png') !important;
+}
+```
+
+::: tip 
+Notez le paramètre `!important` à la fin. Celui-ci permettra à votre propriété CSS de prévaloir sur celle existante dans le moteur.
+:::
+
+Pour pouvoir ajouter du CSS personnalisé, il vous faut un fichier CSS. Le template par défaut en contient déjà un, mais si par hasard vous n'en aviez pas, il vous suffit de créer un fichier `.css` et de l'importer dans `index.ts`.
+
+Ainsi :
+
+1. Créer un dossier `css`dans le dossier `src`, puis un fichier `main.css` à l'intérieur
+2. Dans `src/index.ts`, ajoutez cette ligne: `import "./css/main.css";`
+3. Tout CSS ajouté à `main.css` sera chargé dans votre jeu
+
+### Identifer des classes CSS à modifier
+
+#### Utiliser les outils de développement
+
+::: details Trouver les classes et identifiants CSS en question
+
+La façon la plus facile de procéder est de passer par l'outil "inspecter" (clic droit -> inspecter sous Chrome ou Firefox).
+
+![Devtools screnshot 1](/guides/css/devtools-1.png)
+
+Les outils de développement listent tous les éléments sur la page dans l'onglet "éléments" (en bas à gauche de l'image ci-dessus). Cet outils montre l'arborescence des élements DOM qui composent une page web (l'interface de narrat est composée d'élements DOM).
+
+Classes CSS disponibles à la modification :
+
+![Devtools picker](/guides/css/devtools-picker.png)
+
+Cliquer sur l'icône avec la flèche en haut à gauche ouvre un outil "pipette" qui permet de cliquer n'importe où sur la page pour sélectionner un élément et visualiser ses propriétés. Ceci rend la navigation et l'identification des éléments très facile.
+
+Finalement, trouver une classe ou un identifiant CSS revient à regarder ce qu'il y a dans le HTML d'un élément via les outils de développement après l'avoir trouvé avec la pipette:
+
+![Element picker](/guides/css/picker.png)
+
+![Element tabs of devtools with picked element highlighted](/guides/css/inspector.png)
+
+
+Survoler des éléments dans l'onglet correspondant les fait également ressortir visuellement sur la page.
+
+La propriété `class` d'un élément correspond au nom de la classe, la propriété `id` à l'identifiant.
+
+:::
+
+### Classes et identifiants CSS
+
+Une fois une classe ou un identifiant trouvé·e, il ne reste qu'à y ajouter du CSS. Pour une classe, le sélecteur `.` doit être utilisé, suivi du nom de la classe. Pour unidentifiant, le sélecteur est `#`. Par exemple :
+
+```css
+.interact-button {
+  /* This selector applies to the CSS class named "interact-button" */
+  color: red !important;
+}
+
+#interact-button {
+  /* This selector applies to the css ID named "interact-button" */
+  color: red !important;
+}
+```
+
+::: warning
+Attention à ne pas confondre classe et identifiant CSS, la syntaxe emplyée pour les sélectionner est différente.
+:::
+
+### Liste de classes CSS à modifier
+
+::: tip
+`Cette liste est en cours de rédaction. Si vous ne trouvez pas quelque chose ou si des références ont changé, utilisez les instructions ci-dessus pour trouver ce dont vous avez besoin dans le moteur`
+:::
+
+#### Boutons
+
+::: details Buttons CSS
+
+`.button`: classe générique appliquée à tous les boutons
+
+![Button](/guides/css/elements/button.png)
+
+`.interact-button`: le bouton "continuer" du panneau de dialogue
+
+![Interact Button](/guides/css/elements/interact-button.png)
+
+`.dialog-choice`: les choix sélectionnables dans le panneau de dialogue
+
+![Dialog Choice](/guides/css/elements/dialog-choice.png)
+
+`.menu-button`: les deux boutons "nouvelle partie" et "continuer" 
+
+`.start-button`
+
+![Start Button](/guides/css/elements/start-button.png)
+
+`.continue-button`
+
+![Continue Button](/guides/css/elements/continue-button.png)
+
+:::
+
+#### Éléments d'interface
+
+::: details Autres éléments d'interface
+
+`.dialog-container`: contient tous le dialogue
+
+![Dialog container](/guides/css/elements/dialog-container.png)
+
+`.dialog`: l'ensemble de la section à droite de l'écran qui peut défiler et qui contient le dialogue
+
+![Dialog container](/guides/css/elements/dialog.png)
+
+`.menu-container`
+
+![Menu container](/guides/css/elements/menu-container.png)
+
+:::
+
+::: details CSS modal général
+
+`.modal-mask`: l'overlay à moitié opaque appliqué quand un modal (menu popup) est affiché
+
+![modal mask](/guides/css/elements/modal-mask.png)
+
+`.modal-container`: la classe générique contenant tous les modaux
+
+![Dialog container](/guides/css/elements/modal-container.png)
+
+`.modal-header`
+
+![Dialog container](/guides/css/elements/modal-header.png)
+
+`.modal-body`
+
+![Dialog container](/guides/css/elements/modal-body.png)
+
+:::
+
+#### Écran des skills
+
+::: details CSS de l'écran des skills
+
+`.skills-container`
+
+![Dialog container](/guides/css/elements/skills-container.png)
+
+À savoir : la classe `.skills-container` dans l'écran des skills utiliser une [grille CSS](https://learncssgrid.com/). Pour changer le nombre de colonnes par rangée, on peut réécrire la propriété `grid-template-columns`. Ainsi :
+
+```css
+.skills-container {
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); /* The first number in repeat is the number of desired columns */
+  grid-gap: 30px 30px; /* Space between elements */
+}
+```
+
+`.skill-display`: la tuile individuelle d'un skill
+
+![Dialog container](/guides/css/elements/skill-display.png)
+
+`.skill-title`
+
+![Dialog container](/guides/css/elements/skill-title.png)
+
+`.skill-xp-container` and `.skill-xp-bar`: skill-xp-container est l'arrière-plan de la barre de progression de l'XP, tandis que skill-xp-bar désigne la partie interne de la barre qui est plus ou moins remplie selon le niveau d'XP
+
+`.skill-xp-text` désigne le texte de l'XP
+
+![Dialog container](/guides/css/elements/skill-xp.png)
+
+`.skill-level`
+
+![Dialog container](/guides/css/elements/skill-level.png)
+
+:::

@@ -181,7 +181,7 @@ To see the most up to date list of CSS variables, look at [main.css](https://git
 
 ## Note on images preloading
 
-Any **images referred to in your CSS won't be preloaded by default**, because the engine doesn't know about them.
+**Any images referred to in your CSS won't be preloaded by default**, because the engine doesn't know about them.
 
 If you need to preload them, add them to the list of images in the `config.yaml`:
 
@@ -221,9 +221,9 @@ To be able to add custom CSS, you need a CSS file. The template already comes wi
 
 For example:
 
-1. Create a folder `css` in the `src` folder, then a file called`main.css` in it
+1. Create a folder `css` in the `src` folder, then a file called `main.css` in it
 2. In `src/index.ts`, add the following: `import "./css/main.css";`
-3. Any CSS you now add in main.css will be loaded in your game
+3. Any CSS you now add in `main.css` will be loaded in your game
 
 ### How to find CSS classes to override
 
@@ -235,7 +235,9 @@ The easiest way to find a CSS class name or id to override for theming a game is
 
 ![Devtools screnshot 1](./css/devtools-1.png)
 
-The devtools have a list of all the elements on the page in the elements tab (bottom left in the screenshot). This tool shows a tree view of all the DOM elements that constitute a web page (the narrat UI is made of DOM elements)Available CSS classes to override
+The devtools have a list of all the elements on the page in the elements tab (bottom left in the screenshot). This tool shows a tree view of all the DOM elements that constitute a web page (the narrat UI is made of DOM elements)
+
+Available CSS classes to override:
 
 ![Devtools picker](./css/devtools-picker.png)
 
@@ -311,15 +313,15 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 ::: details Other UI Elements
 
-.dialog-container: Contains all the dialog
+`.dialog-container`: Contains all the dialog
 
 ![Dialog container](./css/elements/dialog-container.png)
 
-.dialog: The entire right-side box of the screen that is scrollable with all the dialog in it
+`.dialog`: The entire right-side box of the screen that is scrollable with all the dialog in it
 
 ![Dialog container](./css/elements/dialog.png)
 
-.menu-container
+`.menu-container`
 
 ![Menu container](./css/elements/menu-container.png)
 
@@ -349,7 +351,7 @@ Be careful not to confuse CSS classes and ids, as the syntax for their selector 
 
 ::: details Skills Screen CSS
 
-.skills-container
+`.skills-container`
 
 ![Dialog container](./css/elements/skills-container.png)
 
@@ -360,26 +362,26 @@ One thing worth knowing is the `.skills-container` class in the skills screen us
   grid-template-columns: repeat(
     4,
     1fr
-  ); /* The first number in repeat is the number of desired columbns */
+  ); /* The first number in repeat is the number of desired columns */
   grid-gap: 30px 30px; /* Space between elements */
 }
 ```
 
-.skill-display: The individual tile for a skill
+`.skill-display`: The individual tile for a skill
 
 ![Dialog container](./css/elements/skill-display.png)
 
-.skill-title
+`.skill-title`
 
 ![Dialog container](./css/elements/skill-title.png)
 
-.skill-xp-container and .skill-xp-bar: skill-xp-container is the background of the xp progress bar, whereas skill-xp-bar is the inner bar that gets filled depending on the amount of xp
+`.skill-xp-container` and `.skill-xp-bar`: skill-xp-container is the background of the xp progress bar, whereas skill-xp-bar is the inner bar that gets filled depending on the amount of xp
 
-.skill-xp-text is also the text of the xp
+`.skill-xp-text` is also the text of the xp
 
 ![Dialog container](./css/elements/skill-xp.png)
 
-.skill-level
+`.skill-level`
 
 ![Dialog container](./css/elements/skill-level.png)
 
