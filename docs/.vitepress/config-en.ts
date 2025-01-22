@@ -143,7 +143,7 @@ function sidebarScripting(): DefaultTheme.SidebarItem[] {
       { text: 'JavaScript interface', link: 'javascript-interface' },
       {
         text: 'Known limitations and issues',
-        link: '/others/scripting-limitations',
+        link: '../others/scripting-limitations',
       },
       {
         text: 'Macros',
