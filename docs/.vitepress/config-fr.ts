@@ -114,5 +114,34 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
         ],
       },
     ],
+    search: {
+      options: {
+        locales: {
+          fr: {
+            translations: {
+              button: {
+                buttonText: 'Recherche',
+                buttonAriaLabel: 'Recherche',
+              },
+              modal: {
+                displayDetails: 'Afficher les détails',
+                resetButtonTitle: 'Réinitialiser',
+                backButtonTitle: 'Retour',
+                noResultsText: 'Pas de résultat pour',
+                footer: {
+                  selectText: 'pour sélectionner',
+                  selectKeyAriaLabel: 'sélection',
+                  navigateText: 'pour naviguer',
+                  navigateUpKeyAriaLabel: 'haut',
+                  navigateDownKeyAriaLabel: 'bas',
+                  closeText: 'Fermer',
+                  closeKeyAriaLabel: 'esc'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
 };
