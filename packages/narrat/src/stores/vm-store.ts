@@ -479,7 +479,7 @@ export const useVM = defineStore('vm', {
       const isInDialog = useMain().inScript;
       const result = await this.runLabelFunction(label, ...args);
       if (isInDialog) {
-        dialogStore.dialog.push(lastDialog);
+        dialogStore.addDialog(lastDialog);
       } else {
         useMain().endingScript();
       }
