@@ -143,7 +143,7 @@ function sidebarScripting(): DefaultTheme.SidebarItem[] {
       { text: 'JavaScript interface', link: 'javascript-interface' },
       {
         text: 'Known limitations and issues',
-        link: '/others/scripting-limitations',
+        link: '../others/scripting-limitations',
       },
       {
         text: 'Macros',
@@ -167,10 +167,6 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
     text: 'Common commands docs',
     collapsible: true,
     items: [
-      {
-        text: 'All commands cheatsheet',
-        link: '/commands/all-commands',
-      },
       { text: 'All commands cheatsheet', link: '/commands/all-commands' },
       { text: 'Jump', link: '/commands/api-jump' },
       { text: 'Choices', link: '/commands/choice-function' },

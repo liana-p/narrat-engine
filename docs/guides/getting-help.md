@@ -14,4 +14,4 @@ You can also ask for help [on Discord](https://discord.gg/Xgz7EQ2Xgh) if it's a 
 
 ### GitHub issues
 
-It is also possible to open a [GitHub issue](https://github.com/liana-p/narrat-engine/issues) to report a bug or suggest a feature
+It is also possible to open a [GitHub issue](https://github.com/liana-p/narrat-engine/issues) to report a bug or suggest a feature.

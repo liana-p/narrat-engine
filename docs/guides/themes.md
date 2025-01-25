@@ -58,10 +58,10 @@ window.addEventListener('load', () => {
   }
   setupMyThemes(); // [!code ++]
   startApp({
-    configPath: 'data/config.yaml',
     debug,
     logging: false,
     scripts,
+    config,
   });
 });
 ```
