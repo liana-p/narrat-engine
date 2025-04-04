@@ -1,5 +1,9 @@
 <template>
-  <div v-if="Object.keys(achievementsToDisplay).length > 0">
+  <div
+    v-if="Object.keys(achievementsToDisplay).length > 0"
+    class="achievements-scroll-container"
+    ref="scrollContainer"
+  >
     <AchievementsSection
       v-for="section in sections"
       :key="section.id"
@@ -14,96 +18,119 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { getConfig, getAchievementConfig } from '@/config';
 import { AchievementConfig } from '@/config/achievements-config';
 import { useDialogStore } from '@/stores/dialog-store';
 import { useAchievements, AchievementState } from '@/stores/achievements-store';
 import { error } from '@/utils/error-handling';
-import { computed, defineComponent } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import AchievementsSection, {
   AchievementsSectionProps,
 } from './achievements-section.vue';
+import { useScrolling } from '@/inputs/useScrolling';
+import { useInputs, InputListener } from '@/stores/inputs-store';
 
-export default defineComponent({
-  setup() {
-    const store = useAchievements();
-    const dialogStore = useDialogStore();
-    const achievements = computed(() => store.achievements);
-    const currentlyChoosing = computed(() => dialogStore.currentDialog.choices);
-    return { achievements, currentlyChoosing };
-  },
-  emits: ['close'],
-  data() {
-    return {
-      chosenId: false as string | false,
-    };
-  },
-  mounted() {},
-  methods: {
-    close() {
-      this.$emit('close');
-    },
-    clickAchievement(achievement: string) {
-      this.chosenId = achievement;
-    },
-    closeAchievement() {
-      this.chosenId = false;
-    },
-  },
-  computed: {
-    achievementsToDisplay(): AchievementState[] {
-      return Object.values(this.achievements);
-    },
-    chosenAchievement(): null | AchievementState {
-      if (this.chosenId) {
-        return this.achievements[this.chosenId];
-      }
-      return null;
-    },
-    chosenAchievementConf(): null | AchievementConfig {
-      if (this.chosenId) {
-        return this.achievementConf[this.chosenId];
-      }
-      return null;
-    },
-    achievementConf(): {
-      [key: string]: AchievementConfig;
-    } {
-      return getConfig().achievements.achievements;
-    },
-    sections(): AchievementsSectionProps[] {
-      // Split the achievements into sections based on the achievement category, with a default category for achievements not in any.
-      const categories = getConfig().achievements.categories;
-      const sections: AchievementsSectionProps[] = [];
-      const possibleSections = this.achievementsToDisplay.reduce(
-        (acc, achievement) => {
-          const category =
-            getAchievementConfig(achievement.id).category ?? 'default';
-          const categoryConfig = categories.find((c) => c.id === category);
-          if (!categoryConfig) {
-            error(`Unknown category ${category}`);
-            return acc;
-          }
-          let matchingSection = acc.find((s) => s.id === category);
-          if (!matchingSection) {
-            matchingSection = {
-              id: category,
-              title: categoryConfig.title,
-              achievements: [],
-            };
-            acc.push(matchingSection);
-          }
-          matchingSection.achievements.push(achievement);
-          return acc;
-        },
-        sections,
-      );
-      return possibleSections;
-    },
-  },
-  components: { AchievementsSection },
+const props = defineProps<{
+  inputListener: InputListener;
+}>();
+
+const store = useAchievements();
+const dialogStore = useDialogStore();
+const achievements = computed(() => store.achievements);
+const currentlyChoosing = computed(() => dialogStore.currentDialog.choices);
+const scrollContainer = ref<HTMLElement | null>(null);
+const inputs = useInputs();
+
+// Set up scrolling functionality
+const scrolling = useScrolling({
+  container: scrollContainer,
+  scrollSpeed: 40,
+  smooth: true,
+  onlyVertical: true,
+  inputListener: props.inputListener,
 });
+
+// Update container ref when it changes
+onMounted(() => {
+  if (scrollContainer.value) {
+    scrolling.container.value = scrollContainer.value;
+  }
+});
+
+const chosenId = ref<string | false>(false);
+
+function close() {
+  emit('close');
+}
+
+function clickAchievement(achievement: string) {
+  chosenId.value = achievement;
+}
+
+function closeAchievement() {
+  chosenId.value = false;
+}
+
+const achievementsToDisplay = computed((): AchievementState[] => {
+  return Object.values(achievements.value);
+});
+
+const chosenAchievement = computed((): null | AchievementState => {
+  if (chosenId.value) {
+    return achievements.value[chosenId.value];
+  }
+  return null;
+});
+
+const chosenAchievementConf = computed((): null | AchievementConfig => {
+  if (chosenId.value) {
+    return achievementConf.value[chosenId.value];
+  }
+  return null;
+});
+
+const achievementConf = computed(
+  (): {
+    [key: string]: AchievementConfig;
+  } => {
+    return getConfig().achievements.achievements;
+  },
+);
+
+const sections = computed((): AchievementsSectionProps[] => {
+  // Split the achievements into sections based on the achievement category, with a default category for achievements not in any.
+  const categories = getConfig().achievements.categories;
+  const sections: AchievementsSectionProps[] = [];
+  const possibleSections = achievementsToDisplay.value.reduce(
+    (acc, achievement) => {
+      const category =
+        getAchievementConfig(achievement.id).category ?? 'default';
+      const categoryConfig = categories.find((c) => c.id === category);
+      if (!categoryConfig) {
+        error(`Unknown category ${category}`);
+        return acc;
+      }
+      let matchingSection = acc.find((s) => s.id === category);
+      if (!matchingSection) {
+        matchingSection = {
+          id: category,
+          title: categoryConfig.title,
+          achievements: [],
+        };
+        acc.push(matchingSection);
+      }
+      matchingSection.achievements.push(achievement);
+      return acc;
+    },
+    sections,
+  );
+  return possibleSections;
+});
+
+const emit = defineEmits<{
+  (e: 'close'): void;
+}>();
 </script>
 
 <style>
@@ -136,5 +163,12 @@ export default defineComponent({
   flex-grow: 2;
   align-items: baseline;
   padding: 10px;
+}
+
+.achievements-scroll-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  position: relative;
 }
 </style>

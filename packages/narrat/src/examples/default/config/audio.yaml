@@ -83,7 +83,7 @@ dialogAudio:
   defaultAudio:
     soundPerLetter:
       prefix: letter-
-      volume: 0.2
+      volume: 0.01
   characterAudio:
     helper:
       soundOnNewLine: click

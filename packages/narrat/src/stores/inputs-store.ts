@@ -97,6 +97,16 @@ const defaultActions: Action[] = [
     ],
   },
   {
+    id: 'scroll',
+    type: 'button',
+    action: 'press',
+    label: 'Scroll',
+    keyboardIcon: '',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/xbox_stick_r_vertical.png',
+    showInLegend: true,
+    keybinds: [],
+  },
+  {
     id: 'continue',
     type: 'button',
     action: 'press',

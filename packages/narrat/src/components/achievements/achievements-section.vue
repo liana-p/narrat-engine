@@ -27,6 +27,7 @@ const props = defineProps<AchievementsSectionProps>();
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .achievements-section-achievements {
@@ -34,5 +35,18 @@ const props = defineProps<AchievementsSectionProps>();
   grid-auto-rows: auto;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px 20px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .achievements-section-achievements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .achievements-section-achievements {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
