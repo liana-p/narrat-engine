@@ -11,3 +11,69 @@ quests:
       delivery:
         hidden: true
         description: Deliver the bread to the helper cat.
+
+  loremGathering:
+    title: Lorem Ipsum Collection
+    description: Collect various lorem ipsum artifacts scattered throughout the world.
+    objectives:
+      dolor:
+        description: Find the ancient Dolor scroll.
+      sit:
+        description: Gather 5 Sit crystals.
+      amet:
+        description: Locate the lost Amet amulet.
+
+  ipsumDelivery:
+    title: Ipsum Courier
+    description: Deliver important ipsum documents to various locations.
+    objectives:
+      package:
+        description: Pick up the ipsum package from the post office.
+      delivery1:
+        description: Deliver to the Lorem District.
+      delivery2:
+        description: Deliver to the Ipsum Quarter.
+
+  dolorExpedition:
+    title: Dolor Expedition
+    description: Explore the mysterious Dolor caves and document your findings.
+    objectives:
+      exploration:
+        description: Map out the main cave system.
+      samples:
+        description: Collect 3 rare mineral samples.
+      artifacts:
+        description: Find the ancient Dolor tablet.
+
+  sitAmetQuest:
+    title: Sit Amet Mystery
+    description: Investigate the strange occurrences in the Sit Amet region.
+    objectives:
+      investigation:
+        description: Interview local witnesses.
+      evidence:
+        description: Gather physical evidence of the phenomena.
+      conclusion:
+        description: Present your findings to the council.
+
+  consecteturAdventure:
+    title: Consectetur Adventure
+    description: Help the local farmers with their Consectetur crop issues.
+    objectives:
+      diagnosis:
+        description: Identify the cause of the crop disease.
+      treatment:
+        description: Apply the correct treatment to the fields.
+      harvest:
+        description: Help with the emergency harvest.
+
+  adipiscingExpedition:
+    title: Adipiscing Expedition
+    description: Lead an expedition to chart the unexplored Adipiscing mountains.
+    objectives:
+      mapping:
+        description: Create a detailed map of the region.
+      samples:
+        description: Collect geological samples from different peaks.
+      summit:
+        description: Reach the highest peak and plant the expedition flag.

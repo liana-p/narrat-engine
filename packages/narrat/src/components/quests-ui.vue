@@ -2,17 +2,23 @@
   <div class="quests-ui" :class="questsUiClass">
     <div class="quests-list-container">
       <QuestsListSection
+        v-if="inputListener"
         :quests="activeQuests"
         :sectionId="'active'"
         :title="'Active Quests'"
         :fallbackText="'No active quests'"
+        :focusedQuest="selectedQuest?.id ?? null"
+        :inputListener="inputListener"
         @quest-selected="clickOnQuest"
       />
       <QuestsListSection
+        v-if="inputListener"
         :quests="completedQuests"
         :sectionId="'completed'"
         :title="'Completed Quests'"
         :fallbackText="'No completed quests'"
+        :focusedQuest="selectedQuest?.id ?? null"
+        :inputListener="inputListener"
         @quest-selected="clickOnQuest"
       />
     </div>
@@ -21,54 +27,66 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { useRenderingStore } from '@/stores/rendering-store';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { QuestState, useQuests } from '../stores/quest-log';
+import { InputListener } from '@/stores/inputs-store';
 import QuestDetails from './quests/QuestDetails.vue';
 import QuestsListSection from './quests/quests-list-section.vue';
+import { useNavigation } from '@/inputs/useNewNavigation';
 
-export default defineComponent({
-  setup() {
-    const questsStore = useQuests();
-    const quests = computed(() => questsStore.quests);
-    const selectedQuest = ref<null | QuestState>(null);
-    return { quests, selectedQuest };
+const emit = defineEmits(['close']);
+const props = defineProps<{
+  inputListener: InputListener;
+}>();
+
+const questsStore = useQuests();
+const quests = computed(() => questsStore.quests);
+
+const questsToDisplay = computed(() => {
+  return Object.values(quests.value).filter(
+    (quest) => quest.state !== 'hidden',
+  );
+});
+
+const activeQuests = computed(() => {
+  return questsToDisplay.value.filter((quest) => quest.state === 'unlocked');
+});
+
+const completedQuests = computed(() => {
+  return questsToDisplay.value.filter((quest) => quest.state === 'completed');
+});
+
+const navigableQuests = computed(() => {
+  return [...activeQuests.value, ...completedQuests.value];
+});
+
+const questsUiClass = computed(() => {
+  const mode = useRenderingStore().layoutMode;
+  return mode === 'horizontal' ? 'quests-ui-horizontal' : 'quests-ui-vertical';
+});
+
+const { selectedElement: selectedQuest, selectElement } = useNavigation({
+  mode: 'vertical',
+  listener: props.inputListener,
+  elements: navigableQuests.value,
+  onSelected: (quest: QuestState) => {
+    // selectedQuest.value = quest;
   },
-  computed: {
-    questsToDisplay() {
-      return Object.values(this.quests).filter(
-        (quest) => quest.state !== 'hidden',
-      );
-    },
-    activeQuests() {
-      return this.questsToDisplay.filter((quest) => quest.state === 'unlocked');
-    },
-    completedQuests() {
-      return this.questsToDisplay.filter(
-        (quest) => quest.state === 'completed',
-      );
-    },
-    questsUiClass() {
-      const mode = useRenderingStore().layoutMode;
-      return mode === 'horizontal'
-        ? 'quests-ui-horizontal'
-        : 'quests-ui-vertical';
-    },
-  },
-  mounted() {
-    if (this.activeQuests.length > 0) {
-      this.selectedQuest = this.activeQuests[0];
-    } else if (this.completedQuests.length > 0) {
-      this.selectedQuest = this.completedQuests[0];
-    }
-  },
-  methods: {
-    clickOnQuest(quest: QuestState) {
-      this.selectedQuest = quest;
-    },
-  },
-  components: { QuestDetails, QuestsListSection },
+  looping: false,
+});
+
+function clickOnQuest(quest: QuestState) {
+  selectElement(quest);
+}
+
+onMounted(() => {
+  if (activeQuests.value.length > 0) {
+    selectElement(activeQuests.value[0]);
+  } else if (completedQuests.value.length > 0) {
+    selectElement(completedQuests.value[0]);
+  }
 });
 </script>
 

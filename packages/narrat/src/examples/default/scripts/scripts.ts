@@ -13,6 +13,7 @@ import js from './test_js.narrat';
 import conditions from './conditions.narrat';
 import saves from './test_saves.narrat';
 import dialog from './test_dialog.narrat';
+import quests from './quests.narrat';
 export default [
   game,
   arrays,
@@ -29,4 +30,5 @@ export default [
   conditions,
   saves,
   dialog,
+  quests,
 ];

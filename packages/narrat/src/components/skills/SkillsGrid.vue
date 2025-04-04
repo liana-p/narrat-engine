@@ -18,9 +18,9 @@ import { SkillsState, useSkills } from '@/stores/skills';
 import { InputListener } from '@/stores/inputs-store';
 import { skillsConfig } from '@/config';
 import {
-  NavigationOptions,
-  NavigationState,
-  useNavigation,
+  OldNavigationOptions,
+  OldNavigationState,
+  useOldNavigation,
 } from '@/inputs/useNavigation';
 
 type SkillGridElementType = InstanceType<typeof SkillGridElement>;
@@ -37,7 +37,7 @@ const skillGridContent = computed(() => {
 
 const store = useSkills();
 const skills = computed(() => store.skills);
-const navigation = ref<NavigationState | null>(null);
+const navigation = ref<OldNavigationState | null>(null);
 const emit = defineEmits(['choose']);
 
 function clickSkill(skill: string) {
@@ -61,7 +61,7 @@ const skillsToDisplay = computed(() => {
 });
 
 onMounted(() => {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'grid',
     listener: props.inputListener,
     elements: skillGridContent,

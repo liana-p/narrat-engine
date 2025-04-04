@@ -49,7 +49,7 @@ import { toHHMMSS } from '../../utils/time-helpers';
 import { renameSave } from '../../utils/save-helpers';
 import { getCommonConfig, getImageUrl, getScreenConfig } from '@/config';
 import { InputListener } from '@/stores/inputs-store';
-import { useNavigation, NavigationState } from '@/inputs/useNavigation';
+import { useOldNavigation, OldNavigationState } from '@/inputs/useNavigation';
 
 const props = defineProps<{
   saveSlot: SaveSlot;
@@ -59,7 +59,7 @@ const props = defineProps<{
   inputListener: InputListener | null;
 }>();
 
-const navigation = ref<NavigationState | null | undefined>(null);
+const navigation = ref<OldNavigationState | null | undefined>(null);
 const actionsContainer = ref<HTMLElement | null>(null);
 const slotContainer = ref<HTMLElement | null>(null);
 
@@ -123,7 +123,7 @@ function saveNumberText() {
 }
 
 function mountNavigation() {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'list',
     container: actionsContainer,
     listener: props.inputListener,

@@ -17,7 +17,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import ModalWindow from './modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
-import { useNavigation } from '@/inputs/useNavigation';
+import { useOldNavigation } from '@/inputs/useNavigation';
 
 const listener = ref<InputListener | null>(
   useInputs().registerInputListener('yes-no', {
@@ -34,7 +34,7 @@ const listener = ref<InputListener | null>(
   }),
 );
 const buttonsContainer = ref<HTMLDivElement | null>(null);
-useNavigation({
+useOldNavigation({
   mode: 'list',
   container: buttonsContainer,
   listener: listener.value,

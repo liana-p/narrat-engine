@@ -446,6 +446,12 @@ export const useInputs = defineStore('inputs', {
     },
   },
   getters: {
+    isGamepad(state) {
+      return state.inputMode === 'gamepad';
+    },
+    isKeyboard(state) {
+      return state.inputMode === 'km';
+    },
     showPrompts(state) {
       return (
         (state.inputMode === 'gamepad' &&

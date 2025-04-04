@@ -13,10 +13,11 @@
         </h4>
         <div :class="`${sectionId}-${category.category.id}-quests`">
           <QuestDisplay
+            :highlighted="focusedQuest === quest.id"
             v-for="quest in category.quests"
             :key="quest.id"
             :quest="quest"
-            @click="$emit('quest-selected', quest)"
+            @click="emit('quest-selected', quest)"
           />
         </div>
       </div>
@@ -39,6 +40,7 @@ export interface QuestListSectionProps {
   sectionId: string;
   title: string;
   fallbackText: string;
+  focusedQuest: string | null;
 }
 
 export interface QuestCategoryProps {
@@ -46,11 +48,13 @@ export interface QuestCategoryProps {
   quests: QuestState[];
 }
 const props = defineProps<QuestListSectionProps>();
-const emit = defineEmits(['quest-selected']);
 
 const categoriesConfig = computed(() => {
   return questsConfig().categories;
 });
+
+const emit = defineEmits(['quest-selected']);
+
 const questsSplitByCategories = computed(() => {
   const categories: QuestCategoryProps[] = [];
   const possibleCategories = props.quests.reduce((acc, quest) => {

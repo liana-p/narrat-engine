@@ -56,7 +56,7 @@ import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
 import { InputListener } from '@/stores/inputs-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { menuReturn } from '@/application/application-utils';
 import { startManualSave } from '@/application/saving';
 import { fontsConfig, getCommonConfig } from '@/config';
@@ -68,7 +68,7 @@ const props = defineProps<{
 const emit = defineEmits(['close']);
 
 const mainActions = ref<HTMLElement | null>(null);
-const navigation = ref<NavigationState | null>(null);
+const navigation = ref<OldNavigationState | null>(null);
 const fontsStore = useFontsStore();
 
 function quit() {
@@ -130,7 +130,7 @@ function getPlayTimeString(): string {
 }
 
 onMounted(() => {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'list',
     container: mainActions,
     listener: props.inputListener,

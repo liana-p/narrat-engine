@@ -1,5 +1,5 @@
 main:
-  jump quest_demo
+  jump test_quests
 
 dev_test:
   run test_saves

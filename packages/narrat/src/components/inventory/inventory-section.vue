@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
 import { getAssetUrl, getItemConfig } from '@/config';
-import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { InputListener } from '@/stores/inputs-store';
 import { ItemState } from '@/stores/inventory-store';
 import { onMounted, onUnmounted, ref } from 'vue';
@@ -34,7 +34,7 @@ const props = defineProps<
   }
 >();
 const itemsContainer = ref<HTMLElement | null>(null);
-const navigation = ref<NavigationState | null>(null);
+const navigation = ref<OldNavigationState | null>(null);
 const emit = defineEmits(['chosen']);
 
 function choose(item: string) {
@@ -50,7 +50,7 @@ function getItemName(item: string): string {
 }
 
 onMounted(() => {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'grid',
     listener: props.inputListener,
     columns: 3,
