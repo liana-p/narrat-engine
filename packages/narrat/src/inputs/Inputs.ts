@@ -52,8 +52,8 @@ export interface BaseAction {
   id: string;
   type: 'button' | 'analog';
   label: string;
-  keyboardIcon: string;
-  gamepadIcon: string;
+  keyboardIcon?: string;
+  gamepadIcon?: string;
   showInLegend: boolean;
 }
 export interface ButtonAction extends BaseAction {
@@ -364,13 +364,19 @@ export class Inputs extends EventTarget {
           const isPressed = config.keybinds.some((keybind) => {
             let keyState = false;
             keybind = this.getKeybindKey(config, keybind);
-            if (typeof keybind.keyboardKey === 'string') {
+            if (
+              typeof keybind.keyboardKey === 'string' &&
+              this.lastInputMethodUsed === 'km'
+            ) {
               const keyboardState = this.getKeyboardState(keybind.keyboardKey);
               if (keyboardState.current === true) {
                 keyState = true;
               }
             }
-            if (typeof keybind.gamepadButton === 'number') {
+            if (
+              typeof keybind.gamepadButton === 'number' &&
+              this.lastInputMethodUsed === 'gamepad'
+            ) {
               const gamepadState = this.getGamepadState(keybind.gamepadButton);
               if (gamepadState && gamepadState.current.pressed === true) {
                 keyState = true;

@@ -104,11 +104,14 @@ const sections = computed((): AchievementsSectionProps[] => {
   const sections: AchievementsSectionProps[] = [];
   const possibleSections = achievementsToDisplay.value.reduce(
     (acc, achievement) => {
-      const category =
-        getAchievementConfig(achievement.id).category ?? 'default';
+      const achievementData = getAchievementConfig(achievement.id);
+      const category = achievementData.category ?? 'default';
       const categoryConfig = categories.find((c) => c.id === category);
       if (!categoryConfig) {
         error(`Unknown category ${category}`);
+        return acc;
+      }
+      if (achievementData?.hidden && !achievement.unlocked) {
         return acc;
       }
       let matchingSection = acc.find((s) => s.id === category);

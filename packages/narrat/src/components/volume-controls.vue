@@ -38,7 +38,7 @@ export default defineComponent({
       modeNames: {
         master: 'Master volume:',
         music: 'Music:',
-        ambiant: 'Ambiant:',
+        ambient: 'Ambient:',
         sound: 'Sound effects:',
       },
     };

@@ -5,6 +5,7 @@ export const AchievementConfigSchema = Type.Object({
   icon: Type.Optional(Type.String()),
   lockedIcon: Type.Optional(Type.String()),
   secret: Type.Optional(Type.Boolean()),
+  hidden: Type.Optional(Type.Boolean()),
   category: Type.Optional(Type.String()),
 });
 export type AchievementConfig = Static<typeof AchievementConfigSchema>;

@@ -101,7 +101,6 @@ const defaultActions: Action[] = [
     type: 'button',
     action: 'press',
     label: 'Scroll',
-    keyboardIcon: '',
     gamepadIcon: 'img/ui/button-prompts/gamepad/xbox_stick_r_vertical.png',
     showInLegend: true,
     keybinds: [],
@@ -283,6 +282,36 @@ const defaultActions: Action[] = [
       {
         keyboardKey: 's',
         gamepadButton: 7,
+      },
+    ],
+  },
+  {
+    id: 'sliderControl',
+    type: 'button',
+    action: 'press',
+    label: 'Control Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-v.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-left.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: 'v',
+        gamepadButton: 2,
+      },
+    ],
+  },
+  {
+    id: 'sliderRelease',
+    type: 'button',
+    action: 'press',
+    label: 'Release Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-b.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-right.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: 'b',
+        gamepadButton: 1,
       },
     ],
   },
@@ -490,7 +519,15 @@ export const useInputs = defineStore('inputs', {
           return false;
         }
         // Check if the input should be shown in the legend
-        return inputs.gameActions[inputName]?.showInLegend;
+        const action = inputs.gameActions[inputName];
+        if (!action?.showInLegend) return false;
+
+        // Only show inputs that have the current control type
+        if (state.inputMode === 'gamepad') {
+          return action.gamepadIcon !== undefined;
+        } else {
+          return action.keyboardIcon !== undefined;
+        }
       });
     },
   },

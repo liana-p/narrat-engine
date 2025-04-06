@@ -1,5 +1,8 @@
 <template>
-  <span class="input-prompt-container" v-if="inputs.showPrompts && action">
+  <span
+    class="input-prompt-container"
+    v-if="inputs.showPrompts && action && iconPath"
+  >
     <span class="input-prompt-label" v-if="showLabel || label">{{
       labelText
     }}</span>

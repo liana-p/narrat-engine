@@ -57,6 +57,12 @@ main:
       "You run away"
 ```
 
+## Secrets and hidden achievements
+
+Achievements can have `secret: true` in their config to mark them as secret. Secret achievements will be shown in a separate "Secret Achievements" section, and their name and description will be censored until obtained by the player.
+
+Achievements can also have `hidden: true` in their config to hide them from the player. Hidden achievements are not shown in the achievements list at all until obtained.
+
 ## Achievements UI
 
 The achievements UI will automatically appear as a tab in the game menu if the game has any achievements defined.
