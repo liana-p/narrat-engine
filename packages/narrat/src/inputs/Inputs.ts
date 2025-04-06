@@ -4,10 +4,28 @@ import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 import { useRenderingStore } from '@/stores/rendering-store';
 import { getCommonConfig } from '@/config';
+import {
+  GamepadKey,
+  KeyboardKey,
+  gamepadAxisDirectionToGamepadKey,
+  gamepadAxisIndexToGamepadAxis,
+  gamepadButtonEnumToGamepadButtonNumber,
+  gamepadIndexToGamepadButton,
+  keyboardKeyEnumToKeyboardKeyString,
+  keyboardKeyStringToKeyboardKey,
+} from './input-key-types';
+
+export const AXIS_THRESHOLD = 0.3;
 
 export type InputMode = 'km' | 'gamepad';
 export type NarratGamepadButton = {
   index: number;
+  state: GamepadButton;
+  previous: GamepadButton;
+};
+
+export type NarratGamepadAxisButton = {
+  key: GamepadKey;
   state: GamepadButton;
   previous: GamepadButton;
 };
@@ -22,6 +40,7 @@ export type NarratGamepad = {
   id: string;
   gamepad: Gamepad;
   buttons: NarratGamepadButton[];
+  axesButtons: NarratGamepadAxisButton[];
   axes: NarratGamepadAxes[];
 };
 
@@ -37,15 +56,15 @@ export type AnalogEvent = (
 ) => void;
 
 export interface ButtonKeybind {
-  keyboardKey?: string;
-  gamepadButton?: number;
+  keyboardKey?: KeyboardKey;
+  gamepadKey?: GamepadKey;
 }
 
 export interface AnalogKeybind {
-  left: string;
-  right: string;
-  up: string;
-  down: string;
+  left: KeyboardKey;
+  right: KeyboardKey;
+  up: KeyboardKey;
+  down: KeyboardKey;
 }
 
 export interface BaseAction {
@@ -167,19 +186,27 @@ export class Inputs extends EventTarget {
     });
     container.addEventListener('keydown', (event) => {
       this.kbEvent();
-      const previous = this.getKeyboardState(event.key).current;
-      this.keyboardState[event.key] = {
-        previous,
-        current: true,
-      };
+      const keyboardKey = this.getKeyboardKeyFromEventKey(event.key);
+      if (keyboardKey) {
+        const keyString = this.getKeyboardKeyString(keyboardKey);
+        const previous = this.getKeyboardState(keyString).current;
+        this.keyboardState[keyString] = {
+          previous,
+          current: true,
+        };
+      }
     });
     container.addEventListener('keyup', (event) => {
       this.kbEvent();
-      const previous = this.getKeyboardState(event.key).current;
-      this.keyboardState[event.key] = {
-        previous,
-        current: false,
-      };
+      const keyboardKey = this.getKeyboardKeyFromEventKey(event.key);
+      if (keyboardKey) {
+        const keyString = this.getKeyboardKeyString(keyboardKey);
+        const previous = this.getKeyboardState(keyString).current;
+        this.keyboardState[keyString] = {
+          previous,
+          current: false,
+        };
+      }
     });
     gameloop.on('preUpdate', () => {
       this.update();
@@ -199,6 +226,68 @@ export class Inputs extends EventTarget {
     }
   }
 
+  public mapAxisToGamepadButton(
+    axisIndex: number,
+    value: number,
+  ): [NarratGamepadAxisButton, NarratGamepadAxisButton] | null {
+    const mappings = gamepadAxisDirectionToGamepadKey;
+    const axisKey = gamepadAxisIndexToGamepadAxis[axisIndex];
+    if (axisKey && mappings[axisKey]) {
+      const [negativeKey, positiveKey] = mappings[axisKey];
+      const absValue = Math.abs(value);
+      const negative = value < 0;
+      const positive = value > 0;
+      const negativeButton: NarratGamepadAxisButton = {
+        key: negativeKey,
+        state: {
+          pressed: negative && absValue > AXIS_THRESHOLD,
+          touched: negative && absValue > AXIS_THRESHOLD,
+          value: negative ? absValue : 0,
+        },
+        previous: {
+          pressed: false,
+          touched: false,
+          value: 0,
+        },
+      };
+      const positiveButton: NarratGamepadAxisButton = {
+        key: positiveKey,
+        state: {
+          pressed: positive && absValue > AXIS_THRESHOLD,
+          touched: positive && absValue > AXIS_THRESHOLD,
+          value: positive ? absValue : 0,
+        },
+        previous: {
+          pressed: false,
+          touched: false,
+          value: 0,
+        },
+      };
+      return [negativeButton, positiveButton];
+    } else {
+      error(`No mapping found for axis ${axisIndex}`);
+      return null;
+    }
+  }
+
+  public mapAllAxisToGamepadButtons(
+    previousAxesButtons: NarratGamepadAxisButton[],
+    gamepad: Gamepad,
+  ): NarratGamepadAxisButton[] {
+    const axesButtons: NarratGamepadAxisButton[] = [];
+    for (const [index, axis] of gamepad.axes.entries()) {
+      const mappedButtons = this.mapAxisToGamepadButton(index, axis);
+      if (mappedButtons) {
+        if (previousAxesButtons.length > index) {
+          mappedButtons[0].previous = previousAxesButtons[0].state;
+          mappedButtons[1].previous = previousAxesButtons[1].state;
+        }
+        axesButtons.push(...mappedButtons);
+      }
+    }
+    return axesButtons;
+  }
+
   public setupNarratGamepad(gamepad: Gamepad): NarratGamepad {
     const narratGamepad = {
       id: gamepad.id,
@@ -213,6 +302,7 @@ export class Inputs extends EventTarget {
           previous: axis,
         };
       }),
+      axesButtons: this.mapAllAxisToGamepadButtons([], gamepad),
     };
     return narratGamepad;
   }
@@ -240,6 +330,10 @@ export class Inputs extends EventTarget {
         this.gamepadEvent();
       }
     }
+    narratGamepad.axesButtons = this.mapAllAxisToGamepadButtons(
+      narratGamepad.axesButtons,
+      gamepad,
+    );
   }
 
   public getNarratButtonFromGamepad(
@@ -311,24 +405,51 @@ export class Inputs extends EventTarget {
     }
   }
 
-  public getGamepadState(key: number) {
-    if (this.gamepad && this.gamepad.buttons.length > key) {
+  public getGamepadState(key: GamepadKey) {
+    const buttonIndex = this.getGamepadButtonIndex(key);
+
+    // First check regular buttons
+    if (this.gamepad && this.gamepad.buttons.length > buttonIndex) {
       return {
-        current: this.gamepad.buttons[key].state,
-        previous: this.gamepad.buttons[key].previous,
+        current: this.gamepad.buttons[buttonIndex].state,
+        previous: this.gamepad.buttons[buttonIndex].previous,
       };
-    } else {
-      return null;
     }
+    // Then check axis buttons
+    else if (this.gamepad && this.gamepad.axesButtons) {
+      const axisButton = this.gamepad.axesButtons.find(
+        (button) => button.key === key,
+      );
+      if (axisButton) {
+        return {
+          current: axisButton.state,
+          previous: axisButton.previous,
+        };
+      }
+    }
+
+    return null;
   }
 
   public debugGamepad() {
     if (this.gamepad) {
+      // Check regular buttons
       for (const [index, button] of this.gamepad.buttons.entries()) {
         if (button.state.pressed !== button.previous.pressed) {
           // console.log(
           //   `Button ${index} ${button.state.pressed ? 'pressed' : 'released'}`,
           // );
+        }
+      }
+
+      // Check axis buttons
+      if (this.gamepad.axesButtons) {
+        for (const button of this.gamepad.axesButtons) {
+          if (button.state.pressed !== button.previous.pressed) {
+            // console.log(
+            //   `Axis Button ${button.key} ${button.state.pressed ? 'pressed' : 'released'}`,
+            // );
+          }
         }
       }
     }
@@ -364,26 +485,31 @@ export class Inputs extends EventTarget {
           const isPressed = config.keybinds.some((keybind) => {
             let keyState = false;
             keybind = this.getKeybindKey(config, keybind);
+
             if (
-              typeof keybind.keyboardKey === 'string' &&
+              keybind.keyboardKey !== undefined &&
               this.lastInputMethodUsed === 'km'
             ) {
-              const keyboardState = this.getKeyboardState(keybind.keyboardKey);
+              const keyString = this.getKeyboardKeyString(keybind.keyboardKey);
+              const keyboardState = this.getKeyboardState(keyString);
               if (keyboardState.current === true) {
                 keyState = true;
               }
             }
+
             if (
-              typeof keybind.gamepadButton === 'number' &&
+              keybind.gamepadKey !== undefined &&
               this.lastInputMethodUsed === 'gamepad'
             ) {
-              const gamepadState = this.getGamepadState(keybind.gamepadButton);
+              const gamepadState = this.getGamepadState(keybind.gamepadKey);
               if (gamepadState && gamepadState.current.pressed === true) {
                 keyState = true;
               }
             }
+
             return keyState;
           });
+
           if (isPressed) {
             // console.log(`${config.id} set true`);
             state.active = true;
@@ -391,12 +517,14 @@ export class Inputs extends EventTarget {
             // console.log(`${config.id} set false`);
             state.active = false;
           }
+
           if (state.active && !previous.active) {
             // console.log(`Just pressed ${config.id}`);
             state.justPressed = true;
           } else {
             state.justPressed = false;
           }
+
           if (!state.active && previous.active) {
             // console.log(`Just released ${config.id}`);
             state.justReleased = true;
@@ -412,19 +540,30 @@ export class Inputs extends EventTarget {
         action.previous = deepCopy(state);
         let analogValue = Vec2.create(0, 0);
         config.keybinds.forEach((keybind) => {
-          if (this.getKeyboardState(keybind.left).current) {
+          if (
+            this.getKeyboardState(this.getKeyboardKeyString(keybind.left))
+              .current
+          ) {
             state.fullState.left = 1;
             analogValue.x -= 1;
           }
-          if (this.getKeyboardState(keybind.right).current) {
+          if (
+            this.getKeyboardState(this.getKeyboardKeyString(keybind.right))
+              .current
+          ) {
             state.fullState.right = 1;
             analogValue.x += 1;
           }
-          if (this.getKeyboardState(keybind.up).current) {
+          if (
+            this.getKeyboardState(this.getKeyboardKeyString(keybind.up)).current
+          ) {
             state.fullState.up = 1;
             analogValue.y -= 1;
           }
-          if (this.getKeyboardState(keybind.down).current) {
+          if (
+            this.getKeyboardState(this.getKeyboardKeyString(keybind.down))
+              .current
+          ) {
             state.fullState.down = 1;
             analogValue.y += 1;
           }
@@ -433,6 +572,26 @@ export class Inputs extends EventTarget {
         state.value = analogValue;
       }
     }
+  }
+
+  // Helper function to convert keyboard event key to KeyboardKey enum
+  public getKeyboardKeyFromEventKey(eventKey: string): KeyboardKey | undefined {
+    return keyboardKeyStringToKeyboardKey[eventKey];
+  }
+
+  // Helper function to convert KeyboardKey enum to string for state lookup
+  public getKeyboardKeyString(key: KeyboardKey): string {
+    return keyboardKeyEnumToKeyboardKeyString[key];
+  }
+
+  // Helper function to convert GamepadKey enum to button index
+  public getGamepadButtonIndex(key: GamepadKey): number {
+    return gamepadButtonEnumToGamepadButtonNumber[key];
+  }
+
+  // Helper function to convert button index to GamepadKey enum
+  public getGamepadKeyFromIndex(index: number): GamepadKey | undefined {
+    return gamepadIndexToGamepadButton[index];
   }
 }
 

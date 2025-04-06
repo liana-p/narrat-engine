@@ -98,6 +98,7 @@ const extraButtons = computed(() => startMenuStore.buttons);
 
 const navigation = useOldNavigation({
   mode: 'list',
+  onlyVertical: true,
   container: buttonsContainer,
   listener: inputListener.value,
   onChosen: (index) => {

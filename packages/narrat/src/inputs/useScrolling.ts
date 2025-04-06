@@ -1,25 +1,24 @@
-import { ref, onMounted, onUnmounted, Ref, computed } from 'vue';
-import { InputListener, useInputs } from '@/stores/inputs-store';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { InputListener } from '@/stores/inputs-store';
+import { GamepadKey } from './input-key-types';
 
 export interface ScrollingOptions {
-  container: Ref<HTMLElement | null>;
+  container?: HTMLElement;
   scrollSpeed?: number;
   scrollThreshold?: number;
-  smooth?: boolean;
   onlyVertical?: boolean;
   gamepadAxes?: {
     vertical: number;
     horizontal?: number;
   };
-  inputListener?: InputListener | null;
+  inputListener?: InputListener;
 }
 
 export function useScrolling(options: ScrollingOptions) {
   const {
-    container,
+    container: initialContainer,
     scrollSpeed = 10,
-    scrollThreshold = 0.1,
-    smooth = true,
+    scrollThreshold = 0.2,
     onlyVertical = true,
     gamepadAxes = {
       vertical: 3, // Right stick vertical axis
@@ -28,6 +27,7 @@ export function useScrolling(options: ScrollingOptions) {
     inputListener,
   } = options;
 
+  const container = ref<HTMLElement | null>(initialContainer || null);
   const isScrolling = ref(false);
   let scrollInterval: number | null = null;
 
@@ -35,37 +35,19 @@ export function useScrolling(options: ScrollingOptions) {
     if (!container.value) return;
 
     const scrollAmount = scrollSpeed;
-
-    // Check if scrollBy is available, otherwise use scrollTop/scrollLeft
-    if (typeof container.value.scrollBy === 'function') {
-      const scrollOptions: ScrollToOptions = {
-        top:
-          direction === 'up'
-            ? -scrollAmount
-            : direction === 'down'
-              ? scrollAmount
-              : 0,
-        left:
-          direction === 'left'
-            ? -scrollAmount
-            : direction === 'right'
-              ? scrollAmount
-              : 0,
-        behavior: smooth ? 'smooth' : 'auto',
-      };
-
-      container.value.scrollBy(scrollOptions);
-    } else {
-      // Fallback to direct property manipulation
-      if (direction === 'up') {
+    switch (direction) {
+      case 'up':
         container.value.scrollTop -= scrollAmount;
-      } else if (direction === 'down') {
+        break;
+      case 'down':
         container.value.scrollTop += scrollAmount;
-      } else if (direction === 'left') {
+        break;
+      case 'left':
         container.value.scrollLeft -= scrollAmount;
-      } else if (direction === 'right') {
+        break;
+      case 'right':
         container.value.scrollLeft += scrollAmount;
-      }
+        break;
     }
   }
 
