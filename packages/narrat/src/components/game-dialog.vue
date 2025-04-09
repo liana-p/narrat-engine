@@ -95,7 +95,7 @@ import InputPrompt from './input-prompt/input-prompt.vue';
 import { useScrolling } from '@/inputs/useScrolling';
 
 const layoutMode = computed(() => useRenderingStore().layoutMode);
-const inputListener = computed(() => useInputs().inGameInputListener);
+const inputListener = computed(() => useInputs().inGameInputListener!);
 const inDialogue = ref(useMain().inScript);
 const dialogueEndTimer = ref<null | Timeout>(null);
 const rendering = useRenderingStore();
@@ -109,10 +109,9 @@ const lastDialogBox = ref<any>(null);
 const keyboardListener = ref<any>(null);
 
 // Set up scrolling functionality for the dialog container
-const scrolling = useScrolling({
+useScrolling({
   container: dialogRef,
   scrollSpeed: 40,
-  smooth: true,
   onlyVertical: true,
   inputListener: inputListener.value,
 });
