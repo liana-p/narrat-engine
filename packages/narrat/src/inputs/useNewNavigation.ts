@@ -1,5 +1,5 @@
 import { InputListener } from '@/stores/inputs-store';
-import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { computed, ref, onMounted, onUnmounted, Ref } from 'vue';
 
 export type GridNavigationOptions = {
   mode: 'grid';
@@ -11,12 +11,13 @@ export type ListNavigationOptions = {
 
 export type NavigationOptions<T> = {
   mode: 'horizontal' | 'vertical' | 'grid';
-  listener: InputListener | null;
+  listener: Ref<InputListener | null>;
   elements: T[];
   looping: boolean;
   onHighlighted?: (element: T, index: number) => void;
   onSelected?: (element: T, index: number) => void;
   noConfirm?: boolean;
+  autoMount?: boolean;
 } & (GridNavigationOptions | ListNavigationOptions);
 
 export function useNavigation<T>(options: NavigationOptions<T>) {
@@ -134,52 +135,60 @@ export function useNavigation<T>(options: NavigationOptions<T>) {
   }
 
   onMounted(() => {
-    mount();
+    if (
+      typeof options.autoMount === 'undefined' ||
+      options.autoMount === true
+    ) {
+      mount();
+    }
   });
 
   function unmount() {
-    if (!options.listener) {
+    if (!options.listener.value) {
       return;
     }
+    const listener = options.listener.value;
     if (isGrid.value || isHorizontal.value) {
-      delete options.listener.actions.left;
-      delete options.listener.actions.right;
+      delete listener.actions.left;
+      delete listener.actions.right;
     }
     if (isGrid.value || isVertical.value) {
-      delete options.listener.actions.up;
-      delete options.listener.actions.down;
+      delete listener.actions.up;
+      delete listener.actions.down;
     }
     if (!options.noConfirm) {
-      delete options.listener.actions.confirm;
+      delete listener.actions.confirm;
     }
   }
   function mount() {
-    if (!options.listener) {
+    if (!options.listener.value) {
       return;
     }
+    const listener = options.listener.value;
     if (isGrid.value || isHorizontal.value) {
-      options.listener.actions.left = {
+      listener.actions.left = {
         press: buttonLeft,
       };
-      options.listener.actions.right = {
+      listener.actions.right = {
         press: buttonRight,
       };
     }
     if (isGrid.value || isVertical.value) {
-      options.listener.actions.up = {
+      listener.actions.up = {
         press: buttonUp,
       };
-      options.listener.actions.down = {
+      listener.actions.down = {
         press: buttonDown,
       };
     }
     if (!options.noConfirm) {
-      options.listener.actions.confirm = {
+      listener.actions.confirm = {
         press: buttonConfirm,
       };
     }
     select(0);
   }
+
   onUnmounted(() => {
     unmount();
   });

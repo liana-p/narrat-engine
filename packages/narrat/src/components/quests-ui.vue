@@ -67,9 +67,11 @@ const questsUiClass = computed(() => {
   return mode === 'horizontal' ? 'quests-ui-horizontal' : 'quests-ui-vertical';
 });
 
+const inputListenerRef = computed(() => props.inputListener);
+
 const { selectedElement: selectedQuest, selectElement } = useNavigation({
   mode: 'vertical',
-  listener: props.inputListener,
+  listener: inputListenerRef,
   elements: navigableQuests.value,
   onSelected: (quest: QuestState) => {
     // selectedQuest.value = quest;

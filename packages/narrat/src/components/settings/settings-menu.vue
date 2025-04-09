@@ -3,7 +3,8 @@
     <h2 class="settings-menu-title subtitle text-center">Settings</h2>
     <SettingWidget
       v-for="(schema, id) in schemas"
-      :settingId="(id as string)"
+      :settingId="id"
+      :inputListener="inputListener"
       :key="id"
     />
   </div>
@@ -13,6 +14,11 @@
 import { computed } from 'vue';
 import { useSettings } from '@/stores/settings-store';
 import SettingWidget from './setting-widget.vue';
+import { InputListener } from '@/stores/inputs-store';
+
+const props = defineProps<{
+  inputListener: InputListener;
+}>();
 
 const settings = useSettings();
 

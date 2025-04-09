@@ -43,19 +43,11 @@ const scrollContainer = ref<HTMLElement | null>(null);
 const inputs = useInputs();
 
 // Set up scrolling functionality
-const scrolling = useScrolling({
+useScrolling({
   container: scrollContainer,
   scrollSpeed: 40,
-  smooth: true,
   onlyVertical: true,
   inputListener: props.inputListener,
-});
-
-// Update container ref when it changes
-onMounted(() => {
-  if (scrollContainer.value) {
-    scrolling.container.value = scrollContainer.value;
-  }
 });
 
 const chosenId = ref<string | false>(false);
@@ -169,7 +161,7 @@ const emit = defineEmits<{
 }
 
 .achievements-scroll-container {
-  max-height: 70vh;
+  max-height: 100%;
   overflow-y: auto;
   padding: 10px;
   position: relative;

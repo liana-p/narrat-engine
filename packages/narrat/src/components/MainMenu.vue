@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-content">
+  <div class="menu-content" ref="scrollContainer">
     <h3>Play time: {{ getPlayTimeString() }}</h3>
 
     <VolumeControls />
@@ -46,7 +46,7 @@
         Exit
       </button>
     </div>
-    <SettingsMenu />
+    <SettingsMenu :input-listener="props.inputListener" />
   </div>
 </template>
 <script setup lang="ts">
@@ -61,6 +61,7 @@ import { menuReturn } from '@/application/application-utils';
 import { startManualSave } from '@/application/saving';
 import { fontsConfig, getCommonConfig } from '@/config';
 import { useFontsStore } from '@/stores/fonts-store';
+import { useScrolling } from '@/inputs/useScrolling';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -70,11 +71,20 @@ const emit = defineEmits(['close']);
 const mainActions = ref<HTMLElement | null>(null);
 const navigation = ref<OldNavigationState | null>(null);
 const fontsStore = useFontsStore();
+const scrollContainer = ref<HTMLElement | null>(null);
 
 function quit() {
   window.close();
   // quit
 }
+
+// Set up scrolling functionality
+useScrolling({
+  container: scrollContainer,
+  scrollSpeed: 40,
+  onlyVertical: true,
+  inputListener: props.inputListener,
+});
 
 function mainMenu() {
   menuReturn();
@@ -154,6 +164,10 @@ onUnmounted(() => {
 </script>
 
 <style>
+.menu-content {
+  max-height: 100%;
+  overflow-y: auto;
+}
 .quit-button {
   margin: 20px;
   text-align: center;

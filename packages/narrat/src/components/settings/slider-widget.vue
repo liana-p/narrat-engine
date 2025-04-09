@@ -35,6 +35,7 @@ const slider = ref<HTMLInputElement | null>(null);
 const sliderValue = ref(props.value);
 const interacting = ref(false);
 let interactingInputListener: InputListener | null = null;
+let focusedInputListener: InputListener | null = null;
 
 const emit = defineEmits(['change']);
 
@@ -54,7 +55,7 @@ const slideRight = () => {
 
 const takeControl = () => {
   interactingInputListener = useInputs().registerInputListener(
-    'slider-widget',
+    'slider-widget-interaction',
     {
       sliderDecrease: {
         press: slideLeft,
@@ -80,17 +81,32 @@ const releaseControl = () => {
   }
 };
 
+const startFocusedInputListener = () => {
+  focusedInputListener = useInputs().registerInputListener(
+    'slider-widget-focused',
+    {
+      sliderControl: {
+        press: takeControl,
+      },
+    },
+    true,
+  );
+};
+
+const stopFocusedInputListener = () => {
+  if (focusedInputListener) {
+    useInputs().unregisterInputListener(focusedInputListener as InputListener);
+    focusedInputListener = null;
+  }
+};
+
 const onFocus = () => {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.inputListener.actions.sliderControl = {
-    press: takeControl,
-  };
+  startFocusedInputListener();
 };
 
 const onBlur = () => {
+  stopFocusedInputListener();
   releaseControl();
-  // eslint-disable-next-line vue/no-mutating-props
-  delete props.inputListener.actions.sliderControl;
 };
 
 watch(

@@ -1,9 +1,9 @@
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed, Ref } from 'vue';
 import { InputListener } from '@/stores/inputs-store';
 import { GamepadKey } from './input-key-types';
 
 export interface ScrollingOptions {
-  container?: HTMLElement;
+  container: Ref<HTMLElement | null>;
   scrollSpeed?: number;
   scrollThreshold?: number;
   onlyVertical?: boolean;
@@ -16,7 +16,7 @@ export interface ScrollingOptions {
 
 export function useScrolling(options: ScrollingOptions) {
   const {
-    container: initialContainer,
+    container,
     scrollSpeed = 10,
     scrollThreshold = 0.2,
     onlyVertical = true,
@@ -27,7 +27,6 @@ export function useScrolling(options: ScrollingOptions) {
     inputListener,
   } = options;
 
-  const container = ref<HTMLElement | null>(initialContainer || null);
   const isScrolling = ref(false);
   let scrollInterval: number | null = null;
 
