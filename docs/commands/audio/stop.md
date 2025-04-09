@@ -12,7 +12,11 @@ See [playing audio](../../features/audio.md) for more info on how to setup the a
 
 Syntax: `play [mode] [channel]`
 
-- mode: `music, ambiant,` or `sound`
+::: warning
+The `ambient` mode used to be called `ambiant`. This has been deprecated, and you should use `ambient` instead.
+:::
+
+- mode: `music, ambient,` or `sound`
 - `channel:` The index of the channel to stop
 
 ## Example

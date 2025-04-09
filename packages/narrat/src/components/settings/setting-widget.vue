@@ -7,17 +7,16 @@
     >
       {{ schema.name }}
     </label>
-    <input
+    <SliderWidget
       v-if="isSettingNumber(schema) || isSettingInteger(schema)"
-      ref="slider"
-      class="number-slider setting-slider"
-      type="range"
-      :id="`setting-slider-${settingId}`"
+      :inputListener="inputListener"
       :name="settingId"
-      :min="schema.minValue"
-      :max="schema.maxValue"
+      :minValue="schema.minValue"
+      :maxValue="schema.maxValue"
       :step="schema.step"
-      v-model="settingValue"
+      :value="settingValue"
+      :focused="false"
+      @change="changeValue"
     />
     <input
       v-else-if="isSettingBoolean(schema)"
@@ -52,8 +51,12 @@ import {
   isSettingInteger,
   isSettingString,
 } from '@/config/settings-config';
+import SliderWidget from './slider-widget.vue';
+import { InputListener } from '@/stores/inputs-store';
+
 export interface SettingWidgetProps {
   settingId: string;
+  inputListener: InputListener;
 }
 const props = defineProps<SettingWidgetProps>();
 
@@ -65,6 +68,10 @@ const settingValue = ref(startValue.value);
 const schema = computed(() => {
   return settings.getSettingSchema(props.settingId)!;
 });
+
+const changeValue = (newValue: number) => {
+  settingValue.value = newValue;
+};
 
 function valueChanged(newValue: number) {
   let value = newValue;

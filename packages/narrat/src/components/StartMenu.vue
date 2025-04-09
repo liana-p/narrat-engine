@@ -70,7 +70,7 @@ import { useStartMenu } from '@/stores/start-menu-store';
 import { CustomStartMenuButton } from '@/exports/plugins';
 import ModalWindow from './utils/modal-window.vue';
 import { InputListener, useInputs } from '@/stores/inputs-store';
-import { useNavigation } from '@/inputs/useNavigation';
+import { useOldNavigation } from '@/inputs/useNavigation';
 import { standalonePlayMusic, standaloneStopMusic } from '@/utils/audio-loader';
 import {
   startNewGame,
@@ -96,8 +96,9 @@ const popupComponent = ref<CustomStartMenuButton | false>(false);
 const musicId = ref<number | null | undefined>(null);
 const extraButtons = computed(() => startMenuStore.buttons);
 
-const navigation = useNavigation({
+const navigation = useOldNavigation({
   mode: 'list',
+  onlyVertical: true,
   container: buttonsContainer,
   listener: inputListener.value,
   onChosen: (index) => {

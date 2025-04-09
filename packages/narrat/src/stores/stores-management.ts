@@ -73,7 +73,7 @@ export function extractGameSaveData(): ExtractedGameSave {
     if (store.save) {
       const customStoreSaveData = store.save();
       if (customStoreSaveData) {
-        if (saveData.customStores == undefined) {
+        if (!saveData.customStores) {
           saveData.customStores = {};
         }
         saveData.customStores[storeName] = customStoreSaveData;

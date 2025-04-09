@@ -8,7 +8,11 @@ See [playing audio](../../features/audio.md) for more info on how to setup the a
 
 Syntax: `$play [mode] [channel (optional)]`
 
-- mode: `music` , `ambiant` or `sound`
+::: warning
+The `ambient` mode used to be called `ambiant`. This has been deprecated, and you should use `ambient` instead.
+:::
+
+- mode: `music` , `ambient` or `sound`
 - channel: A number indicating which channel to resume. Defaults to 0. Can be used to play multiple musics in parallel on the same mode
 
 ## Example

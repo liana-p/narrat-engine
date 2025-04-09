@@ -7,7 +7,7 @@ import { generateObjectFromList } from '@/utils/type-utils';
 import { Howler } from 'howler';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 
-export const audioModesArray = ['music', 'ambiant', 'sound'] as const;
+export const audioModesArray = ['music', 'ambient', 'sound'] as const;
 export const audioModes = generateObjectFromList(audioModesArray);
 export type AudioModeKey = keyof typeof audioModes;
 export type AudioModes = Map<AudioModeKey, AudioModeState>;

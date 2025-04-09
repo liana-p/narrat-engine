@@ -99,6 +99,8 @@ onUnmounted(() => {
 .tab-content {
   position: relative;
   width: 100%;
+  flex-shrink: 1;
+  overflow-y: auto;
 }
 
 .tabs-controller__tabs {

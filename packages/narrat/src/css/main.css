@@ -67,6 +67,7 @@
 
   --quest-title-color: yellow;
   --completed-quest-title-color: grey;
+  --selected-quest-background-color: rgba(255, 255, 255, 0.1);
 
   --objective-in-progress-color: white;
   --objective-completed-color: grey;

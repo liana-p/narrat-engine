@@ -10,14 +10,14 @@ import {
 } from 'vue';
 import { InputMode, inputs } from './Inputs';
 
-export type GridNavigationOptions = {
+export type OldGridNavigationOptions = {
   mode: 'grid';
   columns: number;
 };
-export type ListNavigationOptions = {
+export type OldListNavigationOptions = {
   mode: 'list';
 };
-export type NavigationOptions = {
+export type OldNavigationOptions = {
   mode: 'grid' | 'list';
   container?: Ref<HTMLElement | null>;
   elements?: Ref<(HTMLElement | null)[]> | ComputedRef<(HTMLElement | null)[]>;
@@ -28,9 +28,9 @@ export type NavigationOptions = {
   onlyVertical?: boolean;
   onlyHorizontal?: boolean;
   noChoosing?: boolean;
-} & (GridNavigationOptions | ListNavigationOptions);
+} & (OldGridNavigationOptions | OldListNavigationOptions);
 
-export function useNavigation(options: NavigationOptions) {
+export function useOldNavigation(options: OldNavigationOptions) {
   if (!options.listener) {
     console.warn('No input listener provided for navigation');
     return null;
@@ -39,7 +39,7 @@ export function useNavigation(options: NavigationOptions) {
 
   const currentColumn = computed(() =>
     options.mode === 'grid'
-      ? selectedIndex.value % (options as GridNavigationOptions).columns
+      ? selectedIndex.value % (options as OldGridNavigationOptions).columns
       : 0,
   );
   const selectables = ref<HTMLElement[]>([]);
@@ -125,19 +125,21 @@ export function useNavigation(options: NavigationOptions) {
     if (!selectables.value) {
       return;
     }
-    const opts = options as GridNavigationOptions;
+    const opts = options as OldGridNavigationOptions;
     const index = selectedIndex.value;
     if (!options.loopForbidden && index < opts.columns) {
       select(selectables.value.length - 1);
     } else {
-      select(selectedIndex.value - (options as GridNavigationOptions).columns);
+      select(
+        selectedIndex.value - (options as OldGridNavigationOptions).columns,
+      );
     }
   }
   function selectDown() {
     if (!selectables.value) {
       return;
     }
-    const opts = options as GridNavigationOptions;
+    const opts = options as OldGridNavigationOptions;
     const index = selectedIndex.value;
     if (
       !options.loopForbidden &&
@@ -145,7 +147,9 @@ export function useNavigation(options: NavigationOptions) {
     ) {
       select(0);
     } else {
-      select(selectedIndex.value + (options as GridNavigationOptions).columns);
+      select(
+        selectedIndex.value + (options as OldGridNavigationOptions).columns,
+      );
     }
   }
   function buttonUp() {
@@ -282,4 +286,4 @@ export function useNavigation(options: NavigationOptions) {
   };
 }
 
-export type NavigationState = ReturnType<typeof useNavigation>;
+export type OldNavigationState = ReturnType<typeof useOldNavigation>;

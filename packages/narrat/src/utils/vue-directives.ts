@@ -18,4 +18,21 @@ export function addDirectives(vue: App) {
       }
     },
   });
+
+  vue.directive('selected', {
+    mounted(el, binding) {
+      if (binding.value) {
+        el.classList.add('selected');
+      } else {
+        el.classList.remove('selected');
+      }
+    },
+    updated(el, binding) {
+      if (binding.value) {
+        el.classList.add('selected');
+      } else {
+        el.classList.remove('selected');
+      }
+    },
+  });
 }

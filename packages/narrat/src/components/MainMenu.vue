@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-content">
+  <div class="menu-content" ref="scrollContainer">
     <h3>Play time: {{ getPlayTimeString() }}</h3>
 
     <VolumeControls />
@@ -46,7 +46,7 @@
         Exit
       </button>
     </div>
-    <SettingsMenu />
+    <SettingsMenu :input-listener="props.inputListener" />
   </div>
 </template>
 <script setup lang="ts">
@@ -56,11 +56,12 @@ import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
 import { InputListener } from '@/stores/inputs-store';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { menuReturn } from '@/application/application-utils';
 import { startManualSave } from '@/application/saving';
 import { fontsConfig, getCommonConfig } from '@/config';
 import { useFontsStore } from '@/stores/fonts-store';
+import { useScrolling } from '@/inputs/useScrolling';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -68,13 +69,22 @@ const props = defineProps<{
 const emit = defineEmits(['close']);
 
 const mainActions = ref<HTMLElement | null>(null);
-const navigation = ref<NavigationState | null>(null);
+const navigation = ref<OldNavigationState | null>(null);
 const fontsStore = useFontsStore();
+const scrollContainer = ref<HTMLElement | null>(null);
 
 function quit() {
   window.close();
   // quit
 }
+
+// Set up scrolling functionality
+useScrolling({
+  container: scrollContainer,
+  scrollSpeed: 40,
+  onlyVertical: true,
+  inputListener: props.inputListener,
+});
 
 function mainMenu() {
   menuReturn();
@@ -130,7 +140,7 @@ function getPlayTimeString(): string {
 }
 
 onMounted(() => {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'list',
     container: mainActions,
     listener: props.inputListener,
@@ -154,6 +164,10 @@ onUnmounted(() => {
 </script>
 
 <style>
+.menu-content {
+  max-height: 100%;
+  overflow-y: auto;
+}
 .quit-button {
   margin: 20px;
   text-align: center;

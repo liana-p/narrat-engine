@@ -14,48 +14,55 @@ quests:
       delivery:
         hidden: true
         description: Deliver the bread to the helper cat.
-  breadShopping5:
-    title: More bread shopping
-    description: The helper cat asked you to buy bread for him.
+
+  quest1:
+    title: Lorem Ipsum Dolor
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     objectives:
-      bread:
-        description: Buy bread for the helper cat.
-      delivery:
+      objective1:
+        description: Ut enim ad minim veniam, quis nostrud exercitation.
+      objective2:
+        description: Duis aute irure dolor in reprehenderit.
+      objective3:
         hidden: true
-        description: Deliver the bread to the helper cat.
-  breadShopping2:
-    title: Bread Shopping 2
-    category: other
-    description: The helper cat asked you to buy bread for him.
+        description: Excepteur sint occaecat cupidatat non proident.
+
+  quest2:
+    title: Consectetur Adipiscing
+    description: Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
     objectives:
-      bread:
-        description: Buy bread for the helper cat.
-      delivery:
+      objective1:
+        description: Nulla facilisi. Mauris sollicitudin fermentum libero.
+
+  quest3:
+    title: Sed Do Eiusmod
+    description: Praesent elementum facilisis leo vel fringilla est ullamcorper eget.
+    objectives:
+      objective1:
+        description: Pellentesque habitant morbi tristique senectus.
+      objective2:
+        description: Netus et malesuada fames ac turpis egestas.
+
+  quest4:
+    title: Tempor Incididunt
+    description: Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+    objectives:
+      objective1:
+        description: Donec rutrum congue leo eget malesuada.
+      objective2:
+        description: Vestibulum ac diam sit amet quam vehicula.
+      objective3:
+        description: Curabitur aliquet quam id dui posuere blandit.
+      objective4:
         hidden: true
-        description: Deliver the bread to the helper cat.
-  breadShopping3:
-    title: Bread Shopping 3
-    description: The helper cat asked you to buy bread for him.
+        description: Nulla quis lorem ut libero malesuada feugiat.
+
+  quest5:
+    title: Ut Labore Et
+    description: Proin eget tortor risus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
     objectives:
-      bread:
-        description: Buy bread for the helper cat.
-      delivery:
+      objective1:
+        description: Curabitur aliquet quam id dui posuere blandit.
+      objective2:
         hidden: true
-        description: Deliver the bread to the helper cat.
-  breadShopping4:
-    title: Bread Shopping 4
-    category: other
-    description: The helper cat asked you to buy bread for him.
-    objectives:
-      bread:
-        description: Buy bread for the helper cat.
-      delivery:
-        hidden: true
-        description: Deliver the bread to the helper cat.
-  saveBugQuest:
-    title: Save bug quest
-    category: default
-    description: There's a bug
-    objectives:
-      bug:
-        description: bug
+        description: Nulla quis lorem ut libero malesuada feugiat.

@@ -22,6 +22,7 @@
         tag="div"
         class="dialog-container w-full override"
         :style="dialogContainerStyle"
+        ref="dialogContainerRef"
       >
         <DialogBox
           v-for="(val, i) in dialog"
@@ -91,9 +92,10 @@ import { Timeout } from '@/utils/time-helpers';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
 import AutoSaveFeedback from './auto-save/auto-save-feedback.vue';
 import InputPrompt from './input-prompt/input-prompt.vue';
+import { useScrolling } from '@/inputs/useScrolling';
 
 const layoutMode = computed(() => useRenderingStore().layoutMode);
-const inputListener = computed(() => useInputs().inGameInputListener);
+const inputListener = computed(() => useInputs().inGameInputListener!);
 const inDialogue = ref(useMain().inScript);
 const dialogueEndTimer = ref<null | Timeout>(null);
 const rendering = useRenderingStore();
@@ -101,9 +103,18 @@ const vmStore = useVM();
 const stack = computed(() => vmStore.stack);
 const dialogStore = useDialogStore();
 const dialog = computed(() => dialogStore.dialog);
-const dialogRef = ref(null);
+const dialogRef = ref<HTMLElement | null>(null);
+const dialogContainerRef = ref<HTMLElement | null>(null);
 const lastDialogBox = ref<any>(null);
 const keyboardListener = ref<any>(null);
+
+// Set up scrolling functionality for the dialog container
+useScrolling({
+  container: dialogRef,
+  scrollSpeed: 40,
+  onlyVertical: true,
+  inputListener: inputListener.value,
+});
 
 const dialogContainerStyle = computed((): any => {
   let padding = '0px';

@@ -93,7 +93,7 @@ export const useSettings = defineStore('settings', {
       return {
         ...this.settingsSchema,
         ...this.customSettingsSchema,
-      };
+      } as Record<string, CustomSetting>;
     },
     setSetting(key: string, value: any) {
       if (typeof this.baseSettings[key] !== 'undefined') {

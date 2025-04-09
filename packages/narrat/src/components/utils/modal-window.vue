@@ -88,8 +88,9 @@ export default defineComponent({
 }
 
 .modal-body {
-  overflow-y: auto;
+  overflow-y: hidden;
   flex-shrink: 2;
+  min-height: 0;
 }
 
 .modal-default-button {

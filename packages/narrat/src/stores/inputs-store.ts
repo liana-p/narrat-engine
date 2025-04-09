@@ -12,6 +12,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useMenu } from './menu-store';
 import { getCommonConfig } from '@/config';
 import { ComputedRef } from 'vue';
+import { GamepadKey, KeyboardKey } from '@/inputs/input-key-types';
 
 export interface InputStoreEvents {
   press?: ButtonEvent;
@@ -31,8 +32,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'ArrowLeft',
-        gamepadButton: 14,
+        keyboardKey: KeyboardKey.Arrow_Left,
+        gamepadKey: GamepadKey.Dpad_Left,
       },
     ],
   },
@@ -46,8 +47,11 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'ArrowLeft',
-        gamepadButton: 14,
+        keyboardKey: KeyboardKey.Arrow_Left,
+        gamepadKey: GamepadKey.Dpad_Left,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Left,
       },
     ],
   },
@@ -61,8 +65,11 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'ArrowRight',
-        gamepadButton: 15,
+        keyboardKey: KeyboardKey.Arrow_Right,
+        gamepadKey: GamepadKey.Dpad_Right,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Right,
       },
     ],
   },
@@ -76,8 +83,11 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'ArrowUp',
-        gamepadButton: 12,
+        keyboardKey: KeyboardKey.Arrow_Up,
+        gamepadKey: GamepadKey.Dpad_Up,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Up,
       },
     ],
   },
@@ -91,10 +101,22 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'ArrowDown',
-        gamepadButton: 13,
+        keyboardKey: KeyboardKey.Arrow_Down,
+        gamepadKey: GamepadKey.Dpad_Down,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Down,
       },
     ],
+  },
+  {
+    id: 'scroll',
+    type: 'button',
+    action: 'press',
+    label: 'Scroll',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/xbox_stick_r_vertical.png',
+    showInLegend: true,
+    keybinds: [],
   },
   {
     id: 'continue',
@@ -106,8 +128,8 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'Space',
-        gamepadButton: 0,
+        keyboardKey: KeyboardKey.Space,
+        gamepadKey: GamepadKey.FaceButton_Bottom,
       },
     ],
   },
@@ -121,8 +143,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'Enter',
-        gamepadButton: 0,
+        keyboardKey: KeyboardKey.Enter,
+        gamepadKey: GamepadKey.FaceButton_Bottom,
       },
     ],
   },
@@ -136,8 +158,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'Escape',
-        gamepadButton: 1,
+        keyboardKey: KeyboardKey.Escape,
+        gamepadKey: GamepadKey.FaceButton_Right,
       },
     ],
   },
@@ -151,8 +173,8 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'n',
-        gamepadButton: 9,
+        keyboardKey: KeyboardKey.Key_N,
+        gamepadKey: GamepadKey.Special_Right,
       },
     ],
   },
@@ -166,8 +188,8 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'm',
-        gamepadButton: 8,
+        keyboardKey: KeyboardKey.Key_M,
+        gamepadKey: GamepadKey.Special_Left,
       },
     ],
   },
@@ -181,8 +203,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'p',
-        gamepadButton: 4,
+        keyboardKey: KeyboardKey.Key_P,
+        gamepadKey: GamepadKey.Shoulder_Left,
       },
     ],
   },
@@ -196,8 +218,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'o',
-        gamepadButton: 5,
+        keyboardKey: KeyboardKey.Key_O,
+        gamepadKey: GamepadKey.Shoulder_Right,
       },
     ],
   },
@@ -211,8 +233,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'i',
-        gamepadButton: 6,
+        keyboardKey: KeyboardKey.Key_I,
+        gamepadKey: GamepadKey.Trigger_Button_Left,
       },
     ],
   },
@@ -226,8 +248,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'u',
-        gamepadButton: 7,
+        keyboardKey: KeyboardKey.Key_U,
+        gamepadKey: GamepadKey.Trigger_Button_Right,
       },
     ],
   },
@@ -241,8 +263,8 @@ const defaultActions: Action[] = [
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: 'v',
-        gamepadButton: 2,
+        keyboardKey: KeyboardKey.Key_V,
+        gamepadKey: GamepadKey.FaceButton_Left,
       },
     ],
   },
@@ -256,8 +278,8 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 'a',
-        gamepadButton: 6,
+        keyboardKey: KeyboardKey.Key_A,
+        gamepadKey: GamepadKey.Trigger_Button_Left,
       },
     ],
   },
@@ -271,8 +293,74 @@ const defaultActions: Action[] = [
     showInLegend: false,
     keybinds: [
       {
-        keyboardKey: 's',
-        gamepadButton: 7,
+        keyboardKey: KeyboardKey.Key_S,
+        gamepadKey: GamepadKey.Trigger_Button_Right,
+      },
+    ],
+  },
+  {
+    id: 'sliderControl',
+    type: 'button',
+    action: 'press',
+    label: 'Control Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-v.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-left.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: KeyboardKey.Key_E,
+        gamepadKey: GamepadKey.FaceButton_Left,
+      },
+    ],
+  },
+  {
+    id: 'sliderRelease',
+    type: 'button',
+    action: 'press',
+    label: 'Release Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-b.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-right.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: KeyboardKey.Key_B,
+        gamepadKey: GamepadKey.FaceButton_Right,
+      },
+    ],
+  },
+  {
+    id: 'sliderDecrease',
+    type: 'button',
+    action: 'press',
+    label: 'Decrease Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-minus.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: KeyboardKey.Arrow_Left,
+        gamepadKey: GamepadKey.Dpad_Left,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Left,
+      },
+    ],
+  },
+  {
+    id: 'sliderIncrease',
+    type: 'button',
+    action: 'press',
+    label: 'Increase Slider',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-plus.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
+    showInLegend: true,
+    keybinds: [
+      {
+        keyboardKey: KeyboardKey.Arrow_Left,
+        gamepadKey: GamepadKey.Dpad_Left,
+      },
+      {
+        gamepadKey: GamepadKey.Left_Thumbstick_Right,
       },
     ],
   },
@@ -282,6 +370,7 @@ export interface InputListener {
   id: string;
   name: string;
   actions: Record<string, InputStoreEvents>;
+  cascadeDown: boolean;
 }
 
 export interface InputsStoreState {
@@ -381,22 +470,30 @@ export const useInputs = defineStore('inputs', {
       status: ActionStatus,
     ) {
       // console.log(`Triggering action ${actionKey} ${eventType}`);
-      const listener = this.inputStack[this.inputStack.length - 1];
-      if (!listener) return;
-      if (listener.actions[actionKey]) {
-        if (listener.actions[actionKey][eventType]) {
-          if (status.state.config.type === 'button') {
-            const listenerEvent = listener.actions[actionKey][
-              eventType
-            ] as ButtonEvent;
-            const buttonStatus = status as ButtonActionStatus;
-            listenerEvent(
-              status.state.config,
-              buttonStatus.state,
-              buttonStatus.previous,
-            );
-          } else {
-            console.warn('Analog events not implemented yet');
+      let listenerIndex = this.inputStack.length - 1;
+      let stopCascading = false;
+      while (!stopCascading && listenerIndex >= 0) {
+        const listener = this.inputStack[listenerIndex];
+        if (!listener?.cascadeDown) {
+          stopCascading = true;
+        }
+        listenerIndex--;
+        if (!listener) continue;
+        if (listener.actions[actionKey]) {
+          if (listener.actions[actionKey][eventType]) {
+            if (status.state.config.type === 'button') {
+              const listenerEvent = listener.actions[actionKey][
+                eventType
+              ] as ButtonEvent;
+              const buttonStatus = status as ButtonActionStatus;
+              listenerEvent(
+                status.state.config,
+                buttonStatus.state,
+                buttonStatus.previous,
+              );
+            } else {
+              console.warn('Analog events not implemented yet');
+            }
           }
         }
       }
@@ -406,13 +503,15 @@ export const useInputs = defineStore('inputs', {
     },
     registerInputListener(
       name: string,
-      listeners?: Record<string, InputStoreEvents>,
+      listeners: Record<string, InputStoreEvents>,
+      cascadeDown: boolean = false,
     ): InputListener {
       const id = `${Date.now()}-${Math.floor(Math.random() * 100000000)}`;
       const listener = {
         id,
         name,
         actions: listeners ?? {},
+        cascadeDown,
       };
       this.inputStack.push(listener);
       return listener;
@@ -446,6 +545,12 @@ export const useInputs = defineStore('inputs', {
     },
   },
   getters: {
+    isGamepad(state) {
+      return state.inputMode === 'gamepad';
+    },
+    isKeyboard(state) {
+      return state.inputMode === 'km';
+    },
     showPrompts(state) {
       return (
         (state.inputMode === 'gamepad' &&
@@ -474,7 +579,15 @@ export const useInputs = defineStore('inputs', {
           return false;
         }
         // Check if the input should be shown in the legend
-        return inputs.gameActions[inputName]?.showInLegend;
+        const action = inputs.gameActions[inputName];
+        if (!action?.showInLegend) return false;
+
+        // Only show inputs that have the current control type
+        if (state.inputMode === 'gamepad') {
+          return action.gamepadIcon !== undefined;
+        } else {
+          return action.keyboardIcon !== undefined;
+        }
       });
     },
   },

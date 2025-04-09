@@ -1,0 +1,15 @@
+test_quests:
+  run start_lots_quests
+  run complete_some_quests
+
+start_lots_quests:
+  start_quest breadShopping
+  start_quest quest1
+  start_quest quest2
+  start_quest quest3
+  start_quest quest4
+  start_quest quest5
+
+complete_some_quests:
+  complete_quest quest1
+  complete_quest quest3

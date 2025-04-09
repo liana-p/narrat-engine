@@ -21,7 +21,7 @@
 import { InputListener } from '@/stores/inputs-store';
 import { useSkillData } from './skills-composables';
 import { onMounted, onUnmounted, ref } from 'vue';
-import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 
 const props = defineProps<{
   chosenSkill: string;
@@ -29,7 +29,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['cancel']);
-const navigation = ref<NavigationState | null>(null);
+const navigation = ref<OldNavigationState | null>(null);
 const buttonsContainer = ref<HTMLElement | null>(null);
 function close() {
   emit('cancel');
@@ -38,7 +38,7 @@ const { skillStyle, skillName, skillDescription, skillLevelText } =
   useSkillData(props.chosenSkill);
 
 onMounted(() => {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'list',
     listener: props.inputListener,
     container: buttonsContainer,

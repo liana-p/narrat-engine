@@ -95,7 +95,7 @@ import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
 import { getCommonConfig } from '../config';
 import { useMain } from '../stores/main-store';
-import { NavigationState, useNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 
 const props = defineProps<{
@@ -139,7 +139,7 @@ const navigationProps = ref({
     navigationSelected.value = index;
   },
 });
-const navigation = useNavigation({
+const navigation = useOldNavigation({
   mode: 'list',
   elements: saveElements,
   listener: inputListener.value,

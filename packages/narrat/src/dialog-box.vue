@@ -80,7 +80,7 @@ import { useMain } from './stores/main-store';
 import { DialogBoxParameters } from './types/dialog-box-types';
 import { getCharacterStyle } from './utils/characters';
 import { findAllHtmlTags, stringTemplater } from './utils/string-helpers';
-import { useNavigation } from './inputs/useNavigation';
+import { useOldNavigation } from './inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { Interval, Timeout } from '@/utils/time-helpers';
 import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
@@ -118,7 +118,7 @@ const props = defineProps<{
 
 const navigation = ref<any | null>(null);
 if (props.active) {
-  navigation.value = useNavigation({
+  navigation.value = useOldNavigation({
     mode: 'list',
     container: choicesDiv,
     listener: props.inputListener,
