@@ -5,6 +5,7 @@
     :class="objectClass"
     :id="`viewport-object-${props.screenObject.id}`"
     @click="clickOnObject(screenObject)"
+    @mouseenter="hoverOnObject(screenObject)"
     :style="objectStyle"
   >
     <span
@@ -50,6 +51,15 @@ function clickOnObject(screenObject: ScreenObjectState) {
   }
   if (props.screenObject.onClick) {
     screenObjectsStore.clickObject(screenObject);
+  }
+}
+
+function hoverOnObject(screenObject: ScreenObjectState) {
+  if (props.transitioning) {
+    return;
+  }
+  if (props.screenObject.onClick) {
+    screenObjectsStore.hoverObject(screenObject);
   }
 }
 
