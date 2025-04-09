@@ -83,6 +83,9 @@ saves:
   mode: manual
   slots: 10
   runOnReload: 'game_reload'
+  autosaveDisabledOnLabels:
+    - test_no_autosave
+  # disabled: true
 ```
 
 Then for example in the game code:
@@ -134,3 +137,61 @@ saves:
 Setting the `disabled` option to true in the saves config will remove the continue/load button, and remove the warning about erasing save slots when clicking on new game.
 
 The game will still be saving in the background, but the player won't be able to load the save.
+
+## Disabling autosave on specific labels
+
+There are cases where you might want your game to _not_ autosave on specific labels. For example if there is a choice in your game that might softlock the player, you might want to prevent the player from autosaving after that choice.
+
+To do that, add the `autosaveDisabledOnLabels` option to the saves config and list all the labels that should _not_ trigger an autosave.
+
+```yaml
+saves:
+  autosaveDisabledOnLabels:
+    - no_autosave
+    - dont_save_this_label
+    - please_dont_save_me
+    - this_really_shouldnt_be_saved
+    - no_dont_save_this_label_senpai_yamete_kudasai
+```
+
+## Saving spinner feedback UI
+
+The game automatically shows a little spinner when saving. The spinner can be configured in the config and with CSS. The spinner is made of:
+
+<video controls="controls" src="./saving/spinner.mp4" type="video/mp4" autoplay="true"></video>
+
+- A background image
+- A text
+- A foreground image
+
+Either of those 3 things can be individually disabled or customised. Here is an example config:
+
+```yaml
+saves:
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'
+```
+
+Omitting any of `text`, `backgroundImage` or `foregroundImage` will make them simply not appear. The `duration` key is the time in seconds the spinner will be shown for. If setting `enabled` to false, the spinner will never appear.
+
+To customise the display and animation of the spinner, override the CSS classes:
+
+- `auto-save-feedback-container`: The position and size of the spinner
+- `auto-save-feedback-text`: The text of the spinner
+- `auto-save-feedback-background`: The background image of the spinner
+- `auto-save-feedback-foreground`: The foreground image of the spinner
+
+By default, the background and foreground both have a CSS animation to spin in opposite ways.
+
+## Manual saves from menu
+
+The system menu allows the player to create a manual save whenever they want. If you want to disable this option, add the `allowManualSave` option to the save config:
+
+```yaml
+saves
+  allowManualSave: false
+```

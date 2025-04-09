@@ -255,7 +255,7 @@ export const useScreenObjects = defineStore('screenObjects', {
     },
     // Loads save data where objects have string references, populating them
     loadSaveData(data: ScreenObjectsStoreSave) {
-      this.objectsList = this.loadAllObjects(data.objectsList);
+      this.objectsList = this.loadAllObjects(deepCopy(data.objectsList));
       this.tree = data.tree.map((obj) => this.objectsList[obj]);
     },
     reset() {

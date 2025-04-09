@@ -101,6 +101,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
         text: 'Dialog Panel',
         link: 'dialog-panel',
       },
+      { text: 'Fonts', link: 'fonts' },
       { text: 'Game Settings', link: 'game-settings' },
       { text: 'Gamepad support', link: 'gamepad' },
       {
@@ -111,7 +112,9 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
         text: 'Config files hot reloading',
         link: 'config-hot-reloading',
       },
+      { text: 'Hotkeys', link: 'hotkeys' },
       { text: 'HUD Stats', link: 'hud-stats' },
+      { text: 'Input Prompts', link: 'input-prompts' },
       { text: 'Inventory', link: 'inventory' },
       { text: 'Items', link: 'items' },
       { text: 'Quests', link: 'quests' },
@@ -140,7 +143,7 @@ function sidebarScripting(): DefaultTheme.SidebarItem[] {
       { text: 'JavaScript interface', link: 'javascript-interface' },
       {
         text: 'Known limitations and issues',
-        link: '/others/scripting-limitations',
+        link: '../others/scripting-limitations',
       },
       {
         text: 'Macros',
@@ -164,10 +167,6 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
     text: 'Common commands docs',
     collapsible: true,
     items: [
-      {
-        text: 'All commands cheatsheet',
-        link: '/commands/all-commands',
-      },
       { text: 'All commands cheatsheet', link: '/commands/all-commands' },
       { text: 'Jump', link: '/commands/api-jump' },
       { text: 'Choices', link: '/commands/choice-function' },
@@ -179,13 +178,18 @@ function commonCommandsSidebar(): DefaultTheme.SidebarItem[] {
 }
 
 function sidebarPlugins(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: 'Godot Narrat integration plugin',
-      link: '/plugins/godot/godot-plugin',
-    },
-    { text: 'Plugin API', link: '/plugins/plugins' },
-  ];
+  return {
+    text: 'Plugins',
+    collapsible: true,
+    items: [
+      {
+        text: 'Godot Narrat integration plugin',
+        link: '/plugins/godot/godot-plugin',
+      },
+      { text: 'Plugin API', link: '/plugins/plugins' },
+      { text: 'Plugin hooks', link: '/plugins/plugin-hooks' },
+    ],
+  };
 }
 
 function sidebarOthers(): DefaultTheme.SidebarItem[] {

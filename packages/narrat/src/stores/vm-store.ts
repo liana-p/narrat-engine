@@ -101,7 +101,7 @@ export const useVM = defineStore('vm', {
               id: value.id,
             };
           } else {
-            return value;
+            return null;
           }
         }),
       };
@@ -113,7 +113,7 @@ export const useVM = defineStore('vm', {
     },
     loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
-      this.data = data.data;
+      this.data = deepCopy(data.data);
       this.findEntitiesInData(this.data);
     },
     loadGlobalSaveData(globalSave: Pick<GlobalGameSave, 'data'>) {
@@ -214,7 +214,7 @@ export const useVM = defineStore('vm', {
       this.$reset();
       this.stack = [];
       this.data = {};
-      this.hasJumped = true;
+      this.hasJumped = false;
       this.setStack({
         currentIndex: 0,
         branchData: {
@@ -365,7 +365,15 @@ export const useVM = defineStore('vm', {
         }
         this.hasJumped = true;
         this.setStack(target);
-        await autoSaveGame({});
+        const autoSaveDisabledOnLabels =
+          getCommonConfig().saves.autosaveDisabledOnLabels;
+        if (
+          !autoSaveDisabledOnLabels ||
+          !autoSaveDisabledOnLabels.includes(target.label)
+        ) {
+          // Don't autosave if we're on a label that's not supposed to
+          await autoSaveGame({});
+        }
         result = await this.runFrame();
       }
       if (result === STOP_SIGNAL) {
@@ -471,7 +479,7 @@ export const useVM = defineStore('vm', {
       const isInDialog = useMain().inScript;
       const result = await this.runLabelFunction(label, ...args);
       if (isInDialog) {
-        dialogStore.dialog.push(lastDialog);
+        dialogStore.addDialog(lastDialog);
       } else {
         useMain().endingScript();
       }

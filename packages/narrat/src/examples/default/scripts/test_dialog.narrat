@@ -1,0 +1,18 @@
+test_dialog:
+  talk cat idle "hello"
+  talk cat idle "before clear"
+  clear_dialog
+  talk cat idle "after clear"
+  "before clear"
+  clear_dialog
+  "after clear"
+  "hello 2"
+  "before clear"
+  clear_dialog
+  "after clear"
+  "hello 9"
+  "hello 10"
+  "before clear"
+  clear_dialog
+  "after clear"
+  "hello 11"

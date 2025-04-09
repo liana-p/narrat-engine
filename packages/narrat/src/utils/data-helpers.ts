@@ -290,12 +290,9 @@ export function deepCopy<T>(a: T): T {
 }
 
 export function deepCopyMap<T>(a: T, predicate: (value: any) => any): T {
-  if (a === null) {
-    return null as any;
-  }
   if (typeof a === 'object') {
     const res = predicate(a);
-    if (predicate(a)) {
+    if (res) {
       return res;
     }
     if (Array.isArray(a)) {
@@ -312,6 +309,6 @@ export function deepCopyMap<T>(a: T, predicate: (value: any) => any): T {
       return b;
     }
   } else {
-    return predicate(a);
+    return a;
   }
 }

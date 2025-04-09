@@ -52,3 +52,10 @@ quests:
       delivery:
         hidden: true
         description: Deliver the bread to the helper cat.
+  saveBugQuest:
+    title: Save bug quest
+    category: default
+    description: There's a bug
+    objectives:
+      bug:
+        description: bug

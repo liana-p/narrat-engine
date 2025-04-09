@@ -149,13 +149,13 @@ export const useScreens = defineStore('screens', {
       };
     },
     loadSaveData(data: ScreenSave) {
-      this.layers = data.layers.map((layer) => {
+      this.layers = deepCopy(data.layers).map((layer) => {
         if (layer !== null && typeof layer !== 'string') {
           layer = null;
         }
         return { screen: layer };
       });
-      this.buttons = deepmerge(this.buttons, data.buttons);
+      this.buttons = deepmerge(this.buttons, deepCopy(data.buttons));
     },
     isButtonDisabled(button: string) {
       const state = this.getButtonState(button);

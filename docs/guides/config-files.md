@@ -7,7 +7,7 @@ There have been recent changes to the config files to add the [live reloading](.
 
 The main important change is that config files are now in the `src/config` folder instead of the `public/data` folder. The main `config.yaml` also becomes `common.yaml`, and the parts of `config.yaml` which specify the paths of other config files can be deleted.
 
-Everything else is the same as before
+Everything else is the same as before.
 :::
 
 # Config files
@@ -32,7 +32,7 @@ The `config.yaml` file is a [yaml](https://fileinfo.com/extension/yaml) file whi
 
 ## Other config files
 
-Many parts of config.yaml list a path to another `.yaml` file. This is to separate config into manageable chunks where you only edit the file relevant to a feature (like `skills.yaml`, or `items.yaml`).
+Many parts of `config.yaml` list a path to another `.yaml` file. This is to separate config into manageable chunks where you only edit the file relevant to a feature (like `skills.yaml`, or `items.yaml`).
 
 The various features and guides sections of this documentation can give more information about how to use each option.
 
@@ -70,7 +70,7 @@ This quest config means a quest has the following properties:
 
 - title: A mandatory string value
 - description: A mandatory string value
-- objectives: A key-value list of objectives defined in the ObjectiveDataSchema
+- objectives: A key-value list of objectives defined in the `ObjectiveDataSchema`
 
 Then, an objective config has:
 
@@ -85,11 +85,11 @@ The engine follows this process for loading the config:
 
 - Each config section has a **default config**. This default config exists to provide default values to options that don't need to be changed by default
 - The engine loads the **game's config files**. Those are the files coming from the game itself
-- Each **default config is merged with the game's config** so that whatever the game customised overrides what's in the default options
+- **Each default config is merged with the game's config** so that whatever the game customised overrides what's in the default options
 
 ## Characters config
 
-Additionally to `config.yaml`, there is a separate `characters.yaml` file containing the config for all characters in the game.
+Additionally to `common.yaml`, there is a separate `characters.yaml` file containing the config for all characters in the game.
 
 See more info at the [characters and portraits guide](../features/characters-and-portraits.md)
 

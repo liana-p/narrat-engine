@@ -1,6 +1,6 @@
 ---
 config:
-  imagesPath: "./img/characters/"
+  imagesPath: './img/characters/'
 characters:
   game:
     name: ''
@@ -33,7 +33,7 @@ characters:
     sprites:
       idle: music_cat.webp
     style:
-      color: "#7f06e2"
+      color: '#7f06e2'
       boxCss:
         background-color: red
       textCss:
@@ -46,4 +46,3 @@ characters:
     style:
       color: red
     name: Inner Voice
-

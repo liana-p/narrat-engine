@@ -3,6 +3,7 @@ import { Vec2, Vector2 } from '@/utils/Vector2';
 import { error } from '@/utils/error-handling';
 import { deepCopy } from '@/utils/data-helpers';
 import { useRenderingStore } from '@/stores/rendering-store';
+import { getCommonConfig } from '@/config';
 
 export type InputMode = 'km' | 'gamepad';
 export type NarratGamepadButton = {
@@ -10,10 +11,18 @@ export type NarratGamepadButton = {
   state: GamepadButton;
   previous: GamepadButton;
 };
+
+export interface NarratGamepadAxes {
+  index: number;
+  value: number;
+  previous: number;
+}
+
 export type NarratGamepad = {
   id: string;
   gamepad: Gamepad;
   buttons: NarratGamepadButton[];
+  axes: NarratGamepadAxes[];
 };
 
 export type ButtonEvent = (
@@ -39,14 +48,21 @@ export interface AnalogKeybind {
   down: string;
 }
 
-export interface ButtonAction {
+export interface BaseAction {
   id: string;
+  type: 'button' | 'analog';
+  label: string;
+  keyboardIcon: string;
+  gamepadIcon: string;
+  showInLegend: boolean;
+}
+export interface ButtonAction extends BaseAction {
   type: 'button';
   action: 'press' | 'release';
   keybinds: ButtonKeybind[];
 }
 
-export interface AnalogAction {
+export interface AnalogAction extends BaseAction {
   id: string;
   type: 'analog';
   keybinds: AnalogKeybind[];
@@ -190,6 +206,13 @@ export class Inputs extends EventTarget {
       buttons: gamepad.buttons.map((button, index) => {
         return this.getNarratButtonFromGamepad(button, button, index);
       }),
+      axes: gamepad.axes.map((axis, index) => {
+        return {
+          index,
+          value: axis,
+          previous: axis,
+        };
+      }),
     };
     return narratGamepad;
   }
@@ -206,6 +229,14 @@ export class Inputs extends EventTarget {
       narratButton.previous = deepCopy(narratButton.state);
       narratButton.state = deepCopy(button);
       if (narratButton.previous.pressed !== narratButton.state.pressed) {
+        this.gamepadEvent();
+      }
+    }
+    for (const [index, axis] of gamepad.axes.entries()) {
+      const narratAxis = narratGamepad.axes[index];
+      narratAxis.previous = narratAxis.value;
+      narratAxis.value = axis;
+      if (narratAxis.previous !== narratAxis.value) {
         this.gamepadEvent();
       }
     }
@@ -303,6 +334,21 @@ export class Inputs extends EventTarget {
     }
   }
 
+  public getKeybindKey(
+    config: ButtonAction,
+    keybind: ButtonKeybind,
+  ): ButtonKeybind {
+    const key = config.id;
+    const override = getCommonConfig().hotkeys[key];
+    if (typeof override !== 'undefined') {
+      return {
+        ...keybind,
+        keyboardKey: override as any,
+      };
+    }
+    return keybind;
+  }
+
   public update() {
     // console.log('inputs update');
     this.updateGamepad();
@@ -317,6 +363,7 @@ export class Inputs extends EventTarget {
         if (config.action === 'press') {
           const isPressed = config.keybinds.some((keybind) => {
             let keyState = false;
+            keybind = this.getKeybindKey(config, keybind);
             if (typeof keybind.keyboardKey === 'string') {
               const keyboardState = this.getKeyboardState(keybind.keyboardKey);
               if (keyboardState.current === true) {

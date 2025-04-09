@@ -6,29 +6,37 @@ import ChapterTitle from '@/components/scenes/chapter-title.vue';
 import { shallowRef } from 'vue';
 import { SceneConfig, SceneKey } from './scene-types';
 
+export enum BuiltInScene {
+  EngineSplash = 'engine-splash',
+  GameSplash = 'game-splash',
+  StartMenu = 'start-menu',
+  Playing = 'playing',
+  ChapterTitle = 'chapter-title',
+}
+
 export const defaultScenes = {
-  'engine-splash': {
-    id: 'engine-splash',
+  [BuiltInScene.EngineSplash]: {
+    id: BuiltInScene.EngineSplash,
     component: shallowRef(EngineSplash),
     props: {},
   },
-  'game-splash': {
-    id: 'game-splash',
+  [BuiltInScene.GameSplash]: {
+    id: BuiltInScene.GameSplash,
     component: shallowRef(GameSplash),
     props: {},
   },
-  'start-menu': {
-    id: 'start-menu',
+  [BuiltInScene.StartMenu]: {
+    id: BuiltInScene.StartMenu,
     component: shallowRef(StartMenu),
     props: {},
   },
-  playing: {
-    id: 'playing',
+  [BuiltInScene.Playing]: {
+    id: BuiltInScene.Playing,
     component: shallowRef(InGame),
     props: {},
   },
-  'chapter-title': {
-    id: 'chapter-title',
+  [BuiltInScene.ChapterTitle]: {
+    id: BuiltInScene.ChapterTitle,
     component: shallowRef(ChapterTitle),
     props: {},
   },

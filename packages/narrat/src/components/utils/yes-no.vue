@@ -26,7 +26,7 @@ const listener = ref<InputListener | null>(
         chosen(false);
       },
     },
-    continue: {
+    confirm: {
       press: () => {
         chosen(true);
       },

@@ -2,6 +2,7 @@
 gameTitle: Narrat Demo
 saveFileName: Narrat Demo
 dialogPanel:
+  allowHistoryToggling: true # This will add a button with the auto/skip button that allows the player to toggle viewing dialog history.
   overlayMode: true
   rightOffset: 100
   bottomOffset: 50
@@ -10,6 +11,15 @@ dialogPanel:
   textSpeed: 20
   animateText: true
   timeBetweenLines: 100
+  historyLength: 200 # The number of dialogue lines to keep in the history
+  hideDuringTransition: true # Setting this to true will make the dialog panel hide during screen transitions
+  showAfterScriptEnd: false # Setting this to true will make the dialog panel stay on even if the narrat script ends
+input:
+  showPromptsOnGamepad: true
+  showPromptsOnKeyboard: true
+  showBottomLegend: true
+graphics:
+  allowFullscreen: true
 layout:
   backgrounds:
     width: 1280
@@ -38,3 +48,16 @@ hudStats:
 saves:
   mode: manual
   slots: 10
+  runOnReload: 'test_label_reload'
+  autosaveDisabledOnLabels:
+    - test_no_autosave
+  allowManualSave: true
+  autosaveFeedback:
+    enabled: true
+    duration: 0.5
+    text: saving...
+    backgroundImage: 'img/ui/autosave_spinner_background.png'
+    foregroundImage: 'img/ui/autosave_spinner.png'
+menuButtons:
+  new-game:
+    text: Start a new game

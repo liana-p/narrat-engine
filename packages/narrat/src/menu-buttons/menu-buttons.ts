@@ -19,6 +19,7 @@ export function registerDefaultMenuButtons(app: any) {
       label: 'System',
       cssClass: 'system-menu',
       id: 'system',
+      inputPrompt: 'system',
       tabs: [
         {
           id: 'system-tab',
@@ -33,6 +34,7 @@ export function registerDefaultMenuButtons(app: any) {
       label: 'Menu',
       id: 'menu',
       cssClass: 'menu-menu',
+      inputPrompt: 'menu',
       tabs: [
         {
           id: 'skills',

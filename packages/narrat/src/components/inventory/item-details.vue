@@ -59,7 +59,7 @@ function close() {
 
 onMounted(() => {
   listener.value = useInputs().registerInputListener('item-details', {
-    continue: {
+    confirm: {
       press: () => {
         if (canUse.value) {
           use();

@@ -13,6 +13,7 @@ import { GameUserSettingsSave } from '@/stores/settings-store';
 import { ConfigStoreSave } from '@/stores/config-store';
 import { ChoiceTrackingSave } from '@/stores/choices-tracking-store';
 import { RenderingSaveData } from '@/stores/rendering-store';
+import { FontsStoreSave } from '@/stores/fonts-store';
 
 export interface SaveSlot {
   slotType: 'manual' | 'auto';
@@ -47,6 +48,7 @@ export type ExtractedGameSave = {
   config: ConfigStoreSave;
   choices: ChoiceTrackingSave;
   rendering: RenderingSaveData;
+  fonts: FontsStoreSave;
 };
 
 export type GameSave = EmptyGameSave & ExtractedGameSave;

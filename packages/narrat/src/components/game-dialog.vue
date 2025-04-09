@@ -1,5 +1,6 @@
 <template>
   <AutoPlayFeedback />
+  <AutoSaveFeedback />
   <transition name="fade">
     <DialogPicture
       :picture="picture"
@@ -28,6 +29,7 @@
           :key="val.id"
           :options="getDialogBoxOptions(val, i)"
           :active="isDialogActive(i)"
+          :index="i"
           :inputListener="inputListener"
         />
       </transition-group>
@@ -38,12 +40,21 @@
             @click="autoPlay"
           >
             Auto
+            <InputPrompt input="autoPlay" />
           </div>
           <div
             class="nrt-button menu-toggle-button auto-button skip"
             @click="skip"
           >
             Skip
+            <InputPrompt input="skip" />
+          </div>
+          <div
+            v-if="getCommonConfig().dialogPanel.allowHistoryToggling !== false"
+            class="nrt-button menu-toggle-button auto-button toggle-history"
+            @click="toggleHistory"
+          >
+            Toggle History
           </div>
         </div>
       </Teleport>
@@ -78,6 +89,8 @@ import {
 } from '@/config/characters-config';
 import { Timeout } from '@/utils/time-helpers';
 import AutoPlayFeedback from './auto-play/AutoPlayFeedback.vue';
+import AutoSaveFeedback from './auto-save/auto-save-feedback.vue';
+import InputPrompt from './input-prompt/input-prompt.vue';
 
 const layoutMode = computed(() => useRenderingStore().layoutMode);
 const inputListener = computed(() => useInputs().inGameInputListener);
@@ -107,7 +120,11 @@ const dialogContainerStyle = computed((): any => {
 
 const lastDialog = computed((): DialogKey | undefined => {
   if (dialog.value.length > 0) {
-    return dialog.value[dialog.value.length - 1];
+    const result = dialog.value[dialog.value.length - 1];
+    if (dialogStore.isDialogCleared(dialog.value.length - 1)) {
+      return undefined;
+    }
+    return result;
   }
   return undefined;
 });
@@ -258,15 +275,22 @@ function autoPlay() {
 function skip() {
   useDialogStore().toggleSkip();
 }
+function toggleHistory() {
+  useDialogStore().toggleHistory();
+}
 function getDialogBoxOptions(
   dialogKey: DialogKey,
   index: number,
 ): DialogBoxParameters {
   const info = getCharacterInfo(dialogKey.speaker);
+  const dialogStore = useDialogStore();
   let title: string | undefined = info?.name ?? 'Missing Character';
   if (index >= 1) {
     const previousDialog = dialog.value[index - 1];
-    if (previousDialog.speaker === dialogKey.speaker) {
+    if (
+      !dialogStore.isDialogCleared(index - 1) &&
+      previousDialog.speaker === dialogKey.speaker
+    ) {
       title = undefined;
     }
   }

@@ -149,7 +149,8 @@ The docs also use:
 - [10 Basic RPG enemies](https://opengameart.org/content/10-basic-rpg-enemies)
 - [RPG Battle backgrounds from OpenGameArt](https://opengameart.org/content/backgrounds-3)
 - [3D City from OpenGameArt](https://opengameart.org/content/3d-city)
+- [Input Prompts by Kenney](https://www.kenney.nl/assets/input-prompts) (Creative Commons CC0)
+- [OpenDyslexic font by Abbie](https://opendyslexic.org/)
+- [Other fonts from Google fonts](https://fonts.google.com/)
 
 The rest is handmade.
-
--

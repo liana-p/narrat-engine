@@ -48,9 +48,8 @@ export function resetAllStores() {
   });
 }
 
-export function extractSaveData(): ExtractedSave {
+export function extractGameSaveData(): ExtractedGameSave {
   const saveData: ExtractedGameSave = {} as any;
-  const globalSave: GlobalGameSave = {} as any;
   for (const key in allStores) {
     const data = allStores[key];
     if (isSaveableStore(data)) {
@@ -63,6 +62,31 @@ export function extractSaveData(): ExtractedSave {
         );
       }
     }
+  }
+  vm.plugins.forEach((plugin) => {
+    if (plugin.save) {
+      saveData.plugins[plugin.pluginId] = plugin.save();
+    }
+  });
+  // Add save data from potential custom stores
+  vm.customStores().forEach(([storeName, store]) => {
+    if (store.save) {
+      const customStoreSaveData = store.save();
+      if (customStoreSaveData) {
+        if (saveData.customStores == undefined) {
+          saveData.customStores = {};
+        }
+        saveData.customStores[storeName] = customStoreSaveData;
+      }
+    }
+  });
+  return saveData;
+}
+
+export function extractGlobalSaveData(): GlobalGameSave {
+  const globalSave: GlobalGameSave = {} as any;
+  for (const key in allStores) {
+    const data = allStores[key];
     if (isGlobalSaveableStore(data)) {
       const store = data.store();
       if (store.generateGlobalSaveData) {
@@ -74,20 +98,12 @@ export function extractSaveData(): ExtractedSave {
       }
     }
   }
-  vm.plugins.forEach((plugin) => {
-    if (plugin.save) {
-      saveData.plugins[plugin.pluginId] = plugin.save();
-    }
-  });
-  // Add save data from potential custom stores
-  vm.customStores().forEach(([storeName, store]) => {
-    if (store.save) {
-      const saveData = store.save();
-      if (saveData) {
-        saveData.customStores[storeName] = saveData;
-      }
-    }
-  });
+  return globalSave;
+}
+
+export function extractSaveData(): ExtractedSave {
+  const saveData = extractGameSaveData();
+  const globalSave = extractGlobalSaveData();
   return {
     gameSave: saveData,
     globalSave,

@@ -31,6 +31,18 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
             link: '/fr/guides/narrat-overview',
           },
           {
+            text: 'Modifier son jeu',
+            link: '/fr/guides/editing-game',
+          },
+          {
+            text: 'Modifier la config',
+            link: '/fr/guides/config-files',
+          },
+          {
+            text: 'Personnaliser son interface',
+            link: '/fr/guides/customising-ui',
+          },
+          {
             text: 'Thèmes',
             link: '/fr/guides/themes',
           },
@@ -39,10 +51,25 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
             link: `/fr/guides/using-custom-fonts`,
           },
           {
+            text: `Build et export`,
+            link: `/guides/building-and-exporting`,
+          },
+          {
+            text: `Obtenir de l'aide`,
+            link: `fr/guides/getting-help`,
+          },
+          {
+            text: `Publier sur steam`,
+            link: `/guides/steam-publishing`,
+          },
+          {
             text: 'Mettre Narrat à jour',
             link: '/fr/guides/updating-narrat',
           },
-          { text: 'Publier sur Steam', link: '/fr/guides/steam-publishing' },
+          {
+            text: 'Boutons de menu personnalisés',
+            link: '/fr/guides/custom-start-buttons',
+          },
           {
             text: 'Reste des docs (en anglais)',
             link: '/guides/getting-started',
@@ -87,5 +114,34 @@ export const configFr: LocaleSpecificConfig<DefaultTheme.Config> = {
         ],
       },
     ],
+    search: {
+      options: {
+        locales: {
+          fr: {
+            translations: {
+              button: {
+                buttonText: 'Recherche',
+                buttonAriaLabel: 'Recherche',
+              },
+              modal: {
+                displayDetails: 'Afficher les détails',
+                resetButtonTitle: 'Réinitialiser',
+                backButtonTitle: 'Retour',
+                noResultsText: 'Pas de résultat pour',
+                footer: {
+                  selectText: 'pour sélectionner',
+                  selectKeyAriaLabel: 'sélection',
+                  navigateText: 'pour naviguer',
+                  navigateUpKeyAriaLabel: 'haut',
+                  navigateDownKeyAriaLabel: 'bas',
+                  closeText: 'Fermer',
+                  closeKeyAriaLabel: 'esc'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
 };

@@ -177,7 +177,7 @@ There are other things you might want to learn about, so here are some ideas:
 
 ### Viewport
 
-[Learn about the viewport](../features/viewport.md) to add visual backgrounds and interactive buttons to the viewport of your game
+[Learn about the viewport](../features/viewport.md) to add visual backgrounds and interactive buttons to the viewport of your game.
 
 ### UI Theming and customisation guide
 

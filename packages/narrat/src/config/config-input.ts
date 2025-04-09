@@ -6,7 +6,9 @@ import {
   CommonConfigInputSchema,
   DebuggingConfigSchema,
   DialogPanelConfigSchema,
+  GraphicsSettingsSchema,
   HudStatsConfigSchema,
+  InputConfigSchema,
   InteractionTagsConfigSchema,
   MenuButtonsConfigSchema,
   NotificationsConfigSchema,
@@ -29,6 +31,7 @@ import { AnimationsConfigSchema } from './animations-config';
 import { AchievementsInputConfigSchema } from './achievements-config';
 import { MacrosConfigSchema } from './macros-config';
 import { PreloadConfigSchema } from './preload-config';
+import { FontsConfigSchema } from './fonts-config';
 
 export const BaseConfigInputSchema = Type.Object({
   screens: Type.Union([Type.String(), ScreensInputConfigSchema]),
@@ -52,6 +55,7 @@ export const BaseConfigInputSchema = Type.Object({
   ),
   macros: Type.Optional(MacrosConfigSchema),
   preload: Type.Optional(PreloadConfigSchema),
+  fonts: Type.Optional(FontsConfigSchema),
 });
 
 export const ConfigInputSchemaWithCommon = Type.Intersect([
@@ -86,6 +90,8 @@ export const ConfigInputSchemaWithoutCommon = Type.Intersect([
     menuButtons: Type.Optional(MenuButtonsConfigSchema),
     debugging: Type.Optional(DebuggingConfigSchema),
     saves: Type.Optional(SavesConfigSchema),
+    input: Type.Optional(InputConfigSchema),
+    graphics: Type.Optional(GraphicsSettingsSchema),
   }),
 ]);
 export type ConfigInputWithoutCommon = Static<
