@@ -7,11 +7,95 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 ## Collaborators
 
 <!-- readme: collaborators -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/liana-p">
+                    <img src="https://avatars.githubusercontent.com/u/32243840?v=4" width="100;" alt="liana-p"/>
+                    <br />
+                    <sub><b>Liana</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: collaborators -end -->
 
 ## Contributors
 
 <!-- readme: contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/liana-p">
+                    <img src="https://avatars.githubusercontent.com/u/32243840?v=4" width="100;" alt="liana-p"/>
+                    <br />
+                    <sub><b>Liana</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Nophinou">
+                    <img src="https://avatars.githubusercontent.com/u/115846271?v=4" width="100;" alt="Nophinou"/>
+                    <br />
+                    <sub><b>Nophinou</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/PinkPenguin418">
+                    <img src="https://avatars.githubusercontent.com/u/130590846?v=4" width="100;" alt="PinkPenguin418"/>
+                    <br />
+                    <sub><b>PinkPenguin418</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/digitalpoppy">
+                    <img src="https://avatars.githubusercontent.com/u/43293884?v=4" width="100;" alt="digitalpoppy"/>
+                    <br />
+                    <sub><b>digitalpoppy</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/AlisonSelby">
+                    <img src="https://avatars.githubusercontent.com/u/1810848?v=4" width="100;" alt="AlisonSelby"/>
+                    <br />
+                    <sub><b>Alison Selby</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/jornvandebeek">
+                    <img src="https://avatars.githubusercontent.com/u/123905?v=4" width="100;" alt="jornvandebeek"/>
+                    <br />
+                    <sub><b>Jorn van de Beek</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/SlashScreen">
+                    <img src="https://avatars.githubusercontent.com/u/12375239?v=4" width="100;" alt="SlashScreen"/>
+                    <br />
+                    <sub><b>Slashscreen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/solarisfire">
+                    <img src="https://avatars.githubusercontent.com/u/420952?v=4" width="100;" alt="solarisfire"/>
+                    <br />
+                    <sub><b>Stephen Greenham</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/William-F99">
+                    <img src="https://avatars.githubusercontent.com/u/95435240?v=4" width="100;" alt="William-F99"/>
+                    <br />
+                    <sub><b>William-F99</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: contributors -end -->
 
 ## Getting Started
