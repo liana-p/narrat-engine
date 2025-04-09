@@ -34,6 +34,7 @@ export interface ScreenObjectState {
   layer: number;
   cssClass?: string;
   onClick?: ObjectOnClick | string;
+  onHover?: ObjectOnClick | string;
   text?: string;
   clickMethod?: 'jump' | 'run';
   children: ScreenObjectState[];
@@ -197,39 +198,50 @@ export const useScreenObjects = defineStore('screenObjects', {
       if (!isViewportElementClickable(thing)) {
         return false;
       }
-      if (thing.onClick) {
+      if (thing.onClick || thing.onHover) {
         return true;
       }
       return false;
     },
     clickObject(thing: ScreenObjectState) {
+      if (thing.onClick) {
+        this.handleObjectAction(thing, thing.onClick);
+      }
+    },
+    hoverObject(thing: ScreenObjectState) {
+      if (thing.onHover) {
+        this.handleObjectAction(thing, thing.onHover);
+      }
+    },
+    handleObjectAction(
+      thing: ScreenObjectState,
+      action: ObjectOnClick | string,
+    ) {
       if (!this.isScreenObjectClickable(thing)) {
         return;
       }
-      if (thing.onClick) {
-        audioEvent('onSpriteClicked');
-        let clickArgs: ObjectOnClick;
-        if (typeof thing.onClick === 'string') {
-          const parsedOnClick = parseArgumentsFromOnClick(thing.onClick);
-          clickArgs = {
-            label: parsedOnClick.label,
-            args: parsedOnClick.args,
-          };
-        } else {
-          clickArgs = thing.onClick;
-        }
-        clickArgs.method = clickArgs.method ?? thing.clickMethod ?? 'jump';
-        clickArgs.args = clickArgs.args ?? [];
-        if (clickArgs.method === 'run') {
-          useVM().runThenGoBackToPreviousDialog(
-            clickArgs.label,
-            ...clickArgs.args,
-          );
-        } else if (clickArgs.method === 'jump') {
-          useVM().jumpToLabel(clickArgs.label, ...clickArgs.args);
-        } else {
-          error(`Unknown sprite click method ${thing.clickMethod}`);
-        }
+      audioEvent('onSpriteClicked');
+      let clickArgs: ObjectOnClick;
+      if (typeof action === 'string') {
+        const parsedOnClick = parseArgumentsFromOnClick(action);
+        clickArgs = {
+          label: parsedOnClick.label,
+          args: parsedOnClick.args,
+        };
+      } else {
+        clickArgs = action;
+      }
+      clickArgs.method = clickArgs.method ?? thing.clickMethod ?? 'jump';
+      clickArgs.args = clickArgs.args ?? [];
+      if (clickArgs.method === 'run') {
+        useVM().runThenGoBackToPreviousDialog(
+          clickArgs.label,
+          ...clickArgs.args,
+        );
+      } else if (clickArgs.method === 'jump') {
+        useVM().jumpToLabel(clickArgs.label, ...clickArgs.args);
+      } else {
+        error(`Unknown sprite click method ${thing.clickMethod}`);
       }
     },
     // Turns objects into objects with string references

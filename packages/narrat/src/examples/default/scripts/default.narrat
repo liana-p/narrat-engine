@@ -11,6 +11,14 @@ dev_test:
   run test_text_autoadvance
   menu_return
 
+test_onHover:
+  set data.hoverSprite (create_sprite img/sprites/test_sprite.webp 200 100)
+  set data.hoverSprite.onHover "test_onHover_action"
+  set data.hoverSprite.onClick "test_onHover_action"
+
+test_onHover_action:
+  "Test."
+
 test_regex:
   var text "uwu i want to open a door mommy"
   var res (str_search $text "open a door")
