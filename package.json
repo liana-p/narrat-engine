@@ -35,7 +35,7 @@
     "url": "https://github.com/liana-p/narrat-engine/issues"
   },
   "homepage": "https://narrat.dev",
-  "packageManager": "pnpm@9.0.6",
+  "packageManager": "pnpm@10.8.0",
   "package-manager-strict": false,
   "pnpm": {
     "overrides": {
