@@ -1,3 +1,14 @@
+# [3.17.0](https://github.com/liana-p/narrat-engine/compare/v3.16.3...v3.17.0) (2025-04-09)
+
+
+### Features
+
+* Better gamepad integration (quests cycling with gamepad, right stick scrolling in menus) ([#304](https://github.com/liana-p/narrat-engine/issues/304)) ([25f0813](https://github.com/liana-p/narrat-engine/commit/25f08132239c9482aa0ac09feae6151810fcfcd2))
+* onHover function for screen objects ([#303](https://github.com/liana-p/narrat-engine/issues/303)) ([a9fc09b](https://github.com/liana-p/narrat-engine/commit/a9fc09b17ddf08e4048a67895b9d2b1008cb8efb))
+* Achievements now support a `hidden` option to not appear at all until found (different from `secret`)
+* `ambiant` audio channel renamed to `ambient` for correct spelling. This is both in user-facing text and in code. If any or your scripts or config referred to `ambiant`, do a search and replace to fix to `ambient`
+
+
 ## [3.16.3](https://github.com/liana-p/narrat-engine/compare/v3.16.1...v3.16.3) (2024-11-24)
 
 
