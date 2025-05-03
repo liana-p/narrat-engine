@@ -73,7 +73,7 @@ Available properties to change (all of them are optional, the only mandatory one
 - `scale`: The width and height of the object will be multiplied by this number if present
 - `layer`: Which viewport layer to render the sprite on. If on layer 1, the sprite will render in front of the screen on layer 1, but behind the screen in layer 2. **Note: If a layer has no active screen, sprites won't be rendered there. If needed you can create [empty placeholder screens](../features/viewport.md#empty-screens) so that sprites on a layer are rendered**.
 - `cssClass`: An optional CSS class name to give to the sprite. This allows you to apply custom CSS styling to any sprites
-- `onClick`: A label to run when the sprite is clicked. Example: `set data.mySprite.onClick my_label`, or if you want to pass arguments: `set data.mySprite.onClick clicked_sprite my_argument`.
+- `onClick`: A label to run when the sprite is clicked. Example: `set data.mySprite.onClick my_label`, or if you want to pass arguments: `set data.mySprite.onClick "my_label my_argument"` (make sure to keep the quotes, otherwise the `set` command will throw an error as it expects a single argument under the form of a string).
 
 ## Difference between sprite and object
 
