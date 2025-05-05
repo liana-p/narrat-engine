@@ -273,7 +273,7 @@ main:
 
 show_player_stats:
   var classInfo $data.classes[$data.player.class] // We're dynamically accessing the class info based on the value of data.player.class
-  "You are a %{data.player.class} with %{classInfo.hp} HP"
+  "You are a %{$data.player.class} with %{$classInfo.hp} HP"
 ```
 
 ### Empty object
