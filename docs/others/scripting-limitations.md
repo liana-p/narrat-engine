@@ -5,7 +5,7 @@ description: This page lists known limitations and issues with narrat scripting
 
 # Known limitations in narrat scripts
 
-Narrat scripting is a custom made engine designed to make it easy to write dialogue. Because it does a lot of "magic" behind the scenes to mmake the engine easy to use, it has a few inherent limitations
+Narrat scripting is a custom made engine designed to make it easy to write dialogue. Because it does a lot of "magic" behind the scenes to make the engine easy to use, it has a few inherent limitations
 
 ## Circular References
 
