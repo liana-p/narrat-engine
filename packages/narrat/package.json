@@ -58,7 +58,7 @@
   "license": "MIT",
   "peerDependencies": {
     "es6-promise": "^4.2.8",
-    "pinia": "^2.1.7",
+    "pinia": "^3.0.2",
     "vue": "^3.4.21"
   },
   "dependencies": {
@@ -100,7 +100,7 @@
     "execa": "^8.0.1",
     "jsdom": "^20.0.0",
     "kolorist": "^1.5.1",
-    "pinia": "^2.1.7",
+    "pinia": "^3.0.2",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.9.2",
     "shelljs": "^0.8.5",

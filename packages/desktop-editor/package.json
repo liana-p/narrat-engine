@@ -33,7 +33,7 @@
     "monaco-editor": "0.44.0",
     "monaco-yaml": "^5.1.0",
     "oh-vue-icons": "1.0.0-rc3",
-    "pinia": "^2.1.7",
+    "pinia": "^3.0.2",
     "steamworks.js": "^0.2.0",
     "vue": "^3.4.21",
     "vue-router": "4"
