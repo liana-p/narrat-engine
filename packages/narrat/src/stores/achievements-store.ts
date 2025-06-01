@@ -11,6 +11,7 @@ import {
 } from '@/config/achievements-config';
 import { useConfig } from './config-store';
 import { updateGlobalSave } from '@/application/saving';
+import { narratEventsEmitter } from '@/events/narrat-events';
 
 export interface AchievementState {
   id: string;
@@ -82,6 +83,7 @@ export const useAchievements = defineStore('achievements', {
             conf.description,
             conf.icon,
           );
+          narratEventsEmitter.emit('achievementUnlocked', achievement);
         }
         updateGlobalSave();
       }
