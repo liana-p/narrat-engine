@@ -1,3 +1,12 @@
+## [3.17.1](https://github.com/liana-p/narrat-engine/compare/v3.17.0...v3.17.1) (2025-06-01)
+
+
+### Features
+
+* new narrat event when an achievement is unlocked ([#316](https://github.com/liana-p/narrat-engine/issues/316)) ([09fd670](https://github.com/liana-p/narrat-engine/commit/09fd670327d6d7d9373e1bd3a8231a4fdd1251e3))
+
+
+
 # [3.17.0](https://github.com/liana-p/narrat-engine/compare/v3.16.3...v3.17.0) (2025-04-09)
 
 
