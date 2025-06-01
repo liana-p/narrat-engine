@@ -1,6 +1,7 @@
 test_quests:
   run start_lots_quests
   run complete_some_quests
+  jump dev_test
 
 start_lots_quests:
   start_quest breadShopping

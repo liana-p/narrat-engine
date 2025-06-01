@@ -7,13 +7,16 @@ export const AchievementConfigSchema = Type.Object({
   secret: Type.Optional(Type.Boolean()),
   hidden: Type.Optional(Type.Boolean()),
   category: Type.Optional(Type.String()),
+  extraData: Type.Optional(Type.Any()),
 });
+
 export type AchievementConfig = Static<typeof AchievementConfigSchema>;
 
 export const AchievementCategorySchema = Type.Object({
   id: Type.String(),
   title: Type.String(),
 });
+
 export type AchievementCategory = Static<typeof AchievementCategorySchema>;
 
 export const AchievementsListSchema = Type.Record(
