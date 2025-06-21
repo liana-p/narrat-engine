@@ -14,8 +14,8 @@ export type NavigationOptions<T> = {
   listener: Ref<InputListener | null>;
   elements: T[];
   looping: boolean;
-  onHighlighted?: (element: T, index: number) => void;
   onSelected?: (element: T, index: number) => void;
+  onConfirmed?: (element: T, index: number) => void;
   noConfirm?: boolean;
   autoMount?: boolean;
 } & (GridNavigationOptions | ListNavigationOptions);
@@ -129,8 +129,8 @@ export function useNavigation<T>(options: NavigationOptions<T>) {
   }
 
   function buttonConfirm() {
-    if (options.onSelected) {
-      options.onSelected(selectedElement.value, selectedIndex.value);
+    if (options.onConfirmed) {
+      options.onConfirmed(selectedElement.value, selectedIndex.value);
     }
   }
 

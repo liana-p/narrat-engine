@@ -21,31 +21,7 @@
         </option>
       </select>
     </div>
-    <div ref="mainActions">
-      <button
-        class="nrt-button system-menu-button save-button"
-        @click="saveGame"
-        v-if="getCommonConfig().saves.allowManualSave !== false"
-      >
-        Save Game
-      </button>
-      <button
-        class="nrt-button system-menu-button fullscreen-button"
-        @click="toggleFullscreen"
-        v-if="getCommonConfig().graphics.allowFullscreen !== false"
-      >
-        Toggle Fullscreen
-      </button>
-      <button
-        class="nrt-button system-menu-button return-main-menu-button"
-        @click="mainMenu"
-      >
-        Main Menu
-      </button>
-      <button class="nrt-button system-menu-button quit-button" @click="quit">
-        Exit
-      </button>
-    </div>
+    <SystemMenuActions :input-listener="props.inputListener" />
     <SettingsMenu :input-listener="props.inputListener" />
   </div>
 </template>
@@ -62,13 +38,13 @@ import { startManualSave } from '@/application/saving';
 import { fontsConfig, getCommonConfig } from '@/config';
 import { useFontsStore } from '@/stores/fonts-store';
 import { useScrolling } from '@/inputs/useScrolling';
+import SystemMenuActions from './system-menu/system-menu-actions.vue';
 
 const props = defineProps<{
   inputListener: InputListener;
 }>();
 const emit = defineEmits(['close']);
 
-const mainActions = ref<HTMLElement | null>(null);
 const navigation = ref<OldNavigationState | null>(null);
 const fontsStore = useFontsStore();
 const scrollContainer = ref<HTMLElement | null>(null);
@@ -138,29 +114,6 @@ function getPlayTimeString(): string {
   );
   return toHHMMSS(time / 1000);
 }
-
-onMounted(() => {
-  navigation.value = useOldNavigation({
-    mode: 'list',
-    container: mainActions,
-    listener: props.inputListener,
-    onChosen: (index) => {
-      if (index === 0) {
-        mainMenu();
-      } else if (index === 1) {
-        quit();
-      }
-    },
-  }) as any;
-  navigation.value!.mount();
-});
-
-onUnmounted(() => {
-  if (navigation.value) {
-    navigation.value.disable();
-    navigation.value = null;
-  }
-});
 </script>
 
 <style>

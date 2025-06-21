@@ -1,27 +1,17 @@
 <template>
   <div ref="mainActions">
     <button
-      class="nrt-button system-menu-button save-button"
-      @click="saveGame"
-      v-if="getCommonConfig().saves.allowManualSave !== false"
+      v-for="action in actions"
+      :key="action.id"
+      :class="{
+        'nrt-button': true,
+        'system-menu-button': true,
+        [action.class]: true,
+        ...selectedClass(selectedElement?.id === action.id),
+      }"
+      @click="action.callback"
     >
-      Save Game
-    </button>
-    <button
-      class="nrt-button system-menu-button fullscreen-button"
-      @click="toggleFullscreen"
-      v-if="getCommonConfig().graphics.allowFullscreen !== false"
-    >
-      Toggle Fullscreen
-    </button>
-    <button
-      class="nrt-button system-menu-button return-main-menu-button"
-      @click="mainMenu"
-    >
-      Main Menu
-    </button>
-    <button class="nrt-button system-menu-button quit-button" @click="quit">
-      Exit
+      {{ action.title }}
     </button>
   </div>
 </template>
@@ -30,8 +20,29 @@
 import { menuReturn } from '@/application/application-utils';
 import { startManualSave } from '@/application/saving';
 import { getCommonConfig } from '@/config';
+import { selectedClass } from '@/inputs/inputs-utils';
+
+import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
+import { useNavigation } from '@/inputs/useNewNavigation';
+import { InputListener } from '@/stores/inputs-store';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+
+const props = defineProps<{
+  inputListener: InputListener;
+}>();
+
+const navigation = ref<OldNavigationState | null>(null);
+const mainActions = ref<HTMLElement | null>(null);
 
 const emit = defineEmits(['close']);
+
+interface SystemMenuAction {
+  title: string;
+  id: string;
+  callback: () => void;
+  class: string;
+}
+
 function quit() {
   window.close();
   // quit
@@ -47,6 +58,37 @@ function saveGame() {
   emit('close');
 }
 
+const actions: SystemMenuAction[] = [];
+// This bit is NOT reactive because the navigation system isn't.
+if (getCommonConfig().saves.allowManualSave !== false) {
+  actions.push({
+    id: 'save',
+    title: 'Save Game',
+    callback: saveGame,
+    class: 'save-button',
+  });
+}
+if (getCommonConfig().graphics.allowFullscreen !== false) {
+  actions.push({
+    id: 'fullscreen',
+    title: 'Toggle Fullscreen',
+    callback: toggleFullscreen,
+    class: 'fullscreen-button',
+  });
+}
+actions.push({
+  id: 'main-menu',
+  title: 'Main Menu',
+  callback: mainMenu,
+  class: 'return-main-menu-button',
+});
+actions.push({
+  id: 'quit',
+  title: 'Exit',
+  callback: quit,
+  class: 'quit-button',
+});
+
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     document.body.requestFullscreen();
@@ -54,4 +96,16 @@ function toggleFullscreen() {
     document.exitFullscreen();
   }
 }
+
+const inputListenerRef = computed(() => props.inputListener);
+
+const { selectedElement } = useNavigation({
+  mode: 'horizontal',
+  listener: inputListenerRef,
+  elements: actions,
+  looping: false,
+  onConfirmed: (action: SystemMenuAction) => {
+    action.callback();
+  },
+});
 </script>
