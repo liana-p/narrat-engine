@@ -1,3 +1,12 @@
+## [3.17.2](https://github.com/liana-p/narrat-engine/compare/v3.17.1...v3.17.2) (2025-06-21)
+
+
+### Features
+
+* save data prefix for custom save file namespacing ([#321](https://github.com/liana-p/narrat-engine/issues/321)) ([36006ab](https://github.com/liana-p/narrat-engine/commit/36006abd5ce296c3ad8154d538d49b791b77504b))
+
+
+
 ## [3.17.1](https://github.com/liana-p/narrat-engine/compare/v3.17.0...v3.17.1) (2025-06-01)
 
 
