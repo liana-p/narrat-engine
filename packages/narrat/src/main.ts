@@ -50,6 +50,9 @@ export async function startApp(optionsInput: AppOptionsInput) {
   addDirectives(app);
   const config = await loadConfig(options);
   useConfig().setConfig(config);
+  if (optionsInput.savePathPrefix) {
+    useConfig().setSavePathPrefix(optionsInput.savePathPrefix);
+  }
   getSaveFile();
   useInputs().setupInputs();
   vm.pinia = pinia;

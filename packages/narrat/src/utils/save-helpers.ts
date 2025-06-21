@@ -9,11 +9,18 @@ import {
 } from '@/types/game-save';
 import { error, warning } from './error-handling';
 import { randomId } from './randomId';
+import { useConfig } from '@/stores/config-store';
 export const CURRENT_SAVE_VERSION = '3.4.0';
 
 export function saveFileName(): string {
-  return `NARRAT_SAVE_${getCommonConfig().saveFileName}`;
+  let base = `NARRAT_SAVE_`;
+  let prefix = useConfig().savePathPrefix;
+  if (prefix) {
+    base += `${prefix}_`;
+  }
+  return `${base}${getCommonConfig().saveFileName}`;
 }
+
 const oldSaveFileName = 'gameSave';
 
 let saveFile: SaveFile;
