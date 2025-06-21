@@ -1,3 +1,12 @@
+## [3.17.3](https://github.com/liana-p/narrat-engine/compare/v3.17.2...v3.17.3) (2025-06-21)
+
+
+### Bug Fixes
+
+* fix bug where gamepad picked the wrong actions in the system menu ([70d3c0b](https://github.com/liana-p/narrat-engine/commit/70d3c0b9cace1103ba9b06e910bee8edf509668d))
+
+
+
 ## [3.17.2](https://github.com/liana-p/narrat-engine/compare/v3.17.1...v3.17.2) (2025-06-21)
 
 
