@@ -48,6 +48,7 @@ export interface ConfigFiles {
 export interface AppOptions {
   baseAssetsPath?: string;
   baseDataPath?: string;
+  savePathPrefix?: string;
   configPath?: string;
   scripts: NarratScript[];
   logging?: boolean;

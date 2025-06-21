@@ -18,6 +18,8 @@ export interface ConfigStore {
   config: Config;
   // Record of modules being used for live reload, keyed by file id
   configModules: Record<ConfigKey, ConfigModule>;
+  // This needs to be able to be set at runtime just before the game loads, so we store it as its own value
+  savePathPrefix: string | null;
 }
 
 export const useConfig = defineStore('config', {
@@ -26,11 +28,15 @@ export const useConfig = defineStore('config', {
     return {
       config,
       configModules: {},
+      savePathPrefix: null,
     } as ConfigStore;
   },
   actions: {
     async setConfig(config: Config) {
       this.config = config;
+    },
+    setSavePathPrefix(prefix: string) {
+      this.savePathPrefix = prefix;
     },
     extendConfig(config: DeepPartial<Config>) {
       this.config = deepmerge(this.config, config) as Config;
