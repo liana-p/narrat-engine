@@ -299,6 +299,21 @@ const defaultActions: Action[] = [
     ],
   },
   {
+    id: 'toggleHistory',
+    type: 'button',
+    action: 'press',
+    label: 'Toggle History',
+    keyboardIcon: 'img/ui/button-prompts/keyboard/key-t.png',
+    gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-top.png',
+    showInLegend: false,
+    keybinds: [
+      {
+        keyboardKey: KeyboardKey.Key_T,
+        gamepadKey: GamepadKey.FaceButton_Top,
+      },
+    ],
+  },
+  {
     id: 'sliderControl',
     type: 'button',
     action: 'press',

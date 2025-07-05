@@ -56,6 +56,7 @@
             @click="toggleHistory"
           >
             Toggle History
+            <InputPrompt input="toggleHistory" />
           </div>
         </div>
       </Teleport>
@@ -230,6 +231,12 @@ onMounted(() => {
     listener.actions.skip = {
       press: () => {
         useDialogStore().toggleSkip();
+      },
+    };
+
+    listener.actions.toggleHistory = {
+      press: () => {
+        useDialogStore().toggleHistory();
       },
     };
   }
