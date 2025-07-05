@@ -38,6 +38,7 @@
         <div class="auto-skip-buttons flex">
           <div
             class="nrt-button menu-toggle-button auto-button auto"
+            :class="{ active: useDialogStore().playMode === 'auto' }"
             @click="autoPlay"
           >
             Auto
@@ -45,6 +46,7 @@
           </div>
           <div
             class="nrt-button menu-toggle-button auto-button skip"
+            :class="{ active: useDialogStore().playMode === 'skip' }"
             @click="skip"
           >
             Skip
@@ -53,6 +55,7 @@
           <div
             v-if="getCommonConfig().dialogPanel.allowHistoryToggling !== false"
             class="nrt-button menu-toggle-button auto-button toggle-history"
+            :class="{ active: useDialogStore().clearedDialogVisible }"
             @click="toggleHistory"
           >
             Toggle History
@@ -385,5 +388,9 @@ watch(dialog.value, (newValue) => {
   position: absolute;
   top: 10px;
   right: 160px;
+}
+
+.auto-button.active {
+  color: orange;
 }
 </style>
