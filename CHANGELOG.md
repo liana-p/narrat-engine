@@ -1,3 +1,12 @@
+## [3.17.6](https://github.com/liana-p/narrat-engine/compare/v3.17.5...v3.17.6) (2025-07-05)
+
+
+### Features
+
+* add feedback class when game dialog buttons are active ([8cd0c2e](https://github.com/liana-p/narrat-engine/commit/8cd0c2edc415a321d369b128fdf9937a2101983e))
+
+
+
 ## [3.17.5](https://github.com/liana-p/narrat-engine/compare/v3.17.4...v3.17.5) (2025-07-05)
 
 
