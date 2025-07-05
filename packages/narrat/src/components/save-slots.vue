@@ -128,17 +128,6 @@ type SaveElementContent = HTMLElement | null;
 const saveElements = ref<SaveElementContent[]>([]);
 const saveElementsIndexes = ref<{ id: string }[]>([]);
 
-const navigationProps = ref({
-  mode: 'list',
-  elements: saveElements,
-  listener: inputListener.value,
-  onlyVertical: true,
-  noChoosing: true,
-  onSelected: (index: number) => {
-    // Do Stuff
-    navigationSelected.value = index;
-  },
-});
 const navigation = useOldNavigation({
   mode: 'list',
   elements: saveElements,
