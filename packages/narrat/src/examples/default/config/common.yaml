@@ -8,7 +8,7 @@ images:
   parkButton: img/ui/park-button.webp
 dialogPanel:
   allowHistoryToggling: true # This will add a button with the auto/skip button that allows the player to toggle viewing dialog history.
-  textSpeed: 30
+  textSpeed: 20
   animateText: true
   timeBetweenLines: 100
   overlayMode: true

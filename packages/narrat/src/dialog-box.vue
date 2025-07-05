@@ -74,7 +74,7 @@ import {
   choicesConfig,
 } from './config';
 import { defaultConfig } from './config/config-output';
-import { DEFAULT_TEXT_SPEED } from './constants';
+import { DEFAULT_TEXT_SPEED, MIN_DIALOG_TIME_ON_SCREEN } from './constants';
 import { DialogChoice, useDialogStore } from './stores/dialog-store';
 import { useMain } from './stores/main-store';
 import { DialogBoxParameters } from './types/dialog-box-types';
@@ -357,12 +357,14 @@ function startTextAnimation() {
         updateTextAnimation();
       }, 30);
     } else if (isBasicChoice.value) {
+      const textSpeed =
+        (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
+        props.options.text.length;
       autoTimer.value = setTimeout(
         () => {
           endTextAnimation();
         },
-        (getCommonConfig().dialogPanel.textSpeed ?? DEFAULT_TEXT_SPEED) *
-          props.options.text.length,
+        Math.max(textSpeed, MIN_DIALOG_TIME_ON_SCREEN),
       );
     }
   }

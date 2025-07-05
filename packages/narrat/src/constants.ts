@@ -32,6 +32,7 @@ export const LOG_LEVEL = PRODUCTION ? LogLevel.WARN : LogLevel.DEBUG;
 // Default values
 export const DEFAULT_DIALOG_WIDTH = 400;
 export const DEFAULT_TEXT_SPEED = 20;
+export const MIN_DIALOG_TIME_ON_SCREEN = 750;
 export const EMPTY_SCREEN = '@empty';
 export const defaultScreenConfig: ScreenConfig = {
   background: EMPTY_SCREEN,
