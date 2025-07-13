@@ -1,3 +1,12 @@
+## [3.17.8](https://github.com/liana-p/narrat-engine/compare/v3.17.7...v3.17.8) (2025-07-13)
+
+
+### Bug Fixes
+
+* secret achievements now properly display after unlocking ([4833820](https://github.com/liana-p/narrat-engine/commit/4833820b109c562d036956c0ee5221eb2111a3bc))
+
+
+
 ## [3.17.7](https://github.com/liana-p/narrat-engine/compare/v3.17.6...v3.17.7) (2025-07-05)
 
 
