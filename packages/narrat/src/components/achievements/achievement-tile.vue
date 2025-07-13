@@ -36,6 +36,8 @@ const secretAchievements = getAchievementsConfig().secretAchievements ?? {
   censorDescription: true,
 };
 
+const obtained = computed(() => state.value.unlocked);
+
 const style = computed(() => {
   let icon = state.value.unlocked ? conf.value.icon : conf.value.lockedIcon;
   if (!icon) {
@@ -46,14 +48,18 @@ const style = computed(() => {
   };
 });
 const name = computed(() => {
-  if (!conf.value.secret || !secretAchievements.censorName) {
+  if (obtained.value || !conf.value.secret || !secretAchievements.censorName) {
     return conf.value.name;
   } else {
     return 'Hidden Achievement';
   }
 });
 const description = computed(() => {
-  if (!conf.value.secret || !secretAchievements.censorDescription) {
+  if (
+    obtained.value ||
+    !conf.value.secret ||
+    !secretAchievements.censorDescription
+  ) {
     return conf.value.description;
   } else {
     return 'This achievement is hidden. Complete it to discover more.';
@@ -61,7 +67,7 @@ const description = computed(() => {
 });
 
 const obtainedStatus = computed(() => {
-  if (!state.value.unlocked) {
+  if (!obtained.value) {
     return 'Not obtained yet';
   } else {
     return `Obtained ${new Date(state.value.unlockTime!).toLocaleDateString()}`;

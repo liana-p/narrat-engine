@@ -1,0 +1,4 @@
+test_achievements:
+  "Before unlocking secret achievement"
+  unlock_achievement secret_achievement
+  "After unlocking secret achievement"
