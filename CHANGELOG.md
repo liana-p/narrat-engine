@@ -1,3 +1,12 @@
+## [3.17.9](https://github.com/liana-p/narrat-engine/compare/v3.17.8...v3.17.9) (2025-07-23)
+
+
+### Features
+
+* show old choices feature ([#327](https://github.com/liana-p/narrat-engine/issues/327)) ([eda8da3](https://github.com/liana-p/narrat-engine/commit/eda8da3d2700b11b169e48c9c37d4701a6cc743a))
+
+
+
 ## [3.17.8](https://github.com/liana-p/narrat-engine/compare/v3.17.7...v3.17.8) (2025-07-13)
 
 
