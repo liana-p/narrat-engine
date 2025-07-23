@@ -19,6 +19,7 @@ import {
 import { skillChecksConfig } from '@/config';
 import { useSkills } from '@/stores/skills';
 import { SkillsConfig } from '@/config/skills-config';
+import { beforeEach, afterEach } from 'vitest';
 
 const skillChecksConfigMock: SkillChecksConfig = {
   options: {
