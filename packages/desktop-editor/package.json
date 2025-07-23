@@ -39,7 +39,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.5.9",
+    "@tauri-apps/cli": "^2.7.1",
     "@types/clone-deep": "^4.0.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/devtools": "^7.0.11",
