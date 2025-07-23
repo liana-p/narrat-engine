@@ -22,7 +22,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -36,7 +36,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
         with:
-          version: latest
+          version: 10.13.1
 
       - name: install frontend dependencies
         working-directory: packages/desktop-editor
