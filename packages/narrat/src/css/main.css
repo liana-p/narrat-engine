@@ -57,6 +57,7 @@
 
   --dialog-choice-color: orange;
   --dialog-choice-seen-before-color: grey;
+  --dialog-choice-old-color: rgb(197, 197, 197);
   --dialog-choice-key-color: red;
   --dialog-choice-hover-color: var(--text-color);
 
