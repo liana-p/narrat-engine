@@ -29,6 +29,7 @@ width: 475
 height: 680
 hideDuringTransition: false
 showAfterScriptEnd: false
+showOldChoices: false
 ```
 
 - `textSpeed`: [number] The speed at which text appears in the dialog panel, in characters per second. Defaults to 30. If `animateText` is off, this still controls the speed of auto play. Players can override this setting in the system menu
@@ -41,6 +42,7 @@ showAfterScriptEnd: false
 - `height`: [number] The height of the dialog panel, in pixels.
 - `hideDuringTransition`: [boolean] Whether the dialog panel should be hidden during screen transitions. Defaults to true.
 - `showAfterScriptEnd`: [boolean] Whether the dialog panel should stay on even if the narrat script ends. Defaults to false.
+- `showOldChoices`: [boolean] [optional] [default: false] If turned on, choice options for past choices will appear in the dialog history instead of being deleted
 
 ## Controlling when the dialog panel appears
 

@@ -27,6 +27,7 @@ export const DialogPanelConfigSchema = Type.Optional(
     historyLength: Type.Optional(Type.Number()),
     allowHistoryToggling: Type.Optional(Type.Boolean()),
     showAfterScriptEnd: Type.Optional(Type.Boolean()),
+    showOldChoices: Type.Optional(Type.Boolean()),
   }),
 );
 export type DialogPanelConfig = Static<typeof DialogPanelConfigSchema>;

@@ -22,19 +22,21 @@
         :class="options.cssClass"
         v-html="text"
       ></span>
-      <div v-visible="canInteract" v-if="!options.old">
-        <div class="dialog-choices" v-if="choices" ref="choicesDiv">
+      <div v-visible="choicesAreVisible" v-if="choices">
+        <div class="dialog-choices" v-if="shouldShowChoice" ref="choicesDiv">
           <p
             v-for="(choice, index) in choices"
             :key="index"
             :style="dialogStyle(choice)"
             :class="dialogClass(choice)"
-            v-on:click="chooseOption(choice)"
+            v-on:click="choiceOnClick(choice)"
             class="dialog-choice override"
             v-html="dialogText(index, choice)"
           ></p>
         </div>
-        <div v-else-if="options.textField">
+      </div>
+      <div v-visible="canInteract" v-else-if="!options.old">
+        <div v-if="options.textField">
           <input
             autofocus
             type="text"
@@ -280,6 +282,11 @@ function dialogClass(choice: DialogChoice) {
   if (choice.seenBefore) {
     res['seen-before'] = true;
   }
+  if (props.options.old) {
+    res['old'] = true;
+  } else {
+    res['current'] = true;
+  }
   if (choice.flag) {
     const flagConfig = getChoicePromptConfig(choice.flag);
     if (flagConfig?.cssClass) {
@@ -491,6 +498,17 @@ const isBasicChoice = computed(() => {
   return !choices.value && !props.options.textField;
 });
 
+const shouldShowChoice = computed(() => {
+  const showOldChoices = getCommonConfig().dialogPanel.showOldChoices;
+  return (showOldChoices && props.options.old) || !props.options.old;
+});
+
+const choiceOnClick = (choice: any) => {
+  if (!props.options.old) {
+    chooseOption(choice);
+  }
+};
+
 const dialogBoxClass = computed(() => {
   const css: any = {};
   if (props.options.title) {
@@ -503,11 +521,19 @@ const dialogBoxClass = computed(() => {
       css['dialog-box-cleared-disabled'] = true;
     }
   }
+
+  if (isBasicChoice.value) {
+    css['no-choices'] = true;
+  } else {
+    css['has-choices'] = true;
+  }
+
   if (props.options.old) {
     css['dialog-box-old'] = true;
   } else {
     css['dialog-box-new'] = true;
   }
+
   return css;
 });
 
@@ -545,11 +571,36 @@ const autoPlay = computed(() => {
   return useDialogStore().playMode === 'auto';
 });
 
+// Passed is only for the choice at runtime and not old ones
+const passedOrOld = computed(() => {
+  return passed.value || props.options.old;
+});
+
+// Convoluted logic for if a choice should be shown based on being old. Either it's not old (always true), or it's old but there are choices + the showOldChoices config option
+const shouldShowIfOld = computed(() => {
+  return (
+    (passedOrOld.value &&
+      !isBasicChoice.value &&
+      getCommonConfig().dialogPanel.showOldChoices) ||
+    !passedOrOld.value
+  );
+});
+
+// Note: this is for visibility, separate from the v-if which makes them not render at all. Choices need to not be visible until the text has finished animating,
+// like in canInteract below, but because old choices can be shown we need extra logic in this case.
+const choicesAreVisible = computed(() => {
+  if (props.options.old) {
+    return true;
+  } else {
+    return canInteract.value;
+  }
+});
+
 const canInteract = computed(() => {
   return (
     props.active &&
     mounted.value &&
-    !passed.value &&
+    shouldShowIfOld.value &&
     !nextLineTimer.value &&
     !textAnimation.value &&
     props.options.interactive &&
@@ -623,6 +674,10 @@ defineExpose({
   color: var(--dialog-choice-seen-before-color) !important;
 }
 
+.dialog-choice.old {
+  color: var(--dialog-choice-old-color);
+}
+
 .key-choice {
   color: var(--dialog-choice-key-color);
 }
@@ -633,6 +688,21 @@ defineExpose({
 .dialog-choice:hover {
   color: var(--dialog-choice-hover-color);
   cursor: pointer;
+}
+
+.dialog-choice:hover,
+.dialog-choice.selected {
+  transform: scale(1.05, 1.05);
+  background-color: rgba(250, 173, 57, 0.3);
+  transform-origin: center;
+}
+
+/* This overrides the default hover style for old choices if we are using showOldChoices */
+.dialog-choice.old:hover {
+  color: var(--dialog-choice-old-color);
+  transform: unset;
+  background-color: unset;
+  cursor: default;
 }
 
 /* Somewhat arcane CSS to force the hover color to override the child style.
@@ -664,12 +734,6 @@ Otherwise hovering choices doesn't change the color of skill check prompts. */
 .dialog-choice:not(:hover) > .skill-check,
 .passive-skill-check.skill-check {
   color: var(--skill-check-color);
-}
-.dialog-choice:hover,
-.dialog-choice.selected {
-  transform: scale(1.05, 1.05);
-  background-color: rgba(250, 173, 57, 0.3);
-  transform-origin: center;
 }
 
 .buttons-container {
