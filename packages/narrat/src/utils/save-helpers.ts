@@ -14,7 +14,7 @@ export const CURRENT_SAVE_VERSION = '3.4.0';
 
 export function saveFileName(): string {
   let base = `NARRAT_SAVE_`;
-  let prefix = useConfig().savePathPrefix;
+  const prefix = useConfig().savePathPrefix;
   if (prefix) {
     base += `${prefix}_`;
   }
