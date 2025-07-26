@@ -4,7 +4,7 @@
     v-if="inputs.showPrompts && action && iconPath"
   >
     <span class="input-prompt-label" v-if="showLabel || label">{{
-      labelText
+      $t(labelText)
     }}</span>
     <img :src="getImageUrl(iconPath)" class="input-prompt-icon" />
   </span>

@@ -7,7 +7,7 @@
         :style="backgroundStyle"
       ></div>
       <div class="auto-save-feedback-text" v-if="autosaveConfig?.text">
-        {{ autosaveConfig?.text }}
+        {{ $t(autosaveConfig?.text) }}
       </div>
       <div
         class="auto-save-feedback-foreground"

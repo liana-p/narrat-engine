@@ -9,6 +9,7 @@ import {
   AchievementsConfig,
   defaultAchievementsConfig,
 } from '@/config/achievements-config';
+import { afterEach } from 'vitest';
 
 const unlockTime = new Date(2023, 4, 1);
 

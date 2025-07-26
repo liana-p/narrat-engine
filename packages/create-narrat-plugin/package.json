@@ -35,12 +35,12 @@
   },
   "homepage": "https://github.com/liana-p/narrat-engine/tree/main/packages/create-narrat#readme",
   "dependencies": {
-    "kolorist": "^1.5.1",
-    "minimist": "^1.2.6",
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "shelljs": "^0.8.5",
-    "shx": "^0.3.4"
+    "shelljs": "^0.10.0",
+    "shx": "^0.4.0"
   }
 }

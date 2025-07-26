@@ -14,6 +14,10 @@ import { ConfigStoreSave } from '@/stores/config-store';
 import { ChoiceTrackingSave } from '@/stores/choices-tracking-store';
 import { RenderingSaveData } from '@/stores/rendering-store';
 import { FontsStoreSave } from '@/stores/fonts-store';
+import {
+  LocalizationGlobalSaveData,
+  LocalizationLocalSaveData,
+} from '@/stores/localization-store';
 
 export interface SaveSlot {
   slotType: 'manual' | 'auto';
@@ -49,12 +53,14 @@ export type ExtractedGameSave = {
   choices: ChoiceTrackingSave;
   rendering: RenderingSaveData;
   fonts: FontsStoreSave;
+  localization: LocalizationLocalSaveData;
 };
 
 export type GameSave = EmptyGameSave & ExtractedGameSave;
 
 export type GlobalGameSave = {
   achievements: AchievementsSave;
+  localization: LocalizationGlobalSaveData;
   data: {
     [key: string]: any;
   };

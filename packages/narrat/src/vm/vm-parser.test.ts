@@ -17,7 +17,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import { NarratScript } from '@/types/app-types';
 import { registerBaseCommands } from './commands';
 import { vm } from './vm';
-
+import { beforeEach, afterEach, beforeAll } from 'vitest';
 const onError = (line: number, text: string) => {
   console.trace();
   console.error(`Parser error: ${line + 1}: ${text}`);

@@ -4,6 +4,7 @@ import { mockConfig } from '@/tests/mock-config';
 import cloneDeep from 'clone-deep';
 import { useConfig } from '@/stores/config-store';
 import { useNotifications } from '../notification-store';
+import { afterEach } from 'vitest';
 
 describe('Notifications Store', () => {
   beforeEach(() => {

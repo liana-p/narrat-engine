@@ -10,7 +10,7 @@ import {
 import { error, warning } from './error-handling';
 import { randomId } from './randomId';
 import { useConfig } from '@/stores/config-store';
-export const CURRENT_SAVE_VERSION = '3.4.0';
+export const CURRENT_SAVE_VERSION = '4.0.0';
 
 export function saveFileName(): string {
   let base = `NARRAT_SAVE_`;
@@ -82,74 +82,17 @@ function defaultGlobalSave() {
     achievements: {
       achievements: {},
     },
+    localization: {
+      currentLanguage: 'en',
+    },
     data: {},
   };
 }
 function migrateSaveFile(saveFile: SaveFile) {
-  if (saveFile.version === '1.4.0') {
-    // Nothing to do
-    saveFile.globalSave = defaultGlobalSave();
-    saveFile.version = '1.5.0';
-  }
-  if (saveFile.version === '1.5.0') {
-    // Switching to save versions that match engine version for clarity
-    saveFile.version = '2.16.0';
-  }
-  if (saveFile.version === '2.16.0') {
-    // The new settings feature was added
-    saveFile.slots.forEach((slot) => {
-      if (slot && slot.saveData) {
-        slot.saveData.settings = {
-          baseSettings: {
-            textSpeed: 30,
-            animateText: true,
-            fontSize: 16,
-          },
-          customSettings: {},
-        };
-      }
-    });
-    saveFile.version = '2.17.0';
-  }
-  if (saveFile.version === '2.17.0') {
-    saveFile.slots.forEach((slot) => {
-      if (slot && slot.saveData) {
-        slot.saveData.config = {
-          gameCharacter: 'game',
-          playerCharacter: 'player',
-        };
-      }
-    });
-    saveFile.version = '3.2.3';
-  }
-  if (saveFile.version === '3.2.3') {
-    saveFile.slots.forEach((slot) => {
-      if (slot && slot.saveData) {
-        slot.saveData.choices = {
-          choices: {},
-        };
-      }
-    });
-    saveFile.version = '3.3.8';
-  }
-  if (saveFile.version === '3.3.8') {
-    saveFile.slots.forEach((slot) => {
-      if (slot && slot.saveData) {
-        slot.saveData.rendering = {
-          dialogPanelMode: 'auto',
-        };
-      }
-    });
-    saveFile.version = '3.3.9';
-  }
-  if (saveFile.version === '3.3.9') {
-    saveFile.slots.forEach((slot) => {
-      if (slot && slot.saveData) {
-        slot.saveData.plugins = {};
-        slot.saveData.customStores = {};
-      }
-    });
-    saveFile.version = '3.4.0';
+  if (saveFile.version !== '4.0.0') {
+    saveFile.globalSave.localization = {
+      currentLanguage: 'en',
+    };
   }
 }
 

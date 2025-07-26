@@ -11,7 +11,7 @@
       }"
       @click="action.callback"
     >
-      {{ action.title }}
+      {{ $t(action.title) }}
     </button>
   </div>
 </template>

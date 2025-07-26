@@ -5,7 +5,7 @@
       class="setting-label"
       :id="`setting-label-${settingId}`"
     >
-      {{ schema.name }}
+      {{ $t(schema.name) }}
     </label>
     <SliderWidget
       v-if="isSettingNumber(schema) || isSettingInteger(schema)"
@@ -34,9 +34,11 @@
       :name="settingId"
       v-model="settingValue"
     />
-    <span class="mx-8">{{ settingValue }}</span>
+    <span class="mx-8">{{ $t(settingValue) }}</span>
   </div>
-  <p class="text-left setting-description">{{ schema.description }}</p>
+  <p class="text-left setting-description">
+    {{ $t(schema.description ?? '') }}
+  </p>
   <hr
     class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 setting-separator"
   />

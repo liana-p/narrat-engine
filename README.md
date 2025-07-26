@@ -122,8 +122,8 @@ Narrat is written in [TypeScript](https://www.typescriptlang.org/). It uses the 
 
 ### Requirements
 
-- [node.js](https://nodejs.org/en/) (Downloading LTS is fine)
-- [pnpm](https://pnpm.io/). This Narrat repo is a monorepo using pnpm workspaces to easily manage the different packages.
+- [node.js](https://nodejs.org/en/) v22.17.1 or above. Please use [nvm (linux/mac)](https://github.com/nvm-sh/nvm) or [nvm for windows](https://github.com/coreybutler/nvm-windows) to manage your node.js version easily for future updates, and always install the LTS version.
+- [pnpm](https://pnpm.io/). This Narrat repo is a monorepo using pnpm workspaces to easily manage the different packages. Version 9.0.6 at the moment.
 - A text editor capable of editing a TypeScript and Vue.js project. Recommended: [VSCode](https://code.visualstudio.com/) and the extension [Volar](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-volar) for Vue.
 
 ### Running the engine for development

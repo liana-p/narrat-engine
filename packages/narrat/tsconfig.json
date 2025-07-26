@@ -19,7 +19,6 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["@testing-library/jest-dom"],
     "typeRoots": ["src/types/", "node_modules/@types/"]
   },
   "include": [

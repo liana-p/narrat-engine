@@ -1,6 +1,6 @@
 <template>
   <div class="menu-content" ref="scrollContainer">
-    <h3>Play time: {{ getPlayTimeString() }}</h3>
+    <h3>{{ $t('Play time:') }} {{ getPlayTimeString() }}</h3>
 
     <VolumeControls />
     <div class="fonts-picker" v-if="fonts">

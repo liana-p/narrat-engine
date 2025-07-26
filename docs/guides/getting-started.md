@@ -32,7 +32,7 @@ If you prefer to follow a video, this one minute video shows the entire setup fr
 ## Prerequisites
 
 - Be on a computer running Windows, MacOS or Linux
-- Have [node.js ](https://nodejs.org/en/) 20+ installed (pick the current LTS version on the website).
+- Have [node.js ](https://nodejs.org/en/) 22.17.1+ installed (pick the current LTS version). Strongly recommended to use [nvm (linux/mac)](https://github.com/nvm-sh/nvm) or [nvm for windows](https://github.com/coreybutler/nvm-windows) to install manage your node.js version easily for future updates, and always install the LTS version.
 - A text editor, we recommend [VS Code](https://code.visualstudio.com/Download).
 
 ## Creating the game project

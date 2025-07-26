@@ -89,6 +89,10 @@ import {
   defaultPreloadConfig,
 } from './config/preload-config';
 import { defaultFontsConfig, FontsConfigSchema } from './config/fonts-config';
+import {
+  defaultLocalizationConfig,
+  LocalizationConfigSchema,
+} from './config/localization-config';
 
 let config: Config;
 
@@ -112,6 +116,7 @@ const splitConfigs = [
   ['macros', MacrosConfigSchema, defaultMacrosConfig],
   ['preload', PreloadConfigSchema, defaultPreloadConfig],
   ['fonts', FontsConfigSchema, defaultFontsConfig],
+  ['localization', LocalizationConfigSchema, defaultLocalizationConfig],
 ] as const;
 
 const extendedConfigs = [
@@ -365,6 +370,10 @@ export function getChoicePromptConfig(flag: string) {
 }
 export function fontsConfig() {
   return getConfig().fonts;
+}
+
+export function getLocalizationConfig() {
+  return getConfig().localization;
 }
 
 export function getScreenConfig(screen: string): ScreenConfig {

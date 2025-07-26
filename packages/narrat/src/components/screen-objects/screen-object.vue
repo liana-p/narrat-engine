@@ -20,6 +20,7 @@
       v-for="child in props.screenObject.children"
       :key="child.id"
       :screenObject="child"
+      :layerSelected="false"
     />
   </div>
 </template>

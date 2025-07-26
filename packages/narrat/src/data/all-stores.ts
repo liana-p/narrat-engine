@@ -21,6 +21,7 @@ import { setupAllStores } from '@/stores/stores-management';
 import { useConfig } from '@/stores/config-store';
 import { useScenes } from '@/stores/scenes-store';
 import { useFontsStore } from '@/stores/fonts-store';
+import { useLocalization } from '@/stores/localization-store';
 
 export const sourceAllStores = {
   main: {
@@ -120,6 +121,12 @@ export const sourceAllStores = {
     save: 'fonts',
     config: 'fonts',
     avoidReset: false,
+  },
+  localization: {
+    store: useLocalization,
+    save: 'localization',
+    globalSave: 'localization',
+    config: 'localization',
   },
 } as const;
 export type AllStores = typeof sourceAllStores;
