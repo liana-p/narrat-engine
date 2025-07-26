@@ -50,7 +50,7 @@
             class="nrt-button"
             id="player-input-submit"
           >
-            Submit
+            {{ $t('Submit') }}
           </button>
         </div>
         <div v-else class="buttons-container">
@@ -59,7 +59,7 @@
             ref="continue"
             class="interact-button nrt-button override"
           >
-            Continue
+            {{ $t('Continue') }}
             <InputPrompt input="continue" />
           </div>
         </div>
@@ -470,8 +470,8 @@ function endTextAnimation({
         next();
       },
       useDialogStore().playMode === 'auto'
-        ? getCommonConfig().dialogPanel.timeBetweenLines ??
-            defaultConfig.common.dialogPanel.timeBetweenLines
+        ? (getCommonConfig().dialogPanel.timeBetweenLines ??
+            defaultConfig.common.dialogPanel.timeBetweenLines)
         : 0,
     );
   }

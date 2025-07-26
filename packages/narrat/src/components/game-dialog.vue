@@ -41,7 +41,7 @@
             :class="{ active: useDialogStore().playMode === 'auto' }"
             @click="autoPlay"
           >
-            Auto
+            {{ $t('Auto') }}
             <InputPrompt input="autoPlay" />
           </div>
           <div
@@ -49,7 +49,7 @@
             :class="{ active: useDialogStore().playMode === 'skip' }"
             @click="skip"
           >
-            Skip
+            {{ $t('Skip') }}
             <InputPrompt input="skip" />
           </div>
           <div
@@ -58,7 +58,7 @@
             :class="{ active: useDialogStore().clearedDialogVisible }"
             @click="toggleHistory"
           >
-            Toggle History
+            {{ $t('Toggle History') }}
             <InputPrompt input="toggleHistory" />
           </div>
         </div>

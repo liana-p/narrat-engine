@@ -1,0 +1,91 @@
+translation:
+  # Engine strings
+  # Main Menu
+  Continue: Continuer
+  Start a new game: Nouvelle partie
+  Load Game: Charger
+  Exit: Quitter
+  # Settings menu
+  System: Système
+  'Play time:': 'Temps de jeu:'
+  Settings: Paramètres
+  Text Speed: Vitesse du texte
+  Animate Text: Animer le texte
+  Font Size: Taille de la police
+  Save Game: Sauvegarder
+  Toggle Fullscreen: Basculer en plein écran
+  Main Menu: Menu principal
+  Master volume: Volume principal
+  Music: Musique
+  Ambient: Ambiance
+  Sound effects: Effets sonores
+  Font Choice: Choix de la police
+
+  # Debug
+  Debug Menu: Menu de Debug
+
+  # Prompts
+  Choose: Choisir
+  Confirm: Confirmer
+  Cancel: Annuler
+  Yes: Oui
+  No: Non
+  Back: Retour
+  Auto: Auto
+  Skip: Skip
+  Toggle History: Historique
+  Left: Gauche
+  Right: Droite
+  Up: Haut
+  Down: Bas
+  Scroll: Scroll
+  System Menu: Menu système
+  Game Menu: Menu du jeu
+  Previous: Précédent
+  Next: Suivant
+  Previous Tab: Onglet précédent
+  Next Tab: Onglet suivant
+  Interact: Interagir
+  Toggle Autoplay: Autoplay
+  Submit: Envoyer
+
+  # Game Menu
+  # Skills
+  Skills: Compétences
+  XP: XP
+  Level: Niveau
+  # Items
+  Items: Objets
+  All: Tout
+
+  # Quests
+  Quests: Quêtes
+  Active Quests: Quêtes actives
+  Completed Quests: Quêtes terminées
+
+  # Achievements
+  Achievements: Succès
+  Not obtained yet: Pas encore obtenu
+  Obtained: Obtenu
+  Secret Achievements: Succès secrets
+
+  # Sentences
+  Would you like to save the game?: Voulez-vous sauvegarder la partie ?
+
+  # Game
+  Let's test localization!: Testons la localisation !
+  Welcome %{name}!: Bienvenue %{name} !
+  Your health is %{health}.: Votre santé est de %{health}.
+
+  # Game Skills
+  Agility: Agilité
+  How good you are at moving around: Votre capacité à vous déplacer
+  Haggling: Négociation
+  Get good price on items: Obtenez un bon prix sur les objets
+
+  # Item categories
+  Food: Nourriture
+  Books: Livres
+
+  # Items
+  Bread: Pain

@@ -47,6 +47,7 @@
         </template>
       </ModalWindow>
     </Teleport>
+    <MenuButtons :hideButtons="true" />
   </div>
 </template>
 <script setup lang="ts">
@@ -64,6 +65,8 @@ import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import SaveSlots from './save-slots.vue';
 import YesNo from './utils/yes-no.vue';
 import StartMenuButton from './start-menu/start-menu-button.vue';
+import MenuButtons from './menu-buttons.vue';
+
 import { StartMenuButtonProps } from './start-menu/start-menu-types';
 import { inputEvents } from '../utils/InputsListener';
 import { useStartMenu } from '@/stores/start-menu-store';
@@ -77,6 +80,7 @@ import {
   loadAndStartGame,
 } from '@/application/application-utils';
 import { vm } from '@/vm/vm';
+import { useMenu } from '@/stores/menu-store';
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('start-menu', {}),
@@ -95,7 +99,6 @@ const startMenuStore = useStartMenu();
 const popupComponent = ref<CustomStartMenuButton | false>(false);
 const musicId = ref<number | null | undefined>(null);
 const extraButtons = computed(() => startMenuStore.buttons);
-
 const navigation = useOldNavigation({
   mode: 'list',
   onlyVertical: true,
@@ -119,6 +122,9 @@ function buttonClicked(button: StartMenuButtonProps) {
       break;
     case 'exit':
       useMain().exitGame();
+      break;
+    case 'settings':
+      useMenu().openMenu('system');
       break;
     default:
       clickExtraButton(button);
@@ -267,7 +273,7 @@ function setupButtons() {
       extendButtonWithConfig({
         id: 'load-game',
         title: 'Load Game',
-        cssClass: 'continue-button',
+        cssClass: 'load-game-button',
       }),
     );
   }
@@ -278,6 +284,13 @@ function setupButtons() {
       cssClass: `${button.id}-start-menu-button`,
     });
   }
+  buttons.value.push(
+    extendButtonWithConfig({
+      id: 'settings',
+      title: 'Settings',
+      cssClass: 'settings-button',
+    }),
+  );
   buttons.value.push(
     extendButtonWithConfig({
       id: 'exit',

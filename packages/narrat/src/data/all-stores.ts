@@ -126,6 +126,7 @@ export const sourceAllStores = {
     store: useLocalization,
     save: 'localization',
     globalSave: 'localization',
+    config: 'localization',
   },
 } as const;
 export type AllStores = typeof sourceAllStores;

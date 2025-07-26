@@ -15,16 +15,18 @@
     <!-- Select with available languages -->
     <select
       class="nrt-select language-select"
+      name="language-picker"
       v-model="selectedLanguage"
       @change="localization.setCurrentLanguage(selectedLanguage)"
     >
       <option
         v-for="{ id, name } in availableLanguages"
         :key="id"
+        :selected="isLanguageSelected(id)"
         :value="id"
         :class="`nrt-option language-option ${id}`"
       >
-        {{ name }}
+        {{ $t(name) }}
       </option>
     </select>
   </div>
@@ -53,6 +55,11 @@ const availableLanguages = computed(() => {
     a.name.localeCompare(b.name),
   );
 });
+
+const isLanguageSelected = (langId: string) => {
+  console.log('Checking language selection:', langId, selectedLanguage.value);
+  return langId === selectedLanguage.value;
+};
 
 const schemas = computed(() => {
   return settings.getAllSettingSchemas();

@@ -55,9 +55,9 @@ export async function startApp(optionsInput: AppOptionsInput) {
   app = createApp(GameApp, {
     options,
   });
+  app.use(I18NextVue, { i18next });
   app.use(pinia);
   app.component('LocalizedText', LocalizedText);
-  app.use(I18NextVue, { i18next });
   setupScenes();
   useMain().setOptions(options);
   addDirectives(app);
