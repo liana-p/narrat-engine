@@ -12,7 +12,7 @@ import { TooltipsConfig } from '@/config/tooltips-config';
 import { CharactersFilesConfig } from '@/config/characters-config';
 import { ChoicesInputConfig } from '@/config/choices-config';
 import { AnimationsConfig } from '@/config/animations-config';
-
+import type { InitOptions } from 'i18next';
 export type NarratModule = {
   code: any;
   fileName: string;
@@ -46,11 +46,12 @@ export interface ConfigFiles {
 }
 
 export interface AppOptions {
+  scripts: NarratScript[];
+  localization?: InitOptions;
   baseAssetsPath?: string;
   baseDataPath?: string;
   savePathPrefix?: string;
   configPath?: string;
-  scripts: NarratScript[];
   logging?: boolean;
   debug?: boolean;
   container?: HTMLElement | string;

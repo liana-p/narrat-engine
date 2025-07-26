@@ -12,9 +12,18 @@ importers:
 
   .:
     dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
+      i18next:
+        specifier: ^25.3.2
+        version: 25.3.2(typescript@5.8.3)
+      i18next-vue:
+        specifier: ^5.3.0
+        version: 5.3.0(i18next@25.3.2(typescript@5.8.3))(vue@3.5.18(typescript@5.8.3))
       narrat:
         specifier: workspace:*
         version: link:packages/narrat
@@ -550,6 +559,10 @@ packages:
 
   '@babel/runtime@7.23.8':
     resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.28.2':
+    resolution: {integrity: sha512-KHp2IflsnGywDjBWDkR9iEqiWSpc8GIi0lgTT3mOElT0PP1tG26P4tmFI2YvAdzgq9RGyoHZQEIEdZy6Ec5xCA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.28.1':
@@ -3542,6 +3555,20 @@ packages:
     resolution: {integrity: sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ==}
     engines: {node: '>=18.18.0'}
 
+  i18next-vue@5.3.0:
+    resolution: {integrity: sha512-X5gYF1R9FadUdRyIze6p+mU4+kztIRWb1SYeoegB0eFBt/lDA++i0A235enWq5qdrRpWZIHlLV8gd/D5xakOsw==}
+    peerDependencies:
+      i18next: '>=23'
+      vue: ^3.4.38
+
+  i18next@25.3.2:
+    resolution: {integrity: sha512-JSnbZDxRVbphc5jiptxr3o2zocy5dEqpVm9qCGdJwRNO+9saUJS0/u4LnM/13C23fUEWxAylPqKU/NpMV/IjqA==}
+    peerDependencies:
+      typescript: ^5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -5732,6 +5759,8 @@ snapshots:
   '@babel/runtime@7.23.8':
     dependencies:
       regenerator-runtime: 0.14.1
+
+  '@babel/runtime@7.28.2': {}
 
   '@babel/types@7.28.1':
     dependencies:
@@ -8870,6 +8899,17 @@ snapshots:
   human-signals@2.1.0: {}
 
   human-signals@8.0.1: {}
+
+  i18next-vue@5.3.0(i18next@25.3.2(typescript@5.8.3))(vue@3.5.18(typescript@5.8.3)):
+    dependencies:
+      i18next: 25.3.2(typescript@5.8.3)
+      vue: 3.5.18(typescript@5.8.3)
+
+  i18next@25.3.2(typescript@5.8.3):
+    dependencies:
+      '@babel/runtime': 7.28.2
+    optionalDependencies:
+      typescript: 5.8.3
 
   iconv-lite@0.6.3:
     dependencies:

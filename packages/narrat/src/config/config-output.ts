@@ -23,6 +23,10 @@ import { AnimationsConfig, defaultAnimationsConfig } from './animations-config';
 import { MacrosConfig, defaultMacrosConfig } from './macros-config';
 import { PreloadConfig, defaultPreloadConfig } from './preload-config';
 import { defaultFontsConfig, FontsConfig } from './fonts-config';
+import {
+  defaultLocalizationConfig,
+  LocalizationConfig,
+} from './localization-config';
 
 export interface Config {
   common: CommonConfig;
@@ -42,6 +46,7 @@ export interface Config {
   macros: MacrosConfig;
   preload: PreloadConfig;
   fonts: FontsConfig;
+  localization: LocalizationConfig;
 }
 
 export const defaultConfig: Config = {
@@ -62,6 +67,7 @@ export const defaultConfig: Config = {
   macros: defaultMacrosConfig,
   preload: defaultPreloadConfig,
   fonts: defaultFontsConfig,
+  localization: defaultLocalizationConfig,
 };
 // Hack so that the previous config has a static type
 export const defaultConfigTyped: Config = defaultConfig;

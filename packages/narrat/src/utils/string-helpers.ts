@@ -1,5 +1,6 @@
 import { findDataHelper, getModifiableDataPinia } from './data-helpers';
 import { processTooltipsInText } from './tooltip-utils';
+import i18next from 'i18next';
 
 export function stringTemplater(
   sourceData: any,
@@ -14,8 +15,12 @@ export function stringTemplater(
 
 export function processText(text: string): string {
   const searchableState = getModifiableDataPinia();
-  const res = stringTemplater(searchableState, text, '$');
-  return processTooltipsInText(res);
+  // const res = stringTemplater(searchableState, text, '$');
+  const translatedText = i18next.t(text, {
+    ...searchableState.data,
+    ...searchableState.scope,
+  });
+  return processTooltipsInText(translatedText as string);
 }
 
 export function findVariable(

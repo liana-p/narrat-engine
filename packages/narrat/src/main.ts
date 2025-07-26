@@ -30,6 +30,10 @@ import { constructNarratObject } from './utils/construct-narrat';
 import { useRenderingStore } from './stores/rendering-store';
 import cloneDeep from 'clone-deep';
 import { setupScenes } from './stores/stores-management';
+import i18next from 'i18next';
+import I18NextVue from 'i18next-vue';
+import LocalizedText from './components/LocalizedText.vue';
+
 let app: any;
 
 vm.callHook('onPageLoaded');
@@ -37,6 +41,13 @@ vm.callHook('onPageLoaded');
 export type HMRCallback = (mod: ModuleNamespace | undefined) => void;
 
 export async function startApp(optionsInput: AppOptionsInput) {
+  i18next.init({
+    ...optionsInput.localization,
+    interpolation: {
+      prefix: '%{',
+      suffix: '}',
+    },
+  });
   gameloop.setup();
   console.log('Starting narrat...');
   const options: AppOptions = Object.assign(defaultAppOptions(), optionsInput);
@@ -45,6 +56,8 @@ export async function startApp(optionsInput: AppOptionsInput) {
     options,
   });
   app.use(pinia);
+  app.component('LocalizedText', LocalizedText);
+  app.use(I18NextVue, { i18next });
   setupScenes();
   useMain().setOptions(options);
   addDirectives(app);

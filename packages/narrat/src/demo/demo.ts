@@ -65,6 +65,22 @@ const onPageLoad = () => {
     logging: false,
     debug,
     scripts,
+    localization: {
+      lng: 'fr',
+      resources: {
+        en: {
+          translation: {},
+        },
+        fr: {
+          translation: {
+            "Let's test localization!": 'Testons les traductions !',
+            'Welcome %{name}!': 'Bienvenue %{name} !',
+            'Your health is %{health}.': 'Votre santé est de %{health}.',
+            Settings: 'Paramètres',
+          },
+        },
+      },
+    },
   };
   if (gameConfigs[demoChoice]) {
     delete options.configPath;

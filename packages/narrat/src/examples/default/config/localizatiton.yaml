@@ -1,0 +1,9 @@
+languages:
+  english:
+    id: english
+    name: English
+    languageCode: en
+  french:
+    id: french
+    name: Français
+    languageCode: fr

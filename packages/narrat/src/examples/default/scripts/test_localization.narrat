@@ -1,0 +1,6 @@
+test_localization:
+  "Let's test localization!"
+  var name Liana
+  var health 100
+  "Welcome %{name}!"
+  "Your health is %{health}."
