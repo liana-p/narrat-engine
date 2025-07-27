@@ -267,7 +267,7 @@ function tryToClose() {
   emit('close');
 }
 function slotChosen(id: string, choice: number) {
-  const action = actions[choice];
+  const action = (actions as any)[choice];
   if (action === 'Load') {
     chooseSaveSlot(id);
   } else if (action === 'Delete') {
