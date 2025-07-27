@@ -59,7 +59,7 @@ export class GodotPlugin extends NarratPlugin {
     super();
     const engineConfig: GodotEngineConfig = {
       ...defaultGodotConfig,
-      ...(config.engineConfigOverrides ?? {}),
+      ...config.engineConfigOverrides,
     };
     if (config.godotGamePath) {
       engineConfig.executable = config.godotGamePath;

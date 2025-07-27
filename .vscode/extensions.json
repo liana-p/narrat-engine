@@ -2,6 +2,7 @@
   "recommendations": [
     "Vue.volar",
     "esbenp.prettier-vscode",
-    "NarratEngine.language-narrat"
+    "NarratEngine.language-narrat",
+    "oxc.oxc-vscode"
   ]
 }
