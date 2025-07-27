@@ -16,6 +16,7 @@ import emptyGameConfigs from '@/examples/empty/config';
 import godotGameConfigs from '@/examples/godot/config';
 import rpgGameConfigs from '@/examples/rpg/config';
 import { strings } from '@/examples/default/strings/strings';
+
 // import { setupThemesDemo } from './themes-demo';
 
 const gameScripts: Record<string, NarratScript[]> = {

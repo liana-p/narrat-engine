@@ -33,6 +33,8 @@ import { loadGlobalSaveData, setupScenes } from './stores/stores-management';
 import i18next from 'i18next';
 import I18NextVue from 'i18next-vue';
 import LocalizedText from './components/LocalizedText.vue';
+import deepMerge from 'deepmerge';
+import { defaultLocalizationStrings } from './data/default-strings';
 
 let app: any;
 
@@ -43,6 +45,18 @@ export type HMRCallback = (mod: ModuleNamespace | undefined) => void;
 export async function startApp(optionsInput: AppOptionsInput) {
   i18next.init({
     ...optionsInput.localization,
+    resources: {
+      // Merge game strings with default built-in engine strings in case the game does not provide them.
+      en: deepMerge(
+        defaultLocalizationStrings.en,
+        optionsInput.localization?.resources?.en || {},
+      ),
+      fr: deepMerge(
+        defaultLocalizationStrings.fr,
+        optionsInput.localization?.resources?.fr || {},
+      ),
+      ...optionsInput.localization?.resources,
+    },
     interpolation: {
       prefix: '%{',
       suffix: '}',

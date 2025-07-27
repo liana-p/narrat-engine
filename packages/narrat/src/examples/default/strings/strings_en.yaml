@@ -154,3 +154,5 @@ translation:
     book:
       name: Sinister Book
       description: 'A sinister-looking book'
+  test_localization:
+    print_player_name: 'Player name is %{data.player.name}.'

@@ -193,3 +193,8 @@ translation:
   Let's test localization!: Testons la localisation !
   Welcome %{name}!: Bienvenue %{name} !
   Your health is %{health}.: Votre santé est de %{health}.
+  # Raw text version
+  Player name is %{data.player.name}.: Le nom du joueur est %{data.player.name}.
+  test_localization:
+    # String key version
+    print_player_name: 'Le nom du joueur est %{data.player.name}.'

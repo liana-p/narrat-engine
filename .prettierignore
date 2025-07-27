@@ -10,3 +10,4 @@ coverage
 out
 public/index.html
 CHANGELOG.md
+docs/features/localization.md

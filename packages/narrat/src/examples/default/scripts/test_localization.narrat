@@ -4,6 +4,9 @@ test_localization:
   var name Liana
   var health 100
   "Welcome %{$name}!"
-  "Your health is %{$health}."
+  "Your health is %{health}."
   set data.player.name Liana
-  "Player name is %{$data.player.name}."
+  // Raw text version
+  "Player name is %{data.player.name}."
+  // String key version: The variable interpolation is done directly in the localization string.
+  "test_localization.print_player_name"

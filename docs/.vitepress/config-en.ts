@@ -117,6 +117,7 @@ function sidebarFeatures(): DefaultTheme.SidebarItem[] {
       { text: 'Input Prompts', link: 'input-prompts' },
       { text: 'Inventory', link: 'inventory' },
       { text: 'Items', link: 'items' },
+      { text: 'Localization', link: 'localization' },
       { text: 'Quests', link: 'quests' },
       { text: 'Save and Load', link: 'save-and-load' },
       { text: 'Scenes', link: 'scenes' },

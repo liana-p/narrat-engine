@@ -36,6 +36,11 @@ features:
   #   details: Narrat has a built-in skill system, items, inventory, quests and more.
   #   link: https://narrat.dev
   #   linkText: Learn more on the website
+  - icon: 🌎
+    title: Built-in localization
+    details: Localization is fully supported out of the box, with a simple syntax for defining strings and a built-in language switcher.
+    link: /features/localization
+    linkText: Localization Guide
   - icon: 🎲
     title: Powerful skills system
     details: Narrat comes with a powerful skill system that allows gaining XP, leveling up, and succeeding or failing at skill checks with typical TTRPG dice roll mechanics.
