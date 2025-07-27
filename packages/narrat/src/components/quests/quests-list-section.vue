@@ -1,6 +1,6 @@
 <template>
   <div :class="`${sectionId}-quests-container`" class="quests-section">
-    <h3>{{ title }}</h3>
+    <h3>{{ $t(title) }}</h3>
     <div v-if="quests.length > 0">
       <div
         :class="`${sectionId}-${category.category.id}-category`"
@@ -9,7 +9,7 @@
         :key="category.category.id"
       >
         <h4 v-if="categoriesConfig.length > 1">
-          {{ category.category.title }}
+          {{ $t(category.category.title) }}
         </h4>
         <div :class="`${sectionId}-${category.category.id}-quests`">
           <QuestDisplay
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div v-else>
-      <p>{{ fallbackText }}</p>
+      <p>{{ $t(fallbackText) }}</p>
     </div>
   </div>
 </template>

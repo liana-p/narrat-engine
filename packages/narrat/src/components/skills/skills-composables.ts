@@ -26,6 +26,9 @@ export function useSkillData(skill: string) {
   const skillLevelText = computed(() => {
     return `Level ${skills.value[skill].level}`;
   });
+  const level = computed(() => {
+    return skills.value[skill].level;
+  });
 
   return {
     skills,
@@ -37,5 +40,6 @@ export function useSkillData(skill: string) {
     skillName,
     skillDescription,
     skillLevelText,
+    level,
   };
 }

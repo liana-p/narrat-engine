@@ -7,12 +7,12 @@
       "
     >
       <h3 class="quest-title">
-        {{ data.title }}
-        {{ stateText }}
+        {{ $t(data.title) }}
+        {{ $t(stateText) }}
       </h3>
     </div>
     <p class="quest-description">
-      {{ description }}
+      {{ $t(description) }}
     </p>
     <ul
       class="quest-objectives-container list-disc"
@@ -31,14 +31,18 @@
               : 'quest-objctive-in-progress'
           "
         >
-          {{ getObjectiveData(objective.id).description }}
+          {{ $t(getObjectiveData(objective.id).description) }}
         </p>
       </li>
     </ul>
   </div>
 </template>
 <script lang="ts" setup>
-import { getObjectiveConfig, getQuestConfig, getQuestEndingConfig } from '@/config';
+import {
+  getObjectiveConfig,
+  getQuestConfig,
+  getQuestEndingConfig,
+} from '@/config';
 import { QuestState } from '@/stores/quest-log';
 import { computed } from 'vue';
 

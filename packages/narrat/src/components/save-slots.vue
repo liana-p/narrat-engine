@@ -4,8 +4,8 @@
       <h3 class="nrt-title">
         {{
           mode === 'load'
-            ? 'Choose a save to load'
-            : 'Pick a slot to save the game'
+            ? t('narrat.saves.choose_save_to_load')
+            : t('narrat.saves.pick_slot_to_save')
         }}
       </h3>
     </template>
@@ -13,7 +13,7 @@
       <!-- Manual Saves -->
       <div v-if="saveMode === 'manual'">
         <div class="saves-section">
-          <h3 class="saves-section-title">Auto save</h3>
+          <h3 class="saves-section-title">{{ t('narrat.saves.auto_save') }}</h3>
           <transition-group name="list" tag="div">
             <SaveSlotUi
               v-for="slot in autoSlots"
@@ -29,7 +29,9 @@
           </transition-group>
         </div>
         <div class="saves-section">
-          <h3 class="saves-section-title">Manual Saves</h3>
+          <h3 class="saves-section-title">
+            {{ t('narrat.saves.manual_saves') }}
+          </h3>
           <transition-group name="list" tag="div">
             <SaveSlotUi
               v-for="slot in manualSlots"
@@ -46,7 +48,7 @@
         </div>
       </div>
       <div v-else class="saves-section">
-        <h3 class="saves-section-title">Save Slots</h3>
+        <h3 class="saves-section-title">{{ t('narrat.saves.save_slots') }}</h3>
         <div class="saves-container flex flex-col">
           <transition-group name="list" tag="div">
             <SaveSlotUi
@@ -95,12 +97,15 @@ import SaveSlotUi from './saves/save-slot-ui.vue';
 import YesNo from './utils/yes-no.vue';
 import { getCommonConfig } from '../config';
 import { useMain } from '../stores/main-store';
+import { useTranslation } from 'i18next-vue';
 import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 
 const props = defineProps<{
   mode: 'load' | 'pick';
 }>();
+
+const { t } = useTranslation();
 
 const inputListener = ref<InputListener | null>(
   useInputs().registerInputListener('save-slots', {
@@ -149,12 +154,14 @@ const selectedSlotId = computed(() => {
   return id;
 });
 
-const actions = reactive(
-  props.mode === 'load' ? ['Load', 'Delete'] : ['Choose'],
+const actions = computed(() =>
+  props.mode === 'load'
+    ? [t('narrat.saves.load'), t('narrat.saves.delete')]
+    : [t('narrat.saves.choose')],
 );
 const saveMode = computed(() => getCommonConfig().saves.mode);
 const deleteConfirmation = reactive({
-  prompt: 'Are you sure you want to delete this save file?',
+  prompt: computed(() => t('narrat.saves.confirm_delete')),
   saveToDelete: null,
   onConfirm: () => {
     actuallyDeleteSaveSlot(deleteConfirmation.saveToDelete as any);
@@ -165,7 +172,7 @@ const deleteConfirmation = reactive({
   },
 });
 const saveConfirmation = reactive({
-  prompt: 'Are you sure you want to overwrite this save file?',
+  prompt: computed(() => t('narrat.saves.confirm_overwrite')),
   saveToOverwrite: null,
   onConfirm: () => {
     chooseSaveSlot(saveConfirmation.saveToOverwrite as any);
@@ -236,7 +243,10 @@ function deleteSaveSlot(slotId: string) {
     const saveMode = getCommonConfig().saves.mode;
     if (saveMode === 'manual') {
       if (saveToDelete.slotType === 'auto') {
-        useMain().alert('Sorry', `Can't delete the auto save slot!`);
+        useMain().alert(
+          t('narrat.ui.sorry'),
+          t('narrat.saves.cannot_delete_auto_save'),
+        );
         return;
       }
     }

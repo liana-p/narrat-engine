@@ -29,7 +29,7 @@ import { ModuleNamespace } from 'vite/types/hot';
 import { constructNarratObject } from './utils/construct-narrat';
 import { useRenderingStore } from './stores/rendering-store';
 import cloneDeep from 'clone-deep';
-import { setupScenes } from './stores/stores-management';
+import { loadGlobalSaveData, setupScenes } from './stores/stores-management';
 import i18next from 'i18next';
 import I18NextVue from 'i18next-vue';
 import LocalizedText from './components/LocalizedText.vue';
@@ -46,6 +46,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
     interpolation: {
       prefix: '%{',
       suffix: '}',
+      escapeValue: false,
     },
   });
   gameloop.setup();

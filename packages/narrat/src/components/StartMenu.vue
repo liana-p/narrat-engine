@@ -14,7 +14,7 @@
     />
     <div id="game-header" class="flex flex-col justify-between items-center">
       <div id="game-title-container">
-        <h1 id="game-title-text">{{ gameTitle }}</h1>
+        <h1 id="game-title-text">{{ $t(gameTitle) }}</h1>
       </div>
       <div
         class="flex flex-col start-menu-buttons-container"
@@ -254,7 +254,7 @@ function setupButtons() {
     buttons.value.push(
       extendButtonWithConfig({
         id: 'continue',
-        title: 'Continue',
+        title: 'narrat.main_menu.continue',
         cssClass: 'continue-button',
       }),
     );
@@ -263,7 +263,7 @@ function setupButtons() {
     buttons.value.push(
       extendButtonWithConfig({
         id: 'new-game',
-        title: 'New Game',
+        title: 'narrat.main_menu.start_new_game',
         cssClass: 'start-button',
       }),
     );
@@ -272,7 +272,7 @@ function setupButtons() {
     buttons.value.push(
       extendButtonWithConfig({
         id: 'load-game',
-        title: 'Load Game',
+        title: 'narrat.main_menu.load_game',
         cssClass: 'load-game-button',
       }),
     );
@@ -287,14 +287,14 @@ function setupButtons() {
   buttons.value.push(
     extendButtonWithConfig({
       id: 'settings',
-      title: 'Settings',
+      title: 'narrat.main_menu.settings',
       cssClass: 'settings-button',
     }),
   );
   buttons.value.push(
     extendButtonWithConfig({
       id: 'exit',
-      title: 'Exit',
+      title: 'narrat.main_menu.exit',
       cssClass: 'exit-button',
     }),
   );

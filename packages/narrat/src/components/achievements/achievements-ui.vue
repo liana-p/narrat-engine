@@ -14,7 +14,7 @@
     />
   </div>
   <div v-else>
-    <h2>The achievements section is empty!</h2>
+    <h2>{{ $t('narrat.game_menu.achievements.no_achievements_text') }}</h2>
   </div>
 </template>
 

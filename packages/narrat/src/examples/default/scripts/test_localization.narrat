@@ -1,4 +1,5 @@
 test_localization:
+  unlock_achievement chapter_1
   "Let's test localization!"
   var name Liana
   var health 100

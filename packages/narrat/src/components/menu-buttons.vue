@@ -20,7 +20,7 @@
       @close="closeMenu"
     >
       <template v-slot:header>
-        <h3 class="nrt-title">{{ menuStore.tab?.text ?? menu.label }}</h3>
+        <h3 class="nrt-title">{{ $t(menuStore.tab?.text ?? menu.label) }}</h3>
       </template>
       <template v-slot:body>
         <TabsController

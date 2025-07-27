@@ -15,7 +15,7 @@
     @close="closeItem"
   />
   <div v-else>
-    <h2>The inventory is empty!</h2>
+    <h2>{{ $t('narrat.game_menu.inventory.inventory_empty_text') }}</h2>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="achievements-section" :class="`section-${props.id}`">
-    <h3>{{ title }}</h3>
+    <h3>{{ $t(title) }}</h3>
     <div class="achievements-section-achievements">
       <AchievementTile
         :achievement="achievement.id"

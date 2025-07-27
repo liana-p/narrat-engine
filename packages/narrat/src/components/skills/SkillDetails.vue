@@ -5,14 +5,22 @@
         <div class="skill-display" :style="skillStyle"></div>
       </div>
       <div class="flex skill-right">
-        <h2>{{ skillName }}</h2>
+        <h2>{{ $t(skillName) }}</h2>
         <hr class="hr-solid" />
-        <h3>{{ skillLevelText }}</h3>
-        <p v-html="skillDescription" />
+        <h3>
+          {{
+            $t('narrat.game_menu.skills.skill_details_level_text', {
+              level: level,
+            })
+          }}
+        </h3>
+        <p v-html="$t(skillDescription)" />
       </div>
     </div>
     <div ref="buttonsContainer">
-      <button class="nrt-button" @click="close">{{ '<--' }}</button>
+      <button class="nrt-button" @click="close">
+        {{ $t('narrat.game_menu.skills.back') }}
+      </button>
     </div>
   </div>
 </template>
@@ -34,7 +42,7 @@ const buttonsContainer = ref<HTMLElement | null>(null);
 function close() {
   emit('cancel');
 }
-const { skillStyle, skillName, skillDescription, skillLevelText } =
+const { skillStyle, skillName, skillDescription, skillLevelText, level } =
   useSkillData(props.chosenSkill);
 
 onMounted(() => {

@@ -50,7 +50,7 @@
             class="nrt-button"
             id="player-input-submit"
           >
-            {{ $t('Submit') }}
+            {{ $t('narrat.dialog_box.submit_text_Field') }}
           </button>
         </div>
         <div v-else class="buttons-container">
@@ -59,7 +59,7 @@
             ref="continue"
             class="interact-button nrt-button override"
           >
-            {{ $t('Continue') }}
+            {{ $t('narrat.dialog_box.continue') }}
             <InputPrompt input="continue" />
           </div>
         </div>

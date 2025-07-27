@@ -3,7 +3,7 @@
     <LocalizedText
       tag="h2"
       class="settings-menu-title subtitle text-center"
-      value="Settings"
+      value="narrat.settings.settings"
     >
     </LocalizedText>
     <SettingWidget
@@ -13,6 +13,9 @@
       :key="id"
     />
     <!-- Select with available languages -->
+    <label for="language-picker" class="language-label">
+      {{ $t('narrat.settings.language') }}
+    </label>
     <select
       class="nrt-select language-select"
       name="language-picker"

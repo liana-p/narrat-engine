@@ -8,6 +8,7 @@ import {
   getQuestEndingConfig,
 } from '../config';
 import { useNotifications } from './notification-store';
+import i18next from 'i18next';
 
 export interface QuestLogState {
   quests: {
@@ -100,43 +101,49 @@ export const useQuests = defineStore('quests', {
       this.updateConfig(questsConfig);
     },
     startQuest(questId: string) {
+      const { t } = i18next;
       const quest = this.getQuest(questId);
       if (quest) {
         quest.state = 'unlocked';
         useNotifications().addNotification(
-          `Started quest: ${getQuestConfig(questId).title}`,
+          t('narrat.notifications.started_quest', {
+            title: t(getQuestConfig(questId).title),
+          }),
         );
       } else {
         error(`Quest ${questId} doesn't exist!`);
       }
     },
     startObjective(questId: string, objectiveId: string) {
+      const { t } = i18next;
       const objective = this.getObjective(questId, objectiveId);
       if (objective) {
         objective.state = 'unlocked';
         useNotifications().addNotification(
-          `New quest objective: ${
-            getObjectiveConfig(questId, objectiveId).description
-          }`,
+          t('narrat.notifications.started_quest_objective', {
+            objective: t(getObjectiveConfig(questId, objectiveId).description),
+          }),
         );
       } else {
         error(`Objective ${objectiveId} doesn't exist in quest ${questId}!`);
       }
     },
     completeObjective(questId: string, objectiveId: string) {
+      const { t } = i18next;
       const objective = this.getObjective(questId, objectiveId);
       if (objective) {
         objective.state = 'completed';
         useNotifications().addNotification(
-          `Completed quest objective: ${
-            getObjectiveConfig(questId, objectiveId).description
-          }`,
+          t('narrat.notifications.completed_quest_objective', {
+            objective: t(getObjectiveConfig(questId, objectiveId).description),
+          }),
         );
       } else {
         error(`Objective ${objectiveId} doesn't exist in quest ${questId}!`);
       }
     },
     completeQuest(questId: string, result?: boolean | string) {
+      const { t } = i18next;
       const quest = this.getQuest(questId);
       if (quest) {
         quest.state = 'completed';
@@ -150,7 +157,9 @@ export const useQuests = defineStore('quests', {
           quest.succeeded = true;
         }
         useNotifications().addNotification(
-          `Completed quest: ${getQuestConfig(questId).title}`,
+          t('narrat.notifications.completed_quest', {
+            title: t(getQuestConfig(questId).title),
+          }),
         );
       } else {
         error(`Quest ${questId} doesn't exist!`);

@@ -1,10 +1,10 @@
 <template>
   <div class="menu-content" ref="scrollContainer">
-    <h3>{{ $t('Play time:') }} {{ getPlayTimeString() }}</h3>
+    <h3>{{ $t('narrat.system_menu.play_time') }} {{ getPlayTimeString() }}</h3>
 
     <VolumeControls />
     <div class="fonts-picker" v-if="fonts">
-      <label name="font-picker" class="font-picker-label"> Font Choice: </label>
+      <label name="font-picker" class="font-picker-label"> {{ $t('narrat.system_menu.font_choice') }}: </label>
       <select
         class="nrt-select"
         name="font-picker"

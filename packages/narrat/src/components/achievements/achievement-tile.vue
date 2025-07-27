@@ -5,10 +5,10 @@
       {{ obtainedStatus }}
     </p>
     <h3 class="achievement-title">
-      {{ name }}
+      {{ $t(name) }}
     </h3>
     <p class="achievement-description">
-      {{ description }}
+      {{ $t(description) }}
     </p>
   </div>
 </template>
@@ -20,7 +20,10 @@ import {
   getAssetUrl,
 } from '@/config';
 import { useAchievements } from '@/stores/achievements-store';
+import { useTranslation } from 'i18next-vue';
 import { computed } from 'vue';
+
+const { t } = useTranslation();
 
 export interface AchievementTileProps {
   achievement: string;
@@ -62,15 +65,17 @@ const description = computed(() => {
   ) {
     return conf.value.description;
   } else {
-    return 'This achievement is hidden. Complete it to discover more.';
+    return 'narrat.game_menu.achievements.hidden_description';
   }
 });
 
 const obtainedStatus = computed(() => {
   if (!obtained.value) {
-    return 'Not obtained yet';
+    return t('narrat.game_menu.achievements.not_obtained_yet');
   } else {
-    return `Obtained ${new Date(state.value.unlockTime!).toLocaleDateString()}`;
+    return t('narrat.game_menu.achievements.obtained_on', {
+      date: new Date(state.value.unlockTime!).toLocaleDateString(),
+    });
   }
 });
 </script>
