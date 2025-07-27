@@ -1,3 +1,23 @@
+# [4.0.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v3.17.9...v4.0.0-alpha.1) (2025-07-27)
+
+### Breaking Changes
+
+* Now requires node.js 22+ (use [nvm](https://github.com/nvm-sh/nvm) or [NVM for Windows](https://github.com/coreybutler/nvm-windows) to manage your node.js versions and easily update).
+* Now recommended to use [pnpm](https://pnpm.io/) instead of npm. npm is frequently unreliable with updating, while pnpm is much faster and keeps caches of downloads to save data. You can still use npm though.
+* The Narrat template has been updated to backport Steam features and localization. Using a game from before 4.0.0 might still work bue you will need to look at the template to manually apply some of the changes if you want to benefit from the new features.
+
+### Features
+
+#### Localization
+
+* New localization feature in preview. See [preview documentation](https://narrat-docs-git-narrat-4-nialnas-projects.vercel.app/features/localization.html).
+* The Narrat template comes with localization setup and sample localization files
+
+#### Steam Publishing
+
+* New narrat template includes improved Steam support based on Lovely Lady RPG, with achievements, cloud saves, native Steam Deck support, and easy ways to create and publish builds to Steam for all platforms. See [preview Steam publishing documentation](https://narrat-docs-git-narrat-4-nialnas-projects.vercel.app/guides/steam-publishing.html) for more info.
+
+
 ## [3.17.9](https://github.com/liana-p/narrat-engine/compare/v3.17.8...v3.17.9) (2025-07-23)
 
 

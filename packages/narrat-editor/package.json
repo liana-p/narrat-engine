@@ -2,7 +2,7 @@
   "name": "narrat-editor",
   "description": "Interactive editor for narrat games",
   "private": true,
-  "version": "3.17.9",
+  "version": "4.0.0-alpha.1",
   "type": "module",
   "keywords": [
     "game"
