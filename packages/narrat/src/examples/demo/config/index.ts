@@ -8,7 +8,7 @@ import quests from './quests.yaml';
 import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
-import localization from './localizatiton.yaml';
+import localization from './localization.yaml';
 
 import { ModuleConfigInput } from '@/config/config-input';
 const defaultGameConfigs: ModuleConfigInput = {

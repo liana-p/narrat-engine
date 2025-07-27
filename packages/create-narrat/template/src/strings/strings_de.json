@@ -1,0 +1,35 @@
+{
+  "translation": {
+    "narrat": {
+      "settings": {
+        "language": "Sprache",
+        "settings": "Einstellungen"
+      },
+      "inputs": {
+        "movement": "Bewegung",
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "left": "Links",
+        "right": "Rechts",
+        "up": "Oben",
+        "down": "Unten",
+        "scroll": "Bildlauf",
+        "continue": "Fortsetzen",
+        "system_menu": "Systemmenü",
+        "game_menu": "Spielmenü",
+        "previous": "Vorherige",
+        "next": "Nächste",
+        "previous_tab": "Vorheriger Tab",
+        "next_tab": "Nächster Tab",
+        "interact": "Interagieren",
+        "toggle_auto_play": "Autoplay",
+        "toggle_skip": "Überspringen",
+        "toggle_history": "Verlauf",
+        "control_slider": "Regler steuern",
+        "release_slider": "Regler loslassen",
+        "decrease_slider": "Regler verringern",
+        "increase_slider": "Regler erhöhen"
+      }
+    }
+  }
+}

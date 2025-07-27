@@ -22,8 +22,8 @@ window.addEventListener("load", () => {
       debug: DEBUG,
       lng: "fr",
       resources: {
-        en: strings.en,
-        fr: strings.fr,
+        // Puts all the string translation files we have in there
+        ...strings,
       },
     },
   });

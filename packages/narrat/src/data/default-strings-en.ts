@@ -30,6 +30,10 @@ export const defaultStringsEn = {
         decrease_slider: 'Decrease Slider',
         increase_slider: 'Increase Slider',
       },
+      dialog_box: {
+        continue: 'Continuer',
+        submit_text_field: 'Confirmer',
+      },
       main_menu: {
         continue: 'Continue',
         start_new_game: 'Start a new game',
