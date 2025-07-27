@@ -1,0 +1,10 @@
+defaultLanguage: en
+languages:
+  en:
+    id: en
+    name: English
+    languageCode: en
+  fr:
+    id: fr
+    name: Français
+    languageCode: fr

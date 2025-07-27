@@ -14,6 +14,7 @@ import SubTabController from '../tabs/SubTabController.vue';
 import { InventorySectionProps } from './inventory-section.vue';
 import InventoryUi from '../inventory-ui.vue';
 import { computed } from 'vue';
+import { useTranslation } from 'i18next-vue';
 import { useInventory } from '@/stores/inventory-store';
 import { TabOptions } from '../tabs/tab-selector.vue';
 import { InputListener } from '@/stores/inputs-store';
@@ -21,6 +22,7 @@ import { InputListener } from '@/stores/inputs-store';
 defineProps<{
   inputListener: InputListener;
 }>();
+const { t } = useTranslation();
 const store = useInventory();
 const items = computed(() => store.items);
 
@@ -45,7 +47,7 @@ const inventorySections = computed(() => {
     // Add a section that combines all categories
     const allItemsSection: InventorySectionProps = {
       id: 'all',
-      title: 'All',
+      title: t('narrat.game_menu.inventory.category.all'),
       items: itemsToDisplay.value,
     };
     sections.push(allItemsSection);

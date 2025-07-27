@@ -15,6 +15,7 @@ import demoGameConfigs from '@/examples/demo/config';
 import emptyGameConfigs from '@/examples/empty/config';
 import godotGameConfigs from '@/examples/godot/config';
 import rpgGameConfigs from '@/examples/rpg/config';
+import { strings } from '@/examples/default/strings/strings';
 // import { setupThemesDemo } from './themes-demo';
 
 const gameScripts: Record<string, NarratScript[]> = {
@@ -58,6 +59,7 @@ const onPageLoad = () => {
       }),
     );
   }
+  console.log(strings);
   const options: AppOptionsInput = {
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,
@@ -65,6 +67,14 @@ const onPageLoad = () => {
     logging: false,
     debug,
     scripts,
+    localization: {
+      debug,
+      lng: 'fr',
+      resources: {
+        en: strings.en,
+        fr: strings.fr,
+      },
+    },
   };
   if (gameConfigs[demoChoice]) {
     delete options.configPath;

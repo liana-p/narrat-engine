@@ -1,0 +1,195 @@
+translation:
+  narrat:
+    settings:
+      language: Langue
+      settings: Paramètres
+    inputs:
+      movement: Choisir
+      confirm: Confirmer
+      cancel: Annuler
+      left: Gauche
+      right: Droite
+      up: Haut
+      down: Bas
+      scroll: Faire défiler
+      continue: Continuer
+      system_menu: Menu système
+      game_menu: Menu du jeu
+      previous: Précédent
+      next: Suivant
+      previous_tab: Onglet précédent
+      next_tab: Onglet suivant
+      interact: Interagir
+      toggle_auto_play: Autoplay
+      toggle_skip: Passer
+      toggle_history: Historique
+      control_slider: Contrôler le curseur
+      release_slider: Relâcher le curseur
+      decrease_slider: Diminuer le curseur
+      increase_slider: Augmenter le curseur
+    dialog_box:
+      continue: Continuer
+      submit_text_Field: Confirmer
+    main_menu:
+      continue: Continuer
+      start_new_game: Nouvelle partie
+      load_game: Charger
+      settings: Paramètres
+      exit: Quitter
+    system_menu:
+      system: Système
+      play_time: 'Temps de jeu:'
+      settings: Paramètres
+      text_speed: Vitesse du texte
+      animate_text: Animer le texte
+      font_size: Taille de la police
+      save_game: Sauvegarder
+      toggle_fullscreen: Basculer en plein écran
+      main_menu: Menu principal
+      master_volume: Volume principal
+      music: Musique
+      ambient: Ambiance
+      sound_effects: Effets sonores
+      font_choice: Choix de la police
+    game_menu:
+      game_menu: Menu du jeu
+      skills:
+        skills: Compétences
+        XP: XP
+        level: Niveau
+        xp_display: '%{xp_amount} / %{xp_per_level} XP'
+        xp_level: '%{level}'
+        skill_details_level_text: 'Niveau %{level}'
+        back: Retour
+      inventory:
+        items: Objets
+        item_amount: 'Quantité: %{amount}'
+        use: Utiliser
+        back: Retour
+        inventory_empty_text: L'inventaire est vide !
+        category:
+          all: Tout
+      quests:
+        quests: Quêtes
+        active_quests: Quêtes actives
+        completed_quests: Quêtes terminées
+        no_active_quests: Aucune quête active
+        no_completed_quests: Aucune quête terminée
+      achievements:
+        achievements: Succès
+        not_obtained_yet: Pas encore obtenu
+        obtained_on: Obtenu le %{date}
+        secret_achievements: Succès secrets
+        secret_achievement: Succès secret
+        hidden_achievement: Succès caché
+        hidden_description: Ce succès est caché. Complétez-le pour en découvrir plus.
+        no_achievements_text: La section des succès est vide !
+    saves:
+      would_you_like_to_save: Voulez-vous sauvegarder la partie
+      choose_save_to_load: Choisir une sauvegarde à charger
+      pick_slot_to_save: Choisir un emplacement pour sauvegarder
+      auto_save: Sauvegarde automatique
+      manual_saves: Sauvegardes manuelles
+      save_slots: Emplacements de sauvegarde
+      load: Charger
+      delete: Supprimer
+      choose: Choisir
+      confirm_delete: Êtes-vous sûr de vouloir supprimer ce fichier de sauvegarde ?
+      confirm_overwrite: Êtes-vous sûr de vouloir écraser ce fichier de sauvegarde ?
+      cannot_delete_auto_save: Impossible de supprimer l'emplacement de sauvegarde automatique !
+      play_time: 'Temps de jeu :'
+      auto_save_type: Sauvegarde automatique
+      manual_save_type: Sauvegarde manuelle
+      empty_save: Sauvegarde vide
+      auto_indicator: AUTO
+    ui:
+      confirmation: Confirmation
+      yes: Oui
+      no: Non
+      alert: Alerte
+      sorry: Désolé
+      no_tab_selected: Aucun onglet sélectionné
+      none: AUCUN
+    misc:
+      press_to_start: Appuyez pour commencer
+    game:
+      title: Jeu Narrat
+    engine:
+      splash_text: Créé avec Narrat
+    errors:
+      no_autosave_found: Aucune sauvegarde automatique trouvée
+      no_free_slot_found: Aucun emplacement libre trouvé
+      no_save_file_found: Aucun fichier de sauvegarde trouvé
+      missing_character: Personnage manquant
+    notifications:
+      started_quest: 'Quête commencée: %{title}'
+      completed_quest: 'Quête terminée: %{title}'
+      started_quest_objective: 'Objectif commencé: %{objective}'
+      completed_quest_objective: 'Objectif terminé: %{objective}'
+      obtained_achievement: 'Succès obtenu: %{name}'
+    loading:
+      loading_bar_text: Chargement %{progress}% - %{step}
+      loading: Chargement
+      plugins: Plugins
+      assets: Ressources
+      starting: Démarrage
+  # ===========================
+  # Game Config Localization
+  # ===========================
+
+  # Note that those keys are up to you. You can create keys, or you can use the text itself as a key.
+  items:
+    categories:
+      food: Nourriture
+      books: Livres
+    bread:
+      name: Bread
+      description: Un pain de campagne.
+    book:
+      name: Livre Sinistre
+      description: 'Un livre sinistre'
+  # Example of localizing achievements from raw text without using keys (see achievements.yaml for the names)
+  # janken:
+  Janken: Pierre-papier-ciseaux
+  Win at Rock paper scissors Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt.: Gagner au pierre-papier-ciseaux Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt.
+  # won the game:
+  Won the game: A gagné le jeu
+  Get this achievement by being a true ultimate pro gamer: Obtenez ce succès en étant un véritable pro gamer ultime.
+  # find book:
+  Bookworm: Rat de bibliothèque
+  Find the book in the hidden room: Trouvez le livre dans la salle cachée
+  # chapter 1:
+  Chapter 1: Chapitre 1
+  Finish chapter 1: Terminer le chapitre 1
+  # chapter 2:
+  Chapter 2: Chapitre 2
+  Finish chapter 2: Terminer le chapitre 2
+  # secret achievement:
+  Secret boss found: Boss secret trouvé
+  Beat the secret boss: Battez le boss secret
+  # Same for quests, could use either raw text or string keys if you want
+  Quest Category 1: Catégorie de quête 1
+  quests:
+    categories:
+      category_2: Catégorie de quête 2
+    bread_shopping:
+      title: Shopping à la boulangerie
+      description: Le chat vous demande de lui acheter du pain.
+      objectives:
+        bread:
+          description: Acheter du pain pour le chat.
+        delivery:
+          description: Livrer le pain au chat.
+  # Translating skills without string keys as another example.
+  # This has the advantage of not needing to fill the english localization file (defaults to the raw text which is already in english)
+  Agility: Agilité
+  How good you are at moving around.: Votre capacité à vous déplacer
+  Haggling: Négociation
+  Get good prices on items: Obtenez de bons prix sur les objets
+
+  # ===========================
+  # Game Text Localization
+  # ===========================
+  Let's test localization!: Testons la localisation !
+  Welcome %{name}!: Bienvenue %{name} !
+  Your health is %{health}.: Votre santé est de %{health}.

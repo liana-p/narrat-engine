@@ -1,13 +1,19 @@
 <template>
   <ModalWindow @close="() => chosen(false)" containerCssClass="yes-no-modal">
     <template v-slot:header>
-      <h3 class="title">Confirmation</h3>
+      <h3 class="title">
+        {{ $t('narrat.ui.confirmation') }}
+      </h3>
     </template>
     <template v-slot:body>
-      <h3>{{ prompt }}</h3>
+      <h3>{{ $t(prompt) }}</h3>
       <div class="flex justify-center" ref="buttonsContainer">
-        <button class="nrt-button" @click="() => chosen(true)">Yes</button>
-        <button class="nrt-button" @click="() => chosen(false)">No</button>
+        <button class="nrt-button" @click="() => chosen(true)">
+          {{ $t('narrat.ui.yes') }}
+        </button>
+        <button class="nrt-button" @click="() => chosen(false)">
+          {{ $t('narrat.ui.no') }}
+        </button>
       </div>
     </template>
   </ModalWindow>

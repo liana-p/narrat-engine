@@ -1,9 +1,9 @@
-import "narrat/dist/style.css";
+import "narrat/dist/main.css";
 import "./css/main.css";
 import { NarratPlugin, registerPlugin, startApp } from "narrat";
 import scripts from "./scripts";
 import config from "./config";
-
+import { strings } from "./strings/strings";
 // Enable this when releasing for steam
 const useSteam = false;
 
@@ -59,5 +59,13 @@ window.addEventListener("load", () => {
     logging: false,
     scripts,
     config,
+    localization: {
+      debug,
+      lng: "fr",
+      resources: {
+        en: strings.en,
+        fr: strings.fr,
+      },
+    },
   });
 });

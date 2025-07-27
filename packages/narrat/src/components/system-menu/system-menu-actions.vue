@@ -11,7 +11,7 @@
       }"
       @click="action.callback"
     >
-      {{ action.title }}
+      {{ $t(action.title) }}
     </button>
   </div>
 </template>
@@ -63,7 +63,7 @@ const actions: SystemMenuAction[] = [];
 if (getCommonConfig().saves.allowManualSave !== false) {
   actions.push({
     id: 'save',
-    title: 'Save Game',
+    title: 'narrat.system_menu.save_game',
     callback: saveGame,
     class: 'save-button',
   });
@@ -71,20 +71,20 @@ if (getCommonConfig().saves.allowManualSave !== false) {
 if (getCommonConfig().graphics.allowFullscreen !== false) {
   actions.push({
     id: 'fullscreen',
-    title: 'Toggle Fullscreen',
+    title: 'narrat.system_menu.toggle_fullscreen',
     callback: toggleFullscreen,
     class: 'fullscreen-button',
   });
 }
 actions.push({
   id: 'main-menu',
-  title: 'Main Menu',
+  title: 'narrat.system_menu.main_menu',
   callback: mainMenu,
   class: 'return-main-menu-button',
 });
 actions.push({
   id: 'quit',
-  title: 'Exit',
+  title: 'narrat.system_menu.exit',
   callback: quit,
   class: 'quit-button',
 });

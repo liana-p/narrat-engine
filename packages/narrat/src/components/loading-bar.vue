@@ -2,7 +2,14 @@
   <div id="loading-bar">
     <div id="inner-loading-bar" :style="loadingStyle()"></div>
     <div id="loading-text">
-      <h3>Loading {{ Math.floor(percentage! * 100) }}% - {{ step }}</h3>
+      <h3>
+        {{
+          $t('narrat.loading.loading_bar_text', {
+            progress: Math.floor(percentage! * 100),
+            step: step,
+          })
+        }}
+      </h3>
     </div>
   </div>
 </template>

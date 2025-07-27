@@ -1,22 +1,22 @@
 ---
 categories:
   - id: food
-    title: Food
+    title: items.categories.food
   - id: books
-    title: Books
+    title: items.categories.books
 
 items:
   bread:
-    name: Bread
+    name: items.bread.name
     category: food
-    description: A bread in the game.
+    description: items.bread.description
     icon: img/items/bread.webp
     onUse:
       action: jump
       label: eat_bread
   book:
-    name: Ominous Book
-    description: 'An ominous book'
+    name: items.book.name
+    description: items.book.description
     icon: img/items/book.webp
     onUse:
       action: run

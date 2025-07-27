@@ -8,6 +8,8 @@ import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
 import fonts from './fonts.yaml';
+import localization from './localization.yaml';
+
 import { ModuleConfigInput } from 'narrat';
 
 const gameConfigs: ModuleConfigInput = {
@@ -21,5 +23,6 @@ const gameConfigs: ModuleConfigInput = {
   skills,
   skillChecks,
   fonts,
+  localization,
 };
 export default gameConfigs;

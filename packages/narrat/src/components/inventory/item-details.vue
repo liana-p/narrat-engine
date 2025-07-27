@@ -5,20 +5,28 @@
         <div class="item-display" :style="itemStyle"></div>
       </div>
       <div class="flex item-right">
-        <h2>{{ itemData.name }}</h2>
+        <h2>{{ $t(itemData.name) }}</h2>
         <hr class="hr-solid" />
-        <h3>Amount: {{ item.amount }}</h3>
-        <p>{{ itemData.description }}</p>
+        <h3>
+          {{
+            $t('narrat.game_menu.inventory.item_amount', {
+              amount: item.amount,
+            })
+          }}
+        </h3>
+        <p>{{ $t(itemData.description) }}</p>
         <button
           @click="use"
           class="nrt-button"
           :class="canUse ? '' : 'nrt-disabled'"
         >
-          Use
+          {{ $t('narrat.game_menu.inventory.use') }}
         </button>
       </div>
     </div>
-    <button class="nrt-button" @click="close">{{ '<--' }}</button>
+    <button class="nrt-button" @click="close">
+      {{ $t('narrat.game_menu.inventory.back') }}
+    </button>
   </div>
 </template>
 <script lang="ts" setup>

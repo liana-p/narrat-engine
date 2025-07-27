@@ -7,8 +7,9 @@ import { loadImages } from '@/utils/images-loader';
 import { vm } from '@/vm/vm';
 import { useMenu } from '@/stores/menu-store';
 import { isPromise } from '@/utils/type-utils';
-import { resetAllStores } from '@/stores/stores-management';
+import { loadGlobalSaveData, resetAllStores } from '@/stores/stores-management';
 import { loadVideos } from '@/utils/video-loader';
+import { getSaveFile } from '@/utils/save-helpers';
 
 export async function setupEngine() {
   const config = getConfig();
@@ -27,6 +28,7 @@ export async function setupEngine() {
   }
   vm.addCustomSettings();
   resetAllStores();
+  loadGlobalSaveData(getSaveFile().globalSave);
 }
 
 export async function preloadAndSetupGame() {
@@ -42,14 +44,14 @@ export async function preloadAndSetupGame() {
       }
     }
     if (pluginPromises.length > 0) {
-      main.setLoadingStep('Plugins', 0.0);
+      main.setLoadingStep('narrat.loading.plugins', 0.0);
       await Promise.all(pluginPromises);
     }
   }
-  main.setLoadingStep('Assets', 0.3);
+  main.setLoadingStep('narrat.loading.assets', 0.3);
   await Promise.all([imagesLoadWait, videoLoadWait, audioWait]);
   vm.callHook('onAssetsLoaded');
-  main.setLoadingStep('Starting', 0.9);
+  main.setLoadingStep('narrat.loading.starting', 0.9);
   await setupEngine();
   vm.callHook('onGameSetup');
   main.gameLoaded();

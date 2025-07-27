@@ -4,4 +4,5 @@ build
 web_modules
 node_modules
 out/
+out-steam/
 build/

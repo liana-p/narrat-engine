@@ -1,14 +1,14 @@
 <template>
   <div class="volume-controls">
-    <h3 class="nrt-subtitle">Volume</h3>
+    <h3 class="nrt-subtitle">{{ t('narrat.system_menu.master_volume') }}</h3>
     <div
       class="volume-control"
       v-for="(volume, index) in volumes"
       :key="volume.mode"
     >
-      <label for="volume" class="volume-label">{{
-        modeNames[volume.mode]
-      }}</label>
+      <label for="volume" class="volume-label">
+        {{ t(modeNames[volume.mode]) }}</label
+      >
       <input
         ref="slider"
         class="volume-slider"
@@ -28,18 +28,23 @@
 <script lang="ts">
 import { AudioModeKey, useAudio } from '@/stores/audio-store';
 import { Howler } from 'howler';
+import { useTranslation } from 'i18next-vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  setup() {
+    const { t } = useTranslation();
+    return { t };
+  },
   data() {
     return {
       muted: false,
       volumes: [] as Array<{ mode: 'master' | AudioModeKey; volume: number }>,
       modeNames: {
-        master: 'Master volume:',
-        music: 'Music:',
-        ambient: 'Ambient:',
-        sound: 'Sound effects:',
+        master: 'narrat.system_menu.master_volume',
+        music: 'narrat.system_menu.music',
+        ambient: 'narrat.system_menu.ambient',
+        sound: 'narrat.system_menu.sound_effects',
       },
     };
   },

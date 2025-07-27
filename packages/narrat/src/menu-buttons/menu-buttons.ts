@@ -16,7 +16,7 @@ export function registerDefaultMenuButtons(app: any) {
   app.component('SkillsWindow', Skills);
   useMenu().menus = {
     system: {
-      label: 'System',
+      label: 'narrat.system_menu.system',
       cssClass: 'system-menu',
       id: 'system',
       inputPrompt: 'system',
@@ -24,14 +24,14 @@ export function registerDefaultMenuButtons(app: any) {
         {
           id: 'system-tab',
           cssId: 'system-tab',
-          text: 'System',
+          text: 'narrat.system_menu.system',
           component: 'MainMenu',
         },
       ],
       activeTab: 0,
     },
     menu: {
-      label: 'Menu',
+      label: 'narrat.game_menu.game_menu',
       id: 'menu',
       cssClass: 'menu-menu',
       inputPrompt: 'menu',
@@ -39,21 +39,21 @@ export function registerDefaultMenuButtons(app: any) {
         {
           id: 'skills',
           cssId: 'skills-menu-button',
-          text: 'Skills',
+          text: 'narrat.game_menu.skills.skills',
           condition: () => useMenu().showSkills,
           component: 'SkillsWindow',
         },
         {
           id: 'inventory',
           cssId: 'inventory-menu-button',
-          text: 'Items',
+          text: 'narrat.game_menu.inventory.items',
           condition: () => useMenu().showInventory,
           component: 'InventoryTab',
         },
         {
           id: 'quests',
           cssId: 'quests-menu-button',
-          text: 'Quests',
+          text: 'narrat.game_menu.quests.quests',
           condition: () => {
             return useMenu().showQuests;
           },
@@ -62,7 +62,7 @@ export function registerDefaultMenuButtons(app: any) {
         {
           id: 'achievements',
           cssId: 'achievements-menu-button',
-          text: 'Achievements',
+          text: 'narrat.game_menu.achievements.achievements',
           condition: () => useMenu().showAchievements,
           component: 'AchievementsUI',
         },

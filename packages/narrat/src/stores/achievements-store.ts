@@ -12,7 +12,7 @@ import {
 import { useConfig } from './config-store';
 import { updateGlobalSave } from '@/application/saving';
 import { narratEventsEmitter } from '@/events/narrat-events';
-
+import i18next from 'i18next';
 export interface AchievementState {
   id: string;
   unlocked: boolean;
@@ -73,14 +73,17 @@ export const useAchievements = defineStore('achievements', {
         return;
       }
       if (!existingAchievement.unlocked) {
+        const { t } = i18next;
         const unlockTime = new Date().toISOString();
         existingAchievement.unlocked = true;
         existingAchievement.unlockTime = unlockTime;
         if (getAchievementsConfig().notifyNewAchievements) {
           const conf = getAchievementConfig(achievement);
           useNotifications().addNotification(
-            `New Achievement: ${conf.name}`,
-            conf.description,
+            t('narrat.notifications.obtained_achievement', {
+              name: t(conf.name),
+            }),
+            t(conf.description),
             conf.icon,
           );
           narratEventsEmitter.emit('achievementUnlocked', achievement);

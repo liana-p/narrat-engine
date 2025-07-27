@@ -45,6 +45,8 @@ import { useScenes } from './stores/scenes-store';
 import GameScene from './components/GameScene.vue';
 import '@/data/all-stores';
 import InputsLegend from './components/input-prompt/inputs-legend.vue';
+import { loadGlobalSaveData } from './stores/stores-management';
+import { getSaveFile } from './utils/save-helpers';
 
 const props = defineProps<{
   options: AppOptions;
