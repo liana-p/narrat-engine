@@ -1,4 +1,4 @@
-import 'narrat/dist/style.css';
+import 'narrat/dist/main.css';
 import { createApp } from 'vue';
 import 'virtual:windi.css';
 import './style.css';
