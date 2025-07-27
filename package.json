@@ -63,6 +63,6 @@
     "semver": "^7.7.2",
     "simple-git-hooks": "^2.13.0",
     "vite-plugin-narrat": "workspace:*",
-    "vitepress": "1.6.3"
+    "vitepress": "1.0.0-rc.40"
   }
 }
