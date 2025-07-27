@@ -1,3 +1,7 @@
+# [4.0.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2025-07-27)
+
+Fixed some issues with the template, and added an example of json localization if anyone doesn't want to use yaml.
+
 # [4.0.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v3.17.9...v4.0.0-alpha.1) (2025-07-27)
 
 ### Breaking Changes
