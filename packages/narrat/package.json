@@ -17,6 +17,7 @@
   "files": [
     "dist/"
   ],
+  "packageManager": "pnpm@10.13.1",
   "type": "module",
   "scripts": {
     "test-unit": "vitest",
