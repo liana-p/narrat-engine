@@ -53,7 +53,7 @@ export class VM {
   }
 
   addNarratScript(script: NarratScript) {
-    const parsed = parseScript(script, true);
+    const parsed = parseScript(script, false);
     this.script = { ...this.script, ...parsed };
     this.scripts.push(script);
   }
