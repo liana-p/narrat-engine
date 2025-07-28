@@ -1,3 +1,7 @@
+# [4.0.0-alpha.4](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2025-07-28)
+
+
+
 # [4.0.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2025-07-28)
 
 
