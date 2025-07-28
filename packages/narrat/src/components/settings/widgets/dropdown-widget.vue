@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { type ChoiceOption } from '@/config/settings-config';
 import { InputListener, useInputs } from '@/stores/inputs-store';
-import { watch } from 'vue';
+import { onUnmounted, watch } from 'vue';
 
 export interface DropdownWidgetProps {
   name: string;
@@ -99,6 +99,10 @@ watch(
     }
   },
 );
+
+onUnmounted(() => {
+  stopFocusedInputListener();
+});
 </script>
 
 <style scoped>

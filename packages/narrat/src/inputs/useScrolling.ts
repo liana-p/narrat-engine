@@ -75,6 +75,38 @@ export function useScrolling(options: ScrollingOptions) {
     }
   }
 
+  function scrollTo(x: number | null, y: number | null) {
+    if (!container.value) return;
+
+    if (x !== null) {
+      container.value.scrollLeft = x;
+    }
+    if (y !== null) {
+      container.value.scrollTop = y;
+    }
+  }
+
+  function scrollToElement(element: HTMLElement | null) {
+    if (!container.value || !element) return;
+    const rect = element.getBoundingClientRect();
+    const containerRect = container.value.getBoundingClientRect();
+    const offsetX = rect.left - containerRect.left;
+    const offsetY = rect.top - containerRect.top;
+    scrollTo(
+      offsetX + container.value.scrollLeft,
+      offsetY + container.value.scrollTop,
+    );
+  }
+
+  function scrollToElementById(id: string) {
+    const element = document.getElementById(id);
+    if (element) {
+      scrollToElement(element);
+    } else {
+      console.warn(`Element with ID ${id} not found for scrolling.`);
+    }
+  }
+
   function startContinuousScroll() {
     if (scrollInterval) return;
     scrollInterval = window.setInterval(handleContinuousScroll, 16); // ~60fps
@@ -114,6 +146,9 @@ export function useScrolling(options: ScrollingOptions) {
   return {
     isScrolling,
     scrollContainer,
+    scrollTo,
+    scrollToElement,
+    scrollToElementById,
     container: ref(container),
   };
 }

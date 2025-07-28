@@ -1,52 +1,71 @@
 <template>
-  <div class="container mx-auto settings-menu-container">
-    <LocalizedText
-      tag="h2"
-      class="settings-menu-title subtitle text-center"
-      value="narrat.settings.settings"
-    >
-    </LocalizedText>
-    <div
-      v-for="category in categorizedSettings"
-      :key="category.categoryInfo.id"
-      class="settings-category"
-    >
-      <div class="settings-category-header">
-        <LocalizedText
-          tag="h3"
-          class="settings-category-title"
-          :value="category.categoryInfo.name"
-        />
-      </div>
-      <div class="settings-category-content">
-        <SettingWidget
-          v-for="setting in category.settings"
-          :settingId="setting.id"
-          :inputListener="selectedSetting?.id === setting.id ? inputListener : null"
-          :focused="selectedSetting?.id === setting.id"
-          :key="setting.id"
-          @click="selectElement(setting)"
-        />
+  <div class="menu-content" ref="scrollContainer">
+    <div class="container mx-auto settings-menu-container">
+      <LocalizedText
+        tag="h2"
+        class="settings-menu-title subtitle text-center"
+        value="narrat.settings.settings"
+      >
+      </LocalizedText>
+      <div
+        v-for="category in categorizedSettings"
+        :key="category.categoryInfo.id"
+        class="settings-category"
+      >
+        <div class="settings-category-header">
+          <LocalizedText
+            tag="h3"
+            class="settings-category-title"
+            :value="category.categoryInfo.name"
+          />
+        </div>
+        <div class="settings-category-content">
+          <SettingWidget
+            v-for="setting in category.settings"
+            :settingId="setting.id"
+            :id="`setting-${setting.id}`"
+            :inputListener="
+              selectedSetting?.id === setting.id ? inputListener : null
+            "
+            :focused="selectedSetting?.id === setting.id"
+            :key="setting.id"
+            @click="selectElement(setting)"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useSettings } from '@/stores/settings-store';
 import SettingWidget from './setting-widget.vue';
-import { InputListener } from '@/stores/inputs-store';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 import {
   SettingCategories,
   SettingsCategory,
   SettingsCategoryInfo,
 } from '@/config/settings-config';
 import { useNavigation } from '@/inputs/useNewNavigation';
+import { useScrolling } from '@/inputs/useScrolling';
 
-const props = defineProps<{
-  inputListener: InputListener;
-}>();
+const emit = defineEmits(['close']);
+
+const inputListener: InputListener = useInputs().registerInputListener(
+  'settings-menu',
+  {},
+  true,
+);
+
+const scrollContainer = ref<HTMLElement | null>(null);
+// Set up scrolling functionality
+const scrolling = useScrolling({
+  container: scrollContainer,
+  scrollSpeed: 40,
+  onlyVertical: true,
+  inputListener: inputListener,
+});
 
 const settings = useSettings();
 
@@ -100,14 +119,14 @@ const allSettings = computed(() => {
   return settings;
 });
 
-const inputListenerRef = computed(() => props.inputListener);
+const inputListenerRef = computed(() => inputListener);
 
 const { selectedElement: selectedSetting, selectElement } = useNavigation({
   mode: 'vertical',
   listener: inputListenerRef,
   elements: allSettings.value,
   onSelected: (setting: CategorizedSetting) => {
-    // Could add any selection behavior here if needed
+    scrolling.scrollToElementById(`setting-${setting.id}`); // Scroll to the selected setting
   },
   looping: true,
 });
@@ -117,6 +136,11 @@ onMounted(() => {
   if (allSettings.value.length > 0) {
     selectElement(allSettings.value[0]);
   }
+});
+
+onUnmounted(() => {
+  // Unregister the input listener when the component is destroyed
+  useInputs().unregisterInputListener(inputListener);
 });
 </script>
 

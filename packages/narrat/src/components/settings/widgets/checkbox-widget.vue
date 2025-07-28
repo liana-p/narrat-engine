@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { InputListener, useInputs } from '@/stores/inputs-store';
-import { watch } from 'vue';
+import { onUnmounted, watch } from 'vue';
 
 export interface CheckboxWidgetProps {
   name: string;
@@ -75,6 +75,9 @@ watch(
     }
   },
 );
+onUnmounted(() => {
+  stopFocusedInputListener();
+});
 </script>
 
 <style scoped>

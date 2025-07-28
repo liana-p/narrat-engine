@@ -3,7 +3,6 @@
     <h3>{{ $t('narrat.system_menu.play_time') }} {{ getPlayTimeString() }}</h3>
 
     <SystemMenuActions :input-listener="props.inputListener" />
-    <SettingsMenu :input-listener="props.inputListener" />
   </div>
 </template>
 <script setup lang="ts">
@@ -53,7 +52,6 @@ function saveGame() {
   closeMenu();
 }
 
-
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     document.body.requestFullscreen();
@@ -84,5 +82,4 @@ function getPlayTimeString(): string {
 .main-menu-modal {
   width: 60%;
 }
-
 </style>

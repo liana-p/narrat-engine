@@ -6,10 +6,12 @@ import Skills from '../components/SkillsWindow.vue';
 
 import { MenuState, MenuTabState, useMenu } from '@/stores/menu-store';
 import { vm } from '@/vm/vm';
+import SettingsMenu from '@/components/settings/settings-menu.vue';
 
 export function registerDefaultMenuButtons(app: any) {
   // Register menu components
   app.component('SystemMenu', SystemMenu);
+  app.component('SettingsMenu', SettingsMenu);
   app.component('InventoryTab', InventoryTab);
   app.component('AchievementsUI', AchievementsUI);
   app.component('QuestsUi', QuestsUi);
@@ -26,6 +28,12 @@ export function registerDefaultMenuButtons(app: any) {
           cssId: 'system-tab',
           text: 'narrat.system_menu.system',
           component: 'SystemMenu',
+        },
+        {
+          id: 'settings-tab',
+          cssId: 'settings-tab',
+          text: 'narrat.system_menu.settings',
+          component: 'SettingsMenu',
         },
       ],
       activeTab: 0,

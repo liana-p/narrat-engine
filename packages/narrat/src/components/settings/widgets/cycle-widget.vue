@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed, onUnmounted, watch } from 'vue';
 import { type ChoiceOption } from '@/config/settings-config';
 import { InputListener, useInputs } from '@/stores/inputs-store';
 
@@ -104,6 +104,9 @@ watch(
     }
   },
 );
+onUnmounted(() => {
+  stopFocusedInputListener();
+});
 </script>
 
 <style scoped>

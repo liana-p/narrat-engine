@@ -40,7 +40,7 @@
 // eslint-disable vue/no-mutating-props
 import { InputListener, useInputs } from '@/stores/inputs-store';
 import { clamp, decimalClamp } from '@/utils/math-utils';
-import { ref, watch } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
 
 const props = defineProps<{
   name: string;
@@ -180,6 +180,12 @@ watch(
     }
   },
 );
+
+onUnmounted(() => {
+  // Unregister the focused input listener when the component is destroyed
+  stopFocusedInputListener();
+  releaseControl();
+});
 </script>
 
 <style scoped>
