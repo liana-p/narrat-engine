@@ -9,7 +9,7 @@ import { SkillsSave } from '@/stores/skills';
 import { ScreenObjectsStoreSave } from '@/stores/screen-objects-store';
 import { VMSave } from '@/stores/vm-store';
 import { AchievementsSave } from '@/stores/achievements-store';
-import { GameUserSettingsSave } from '@/stores/settings-store';
+import { GameGlobalSettingsSave } from '@/stores/settings-store';
 import { ConfigStoreSave } from '@/stores/config-store';
 import { ChoiceTrackingSave } from '@/stores/choices-tracking-store';
 import { RenderingSaveData } from '@/stores/rendering-store';
@@ -48,7 +48,6 @@ export type ExtractedGameSave = {
   inventory: InventorySave;
   quests: QuestLogSave;
   screenObjects: ScreenObjectsStoreSave;
-  settings: GameUserSettingsSave;
   config: ConfigStoreSave;
   choices: ChoiceTrackingSave;
   rendering: RenderingSaveData;
@@ -61,6 +60,7 @@ export type GameSave = EmptyGameSave & ExtractedGameSave;
 export type GlobalGameSave = {
   achievements: AchievementsSave;
   localization: LocalizationGlobalSaveData;
+  settings: GameGlobalSettingsSave;
   data: {
     [key: string]: any;
   };

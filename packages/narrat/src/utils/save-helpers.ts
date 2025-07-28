@@ -77,22 +77,30 @@ export function resetSave() {
   saveFile = createDefaultSaveFile();
   save();
 }
-function defaultGlobalSave() {
+function defaultGlobalSave(): GlobalGameSave {
   return {
     achievements: {
       achievements: {},
     },
-    localization: {
-      currentLanguage: 'en',
-    },
+    localization: {},
     data: {},
+    settings: {
+      baseSettings: {
+        textSpeed: 30,
+        animateText: true,
+        fontSize: 16,
+        language: 'en',
+      },
+      customSettings: {},
+    },
   };
 }
 function migrateSaveFile(saveFile: SaveFile) {
   if (saveFile.version !== '4.0.0') {
-    saveFile.globalSave.localization = {
-      currentLanguage: 'en',
-    };
+    saveFile.globalSave.localization = {};
+    if (!saveFile.globalSave.settings) {
+      saveFile.globalSave.settings = defaultGlobalSave().settings;
+    }
   }
 }
 

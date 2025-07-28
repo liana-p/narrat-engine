@@ -187,7 +187,6 @@ let JSONEditor: any;
 async function addJsonEditor() {
   if (!JSONEditor) {
     JSONEditor = (await import('vanilla-jsoneditor')).JSONEditor;
-    console.log(JSONEditor);
   }
 }
 export default defineComponent({

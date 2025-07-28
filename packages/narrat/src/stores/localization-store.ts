@@ -3,39 +3,35 @@ import i18next from 'i18next';
 import { getLocalizationConfig } from '@/config';
 import { error } from '@/utils/error-handling';
 import { LocalizationConfig } from '@/config/localization-config';
-import { updateGlobalSave } from '@/application/saving';
+import { useSettings } from '@/stores/settings-store';
 
 export interface LocalizationState {
-  currentLanguage: string;
   pluralCount: number;
 }
 
-export interface LocalizationGlobalSaveData {
-  currentLanguage: string;
-}
+export interface LocalizationGlobalSaveData {}
 
 export interface LocalizationLocalSaveData {
   pluralCount: number;
 }
 export const useLocalization = defineStore('localization', {
   state: (): LocalizationState => ({
-    currentLanguage: 'NONE',
     pluralCount: 1,
   }),
   actions: {
     reset(config: LocalizationConfig) {
       this.$reset();
-      if (this.currentLanguage === 'NONE') {
+      const settings = useSettings();
+
+      if (settings.getCurrentLanguageSetting() === 'NONE') {
         this.setCurrentLanguage(config.defaultLanguage, false);
       }
     },
     generateGlobalSaveData(): LocalizationGlobalSaveData {
-      return {
-        currentLanguage: this.currentLanguage,
-      };
+      return {};
     },
     loadGlobalSaveData(save: LocalizationGlobalSaveData) {
-      this.setCurrentLanguage(save.currentLanguage);
+      // Nothing here for now
     },
     generateSaveData(): LocalizationLocalSaveData {
       return {
@@ -53,11 +49,21 @@ export const useLocalization = defineStore('localization', {
         );
         return;
       }
-      this.currentLanguage = language;
       i18next.changeLanguage(languageConfig.languageCode);
-      if (save) {
-        updateGlobalSave();
+
+      // Update settings store to keep it in sync (avoid circular dependency with dynamic import)
+      const settings = useSettings();
+      settings.setLanguage(language, save);
+    },
+    languageChanged(language: string) {
+      const languageConfig = getLocalizationConfig().languages[language];
+      if (!languageConfig) {
+        error(
+          `Localization language "${language}" not found in config. Available languages: ${Object.keys(getLocalizationConfig().languages).join(', ')}`,
+        );
+        return;
       }
+      i18next.changeLanguage(languageConfig.languageCode);
     },
     setPluralCount(count: number) {
       this.pluralCount = count;

@@ -46,6 +46,7 @@ export async function startApp(optionsInput: AppOptionsInput) {
   i18next.init({
     ...optionsInput.localization,
     resources: {
+      ...optionsInput.localization?.resources,
       // Merge game strings with default built-in engine strings in case the game does not provide them.
       en: deepMerge(
         defaultLocalizationStrings.en,
@@ -55,7 +56,6 @@ export async function startApp(optionsInput: AppOptionsInput) {
         defaultLocalizationStrings.fr,
         optionsInput.localization?.resources?.fr || {},
       ),
-      ...optionsInput.localization?.resources,
     },
     interpolation: {
       prefix: '%{',

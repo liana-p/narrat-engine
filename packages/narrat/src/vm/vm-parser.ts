@@ -163,7 +163,9 @@ export function parseExpression(
       staticOptions: {},
       commandType: expression[0] as string,
       operator: expression[0] as string,
-      args: expression.slice(1).map((arg) => parseArgument(ctx, line, arg)),
+      args: expression
+        .slice(1)
+        .map((arg) => parseArgument(ctx, line, arg, expression[0] as string)),
       options: {},
     },
   };
@@ -182,16 +184,22 @@ export function parseExpression(
   return parsed;
 }
 
+const commandsToExtractLocalizationFrom = ['text', 'talk', 'narrate'];
+
 export function parseArgument(
   ctx: ParserContext,
   line: Parser.Line,
   argument: Parser.Expression | Parser.Primitive,
+  command: string,
 ): Parser.Arg {
   if (Array.isArray(argument)) {
     return parseExpression(ctx, line, argument);
   } else {
     if (ctx.createLocalizationReport && typeof argument === 'string') {
-      localizationReport.push(argument);
+      console.log(command);
+      if (commandsToExtractLocalizationFrom.includes(command)) {
+        localizationReport.push(argument);
+      }
     }
     return argument;
   }
