@@ -16,6 +16,7 @@ export interface GameUserSettings {
     animateText: boolean;
     fontSize: number;
     language: string;
+    fontChoice: string;
     masterVolume: number;
     musicVolume: number;
     ambientVolume: number;
@@ -45,6 +46,7 @@ export const useSettings = defineStore('settings', {
         animateText: true,
         fontSize: 16,
         language: 'en',
+        fontChoice: 'default',
         masterVolume: 1,
         musicVolume: 1,
         ambientVolume: 1,
@@ -86,6 +88,14 @@ export const useSettings = defineStore('settings', {
           choices: [],
           name: 'narrat.settings.language',
           description: 'The language for the game interface.',
+          presentation: 'dropdown',
+        },
+        fontChoice: {
+          type: 'choice',
+          defaultValue: 'default',
+          choices: [],
+          name: 'narrat.system_menu.font_choice',
+          description: 'The font set to use for the game.',
           presentation: 'dropdown',
         },
         masterVolume: {
@@ -138,6 +148,7 @@ export const useSettings = defineStore('settings', {
       this.$reset();
       this.updateConfig(config);
       this.updateLanguageChoices();
+      this.updateFontChoices();
     },
     updateLanguageChoices() {
       const localizationConfig = getLocalizationConfig();
@@ -150,6 +161,23 @@ export const useSettings = defineStore('settings', {
       (this.settingsSchema.language as CustomSettingsChoice).choices =
         languageChoices;
       this.baseSettings.language = localizationConfig.defaultLanguage;
+    },
+    updateFontChoices() {
+      // Import fonts config to get available font sets
+      import('@/config').then(({ fontsConfig }) => {
+        const config = fontsConfig();
+        if (config.allowChoosingFont !== false && config.fontSets && Object.keys(config.fontSets).length > 0) {
+          const fontChoices = Object.keys(config.fontSets).map(fontId => ({
+            value: fontId,
+            label: fontId, // We could add display names if needed
+          }));
+          (this.settingsSchema.fontChoice as CustomSettingsChoice).choices = fontChoices;
+          // Don't override font choice here - it should be set during config initialization
+        } else {
+          // Hide font choice setting if fonts not allowed or no fonts available
+          delete this.settingsSchema.fontChoice;
+        }
+      });
     },
     getSetting(key: string) {
       if (typeof this.baseSettings[key] !== 'undefined') {
@@ -233,6 +261,13 @@ export const useSettings = defineStore('settings', {
           localization.languageChanged(value);
         });
       }
+      if (key === 'fontChoice') {
+        // Import the fonts store dynamically to avoid circular dependency
+        import('@/stores/fonts-store').then(({ useFontsStore }) => {
+          const fonts = useFontsStore();
+          fonts.setFontSet(value);
+        });
+      }
       if (key === 'masterVolume') {
         // Update master volume through audio store
         import('@/stores/audio-store').then(({ useAudio }) => {
@@ -272,6 +307,11 @@ export const useSettings = defineStore('settings', {
       this.setSetting('musicVolume', 1);
       this.setSetting('ambientVolume', 1);
       this.setSetting('soundVolume', 1);
+      
+      // Initialize font choice to default only if not already set
+      if (this.getSetting('fontChoice') === undefined) {
+        this.setSetting('fontChoice', 'default');
+      }
 
       if (config.settings?.customSettings) {
         for (const key in config.settings.customSettings) {
@@ -279,8 +319,9 @@ export const useSettings = defineStore('settings', {
         }
       }
       
-      // Initialize audio volumes
+      // Initialize audio volumes and font
       this.updateAudioVolumes();
+      this.updateFont();
     },
     addCustomSetting(key: string, schema: CustomSetting) {
       this.customSettings[key] = schema.defaultValue;
@@ -303,8 +344,9 @@ export const useSettings = defineStore('settings', {
       }
       this.saveInitialised = true;
       
-      // Ensure audio volumes are applied after loading settings
+      // Ensure audio volumes and font are applied after loading settings
       this.updateAudioVolumes();
+      this.updateFont();
     },
     updateAudioVolumes() {
       // Update all audio volumes through audio store methods
@@ -320,6 +362,14 @@ export const useSettings = defineStore('settings', {
           const volume = this.getSetting(`${mode}Volume`) ?? 1;
           audio.setModeVolume(mode, volume);
         });
+      });
+    },
+    updateFont() {
+      // Ensure font is applied from settings
+      import('@/stores/fonts-store').then(({ useFontsStore }) => {
+        const fonts = useFontsStore();
+        const fontChoice = this.getSetting('fontChoice') ?? 'default';
+        fonts.setFontSet(fontChoice);
       });
     },
   },

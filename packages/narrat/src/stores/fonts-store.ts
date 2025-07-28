@@ -9,37 +9,50 @@ import { error } from '@/utils/error-handling';
 import { defineStore, acceptHMRUpdate } from 'pinia';
 
 export interface FontsStoreState {
-  currentFont: string | null;
   loadedFonts: Record<string, boolean>;
 }
 
 export interface FontsStoreSave {
-  currentFont: string | null;
+  // Font choice is now stored in settings, no longer saved here
 }
 
 export const useFontsStore = defineStore('fonts-store', {
   state: () =>
     ({
-      currentFont: null,
       loadedFonts: {},
     }) as FontsStoreState,
   getters: {},
   actions: {
+    getCurrentFont(): string | null {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useSettings } = require('@/stores/settings-store');
+        const settingsStore = useSettings();
+        const fontChoice = settingsStore.getSetting('fontChoice') ?? 'default';
+        console.log(`getCurrentFont returning:`, fontChoice);
+        return fontChoice;
+      } catch (e) {
+        console.log(`getCurrentFont error, returning default:`, e);
+        return 'default';
+      }
+    },
     updateConfig(config: FontsConfig) {
+      console.log(`updateConfig called in fonts store`);
       if (config.fontSets) {
         for (const fontSetId in config.fontSets) {
           this.loadFontSet(fontSetId);
         }
-        this.setFontSet(this.currentFont);
+        // Don't call setFontSet here - the settings store handles font application
+        // via updateFont() which ensures proper timing after settings are loaded
       }
     },
     generateSaveData() {
       return {
-        currentFont: this.currentFont,
+        // Font choice is now stored in settings
       };
     },
     loadSaveData(data: FontsStoreSave) {
-      this.currentFont = data.currentFont;
+      // Font choice is now stored in settings, no longer loaded here
     },
     reset(config: FontsConfig) {
       this.$reset();
@@ -103,6 +116,8 @@ export const useFontsStore = defineStore('fonts-store', {
     },
 
     async setFontSet(fontSetId: string | null) {
+      console.log(`setFontSet called with fontSetId:`, fontSetId);
+      console.trace('setFontSet call stack');
       let fontToLoad: string = 'default';
       if (!fontSetId) {
         if (this.getFontSets().default) {
@@ -116,19 +131,18 @@ export const useFontsStore = defineStore('fonts-store', {
       }
       const font = this.getFontSets()[fontToLoad];
       await this.loadFontSet(fontToLoad);
-      this.currentFont = fontToLoad;
+      // currentFont is now stored in settings, not here
       this.setFontVariables(font);
     },
 
     setFontVariables(fontSet: FontSetConfig) {
-      const narrat = document.querySelector('#narrat') as HTMLElement;
-      if (!narrat) {
-        error('Narrat element not found');
-        return;
-      }
+      console.log(`setFontVariables called with fontSet:`, fontSet);
       for (const fontId in fontSet) {
         const font = fontSet[fontId];
-        narrat.style.setProperty(`--font-${fontId}`, font.fontFamily);
+        const narrat = document.querySelector('#narrat') as HTMLElement;
+        if (narrat) {
+          narrat.style.setProperty(`--font-${fontId}`, font.fontFamily);
+        }
       }
     },
   },
