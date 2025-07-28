@@ -39,6 +39,7 @@
 <script setup lang="ts">
 // eslint-disable vue/no-mutating-props
 import { InputListener, useInputs } from '@/stores/inputs-store';
+import { clamp, decimalClamp } from '@/utils/math-utils';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
@@ -49,8 +50,9 @@ const props = defineProps<{
   maxValue: number;
   step: number;
   value: number;
+  decimals?: number;
   focused: boolean;
-  inputListener: InputListener;
+  inputListener: InputListener | null;
   liveUpdate?: boolean;
 }>();
 
@@ -82,28 +84,34 @@ const onMouseUp = () => {
   }
 };
 
-const slideLeft = () => {
-  sliderValue.value -= props.step;
-  if (props.liveUpdate !== false) {
+const setValue = (newValue: number, emitChange: boolean = true) => {
+  newValue = decimalClamp(
+    newValue,
+    props.minValue,
+    props.maxValue,
+    props.decimals ?? 0,
+  );
+  sliderValue.value = newValue;
+  if (emitChange) {
     emit('change', sliderValue.value);
   }
 };
+const slideLeft = () => {
+  setValue(sliderValue.value - props.step, true);
+};
 
 const slideRight = () => {
-  sliderValue.value += props.step;
-  if (props.liveUpdate !== false) {
-    emit('change', sliderValue.value);
-  }
+  setValue(sliderValue.value + props.step, true);
 };
 
 const takeControl = () => {
   interactingInputListener = useInputs().registerInputListener(
     'slider-widget-interaction',
     {
-      sliderDecrease: {
+      decreaseSetting: {
         press: slideLeft,
       },
-      sliderIncrease: {
+      increaseSetting: {
         press: slideRight,
       },
       sliderRelease: {
@@ -125,15 +133,23 @@ const releaseControl = () => {
 };
 
 const startFocusedInputListener = () => {
-  focusedInputListener = useInputs().registerInputListener(
-    'slider-widget-focused',
-    {
-      sliderControl: {
-        press: takeControl,
+  if (props.inputListener) {
+    focusedInputListener = useInputs().registerInputListener(
+      'slider-widget-focused',
+      {
+        decreaseSetting: {
+          press: slideLeft,
+        },
+        increaseSetting: {
+          press: slideRight,
+        },
+        sliderControl: {
+          press: takeControl,
+        },
       },
-    },
-    true,
-  );
+      true,
+    );
+  }
 };
 
 const stopFocusedInputListener = () => {

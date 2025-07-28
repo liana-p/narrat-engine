@@ -4,6 +4,11 @@ export const defaultStringsEn = {
       settings: {
         language: 'Language',
         settings: 'Settings',
+        category: {
+          audio: 'Audio',
+          text: 'Text & Display',
+          misc: 'Miscellaneous',
+        },
       },
       inputs: {
         movement: 'Choose',
@@ -27,8 +32,8 @@ export const defaultStringsEn = {
         toggle_history: 'History',
         control_slider: 'Control Slider',
         release_slider: 'Release Slider',
-        decrease_slider: 'Decrease Slider',
-        increase_slider: 'Increase Slider',
+        decrease_setting: 'Decrease',
+        increase_setting: 'Increase',
       },
       dialog_box: {
         continue: 'Continuer',

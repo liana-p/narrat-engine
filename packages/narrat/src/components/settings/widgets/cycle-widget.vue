@@ -19,13 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { type ChoiceOption } from '@/config/settings-config';
+import { InputListener, useInputs } from '@/stores/inputs-store';
 
 export interface CycleWidgetProps {
   name: string;
   modelValue: string | number;
   options: ChoiceOption[];
+  focused: boolean;
 }
 
 const props = defineProps<CycleWidgetProps>();
@@ -57,6 +59,51 @@ const cycleNext = () => {
     emit('update:modelValue', props.options[index + 1].value);
   }
 };
+
+let focusedInputListener: InputListener | null = null;
+
+const startFocusedInputListener = () => {
+  focusedInputListener = useInputs().registerInputListener(
+    'slider-widget-focused',
+    {
+      decreaseSetting: {
+        press: cyclePrevious,
+      },
+      increaseSetting: {
+        press: cycleNext,
+      },
+    },
+    true,
+  );
+};
+
+const stopFocusedInputListener = () => {
+  if (focusedInputListener) {
+    useInputs().unregisterInputListener(focusedInputListener as InputListener);
+    focusedInputListener = null;
+  }
+};
+
+const onFocus = () => {
+  startFocusedInputListener();
+};
+
+const onBlur = () => {
+  stopFocusedInputListener();
+};
+
+watch(
+  () => props.focused,
+  (newValue: boolean, oldValue: boolean) => {
+    if (newValue && !oldValue) {
+      // Slider is being focused
+      onFocus();
+    } else if (!newValue && oldValue) {
+      // Slider is being blurred
+      onBlur();
+    }
+  },
+);
 </script>
 
 <style scoped>

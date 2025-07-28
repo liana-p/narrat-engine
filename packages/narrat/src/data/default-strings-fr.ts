@@ -4,6 +4,11 @@ export const defaultStringsFr = {
       settings: {
         language: 'Langue',
         settings: 'Paramètres',
+        category: {
+          audio: 'Audio',
+          text: 'Texte et affichage',
+          misc: 'Divers',
+        },
       },
       inputs: {
         movement: 'Choisir',

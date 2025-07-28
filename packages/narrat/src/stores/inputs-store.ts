@@ -344,37 +344,31 @@ const defaultActions: Action[] = [
     ],
   },
   {
-    id: 'sliderDecrease',
+    id: 'decreaseSetting',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.decrease_slider',
+    label: 'narrat.inputs.decrease_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-minus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
         gamepadKey: GamepadKey.Left_Thumbstick_Left,
+        keyboardKey: KeyboardKey.Arrow_Left,
       },
     ],
   },
   {
-    id: 'sliderIncrease',
+    id: 'increaseSetting',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.increase_slider',
+    label: 'narrat.inputs.increase_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-plus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
+        keyboardKey: KeyboardKey.Arrow_Right,
         gamepadKey: GamepadKey.Left_Thumbstick_Right,
       },
     ],

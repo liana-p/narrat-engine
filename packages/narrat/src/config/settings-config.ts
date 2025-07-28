@@ -1,6 +1,38 @@
 import { Type, Static } from '@sinclair/typebox';
 
-export type PresentationType = 'slider' | 'checkbox' | 'text' | 'dropdown' | 'cycle';
+export type PresentationType =
+  | 'slider'
+  | 'checkbox'
+  | 'text'
+  | 'dropdown'
+  | 'cycle';
+
+export enum SettingsCategory {
+  Audio = 'audio',
+  Text = 'text',
+  Misc = 'misc',
+}
+
+export interface SettingsCategoryInfo {
+  id: SettingsCategory;
+  name: string;
+}
+
+export const SettingCategories: Record<SettingsCategory, SettingsCategoryInfo> =
+  {
+    [SettingsCategory.Audio]: {
+      id: SettingsCategory.Audio,
+      name: 'narrat.settings.category.audio',
+    },
+    [SettingsCategory.Text]: {
+      id: SettingsCategory.Text,
+      name: 'narrat.settings.category.text',
+    },
+    [SettingsCategory.Misc]: {
+      id: SettingsCategory.Misc,
+      name: 'narrat.settings.category.misc',
+    },
+  };
 
 export const ChoiceOptionSchema = Type.Object({
   value: Type.Union([Type.String(), Type.Number()]),
@@ -11,13 +43,16 @@ export type ChoiceOption = Static<typeof ChoiceOptionSchema>;
 export const CustomSettingGenericSchema = Type.Object({
   name: Type.String(),
   description: Type.Optional(Type.String()),
-  presentation: Type.Optional(Type.Union([
-    Type.Literal('slider'),
-    Type.Literal('checkbox'), 
-    Type.Literal('text'),
-    Type.Literal('dropdown'),
-    Type.Literal('cycle')
-  ])),
+  category: Type.Enum(SettingsCategory),
+  presentation: Type.Optional(
+    Type.Union([
+      Type.Literal('slider'),
+      Type.Literal('checkbox'),
+      Type.Literal('text'),
+      Type.Literal('dropdown'),
+      Type.Literal('cycle'),
+    ]),
+  ),
   liveUpdate: Type.Optional(Type.Boolean()),
 });
 
@@ -39,6 +74,7 @@ export const CustomSettingsIntegerSchema = Type.Intersect([
     type: Type.Literal('integer'),
     defaultValue: Type.Number(),
     step: Type.Number(),
+    decimals: Type.Optional(Type.Number()),
     minValue: Type.Number(),
     maxValue: Type.Number(),
   }),
@@ -107,11 +143,13 @@ export function isSettingChoice(
   return setting.type === 'choice';
 }
 
-export function getSettingPresentation(setting: CustomSetting): PresentationType {
+export function getSettingPresentation(
+  setting: CustomSetting,
+): PresentationType {
   if (setting.presentation) {
     return setting.presentation;
   }
-  
+
   // Default presentations based on type
   switch (setting.type) {
     case 'number':

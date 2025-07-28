@@ -1,5 +1,9 @@
 <template>
-  <div class="setting-item">
+  <div
+    class="setting-item"
+    :class="{ 'setting-focused': focused }"
+    @click="$emit('click')"
+  >
     <div class="setting-info">
       <label
         :for="settingId"
@@ -21,7 +25,8 @@
         :maxValue="(schema as any).maxValue"
         :step="(schema as any).step"
         :value="settingValue"
-        :focused="false"
+        :decimals="(schema as any).decimals"
+        :focused="focused || false"
         :liveUpdate="schema.liveUpdate"
         @change="changeValue"
       />
@@ -29,6 +34,7 @@
         v-else-if="presentation === 'checkbox'"
         :name="settingId"
         :modelValue="settingValue"
+        :focused="focused || false"
         @update:modelValue="settingValue = $event"
       />
       <TextWidget
@@ -41,6 +47,7 @@
         v-else-if="presentation === 'dropdown'"
         :name="settingId"
         :options="choiceOptions"
+        :focused="focused || false"
         :modelValue="settingValue"
         @update:modelValue="settingValue = $event"
       />
@@ -48,6 +55,7 @@
         v-else-if="presentation === 'cycle'"
         :name="settingId"
         :options="choiceOptions"
+        :focused="focused || false"
         :modelValue="settingValue"
         @update:modelValue="settingValue = $event"
       />
@@ -79,9 +87,11 @@ import { InputListener } from '@/stores/inputs-store';
 
 export interface SettingWidgetProps {
   settingId: string;
-  inputListener: InputListener;
+  inputListener: InputListener | null;
+  focused?: boolean;
 }
 const props = defineProps<SettingWidgetProps>();
+const emit = defineEmits(['click']);
 
 const settings = useSettings();
 const startValue = computed(() => {
@@ -142,6 +152,15 @@ watch(startValue, (newValue: any) => {
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
+}
+
+.setting-item.setting-focused {
+  background: linear-gradient(
+    90deg,
+    rgba(74, 144, 226, 0.3) 0%,
+    rgba(74, 144, 226, 0.1) 100%
+  );
+  border: 2px solid rgba(74, 144, 226, 0.6);
 }
 
 .setting-main {
