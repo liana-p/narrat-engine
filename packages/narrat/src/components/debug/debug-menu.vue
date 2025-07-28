@@ -507,6 +507,6 @@ export default defineComponent({
 }
 
 .debug-menu-content {
-  overflow-y: visible;
+  overflow-y: scroll;
 }
 </style>

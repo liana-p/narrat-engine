@@ -113,7 +113,7 @@ onMounted(() => {
         }
       },
     },
-    escape: {
+    cancel: {
       press: () => {
         emit('close');
       },

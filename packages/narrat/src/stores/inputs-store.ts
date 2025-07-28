@@ -489,20 +489,22 @@ export const useInputs = defineStore('inputs', {
         listener.actions,
       )) {
         const actionValue = inputs.getAction(listenerKey);
-        this.checkAndTriggerActionTypeOnListener(
-          listener,
-          listenerKey,
-          'press',
-          actionValue,
-          alreadySeenButtons,
-        );
-        this.checkAndTriggerActionTypeOnListener(
-          listener,
-          listenerKey,
-          'release',
-          actionValue,
-          alreadySeenButtons,
-        );
+        if (actionValue) {
+          this.checkAndTriggerActionTypeOnListener(
+            listener,
+            listenerKey,
+            'press',
+            actionValue,
+            alreadySeenButtons,
+          );
+          this.checkAndTriggerActionTypeOnListener(
+            listener,
+            listenerKey,
+            'release',
+            actionValue,
+            alreadySeenButtons,
+          );
+        }
       }
     },
     checkAndTriggerActionTypeOnListener(

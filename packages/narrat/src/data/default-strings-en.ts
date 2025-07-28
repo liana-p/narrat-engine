@@ -86,7 +86,7 @@ export const defaultStringsEn = {
           item_amount: 'Amount: %{amount}',
           use: 'Use',
           back: 'Back',
-          inventory_empty_text: "L'inventaire est vide !",
+          inventory_empty_text: 'The inventory is empty!',
           category: {
             all: 'All',
           },

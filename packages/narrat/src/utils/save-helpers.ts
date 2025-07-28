@@ -94,7 +94,6 @@ function defaultGlobalSave(): GlobalGameSave {
         masterVolume: 1,
         musicVolume: 1,
         soundVolume: 1,
-        voiceVolume: 1,
         ambientVolume: 1,
       },
       customSettings: {},
