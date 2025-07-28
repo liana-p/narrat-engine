@@ -91,7 +91,7 @@ export const sourceAllStores = {
   },
   settings: {
     store: useSettings,
-    save: 'settings',
+    globalSave: 'settings',
     config: 'common',
   },
   skills: {

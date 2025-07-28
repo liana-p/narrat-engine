@@ -23,6 +23,7 @@ dialogPanel:
 settings:
   customSettings:
     playerName:
+      category: misc
       name: Player Name
       type: string
       defaultValue: Someone

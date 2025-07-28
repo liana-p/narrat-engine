@@ -95,6 +95,7 @@ export const ifCommand = new CommandPlugin<IfOptions, IfStaticOptions>(
             ctx.parserContext,
             nextLine,
             expression[1] as Parser.Expression,
+            expression[0] as string,
           ),
         });
       } else if (nextLine && nextLine.code === 'else:') {

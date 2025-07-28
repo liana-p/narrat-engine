@@ -1,71 +1,146 @@
 <template>
-  <div class="container mx-auto settings-menu-container">
-    <LocalizedText
-      tag="h2"
-      class="settings-menu-title subtitle text-center"
-      value="narrat.settings.settings"
-    >
-    </LocalizedText>
-    <SettingWidget
-      v-for="(schema, id) in schemas"
-      :settingId="id"
-      :inputListener="inputListener"
-      :key="id"
-    />
-    <!-- Select with available languages -->
-    <label for="language-picker" class="language-label">
-      {{ $t('narrat.settings.language') }}
-    </label>
-    <select
-      class="nrt-select language-select"
-      name="language-picker"
-      v-model="selectedLanguage"
-      @change="localization.setCurrentLanguage(selectedLanguage)"
-    >
-      <option
-        v-for="{ id, name } in availableLanguages"
-        :key="id"
-        :selected="isLanguageSelected(id)"
-        :value="id"
-        :class="`nrt-option language-option ${id}`"
+  <div class="menu-content" ref="scrollContainer">
+    <div class="container mx-auto settings-menu-container">
+      <LocalizedText
+        tag="h2"
+        class="settings-menu-title subtitle text-center"
+        value="narrat.settings.settings"
       >
-        {{ $t(name) }}
-      </option>
-    </select>
+      </LocalizedText>
+      <div
+        v-for="category in categorizedSettings"
+        :key="category.categoryInfo.id"
+        class="settings-category"
+      >
+        <div class="settings-category-header">
+          <LocalizedText
+            tag="h3"
+            class="settings-category-title"
+            :value="category.categoryInfo.name"
+          />
+        </div>
+        <div class="settings-category-content">
+          <SettingWidget
+            v-for="setting in category.settings"
+            :settingId="setting.id"
+            :id="`setting-${setting.id}`"
+            :inputListener="
+              selectedSetting?.id === setting.id ? inputListener : null
+            "
+            :focused="selectedSetting?.id === setting.id"
+            :key="setting.id"
+            @click="selectElement(setting)"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useSettings } from '@/stores/settings-store';
 import SettingWidget from './setting-widget.vue';
-import { InputListener } from '@/stores/inputs-store';
-import { useLocalization } from '@/stores/localization-store';
-import { getLocalizationConfig } from '@/config';
+import { InputListener, useInputs } from '@/stores/inputs-store';
+import {
+  SettingCategories,
+  SettingsCategory,
+  SettingsCategoryInfo,
+} from '@/config/settings-config';
+import { useNavigation } from '@/inputs/useNewNavigation';
+import { useScrolling } from '@/inputs/useScrolling';
 
-const localization = useLocalization();
+const emit = defineEmits(['close']);
 
-const props = defineProps<{
-  inputListener: InputListener;
-}>();
+const inputListener: InputListener = useInputs().registerInputListener(
+  'settings-menu',
+  {},
+  true,
+);
 
-const selectedLanguage = ref(localization.currentLanguage);
+const scrollContainer = ref<HTMLElement | null>(null);
+// Set up scrolling functionality
+const scrolling = useScrolling({
+  container: scrollContainer,
+  scrollSpeed: 40,
+  onlyVertical: true,
+  inputListener: inputListener,
+});
 
 const settings = useSettings();
 
-const availableLanguages = computed(() => {
-  return Object.values(getLocalizationConfig().languages).sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+interface CategorizedSetting {
+  id: string;
+  schema: any;
+}
+
+interface SettingsGroup {
+  categoryInfo: SettingsCategoryInfo;
+  settings: CategorizedSetting[];
+}
+
+const categorizedSettings = computed((): SettingsGroup[] => {
+  const allSchemas = settings.getAllSettingSchemas();
+  const groups: SettingsGroup[] = [];
+
+  // Create groups for each category
+  for (const categoryKey in SettingCategories) {
+    const category = SettingCategories[categoryKey as SettingsCategory];
+    const categorySettings: CategorizedSetting[] = [];
+
+    // Find all settings for this category
+    for (const [settingId, schema] of Object.entries(allSchemas)) {
+      if (schema.category === category.id) {
+        categorySettings.push({
+          id: settingId,
+          schema: schema,
+        });
+      }
+    }
+
+    // Only add categories that have settings
+    if (categorySettings.length > 0) {
+      groups.push({
+        categoryInfo: category,
+        settings: categorySettings,
+      });
+    }
+  }
+
+  return groups;
 });
 
-const isLanguageSelected = (langId: string) => {
-  console.log('Checking language selection:', langId, selectedLanguage.value);
-  return langId === selectedLanguage.value;
-};
+// Flat list of all settings for navigation
+const allSettings = computed(() => {
+  const settings: CategorizedSetting[] = [];
+  categorizedSettings.value.forEach((group) => {
+    settings.push(...group.settings);
+  });
+  return settings;
+});
 
-const schemas = computed(() => {
-  return settings.getAllSettingSchemas();
+const inputListenerRef = computed(() => inputListener);
+
+const { selectedElement: selectedSetting, selectElement } = useNavigation({
+  mode: 'vertical',
+  listener: inputListenerRef,
+  elements: allSettings.value,
+  onSelected: (setting: CategorizedSetting) => {
+    scrolling.scrollToElementById(`setting-${setting.id}`); // Scroll to the selected setting
+  },
+  looping: true,
+});
+
+onMounted(() => {
+  // Auto-select first setting when mounted
+  if (allSettings.value.length > 0) {
+    selectElement(allSettings.value[0]);
+  }
+});
+
+onUnmounted(() => {
+  // Unregister the input listener when the component is destroyed
+  useInputs().unregisterInputListener(inputListener);
 });
 </script>
 
@@ -79,11 +154,39 @@ const schemas = computed(() => {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  background: var(--light-background);
-  border: 1px dashed white;
   padding: 20px;
   margin: 20px 0;
+}
+
+.settings-category {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.settings-category:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 1.5rem;
+}
+
+.settings-category-header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.settings-category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.settings-category-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>

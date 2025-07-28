@@ -2,9 +2,22 @@
 @import url('./elements.css');
 
 #narrat {
+  /* Fonts */
   --font-body: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
   --font-family: var(--font-body);
   --font-header: 'Helvetica', sans-serif, 'Arial', 'sans-serif';
+
+  /* Sizes */
+  --font-xs: 0.8rem;
+  --font-sm: 0.9rem;
+  --font-base: 1rem;
+  --font-lg: 1.2rem;
+  --font-xl: 1.4rem;
+  --font-2xl: 1.8rem;
+  --font-3xl: 2.2rem;
+  --font-4xl: 2.6rem;
+
+  /* Colors */
   --bg-color: rgba(19, 23, 32, 0.9);
   --text-color: #d9e1f2;
   --grey-text-color: #a6a6a6;

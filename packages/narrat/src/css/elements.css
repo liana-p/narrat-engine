@@ -20,12 +20,12 @@ Only classes with generic names that are likely to clash with other applications
 .nrt-select {
   background: var(--light-background);
   padding: 10px;
+  font-size: var(--font-base);
 }
 
 .nrt-option {
-  background-color: var(--light-2);
   padding: 5px;
-  color: var(--text-color);
+  color: black;
 }
 .nrt-button {
   background: var(--button-background);
@@ -139,4 +139,14 @@ Only classes with generic names that are likely to clash with other applications
 
 .nrt-button.selected {
   border: var(--selected-border);
+}
+
+.nrt-label {
+  /* margin: 5px 20px; */
+  margin-right: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  /* width: 180px; */
+  text-align: left;
+  margin-right: 20px;
 }

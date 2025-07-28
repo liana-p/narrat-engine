@@ -197,7 +197,7 @@ const defaultActions: Action[] = [
     id: 'previousTab',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.previous',
+    label: 'narrat.inputs.previous_tab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-p.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-left.png',
     showInLegend: true,
@@ -212,7 +212,7 @@ const defaultActions: Action[] = [
     id: 'nextTab',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.next',
+    label: 'narrat.inputs.next_tab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-o.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-right.png',
     showInLegend: true,
@@ -227,7 +227,7 @@ const defaultActions: Action[] = [
     id: 'subPreviousTab',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.previous_tab',
+    label: 'narrat.inputs.previous_subtab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-i.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: true,
@@ -242,7 +242,7 @@ const defaultActions: Action[] = [
     id: 'subNextTab',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.next_tab',
+    label: 'narrat.inputs.next_subtab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-u.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: true,
@@ -344,37 +344,31 @@ const defaultActions: Action[] = [
     ],
   },
   {
-    id: 'sliderDecrease',
+    id: 'decreaseSetting',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.decrease_slider',
+    label: 'narrat.inputs.decrease_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-minus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
         gamepadKey: GamepadKey.Left_Thumbstick_Left,
+        keyboardKey: KeyboardKey.Arrow_Left,
       },
     ],
   },
   {
-    id: 'sliderIncrease',
+    id: 'increaseSetting',
     type: 'button',
     action: 'press',
-    label: 'narrat.inputs.increase_slider',
+    label: 'narrat.inputs.increase_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-plus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
+        keyboardKey: KeyboardKey.Arrow_Right,
         gamepadKey: GamepadKey.Left_Thumbstick_Right,
       },
     ],
@@ -415,19 +409,7 @@ export const useInputs = defineStore('inputs', {
       }
       this.listenToBaseNarratInputs();
       gameloop.on('preUpdate', () => {
-        for (const [key, value] of Object.entries(inputs.actions)) {
-          if (value.state.config.type === 'button') {
-            const buttonStatus = value as ButtonActionStatus;
-            if (buttonStatus.state.justPressed) {
-              this.triggerListeners(key, 'press', buttonStatus);
-            }
-            if (buttonStatus.state.justReleased) {
-              this.triggerListeners(key, 'release', buttonStatus);
-            }
-          } else if (value.state.config.type === 'analog') {
-            // TODO: Implement analog events
-          }
-        }
+        this.checkAndTriggerActionsOnAllListeners();
       });
     },
     createInGameInputListener() {
@@ -479,39 +461,134 @@ export const useInputs = defineStore('inputs', {
     getAction(actionId: string) {
       return inputs.gameActions[actionId];
     },
-    triggerListeners(
-      actionKey: string,
-      eventType: keyof InputStoreEvents,
-      status: ActionStatus,
-    ) {
-      // console.log(`Triggering action ${actionKey} ${eventType}`);
+    checkAndTriggerActionsOnAllListeners() {
+      // Go through all listeners and trigger their actions, stopping if we're not cascading down
+      // Tracks buttons that have already been seen to prevent triggering the same button multiple times when cascading down
+      const alreadySeenButtons: any[] = [];
       let listenerIndex = this.inputStack.length - 1;
       let stopCascading = false;
       while (!stopCascading && listenerIndex >= 0) {
         const listener = this.inputStack[listenerIndex];
-        if (!listener?.cascadeDown) {
+        if (!listener) {
+          listenerIndex--;
+          continue;
+        }
+        if (listener.cascadeDown === false) {
           stopCascading = true;
         }
+        this.checkAndTriggerActionsOnListener(listener, alreadySeenButtons);
         listenerIndex--;
-        if (!listener) continue;
-        if (listener.actions[actionKey]) {
-          if (listener.actions[actionKey][eventType]) {
-            if (status.state.config.type === 'button') {
-              const listenerEvent = listener.actions[actionKey][
-                eventType
-              ] as ButtonEvent;
-              const buttonStatus = status as ButtonActionStatus;
-              listenerEvent(
-                status.state.config,
-                buttonStatus.state,
-                buttonStatus.previous,
-              );
-            } else {
-              console.warn('Analog events not implemented yet');
+      }
+    },
+    checkAndTriggerActionsOnListener(
+      listener: InputListener,
+      alreadySeenButtons: any[] = [],
+    ) {
+      // Loop through actions in the listener:
+      for (const [listenerKey, listenerAction] of Object.entries(
+        listener.actions,
+      )) {
+        const actionValue = inputs.getAction(listenerKey);
+        this.checkAndTriggerActionTypeOnListener(
+          listener,
+          listenerKey,
+          'press',
+          actionValue,
+          alreadySeenButtons,
+        );
+        this.checkAndTriggerActionTypeOnListener(
+          listener,
+          listenerKey,
+          'release',
+          actionValue,
+          alreadySeenButtons,
+        );
+      }
+    },
+    checkAndTriggerActionTypeOnListener(
+      listener: InputListener,
+      actionKey: string,
+      eventType: keyof InputStoreEvents,
+      status: ActionStatus,
+      alreadySeenButtons: any[],
+    ) {
+      if (
+        listener.actions[actionKey] &&
+        listener.actions[actionKey][eventType]
+      ) {
+        if (status.state.config.type === 'analog') {
+          // TODO: Implement analog events
+          return;
+        }
+        const buttonStatus = status as ButtonActionStatus;
+        if (eventType === 'press' && buttonStatus.state.justPressed) {
+          this.triggerButtonOnListener(
+            listener,
+            actionKey,
+            eventType,
+            status,
+            alreadySeenButtons,
+          );
+        } else if (eventType === 'release' && buttonStatus.state.justReleased) {
+          this.triggerButtonOnListener(
+            listener,
+            actionKey,
+            eventType,
+            status,
+            alreadySeenButtons,
+          );
+        }
+      }
+    },
+    triggerButtonOnListener(
+      listener: InputListener,
+      actionKey: string,
+      eventType: keyof InputStoreEvents,
+      status: ActionStatus,
+      alreadySeenButtons: any[],
+    ): boolean {
+      let stopCascading = false;
+      if (!listener?.cascadeDown) {
+        stopCascading = true;
+      }
+      if (!listener) return false;
+      if (listener.actions[actionKey]) {
+        if (listener.actions[actionKey][eventType]) {
+          if (status.state.config.type === 'button') {
+            // Skip button or add to already seen buttons depending on if it's already been seen
+            let skipButton = false;
+            for (const keybind of status.state.config.keybinds) {
+              if (keybind.keyboardKey) {
+                if (alreadySeenButtons.includes(keybind.keyboardKey)) {
+                  skipButton = true;
+                }
+                alreadySeenButtons.push(keybind.keyboardKey);
+              }
+              if (keybind.gamepadKey) {
+                if (alreadySeenButtons.includes(keybind.gamepadKey)) {
+                  skipButton = true;
+                }
+                alreadySeenButtons.push(keybind.gamepadKey);
+              }
             }
+            if (skipButton) {
+              return stopCascading;
+            }
+            const listenerEvent = listener.actions[actionKey][
+              eventType
+            ] as ButtonEvent;
+            const buttonStatus = status as ButtonActionStatus;
+            listenerEvent(
+              status.state.config,
+              buttonStatus.state,
+              buttonStatus.previous,
+            );
+          } else {
+            console.warn('Analog events not implemented yet');
           }
         }
       }
+      return stopCascading;
     },
     getInputs() {
       return inputs;
@@ -580,7 +657,7 @@ export const useInputs = defineStore('inputs', {
           return Object.keys(listener.actions);
         })
         .flat()
-        .filter((v, i, a) => a.indexOf(v) === i);
+        .filter((value, index, array) => array.indexOf(value) === index);
     },
     inputLegend(state): string[] {
       return this.allListeners.filter((inputName) => {

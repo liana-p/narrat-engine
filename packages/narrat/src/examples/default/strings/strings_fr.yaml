@@ -39,6 +39,7 @@ translation:
     system_menu:
       system: Système
       play_time: 'Temps de jeu:'
+      exit: Quitter le jeu
       settings: Paramètres
       text_speed: Vitesse du texte
       animate_text: Animer le texte

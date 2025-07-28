@@ -4,6 +4,11 @@ export const defaultStringsFr = {
       settings: {
         language: 'Langue',
         settings: 'Paramètres',
+        category: {
+          audio: 'Audio',
+          text: 'Texte et affichage',
+          misc: 'Divers',
+        },
       },
       inputs: {
         movement: 'Choisir',
@@ -48,6 +53,11 @@ export const defaultStringsFr = {
         text_speed: 'Vitesse du texte',
         animate_text: 'Animer le texte',
         font_size: 'Taille de la police',
+        font_size_smallest: 'Très petit',
+        font_size_small: 'Petit',
+        font_size_medium: 'Moyen',
+        font_size_large: 'Grand',
+        font_size_largest: 'Très grand',
         save_game: 'Sauvegarder',
         toggle_fullscreen: 'Basculer en plein écran',
         main_menu: 'Menu principal',
