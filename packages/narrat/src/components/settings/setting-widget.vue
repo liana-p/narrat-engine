@@ -112,20 +112,15 @@ const changeValue = (newValue: number) => {
 };
 
 function valueChanged(newValue: any) {
-  let value = newValue;
-  if (
-    (isSettingNumber(schema.value) || isSettingInteger(schema.value)) &&
-    typeof value === 'number'
-  ) {
-    if (isSettingInteger(schema.value)) {
-      value = Math.round(value);
-    }
-  }
-  settings.setSetting(props.settingId, value);
+  settings.setSetting(props.settingId, newValue);
 }
 
 watch(settingValue, (newValue: any) => {
   valueChanged(newValue);
+});
+
+watch(startValue, (newValue: any) => {
+  settingValue.value = newValue;
 });
 </script>
 <style>

@@ -16,6 +16,10 @@ export interface GameUserSettings {
     animateText: boolean;
     fontSize: number;
     language: string;
+    masterVolume: number;
+    musicVolume: number;
+    ambientVolume: number;
+    soundVolume: number;
   };
   customSettings: {
     [key: string]: any;
@@ -41,6 +45,10 @@ export const useSettings = defineStore('settings', {
         animateText: true,
         fontSize: 16,
         language: 'en',
+        masterVolume: 1,
+        musicVolume: 1,
+        ambientVolume: 1,
+        soundVolume: 1,
       },
       settingsSchema: {
         textSpeed: {
@@ -79,6 +87,46 @@ export const useSettings = defineStore('settings', {
           name: 'narrat.settings.language',
           description: 'The language for the game interface.',
           presentation: 'dropdown',
+        },
+        masterVolume: {
+          type: 'number',
+          defaultValue: 1,
+          minValue: 0,
+          maxValue: 1,
+          step: 0.1,
+          name: 'narrat.system_menu.master_volume',
+          description: 'The master volume for all audio.',
+          presentation: 'slider',
+        },
+        musicVolume: {
+          type: 'number',
+          defaultValue: 1,
+          minValue: 0,
+          maxValue: 1,
+          step: 0.1,
+          name: 'narrat.system_menu.music',
+          description: 'The volume for music.',
+          presentation: 'slider',
+        },
+        ambientVolume: {
+          type: 'number',
+          defaultValue: 1,
+          minValue: 0,
+          maxValue: 1,
+          step: 0.1,
+          name: 'narrat.system_menu.ambient',
+          description: 'The volume for ambient sounds.',
+          presentation: 'slider',
+        },
+        soundVolume: {
+          type: 'number',
+          defaultValue: 1,
+          minValue: 0,
+          maxValue: 1,
+          step: 0.1,
+          name: 'narrat.system_menu.sound_effects',
+          description: 'The volume for sound effects.',
+          presentation: 'slider',
         },
       },
       customSettings: {},
@@ -138,10 +186,34 @@ export const useSettings = defineStore('settings', {
       });
     },
     setSetting(key: string, value: any) {
+      // Get the schema to determine the expected type
+      const schema = this.getSettingSchema(key);
+      if (!schema) {
+        error(`Setting ${key} does not exist.`);
+        return;
+      }
+      
+      // Convert value to the correct type based on schema
+      let convertedValue = value;
+      if (schema.type === 'number' || schema.type === 'integer') {
+        convertedValue = typeof value === 'string' ? parseFloat(value) : value;
+        if (schema.type === 'integer') {
+          convertedValue = Math.round(convertedValue);
+        }
+      } else if (schema.type === 'boolean') {
+        convertedValue = Boolean(value);
+      } else if (schema.type === 'string') {
+        convertedValue = String(value);
+      } else if (schema.type === 'choice') {
+        // For choice types, preserve the original value type (could be string or number)
+        // The value should match one of the choice values exactly
+        convertedValue = value;
+      }
+      
       if (typeof this.baseSettings[key] !== 'undefined') {
-        this.baseSettings[key] = value;
+        this.baseSettings[key] = convertedValue;
       } else if (typeof this.customSettings[key] !== 'undefined') {
-        this.customSettings[key] = value;
+        this.customSettings[key] = convertedValue;
       } else {
         error(`Setting ${key} does not exist.`);
       }
@@ -159,6 +231,21 @@ export const useSettings = defineStore('settings', {
         import('@/stores/localization-store').then(({ useLocalization }) => {
           const localization = useLocalization();
           localization.languageChanged(value);
+        });
+      }
+      if (key === 'masterVolume') {
+        // Update master volume through audio store
+        import('@/stores/audio-store').then(({ useAudio }) => {
+          const audio = useAudio();
+          audio.setMasterVolume(value);
+        });
+      }
+      if (key === 'musicVolume' || key === 'ambientVolume' || key === 'soundVolume') {
+        // Trigger volume update for all audio channels
+        import('@/stores/audio-store').then(({ useAudio }) => {
+          const audio = useAudio();
+          const mode = key.replace('Volume', '') as any;
+          audio.setModeVolume(mode, value);
         });
       }
       if (this.saveInitialised) {
@@ -180,11 +267,20 @@ export const useSettings = defineStore('settings', {
       const localizationConfig = getLocalizationConfig();
       this.setSetting('language', localizationConfig.defaultLanguage);
 
+      // Initialize volume settings to defaults
+      this.setSetting('masterVolume', 1);
+      this.setSetting('musicVolume', 1);
+      this.setSetting('ambientVolume', 1);
+      this.setSetting('soundVolume', 1);
+
       if (config.settings?.customSettings) {
         for (const key in config.settings.customSettings) {
           this.addCustomSetting(key, config.settings.customSettings[key]);
         }
       }
+      
+      // Initialize audio volumes
+      this.updateAudioVolumes();
     },
     addCustomSetting(key: string, schema: CustomSetting) {
       this.customSettings[key] = schema.defaultValue;
@@ -206,6 +302,25 @@ export const useSettings = defineStore('settings', {
         }
       }
       this.saveInitialised = true;
+      
+      // Ensure audio volumes are applied after loading settings
+      this.updateAudioVolumes();
+    },
+    updateAudioVolumes() {
+      // Update all audio volumes through audio store methods
+      import('@/stores/audio-store').then(({ useAudio }) => {
+        const audio = useAudio();
+        
+        // Update master volume
+        audio.setMasterVolume(this.getSetting('masterVolume') ?? 1);
+        
+        // Update mode volumes
+        const modes = ['music', 'ambient', 'sound'] as const;
+        modes.forEach(mode => {
+          const volume = this.getSetting(`${mode}Volume`) ?? 1;
+          audio.setModeVolume(mode, volume);
+        });
+      });
     },
   },
 });

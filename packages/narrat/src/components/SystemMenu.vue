@@ -2,7 +2,6 @@
   <div class="menu-content" ref="scrollContainer">
     <h3>{{ $t('narrat.system_menu.play_time') }} {{ getPlayTimeString() }}</h3>
 
-    <VolumeControls />
     <div class="fonts-picker" v-if="fonts">
       <label name="font-picker" class="font-picker-label"> {{ $t('narrat.system_menu.font_choice') }}: </label>
       <select
@@ -26,7 +25,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import VolumeControls from './volume-controls.vue';
 import SettingsMenu from './settings/settings-menu.vue';
 import { getPlayTime, toHHMMSS } from '@/utils/time-helpers';
 import { useMain } from '@/stores/main-store';
