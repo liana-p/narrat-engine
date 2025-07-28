@@ -1,3 +1,12 @@
+# [4.0.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2025-07-28)
+
+
+### Features
+
+* Gamepad support in settings ([#331](https://github.com/liana-p/narrat-engine/issues/331)) ([bbe2709](https://github.com/liana-p/narrat-engine/commit/bbe270976feae8981674f7bac02aeda350193e72))
+
+
+
 # [4.0.0-alpha.2](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2025-07-27)
 
 Fixed some issues with the template, and added an example of json localization if anyone doesn't want to use yaml.
