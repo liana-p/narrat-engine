@@ -1,6 +1,10 @@
-# [4.0.0-alpha.4](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2025-07-28)
+# [4.0.0](https://github.com/liana-p/narrat-engine/compare/v3.17.9...v4.0.0) (2025-07-30)
 
+Narrat 4 released, see below.
 
+* [Migration Guide](https://docs.narrat.dev/tutorials/narrat-4-migration.html) (for existing games)
+* [Localization Guide](https://docs.narrat.dev/features/localization.html)
+* [Updated Steam publishing guide](https://docs.narrat.dev/guides/steam-publishing.html)
 
 # [4.0.0-alpha.3](https://github.com/liana-p/narrat-engine/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2025-07-28)
 

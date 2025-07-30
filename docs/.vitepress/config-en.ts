@@ -41,6 +41,7 @@ function sidebarTutorials(): DefaultTheme.SidebarItem[] {
     collapsible: true,
     items: [
       { text: 'Make your first game in Narrat', link: 'basic-vn-tutorial' },
+      { text: 'Narrat 4 Migration', link: 'narrat-4-migration' },
     ],
   };
 }
