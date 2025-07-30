@@ -1,3 +1,12 @@
+## [4.0.1](https://github.com/liana-p/narrat-engine/compare/v4.0.0...v4.0.1) (2025-07-30)
+
+
+### Bug Fixes
+
+* correct narrat 4 template CSS import error ([d6206e4](https://github.com/liana-p/narrat-engine/commit/d6206e46ded3491fc14cef7726a02cf4f6b5d63a))
+
+
+
 # [4.0.0](https://github.com/liana-p/narrat-engine/compare/v3.17.9...v4.0.0) (2025-07-30)
 
 Narrat 4 released, see below.
