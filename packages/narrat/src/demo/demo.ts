@@ -69,6 +69,7 @@ const onPageLoad = () => {
     debug,
     scripts,
     localization: {
+      lng: 'en',
       debug,
       resources: {
         en: strings.en,

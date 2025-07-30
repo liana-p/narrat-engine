@@ -3,6 +3,10 @@ translation:
     settings:
       language: Langue
       settings: Paramètres
+      category:
+        audio: Audio
+        text: Texte et affichage
+        misc: Divers
     inputs:
       movement: Choisir
       confirm: Confirmer
@@ -25,11 +29,13 @@ translation:
       toggle_history: Historique
       control_slider: Contrôler le curseur
       release_slider: Relâcher le curseur
-      decrease_slider: Diminuer le curseur
-      increase_slider: Augmenter le curseur
+      previous_subtab: Sous-onglet préc.
+      next_subtab: Sous-onglet suiv.
+      decrease_setting: Diminuer
+      increase_setting: Augmenter
     dialog_box:
       continue: Continuer
-      submit_text_Field: Confirmer
+      submit_text_field: Confirmer
     main_menu:
       continue: Continuer
       start_new_game: Nouvelle partie
@@ -44,6 +50,11 @@ translation:
       text_speed: Vitesse du texte
       animate_text: Animer le texte
       font_size: Taille de la police
+      font_size_smallest: Très petit
+      font_size_small: Petit
+      font_size_medium: Moyen
+      font_size_large: Grand
+      font_size_largest: Très grand
       save_game: Sauvegarder
       toggle_fullscreen: Basculer en plein écran
       main_menu: Menu principal
@@ -128,6 +139,9 @@ translation:
       started_quest_objective: 'Objectif commencé: %{objective}'
       completed_quest_objective: 'Objectif terminé: %{objective}'
       obtained_achievement: 'Succès obtenu: %{name}'
+      item_used: 'Objet utilisé: %{itemName}'
+      item_added_to_inventory: "Objet ajouté à l'inventaire: %{itemName}"
+      item_removed_from_inventory: "Objet retiré de l'inventaire: %{itemName}"
     loading:
       loading_bar_text: Chargement %{progress}% - %{step}
       loading: Chargement

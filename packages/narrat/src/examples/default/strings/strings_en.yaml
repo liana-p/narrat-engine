@@ -3,6 +3,10 @@ translation:
     settings:
       language: Language
       settings: Settings
+      category:
+        audio: Audio
+        text: Text & Display
+        misc: Miscellaneous
     inputs:
       movement: Choose
       confirm: Confirm
@@ -25,8 +29,10 @@ translation:
       toggle_history: History
       control_slider: Control Slider
       release_slider: Release Slider
-      decrease_slider: Decrease Slider
-      increase_slider: Increase Slider
+      previous_subtab: Previous Subtab
+      next_subtab: Next Subtab
+      decrease_setting: Decrease
+      increase_setting: Increase
     main_menu:
       continue: Continue
       start_new_game: Start a new game
@@ -36,10 +42,16 @@ translation:
     system_menu:
       system: System
       play_time: 'Play time:'
+      exit: Quit Game
       settings: Settings
       text_speed: Text Speed
       animate_text: Animate Text
       font_size: Font Size
+      font_size_smallest: Smallest
+      font_size_small: Small
+      font_size_medium: Medium
+      font_size_large: Large
+      font_size_largest: Largest
       save_game: Save Game
       toggle_fullscreen: Toggle Fullscreen
       main_menu: Main Menu
@@ -53,7 +65,7 @@ translation:
       skills:
         skills: Skills
         XP: XP
-        level: Niveau
+        level: Level
         xp_display: '%{xp_amount} / %{xp_per_level} XP'
         xp_level: '%{level}'
         skill_details_level_text: 'Level %{level}'
@@ -63,7 +75,7 @@ translation:
         item_amount: 'Amount: %{amount}'
         use: Use
         back: Back
-        inventory_empty_text: L'inventaire est vide !
+        inventory_empty_text: The inventory is empty!
         category:
           all: All
       quests:

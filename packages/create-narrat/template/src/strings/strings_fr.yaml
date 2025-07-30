@@ -3,6 +3,10 @@ translation:
     settings:
       language: Langue
       settings: Paramètres
+      category:
+        audio: Audio
+        text: Texte et affichage
+        misc: Divers
     inputs:
       movement: Choisir
       confirm: Confirmer
@@ -25,11 +29,13 @@ translation:
       toggle_history: Historique
       control_slider: Contrôler le curseur
       release_slider: Relâcher le curseur
-      decrease_slider: Diminuer le curseur
-      increase_slider: Augmenter le curseur
+      previous_subtab: Sous-onglet préc.
+      next_subtab: Sous-onglet suiv.
+      decrease_setting: Diminuer
+      increase_setting: Augmenter
     dialog_box:
       continue: Continuer
-      submit_text_Field: Confirmer
+      submit_text_field: Confirmer
     main_menu:
       continue: Continuer
       start_new_game: Nouvelle partie
@@ -38,11 +44,17 @@ translation:
       exit: Quitter
     system_menu:
       system: Système
-      play_time: 'Temps de jeu:'
+      play_time: "Temps de jeu:"
+      exit: Quitter le jeu
       settings: Paramètres
       text_speed: Vitesse du texte
       animate_text: Animer le texte
       font_size: Taille de la police
+      font_size_smallest: Très petit
+      font_size_small: Petit
+      font_size_medium: Moyen
+      font_size_large: Grand
+      font_size_largest: Très grand
       save_game: Sauvegarder
       toggle_fullscreen: Basculer en plein écran
       main_menu: Menu principal
@@ -57,13 +69,13 @@ translation:
         skills: Compétences
         XP: XP
         level: Niveau
-        xp_display: '%{xp_amount} / %{xp_per_level} XP'
-        xp_level: '%{level}'
-        skill_details_level_text: 'Niveau %{level}'
+        xp_display: "%{xp_amount} / %{xp_per_level} XP"
+        xp_level: "%{level}"
+        skill_details_level_text: "Niveau %{level}"
         back: Retour
       inventory:
         items: Objets
-        item_amount: 'Quantité: %{amount}'
+        item_amount: "Quantité: %{amount}"
         use: Utiliser
         back: Retour
         inventory_empty_text: L'inventaire est vide !
@@ -97,7 +109,7 @@ translation:
       confirm_delete: Êtes-vous sûr de vouloir supprimer ce fichier de sauvegarde ?
       confirm_overwrite: Êtes-vous sûr de vouloir écraser ce fichier de sauvegarde ?
       cannot_delete_auto_save: Impossible de supprimer l'emplacement de sauvegarde automatique !
-      play_time: 'Temps de jeu :'
+      play_time: "Temps de jeu :"
       auto_save_type: Sauvegarde automatique
       manual_save_type: Sauvegarde manuelle
       empty_save: Sauvegarde vide
@@ -122,11 +134,14 @@ translation:
       no_save_file_found: Aucun fichier de sauvegarde trouvé
       missing_character: Personnage manquant
     notifications:
-      started_quest: 'Quête commencée: %{title}'
-      completed_quest: 'Quête terminée: %{title}'
-      started_quest_objective: 'Objectif commencé: %{objective}'
-      completed_quest_objective: 'Objectif terminé: %{objective}'
-      obtained_achievement: 'Succès obtenu: %{name}'
+      started_quest: "Quête commencée: %{title}"
+      completed_quest: "Quête terminée: %{title}"
+      started_quest_objective: "Objectif commencé: %{objective}"
+      completed_quest_objective: "Objectif terminé: %{objective}"
+      obtained_achievement: "Succès obtenu: %{name}"
+      item_used: "Objet utilisé: %{itemName}"
+      item_added_to_inventory: "Objet ajouté à l'inventaire: %{itemName}"
+      item_removed_from_inventory: "Objet retiré de l'inventaire: %{itemName}"
     loading:
       loading_bar_text: Chargement %{progress}% - %{step}
       loading: Chargement
@@ -136,60 +151,3 @@ translation:
   # ===========================
   # Game Config Localization
   # ===========================
-
-  # Note that those keys are up to you. You can create keys, or you can use the text itself as a key.
-  items:
-    categories:
-      food: Nourriture
-      books: Livres
-    bread:
-      name: Bread
-      description: Un pain de campagne.
-    book:
-      name: Livre Sinistre
-      description: 'Un livre sinistre'
-  # Example of localizing achievements from raw text without using keys (see achievements.yaml for the names)
-  # janken:
-  Janken: Pierre-papier-ciseaux
-  Win at Rock paper scissors Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt.: Gagner au pierre-papier-ciseaux Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt.
-  # won the game:
-  Won the game: A gagné le jeu
-  Get this achievement by being a true ultimate pro gamer: Obtenez ce succès en étant un véritable pro gamer ultime.
-  # find book:
-  Bookworm: Rat de bibliothèque
-  Find the book in the hidden room: Trouvez le livre dans la salle cachée
-  # chapter 1:
-  Chapter 1: Chapitre 1
-  Finish chapter 1: Terminer le chapitre 1
-  # chapter 2:
-  Chapter 2: Chapitre 2
-  Finish chapter 2: Terminer le chapitre 2
-  # secret achievement:
-  Secret boss found: Boss secret trouvé
-  Beat the secret boss: Battez le boss secret
-  # Same for quests, could use either raw text or string keys if you want
-  Quest Category 1: Catégorie de quête 1
-  quests:
-    categories:
-      category_2: Catégorie de quête 2
-    bread_shopping:
-      title: Shopping à la boulangerie
-      description: Le chat vous demande de lui acheter du pain.
-      objectives:
-        bread:
-          description: Acheter du pain pour le chat.
-        delivery:
-          description: Livrer le pain au chat.
-  # Translating skills without string keys as another example.
-  # This has the advantage of not needing to fill the english localization file (defaults to the raw text which is already in english)
-  Agility: Agilité
-  How good you are at moving around.: Votre capacité à vous déplacer
-  Haggling: Négociation
-  Get good prices on items: Obtenez de bons prix sur les objets
-
-  # ===========================
-  # Game Text Localization
-  # ===========================
-  Let's test localization!: Testons la localisation !
-  Welcome %{name}!: Bienvenue %{name} !
-  Your health is %{health}.: Votre santé est de %{health}.

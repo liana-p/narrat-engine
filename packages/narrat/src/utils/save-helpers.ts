@@ -85,17 +85,7 @@ function defaultGlobalSave(): GlobalGameSave {
     localization: {},
     data: {},
     settings: {
-      baseSettings: {
-        textSpeed: 30,
-        animateText: true,
-        fontSize: 16,
-        language: 'en',
-        fontChoice: 'default',
-        masterVolume: 1,
-        musicVolume: 1,
-        soundVolume: 1,
-        ambientVolume: 1,
-      },
+      baseSettings: {},
       customSettings: {},
     },
   };

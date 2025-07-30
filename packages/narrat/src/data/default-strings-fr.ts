@@ -26,18 +26,20 @@ export const defaultStringsFr = {
         next: 'Suivant',
         previous_tab: 'Onglet précédent',
         next_tab: 'Onglet suivant',
+        previous_subtab: 'Sous-onglet préc.',
+        next_subtab: 'Sous-onglet suiv.',
         interact: 'Interagir',
         toggle_auto_play: 'Autoplay',
         toggle_skip: 'Passer',
         toggle_history: 'Historique',
         control_slider: 'Contrôler le curseur',
         release_slider: 'Relâcher le curseur',
-        decrease_slider: 'Diminuer le curseur',
-        increase_slider: 'Augmenter le curseur',
+        decrease_setting: 'Diminuer',
+        increase_setting: 'Augmenter',
       },
       dialog_box: {
         continue: 'Continuer',
-        submit_text_Field: 'Confirmer',
+        submit_text_field: 'Confirmer',
       },
       main_menu: {
         continue: 'Continuer',
@@ -66,6 +68,7 @@ export const defaultStringsFr = {
         ambient: 'Ambiance',
         sound_effects: 'Effets sonores',
         font_choice: 'Choix de la police',
+        exit: 'Quitter le jeu',
       },
       game_menu: {
         game_menu: 'Menu du jeu',
@@ -159,6 +162,9 @@ export const defaultStringsFr = {
         started_quest_objective: 'Objectif commencé: %{objective}',
         completed_quest_objective: 'Objectif terminé: %{objective}',
         obtained_achievement: 'Succès obtenu: %{name}',
+        item_used: 'Objet utilisé: %{itemName}',
+        item_added_to_inventory: 'Objet ajouté à l\'inventaire: %{itemName}',
+        item_removed_from_inventory: 'Objet retiré de l\'inventaire: %{itemName}',
       },
       loading: {
         loading_bar_text: 'Chargement %{progress}% - %{step}',
@@ -166,6 +172,37 @@ export const defaultStringsFr = {
         plugins: 'Plugins',
         assets: 'Ressources',
         starting: 'Démarrage',
+      },
+    },
+    quests: {
+      categories: {
+        category_2: 'Catégorie de quête 2',
+      },
+      bread_shopping: {
+        title: 'Shopping à la boulangerie',
+        description: 'Le chat vous demande de lui acheter du pain.',
+        objectives: {
+          bread: {
+            description: 'Acheter du pain pour le chat.',
+          },
+          delivery: {
+            description: 'Livrer le pain au chat.',
+          },
+        },
+      },
+    },
+    items: {
+      categories: {
+        food: 'Nourriture',
+        books: 'Livres',
+      },
+      bread: {
+        name: 'Pain',
+        description: 'Un simple pain de campagne.',
+      },
+      book: {
+        name: 'Livre Sinistre',
+        description: 'Un livre d\'apparence sinistre',
       },
     },
   },

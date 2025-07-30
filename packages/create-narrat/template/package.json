@@ -1,6 +1,6 @@
 {
   "name": "my-game",
-  "version": "4.0.0-alpha.1",
+  "version": "4.0.0",
   "private": true,
   "description": "A game made with narrat",
   "main": "electron-main.js",
@@ -82,7 +82,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "es6-promise": "^4.2.8",
-    "narrat": "^4.0.0-alpha.1",
+    "narrat": "^4.0.0",
     "pinia": "^3.0.3",
     "steamworks.js": "^0.2.0",
     "vue": "^3.5.18"
@@ -103,7 +103,7 @@
     "shx": "^0.4.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
-    "vite-plugin-narrat": "4.0.0-alpha.1"
+    "vite-plugin-narrat": "4.0.0"
   },
   "config": {
     "forge": {

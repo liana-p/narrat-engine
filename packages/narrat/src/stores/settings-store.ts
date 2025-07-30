@@ -38,10 +38,10 @@ export interface GameUserSettings {
   saveInitialised: boolean;
 }
 
-export type GameGlobalSettingsSave = Omit<
-  GameUserSettings,
-  'customSettingsSchema' | 'settingsSchema' | 'saveInitialised'
->;
+export type GameGlobalSettingsSave = {
+  baseSettings: Partial<GameUserSettings['baseSettings']>;
+  customSettings: Partial<GameUserSettings['customSettings']>;
+};
 export const useSettings = defineStore('settings', {
   state: () =>
     ({

@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
     config,
     localization: {
       debug: DEBUG,
-      lng: "fr",
+      lng: "en",
       resources: {
         // Puts all the string translation files we have in there
         ...strings,

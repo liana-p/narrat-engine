@@ -38,8 +38,8 @@ export const defaultStringsEn = {
         increase_setting: 'Increase',
       },
       dialog_box: {
-        continue: 'Continuer',
-        submit_text_field: 'Confirmer',
+        continue: 'Continue',
+        submit_text_field: 'Confirm',
       },
       main_menu: {
         continue: 'Continue',
@@ -75,7 +75,7 @@ export const defaultStringsEn = {
         skills: {
           skills: 'Skills',
           XP: 'XP',
-          level: 'Niveau',
+          level: 'Level',
           xp_display: '%{xp_amount} / %{xp_per_level} XP',
           xp_level: '%{level}',
           skill_details_level_text: 'Level %{level}',
