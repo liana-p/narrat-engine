@@ -1,4 +1,4 @@
-import "narrat/dist/main.css";
+import "narrat/dist/narrat.css";
 import "./css/main.css";
 import { registerPlugin, startApp } from "narrat";
 import scripts from "./scripts";
