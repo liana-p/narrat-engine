@@ -5,12 +5,21 @@
     :style="skillStyle"
     ref="gridElement"
   >
-    <h3 class="skill-title">{{ skillName }}</h3>
+    <h3 class="skill-title">{{ $t(skillName) }}</h3>
     <div class="skill-xp-container">
       <div class="skill-xp-bar" :style="xpBarWidth"></div>
-      <h3 class="skill-xp-text">{{ skillState.xp }} / {{ xpPerLevel }} XP</h3>
+      <h3 class="skill-xp-text">
+        {{
+          $t('narrat.game_menu.skills.xp_display', {
+            xp_amount: skillState.xp,
+            xp_per_level: xpPerLevel,
+          })
+        }}
+      </h3>
     </div>
-    <h3 class="skill-level">{{ skillState.level }}</h3>
+    <h3 class="skill-level">
+      {{ $t('narrat.game_menu.skills.xp_level', { level: skillState.level }) }}
+    </h3>
   </button>
 </template>
 

@@ -6,11 +6,11 @@
       :style="loadingStyle"
       :class="loadingClass"
     >
-      <h1 id="engine-splash-title">{{ splashTitle }}</h1>
+      <h1 id="engine-splash-title">{{ $t(splashTitle) }}</h1>
       <img :src="spinningLogo" alt="Narrat Logo" id="engine-splash-logo" />
       <LoadingBar
         :percentage="main.loading.percentage"
-        :step="main.loading.step"
+        :step="$t(main.loading.step)"
       />
     </div>
   </div>
@@ -42,7 +42,7 @@ const splashConfig = computed(
 const splashTitle = computed(() =>
   typeof splashConfig.value.overrideText === 'string'
     ? splashConfig.value.overrideText
-    : 'Made with narrat engine',
+    : 'narrat.engine.splash_text',
 );
 const spinningLogo = computed(() => splashConfig.value.overrideLogo ?? logo);
 const fadeDuration = computed(() =>

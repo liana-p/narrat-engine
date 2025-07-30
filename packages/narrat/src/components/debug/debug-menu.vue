@@ -51,7 +51,7 @@
         </template>
         <template v-slot:body>
           <div class="debug-body">
-            <div class="container items-center">
+            <div class="debug-menu-content container items-center">
               <h2 class="debug-section text-center" id="table-of-contents">
                 Table of contents
               </h2>
@@ -187,7 +187,6 @@ let JSONEditor: any;
 async function addJsonEditor() {
   if (!JSONEditor) {
     JSONEditor = (await import('vanilla-jsoneditor')).JSONEditor;
-    console.log(JSONEditor);
   }
 }
 export default defineComponent({
@@ -505,5 +504,9 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.debug-menu-content {
+  overflow-y: scroll;
 }
 </style>

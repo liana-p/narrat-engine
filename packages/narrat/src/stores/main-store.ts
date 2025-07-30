@@ -95,7 +95,7 @@ export const useMain = defineStore('main', {
         scripts: [],
       },
       loading: {
-        step: 'Loading',
+        step: 'narrat.loading.loading',
         percentage: 0.1,
         loaded: false,
       },

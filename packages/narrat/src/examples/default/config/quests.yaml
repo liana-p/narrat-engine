@@ -2,18 +2,18 @@ categories:
   - id: default
     title: Quest Category 1
   - id: other
-    title: Quest Category 2
+    title: qusts.categories.category_2
 
 quests:
   breadShopping:
-    title: Bread Shopping
-    description: The helper cat asked you to buy bread for him.
+    title: quests.bread_shopping.title
+    description: quests.bread_shopping.description
     objectives:
       bread:
-        description: Buy bread for the helper cat.
+        description: quests.bread_shopping.objectives.bread.description
       delivery:
         hidden: true
-        description: Deliver the bread to the helper cat.
+        description: quests.bread_shopping.objectives.delivery.description
 
   quest1:
     title: Lorem Ipsum Dolor

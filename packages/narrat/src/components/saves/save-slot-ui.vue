@@ -22,9 +22,15 @@
           <p v-if="saveData">
             {{ new Date(saveData.metadata.saveDate).toLocaleString() }}
           </p>
-          <p v-if="saveData">Play time: {{ playtimeString(saveSlot) }}</p>
+          <p v-if="saveData">
+            {{ t('narrat.saves.play_time') }} {{ playtimeString(saveSlot) }}
+          </p>
           <p v-if="saveMode === 'game-slots'">
-            {{ saveSlot.slotType === 'auto' ? 'Auto Save' : 'Manual Save' }}
+            {{
+              saveSlot.slotType === 'auto'
+                ? t('narrat.saves.auto_save_type')
+                : t('narrat.saves.manual_save_type')
+            }}
           </p>
         </div>
       </div>
@@ -50,6 +56,7 @@ import { renameSave } from '../../utils/save-helpers';
 import { getCommonConfig, getImageUrl, getScreenConfig } from '@/config';
 import { InputListener } from '@/stores/inputs-store';
 import { useOldNavigation, OldNavigationState } from '@/inputs/useNavigation';
+import { useTranslation } from 'i18next-vue';
 
 const props = defineProps<{
   saveSlot: SaveSlot;
@@ -59,6 +66,8 @@ const props = defineProps<{
   inputListener: InputListener | null;
 }>();
 
+const { t } = useTranslation();
+
 const navigation = ref<OldNavigationState | null | undefined>(null);
 const actionsContainer = ref<HTMLElement | null>(null);
 const slotContainer = ref<HTMLElement | null>(null);
@@ -66,7 +75,9 @@ const slotContainer = ref<HTMLElement | null>(null);
 defineExpose({
   slotContainer,
 });
-const saveName = ref(props.saveSlot.saveData?.metadata.name ?? 'Empty Save');
+const saveName = ref(
+  props.saveSlot.saveData?.metadata.name ?? t('narrat.saves.empty_save'),
+);
 const selectedButtonIndex = ref(0);
 const hasSaveData = computed(() => props.saveSlot.saveData !== null);
 const saveData = computed(() => props.saveSlot.saveData);
@@ -111,7 +122,7 @@ function saveNumberText() {
   let txt = '';
   const num = props.saveSlot.slotNumber;
   if (num === 0 && getCommonConfig().saves.mode === 'manual') {
-    return 'AUTO';
+    return t('narrat.saves.auto_indicator');
   }
   if (slots >= 10 && num < 10) {
     txt += '0';

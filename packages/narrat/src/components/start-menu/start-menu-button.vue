@@ -4,7 +4,7 @@
     :class="button.cssClass"
     @click="$emit('click')"
   >
-    {{ button.title }}
+    {{ $t(button.title) }}
   </button>
 </template>
 <script lang="ts" setup>

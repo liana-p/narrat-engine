@@ -1,8 +1,8 @@
 categories:
   - id: default
-    title: Achievements
+    title: narrat.game_menu.achievements.achievements
   - id: secret
-    title: Secret Achievements
+    title: narrat.game_menu.achievements.secret_achievements
 
 defaultAchievementIcon: img/achievements/trophy.png
 

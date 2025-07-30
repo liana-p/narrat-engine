@@ -1,6 +1,6 @@
 {
   "name": "@narrat/desktop-editor",
-  "version": "3.17.9",
+  "version": "4.0.0-alpha.4",
   "private": true,
   "description": "Desktop editor for narrat",
   "main": "electron-main.js",
@@ -27,29 +27,29 @@
     "ide:type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.5.3",
+    "@tauri-apps/api": "^2.7.0",
     "clone-deep": "^4.0.1",
     "es6-promise": "^4.2.8",
-    "monaco-editor": "0.44.0",
-    "monaco-yaml": "^5.1.0",
+    "monaco-editor": "0.52.2",
+    "monaco-yaml": "^5.4.0",
     "oh-vue-icons": "1.0.0-rc3",
-    "pinia": "^2.1.7",
-    "steamworks.js": "^0.2.0",
+    "pinia": "^3.0.3",
+    "steamworks.js": "^0.4.0",
     "vue": "^3.5.18",
     "vue-router": "4"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.7.1",
-    "@types/clone-deep": "^4.0.1",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/devtools": "^7.0.11",
+    "@types/clone-deep": "^4.0.4",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/devtools": "^7.7.7",
     "cross-env": "^7.0.3",
-    "prettier": "^3.2.5",
-    "shx": "^0.3.4",
-    "typescript": "^5.1.6",
-    "vite": "^5.0.12",
+    "prettier": "^3.6.2",
+    "shx": "^0.4.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.5",
     "vite-plugin-monaco-editor": "^1.1.0",
-    "vite-plugin-windicss": "^1.9.0",
+    "vite-plugin-windicss": "^1.9.4",
     "windicss": "^3.5.6"
   }
 }

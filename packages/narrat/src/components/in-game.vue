@@ -14,7 +14,7 @@
       v-if="
         savingRequested && savingRequested.withPrompt && agreedToSave === null
       "
-      :prompt="'Would you like to save the game?'"
+      :prompt="$t('narrat.saves.would_you_like_to_save')"
       :onConfirm="saveConfirm"
       :onRefuse="saveRefuse"
     />

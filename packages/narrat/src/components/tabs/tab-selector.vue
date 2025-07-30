@@ -2,7 +2,7 @@
   <div class="tab" :class="cssClass" :id="`tab-${tab.id}`" @click="tabClick">
     <div class="tab-title-container" :class="active ? 'active' : ''">
       <img :src="tab.icon" alt="tab icon" v-if="tab.icon" class="tab-icon" />
-      <span class="tab-title">{{ tab.label }}</span>
+      <span class="tab-title">{{ $t(tab.label) }}</span>
     </div>
   </div>
 </template>

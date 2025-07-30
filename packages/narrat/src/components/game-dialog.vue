@@ -41,7 +41,7 @@
             :class="{ active: useDialogStore().playMode === 'auto' }"
             @click="autoPlay"
           >
-            Auto
+            {{ $t('narrat.inputs.toggle_auto_play') }}
             <InputPrompt input="autoPlay" />
           </div>
           <div
@@ -49,7 +49,7 @@
             :class="{ active: useDialogStore().playMode === 'skip' }"
             @click="skip"
           >
-            Skip
+            {{ $t('narrat.inputs.toggle_skip') }}
             <InputPrompt input="skip" />
           </div>
           <div
@@ -58,7 +58,7 @@
             :class="{ active: useDialogStore().clearedDialogVisible }"
             @click="toggleHistory"
           >
-            Toggle History
+            {{ $t('narrat.inputs.toggle_history') }}
             <InputPrompt input="toggleHistory" />
           </div>
         </div>

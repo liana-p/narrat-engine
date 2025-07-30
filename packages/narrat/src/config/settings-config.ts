@@ -1,8 +1,59 @@
 import { Type, Static } from '@sinclair/typebox';
 
+export type PresentationType =
+  | 'slider'
+  | 'checkbox'
+  | 'text'
+  | 'dropdown'
+  | 'cycle';
+
+export enum SettingsCategory {
+  Audio = 'audio',
+  Text = 'text',
+  Misc = 'misc',
+}
+
+export interface SettingsCategoryInfo {
+  id: SettingsCategory;
+  name: string;
+}
+
+export const SettingCategories: Record<SettingsCategory, SettingsCategoryInfo> =
+  {
+    [SettingsCategory.Audio]: {
+      id: SettingsCategory.Audio,
+      name: 'narrat.settings.category.audio',
+    },
+    [SettingsCategory.Text]: {
+      id: SettingsCategory.Text,
+      name: 'narrat.settings.category.text',
+    },
+    [SettingsCategory.Misc]: {
+      id: SettingsCategory.Misc,
+      name: 'narrat.settings.category.misc',
+    },
+  };
+
+export const ChoiceOptionSchema = Type.Object({
+  value: Type.Union([Type.String(), Type.Number()]),
+  label: Type.String(),
+});
+export type ChoiceOption = Static<typeof ChoiceOptionSchema>;
+
 export const CustomSettingGenericSchema = Type.Object({
   name: Type.String(),
   description: Type.Optional(Type.String()),
+  category: Type.Enum(SettingsCategory),
+  presentation: Type.Optional(
+    Type.Union([
+      Type.Literal('slider'),
+      Type.Literal('checkbox'),
+      Type.Literal('text'),
+      Type.Literal('dropdown'),
+      Type.Literal('cycle'),
+    ]),
+  ),
+  liveUpdate: Type.Optional(Type.Boolean()),
 });
 
 export const CustomSettingsNumberSchema = Type.Intersect([
@@ -23,6 +74,7 @@ export const CustomSettingsIntegerSchema = Type.Intersect([
     type: Type.Literal('integer'),
     defaultValue: Type.Number(),
     step: Type.Number(),
+    decimals: Type.Optional(Type.Number()),
     minValue: Type.Number(),
     maxValue: Type.Number(),
   }),
@@ -47,11 +99,22 @@ export const CustomSettingsStringSchema = Type.Intersect([
 ]);
 export type CustomSettingsString = Static<typeof CustomSettingsStringSchema>;
 
+export const CustomSettingsChoiceSchema = Type.Intersect([
+  CustomSettingGenericSchema,
+  Type.Object({
+    type: Type.Literal('choice'),
+    defaultValue: Type.Union([Type.String(), Type.Number()]),
+    choices: Type.Array(ChoiceOptionSchema),
+  }),
+]);
+export type CustomSettingsChoice = Static<typeof CustomSettingsChoiceSchema>;
+
 export const CustomSettingSchema = Type.Union([
   CustomSettingsNumberSchema,
   CustomSettingsIntegerSchema,
   CustomSettingsBooleanSchema,
   CustomSettingsStringSchema,
+  CustomSettingsChoiceSchema,
 ]);
 export type CustomSetting = Static<typeof CustomSettingSchema>;
 export function isSettingNumber(
@@ -73,6 +136,34 @@ export function isSettingString(
   setting: CustomSetting,
 ): setting is CustomSettingsString {
   return setting.type === 'string';
+}
+export function isSettingChoice(
+  setting: CustomSetting,
+): setting is CustomSettingsChoice {
+  return setting.type === 'choice';
+}
+
+export function getSettingPresentation(
+  setting: CustomSetting,
+): PresentationType {
+  if (setting.presentation) {
+    return setting.presentation;
+  }
+
+  // Default presentations based on type
+  switch (setting.type) {
+    case 'number':
+    case 'integer':
+      return 'slider';
+    case 'boolean':
+      return 'checkbox';
+    case 'string':
+      return 'text';
+    case 'choice':
+      return 'dropdown';
+    default:
+      return 'text';
+  }
 }
 export const SettingsConfigSchema = Type.Object({
   customSettings: Type.Optional(

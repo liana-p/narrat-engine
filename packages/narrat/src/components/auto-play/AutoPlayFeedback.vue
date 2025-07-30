@@ -1,7 +1,7 @@
 <template>
   <div class="auto-play-feedback-container" v-if="autoPlayText">
     <div class="auto-play-feedback" :class="autoPlayClass">
-      {{ autoPlayText }}
+      {{ $t(autoPlayText) }}
     </div>
   </div>
 </template>

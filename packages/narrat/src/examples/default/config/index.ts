@@ -14,6 +14,7 @@ import tooltips from './tooltips.yaml';
 import macros from './macros.yaml';
 import preload from './preload.yaml';
 import fonts from './fonts.yaml';
+import localization from './localization.yaml';
 
 import { ModuleConfigInput } from '@/config/config-input';
 
@@ -34,5 +35,6 @@ const defaultGameConfigs: ModuleConfigInput = {
   macros,
   preload,
   fonts,
+  localization,
 };
 export default defaultGameConfigs;

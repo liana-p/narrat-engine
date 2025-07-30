@@ -2,16 +2,16 @@
   "folders": [
     {
       "name": "narrat",
-      "path": "packages/narrat"
+      "path": "packages/narrat",
     },
     {
       "name": "root",
-      "path": "."
+      "path": ".",
     },
     {
       "name": "docs",
-      "path": "docs"
-    }
+      "path": "docs",
+    },
   ],
   "settings": {
     "vitest.enable": true,
@@ -28,7 +28,7 @@
       "**/*.rpa": true,
       "**/*.rpymc": true,
       "**/cache/": true,
-      "**/lib.ts": true
+      "**/lib.ts": true,
     },
     "search.exclude": {
       "src/lib.ts": true,
@@ -36,15 +36,15 @@
       "lib/": true,
       "**/lib": true,
       "node_modules/": true,
-      "**/lib.ts": true
+      "**/lib.ts": true,
     },
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[javascript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
     "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
     },
     "typescript.preferences.autoImportFileExcludePatterns": [
       "@/lib/**",
@@ -62,10 +62,13 @@
       "packages/narrat/src/lib.ts",
       "src/lib/*",
       "lib",
-      "**/lib.ts"
+      "**/lib.ts",
     ],
     "javascript.preferences.autoImportFileExcludePatterns": ["@lib"],
     "javascript.preferences.importModuleSpecifier": "shortest",
-    "typescript.preferences.importModuleSpecifier": "shortest"
-  }
+    "typescript.preferences.importModuleSpecifier": "shortest",
+  },
+  "extensions": {
+    "recommendations": ["oxc.oxc-vscode"],
+  },
 }

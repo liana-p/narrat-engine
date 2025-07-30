@@ -9,7 +9,7 @@
     }"
   >
     <p class="quest-list-title">
-      {{ data.title }}
+      {{ $t(data.title) }}
     </p>
   </div>
 </template>

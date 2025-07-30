@@ -386,6 +386,13 @@ export class Inputs extends EventTarget {
     return this.actions[actionId].state as AnalogActionState;
   }
 
+  public getAction(actionId: string): ActionStatus {
+    if (!this.actions[actionId]) {
+      error(`Action ${actionId} does not exist`);
+    }
+    return this.actions[actionId];
+  }
+
   public getButton(actionId: string): ButtonActionState {
     if (!this.actions[actionId]) {
       error(`Action ${actionId} does not exist`);

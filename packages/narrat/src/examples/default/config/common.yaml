@@ -1,5 +1,5 @@
 ---
-gameTitle: Narrat Default Test
+gameTitle: narrat.game.title
 saveFileName: Narrat Default
 images:
   narrat: img/backgrounds/narrat.webp
@@ -23,6 +23,7 @@ dialogPanel:
 settings:
   customSettings:
     playerName:
+      category: misc
       name: Player Name
       type: string
       defaultValue: Someone
@@ -112,6 +113,4 @@ hudStats:
 interactionTags:
   default:
     onlyInteractOutsideOfScripts: true
-menuButtons:
-  new-game:
-    text: Start a new game
+menuButtons: {}

@@ -1,0 +1,170 @@
+translation:
+  narrat:
+    settings:
+      language: Language
+      settings: Settings
+      category:
+        audio: Audio
+        text: Text & Display
+        misc: Miscellaneous
+    inputs:
+      movement: Choose
+      confirm: Confirm
+      cancel: Cancel
+      left: Left
+      right: Right
+      up: Up
+      down: Down
+      scroll: Scroll
+      continue: Continue
+      system_menu: System Menu
+      game_menu: Game Menu
+      previous: Previous
+      next: Next
+      previous_tab: Previous Tab
+      next_tab: Next Tab
+      interact: Interact
+      toggle_auto_play: Autoplay
+      toggle_skip: Skip
+      toggle_history: History
+      control_slider: Control Slider
+      release_slider: Release Slider
+      previous_subtab: Previous Subtab
+      next_subtab: Next Subtab
+      decrease_setting: Decrease
+      increase_setting: Increase
+    main_menu:
+      continue: Continue
+      start_new_game: Start a new game
+      load_game: Load Game
+      settings: Settings
+      exit: Exit
+    system_menu:
+      system: System
+      play_time: 'Play time:'
+      exit: Quit Game
+      settings: Settings
+      text_speed: Text Speed
+      animate_text: Animate Text
+      font_size: Font Size
+      font_size_smallest: Smallest
+      font_size_small: Small
+      font_size_medium: Medium
+      font_size_large: Large
+      font_size_largest: Largest
+      save_game: Save Game
+      toggle_fullscreen: Toggle Fullscreen
+      main_menu: Main Menu
+      master_volume: Master volume
+      music: Music
+      ambient: Ambient
+      sound_effects: Sound effects
+      font_choice: Font Choice
+    game_menu:
+      game_menu: Game Menu
+      skills:
+        skills: Skills
+        XP: XP
+        level: Level
+        xp_display: '%{xp_amount} / %{xp_per_level} XP'
+        xp_level: '%{level}'
+        skill_details_level_text: 'Level %{level}'
+        back: Back
+      inventory:
+        items: Items
+        item_amount: 'Amount: %{amount}'
+        use: Use
+        back: Back
+        inventory_empty_text: The inventory is empty!
+        category:
+          all: All
+      quests:
+        quests: Quests
+        active_quests: Active Quests
+        completed_quests: Completed Quests
+        no_active_quests: No active quests
+        no_completed_quests: No completed quests
+      achievements:
+        achievements: Achievements
+        not_obtained_yet: Not obtained yet
+        obtained_on: Obtained on %{date}
+        secret_achievements: Secret Achievements
+        secret_achievement: Secret achievement
+        hidden_achievement: Hidden Achievement
+        hidden_description: This achievement is hidden. Complete it to discover more.
+        no_achievements_text: The achievements section is empty!
+    saves:
+      would_you_like_to_save: Would you like to save the game?
+      choose_save_to_load: Choose a save to load
+      pick_slot_to_save: Pick a slot to save the game
+      auto_save: Auto save
+      manual_saves: Manual Saves
+      save_slots: Save Slots
+      load: Load
+      delete: Delete
+      choose: Choose
+      confirm_delete: Are you sure you want to delete this save file?
+      confirm_overwrite: Are you sure you want to overwrite this save file?
+      cannot_delete_auto_save: Can't delete the auto save slot!
+      play_time: 'Play time:'
+      auto_save_type: Auto Save
+      manual_save_type: Manual Save
+      empty_save: Empty Save
+      auto_indicator: AUTO
+    ui:
+      confirmation: Confirmation
+      yes: Yes
+      no: No
+      alert: Alert
+      no_tab_selected: No tab selected
+      none: NONE
+    misc:
+      press_to_start: Press to start
+    game:
+      title: Narrat Default Game
+    engine:
+      splash_text: Made with Narrat
+    errors:
+      no_autosave_found: No autosave found
+      no_free_slot_found: No free slot found
+      no_save_file_found: No save file found
+      missing_character: Missing Character
+    notifications:
+      started_quest: 'Quest started: %{title}'
+      completed_quest: 'Quest completed: %{title}'
+      started_quest_objective: 'Objective started: %{objective}'
+      completed_quest_objective: 'Objective completed: %{objective}'
+      obtained_achievement: 'Achievement obtained: %{name}'
+      item_used: 'Used item: %{itemName}'
+      item_added_to_inventory: 'Item added to inventory: %{itemName}'
+      item_removed_from_inventory: 'Item removed from inventory: %{itemName}'
+    loading:
+      loading_bar_text: Loading %{progress}% - %{step}
+      loading: Loading
+      plugins: Plugins
+      assets: Assets
+      starting: Starting
+  # Game Localization
+  quests:
+    categories:
+      category_2: Quest Category 2
+    bread_shopping:
+      title: Bread Shopping
+      description: The cat asks you to buy bread for it.
+      objectives:
+        bread:
+          description: Buy bread for the cat.
+        delivery:
+          description: Deliver the bread to the cat.
+  items:
+    categories:
+      food: Food
+      books: Books
+    bread:
+      name: Bread
+      description: A simple loaf of bread.
+    book:
+      name: Sinister Book
+      description: 'A sinister-looking book'
+  test_localization:
+    print_player_name: 'Player name is %{data.player.name}.'

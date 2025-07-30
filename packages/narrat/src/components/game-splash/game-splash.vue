@@ -8,13 +8,13 @@
       id="game-splash-screen-header flex justify-center flex-col items-center"
       class="flex justify-center flex-col items-center"
     >
-      <h1 class="title" id="game-splash-title">{{ gameTitle }}</h1>
+      <h1 class="title" id="game-splash-title">{{ $t(gameTitle) }}</h1>
       <button
         v-if="gameLoaded"
         class="nrt-button menu-button main-menu-button large splash-start-button override"
         @click="goToStartMenu"
       >
-        {{ startButtonText }}
+        {{ $t(startButtonText) }}
       </button>
     </div>
   </div>
@@ -34,7 +34,7 @@ const splashConfig = computed(
 const startButtonText = computed(() =>
   typeof splashConfig.value.startButtonText === 'string'
     ? splashConfig.value.startButtonText
-    : 'Press to start',
+    : 'narrat.misc.press_to_start',
 );
 const gameLoaded = computed(() => main.loading.loaded);
 const gameTitle = computed(() => getCommonConfig().gameTitle || 'Narrat Game');

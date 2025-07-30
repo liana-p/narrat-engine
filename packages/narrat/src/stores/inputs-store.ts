@@ -25,7 +25,7 @@ const defaultActions: Action[] = [
   {
     id: 'movement',
     type: 'button',
-    label: 'Choose',
+    label: 'narrat.inputs.movement',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-arrows.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/dpad.png',
     action: 'press',
@@ -40,7 +40,7 @@ const defaultActions: Action[] = [
   {
     id: 'left',
     type: 'button',
-    label: 'Left',
+    label: 'narrat.inputs.left',
     keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-left.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-left.png',
     action: 'press',
@@ -59,7 +59,7 @@ const defaultActions: Action[] = [
     id: 'right',
     type: 'button',
     action: 'press',
-    label: 'Right',
+    label: 'narrat.inputs.right',
     keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-right.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-right.png',
     showInLegend: false,
@@ -77,7 +77,7 @@ const defaultActions: Action[] = [
     id: 'up',
     type: 'button',
     action: 'press',
-    label: 'Up',
+    label: 'narrat.inputs.up',
     keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-up.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-up.png',
     showInLegend: false,
@@ -95,7 +95,7 @@ const defaultActions: Action[] = [
     id: 'down',
     type: 'button',
     action: 'press',
-    label: 'Down',
+    label: 'narrat.inputs.down',
     keyboardIcon: 'img/ui/button-prompts/keyboard/arrow-down.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/dpad-down.png',
     showInLegend: false,
@@ -113,7 +113,7 @@ const defaultActions: Action[] = [
     id: 'scroll',
     type: 'button',
     action: 'press',
-    label: 'Scroll',
+    label: 'narrat.inputs.scroll',
     gamepadIcon: 'img/ui/button-prompts/gamepad/xbox_stick_r_vertical.png',
     showInLegend: true,
     keybinds: [],
@@ -122,7 +122,7 @@ const defaultActions: Action[] = [
     id: 'continue',
     type: 'button',
     action: 'press',
-    label: 'Continue',
+    label: 'narrat.inputs.continue',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-space.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-down.png',
     showInLegend: false,
@@ -137,7 +137,7 @@ const defaultActions: Action[] = [
     id: 'confirm',
     type: 'button',
     action: 'press',
-    label: 'Confirm',
+    label: 'narrat.inputs.confirm',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-enter.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-down.png',
     showInLegend: true,
@@ -152,7 +152,7 @@ const defaultActions: Action[] = [
     id: 'cancel',
     type: 'button',
     action: 'press',
-    label: 'Cancel',
+    label: 'narrat.inputs.cancel',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-escape.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-right.png',
     showInLegend: true,
@@ -167,7 +167,7 @@ const defaultActions: Action[] = [
     id: 'system',
     type: 'button',
     action: 'press',
-    label: 'System Menu',
+    label: 'narrat.inputs.system_menu',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-n.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/special-right.png',
     showInLegend: false,
@@ -182,7 +182,7 @@ const defaultActions: Action[] = [
     id: 'menu',
     type: 'button',
     action: 'press',
-    label: 'Game Menu',
+    label: 'narrat.inputs.game_menu',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-m.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/special-left.png',
     showInLegend: false,
@@ -197,7 +197,7 @@ const defaultActions: Action[] = [
     id: 'previousTab',
     type: 'button',
     action: 'press',
-    label: 'Previous',
+    label: 'narrat.inputs.previous_tab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-p.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-left.png',
     showInLegend: true,
@@ -212,7 +212,7 @@ const defaultActions: Action[] = [
     id: 'nextTab',
     type: 'button',
     action: 'press',
-    label: 'Next',
+    label: 'narrat.inputs.next_tab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-o.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/shoulder-right.png',
     showInLegend: true,
@@ -227,7 +227,7 @@ const defaultActions: Action[] = [
     id: 'subPreviousTab',
     type: 'button',
     action: 'press',
-    label: 'Previous Tab',
+    label: 'narrat.inputs.previous_subtab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-i.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: true,
@@ -242,7 +242,7 @@ const defaultActions: Action[] = [
     id: 'subNextTab',
     type: 'button',
     action: 'press',
-    label: 'Next Tab',
+    label: 'narrat.inputs.next_subtab',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-u.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: true,
@@ -257,7 +257,7 @@ const defaultActions: Action[] = [
     id: 'viewportSelect',
     type: 'button',
     action: 'press',
-    label: 'Interact',
+    label: 'narrat.inputs.interact',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-v.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-left.png',
     showInLegend: true,
@@ -272,7 +272,7 @@ const defaultActions: Action[] = [
     id: 'autoPlay',
     type: 'button',
     action: 'press',
-    label: 'Toggle Autoplay',
+    label: 'narrat.inputs.toggle_auto_play',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-a.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: false,
@@ -287,7 +287,7 @@ const defaultActions: Action[] = [
     id: 'skip',
     type: 'button',
     action: 'press',
-    label: 'Skip',
+    label: 'narrat.inputs.toggle_skip',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-s.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: false,
@@ -302,7 +302,7 @@ const defaultActions: Action[] = [
     id: 'toggleHistory',
     type: 'button',
     action: 'press',
-    label: 'Toggle History',
+    label: 'narrat.inputs.toggle_history',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-t.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-top.png',
     showInLegend: false,
@@ -317,7 +317,7 @@ const defaultActions: Action[] = [
     id: 'sliderControl',
     type: 'button',
     action: 'press',
-    label: 'Control Slider',
+    label: 'narrat.inputs.control_slider',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-v.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-left.png',
     showInLegend: true,
@@ -332,7 +332,7 @@ const defaultActions: Action[] = [
     id: 'sliderRelease',
     type: 'button',
     action: 'press',
-    label: 'Release Slider',
+    label: 'narrat.inputs.release_slider',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-b.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/facebutton-right.png',
     showInLegend: true,
@@ -344,37 +344,31 @@ const defaultActions: Action[] = [
     ],
   },
   {
-    id: 'sliderDecrease',
+    id: 'decreaseSetting',
     type: 'button',
     action: 'press',
-    label: 'Decrease Slider',
+    label: 'narrat.inputs.decrease_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-minus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-left.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
         gamepadKey: GamepadKey.Left_Thumbstick_Left,
+        keyboardKey: KeyboardKey.Arrow_Left,
       },
     ],
   },
   {
-    id: 'sliderIncrease',
+    id: 'increaseSetting',
     type: 'button',
     action: 'press',
-    label: 'Increase Slider',
+    label: 'narrat.inputs.increase_setting',
     keyboardIcon: 'img/ui/button-prompts/keyboard/key-plus.png',
     gamepadIcon: 'img/ui/button-prompts/gamepad/trigger-right.png',
     showInLegend: true,
     keybinds: [
       {
-        keyboardKey: KeyboardKey.Arrow_Left,
-        gamepadKey: GamepadKey.Dpad_Left,
-      },
-      {
+        keyboardKey: KeyboardKey.Arrow_Right,
         gamepadKey: GamepadKey.Left_Thumbstick_Right,
       },
     ],
@@ -415,19 +409,7 @@ export const useInputs = defineStore('inputs', {
       }
       this.listenToBaseNarratInputs();
       gameloop.on('preUpdate', () => {
-        for (const [key, value] of Object.entries(inputs.actions)) {
-          if (value.state.config.type === 'button') {
-            const buttonStatus = value as ButtonActionStatus;
-            if (buttonStatus.state.justPressed) {
-              this.triggerListeners(key, 'press', buttonStatus);
-            }
-            if (buttonStatus.state.justReleased) {
-              this.triggerListeners(key, 'release', buttonStatus);
-            }
-          } else if (value.state.config.type === 'analog') {
-            // TODO: Implement analog events
-          }
-        }
+        this.checkAndTriggerActionsOnAllListeners();
       });
     },
     createInGameInputListener() {
@@ -479,39 +461,136 @@ export const useInputs = defineStore('inputs', {
     getAction(actionId: string) {
       return inputs.gameActions[actionId];
     },
-    triggerListeners(
-      actionKey: string,
-      eventType: keyof InputStoreEvents,
-      status: ActionStatus,
-    ) {
-      // console.log(`Triggering action ${actionKey} ${eventType}`);
+    checkAndTriggerActionsOnAllListeners() {
+      // Go through all listeners and trigger their actions, stopping if we're not cascading down
+      // Tracks buttons that have already been seen to prevent triggering the same button multiple times when cascading down
+      const alreadySeenButtons: any[] = [];
       let listenerIndex = this.inputStack.length - 1;
       let stopCascading = false;
       while (!stopCascading && listenerIndex >= 0) {
         const listener = this.inputStack[listenerIndex];
-        if (!listener?.cascadeDown) {
+        if (!listener) {
+          listenerIndex--;
+          continue;
+        }
+        if (listener.cascadeDown === false) {
           stopCascading = true;
         }
+        this.checkAndTriggerActionsOnListener(listener, alreadySeenButtons);
         listenerIndex--;
-        if (!listener) continue;
-        if (listener.actions[actionKey]) {
-          if (listener.actions[actionKey][eventType]) {
-            if (status.state.config.type === 'button') {
-              const listenerEvent = listener.actions[actionKey][
-                eventType
-              ] as ButtonEvent;
-              const buttonStatus = status as ButtonActionStatus;
-              listenerEvent(
-                status.state.config,
-                buttonStatus.state,
-                buttonStatus.previous,
-              );
-            } else {
-              console.warn('Analog events not implemented yet');
+      }
+    },
+    checkAndTriggerActionsOnListener(
+      listener: InputListener,
+      alreadySeenButtons: any[] = [],
+    ) {
+      // Loop through actions in the listener:
+      for (const [listenerKey, listenerAction] of Object.entries(
+        listener.actions,
+      )) {
+        const actionValue = inputs.getAction(listenerKey);
+        if (actionValue) {
+          this.checkAndTriggerActionTypeOnListener(
+            listener,
+            listenerKey,
+            'press',
+            actionValue,
+            alreadySeenButtons,
+          );
+          this.checkAndTriggerActionTypeOnListener(
+            listener,
+            listenerKey,
+            'release',
+            actionValue,
+            alreadySeenButtons,
+          );
+        }
+      }
+    },
+    checkAndTriggerActionTypeOnListener(
+      listener: InputListener,
+      actionKey: string,
+      eventType: keyof InputStoreEvents,
+      status: ActionStatus,
+      alreadySeenButtons: any[],
+    ) {
+      if (
+        listener.actions[actionKey] &&
+        listener.actions[actionKey][eventType]
+      ) {
+        if (status.state.config.type === 'analog') {
+          // TODO: Implement analog events
+          return;
+        }
+        const buttonStatus = status as ButtonActionStatus;
+        if (eventType === 'press' && buttonStatus.state.justPressed) {
+          this.triggerButtonOnListener(
+            listener,
+            actionKey,
+            eventType,
+            status,
+            alreadySeenButtons,
+          );
+        } else if (eventType === 'release' && buttonStatus.state.justReleased) {
+          this.triggerButtonOnListener(
+            listener,
+            actionKey,
+            eventType,
+            status,
+            alreadySeenButtons,
+          );
+        }
+      }
+    },
+    triggerButtonOnListener(
+      listener: InputListener,
+      actionKey: string,
+      eventType: keyof InputStoreEvents,
+      status: ActionStatus,
+      alreadySeenButtons: any[],
+    ): boolean {
+      let stopCascading = false;
+      if (!listener?.cascadeDown) {
+        stopCascading = true;
+      }
+      if (!listener) return false;
+      if (listener.actions[actionKey]) {
+        if (listener.actions[actionKey][eventType]) {
+          if (status.state.config.type === 'button') {
+            // Skip button or add to already seen buttons depending on if it's already been seen
+            let skipButton = false;
+            for (const keybind of status.state.config.keybinds) {
+              if (keybind.keyboardKey) {
+                if (alreadySeenButtons.includes(keybind.keyboardKey)) {
+                  skipButton = true;
+                }
+                alreadySeenButtons.push(keybind.keyboardKey);
+              }
+              if (keybind.gamepadKey) {
+                if (alreadySeenButtons.includes(keybind.gamepadKey)) {
+                  skipButton = true;
+                }
+                alreadySeenButtons.push(keybind.gamepadKey);
+              }
             }
+            if (skipButton) {
+              return stopCascading;
+            }
+            const listenerEvent = listener.actions[actionKey][
+              eventType
+            ] as ButtonEvent;
+            const buttonStatus = status as ButtonActionStatus;
+            listenerEvent(
+              status.state.config,
+              buttonStatus.state,
+              buttonStatus.previous,
+            );
+          } else {
+            console.warn('Analog events not implemented yet');
           }
         }
       }
+      return stopCascading;
     },
     getInputs() {
       return inputs;
@@ -580,7 +659,7 @@ export const useInputs = defineStore('inputs', {
           return Object.keys(listener.actions);
         })
         .flat()
-        .filter((v, i, a) => a.indexOf(v) === i);
+        .filter((value, index, array) => array.indexOf(value) === index);
     },
     inputLegend(state): string[] {
       return this.allListeners.filter((inputName) => {

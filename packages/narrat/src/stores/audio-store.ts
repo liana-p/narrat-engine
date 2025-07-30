@@ -19,29 +19,21 @@ export interface AudioChannel {
 
 export type AudioModeState = {
   channels: Array<AudioChannel | null>;
-  options: {
-    volume: number;
-  };
 };
 
 export interface AudioState {
   modes: AudioModes;
-  masterVolume: number;
 }
 
 export interface AudioSaveMode {
   channels: Array<{
     audio: string | null;
   }>;
-  options: {
-    volume: number;
-  };
 }
 export type AudioSave = {
   modes: {
     [key: string]: AudioSaveMode;
   };
-  masterVolume: number;
 };
 
 export const useAudio = defineStore('audio', {
@@ -50,14 +42,10 @@ export const useAudio = defineStore('audio', {
     for (const key in audioModes) {
       modes.set(key as AudioModeKey, {
         channels: [],
-        options: {
-          volume: 1,
-        },
       });
     }
     return {
       modes,
-      masterVolume: 1,
     } as AudioState;
   },
   actions: {
@@ -204,9 +192,6 @@ export const useAudio = defineStore('audio', {
           continue;
         }
         const channel = key as AudioModeKey;
-        this.modes.get(channel)!.options = deepCopy(
-          save.modes[channel].options,
-        );
         for (const index in save.modes[channel].channels) {
           const sound = save.modes[channel].channels[index];
           if (sound && sound.audio) {
@@ -226,7 +211,6 @@ export const useAudio = defineStore('audio', {
       for (const key in audioModes) {
         const mode = this.modes.get(key as AudioModeKey);
         modes[key] = {
-          options: deepCopy(mode!.options),
           channels: deepCopy(mode!.channels).map((channel) => {
             if (!channel) {
               return { audio: null };
@@ -237,18 +221,18 @@ export const useAudio = defineStore('audio', {
       }
       return {
         modes,
-        masterVolume: this.masterVolume,
       };
     },
     loadSaveData(data: AudioSave) {
-      this.masterVolume = data.masterVolume;
+      // Audio save data no longer contains volume information
+      // Volume is now handled by the settings store
     },
     reset() {
       this.stopAll();
     },
     setModeVolume(mode: AudioModeKey, volume: number) {
+      // Volume is now stored in settings, update all channels
       const modeState = this.modes.get(mode)!;
-      modeState.options.volume = volume;
       for (const channel in modeState.channels) {
         const channelState = modeState.channels[channel];
         if (channelState) {
@@ -260,11 +244,31 @@ export const useAudio = defineStore('audio', {
       }
     },
     setMasterVolume(volume: number) {
-      this.masterVolume = volume;
+      // Volume is now stored in settings
       Howler.volume(volume);
     },
+    getMasterVolume(): number {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useSettings } = require('@/stores/settings-store');
+        const settingsStore = useSettings();
+        return settingsStore.getSetting('masterVolume') ?? 1;
+      } catch (e) {
+        return 1;
+      }
+    },
+    getModeVolume(mode: AudioModeKey): number {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { useSettings } = require('@/stores/settings-store');
+        const settingsStore = useSettings();
+        return settingsStore.getSetting(`${mode}Volume`) ?? 1;
+      } catch (e) {
+        return 1;
+      }
+    },
     modeVolume(mode: AudioModeKey): number {
-      return this.masterVolume * this.modes.get(mode)!.options.volume;
+      return this.getMasterVolume() * this.getModeVolume(mode);
     },
     audioVolume(mode: AudioModeKey, audio: string): number {
       return this.modeVolume(mode) * (audioFileConfig(audio)?.volume ?? 1);

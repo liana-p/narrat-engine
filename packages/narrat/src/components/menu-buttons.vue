@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-container menu-toggle">
+  <div class="menu-container menu-toggle" v-if="!hideButtons">
     <button
       v-for="(menuButton, key) in menuButtons"
       :key="menuButton.id"
@@ -7,31 +7,31 @@
       :id="menuButton.cssId ?? `${key}-menu-button`"
       class="nrt-button menu-toggle-button"
     >
-      {{ menuButton.label }}
+      {{ $t(menuButton.label) }}
       <InputPrompt
         :input="menuButton.inputPrompt"
         v-if="menuButton.inputPrompt"
       />
     </button>
-    <Teleport to="#narrat-app-container" v-if="menu">
-      <Modal
-        :containerCssClass="{ [menu.cssClass!]: true, 'menu-modal': true }"
-        @close="closeMenu"
-      >
-        <template v-slot:header>
-          <h3 class="nrt-title">{{ menuStore.tab?.text ?? menu.label }}</h3>
-        </template>
-        <template v-slot:body>
-          <TabsController
-            @tab-change="tabChange"
-            @close="close"
-            :tabs="menuTabs"
-            :defaultTab="menu.activeTab"
-          />
-        </template>
-      </Modal>
-    </Teleport>
   </div>
+  <Teleport to="#narrat-app-container" v-if="menu">
+    <Modal
+      :containerCssClass="{ [menu.cssClass!]: true, 'menu-modal': true }"
+      @close="closeMenu"
+    >
+      <template v-slot:header>
+        <h3 class="nrt-title">{{ $t(menuStore.tab?.text ?? menu.label) }}</h3>
+      </template>
+      <template v-slot:body>
+        <TabsController
+          @tab-change="tabChange"
+          @close="close"
+          :tabs="menuTabs"
+          :defaultTab="menu.activeTab"
+        />
+      </template>
+    </Modal>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -43,6 +43,10 @@ import Modal from './utils/modal-window.vue';
 import TabsController from './tabs/TabsController.vue';
 import { TabOptions } from './tabs/tab-selector.vue';
 import InputPrompt from './input-prompt/input-prompt.vue';
+
+const props = defineProps<{
+  hideButtons?: boolean;
+}>();
 
 const menuStore = useMenu();
 const keyboardListener = ref<any>(null);

@@ -8,8 +8,9 @@ import quests from './quests.yaml';
 import screens from './screens.yaml';
 import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
-import { ModuleConfigInput } from '@/config/config-input';
+import localization from './localization.yaml';
 
+import { ModuleConfigInput } from '@/config/config-input';
 const defaultGameConfigs: ModuleConfigInput = {
   achievements,
   audio,
@@ -21,5 +22,6 @@ const defaultGameConfigs: ModuleConfigInput = {
   screens,
   skills,
   skillChecks,
+  localization,
 };
 export default defaultGameConfigs;

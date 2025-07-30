@@ -60,6 +60,10 @@ A common platform to release narrat games on is [itch.io](https://itch.io), as i
 
 You can either release your game as a web game, or as an executable.
 
+## Releasing on Steam
+
+See the [Steam publishing guide](/guides/steam-publishing.md) for more information on how to release your game on Steam.
+
 ### Web game release on itch.io
 
 Itch.io expects you to upload a zip file containing a web application, that is to say a folder containing at least a `index.html` file that has been zipped up.

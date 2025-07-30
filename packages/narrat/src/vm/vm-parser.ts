@@ -14,6 +14,8 @@ loggerManager.setupDebugger(false);
 const logger = loggerManager.logger;
 // const logger = defaultLogger;
 
+let localizationReport: string[] = [];
+
 export type ErrorFunction = (line: number, text: string) => void;
 
 export type ParserErrorHandler = (
@@ -27,20 +29,34 @@ export interface ParserContext {
   error: ErrorFunction;
   processCommandsFunction: ProcessCommandsFunction;
   indentSize: number;
+  createLocalizationReport?: boolean;
 }
 
-export function parseScript(script: NarratScript): Parser.ParsedScript {
-  return parseScriptFunction(
+export function parseScript(
+  script: NarratScript,
+  createLocalizationReport?: boolean,
+): Parser.ParsedScript {
+  localizationReport = [];
+  const result = parseScriptFunction(
     (ctx: ParserContext, line: number, error: string) =>
       parserError(ctx, line, error),
     script.code,
     script.fileName,
+    createLocalizationReport,
   );
+  if (createLocalizationReport) {
+    console.log(
+      `Localization report for ${script.fileName}:`,
+      localizationReport,
+    );
+  }
+  return result;
 }
 export function parseScriptFunction(
   errorHandler: ParserErrorHandler,
   code: string,
   fileName: string,
+  createLocalizationReport?: boolean,
 ): Parser.ParsedScript {
   const ctx: ParserContext = {
     fileName,
@@ -48,6 +64,7 @@ export function parseScriptFunction(
     error: (line: number, text: string) => errorHandler(ctx, line, text),
     processCommandsFunction: processCommands,
     indentSize: 0, // Will be overriden soon
+    createLocalizationReport: createLocalizationReport ?? false,
   };
   ctx.indentSize = detectIndentation(ctx, code);
   const lines = getBranchesFromRawScript(ctx, code);
@@ -146,7 +163,9 @@ export function parseExpression(
       staticOptions: {},
       commandType: expression[0] as string,
       operator: expression[0] as string,
-      args: expression.slice(1).map((arg) => parseArgument(ctx, line, arg)),
+      args: expression
+        .slice(1)
+        .map((arg) => parseArgument(ctx, line, arg, expression[0] as string)),
       options: {},
     },
   };
@@ -165,14 +184,23 @@ export function parseExpression(
   return parsed;
 }
 
+const commandsToExtractLocalizationFrom = ['text', 'talk', 'narrate'];
+
 export function parseArgument(
   ctx: ParserContext,
   line: Parser.Line,
   argument: Parser.Expression | Parser.Primitive,
+  command: string,
 ): Parser.Arg {
   if (Array.isArray(argument)) {
     return parseExpression(ctx, line, argument);
   } else {
+    if (ctx.createLocalizationReport && typeof argument === 'string') {
+      console.log(command);
+      if (commandsToExtractLocalizationFrom.includes(command)) {
+        localizationReport.push(argument);
+      }
+    }
     return argument;
   }
 }

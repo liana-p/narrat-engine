@@ -1,11 +1,10 @@
 {
   "name": "narrat-monorepo",
-  "version": "3.17.9",
+  "version": "4.0.0-alpha.4",
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20",
-    "pnpm": ">=8"
+    "node": ">=22"
   },
   "description": "Narrat monorepo",
   "main": "index.js",
@@ -35,7 +34,7 @@
     "url": "https://github.com/liana-p/narrat-engine/issues"
   },
   "homepage": "https://narrat.dev",
-  "packageManager": "pnpm@10.8.0",
+  "packageManager": "pnpm@10.13.1",
   "package-manager-strict": false,
   "pnpm": {
     "overrides": {
@@ -47,20 +46,23 @@
     "commit-msg": "node scripts/verifyCommit.js"
   },
   "dependencies": {
-    "highlight.js": "^11.9.0",
+    "clsx": "^2.1.1",
+    "highlight.js": "^11.11.1",
+    "i18next": "^25.3.2",
+    "i18next-vue": "^5.3.0",
     "narrat": "workspace:*",
     "vue": "^3.5.18"
   },
   "devDependencies": {
-    "chalk": "^5.2.0",
-    "conventional-changelog-cli": "^4.1.0",
-    "enquirer": "^2.3.6",
-    "execa": "^8.0.1",
-    "minimist": "^1.2.6",
-    "rimraf": "^5.0.5",
-    "semver": "^7.5.4",
-    "simple-git-hooks": "^2.8.1",
-    "vitepress": "1.0.0-rc.40",
-    "vite-plugin-narrat": "workspace:*"
+    "chalk": "^5.4.1",
+    "conventional-changelog-cli": "^5.0.0",
+    "enquirer": "^2.4.1",
+    "execa": "^9.6.0",
+    "minimist": "^1.2.8",
+    "rimraf": "^6.0.1",
+    "semver": "^7.7.2",
+    "simple-git-hooks": "^2.13.0",
+    "vite-plugin-narrat": "workspace:*",
+    "vitepress": "1.0.0-rc.40"
   }
 }
