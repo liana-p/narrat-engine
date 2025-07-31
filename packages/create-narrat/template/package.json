@@ -12,6 +12,12 @@
     "vue.js"
   ],
   "author": "",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ],
+    "overrides": {}
+  },
   "license": "",
   "scripts": {
     "=========== DEV COMMANDS ===========": "",
@@ -80,11 +86,11 @@
     "push-linux": "butler push .\\out\\my-game-linux-x64\\ my-itch-io-account/my-game:linux"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
+    "electron-squirrel-startup": "^1.0.1",
     "es6-promise": "^4.2.8",
-    "narrat": "^4.0.0",
+    "narrat": "^4.0.2",
     "pinia": "^3.0.3",
-    "steamworks.js": "^0.2.0",
+    "steamworks.js": "^0.4.0",
     "vue": "^3.5.18"
   },
   "devDependencies": {
@@ -103,7 +109,7 @@
     "shx": "^0.4.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
-    "vite-plugin-narrat": "4.0.0"
+    "vite-plugin-narrat": "4.0.2"
   },
   "config": {
     "forge": {
