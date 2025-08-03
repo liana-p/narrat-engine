@@ -1,2 +1,2 @@
-test_tooltips:
+test_old_tooltips:
   talk player idle "Hello @@bread !!!"

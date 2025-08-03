@@ -11,8 +11,11 @@ export const TooltipsConfigSchema = Type.Object({
     delay: Type.Optional(Type.Number()),
     width: Type.Number(),
     keywordsPrefix: Type.String(),
+    keywordsSuffix: Type.Optional(Type.String()),
     screenEdgesMinimumMargin: Type.Optional(Type.Number()),
     styling: Type.Optional(TooltipStylingSchema),
+    // Old system had a prefix and no suffix
+    useOldSystem: Type.Optional(Type.Boolean()),
   }),
   tooltips: Type.Array(
     Type.Object({
