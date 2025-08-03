@@ -5,6 +5,9 @@ options:
   keywordsSuffix: '}@'
   useNewSystem: true
 tooltips:
+  - keywords: ["toólt1p w/h a'postrophes"]
+    title: Tooltip with Apostrophes
+    description: This tooltip has an apostrophe in its title.
   - keywords: ['sentence tooltip']
     title: Sentence Tooltip
     styling:

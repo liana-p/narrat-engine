@@ -35,8 +35,8 @@ export function addTooltipToKeyword(_: string, $1: string) {
   const keyword = $1.toLowerCase();
   const config = getTooltipConfig(keyword);
   if (config) {
-    return `<span class='highlighted-tooltip-keyword'
-      onmouseenter="onTooltipEnter(event, '${keyword}')"
+    return `<span class="highlighted-tooltip-keyword"
+      onmouseenter="onTooltipEnter(event, \`${keyword}\`)"
       onmouseleave="onTooltipLeave()">${$1}</span>`;
   }
   return keyword;
