@@ -1,3 +1,12 @@
+## [4.1.2](https://github.com/liana-p/narrat-engine/compare/v4.1.1...v4.1.2) (2025-08-03)
+
+
+### Bug Fixes
+
+* handle apostrophes in tooltips ([883fc47](https://github.com/liana-p/narrat-engine/commit/883fc47cb51bbd72a001f8a533f1dac24eb7664e))
+
+
+
 ## [4.1.1](https://github.com/liana-p/narrat-engine/compare/v4.1.0...v4.1.1) (2025-08-03)
 
 
