@@ -1,3 +1,5 @@
 test_tooltips:
   "Hello, @t{sentence tooltip}@ hello."
   "Test @t{Tooltip with accénts}@."
+  set data.player.name Liana
+  "Test with @t{bread}@ multiple @t{sentence tooltip}@ and%{data.player.name} variables @t{tooltip with accénts}@."

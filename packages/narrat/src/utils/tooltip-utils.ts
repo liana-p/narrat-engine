@@ -14,7 +14,7 @@ export function processTooltipsInText(text: string) {
     // New system uses both prefix and suffix to avoid potential issues
     const prefix = tooltipsConfig().options.keywordsPrefix;
     const suffix = tooltipsConfig().options.keywordsSuffix || '';
-    const regex = new RegExp(`${prefix}(.*)${suffix}`, 'gi');
+    const regex = new RegExp(`${prefix}([^${suffix}]*)${suffix}`, 'gi');
     text = text.replace(regex, addTooltipToKeyword);
     return text;
   }
