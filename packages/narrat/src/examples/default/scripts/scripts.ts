@@ -16,6 +16,7 @@ import dialog from './test_dialog.narrat';
 import achievements from './test-achievements.narrat';
 import quests from './quests.narrat';
 import localization from './test_localization.narrat';
+import test_tooltips from './test_tooltips.narrat';
 
 export default [
   game,
@@ -36,4 +37,5 @@ export default [
   quests,
   achievements,
   localization,
+  test_tooltips,
 ];

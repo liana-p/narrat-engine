@@ -1,0 +1,3 @@
+test_tooltips:
+  "Hello, @t{sentence tooltip}@ hello."
+  "Test @t{Tooltip with accénts}@."

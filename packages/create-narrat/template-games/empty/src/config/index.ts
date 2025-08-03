@@ -9,6 +9,7 @@ import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
 import fonts from './fonts.yaml';
 import localization from './localization.yaml';
+import tooltips from './tooltips.yaml';
 
 import { ModuleConfigInput } from 'narrat';
 
@@ -24,5 +25,6 @@ const gameConfigs: ModuleConfigInput = {
   skillChecks,
   fonts,
   localization,
+  tooltips,
 };
 export default gameConfigs;

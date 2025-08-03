@@ -4,6 +4,10 @@ Tooltips are a feature that allows games to show information tooltips when hover
 
 They are fully configurable and automated. All you need is to create a list of tooltips, and the engine will make them appear automatically.
 
+::: danger
+As of 4.1.0, if you were using the old tooltip system before, tooltips now have a suffix. You can either change nothing and keep using the old system, or update your config and tooltips and add `useNewSystem: true` to the `tooltips.yaml` file, and then add a suffix to all keywords in your tooltips.
+:::
+
 ![Example tooltip](./tooltips/tooltip.png)
 _This tooltip appears when the player hovers the word bread_.
 
@@ -18,23 +22,31 @@ Tooltips are created and configured in the `tooltips.yaml` file:
 ```yaml
 options:
   width: 350
-  keywordsPrefix: '@@'
+  keywordsPrefix: '@t{'
+  keywordsSuffix: '}@'
 tooltips:
   - keywords: [bread, breads]
     title: Bread
     description: Bread is a staple food prepared from a dough of flour (usually wheat) and water, usually by baking. Throughout recorded history and around the world, it has been an important part of many cultures' diet. It is one of the oldest human-made foods, having been of significance since the dawn of agriculture, and plays an essential role in both religious rituals and secular culture.
 ```
 
-Then, in `config.yaml` add the path to the file:
+Remember to include the `tooltips.yaml` file in your `src/configs/index.ts` file, so it gets loaded by the engine.
+
+::: info
+Tooltips keywords can be sentences with space, accents, etc. Simply wrap the keyword in quotes, like this:
 
 ```yaml
-tooltips: data/tooltips.yaml
+tooltips:
+  - keywords: ['sentence tooltip']
 ```
+
+:::
 
 ### General tooltips config
 
 - `width`: Width of tooltip box in pixels
-- `keywordsPrefix`: The prefix to use before words in scripts to make the tooltip appear
+- `keywordsPrefix`: The prefix to use before words in scripts to make the tooltip appear. Use something that won't appear in normal text, like `@t{`.
+- `keywordsSuffix`: The suffix to use after words in scripts to make the tooltip appear. Use something that won't appear in normal text, like `}@`.
 
 ### Options for individual tooltips
 
@@ -46,7 +58,7 @@ Then, to use in scripts, for example:
 
 ```narrat
 main:
-  talk player idle "I like @@bread"
+  talk player idle "I like @t{bread}@"
 ```
 
 Having one of the keywords defined in the tooltips with the `keywordsPrefix` before it will make it be detected as a keyword and show the tooltip
@@ -71,3 +83,5 @@ tooltips:
 ```
 
 Any of the above css options can be used to make tooltips get custom css classes
+
+## Old tooltip system

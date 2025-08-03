@@ -33,6 +33,9 @@ translation:
       next_subtab: Next Subtab
       decrease_setting: Decrease
       increase_setting: Increase
+    dialog_box:
+      continue: Continue
+      submit_text_field: Confirm
     main_menu:
       continue: Continue
       start_new_game: Start a new game

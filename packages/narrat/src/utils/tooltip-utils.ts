@@ -3,10 +3,21 @@ import { useTooltips } from '@/stores/tooltip-store';
 import { getWindow } from './getWindow';
 
 export function processTooltipsInText(text: string) {
-  const prefix = tooltipsConfig().options.keywordsPrefix;
-  const regex = new RegExp(`${prefix}(\\w*)`, 'gi');
-  text = text.replace(regex, addTooltipToKeyword);
-  return text;
+  const conf = tooltipsConfig().options;
+  if (!conf.useNewSystem) {
+    // Old version without a suffix
+    const prefix = tooltipsConfig().options.keywordsPrefix;
+    const regex = new RegExp(`${prefix}(\\w*)`, 'gi');
+    text = text.replace(regex, addTooltipToKeyword);
+    return text;
+  } else {
+    // New system uses both prefix and suffix to avoid potential issues
+    const prefix = tooltipsConfig().options.keywordsPrefix;
+    const suffix = tooltipsConfig().options.keywordsSuffix || '';
+    const regex = new RegExp(`${prefix}(.*)${suffix}`, 'gi');
+    text = text.replace(regex, addTooltipToKeyword);
+    return text;
+  }
 }
 
 getWindow().onTooltipEnter = (event: MouseEvent, keyword: string) => {
