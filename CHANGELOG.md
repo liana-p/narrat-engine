@@ -1,3 +1,12 @@
+## [4.1.1](https://github.com/liana-p/narrat-engine/compare/v4.1.0...v4.1.1) (2025-08-03)
+
+
+### Bug Fixes
+
+* support multiple tooltips per line of dialogue ([e80a27f](https://github.com/liana-p/narrat-engine/commit/e80a27fcc0bdc9445dea7a639905cb7d9fb043b0))
+
+
+
 # [4.1.0](https://github.com/liana-p/narrat-engine/compare/v4.0.2...v4.1.0) (2025-08-03)
 
 
