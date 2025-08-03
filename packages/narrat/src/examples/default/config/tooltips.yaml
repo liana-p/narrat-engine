@@ -3,6 +3,7 @@ options:
   width: 350
   keywordsPrefix: '@t{'
   keywordsSuffix: '}@'
+  useOldSystem: false
 tooltips:
   - keywords: ['sentence tooltip']
     title: Sentence Tooltip
@@ -11,7 +12,7 @@ tooltips:
       titleCssClass: test
       cssClass: test
     description: This is a tooltip that appears when you hover over a sentence.
-  - keywords: ['Tooltip with accénts']
+  - keywords: ['tooltip with accénts']
     title: Tooltip with Accénts
     description: This tooltip has accents in its title.
   - keywords: [bread, breads]

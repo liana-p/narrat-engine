@@ -15,6 +15,7 @@ export function processTooltipsInText(text: string) {
     const suffix = tooltipsConfig().options.keywordsSuffix || '';
     const regex = new RegExp(`${prefix}(.*)${suffix}`, 'gi');
     text = text.replace(regex, addTooltipToKeyword);
+    return text;
   }
 }
 
