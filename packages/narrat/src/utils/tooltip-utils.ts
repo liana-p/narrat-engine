@@ -4,7 +4,8 @@ import { getWindow } from './getWindow';
 
 export function processTooltipsInText(text: string) {
   const conf = tooltipsConfig().options;
-  if (conf.useOldSystem) {
+  if (!conf.useNewSystem) {
+    // Old version without a suffix
     const prefix = tooltipsConfig().options.keywordsPrefix;
     const regex = new RegExp(`${prefix}(\\w*)`, 'gi');
     text = text.replace(regex, addTooltipToKeyword);

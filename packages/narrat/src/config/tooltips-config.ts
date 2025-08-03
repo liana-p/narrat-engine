@@ -15,7 +15,7 @@ export const TooltipsConfigSchema = Type.Object({
     screenEdgesMinimumMargin: Type.Optional(Type.Number()),
     styling: Type.Optional(TooltipStylingSchema),
     // Old system had a prefix and no suffix
-    useOldSystem: Type.Optional(Type.Boolean()),
+    useNewSystem: Type.Optional(Type.Boolean()),
   }),
   tooltips: Type.Array(
     Type.Object({
