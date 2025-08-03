@@ -1,3 +1,14 @@
+# [4.1.0](https://github.com/liana-p/narrat-engine/compare/v4.0.2...v4.1.0) (2025-08-03)
+
+
+### Bug Fixes
+
+* tooltips supporting sentences ([#333](https://github.com/liana-p/narrat-engine/issues/333)) ([726d756](https://github.com/liana-p/narrat-engine/commit/726d756fb42732881cc6ff0487a8b3afb381ab8d))
+
+This requires using a new system where tooltips syntax has a suffix. See [tooltips docs](https://docs.narrat.dev/features/tooltips.html) for more info.
+
+
+
 ## [4.0.2](https://github.com/liana-p/narrat-engine/compare/v4.0.1...v4.0.2) (2025-07-31)
 
 * fix: update some small details in the narrat template that weren't up to date, may fix issues with Steamworks.js
