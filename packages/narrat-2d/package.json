@@ -32,7 +32,7 @@
     "vue": "^3.5.18"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "narrat": "workspace:*",
     "pinia": "^3.0.3",
     "tsc-alias": "^1.8.16",

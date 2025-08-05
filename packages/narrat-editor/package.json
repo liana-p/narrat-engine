@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/clone-deep": "^4.0.4",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
     "vite-plugin-monaco-editor": "^1.1.0",

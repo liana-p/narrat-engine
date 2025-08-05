@@ -41,7 +41,7 @@
   "devDependencies": {
     "@tauri-apps/cli": "^2.7.1",
     "@types/clone-deep": "^4.0.4",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "@vue/devtools": "^7.7.7",
     "cross-env": "^7.0.3",
     "prettier": "^3.6.2",
