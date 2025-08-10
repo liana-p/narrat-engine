@@ -1,3 +1,9 @@
+# [4.2.0-alpha.1](https://github.com/liana-p/narrat-engine/compare/v4.1.2...v4.2.0-alpha.1) (2025-08-10)
+
+### Bug Fixes
+
+* Attempting some performance improvements to recursion in narrat, although they might have other side effects so this is alpha
+
 ## [4.1.2](https://github.com/liana-p/narrat-engine/compare/v4.1.1...v4.1.2) (2025-08-03)
 
 
