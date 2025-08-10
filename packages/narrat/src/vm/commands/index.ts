@@ -93,6 +93,7 @@ import {
   absPlugin,
   additionPlugin,
   divisionPlugin,
+  moduloPlugin,
   multiplicationPlugin,
   negPlugin,
   substractionPlugin,
@@ -244,6 +245,7 @@ export function registerBaseCommands(vm: VM) {
   vm.addCommand(divisionPlugin);
   vm.addCommand(negPlugin);
   vm.addCommand(absPlugin);
+  vm.addCommand(moduloPlugin);
 
   // Setting variables
   vm.addCommand(addPlugin);

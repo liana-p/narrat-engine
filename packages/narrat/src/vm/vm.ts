@@ -101,7 +101,7 @@ export async function runCommand(
       }:${expression.line + 1}</span>
       <b>${err}</b>
       Script: ${expression.code}
-      Label: ${vmStore.currentFrame?.label || 'none'}`,
+      Label: ${vmStore.getCurrentFrame()?.label || 'none'}`,
     );
   }
 }
@@ -189,7 +189,7 @@ export async function playerAnswered(choice: string | number) {
   const vmStore = useVM();
   // For some super weird reason, vmStore.currentCommand has a broken type?
   const command = vmStore.popAnswerQueue();
-  const currentLine = vmStore.currentLine!;
+  const currentLine = vmStore.getCurrentLine()!;
   try {
     if (command) {
       const commandPlugin = vm.commands[command.commandType];

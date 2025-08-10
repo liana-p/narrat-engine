@@ -17,6 +17,7 @@ import achievements from './test-achievements.narrat';
 import quests from './quests.narrat';
 import localization from './test_localization.narrat';
 import test_tooltips from './test_tooltips.narrat';
+import recursion from './test_recursion.narrat';
 
 export default [
   game,
@@ -38,4 +39,5 @@ export default [
   achievements,
   localization,
   test_tooltips,
+  recursion,
 ];

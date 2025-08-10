@@ -8,6 +8,7 @@ import { useVM } from '@/stores/vm-store';
 import { useMain } from '@/stores/main-store';
 import { error } from './error-handling';
 import { useSettings } from '@/stores/settings-store';
+import { reactive } from 'vue';
 
 export function newFindDataHelper<T>(
   baseState: any,
@@ -218,7 +219,7 @@ export function getModifiableDataPinia() {
   const skills = useSkills();
   const screens = useScreens();
   const inventory = useInventory();
-  const scope = useVM().scope;
+  const scope = reactive(useVM().getScope());
   const state = {
     data: vm.data,
     global: vm.globalData,
@@ -236,7 +237,7 @@ export function getModifiableDataPinia() {
   };
   const proxy = new Proxy(state, {
     get: (target, prop, receiver) => {
-      const scope = useVM().scope;
+      const scope = useVM().getScope();
       const data = useVM().data;
       if (typeof scope[prop as any] !== 'undefined') {
         return scope[prop as any];
@@ -247,7 +248,7 @@ export function getModifiableDataPinia() {
       return Reflect.get(target, prop, receiver);
     },
     set: (target, prop, value, receiver) => {
-      const scope = useVM().scope;
+      const scope = useVM().getScope();
       const data = useVM().data;
       if (typeof scope[prop as any] !== 'undefined') {
         scope[prop as any] = value;

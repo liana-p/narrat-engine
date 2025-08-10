@@ -1,0 +1,9 @@
+test_recursion_start:
+  set data.recursionCount 0
+  jump recursion_loop
+
+recursion_loop:
+  add data.recursionCount 1
+  if (== (modulo $data.recursionCount 20) 0):
+    log $data.recursionCount
+  run recursion_loop

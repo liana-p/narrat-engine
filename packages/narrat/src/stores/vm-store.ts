@@ -26,6 +26,7 @@ import { GlobalGameSave } from '@/types/game-save';
 import { getSaveFile } from '@/utils/save-helpers';
 import { NarratScript } from '@/types/app-types';
 import { autoSaveGame } from '@/application/saving';
+import { markRaw, Raw, reactive, Ref, ShallowRef, shallowRef } from 'vue';
 
 export type AddFrameOptions = Omit<SetFrameOptions, 'label'> & {
   label?: string;
@@ -63,7 +64,7 @@ export interface DataState {
 export interface VMState {
   commandsWaitingForPlayerAnswer: Parser.Command<any, any>[];
   promisesWaitingForTextAnimation: (() => void)[];
-  stack: MachineFrame[];
+  stack: Raw<MachineFrame[]>;
   data: DataState;
   globalData: DataState;
   lastLabel: string;
@@ -80,12 +81,12 @@ export interface VMSave {
 export const useVM = defineStore('vm', {
   state: () =>
     ({
-      stack: [],
+      stack: markRaw([]),
       data: {},
       globalData: {},
       lastLabel: 'main',
-      script: {},
-      labelStack: ['main'],
+      script: markRaw({}),
+      labelStack: markRaw(['main']),
       commandsWaitingForPlayerAnswer: [],
       promisesWaitingForTextAnimation: [],
       hasJumped: false,
@@ -137,7 +138,7 @@ export const useVM = defineStore('vm', {
       });
     },
     setReturnValue(value: any) {
-      this.currentFrame!.returnValue = value;
+      this.getCurrentFrame()!.returnValue = value;
     },
     waitForPlayerAnswer(cmd: Parser.Command<any, any>) {
       this.commandsWaitingForPlayerAnswer.push(cmd);
@@ -158,8 +159,8 @@ export const useVM = defineStore('vm', {
       return cmd;
     },
     addScopedVariable(key: string, value: any) {
-      if (this.currentFrame) {
-        this.currentFrame.scope[key] = value;
+      if (this.getCurrentFrame()) {
+        this.getCurrentFrame()!.scope[key] = value;
       }
     },
     async loadScripts(scriptPaths: string[]) {
@@ -212,7 +213,7 @@ export const useVM = defineStore('vm', {
     },
     reset() {
       this.$reset();
-      this.stack = [];
+      this.stack = markRaw<MachineFrame[]>([] as MachineFrame[]) as any;
       this.data = {};
       this.hasJumped = false;
       this.setStack({
@@ -233,30 +234,30 @@ export const useVM = defineStore('vm', {
       this.data = data;
     },
     setStack(stack: SetFrameOptions) {
-      this.stack = [];
+      this.stack = markRaw<MachineFrame[]>([]);
       const newStack = this.frameOptionsToFrame(stack);
       this.lastLabel = stack.label;
       this.stack.push(newStack);
     },
     frameOptionsToFrame(frame: SetFrameOptions) {
       const branchData = frame.branchData;
-      const newFrame: MachineFrame = {
+      const newFrame: MachineFrame = markRaw({
         ...frame,
         blocks: [],
         scope: {},
         returnValue: null,
-      };
+      });
       this.addBlock(newFrame, {
         branchData,
         currentIndex: frame.currentIndex,
       });
       if (frame.scope) {
-        newFrame.scope = frame.scope;
+        newFrame.scope = reactive(frame.scope);
       }
       if (frame.args && frame.branchData.args) {
         for (const [index, argName] of frame.branchData.args.entries()) {
           if (frame.args.length > index) {
-            newFrame.scope[argName] = frame.args[index];
+            newFrame.scope[argName] = reactive(frame.args[index]);
           }
         }
       }
@@ -266,7 +267,7 @@ export const useVM = defineStore('vm', {
       frame.blocks.push(block);
     },
     async addAndRunBlock(block: MachineBlock) {
-      const frame = this.currentFrame;
+      const frame = this.getCurrentFrame();
       if (!frame) {
         throw new Error('No frame to add block to');
       }
@@ -283,8 +284,8 @@ export const useVM = defineStore('vm', {
     },
     addFrame(newStackOptions: AddFrameOptions) {
       if (!newStackOptions.label) {
-        if (this.currentFrame) {
-          newStackOptions.label = this.currentFrame.label;
+        if (this.getCurrentFrame()) {
+          newStackOptions.label = this.getCurrentFrame()!.label;
         } else {
           throw new Error(
             `Tried to add a new frame but no label was passed and there is no current frame label`,
@@ -302,13 +303,13 @@ export const useVM = defineStore('vm', {
       return await this.runFrame();
     },
     async runFrame(): Promise<any> {
-      const frame = this.currentFrame;
+      const frame = this.getCurrentFrame();
       if (!frame) {
         throw new Error(`Tried to run a frame but there is no current frame`);
       }
       // frame.currentIndex = 0;
       let result: any;
-      while (this.currentBlock) {
+      while (this.getCurrentBlock()) {
         const result = await this.runBlock();
         if (result === JUMP_SIGNAL || result === STOP_SIGNAL) {
           this.cleanFrame();
@@ -322,18 +323,18 @@ export const useVM = defineStore('vm', {
       return result;
     },
     cleanFrame() {
-      const frame = this.currentFrame!;
+      const frame = this.getCurrentFrame()!;
       const { returnValue } = frame;
       this.stack.splice(this.stack.length - 1, 1);
       return returnValue;
     },
     async runBlock(): Promise<any> {
-      const block = this.currentBlock;
+      const block = this.getCurrentBlock();
       if (!block) {
         throw new Error(`Tried to run a block but there is no current block`);
       }
       let result: any;
-      while (this.currentLine) {
+      while (this.getCurrentLine()) {
         result = await this.runLineOnly();
         if (isReturnSignal(result)) {
           this.cleanBlock();
@@ -345,15 +346,18 @@ export const useVM = defineStore('vm', {
       return result;
     },
     cleanBlock() {
-      if (!this.currentFrame) {
+      if (!this.getCurrentFrame()) {
         error('Tried to clean a block but there is no current frame');
         return;
       }
-      if (!this.currentFrame.blocks) {
+      if (!this.getCurrentFrame()!.blocks) {
         error('Tried to clean a block but there is no current block');
         return;
       }
-      this.currentFrame!.blocks.splice(this.currentFrame!.blocks.length - 1, 1);
+      this.getCurrentFrame()!.blocks.splice(
+        this.getCurrentFrame()!.blocks.length - 1,
+        1,
+      );
     },
     async runGame() {
       let result = await this.runFrame();
@@ -389,7 +393,7 @@ export const useVM = defineStore('vm', {
         return false;
       }
       if (!this.isBlockFinished()) {
-        this.currentBlock!.currentIndex++;
+        this.getCurrentBlock()!.currentIndex++;
         return true;
       } else {
         return false;
@@ -398,10 +402,10 @@ export const useVM = defineStore('vm', {
 
     isBlockFinished() {
       return (
-        !this.currentBlock ||
-        (this.currentBlock &&
-          this.currentBlock.currentIndex >=
-            this.currentBlock.branchData.branch.length)
+        !this.getCurrentBlock() ||
+        (this.getCurrentBlock() &&
+          this.getCurrentBlock()!.currentIndex >=
+            this.getCurrentBlock()!.branchData.branch.length)
       );
     },
 
@@ -426,7 +430,7 @@ export const useVM = defineStore('vm', {
       }
     },
     async runLineOnly() {
-      const expression = this.currentLine;
+      const expression = this.getCurrentLine();
       if (!expression) {
         error(`There is no line of script to run.`);
         return;
@@ -441,12 +445,12 @@ export const useVM = defineStore('vm', {
         return;
       }
       // TODO: Inject args
-      const stack: AddFrameOptions = {
+      const stack: AddFrameOptions = markRaw({
         currentIndex: 0,
         branchData,
         label,
         args,
-      };
+      });
       return this.addAndRunFrame(stack);
     },
     runCustomFrame(stack: AddFrameOptions) {
@@ -485,25 +489,22 @@ export const useVM = defineStore('vm', {
       }
       return result;
     },
-  },
-  getters: {
-    currentFrame(state): MachineFrame | undefined {
-      const result = state.stack[state.stack.length - 1];
-      return result;
+    getCurrentFrame(): MachineFrame | undefined {
+      return this.stack[this.stack.length - 1];
     },
-    scope(): { [key: string]: any } {
-      return this.currentFrame?.scope ?? {};
+    getScope(): { [key: string]: any } {
+      return this.getCurrentFrame()?.scope ?? {};
     },
-    currentBlock(): MachineBlock | undefined {
-      const frame = this.currentFrame;
+    getCurrentBlock(): MachineBlock | undefined {
+      const frame = this.getCurrentFrame();
       if (!frame) {
         return;
       }
       const block = frame.blocks[frame.blocks.length - 1];
       return block;
     },
-    currentLine(): Parser.ParsedExpression | undefined {
-      const currentBlock = this.currentBlock;
+    getCurrentLine(): Parser.ParsedExpression | undefined {
+      const currentBlock = this.getCurrentBlock();
       if (
         currentBlock &&
         currentBlock.branchData.branch.length > currentBlock.currentIndex
@@ -511,7 +512,7 @@ export const useVM = defineStore('vm', {
         return currentBlock.branchData.branch[currentBlock.currentIndex];
       }
     },
-    commandWaitingForAnswer(): Parser.Command<any, any> | undefined {
+    getCommandWaitingForAnswer(): Parser.Command<any, any> | undefined {
       if (this.commandsWaitingForPlayerAnswer.length > 0) {
         return this.commandsWaitingForPlayerAnswer[0];
       }

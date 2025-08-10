@@ -100,3 +100,15 @@ export const divisionPlugin = new CommandPlugin<{ a: number; b: number }>(
     }, res);
   },
 );
+
+export const moduloPlugin = new CommandPlugin<{ a: number; b: number }>(
+  'modulo',
+  'any',
+  async (cmd) => {
+    if (cmd.args.length < 2) {
+      commandRuntimeError(cmd, `requires at least two arguments`);
+    }
+    const res = (cmd.args[0] as number) % (cmd.args[1] as number);
+    return res;
+  },
+);
