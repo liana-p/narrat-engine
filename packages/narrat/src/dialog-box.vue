@@ -181,6 +181,7 @@ function keyboardPress(key: string) {
     let choice: any = -1;
     switch (key) {
       case ' ':
+        // Only allow spacebar when not in a choice to avoid accidentally picking choice (config option to disable this, also disabled in debug for speed)
         if (
           useMain().options.debug ||
           isBasicChoice.value ||
@@ -188,10 +189,8 @@ function keyboardPress(key: string) {
             getCommonConfig().dialogPanel.allowSpacebarInChoices === true)
         ) {
           choice = 0;
-          break;
-        } else {
-          return;
         }
+        break;
       case '1':
         choice = 0;
         break;
