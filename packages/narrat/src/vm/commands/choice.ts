@@ -18,7 +18,11 @@ import { ParserContext } from '../vm-parser';
 import { MachineBlock, useVM } from '@/stores/vm-store';
 import { useSkills } from '@/stores/skills';
 import { commandRuntimeError } from './command-helpers';
-import { getSkillCheckConfig, skillCheckConfigExists } from '@/config';
+import {
+  getCommonConfig,
+  getSkillCheckConfig,
+  skillCheckConfigExists,
+} from '@/config';
 import { useConfig } from '@/stores/config-store';
 import { useChoicesTrackingStoreStore } from '@/stores/choices-tracking-store';
 
@@ -39,14 +43,17 @@ export const runChoice: CommandRunner<
   // Convert the results into dialog options
   const dialogChoices = choiceResults
     .map((res, index) => {
-      let allowed = true;
-      if (res.skillCheck) {
-        allowed = res.skillCheck?.allowed ?? false;
-      }
       const seenBefore = useChoicesTrackingStoreStore().hasSeenChoice(
         prompt.code,
         choices[index].prompt.code,
       );
+      let allowed = true;
+      if (getCommonConfig().dialogPanel.lockSeenChoices && seenBefore) {
+        allowed = false;
+      }
+      if (res.allowed === false) {
+        allowed = false;
+      }
       const flag = res.flag;
       const result: DialogChoice = {
         flag,
@@ -200,7 +207,10 @@ const onChoicePlayerAnswered = async (
   } else {
     newBranch = choice.branch!;
   }
-  if (playerText) {
+  if (
+    playerText &&
+    getCommonConfig().dialogPanel.showChoiceOutcomes !== false
+  ) {
     // If the choice involves printing a player dialog, show it
     const dialog: AddDialogParams = {
       speaker: useConfig().playerCharacter,
@@ -244,8 +254,8 @@ export interface ChoicePromptOptions {
 export interface ChoicePromptReturnValue {
   text: string | null;
   flag?: string;
+  allowed?: boolean;
   skillCheck?: {
-    allowed?: boolean;
     options: SkillCheckParams;
   };
 }
@@ -430,8 +440,8 @@ export function processChoiceWithSkillCheck(
   const text = `${difficultyText} ${skillText}`;
   const result: ChoicePromptReturnValue = {
     text,
+    allowed: skillCheckAllowed,
     skillCheck: {
-      allowed: skillCheckAllowed,
       options: skillOptions,
     },
   };
