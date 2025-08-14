@@ -2,7 +2,10 @@
   <div class="menu-content" ref="scrollContainer">
     <h3>{{ $t('narrat.system_menu.play_time') }} {{ getPlayTimeString() }}</h3>
 
-    <SystemMenuActions :input-listener="props.inputListener" />
+    <SystemMenuActions
+      :input-listener="props.inputListener"
+      @close="closeMenu"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -16,6 +19,7 @@ import { menuReturn } from '@/application/application-utils';
 import { startManualSave } from '@/application/saving';
 import { useScrolling } from '@/inputs/useScrolling';
 import SystemMenuActions from './system-menu/system-menu-actions.vue';
+import { useMenu } from '@/stores/menu-store';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -44,7 +48,7 @@ function mainMenu() {
 }
 
 function closeMenu() {
-  emit('close');
+  useMenu().closeMenu();
 }
 
 function saveGame() {
