@@ -11,10 +11,10 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/digitalpoppy">
-                    <img src="https://avatars.githubusercontent.com/u/43293884?v=4" width="100;" alt="digitalpoppy"/>
+                <a href="https://github.com/liana-p">
+                    <img src="https://avatars.githubusercontent.com/u/32243840?v=4" width="100;" alt="liana-p"/>
                     <br />
-                    <sub><b>digitalpoppy</b></sub>
+                    <sub><b>Liana</b></sub>
                 </a>
             </td>
 		</tr>
