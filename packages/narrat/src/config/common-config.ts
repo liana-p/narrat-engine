@@ -28,6 +28,9 @@ export const DialogPanelConfigSchema = Type.Optional(
     allowHistoryToggling: Type.Optional(Type.Boolean()),
     showAfterScriptEnd: Type.Optional(Type.Boolean()),
     showOldChoices: Type.Optional(Type.Boolean()),
+    showChoiceOutcomes: Type.Optional(Type.Boolean()),
+    lockSeenChoices: Type.Optional(Type.Boolean()),
+    allowSpacebarInChoices: Type.Optional(Type.Boolean()),
   }),
 );
 export type DialogPanelConfig = Static<typeof DialogPanelConfigSchema>;

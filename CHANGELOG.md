@@ -1,3 +1,17 @@
+## [4.1.3](https://github.com/liana-p/narrat-engine/compare/v4.1.2...v4.1.3) (2025-08-12)
+
+
+### Features
+
+* added config options for choices ([#340](https://github.com/liana-p/narrat-engine/issues/340)) ([775d550](https://github.com/liana-p/narrat-engine/commit/775d550588553702f030c9d0dd4ed564f9ac4aa2))
+
+Note the three new options in the [dialogPanel section of the common config](https://docs.narrat.dev/features/dialog-panel.html#dialog-panel-config-options):
+
+* `showChoicesOutcomes`
+* `lockSeenChoices`
+* `allowSpacebarInChoices` ⚠️ the default behaviour has changed here, spacebar is now not allowed by default in choices, except in debug mode. If you want the old behaviour, set `allowSpacebarInChoices` to `false` in the config.
+
+
 ## [4.1.2](https://github.com/liana-p/narrat-engine/compare/v4.1.1...v4.1.2) (2025-08-03)
 
 

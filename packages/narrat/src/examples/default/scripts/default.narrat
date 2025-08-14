@@ -275,6 +275,21 @@ test_skill_checks:
   log $test
   log (skill_check_result testSkillCheck)
 
+
+test_skill_checks_lockable:
+  choice:
+    "test skill roll"
+    roll testLockable "Test this skill roll":
+      success:
+        "You succeed!"
+      failure:
+        "You fail!"
+    "no roll":
+      "hello"
+  var test (get_skill_check testSkillCheck)
+  log $test
+  log (skill_check_result testSkillCheck)
+
 array_find_index_command:
   var card1 (new Object)
   set card1.name "A"

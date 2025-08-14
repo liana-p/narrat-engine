@@ -30,6 +30,9 @@ height: 680
 hideDuringTransition: false
 showAfterScriptEnd: false
 showOldChoices: false
+showChoiceOutcomes: true
+lockSeenChoices: false
+allowSpacebarInChoices: false
 ```
 
 - `textSpeed`: [number] The speed at which text appears in the dialog panel, in characters per second. Defaults to 30. If `animateText` is off, this still controls the speed of auto play. Players can override this setting in the system menu
@@ -43,6 +46,9 @@ showOldChoices: false
 - `hideDuringTransition`: [boolean] Whether the dialog panel should be hidden during screen transitions. Defaults to true.
 - `showAfterScriptEnd`: [boolean] Whether the dialog panel should stay on even if the narrat script ends. Defaults to false.
 - `showOldChoices`: [boolean] [optional] [default: false] If turned on, choice options for past choices will appear in the dialog history instead of being deleted
+- `showChoiceOutcomes`: [boolean] [optional] [default: true] If turned on, narrat will automatically print and autocontinue the choice option selected by the player.
+- `lockSeenChoices`: [boolean] [optional] [default: false] If turned on the player will be unable to access choices they have already taken, even when they return to a menu.
+- `allowSpacebarInChoices`: [boolean] [optional] [default: false] If turned on the spacebar will select the first choice in a list of choices. Note that debug mode overrides this behaviour to make it easy to quickly skip through dialogue.
 
 ## Controlling when the dialog panel appears
 

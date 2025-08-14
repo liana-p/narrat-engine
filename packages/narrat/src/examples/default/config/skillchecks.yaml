@@ -23,3 +23,7 @@ skillChecks:
     skill: agility # skill id
     difficulty: 6 # score to beat during rolls
     winsNeeded: 2 # How many rolls need to beat the score (uses total of all rolls if this option isn't present)
+  testLockable:
+    skill: agility
+    difficulty: 14
+    repeatable: false

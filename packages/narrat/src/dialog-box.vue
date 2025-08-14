@@ -181,7 +181,15 @@ function keyboardPress(key: string) {
     let choice: any = -1;
     switch (key) {
       case ' ':
-        choice = 0;
+        // Only allow spacebar when not in a choice to avoid accidentally picking choice (config option to disable this, also disabled in debug for speed)
+        if (
+          useMain().options.debug ||
+          isBasicChoice.value ||
+          (!isBasicChoice.value &&
+            getCommonConfig().dialogPanel.allowSpacebarInChoices === true)
+        ) {
+          choice = 0;
+        }
         break;
       case '1':
         choice = 0;
@@ -231,13 +239,21 @@ function next() {
 }
 
 function chooseOption(choice: DialogChoice | number) {
-  finishLine();
   let choiceValue: number;
+  let choiceObject: DialogChoice | undefined;
   if (typeof choice === 'object') {
     choiceValue = choice.originalIndex;
+    choiceObject = choice;
   } else {
     choiceValue = choice;
+    if (choice < choices.value && choices.value.length) {
+      choiceObject = choices.value[choice];
+    }
   }
+  if (choiceObject && choiceObject.allowed === false) {
+    return;
+  }
+  finishLine();
   useMain().playerAnswered(choiceValue);
 }
 
