@@ -1,3 +1,12 @@
+## [4.1.6](https://github.com/liana-p/narrat-engine/compare/v4.1.5...v4.1.6) (2025-08-17)
+
+
+### Bug Fixes
+
+* Tooltip closing ([#348](https://github.com/liana-p/narrat-engine/issues/348)) ([9be68fa](https://github.com/liana-p/narrat-engine/commit/9be68faa79c4115edf8ddaf6605a64ffe97a8376))
+
+
+
 ## [4.1.5](https://github.com/liana-p/narrat-engine/compare/v4.1.4...v4.1.5) (2025-08-17)
 
 
