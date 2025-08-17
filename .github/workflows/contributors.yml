@@ -5,6 +5,7 @@ on:
 
 jobs:
   contrib-readme-job:
+      if: github.repository == 'liana-p/narrat-engine'
       runs-on: ubuntu-latest
       name: A job to automate contrib in readme
       permissions:

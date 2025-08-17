@@ -1,6 +1,6 @@
 {
   "name": "create-narrat",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "type": "module",
   "description": "A tool to automatically create a narrat game",
   "main": "index.js",
