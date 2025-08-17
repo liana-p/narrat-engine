@@ -50,7 +50,7 @@
             class="nrt-button"
             id="player-input-submit"
           >
-            {{ $t('narrat.dialog_box.submit_text_Field') }}
+            {{ $t('narrat.dialog_box.submit_text_field') }}
           </button>
         </div>
         <div v-else class="buttons-container">
