@@ -6,6 +6,7 @@ import { timeout } from '@/utils/promises';
 import { generateObjectFromList } from '@/utils/type-utils';
 import { Howler } from 'howler';
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import { useSettings } from '@/stores/settings-store';
 
 export const audioModesArray = ['music', 'ambient', 'sound'] as const;
 export const audioModes = generateObjectFromList(audioModesArray);
@@ -249,8 +250,6 @@ export const useAudio = defineStore('audio', {
     },
     getMasterVolume(): number {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const { useSettings } = require('@/stores/settings-store');
         const settingsStore = useSettings();
         return settingsStore.getSetting('masterVolume') ?? 1;
       } catch (e) {
@@ -259,8 +258,6 @@ export const useAudio = defineStore('audio', {
     },
     getModeVolume(mode: AudioModeKey): number {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const { useSettings } = require('@/stores/settings-store');
         const settingsStore = useSettings();
         return settingsStore.getSetting(`${mode}Volume`) ?? 1;
       } catch (e) {
