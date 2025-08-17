@@ -100,6 +100,7 @@ import { useMain } from '../stores/main-store';
 import { useTranslation } from 'i18next-vue';
 import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
 import { InputListener, useInputs } from '@/stores/inputs-store';
+import { SaveAction, SaveActionData } from './saves/save-types';
 
 const props = defineProps<{
   mode: 'load' | 'pick';
@@ -154,10 +155,24 @@ const selectedSlotId = computed(() => {
   return id;
 });
 
+const possibleActions: Record<SaveAction, SaveActionData> = {
+  [SaveAction.Load]: {
+    id: SaveAction.Load,
+    text: 'narrat.saves.load',
+  },
+  [SaveAction.Delete]: {
+    id: SaveAction.Delete,
+    text: 'narrat.saves.delete',
+  },
+  [SaveAction.Choose]: {
+    id: SaveAction.Choose,
+    text: 'narrat.saves.choose',
+  },
+};
 const actions = computed(() =>
   props.mode === 'load'
-    ? [t('narrat.saves.load'), t('narrat.saves.delete')]
-    : [t('narrat.saves.choose')],
+    ? [possibleActions[SaveAction.Load], possibleActions[SaveAction.Delete]]
+    : [possibleActions[SaveAction.Choose]],
 );
 const saveMode = computed(() => getCommonConfig().saves.mode);
 const deleteConfirmation = reactive({
@@ -267,13 +282,17 @@ function tryToClose() {
   emit('close');
 }
 function slotChosen(id: string, choice: number) {
-  const action = (actions as any)[choice];
-  if (action === 'Load') {
-    chooseSaveSlot(id);
-  } else if (action === 'Delete') {
-    deleteSaveSlot(id);
-  } else if (action === 'Choose') {
-    saveConfirmation.saveToOverwrite = id as any;
+  const action = actions.value[choice];
+  switch (action.id) {
+    case SaveAction.Load:
+      chooseSaveSlot(id);
+      break;
+    case SaveAction.Delete:
+      deleteSaveSlot(id);
+      break;
+    case SaveAction.Choose:
+      saveConfirmation.saveToOverwrite = id as any;
+      break;
   }
 }
 

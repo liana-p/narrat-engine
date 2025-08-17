@@ -1,3 +1,12 @@
+## [4.1.4](https://github.com/liana-p/narrat-engine/compare/v4.1.3...v4.1.4) (2025-08-14)
+
+
+### Bug Fixes
+
+* save slot functionality restored and save menu closes system menu ([#341](https://github.com/liana-p/narrat-engine/issues/341)) ([5a04c80](https://github.com/liana-p/narrat-engine/commit/5a04c8061f6111588201fe203673574858460430))
+
+
+
 ## [4.1.3](https://github.com/liana-p/narrat-engine/compare/v4.1.2...v4.1.3) (2025-08-12)
 
 

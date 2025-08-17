@@ -42,7 +42,7 @@
           v-for="(action, index) in actions"
           :key="index"
         >
-          <h3>{{ action }}</h3>
+          <h3>{{ $t(action.text) }}</h3>
         </button>
       </div>
     </div>
@@ -57,11 +57,12 @@ import { getCommonConfig, getImageUrl, getScreenConfig } from '@/config';
 import { InputListener } from '@/stores/inputs-store';
 import { useOldNavigation, OldNavigationState } from '@/inputs/useNavigation';
 import { useTranslation } from 'i18next-vue';
+import { SaveActionData } from './save-types';
 
 const props = defineProps<{
   saveSlot: SaveSlot;
   id: string;
-  actions: string[];
+  actions: SaveActionData[];
   selected: boolean;
   inputListener: InputListener | null;
 }>();

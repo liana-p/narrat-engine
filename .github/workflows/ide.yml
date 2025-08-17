@@ -8,6 +8,7 @@ on:
 
 jobs:
   publish-tauri:
+    if: github.repository == 'liana-p/narrat-engine'
     permissions:
       contents: write
     strategy:
