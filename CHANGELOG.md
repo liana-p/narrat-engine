@@ -1,3 +1,12 @@
+## [4.1.5](https://github.com/liana-p/narrat-engine/compare/v4.1.4...v4.1.5) (2025-08-17)
+
+
+### Bug Fixes
+
+* Changing audio settings now correctly updates volume ([#345](https://github.com/liana-p/narrat-engine/issues/345)) ([7f19c56](https://github.com/liana-p/narrat-engine/commit/7f19c569c89ce7680102ac8a14d688cc9c100fc3))
+
+
+
 ## [4.1.4](https://github.com/liana-p/narrat-engine/compare/v4.1.3...v4.1.4) (2025-08-14)
 
 
