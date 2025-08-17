@@ -21,6 +21,7 @@ import { useSettings } from '@/stores/settings-store';
 import { NarratScript } from '@/types/app-types';
 import { ModuleNamespace } from 'vite/types/hot';
 import { parseScript } from './vm-parser';
+import { useTooltips } from '@/stores/tooltip-store';
 
 export class VM {
   plugins: NarratPluginObject<any>[] = [];
@@ -190,6 +191,7 @@ export async function playerAnswered(choice: string | number) {
   // For some super weird reason, vmStore.currentCommand has a broken type?
   const command = vmStore.popAnswerQueue();
   const currentLine = vmStore.currentLine!;
+  useTooltips().deleteTooltip();
   try {
     if (command) {
       const commandPlugin = vm.commands[command.commandType];
