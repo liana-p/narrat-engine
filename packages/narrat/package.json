@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@pinia/testing": "^1.0.2",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.7.0",
     "@testing-library/vue": "^8.1.0",
     "@types/clone-deep": "^4.0.4",
     "@types/howler": "^2.2.12",
