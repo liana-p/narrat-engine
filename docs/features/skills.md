@@ -15,6 +15,8 @@ Those skills can then be used in skill checks in two ways:
 - In a dialog choice, some choices can trigger a skill check with different outcomes depending on success or failures
 - Skill checks can also happen passively as conditions in the script to trigger extra content. In those cases, a message appears in the dialogue informing the player that a skill check has just happened, but it wasn't initiated by an intentional player choice.
 
+[[toc]]
+
 ## What it looks like
 
 ![Passive skill check](./skills/passive-skillcheck.webp) Passive Skill check
@@ -226,3 +228,93 @@ add_xp agility 3
 ### Resetting a skill roll
 
 [reset-roll.md](../commands/skills-commands/reset-roll.md)
+
+## Overriding skill checks logic
+
+It is possible to completely override a lot of the functions used in skill check logics to the following effects:
+
+- Changing the dice rolling logic
+- Changing how skill check scores and success are calculated
+- Changing how skill check difficulty is calculated or presented
+- Changing the text used to display skill checks
+
+Overriding those functions is done in code (TypeScript ideally to make sure you use the right parameter and return types).
+
+### How to override skill checks logic
+
+First, familiarise yourself with the code at [packages/narrat/src/utils/skillchecks.ts](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/utils/skillchecks.ts) in the engine's repository (browse on github, or clone it on your machine). The functions in this file are the ones that can be replaced.
+
+At the top of the file is an object that contains the possible overrides for each of those functions (defaulting to null for all of them):
+
+```ts
+export const skillCheckOverrides: {
+  getSkillCheckDifficultyScore: GetSkillCheckDifficultyScoreFunction | null;
+  getSkillCheckDifficultyText: GetSkillCheckDifficultyTextFunction | null;
+  getSkillCheckText: GetSkillCheckTextFunction | null;
+  getPassiveSkillCheckText: GetPassiveSkillCheckTextFunction | null;
+  calculateSkillCheckRoll: CalculateSkillCheckRollFunction | null;
+  rollAllDice: RollAllDiceFunction | null;
+  rollDice: RollDiceFunction | null;
+  resolveSkillCheck: ResolveSkillCheckFunction | null;
+  checkIfRollSucceeded: CheckIfRollSucceededFunction | null;
+} = {
+  getSkillCheckDifficultyScore: null,
+  getSkillCheckDifficultyText: null,
+  getSkillCheckText: null,
+  getPassiveSkillCheckText: null,
+  calculateSkillCheckRoll: null,
+  rollAllDice: null,
+  rollDice: null,
+  resolveSkillCheck: null,
+  checkIfRollSucceeded: null,
+};
+```
+
+This is the object you will want to override to replace any of those functions. For example, anywhere in your code (in `index.ts` if you want, or in another file you import in `index.ts`), you can do:
+
+```ts
+import { skillCheckOverrides } from 'narrat'; // imports the object we want to modify
+
+skillCheckOverrides.getSkillCheckDifficultyText = (
+  value: number,
+  level: number,
+) => {
+  return 'this is my custom difficulty text!!!';
+};
+
+skillCheckOverrides.getSkillCheckText = ({ skill, skillCheckId, value }) => {
+  return {
+    difficultyText:
+      'This is my custom text that overrides the entire skill check text',
+    allowed: true,
+  };
+};
+
+// etc
+```
+
+Each of the functions can be replaced by setting the relevant value in the `skillCheckOverrides` object to your own function. It is recommended to do this in typescript to make sure your function signature matches the expected one (same parameters and same return type).
+
+Look at the existing skillchecks.ts code mentioned earlier to see what the original implementation is like, to get an idea of how to make your own.
+
+::: tip
+You might see some of the functions access skill checks config, or the skills store, as part of their logic. You should be able to do the same thing by importing them from narrat in your code. For example:
+
+```ts
+import {
+  skillCheckOverrides,
+  useSkills,
+  getSkillCheckConfig,
+  getSkillConfig,
+} from 'narrat';
+
+skillCheckOverrides.getSkillCheckText = ({ skill, skillCheckId, value }) => {
+  const skillsStore = useSkills();
+  const skillConfig = getSkillConfig(skill);
+  const skillCheckConfig = getSkillCheckConfig(skillCheckId);
+
+  // etc
+};
+```
+
+:::
