@@ -1,3 +1,14 @@
+## [4.1.7](https://github.com/liana-p/narrat-engine/compare/v4.1.6...v4.1.7) (2025-09-01)
+
+
+### Features
+
+* ability to override skillchecks logic and text ([#354](https://github.com/liana-p/narrat-engine/issues/354)) ([18737f6](https://github.com/liana-p/narrat-engine/commit/18737f61aa457cf208856b95fe90f544c5dac3e9)).
+
+See [the overriding skill checks logic section in the skills documentation](https://docs.narrat.dev/features/skills.html#overriding-skill-checks-logic) for more info.
+
+
+
 ## [4.1.6](https://github.com/liana-p/narrat-engine/compare/v4.1.5...v4.1.6) (2025-08-17)
 
 
