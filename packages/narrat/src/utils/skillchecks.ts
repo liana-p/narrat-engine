@@ -11,11 +11,57 @@ export type Roll = {
 };
 export type DiceRoll = Roll[];
 
-export function getSkillCheckDifficultyScore(value: number, level: number) {
+export type GetSkillCheckDifficultyScoreFunction =
+  typeof getSkillCheckDifficultyScore;
+export type GetSkillCheckDifficultyTextFunction =
+  typeof getSkillCheckDifficultyText;
+export type GetSkillCheckTextFunction = typeof getSkillCheckText;
+export type GetPassiveSkillCheckTextFunction = typeof getPassiveSkillCheckText;
+export type CalculateSkillCheckRollFunction = typeof calculateSkillCheckRoll;
+export type RollAllDiceFunction = typeof rollAllDice;
+export type RollDiceFunction = typeof rollDice;
+export type ResolveSkillCheckFunction = typeof resolveSkillCheck;
+export type CheckIfRollSucceededFunction = typeof checkIfRollSucceeded;
+
+export const skillCheckOverrides: {
+  getSkillCheckDifficultyScore: GetSkillCheckDifficultyScoreFunction | null;
+  getSkillCheckDifficultyText: GetSkillCheckDifficultyTextFunction | null;
+  getSkillCheckText: GetSkillCheckTextFunction | null;
+  getPassiveSkillCheckText: GetPassiveSkillCheckTextFunction | null;
+  calculateSkillCheckRoll: CalculateSkillCheckRollFunction | null;
+  rollAllDice: RollAllDiceFunction | null;
+  rollDice: RollDiceFunction | null;
+  resolveSkillCheck: ResolveSkillCheckFunction | null;
+  checkIfRollSucceeded: CheckIfRollSucceededFunction | null;
+} = {
+  getSkillCheckDifficultyScore: null,
+  getSkillCheckDifficultyText: null,
+  getSkillCheckText: null,
+  getPassiveSkillCheckText: null,
+  calculateSkillCheckRoll: null,
+  rollAllDice: null,
+  rollDice: null,
+  resolveSkillCheck: null,
+  checkIfRollSucceeded: null,
+};
+
+export function getSkillCheckDifficultyScore(
+  value: number,
+  level: number,
+): number {
+  if (skillCheckOverrides.getSkillCheckDifficultyScore) {
+    return skillCheckOverrides.getSkillCheckDifficultyScore(value, level);
+  }
   return value - level * skillChecksConfig().options.extraPointsPerLevel;
 }
 
-export function getSkillCheckDifficultyText(value: number, level: number) {
+export function getSkillCheckDifficultyText(
+  value: number,
+  level: number,
+): string {
+  if (skillCheckOverrides.getSkillCheckDifficultyText) {
+    return skillCheckOverrides.getSkillCheckDifficultyText(value, level);
+  }
   const { options } = skillChecksConfig();
   let difficultyScore = value;
   if (!options.showDifficultyWithoutModifiers) {
@@ -57,6 +103,13 @@ export function getSkillCheckText({
   skillCheckId: string;
   value: number;
 }): { difficultyText: string; allowed: boolean } {
+  if (skillCheckOverrides.getSkillCheckText) {
+    return skillCheckOverrides.getSkillCheckText({
+      skill,
+      skillCheckId,
+      value,
+    });
+  }
   const skillStore = useSkills();
   const skillCheckState = skillStore.getSkillCheck(skillCheckId);
   const skillConfig = getSkillConfig(skill);
@@ -81,7 +134,10 @@ export function getSkillCheckText({
 export function getPassiveSkillCheckText(
   success: boolean,
   params: SkillCheckParams,
-) {
+): string {
+  if (skillCheckOverrides.getPassiveSkillCheckText) {
+    return skillCheckOverrides.getPassiveSkillCheckText(success, params);
+  }
   const skillStore = useSkills();
   const skillConf = getSkillConfig(params.skill);
   const difficultyText = getSkillCheckDifficultyText(
@@ -97,7 +153,14 @@ export function getPassiveSkillCheckText(
   }]</span>`;
 }
 
-export function calculateSkillCheckRoll(skill: string) {
+export interface SkillCheckRoll {
+  roll: number;
+  rolls: DiceRoll;
+}
+export function calculateSkillCheckRoll(skill: string): SkillCheckRoll {
+  if (skillCheckOverrides.calculateSkillCheckRoll) {
+    return skillCheckOverrides.calculateSkillCheckRoll(skill);
+  }
   const { options } = skillChecksConfig();
   const rolls = rollAllDice(options, skill);
   const skillStore = useSkills();
@@ -136,6 +199,9 @@ export function rollAllDice(
   options: SkillCheckOptionsConfig,
   skill: string,
 ): DiceRoll {
+  if (skillCheckOverrides.rollAllDice) {
+    return skillCheckOverrides.rollAllDice(options, skill);
+  }
   const skillStore = useSkills();
   const skillData = skillStore.skills[skill];
   const rollModifier = skillData.level * options.extraPointsPerLevel;
@@ -162,11 +228,17 @@ export function rollAllDice(
   return rolls;
 }
 
-export function rollDice(diceRange: [number, number]) {
+export function rollDice(diceRange: [number, number]): number {
+  if (skillCheckOverrides.rollDice) {
+    return skillCheckOverrides.rollDice(diceRange);
+  }
   return Math.floor(Math.random() * diceRange[1]) + diceRange[0];
 }
 
 export function resolveSkillCheck(params: SkillCheckParams): boolean {
+  if (skillCheckOverrides.resolveSkillCheck) {
+    return skillCheckOverrides.resolveSkillCheck(params);
+  }
   const { skills } = skillsConfig();
   const { roll, rolls } = calculateSkillCheckRoll(params.skill);
   // TODO: Replace this with unlucky rolls
@@ -206,7 +278,10 @@ export function resolveSkillCheck(params: SkillCheckParams): boolean {
   return success;
 }
 
-export function checkIfRollSucceeded(roll: number, value: number) {
+export function checkIfRollSucceeded(roll: number, value: number): boolean {
+  if (skillCheckOverrides.checkIfRollSucceeded) {
+    return skillCheckOverrides.checkIfRollSucceeded(roll, value);
+  }
   const { options } = skillChecksConfig();
   let success = roll >= value;
   if (options.successOnRollsBelowThreshold) {
