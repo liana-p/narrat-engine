@@ -275,6 +275,26 @@ test_skill_checks:
   log $test
   log (skill_check_result testSkillCheck)
 
+after_dice id:
+  log "After dice roll %{$id}"
+  animate_dice $id
+  wait 1500
+
+test_dice:
+  choice:
+    "test dice roll"
+    roll testDicePool "Test this dice roll":
+      success:
+        run after_dice testDicePool
+        "You succeed!"
+      failure:
+        run after_dice testDicePool
+        "You fail!"
+    "no roll":
+      "hello"
+  var test (get_skill_check testDice)
+  log $test
+  log (skill_check_result testDice)
 
 test_skill_checks_lockable:
   choice:

@@ -5,7 +5,7 @@ import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
 import { AppOptionsInput, NarratScript } from '@/types/app-types';
-import { registerPlugin } from '@/exports/plugins';
+import { CommandPlugin, NarratPlugin, registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
 import demoScripts from '@/examples/demo/scripts';
 import { ModuleConfigInput } from '@/config/config-input';
@@ -16,6 +16,13 @@ import emptyGameConfigs from '@/examples/empty/config';
 import godotGameConfigs from '@/examples/godot/config';
 import rpgGameConfigs from '@/examples/rpg/config';
 import { strings } from '@/examples/default/strings/strings';
+import {
+  getSkillCheckDifficultyText,
+  skillCheckOverrides,
+} from '@/utils/skillchecks';
+import { useSkills } from '@/stores/skills';
+import { getImageUrl, getSkillConfig } from '@/config';
+import { timeout } from '@/utils/promises';
 
 // import { setupThemesDemo } from './themes-demo';
 
@@ -52,6 +59,75 @@ if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
 }
 
 const scripts = gameScripts[demoChoice];
+
+export interface SkillCheckParams {
+  skill: string;
+  difficulty: number;
+  id: string;
+  winsNeeded?: number;
+  hideAfterRoll?: boolean;
+  repeatable?: boolean;
+}
+
+function showCanvas(success: boolean, params: SkillCheckParams): string {
+  return `<canvas width="400" height="400" id="skill-check-canvas-${params.id}"></canvas>`;
+}
+
+function getPassiveSkillCheckText(
+  success: boolean,
+  params: SkillCheckParams,
+): string {
+  const skillStore = useSkills();
+  const skillConf = getSkillConfig(params.skill);
+  const difficultyText = getSkillCheckDifficultyText(
+    params.difficulty,
+    skillStore.skills[params.skill].level,
+  );
+  return showCanvas(success, params);
+}
+
+skillCheckOverrides.getPassiveSkillCheckText = getPassiveSkillCheckText;
+
+class CanvasDiceTest extends NarratPlugin {
+  customCommands: CommandPlugin<any>[];
+
+  constructor() {
+    super();
+
+    this.customCommands = [
+      CommandPlugin.FromOptions<{
+        id: string;
+      }>({
+        keyword: 'animate_dice',
+        argTypes: [{ name: 'id', type: 'string' }],
+        runner: async (ctx) => {
+          await timeout(500);
+          const { id } = ctx.options;
+
+          const promise = new Promise<void>((resolve) => {
+            const image = new Image();
+            image.onload = () => {
+              const canvas = document.getElementById(
+                `skill-check-canvas-${id}`,
+              );
+              if (!canvas || !(canvas instanceof HTMLCanvasElement))
+                return null;
+              const canvasCtx = canvas.getContext('2d');
+              if (!canvasCtx) return;
+              canvasCtx.fillStyle = 'red';
+              canvasCtx.fillRect(0, 0, 400, 400);
+              canvasCtx.drawImage(image, 0, 0, 800, 800, 0, 0, 400, 400);
+              resolve();
+            };
+            image.src = getImageUrl('img/dice.png');
+          });
+          await promise;
+          return null;
+        },
+      }),
+    ];
+  }
+}
 const onPageLoad = () => {
   if (demoChoice === 'godot') {
     registerPlugin(
@@ -60,6 +136,7 @@ const onPageLoad = () => {
       }),
     );
   }
+  registerPlugin(new CanvasDiceTest());
   console.log(strings);
   const options: AppOptionsInput = {
     baseAssetsPath: assetsPath,
@@ -84,4 +161,5 @@ const onPageLoad = () => {
   // setupThemesDemo();
   startApp(options);
 };
+
 window.addEventListener('load', onPageLoad);
