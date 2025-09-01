@@ -10,4 +10,5 @@ export * from '@/exports/utils';
 export * from '@/exports/optionals';
 export * from '@/exports/plugins-list';
 export * from '@/exports/scenes';
+export * from '@/exports/skillchecks';
 export * from '@/exports/data';
