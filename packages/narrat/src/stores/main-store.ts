@@ -3,7 +3,7 @@ import { GameSave, GlobalGameSave } from '@/types/game-save';
 import { randomId } from '@/utils/randomId';
 import { setSaveSlot } from '@/utils/save-helpers';
 import { getPlayTime } from '@/utils/time-helpers';
-import { playerAnswered } from '@/vm/vm';
+import { PlayerAnsweredChoiceMode, playerAnswered } from '@/vm/vm';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { useInventory } from './inventory-store';
 import { TypedEmitter } from '@/utils/typed-emitter';
@@ -166,8 +166,8 @@ export const useMain = defineStore('main', {
         this.saving = null;
       }
     },
-    playerAnswered(choice: number | string) {
-      playerAnswered(choice);
+    playerAnswered(choice: number | string, mode: PlayerAnsweredChoiceMode) {
+      playerAnswered(choice, mode);
     },
     menuReturn() {
       // this.reset();

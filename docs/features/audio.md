@@ -133,6 +133,9 @@ files:
 
 audioTriggers:
   onPlayerAnswered: "click",
+  onPlayerAnsweredTextField: failure
+  onPlayerAnsweredDefault: click
+  onPlayerAnsweredChoice: failure
   onPressStart: "game_start",
   onSkillCheckFailure: "failure",
   onSkillCheckSuccess: "success"
@@ -140,6 +143,8 @@ audioTriggers:
   onSpriteClicked: click
   onItemUsed: click
 ```
+
+Note that onPlayerAnswered is triggered anytime the player continues the games dialouge, wheras Default, Choice and TextField will only tigger when their specific 'continue' is called.
 
 ## Audio Volume mixing
 

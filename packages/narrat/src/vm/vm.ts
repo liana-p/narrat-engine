@@ -185,8 +185,25 @@ export async function runExpression<ReturnType = any>(
   }
 }
 
-export async function playerAnswered(choice: string | number) {
+export enum PlayerAnsweredChoiceMode {
+  Default,
+  Choice,
+  TextField,
+}
+
+export async function playerAnswered(
+  choice: string | number,
+  mode: PlayerAnsweredChoiceMode,
+) {
   audioEvent('onPlayerAnswered');
+  if (mode === PlayerAnsweredChoiceMode.Choice) {
+    audioEvent('onPlayerAnsweredChoice');
+  } else if (mode === PlayerAnsweredChoiceMode.TextField) {
+    audioEvent('onPlayerAnsweredTextField');
+  } else if (mode === PlayerAnsweredChoiceMode.Default) {
+    audioEvent('onPlayerAnsweredDefault');
+  }
+
   const vmStore = useVM();
   // For some super weird reason, vmStore.currentCommand has a broken type?
   const command = vmStore.popAnswerQueue();
