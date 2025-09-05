@@ -84,7 +84,7 @@
     "execa": "^9.6.0",
     "jsdom": "^26.1.0",
     "kolorist": "^1.8.0",
-    "oxlint": "^1.8.0",
+    "oxlint": "^1.14.0",
     "pinia": "^3.0.3",
     "prettier": "^3.6.2",
     "rollup-plugin-visualizer": "^6.0.3",
