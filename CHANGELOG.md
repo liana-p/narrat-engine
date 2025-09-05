@@ -1,3 +1,12 @@
+## [4.1.9](https://github.com/liana-p/narrat-engine/compare/v4.1.8...v4.1.9) (2025-09-05)
+
+
+### Features
+
+* added additional audio triggers ([#360](https://github.com/liana-p/narrat-engine/issues/360)) ([c777302](https://github.com/liana-p/narrat-engine/commit/c777302cf6bc64ea44d3675458cb108f68b904a5))
+
+
+
 ## [4.1.8](https://github.com/liana-p/narrat-engine/compare/v4.1.7...v4.1.8) (2025-09-01)
 
 
