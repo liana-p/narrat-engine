@@ -88,6 +88,8 @@ import { Interval, Timeout } from '@/utils/time-helpers';
 import { playLetterAudio, playDialogLineAudio } from '@/audio/audio-helpers';
 import { useVM } from '@/stores/vm-store';
 import InputPrompt from './components/input-prompt/input-prompt.vue';
+import { audioEvent } from './utils/audio-loader';
+import { PlayerAnsweredChoiceMode } from './vm/vm';
 
 export interface TextAnimation {
   text: string;
@@ -254,7 +256,11 @@ function chooseOption(choice: DialogChoice | number) {
     return;
   }
   finishLine();
-  useMain().playerAnswered(choiceValue);
+  let mode = PlayerAnsweredChoiceMode.Default;
+  if (choices.value && Array.isArray(choices.value)) {
+    mode = PlayerAnsweredChoiceMode.Choice;
+  }
+  useMain().playerAnswered(choiceValue, mode);
 }
 
 function finishLine() {
@@ -315,7 +321,7 @@ function dialogClass(choice: DialogChoice) {
 function submitText() {
   const text = playerText.value;
   cleanUpTextFieldListener();
-  useMain().playerAnswered(text);
+  useMain().playerAnswered(text, PlayerAnsweredChoiceMode.TextField);
 }
 
 function createTextFieldListener() {

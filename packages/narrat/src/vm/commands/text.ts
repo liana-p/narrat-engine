@@ -8,7 +8,7 @@ import { textCommand } from '../vm-helpers';
 import { useConfig } from '@/stores/config-store';
 import { useVM } from '@/stores/vm-store';
 import { timeout } from '@/utils/promises';
-import { playerAnswered } from '../vm';
+import { PlayerAnsweredChoiceMode, playerAnswered } from '../vm';
 import { Parser } from '@/types/parser';
 import { useDialogStore } from '@/stores/dialog-store';
 export interface BaseTextCommandArgs {
@@ -23,7 +23,7 @@ export class BaseTextCommand<
     await useVM().waitForEndTextAnimation();
     await timeout(cmd.options.delay || 0);
     if (cmd.options.autoAdvance) {
-      playerAnswered(0);
+      playerAnswered(0, PlayerAnsweredChoiceMode.Default);
     } else {
       useDialogStore().makeLastDialogInteractive();
     }
