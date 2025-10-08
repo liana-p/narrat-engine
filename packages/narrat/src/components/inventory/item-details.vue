@@ -5,7 +5,7 @@
         <div class="item-display" :style="itemStyle"></div>
       </div>
       <div class="flex item-right">
-        <h2>{{ $t(itemData.name) }}</h2>
+        <h2 :innerHTML="$t(itemData.name)" />
         <hr class="hr-solid" />
         <h3>
           {{
@@ -14,7 +14,7 @@
             })
           }}
         </h3>
-        <p>{{ $t(itemData.description) }}</p>
+        <p :innerHTML="$t(itemData.description)" />
         <button
           @click="use"
           class="nrt-button"
