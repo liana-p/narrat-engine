@@ -106,18 +106,18 @@ export const useVM = defineStore('vm', {
         }),
       };
     },
-    generateGlobalSaveData(): Pick<GlobalGameSave, 'data'> {
-      return {
-        data: deepCopy(this.globalData),
-      };
+    generateGlobalSaveData(): GlobalGameSave['data'] {
+      return deepCopy(this.globalData);
     },
     loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
       this.data = deepCopy(data.data);
       this.findEntitiesInData(this.data);
     },
-    loadGlobalSaveData(globalSave: Pick<GlobalGameSave, 'data'>) {
-      this.globalData = globalSave.data;
+    loadGlobalSaveData(globalSave: GlobalGameSave['data']) {
+      if (globalSave) {
+        this.globalData = { ...globalSave };
+      }
     },
     findEntitiesInData(data: any) {
       deepEvery(this.data, (value, key, parent) => {
@@ -224,7 +224,10 @@ export const useVM = defineStore('vm', {
       });
     },
     readGlobalData() {
-      this.globalData = getSaveFile().globalSave.data;
+      const globalData = getSaveFile().globalSave.data;
+      if (globalData) {
+        this.globalData = { ...globalData };
+      }
     },
     setScript(script: Parser.ParsedScript) {
       vm.script = script;
