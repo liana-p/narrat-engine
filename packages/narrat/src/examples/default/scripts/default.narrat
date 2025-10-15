@@ -12,6 +12,12 @@ dev_test:
   run test_scrolling
   menu_return
 
+test_set_globaldata:
+  set global.hello "world"
+test_globaldata:
+  "Global data test: %{$global.hello}"
+  jump main
+
 test_onHover:
   set data.hoverSprite (create_sprite img/sprites/test_sprite.webp 200 100)
   set data.hoverSprite.onHover "test_onHover_action"
@@ -21,7 +27,6 @@ test_onHover_action:
   "Test."
 
 test_regex:
-  var text "uwu i want to open a door mommy"
   var res (str_search $text "open a door")
   log $res
   if (!= $res -1):
