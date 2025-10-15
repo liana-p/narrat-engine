@@ -1,3 +1,17 @@
+## [4.1.10](https://github.com/liana-p/narrat-engine/compare/v4.1.9...v4.1.10) (2025-10-15)
+
+
+### Bug Fixes
+
+* global save data variables weren't working properly ([#371](https://github.com/liana-p/narrat-engine/issues/371)) ([03f5731](https://github.com/liana-p/narrat-engine/commit/03f5731e6573be8f6a6d41791c5d58e6c9d3e272))
+
+
+### Features
+
+* inventory now uses html text in desc and title ([#368](https://github.com/liana-p/narrat-engine/issues/368)) ([a567303](https://github.com/liana-p/narrat-engine/commit/a56730360ba0cc0425fab656a861547bb22fc9a3))
+
+
+
 ## [4.1.9](https://github.com/liana-p/narrat-engine/compare/v4.1.8...v4.1.9) (2025-09-05)
 
 
