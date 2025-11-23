@@ -60,7 +60,6 @@ const onPageLoad = () => {
       }),
     );
   }
-  console.log(strings);
   const options: AppOptionsInput = {
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,

@@ -1,3 +1,19 @@
+## [4.1.11](https://github.com/liana-p/narrat-engine/compare/v4.1.10...v4.1.11) (2025-11-23)
+
+### Breaking Change
+
+Accessing global save data in scripts now uses the `globalSaveData` variable rather than `global`, as this was conflicting with `global` variables and not working.
+
+This shouldn't break anything for users since it was broken.
+
+Before:
+
+`log $data.global.myGlobalSavedVariable`
+
+After:
+
+`log $data.globalSaveData.myGlobalSavedVariable`
+
 ## [4.1.10](https://github.com/liana-p/narrat-engine/compare/v4.1.9...v4.1.10) (2025-10-15)
 
 
