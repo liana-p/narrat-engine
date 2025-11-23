@@ -41,9 +41,11 @@ import {
   textOnlyTheme,
   registerPlugin,
 } from 'narrat';
+
 import { computed, onMounted, ref, watch, shallowRef } from 'vue';
 import { FileState, useGameStore } from '@/stores/game-store';
 import { jrpgTheme } from '../themes/jrpg';
+import { websiteDemoConfigs } from '@/config';
 
 export interface ThemeInfo {
   name: string;
@@ -162,7 +164,7 @@ function startNarratApp() {
   });
   registerPlugin(themesPlugin.value);
   startApp({
-    configPath: 'data/config.yaml',
+    config: websiteDemoConfigs,
     debug: true,
     logging: false,
     scripts: scripts.value,

@@ -57,7 +57,7 @@ Navigate to `src/config/common.yaml`.
 
 Here, you can fiddle with some of the basic formatting of your Narrat game. Feel free to experiment with what looks good to you in the demo project. If you break something, you can always start over.
 
-Check out your changes by navigating to your project's root folder, **shift-right-clicking** to get access to the **‘Open PowerShell Window'** option, typing `npm start`, and copy-pasting the local host into your preferred browser.
+Check out your changes by navigating to your project's root folder, **shift-right-clicking** to get access to the **‘Open PowerShell Window'** option, typing `pnpm start`, and copy-pasting the local host into your preferred browser.
 
 These are the settings I'll be using.
 

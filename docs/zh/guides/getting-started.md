@@ -71,7 +71,7 @@ npm create narrat@latest
 npm install
 ```
 
-::: details 如果在npm install过程中出现警告
+::: details 如 pnpm install过程中出现警告
 
 除非您看到实际错误，**通常可以忽略警告**
 
@@ -92,7 +92,7 @@ npm start
 游戏已准备好进行编辑！
 
 ::: info
-这些npm命令来自于node.js。如果命令无法识别，您可能没有正确安装node.js。[更多关于npm install的信息](https://www.stackchief.com/tutorials/npm%20install%20|%20how%20it%20works)
+这些npm命令来自于node.js。如果命令无法识别，您可能没有正确安装node.js。[更多 pnpm install的信息](https://www.stackchief.com/tutorials/npm%20install%20|%20how%20it%20works)
 :::
 
 ## Narrat概览

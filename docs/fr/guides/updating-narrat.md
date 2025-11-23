@@ -29,15 +29,15 @@ La version de Narrat utilisée par un jeu est celle spécifiée dans la partie `
 
 ![package.json](/guides/updating/image.png)
 
-Pour mettre à jour, entrez la commande `npm install narrat@latest` dans le terminal, ce qui sélectionnera la dernière version en date.
+Pour mettre à jour, entrez la commande `pnpm install narrat@latest` dans le terminal, ce qui sélectionnera la dernière version en date.
 
-Sinon, il est également possible de renseigner un numéro de version spécifique dans `package.json` puis d'entrer `npm install` dans le terminal pour installer cette version.
+Sinon, il est également possible de renseigner un numéro de version spécifique dans `package.json` puis d'entrer `pnpm install` dans le terminal pour installer cette version.
 
-Pour suivre les différentes versions et savoir laquelle est la plus récente, visitez la [page npm pour Narrat](https://www.npmjs.com/package/narrat)
+Pour suivre les différentes versions et savoir laquelle est la plus récente, visitez la [pag pnpm pour Narrat](https://www.npmjs.com/package/narrat)
 
 ::: warning
 
-Il arrive que npm ne sélectionne pas les nouvelles versions. Si vous n'êtes pas certain·e que Narrat s'est correctement mis à jour, vous pouvez supprimer le dossier `node_modules` (où sont installées les bibliothèques) et entrer à nouveau `npm install`
+Il arrive que `pnpm` ne sélectionne pas les nouvelles versions. Si vous n'êtes pas certain·e que Narrat s'est correctement mis à jour, vous pouvez supprimer le dossier `node_modules` (où sont installées les bibliothèques) et entrer à nouveau `pnpm install`
 
 Vous pouvez également vérifier [quelle version de Narrat est en cours d'exécution](https://docs.narrat.dev/troubleshooting/troubleshooting.html#check-which-version-of-narrat-is-running)
 :::

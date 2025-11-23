@@ -23,7 +23,7 @@ The example games have been updated to use the new system, so they can be used a
 
 Either change their version in package.json manually, or run:
 
-`npm install narrat@latest vite-plugin-narrat@latest`
+pnpm install narrat@latest vite-plugin-narrat@latest`
 
 2. Add info about yaml files to the `shims-narrat.d.ts` file in `src/types` (which previously only had info about `.narrat` files). This tells your IDE what is in the yaml files:
 
