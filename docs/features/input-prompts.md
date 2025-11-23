@@ -64,4 +64,4 @@ The prompts are displayed inline with a size of `1.4em`. `em` units are relative
 
 If your game project started before the input prompts feature was added (3.15.0), you will need to manually add input prompt icons to your game.
 
-The simplest way to do this would be to create a new narrat game in a folder (`npm create narrat@latest`), find the button-prompts folder in the new game, and copy it to your existing game in the same place. Then you can customise the images if desired.
+The simplest way to do this would be to create a new narrat game in a folder (pnpm create narrat@latest`), find the button-prompts folder in the new game, and copy it to your existing game in the same place. Then you can customise the images if desired.

@@ -26,15 +26,15 @@ The narrat version used in a game is the one specified in the `dependencies` par
 
 ![package.json](./updating/image.png)
 
-To update, simply run the command `npm install narrat@latest` in the terminal, which will pick up the latest released version.
+To update, simply run the command `pnpm install narrat@latest` in the terminal, which will pick up the latest released version.
 
-Otherwise, it is also possible to put a specific version number in `package.json` and then run `npm install` to install that version.
+Otherwise, it is also possible to put a specific version number in `package.json` and then run `pnpm install` to install that version.
 
-To find out what versions exist and which is the latest released, visit the [npm page for narrat](https://www.npmjs.com/package/narrat)
+To find out what versions exist and which is the latest released, visit the pnpm page for narrat](https://www.npmjs.com/package/narrat)
 
 ::: warning
 
-Sometimes npm doesn't pick up new versions. If you're not sure narrat updated correctly, try deleting the whole `node_modules` folder (where libraries get installed) and re-running `npm install`.
+Sometime `pnpm` doesn't pick up new versions. If you're not sure narrat updated correctly, try deleting the whole `node_modules` folder (where libraries get installed) and re-running `pnpm install`.
 
 You can also check [which exact build of narrat is running](https://docs.narrat.dev/troubleshooting/troubleshooting.html#check-which-version-of-narrat-is-running)
 :::

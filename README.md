@@ -144,7 +144,7 @@ If developping on the narrat package, it's better to go inside the narrat packag
 
 ### Multiple demo games
 
-There are multiple demo games and it's possible to add new ones. For example `npm run rpg` will run the `rpg` demo. Demos are in the `examples` folder.
+There are multiple demo games and it's possible to add new ones. For example `pnpm run rpg`will run the`rpg`demo. Demos are in the`examples` folder.
 
 Running a specific demo is done by changing an environment variables. See the scripts in `package.json` for how to run a specific demo.
 

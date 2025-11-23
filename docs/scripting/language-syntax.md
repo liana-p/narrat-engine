@@ -5,6 +5,8 @@ language works'
 
 # Narrat Language syntax and expressions
 
+[[toc]]
+
 ## Introduction
 
 The `Narrat` language is a **scripting language created for narrat, with the goal of making it easy to write branching dialogue for your games**, while also being powerful enough to create complex games.
@@ -142,8 +144,7 @@ Variables can be set with the `set` function, and can then be used in expression
 
 ::: tip
 Global variables should by convention be put in the `data` object, like `data.day` or `data.playerName`.
-
-````
+:::
 
 Example:
 
@@ -151,12 +152,16 @@ Example:
 main:
   set data.day 3
   talk player idle "It's day %{$data.day}"
-````
+```
 
 ::: warning
 When using the `set` function, we write the variable name without the `$` symbol, because we're passing the `path` of the variable to the `set` function.
 
 When you want to get the `value` of a variable, add a `$` symbol before the variable name, like `$data.day`.
+:::
+
+::: danger
+Do not use the word `global` as a key in your normal data, as it will conflict with the global save data object. For example if you do `set data.global 5`, it will break the global save data functionality. Instead use another name like `data.meta` or `data.game`. This is also true of all the other keywords mentioned here, avoid using them in your own variable names.
 :::
 
 ## Local variables
@@ -341,4 +346,59 @@ There are various available commands for arrays, see them [in the commands refer
 Those array commands are generally based on javascript array functions, and use the same API
 :::
 
-<FeedbackForm title="Narrat Language syntax" slug="scripting/language-syntax"/>
+## Advanced information on The `data` object and others
+
+This section explains more detailed info on how the variable state functions and how the different objects you can access work. It can help do more advanced things, or explain complex situations if you need to debug very specific behaviour with variables.
+
+As seen above, when setting variables they are set in the `data` object. This is the place where all your game-specific variables should generally be stored. There are other objects you can access when setting and reading variables.
+
+When you read or set a variable, narrat will do the following:
+
+1. If the key you're trying to set exists in the current scope, use that. (for example if you've created `var health 1` and later do `set health 5`, it will set the local scope variable `health` to 5). See the next section for what local variables and scopes are.
+2. If the key you're trying to access/set exists in `data`, use that. For example if `set data.health 1` exists, then doing `set health 5` will set `data.health` to 5.
+3. Otherwise, the engine will try to find the variable you're trying to access/set in the state object provided to the scripting. This object contains:
+
+- `data`
+- `global`: Variables stored here will be saved globally (across all save slots). Useful for tracking metagame data, new game+ features, etc. Example: `add global.playthroughs 1`.
+- `config`: The contents of the game's config (a combined object containing all the config files). It is technically possible to modify config values at runtime with this, though you will need to make sure changes to this get re-applied when the game reloads a save, if your game uses saving.
+- And other more advanced values.
+
+So for example you can do `set data.playerName "Alice"` to set a variable in the `data` object, or `set global.playthroughs 1` to set a variable in the `global` object.
+
+::: tip
+The code that creates the state object for narrat to access variable is in [`src/utils/data-helpers.ts`](https://github.com/liana-p/narrat-engine/blob/main/packages/narrat/src/utils/data-helpers.ts#L222) if you want to see how it works.
+:::
+
+There are more objects accessible, though they are more advanced use cases and you can easily break things so be careful if you manipulate them manually. In a lot of cases you could try to do a `log` of them to see what they contain and understand how they work / if they contain any data you need.
+
+You technically can modify those objects directly, though it is not advised.
+
+- `skills`: Accesses the state of skills.
+- `skillChecks`: Accesses the state of skill checks.
+- `buttons`: Accesses the state of buttons.
+- `items`: Accesses the state of items.
+- `quests`: Accesses the state of quests.
+- `stats`: Accesses the state of HUD stats.
+- `gameOptions`: The options passed to the narrat engine when starting the game.
+- `baseSettings`: Settings (as in player-facing settings) built in narrat
+- `customSettings`: Custom settings defined in the config file
+
+For example, running a label with a log of all of those will output the following:
+
+```narrat
+test_state:
+  log "Base settings: " $baseSettings
+  log "Buttons: " $buttons
+  log "Config: " $config
+  log "Custom settings: " $customSettings
+  log "Items: " $items
+  log "Game options: " $gameOptions
+  log "Quests: " $quests
+  log "Skill checks: " $skillChecks
+  log "Skills: " $skills
+  log "Stats: " $stats
+```
+
+Click on the logged objects (and then click on the target object for technical reasons) to inspect and explore what it contains.
+
+![Log state result screenshot](/scripting/language-syntax/log-state.webp)

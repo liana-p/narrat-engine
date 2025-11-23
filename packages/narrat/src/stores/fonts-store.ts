@@ -29,15 +29,12 @@ export const useFontsStore = defineStore('fonts-store', {
         const { useSettings } = require('@/stores/settings-store');
         const settingsStore = useSettings();
         const fontChoice = settingsStore.getSetting('fontChoice') ?? 'default';
-        console.log(`getCurrentFont returning:`, fontChoice);
         return fontChoice;
       } catch (e) {
-        console.log(`getCurrentFont error, returning default:`, e);
         return 'default';
       }
     },
     updateConfig(config: FontsConfig) {
-      console.log(`updateConfig called in fonts store`);
       if (config.fontSets) {
         for (const fontSetId in config.fontSets) {
           this.loadFontSet(fontSetId);
@@ -116,8 +113,6 @@ export const useFontsStore = defineStore('fonts-store', {
     },
 
     async setFontSet(fontSetId: string | null) {
-      console.log(`setFontSet called with fontSetId:`, fontSetId);
-      console.trace('setFontSet call stack');
       let fontToLoad: string = 'default';
       if (!fontSetId) {
         if (this.getFontSets().default) {
@@ -136,7 +131,6 @@ export const useFontsStore = defineStore('fonts-store', {
     },
 
     setFontVariables(fontSet: FontSetConfig) {
-      console.log(`setFontVariables called with fontSet:`, fontSet);
       for (const fontId in fontSet) {
         const font = fontSet[fontId];
         const narrat = document.querySelector('#narrat') as HTMLElement;

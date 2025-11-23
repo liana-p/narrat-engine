@@ -12,6 +12,18 @@ dev_test:
   run test_scrolling
   menu_return
 
+test_state:
+  log "Base settings: " $baseSettings
+  log "Buttons: " $buttons
+  log "Config: " $config
+  log "Custom settings: " $customSettings
+  log "Items: " $items
+  log "Game options: " $gameOptions
+  log "Quests: " $quests
+  log "Skill checks: " $skillChecks
+  log "Skills: " $skills
+  log "Stats: " $stats
+
 test_set_globaldata:
   set global.hello "world"
 test_globaldata:

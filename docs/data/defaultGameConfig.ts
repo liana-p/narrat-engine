@@ -85,4 +85,30 @@ export const gameConfig: ConfigInputWithCommon = {
     },
     hudStats: {},
   },
+  fonts: {
+    allowChoosingFont: true,
+    fontSets: {
+      default: {
+        header: {
+          name: 'Baskervville SC',
+          fontFamily: '"Baskervville SC", serif',
+          files: ['/fonts/Baskervville_SC/BaskervvilleSC-Regular.ttf'],
+        },
+        body: {
+          name: 'Montserrat',
+          fontFamily: '"Montserrat", sans-serif',
+          files: [
+            {
+              file: '/fonts/Montserrat/Montserrat-VariableFont_wght.ttf',
+              options: {},
+            },
+            {
+              file: '/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf',
+              options: { style: 'italic' },
+            },
+          ],
+        },
+      },
+    },
+  },
 };
