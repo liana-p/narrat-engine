@@ -65,7 +65,7 @@
     "deepmerge": "^4.3.1",
     "fuse.js": "^7.1.0",
     "howler": "^2.2.4",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "vanilla-jsoneditor": "^3.7.0"
   },
   "devDependencies": {
