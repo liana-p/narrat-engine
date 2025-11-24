@@ -99,7 +99,7 @@
     "vite-plugin-inspect": "^11.3.0",
     "vite-plugin-narrat": "workspace:*",
     "vite-plugin-windicss": "^1.9.4",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.13",
     "vue": "^3.5.18",
     "vue-tsc": "^3.0.3",
     "windicss": "^3.5.6"
