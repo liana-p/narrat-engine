@@ -16,7 +16,7 @@
   "main": "src/plugin.js",
   "scripts": {},
   "dependencies": {
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "tosource": "2.0.0-alpha.3"
   }
 }
