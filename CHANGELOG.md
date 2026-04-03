@@ -5,6 +5,27 @@
 
 * narrat plugin callbacks for custom settings ([#382](https://github.com/liana-p/narrat-engine/issues/382)) ([dc62412](https://github.com/liana-p/narrat-engine/commit/dc62412884180847abe1d8186e48db319adb5003))
 
+You can now add a `onSettingChanged` method to a `NarratPlugin`.
+
+Type definition for the `onSettingChanged` callback:
+`type NarratSettingChangedCallback = (settingId: string, newValue: any, oldValue: any) => void;`
+
+Example:
+
+```
+class MyPlugin extends NarratPlugin {
+  onSettingChanged(settingId, newValue, oldValue) {
+    if (settingId === 'myCustomSetting') {
+      // do something when myCustomSetting changes
+    }
+  }
+}
+```
+
+
+### Fixes
+
+* Fix disabling a spammy error that appeared in development for some gamepad configurations (See [forum thread](https://narrat.discourse.group/t/mapping-error-when-opening-the-demo-on-the-main-page/448/6))
 
 
 ## [4.1.12](https://github.com/liana-p/narrat-engine/compare/v4.1.11...v4.1.12) (2026-04-03)
