@@ -7,6 +7,15 @@
 
 
 
+## [4.1.12](https://github.com/liana-p/narrat-engine/compare/v4.1.11...v4.1.12) (2026-04-03)
+
+
+### Features
+
+* narrat plugin callbacks for custom settings ([#382](https://github.com/liana-p/narrat-engine/issues/382)) ([dc62412](https://github.com/liana-p/narrat-engine/commit/dc62412884180847abe1d8186e48db319adb5003))
+
+
+
 ## [4.1.11](https://github.com/liana-p/narrat-engine/compare/v4.1.10...v4.1.11) (2025-11-23)
 
 ### Breaking Change
