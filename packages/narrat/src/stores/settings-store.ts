@@ -12,6 +12,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { CommonConfig } from '@/config/common-config';
 import { getCommonConfig, getLocalizationConfig } from '@/config';
 import { updateGlobalSave } from '@/application/saving';
+import { vm } from '@/vm/vm';
 
 export interface GameUserSettings {
   baseSettings: {
@@ -260,11 +261,13 @@ export const useSettings = defineStore('settings', {
         // The value should match one of the choice values exactly
         convertedValue = value;
       }
-
+      let oldValue = false;
       if (typeof this.baseSettings[key] !== 'undefined') {
         this.baseSettings[key] = convertedValue;
+        oldValue = this.baseSettings[key];
       } else if (typeof this.customSettings[key] !== 'undefined') {
         this.customSettings[key] = convertedValue;
+        oldValue = this.customSettings[key];
       } else {
         error(`Setting ${key} does not exist.`);
       }
@@ -310,6 +313,7 @@ export const useSettings = defineStore('settings', {
           audio.setModeVolume(mode, value);
         });
       }
+      vm.callHook('onSettingChanged', key, convertedValue, oldValue);
       if (this.saveInitialised) {
         updateGlobalSave();
       }

@@ -37,6 +37,9 @@ export interface CustomMenuTab {
   config: MenuTabState;
   component: any;
 }
+
+export type NarratSettingChangedCallback = (settingId: string, newValue: any, oldValue: any) => void;
+
 export type NarratPluginObject<T> = {
   pluginId: string;
   onPageLoaded?: NarratLifecycleHook;
@@ -47,6 +50,7 @@ export type NarratPluginObject<T> = {
   onGameStart?: NarratLifecycleHook;
   onGameMounted?: NarratLifecycleHook;
   onGameUnmounted?: NarratLifecycleHook;
+  onSettingChanged?: NarratSettingChangedCallback;
   customCommands?: CommandPlugin<T>[];
   customStores?: CustomStores;
   customMenuButtons?: CustomMenuButton[];

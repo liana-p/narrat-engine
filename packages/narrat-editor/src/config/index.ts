@@ -9,7 +9,7 @@ import skills from './skills.yaml';
 import skillChecks from './skillchecks.yaml';
 import fonts from './fonts.yaml';
 
-import { ModuleConfigInput } from '@/config/config-input';
+import { ModuleConfigInput } from 'narrat';
 
 export const websiteDemoConfigs: ModuleConfigInput = {
   audio,

@@ -265,7 +265,7 @@ export class Inputs extends EventTarget {
       };
       return [negativeButton, positiveButton];
     } else {
-      error(`No mapping found for axis ${axisIndex}`);
+      // error(`No mapping found for axis ${axisIndex}`);
       return null;
     }
   }
