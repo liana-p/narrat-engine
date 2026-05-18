@@ -60,3 +60,22 @@ Those base settings are already part of the engine by default:
 - `textSpeed`: [number] The speed at which the text animates (which also controls auto play delay when not animating)
 - `animateText`: [boolean] Toggle text animation
 - `fontSize`: [number] Base size of the body font (if your CSS uses `rem` units, changing this font size should generally change all fonts in the game).
+
+## Detect and react to settings changes
+
+You add a `onSettingChanged` method to a `NarratPlugin`. See [the plugin documentation](/docs/plugins) for more info on plugins.
+
+Type definition for the `onSettingChanged` callback:
+`type NarratSettingChangedCallback = (settingId: string, newValue: any, oldValue: any) => void;`
+
+Example:
+
+```
+class MyPlugin extends NarratPlugin {
+  onSettingChanged(settingId, newValue, oldValue) {
+    if (settingId === 'myCustomSetting') {
+      // do something when myCustomSetting changes
+    }
+  }
+}
+```

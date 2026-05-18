@@ -25,7 +25,7 @@ The simplest way to start using this is to copy it so it's already setup for you
 
 Workflow:
 
-- Run this game like any narrat game (`npm install`, then `npm run dev` or `npm run build`).
+- Run this game like any narrat game (`pnpm install`, then `pnpm run dev` or `pnpm run build`).
 - Whenever you want to update the Godot game, go in Godot, and in `Project -> Export`, select the web export, press `Export Project`, and export it to `public/godot-game/index.html` (which should be the currently configured export path).
 - When Godot exports the game, reloading the page with your narrat game running should pick up the newer version of the game
 

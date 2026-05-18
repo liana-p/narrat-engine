@@ -5,7 +5,7 @@ import rpgGame from '@/examples/rpg/scripts';
 import emptyGame from '@/examples/empty/scripts';
 import godotGame from '@/examples/godot/scripts';
 import { AppOptionsInput, NarratScript } from '@/types/app-types';
-import { registerPlugin } from '@/exports/plugins';
+import { NarratPlugin, registerPlugin } from '@/exports/plugins';
 import { GodotPlugin } from '@/plugins/godot-plugin';
 import demoScripts from '@/examples/demo/scripts';
 import { ModuleConfigInput } from '@/config/config-input';
@@ -52,6 +52,13 @@ if (import.meta.env.VITE_DEMO_BUILD && !import.meta.env.VITE_DEBUG) {
 }
 
 const scripts = gameScripts[demoChoice];
+
+class DemoTestPlugin extends NarratPlugin {
+  onSettingChanged(key: string, value: any, oldValue: any) {
+    console.log(`Setting ${key} changed from ${oldValue} to ${value}`);
+  }
+}
+
 const onPageLoad = () => {
   if (demoChoice === 'godot') {
     registerPlugin(
@@ -60,7 +67,6 @@ const onPageLoad = () => {
       }),
     );
   }
-  console.log(strings);
   const options: AppOptionsInput = {
     baseAssetsPath: assetsPath,
     baseDataPath: dataPath,
@@ -70,7 +76,7 @@ const onPageLoad = () => {
     scripts,
     localization: {
       lng: 'en',
-      debug,
+      debug: false,
       resources: {
         en: strings.en,
         fr: strings.fr,
@@ -82,6 +88,7 @@ const onPageLoad = () => {
     options.config = gameConfigs[demoChoice];
   }
   // setupThemesDemo();
+  registerPlugin(new DemoTestPlugin());
   startApp(options);
 };
 window.addEventListener('load', onPageLoad);

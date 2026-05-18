@@ -105,7 +105,7 @@ npm start
 ゲームの編集が可能です！
 
 ::: info
-これらの`npm`コマンドはnode.jsから提供されています。コマンドが認識されない場合、おそらくnode.jsを正しくインストールしていない可能性があります。[npm installについて詳しく](https://www.stackchief.com/tutorials/npm%20install%20|%20how%20it%20works)
+これらの`npm`コマンドはnode.jsから提供されています。コマンドが認識されない場合、おそらくnode.jsを正しくインストールしていない可能性があります。pnpm installについて詳しく](https://www.stackchief.com/tutorials/npm%20install%20|%20how%20it%20works)
 :::
 
 ## Narratの概要

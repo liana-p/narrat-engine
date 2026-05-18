@@ -65,7 +65,7 @@ export interface VMState {
   promisesWaitingForTextAnimation: (() => void)[];
   stack: MachineFrame[];
   data: DataState;
-  globalData: DataState;
+  globalSaveData: DataState;
   lastLabel: string;
   jumpTarget?: SetFrameOptions;
   // Used as a hack to disable manual save until the game has jumped from where the last save was.
@@ -82,7 +82,7 @@ export const useVM = defineStore('vm', {
     ({
       stack: [],
       data: {},
-      globalData: {},
+      globalSaveData: {},
       lastLabel: 'main',
       script: {},
       labelStack: ['main'],
@@ -106,18 +106,18 @@ export const useVM = defineStore('vm', {
         }),
       };
     },
-    generateGlobalSaveData(): Pick<GlobalGameSave, 'data'> {
-      return {
-        data: deepCopy(this.globalData),
-      };
+    generateGlobalSaveData(): GlobalGameSave['data'] {
+      return deepCopy(this.globalSaveData);
     },
     loadSaveData(data: VMSave) {
       this.lastLabel = data.lastLabel;
       this.data = deepCopy(data.data);
       this.findEntitiesInData(this.data);
     },
-    loadGlobalSaveData(globalSave: Pick<GlobalGameSave, 'data'>) {
-      this.globalData = globalSave.data;
+    loadGlobalSaveData(globalSave: GlobalGameSave['data']) {
+      if (globalSave) {
+        this.globalSaveData = { ...globalSave };
+      }
     },
     findEntitiesInData(data: any) {
       deepEvery(this.data, (value, key, parent) => {
@@ -224,7 +224,10 @@ export const useVM = defineStore('vm', {
       });
     },
     readGlobalData() {
-      this.globalData = getSaveFile().globalSave.data;
+      const globalData = getSaveFile().globalSave.data;
+      if (globalData) {
+        this.globalSaveData = { ...globalData };
+      }
     },
     setScript(script: Parser.ParsedScript) {
       vm.script = script;

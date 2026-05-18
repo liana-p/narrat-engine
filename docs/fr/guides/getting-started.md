@@ -67,11 +67,11 @@ Le template Narrat est essentiellement un template pour un projet web quasiment 
 
 node.js est le moteur JavaScript utilisé pour exécuter notre projet (et l'assembler ou l'exporter ultérieurement en tant que jeu exécutable).
 
-Nous utilisons [npm](https://www.w3schools.com/whatis/whatis_npm.asp) pour installer des bibliothèques dans le jeu. npm est simplement un gestionnaire de paquets pour installer des bibliothèques JavaScript avec node.js.
+Nous utilisons [npm](https://www.w3schools.com/whatis/whatis_npm.asp) pour installer des bibliothèques dans le jeu.pnpm est simplement un gestionnaire de paquets pour installer des bibliothèques JavaScript avec node.js.
 
 Il y a un fichier [package.json](https://github.com/liana-p/narrat-engine-template/blob/main/package.json) à la racine du template, qui est un fichier standard de node.js pour définir un projet et ses dépendances, qui sont installées via npm. À l'intérieur de la section `dependencies` de ce fichier, vous trouverez Narrat accompagné d'un numéro de version. Celui-ci indique au projet quelle version de Narrat installer.
 
-Notre template utilise npm pour télécharger et installer Narrat (et d'autres dépendances) et préparer le jeu à fonctionner. Ensuite, en utilisant des scripts npm, nous pouvons utiliser des commandes pour assembler/exporter le jeu (qui utilisent tous node.js sous le capot d'une manière ou d'une autre).
+Notre template utilis pnpm pour télécharger et installer Narrat (et d'autres dépendances) et préparer le jeu à fonctionner. Ensuite, en utilisant des scripts npm, nous pouvons utiliser des commandes pour assembler/exporter le jeu (qui utilisent tous node.js sous le capot d'une manière ou d'une autre).
 
 :::
 
@@ -85,11 +85,11 @@ Il y a une première commande pour installer les dépendances (bibliothèques) l
 npm install
 ```
 
-::: details Si vous obtenez des avertissements lors de l'exécution de npm install
+::: details Si vous obtenez des avertissements lors de l'exécution d pnpm install
 
 À moins que vous ne voyiez de véritables erreurs, les avertissements peuvent généralement être ignorés.
 
-Vous verrez probablement npm se plaindre de "problèmes de sécurité". Ceux-ci sont de faux positifs et peuvent être ignorés, ils sont causés par une mauvaise gestion de la sécurité par NPM. Ces problèmes de sécurité sont sans rapport avec l'utilisation de Narrat. Vous pouvez vous renseigner à ce sujet en lisant [cet article](https://overreacted.io/npm-audit-broken-by-design/) de Dan Abramov, le créateur de React.
+Vous verrez probablemen pnpm se plaindre de "problèmes de sécurité". Ceux-ci sont de faux positifs et peuvent être ignorés, ils sont causés par une mauvaise gestion de la sécurité par NPM. Ces problèmes de sécurité sont sans rapport avec l'utilisation de Narrat. Vous pouvez vous renseigner à ce sujet en lisant [cet article](https://overreacted.io/npm-audit-broken-by-design/) de Dan Abramov, le créateur de React.
 
 :::
 
@@ -99,7 +99,7 @@ Vous verrez probablement npm se plaindre de "problèmes de sécurité". Ceux-ci 
 npm start
 ```
 
-Cela devrait ouvrir un onglet de navigateur avec le jeu lancé après un court temps d'assemblage. On peut accéder au jeu  à l'adresse <a href="http://localhost:5173/" target="_blank" rel="noreferrer">localhost:5173</a>
+Cela devrait ouvrir un onglet de navigateur avec le jeu lancé après un court temps d'assemblage. On peut accéder au jeu à l'adresse <a href="http://localhost:5173/" target="_blank" rel="noreferrer">localhost:5173</a>
 
 Le jeu est prêt à être édité !
 

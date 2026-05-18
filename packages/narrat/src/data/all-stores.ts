@@ -64,6 +64,18 @@ export const sourceAllStores = {
     config: 'items',
     save: 'inventory',
   },
+  fonts: {
+    store: useFontsStore,
+    save: 'fonts',
+    config: 'fonts',
+    avoidReset: false,
+  },
+  localization: {
+    store: useLocalization,
+    save: 'localization',
+    globalSave: 'localization',
+    config: 'localization',
+  },
   menu: {
     store: useMenu,
   },
@@ -80,14 +92,19 @@ export const sourceAllStores = {
     store: useRenderingStore,
     save: 'rendering',
   },
+  sprites: {
+    store: useScreenObjects,
+    save: 'screenObjects',
+  },
+  scenes: {
+    store: useScenes,
+    save: 'scenes',
+    avoidReset: true,
+  },
   screens: {
     store: useScreens,
     config: 'screens',
     save: 'screens',
-  },
-  sprites: {
-    store: useScreenObjects,
-    save: 'screenObjects',
   },
   settings: {
     store: useSettings,
@@ -111,23 +128,7 @@ export const sourceAllStores = {
     save: 'vm',
     globalSave: 'data',
   },
-  scenes: {
-    store: useScenes,
-    save: 'scenes',
-    avoidReset: true,
-  },
-  fonts: {
-    store: useFontsStore,
-    save: 'fonts',
-    config: 'fonts',
-    avoidReset: false,
-  },
-  localization: {
-    store: useLocalization,
-    save: 'localization',
-    globalSave: 'localization',
-    config: 'localization',
-  },
+
 } as const;
 export type AllStores = typeof sourceAllStores;
 export type StoreKey = keyof AllStores;

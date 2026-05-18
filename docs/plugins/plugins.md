@@ -28,7 +28,7 @@ The plugin API can currently do a few things:
 
 ## How to use
 
-There is a [sample plugin](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat-plugin-counter) in the narrat repo which serves as an example of how to use the plugin API. This plugin is a self-contained project that can be built and exported as an npm package to import and use in any narrat game.
+There is a [sample plugin](https://github.com/liana-p/narrat-engine/tree/main/packages/narrat-plugin-counter) in the narrat repo which serves as an example of how to use the plugin API. This plugin is a self-contained project that can be built and exported as a pnpm package to import and use in any narrat game.
 
 - The `src/plugin.ts` file is the entry point for the plugin which is what gets exported and used.
 

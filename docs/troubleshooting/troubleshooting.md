@@ -37,8 +37,8 @@ Sometimes errors can be caused by a file not loading (a typo in a path for examp
 
 If you get errors in the actual terminal when building the game, it means something is wrong with your local setup. Possible options:
 
-- Have you run `npm install`?
-- Try deleting the `node_modules` folder and running `npm install` again (this is where all the dependencies are installed).
+- Have you run `pnpm install`?
+- Try deleting the `node_modules` folder and running `pnpm install` again (this is where all the dependencies are installed).
 - `npm` warning about security can be ignored (see below)
 
 ## Errors in the game itself or in the browser console
@@ -79,9 +79,9 @@ Most likely issue is that you're trying to use operators like in most common pro
 
 ## My electron build isn't updating properly
 
-Remember that the game needs to be built before running on electron by running `npm run build`. The `npm run electron` command only starts electron, but doesn't build your game.
+Remember that the game needs to be built before running on electron by running `pnpm run build`. The `pnpm run electron` command only starts electron, but doesn't build your game.
 
-You can use `npm run desktop` as a shortcut command to first build your game and then open electron.
+You can use `pnpm run desktop` as a shortcut command to first build your game and then open electron.
 
 ## Errors that can be ignored
 
@@ -97,4 +97,4 @@ Those XML parsnig errors on narrat files can be ignored. For some reason, Firefo
 
 ### Security warnings on install
 
-Security warnings from npm when installing a game can be ignored. They come from the npm audit system, which is a very flawed system that flags development tools as being exploitable, even though they're never exposed to users, making those errors irrelevant to their actual use case. More background info on this [here](https://overreacted.io/npm-audit-broken-by-design/).
+Security warnings fro pnpm when installing a game can be ignored. They come from th pnpm audit system, which is a very flawed system that flags development tools as being exploitable, even though they're never exposed to users, making those errors irrelevant to their actual use case. More background info on this [here](https://overreacted.io/npm-audit-broken-by-design/).

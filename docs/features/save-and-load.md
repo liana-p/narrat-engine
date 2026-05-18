@@ -60,6 +60,10 @@ main:
   talk player idle "Global counter is %{$global.counter}"
 ```
 
+::: danger
+Do not use the word `global` as a key in your normal data, as it will conflict with the global save data object. For example if you do `set data.global 5`, it will break the global save data functionality.
+:::
+
 Every time a new game is started, this script will increase the global counter despite it being a new save.
 
 To reset global save data, use the `reset_global_save` command.

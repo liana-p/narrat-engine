@@ -6,7 +6,7 @@ Ceci correspond à un usage avancé. Il est peu probable que vous souhaitiez sui
 
 ## Installer
 
-`npm install narrat`
+pnpm install narrat`
 
 Pour que narrat fonctionne, il faut deux ensembles de données :
 

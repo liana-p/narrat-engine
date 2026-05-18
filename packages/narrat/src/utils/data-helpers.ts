@@ -1,4 +1,4 @@
-import { getCommonConfig } from '@/config';
+import { getCommonConfig, getConfig } from '@/config';
 import { useHud } from '@/stores/hud-stats-store';
 import { useInventory } from '@/stores/inventory-store';
 import { useQuests } from '@/stores/quest-log';
@@ -221,7 +221,7 @@ export function getModifiableDataPinia() {
   const scope = useVM().scope;
   const state = {
     data: vm.data,
-    global: vm.globalData,
+    globalSaveData: vm.globalSaveData,
     skills: skills.skills,
     skillChecks: skills.skillChecks,
     buttons: screens.buttons,
@@ -229,7 +229,7 @@ export function getModifiableDataPinia() {
     quests: useQuests().quests,
     stats: useHud().hudStats,
     scope,
-    config: getCommonConfig(),
+    config: getConfig(),
     gameOptions: useMain().options,
     baseSettings: useSettings().baseSettings,
     customSettings: useSettings().customSettings,

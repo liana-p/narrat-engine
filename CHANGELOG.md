@@ -1,3 +1,72 @@
+## [4.1.12](https://github.com/liana-p/narrat-engine/compare/v4.1.11...v4.1.12) (2026-04-03)
+
+
+### Features
+
+* narrat plugin callbacks for custom settings ([#382](https://github.com/liana-p/narrat-engine/issues/382)) ([dc62412](https://github.com/liana-p/narrat-engine/commit/dc62412884180847abe1d8186e48db319adb5003))
+
+You can now add a `onSettingChanged` method to a `NarratPlugin`.
+
+Type definition for the `onSettingChanged` callback:
+`type NarratSettingChangedCallback = (settingId: string, newValue: any, oldValue: any) => void;`
+
+Example:
+
+```
+class MyPlugin extends NarratPlugin {
+  onSettingChanged(settingId, newValue, oldValue) {
+    if (settingId === 'myCustomSetting') {
+      // do something when myCustomSetting changes
+    }
+  }
+}
+```
+
+
+### Fixes
+
+* Fix disabling a spammy error that appeared in development for some gamepad configurations (See [forum thread](https://narrat.discourse.group/t/mapping-error-when-opening-the-demo-on-the-main-page/448/6))
+
+
+## [4.1.12](https://github.com/liana-p/narrat-engine/compare/v4.1.11...v4.1.12) (2026-04-03)
+
+
+### Features
+
+* narrat plugin callbacks for custom settings ([#382](https://github.com/liana-p/narrat-engine/issues/382)) ([dc62412](https://github.com/liana-p/narrat-engine/commit/dc62412884180847abe1d8186e48db319adb5003))
+
+
+
+## [4.1.11](https://github.com/liana-p/narrat-engine/compare/v4.1.10...v4.1.11) (2025-11-23)
+
+### Breaking Change
+
+Accessing global save data in scripts now uses the `globalSaveData` variable rather than `global`, as this was conflicting with `global` variables and not working.
+
+This shouldn't break anything for users since it was broken.
+
+Before:
+
+`log $data.global.myGlobalSavedVariable`
+
+After:
+
+`log $data.globalSaveData.myGlobalSavedVariable`
+
+## [4.1.10](https://github.com/liana-p/narrat-engine/compare/v4.1.9...v4.1.10) (2025-10-15)
+
+
+### Bug Fixes
+
+* global save data variables weren't working properly ([#371](https://github.com/liana-p/narrat-engine/issues/371)) ([03f5731](https://github.com/liana-p/narrat-engine/commit/03f5731e6573be8f6a6d41791c5d58e6c9d3e272))
+
+
+### Features
+
+* inventory now uses html text in desc and title ([#368](https://github.com/liana-p/narrat-engine/issues/368)) ([a567303](https://github.com/liana-p/narrat-engine/commit/a56730360ba0cc0425fab656a861547bb22fc9a3))
+
+
+
 ## [4.1.9](https://github.com/liana-p/narrat-engine/compare/v4.1.8...v4.1.9) (2025-09-05)
 
 

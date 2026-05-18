@@ -43,7 +43,7 @@ export function setupLoadedData(save: ExtractedSave) {
 }
 
 export function resetGlobalSave() {
-  useVM().globalData = {};
+  useVM().globalSaveData = {};
   getSaveFile().globalSave.data = {};
   autoSaveGame({});
 }

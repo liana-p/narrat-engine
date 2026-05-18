@@ -6,7 +6,7 @@ This is for advanced use. It's unlikely you want to follow those instructions un
 
 ## Install on a project
 
-`npm install narrat`
+pnpm install narrat`
 
 For narrat to run, it needs two pieces of data:
 

@@ -18,8 +18,8 @@ Narrat 4 adds:
 Those instructions have been tested on a few existing games and should work for most games, but there may be some edge cases that require additional changes, or bugs in Narrat 4 that haven't been discovered yet. At the moment there are no known issues with the migration though.
 
 1. First make sure you have version control like Git so you can revert changes if needed, or at least create a backup.
-2. Update your `narrat` package to the latest version with `npm install narrat@latest`
-3. Create a sample narrat 4 game in another folder to use as reference when comparing your template with the new one. You can do this by running `npm create narrat@latest` in a different folder from your existing game.
+2. Update your `narrat` package to the latest version with `pnpm install narrat@latest`
+3. Create a sample narrat 4 game in another folder to use as reference when comparing your template with the new one. You can do this by running `pnpm create narrat@latest` in a different folder from your existing game.
 4. Follow the rest of the instructions to update a few things, or enable new features like localization.
 
 ## Mandatory changes
@@ -30,7 +30,7 @@ Those changes are required for your game to work with Narrat 4.
 
 Narrat 4 required node.js 22 or above. It is recommended to use [nvm](https://github.com/nvm-sh/nvm), or [nvm-windows](https://github.com/coreybutler/nvm-windows) on Windows to easily manage and update node.js. Previous versions of Narrat used older node.js versions, so you may need to update.
 
-Once you update, restart your terminal and run `node -v` to verify that the version is 22 or above. Also, delete the `node_modules` folder in your game so you can run `npm install` fresh without potentially outdated files.
+Once you update, restart your terminal and run `node -v` to verify that the version is 22 or above. Also, delete the `node_modules` folder in your game so you can run `pnpm install` fresh without potentially outdated files.
 
 ### CSS path change
 
@@ -59,7 +59,7 @@ A lot of those changes go together, and will allow you to have all the code setu
 
 #### Package.json updates
 
-The `package.json` file contains the scripts you can run (like `npm run build` or `npm run dev`). The narrat template has a lot of new scripts organised into categories for different types of builds and platforms, as well as for releasing on steam or pushing on itch.io.
+The `package.json` file contains the scripts you can run (like `pnpm run build` or `pnpm run dev`). The narrat template has a lot of new scripts organised into categories for different types of builds and platforms, as well as for releasing on steam or pushing on itch.io.
 
 1. You should copy the entire `scripts` section from the narrat template game you created in step 3 above, and paste it into your existing game's `package.json` file, replacing the old scripts.
 2. Along that, copy-paste the `scripts` folder in the new narrat template into the root of your game, it contains a few helper files that are used by the scripts in `package.json`.

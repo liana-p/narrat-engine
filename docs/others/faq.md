@@ -51,6 +51,6 @@ main:
 
 See the [updating narrat](../guides/updating-narrat) guide
 
-Change the version of narrat in the dependencies part of the `package.json` file to the version you want then run `npm install`. Or simply run `npm install narrat@latest`.
+Change the version of narrat in the dependencies part of the `package.json` file to the version you want then run `pnpm install`. Or simply run `pnpm install narrat@latest`.
 
 If it doesn't work, try deleting the `node_modules` folder. Sometimes `npm` won't pick up updates.

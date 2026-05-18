@@ -119,7 +119,6 @@ export const useScreens = defineStore('screens', {
       });
     },
     updateConfig(config: Config['screens']) {
-      console.log('update config!');
       const buttons = getConfig().buttons.buttons;
       for (const key in buttons) {
         if (!this.buttons[key]) {

@@ -113,6 +113,6 @@ window.addEventListener('load', () => {
   },
 ```
 
-9. Run `npm install` to get the new dependencies
+9. Run `pnpm install` to get the new dependencies
 
 10. The game should now work with the new script system. Try editing a script and saving it, and see if the changes are picked up once you jump to a label that has changed

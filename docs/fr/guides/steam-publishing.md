@@ -25,9 +25,9 @@ L'ajout de l'intégration est récent, quelques étapes manuelles sont donc néc
 
 Steam doit être lancé pour qu'un jeu utilisant Steamworks puisse fonctionner correctement, and vous devez posséder l'application correspondant à l'identifiant Steam app en cours d'utilisation.
 
-Pour exécuter directement l'app, entrez `npm run electron` (après avoir assemblé un build du jeu) ou `npm run run` (afin d'assembler le jeu puis de lancer electron automatiquement). Cette manipulation devrait permettre à l'overlay Steam de fonctionner.
+Pour exécuter directement l'app, entrez `pnpm run electron` (après avoir assemblé un build du jeu) ou `pnpm desktop` (afin d'assembler le jeu puis de lancer electron automatiquement). Cette manipulation devrait permettre à l'overlay Steam de fonctionner.
 
-Pour assembler un package du jeu avant publication, exécutez `npm run package`. Le jeu assemblé sera présent dans le dossier `out`.
+Pour assembler un package du jeu avant publication, exécutez `pnpm run package`. Le jeu assemblé sera présent dans le dossier `out`.
 
 ## Ajouter le jeu à Steam
 
