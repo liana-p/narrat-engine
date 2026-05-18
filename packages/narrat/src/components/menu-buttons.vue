@@ -7,7 +7,7 @@
       :id="menuButton.cssId ?? `${key}-menu-button`"
       class="nrt-button menu-toggle-button"
     >
-      {{ $t(menuButton.label) }}
+    <span class="nrt-menu-button-label">{{ $t(menuButton.label) }}</span>
       <InputPrompt
         :input="menuButton.inputPrompt"
         v-if="menuButton.inputPrompt"
