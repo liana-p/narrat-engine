@@ -1,5 +1,5 @@
 <template>
-  <div ref="mainActions">
+  <div class="nrt-system-menu-list" ref="mainActions">
     <button
       v-for="action in actions"
       :key="action.id"
@@ -100,7 +100,7 @@ function toggleFullscreen() {
 const inputListenerRef = computed(() => props.inputListener);
 
 const { selectedElement } = useNavigation({
-  mode: 'horizontal',
+  mode: 'vertical',
   listener: inputListenerRef,
   elements: actions,
   looping: false,
@@ -109,3 +109,11 @@ const { selectedElement } = useNavigation({
   },
 });
 </script>
+
+<style>
+.nrt-system-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
