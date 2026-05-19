@@ -1,5 +1,5 @@
 <template>
-  <div ref="mainActions">
+  <div class="nrt-system-menu-list" ref="mainActions">
     <button
       v-for="action in actions"
       :key="action.id"
@@ -22,10 +22,10 @@ import { startManualSave } from '@/application/saving';
 import { getCommonConfig } from '@/config';
 import { selectedClass } from '@/inputs/inputs-utils';
 
-import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState } from '@/inputs/useNavigation';
 import { useNavigation } from '@/inputs/useNewNavigation';
 import { InputListener } from '@/stores/inputs-store';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   inputListener: InputListener;
@@ -100,7 +100,7 @@ function toggleFullscreen() {
 const inputListenerRef = computed(() => props.inputListener);
 
 const { selectedElement } = useNavigation({
-  mode: 'horizontal',
+  mode: 'vertical',
   listener: inputListenerRef,
   elements: actions,
   looping: false,
@@ -109,3 +109,11 @@ const { selectedElement } = useNavigation({
   },
 });
 </script>
+
+<style>
+.nrt-system-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
