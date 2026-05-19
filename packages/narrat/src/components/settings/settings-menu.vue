@@ -49,6 +49,7 @@ import {
 } from '@/config/settings-config';
 import { useNavigation } from '@/inputs/useNewNavigation';
 import { useScrolling } from '@/inputs/useScrolling';
+import { getLocalizationConfig } from '@/config';
 
 const emit = defineEmits(['close']);
 
@@ -91,10 +92,13 @@ const categorizedSettings = computed((): SettingsGroup[] => {
     // Find all settings for this category
     for (const [settingId, schema] of Object.entries(allSchemas)) {
       if (schema.category === category.id) {
-        categorySettings.push({
+        const localizationConfig = getLocalizationConfig();
+        if (Object.entries(localizationConfig.languages).length > 1 && settingId === "language" || settingId != "language") {
+          categorySettings.push({
           id: settingId,
           schema: schema,
         });
+        }
       }
     }
 
