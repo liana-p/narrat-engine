@@ -9,7 +9,10 @@ export type {
   Action,
   Inputs,
 } from '@/inputs/Inputs';
-export type {selectedClass} from '@/inputs/inputs-utils';
-export type {OldNavigationState, useOldNavigation} from '@/inputs/useNavigation';
-export type {useNavigation} from '@/inputs/useNewNavigation';
-export type {InputListener} from '@/stores/inputs-store';
+export type { selectedClass } from '@/inputs/inputs-utils';
+export type {
+  OldNavigationState,
+  useOldNavigation,
+} from '@/inputs/useNavigation';
+export type { useNavigation } from '@/inputs/useNewNavigation';
+export type { InputListener } from '@/stores/inputs-store';

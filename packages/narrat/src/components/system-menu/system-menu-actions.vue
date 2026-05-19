@@ -22,10 +22,10 @@ import { startManualSave } from '@/application/saving';
 import { getCommonConfig } from '@/config';
 import { selectedClass } from '@/inputs/inputs-utils';
 
-import { OldNavigationState, useOldNavigation } from '@/inputs/useNavigation';
+import { OldNavigationState } from '@/inputs/useNavigation';
 import { useNavigation } from '@/inputs/useNewNavigation';
 import { InputListener } from '@/stores/inputs-store';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   inputListener: InputListener;

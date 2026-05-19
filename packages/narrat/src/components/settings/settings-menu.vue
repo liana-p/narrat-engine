@@ -93,12 +93,14 @@ const categorizedSettings = computed((): SettingsGroup[] => {
     for (const [settingId, schema] of Object.entries(allSchemas)) {
       if (schema.category === category.id) {
         const localizationConfig = getLocalizationConfig();
-        if (Object.entries(localizationConfig.languages).length > 1 && settingId === "language" || settingId != "language") {
-          categorySettings.push({
+        const languagesCount = Object.entries(localizationConfig.languages).length;
+        if (settingId === "language" && languagesCount < 2) {
+          continue;
+        }
+        categorySettings.push({
           id: settingId,
           schema: schema,
         });
-        }
       }
     }
 
