@@ -41,7 +41,7 @@
             :class="{ active: useDialogStore().playMode === 'auto' }"
             @click="autoPlay"
           >
-            {{ $t('narrat.inputs.toggle_auto_play') }}
+          <span class="nrt-auto-button-label">{{ $t('narrat.inputs.toggle_auto_play') }}</span>
             <InputPrompt input="autoPlay" />
           </div>
           <div
@@ -49,7 +49,7 @@
             :class="{ active: useDialogStore().playMode === 'skip' }"
             @click="skip"
           >
-            {{ $t('narrat.inputs.toggle_skip') }}
+          <span class="nrt-skip-button-label">{{ $t('narrat.inputs.toggle_skip') }}</span>
             <InputPrompt input="skip" />
           </div>
           <div
