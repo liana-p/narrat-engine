@@ -1,3 +1,12 @@
+## [4.1.14](https://github.com/liana-p/narrat-engine/compare/v4.1.13...v4.1.14) (2026-05-19)
+
+
+### Features
+
+* Making system menu vertical + exporting nav elements + creating css span for auto and skip label + hiding localisation setting when no languages ([#385](https://github.com/liana-p/narrat-engine/issues/385)) ([c276300](https://github.com/liana-p/narrat-engine/commit/c276300df60db14bfe001152d7aa002f754e42eb))
+
+
+
 ## [4.1.13](https://github.com/liana-p/narrat-engine/compare/v4.1.12...v4.1.13) (2026-05-19)
 
 ### Misc
