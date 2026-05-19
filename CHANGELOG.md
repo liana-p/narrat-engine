@@ -1,3 +1,9 @@
+## [4.1.13](https://github.com/liana-p/narrat-engine/compare/v4.1.12...v4.1.13) (2026-05-19)
+
+### Misc
+
+* added a css class to a button to make it easier to customise
+
 ## [4.1.12](https://github.com/liana-p/narrat-engine/compare/v4.1.11...v4.1.12) (2026-04-03)
 
 
