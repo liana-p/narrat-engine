@@ -14,5 +14,5 @@ export type {
   OldNavigationState,
   useOldNavigation,
 } from '@/inputs/useNavigation';
-export type { useNavigation } from '@/inputs/useNewNavigation';
+export { useNavigation } from '@/inputs/useNewNavigation';
 export type { InputListener } from '@/stores/inputs-store';
