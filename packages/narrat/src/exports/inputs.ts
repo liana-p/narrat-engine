@@ -9,13 +9,12 @@ export type {
   Action,
   Inputs,
 } from '@/inputs/Inputs';
-export type { selectedClass } from '@/inputs/inputs-utils';
-export type {
-  OldNavigationState,
-  useOldNavigation,
-} from '@/inputs/useNavigation';
+export { selectedClass } from '@/inputs/inputs-utils';
+export type { OldNavigationState } from '@/inputs/useNavigation';
+export { useOldNavigation } from '@/inputs/useNavigation';
 export { useNavigation } from '@/inputs/useNewNavigation';
 export type { InputListener } from '@/stores/inputs-store';
+export { useScrolling } from '@/inputs/useScrolling';
 
 export { inputs } from '@/inputs/Inputs';
 export * from '@/inputs/input-key-types';
