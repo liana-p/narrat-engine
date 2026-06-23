@@ -16,6 +16,7 @@ export type {
 } from '@/inputs/useNavigation';
 export { useNavigation } from '@/inputs/useNewNavigation';
 export type { InputListener } from '@/stores/inputs-store';
+export { useScrolling } from '@/inputs/useScrolling';
 
 export { inputs } from '@/inputs/Inputs';
 export * from '@/inputs/input-key-types';
