@@ -1,3 +1,7 @@
+## [4.1.16](https://github.com/liana-p/narrat-engine/compare/v4.1.15...v4.1.16) (2026-06-23)
+
+
+
 ## [4.1.15](https://github.com/liana-p/narrat-engine/compare/v4.1.14...v4.1.15) (2026-05-22)
 
 
