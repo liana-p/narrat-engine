@@ -7,14 +7,6 @@ description: This guide explains how to get started using the narrat game engine
 
 Getting started with narrat is very quick. There is a ready-to-use template that can get you running your game in a minute
 
-::: warning
-If you are already using `pnpm`, you can ignore this warning.
-
-This guide has recently been updated to use [`pnpm`](https://pnpm.io/installation) instead of `npm` as the package manager. They work generally the same, but `pnpm` is a lot more reliable when it comes to updating narrat and generally actually working. Some bits of documentation may still refer to `npm`, but you can generally just replace `npm` with `pnpm` in commands and it should work the same.
-
-If you don't have pnpm, simply install it, delete your `node_modules` folder and `package-lock.json` file if present, then run `pnpm install` to reinstall everything with pnpm. From that point you can use pnpm for everything.
-:::
-
 ## In this page
 
 [[toc]]
@@ -41,9 +33,18 @@ If you prefer to follow a video, this one minute video shows the entire setup fr
 
 - Be on a computer running Windows, MacOS or Linux
 - Being able to use the terminal and powershell on your computer (some computers block it by default, so if your terminal complains about not being allowed to run script, look at [this solution](https://superuser.com/a/106363))
-- Have [node.js ](https://nodejs.org/en/) 22.17.1+ installed (pick the current LTS version). Strongly recommended to use [nvm (linux/mac)](https://github.com/nvm-sh/nvm) or [nvm for windows](https://github.com/coreybutler/nvm-windows) to install and manage your node.js version easily for future updates, and always install the current LTS version.
-- Once node.js is installed, [install pnpm](https://pnpm.io/installation). On Windows, you can run `Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression` to install it.
+- Have [node.js ](https://nodejs.org/en/) 22.17.1+ installed (use the latest v22.x, more recent ones might have issues). Strongly recommended to use [nvm (linux/mac)](https://github.com/nvm-sh/nvm) or [nvm for windows](https://github.com/coreybutler/nvm-windows) to install and manage your node.js version easily for future updates. Prefer installing LTS versions which are more stable.
+- Once node.js is installed, [install pnpm 10.x](https://pnpm.io/installation) (not 11, which has issues):
+  * `corepack enable pnpm`
+  * `corepack use pnpm@latest-10`
 - A text editor, we recommend [VS Code](https://code.visualstudio.com/Download) with the [narrat language extension](https://marketplace.visualstudio.com/items?itemName=NarratEngine.language-narrat).
+
+::: warn
+Recent security updates to pnpm (in versions 11+) have broken some things in narrat due to strictly blocking some scripts from automatically running. If you see errors like `[ERR_PNPM_EXOTIC_SUBDEP] Exotic dependency`, downgrade back to pnpm 10 using something like `npm install -g pnpm@10.13.1`.
+
+More recent node.js versions may also break things, narrat is currently known to work with node.js 22.x, and pnpm 10.x
+
+:::
 
 ::: tip
 You should use [version control](https://medium.com/@avnishyadav25/git-for-non-developers-a-10-minute-guide-614690c87126) when working on a game project. Version control allows you to:
