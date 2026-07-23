@@ -54,7 +54,7 @@ const name = computed(() => {
   if (obtained.value || !conf.value.secret || !secretAchievements.censorName) {
     return conf.value.name;
   } else {
-    return 'Hidden Achievement';
+    return 'narrat.game_menu.achievements.hidden_achievement';
   }
 });
 const description = computed(() => {
