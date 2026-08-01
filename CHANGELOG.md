@@ -1,3 +1,12 @@
+## [4.1.17](https://github.com/liana-p/narrat-engine/compare/v4.1.16...v4.1.17) (2026-08-01)
+
+
+### Bug Fixes
+
+* Hidden Achievement Title Translation Bug ([#391](https://github.com/liana-p/narrat-engine/issues/391)) ([ffadc46](https://github.com/liana-p/narrat-engine/commit/ffadc461abb38902a75d76eff8204e33bf0a97ca))
+
+
+
 ## [4.1.16](https://github.com/liana-p/narrat-engine/compare/v4.1.15...v4.1.16) (2026-06-23)
 
 
