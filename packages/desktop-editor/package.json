@@ -30,7 +30,7 @@
     "@tauri-apps/api": "^2.7.0",
     "clone-deep": "^4.0.1",
     "es6-promise": "^4.2.8",
-    "monaco-editor": "0.52.2",
+    "monaco-editor": "0.55.1",
     "monaco-yaml": "^5.4.0",
     "oh-vue-icons": "1.0.0-rc3",
     "pinia": "^3.0.3",
