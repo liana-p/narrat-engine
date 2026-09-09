@@ -17,14 +17,25 @@ export const useChoicesTrackingStoreStore = defineStore(
       }) as ChoiceTrackingState,
     getters: {},
     actions: {
-      trackChoice(prompt: string, choice: string) {
-        if (!this.choices[prompt]) {
-          this.choices[prompt] = {};
-        }
-        this.choices[prompt][choice] = true;
+      getPromptCodeForPromptAndLabel(prompt: string, lastLabel: string) {
+        return `${lastLabel}:${prompt}`;
       },
-      hasSeenChoice(prompt: string, choice: string) {
-        return this.choices[prompt]?.[choice] ?? false;
+      trackChoice(prompt: string, choice: string, lastLabel: string) {
+        const promptCode = this.getPromptCodeForPromptAndLabel(
+          prompt,
+          lastLabel,
+        );
+        if (!this.choices[promptCode]) {
+          this.choices[promptCode] = {};
+        }
+        this.choices[promptCode][choice] = true;
+      },
+      hasSeenChoice(prompt: string, choice: string, lastLabel: string) {
+        const promptCode = this.getPromptCodeForPromptAndLabel(
+          prompt,
+          lastLabel,
+        );
+        return this.choices[promptCode]?.[choice] ?? false;
       },
       generateSaveData(): ChoiceTrackingSave {
         return {

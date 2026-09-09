@@ -41,11 +41,13 @@ export const runChoice: CommandRunner<
   // Lazy hack to store those results for after the player answers.
   (cmd.options as any).choiceResults = choiceResults;
   // Convert the results into dialog options
+  const label = useVM().lastLabel;
   const dialogChoices = choiceResults
     .map((res, index) => {
       const seenBefore = useChoicesTrackingStoreStore().hasSeenChoice(
         prompt.code,
         choices[index].prompt.code,
+        label,
       );
       let allowed = true;
       if (getCommonConfig().dialogPanel.lockSeenChoices && seenBefore) {
@@ -193,7 +195,11 @@ const onChoicePlayerAnswered = async (
     choiceIndex
   ] as ChoicePromptReturn;
   const prompt = command.staticOptions.prompt;
-  useChoicesTrackingStoreStore().trackChoice(prompt.code, choice.prompt.code);
+  useChoicesTrackingStoreStore().trackChoice(
+    prompt.code,
+    choice.prompt.code,
+    vmStore.lastLabel,
+  );
   let playerText: string | null = choicePromptResult.text;
   let newBranch: Parser.Branch | undefined;
   if (choicePromptResult.skillCheck) {
