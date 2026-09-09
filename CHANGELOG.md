@@ -1,3 +1,12 @@
+## [4.1.18](https://github.com/liana-p/narrat-engine/compare/v4.1.17...v4.1.18) (2026-09-09)
+
+
+### Features
+
+* seenbefore now tracks label as well as prompt ([#393](https://github.com/liana-p/narrat-engine/issues/393)) ([e8221dc](https://github.com/liana-p/narrat-engine/commit/e8221dcf2483f1845411e3694be5abdf3f1c5f4e))
+
+
+
 ## [4.1.17](https://github.com/liana-p/narrat-engine/compare/v4.1.16...v4.1.17) (2026-08-01)
 
 
