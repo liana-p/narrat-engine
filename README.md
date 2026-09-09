@@ -73,10 +73,10 @@ Narrat is a game engine for making interactive narrative RPGs packed with featur
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/jornvandebeek">
-                    <img src="https://avatars.githubusercontent.com/u/123905?v=4" width="100;" alt="jornvandebeek"/>
+                <a href="https://github.com/Ululator">
+                    <img src="https://avatars.githubusercontent.com/u/123905?v=4" width="100;" alt="Ululator"/>
                     <br />
-                    <sub><b>Jorn van de Beek</b></sub>
+                    <sub><b>Ululator</b></sub>
                 </a>
             </td>
             <td align="center">
